@@ -9,13 +9,19 @@ module RolesService
     'tenant_reader'
   ].freeze
 
+  USER_ROLES = [
+    'user_admin',
+    'user_manager',
+    'user_reader'
+  ].freeze
+
   COLLECTION_ROLES = [
     'collection_manager',
     'collection_editor',
     'collection_reader'
   ].freeze
 
-  ALL_DEFAULT_ROLES = ADMIN_ROLE + TENANT_ROLES + COLLECTION_ROLES
+  ALL_DEFAULT_ROLES = ADMIN_ROLE + TENANT_ROLES + USER_ROLES + COLLECTION_ROLES
 
   class << self
     def create_default_roles!

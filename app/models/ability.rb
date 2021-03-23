@@ -16,6 +16,7 @@ class Ability
     group_permissions
     superadmin_permissions
     collection_roles
+    user_roles
   ]
 
   # Override method from blacklight-access_controls-0.6.2 to define registered to include

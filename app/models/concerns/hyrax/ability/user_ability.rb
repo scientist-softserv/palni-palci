@@ -8,15 +8,13 @@ module Hyrax
       def user_roles
         # Can create, read, edit/update, delete, and become of all Users
         if group_aware_role_checker.user_admin?
-          can %i[create read update edit destroy become], User
+          can %i[manage], User
         # Can create, read, and edit/update destroy all Users, cannot become a User
         elsif group_aware_role_checker.user_manager?
           can %i[create read update edit destroy], User
-          cannot :become, User
         # Can read all Users
         elsif group_aware_role_checker.user_reader?
           can %i[read], User
-          cannot %i[create read update edit destroy become], User
         end
       end
     end

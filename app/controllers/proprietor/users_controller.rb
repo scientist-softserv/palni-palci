@@ -10,7 +10,7 @@ module Proprietor
     # GET /users
     # GET /users.json
     def index
-      authorize! :manage, User
+      authorize! :read, User
       # TODO RG - this is added, why?
       @users = User.accessible_by(current_ability)
 

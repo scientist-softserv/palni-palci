@@ -93,7 +93,7 @@ module Proprietor
     private
 
     def ensure_admin!
-      authorize! :read, :admin_dashboard
+      authorize! :read, User
     end
 
     def user_params

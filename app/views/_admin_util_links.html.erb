@@ -6,6 +6,10 @@
           <span class="fa fa-gears"></span> <%= t("hyku.proprietor.accounts.nav") %>
         <% end %>
       </li>
+    </ul>
+  <% end %>
+  <% if can? :read, User %>
+    <ul class="nav navbar-nav">
       <li>
         <%= link_to main_app.proprietor_users_path do %>
           <span class="fa fa-users"></span> <%= t("hyku.proprietor.users.nav") %>

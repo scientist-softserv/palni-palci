@@ -1,4 +1,3 @@
-# NOTE(bkiahstroud): Override file from Hyrax 2.5.1
 require 'cancan/matchers'
 
 RSpec.describe 'UserAbility' do

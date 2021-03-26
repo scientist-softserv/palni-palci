@@ -10,7 +10,7 @@ RSpec.describe 'User Roles', multitenant: true do
     Capybara.default_host = default_host
   end
 
-  context 'as an user admin' do
+  context 'as a user admin' do
     let(:user_admin) { FactoryBot.create(:user_admin) }
 
     before do
@@ -28,7 +28,7 @@ RSpec.describe 'User Roles', multitenant: true do
     end
   end
 
-  context 'as an user manager' do
+  context 'as a user manager' do
     let(:user_manager) { FactoryBot.create(:user_manager) }
 
     before do
@@ -46,7 +46,7 @@ RSpec.describe 'User Roles', multitenant: true do
     end
   end
 
-  context 'as an user reader' do
+  context 'as a user reader' do
     let(:user_reader) { FactoryBot.create(:user_reader) }
 
     before do
@@ -76,5 +76,7 @@ RSpec.describe 'User Roles', multitenant: true do
       expect(page).to_not have_link 'Users'
     end
   end
+
+  # user roles cant remove superadmin from manage view.
 
 end

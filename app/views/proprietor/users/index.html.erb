@@ -2,7 +2,7 @@
   <% if can? :create, User %>
     <h1><span class="fa fa-gears"></span> <%= t('.header') %></h1>
   <% else %>
-    <h1><span class="fa fa-gears"></span> View Users</h1>
+    <h1><span class="fa fa-gears"></span> <%= t('.view_users') %></h1>
   <% end %>
   <div class="pull-right">
   <% if can? :create, User %>

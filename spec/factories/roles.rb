@@ -22,20 +22,14 @@ FactoryBot.define do
 
     factory :user_admin_role do
       name          { 'user_admin' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
     end
 
     factory :user_manager_role do
       name          { 'user_manager' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
     end
 
     factory :user_reader_role do
       name          { 'user_reader' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
     end
   end
 end

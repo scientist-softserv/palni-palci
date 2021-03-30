@@ -21,6 +21,9 @@ module Proprietor
     # GET /users/1
     # GET /users/1.json
     def show
+      superadmin_role_id = Role.find_or_create_by(name: 'superadmin').id
+      @disabled_values = !current_user.has_role?(:superadmin) ? [superadmin_role_id] : []
+
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.admin.sidebar.users'), proprietor_users_path
       add_breadcrumb @user.display_name, edit_proprietor_user_path(@user)

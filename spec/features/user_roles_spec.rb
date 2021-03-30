@@ -77,6 +77,74 @@ RSpec.describe 'User Roles', multitenant: true do
     end
   end
 
-  # user roles cant remove superadmin from manage view.
+  context 'as a user_admin' do
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user_reader) { FactoryBot.create(:user_reader) }
+    let(:user_admin) { FactoryBot.create(:user_admin) }
+
+    before do
+      login_as(user_admin, scope: :user)
+    end
+
+    it 'cannot revoke or change a superadmins role' do
+      visit proprietor_user_path(superadmin)
+      expect(page).to have_content 'superadmin'
+      expect(page).to have_content 'user_admin'
+      expect(page).to have_content 'user_reader'
+      expect(page).to have_content 'user_manager'
+      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: true)
+      expect(page).to have_field('user_role_ids_2', type: 'checkbox', disabled: false)
+      expect(page).to have_field('user_role_ids_4', type: 'checkbox', disabled: false)
+      expect(page).to have_field('user_role_ids_5', type: 'checkbox', disabled: false)
+    end
+  end
+
+  context 'as an admin_manager' do
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+
+    before do
+      login_as(user_manager, scope: :user)
+    end
+
+    it 'cannot revoke or change a superadmins role' do
+      visit proprietor_user_path(superadmin)
+      expect(page).to have_content 'superadmin'
+      expect(page).to have_content 'user_manager'
+      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: true)
+    end
+  end
+
+  context 'as a superadmin' do
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:user_admin) { FactoryBot.create(:user_admin) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can revoke or change a user_admin role' do
+      visit proprietor_user_path(user_admin)
+      expect(page).to have_content 'superadmin'
+      expect(page).to have_content 'user_admin'
+      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: false)
+    end
+  end
+
+  context 'as a superadmin' do
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:superadmin_2) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can revoke or change a superadmin role' do
+      visit proprietor_user_path(superadmin_2)
+      expect(page).to have_content 'superadmin'
+      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: false)
+    end
+  end
 
 end

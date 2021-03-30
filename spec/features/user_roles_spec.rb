@@ -324,4 +324,20 @@ RSpec.describe 'User Roles', multitenant: true do
     end
   end
 
+  context 'as a superadmin' do
+    let!(:user) { FactoryBot.create(:user) }
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can become another user' do
+      visit proprietor_users_path
+      find("a[href='#{become_proprietor_user_path(user.id)}?locale=en']").click
+      expect(page).to have_content 'User changed successfully'
+      expect(page).to have_no_content 'Users'
+    end
+  end
+
 end

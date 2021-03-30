@@ -1,4 +1,3 @@
-# OVERRIDE FILE from Hyrax 2.5.1 - Edit existing / add additional abilities
 module Hyrax
   module Ability
     module UserAbility
@@ -17,7 +16,6 @@ module Hyrax
           can %i[create read update edit destroy], User
         # Can read all Users
         elsif group_aware_role_checker.user_reader?
-          cannot :create, User
           can %i[read], User
         end
       end

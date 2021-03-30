@@ -154,4 +154,174 @@ RSpec.describe 'User Roles', multitenant: true do
     end
   end
 
+  # CAN CHANGE A USERS ROLE AS SUPERADMIN
+  context 'as a superadmin' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can change a users role' do
+      visit proprietor_user_path(user)
+      expect(user.has_role?(:user_manager)).to be false
+      expect(user.has_role?(:user_admin)).to be false
+      expect(user.has_role?(:user_reader)).to be false
+      expect(user.has_role?(:superadmin)).to be false
+      check 'user_admin'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user.has_role?(:user_admin)).to be true
+      expect(user.has_role?(:user_manager)).to be false
+      expect(user.has_role?(:user_reader)).to be false
+      expect(user.has_role?(:superadmin)).to be false
+    end
+  end
+
+  # CAN REMOVE A USERS ROLE AS SUPERADMIN
+  context 'as a superadmin' do
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can remove a users role' do
+      visit proprietor_user_path(user_manager)
+      expect(user_manager.has_role?(:user_manager)).to be true
+      uncheck 'user_manager'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user_manager.reload.has_role?(:user_manager)).to be false
+    end
+  end
+
+  # CAN CHANGE A USERS ROLE AS USER_MANAGER
+  context 'as a user_manager' do
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let(:user_admin) { FactoryBot.create(:user_admin) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(user_manager, scope: :user)
+    end
+
+    it 'can change a users role' do
+      visit proprietor_user_path(user_admin)
+      expect(user_admin.has_role?(:user_reader)).to be false
+      expect(user_admin.has_role?(:user_admin)).to be true
+      uncheck 'user_admin'
+      check 'user_reader'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user_admin.reload.has_role?(:user_admin)).to be false
+      expect(user_admin.reload.has_role?(:user_reader)).to be true
+    end
+  end
+
+  # CAN REMOVE A USERS ROLE AS USER_MANAGER
+  context 'as a user_manager' do
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+    let(:user_admin) { FactoryBot.create(:user_admin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(user_manager, scope: :user)
+    end
+
+    it 'can remove a users role' do
+      visit proprietor_user_path(user_admin)
+      expect(user_admin.has_role?(:user_admin)).to be true
+      uncheck 'user_admin'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user_admin.reload.has_role?(:user_admin)).to be false
+    end
+  end
+
+  # CAN CHANGE A USERS ROLE AS USER_ADMIN
+  context 'as a user_admin' do
+    let(:user_admin) { FactoryBot.create(:user_admin) }
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(user_admin, scope: :user)
+    end
+
+    it 'can change a users role' do
+      visit proprietor_user_path(user_manager)
+      expect(user_manager.has_role?(:user_manager)).to be true
+      expect(user_manager.has_role?(:user_admin)).to be false
+      check 'user_admin'
+      uncheck 'user_manager'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user_manager.reload.has_role?(:user_manager)).to be false
+      expect(user_manager.reload.has_role?(:user_admin)).to be true
+    end
+  end
+
+  # CAN REMOVE A USERS ROLE AS USER_ADMIN
+  context 'as a user_admin' do
+    let(:user_admin) { FactoryBot.create(:user_admin) }
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:superadmin) { FactoryBot.create(:superadmin) }
+
+    before do
+      login_as(user_admin, scope: :user)
+    end
+
+    it 'can remove a users role' do
+      visit proprietor_user_path(user_manager)
+      expect(user_manager.has_role?(:user_manager)).to be true
+      uncheck 'user_manager'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user_manager.reload.has_role?(:user_manager)).to be false
+    end
+  end
+
+  # CAN ADD MULTIPLE ROLES TO A USER
+  context 'as a superadmin' do
+    let!(:user) { FactoryBot.create(:user) }
+    let(:superadmin) { FactoryBot.create(:superadmin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+
+    before do
+      login_as(superadmin, scope: :user)
+    end
+
+    it 'can add multiple roles to a user' do
+      visit proprietor_user_path(user)
+      expect(user.has_role?(:user_admin)).to be false
+      expect(user.has_role?(:user_manager)).to be false
+      expect(user.has_role?(:user_reader)).to be false
+      check 'user_admin'
+      check 'user_manager'
+      check 'user_reader'
+      click_button 'Update'
+      expect(page).to have_content "User was successfully updated."
+      expect(user.has_role?(:user_manager)).to be true
+      expect(user.has_role?(:user_admin)).to be true
+      expect(user.has_role?(:user_reader)).to be true
+    end
+  end
+
 end

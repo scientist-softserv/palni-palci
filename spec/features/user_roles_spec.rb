@@ -79,8 +79,8 @@ RSpec.describe 'User Roles', multitenant: true do
 
   context 'as a user_admin' do
     let!(:superadmin) { FactoryBot.create(:superadmin) }
-    let!(:user_manager) { FactoryBot.create(:user_manager) }
-    let!(:user_reader) { FactoryBot.create(:user_reader) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
     let(:user_admin) { FactoryBot.create(:user_admin) }
 
     before do
@@ -89,20 +89,18 @@ RSpec.describe 'User Roles', multitenant: true do
 
     it 'cannot revoke or change a superadmins role' do
       visit proprietor_user_path(superadmin)
-      expect(page).to have_content 'superadmin'
-      expect(page).to have_content 'user_admin'
-      expect(page).to have_content 'user_reader'
-      expect(page).to have_content 'user_manager'
-      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: true)
-      expect(page).to have_field('user_role_ids_2', type: 'checkbox', disabled: false)
-      expect(page).to have_field('user_role_ids_4', type: 'checkbox', disabled: false)
-      expect(page).to have_field('user_role_ids_5', type: 'checkbox', disabled: false)
+      expect(page).to have_field 'superadmin', disabled: true
+      expect(page).to have_field 'user_admin', disabled: false
+      expect(page).to have_field 'user_manager', disabled: false
+      expect(page).to have_field 'user_reader', disabled: false
     end
   end
-
+ 
   context 'as an admin_manager' do
     let!(:superadmin) { FactoryBot.create(:superadmin) }
     let(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
 
     before do
       login_as(user_manager, scope: :user)
@@ -110,15 +108,18 @@ RSpec.describe 'User Roles', multitenant: true do
 
     it 'cannot revoke or change a superadmins role' do
       visit proprietor_user_path(superadmin)
-      expect(page).to have_content 'superadmin'
-      expect(page).to have_content 'user_manager'
-      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: true)
+      expect(page).to have_field 'superadmin', disabled: true
+      expect(page).to have_field 'user_admin', disabled: false
+      expect(page).to have_field 'user_manager', disabled: false
+      expect(page).to have_field 'user_reader', disabled: false
     end
   end
 
   context 'as a superadmin' do
     let(:superadmin) { FactoryBot.create(:superadmin) }
     let!(:user_admin) { FactoryBot.create(:user_admin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
 
     before do
       login_as(superadmin, scope: :user)
@@ -126,15 +127,19 @@ RSpec.describe 'User Roles', multitenant: true do
 
     it 'can revoke or change a user_admin role' do
       visit proprietor_user_path(user_admin)
-      expect(page).to have_content 'superadmin'
-      expect(page).to have_content 'user_admin'
-      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: false)
+      expect(page).to have_field 'superadmin', disabled: false
+      expect(page).to have_field 'user_admin', disabled: false
+      expect(page).to have_field 'user_manager', disabled: false
+      expect(page).to have_field 'user_reader', disabled: false
     end
   end
 
   context 'as a superadmin' do
     let(:superadmin) { FactoryBot.create(:superadmin) }
     let!(:superadmin_2) { FactoryBot.create(:superadmin) }
+    let!(:user_reader_role) { FactoryBot.create(:user_reader_role) }
+    let!(:user_manager_role) { FactoryBot.create(:user_manager_role) }
+    let!(:user_admin_role) { FactoryBot.create(:user_admin_role) }
 
     before do
       login_as(superadmin, scope: :user)
@@ -142,8 +147,10 @@ RSpec.describe 'User Roles', multitenant: true do
 
     it 'can revoke or change a superadmin role' do
       visit proprietor_user_path(superadmin_2)
-      expect(page).to have_content 'superadmin'
-      expect(page).to have_field('user_role_ids_1', type: 'checkbox', disabled: false)
+      expect(page).to have_field 'superadmin', disabled: false
+      expect(page).to have_field 'user_admin', disabled: false
+      expect(page).to have_field 'user_manager', disabled: false
+      expect(page).to have_field 'user_reader', disabled: false
     end
   end
 

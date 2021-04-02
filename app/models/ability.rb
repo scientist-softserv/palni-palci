@@ -3,6 +3,7 @@
 class Ability
   include Hydra::Ability
   include Hyrax::Ability
+  # OVERRIDE: Added custom user ability roles
   include Hyrax::Ability::UserAbility
 
   # TODO: :everyone_can_create_curation_concerns allows everyone to create Collections,

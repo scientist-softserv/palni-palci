@@ -40,7 +40,9 @@
                 <td><%= user.is_superadmin %></td>
                 <td class="col-md-2">
                   <% if can? :create, User %>
-                    <%= link_to t('.manage'), proprietor_user_path(user) %>&nbsp;|&nbsp;<%= link_to t('helpers.action.edit'), edit_proprietor_user_path(user) %>&nbsp;|&nbsp;<%= link_to t('helpers.action.delete'), proprietor_user_path(user), method: :delete, data: { confirm: t('.confirm_delete') } %>
+                    <%= link_to t('.manage'), proprietor_user_path(user) %>&nbsp;|&nbsp;
+                    <%= link_to t('helpers.action.edit'), edit_proprietor_user_path(user) %>&nbsp;|&nbsp;
+                    <%= link_to t('helpers.action.delete'), proprietor_user_path(user), method: :delete, data: { confirm: t('.confirm_delete') } %>
                   <% end %>
                   <% if can? :become, User %>
                     <%= link_to t('helpers.action.become'), become_proprietor_user_path(user.id), method: :post %>

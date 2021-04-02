@@ -2,7 +2,7 @@
 
 module Proprietor
   class UsersController < ProprietorController
-    before_action :ensure_admin!
+    before_action :ensure_users_role!
 
     before_action :find_user, only: %i[show edit update destroy]
     load_and_authorize_resource
@@ -10,7 +10,6 @@ module Proprietor
     # GET /users
     # GET /users.json
     def index
-      authorize! :read, User
       # TODO RG - this is added, why?
       @users = User.accessible_by(current_ability)
 
@@ -95,7 +94,7 @@ module Proprietor
 
     private
 
-    def ensure_admin!
+    def ensure_users_role!
       authorize! :read, User
     end
 

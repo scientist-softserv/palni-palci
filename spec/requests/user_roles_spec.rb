@@ -4,17 +4,7 @@ RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
   let(:tenant_user_attributes) { attributes_for(:user) }
 
-  context 'an unregistered user' do
-
-    let(:user_params) do 
-      { 
-        user: {
-          email: tenant_user_attributes[:email],
-          password: tenant_user_attributes[:password],
-          password_confirmation: tenant_user_attributes[:password]
-        }
-      }
-    end
+  context 'within a tenant' do
 
     before do
       WebMock.disable!
@@ -29,12 +19,58 @@ RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
       Apartment::Tenant.drop(account.tenant)
     end
 
-    it 'can sign up' do
-      expect { post "http://#{account.cname}/users", params: user_params }
-        .to change(User, :count).by(1)
-      expect(response.status).to eq(302)
-      expect(response).to have_http_status(:redirect)
+    context 'a registered user' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        login_as(user)
+      end
+  
+      it 'can access the users profile' do
+        get "http://#{account.cname}/dashboard/profiles/#{user.email.gsub('.', '-dot-')}"
+        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'can access the users notifications' do
+        get "http://#{account.cname}/notifications"
+        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'can access the users transfers' do
+        get "http://#{account.cname}/dashboard/transfers"
+        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'can access the users manage proxies' do
+        get "http://#{account.cname}/proxies"
+        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:success)
+      end
     end
+
+    context 'an unregistered user' do
+
+      let(:user_params) do 
+        { 
+          user: {
+            email: tenant_user_attributes[:email],
+            password: tenant_user_attributes[:password],
+            password_confirmation: tenant_user_attributes[:password]
+          }
+        }
+      end
+
+      it 'can sign up' do
+        expect { post "http://#{account.cname}/users", params: user_params }
+          .to change(User, :count).by(1)
+        expect(response.status).to eq(302)
+        expect(response).to have_http_status(:redirect)
+      end
+    end
+
   end
 
   context 'a superadmin user' do

@@ -2,6 +2,20 @@
 
 # NOTE: If want to run spec in browser, you have to set "js: true"
 RSpec.describe 'User Roles', multitenant: true do
+  let(:account) { create(:account) }
+
+  before do
+    WebMock.disable!
+    Apartment::Tenant.create(account.tenant)
+    Apartment::Tenant.switch(account.tenant) do
+      Site.update(account: account)
+    end
+  end
+
+  after do
+    WebMock.enable!
+    Apartment::Tenant.drop(account.tenant)
+  end
 
   around do |example|
     default_host = Capybara.default_host
@@ -17,7 +31,7 @@ RSpec.describe 'User Roles', multitenant: true do
       login_as(user_admin, scope: :user)
     end
 
-    it 'can view Users section and all abilities related to user_admin' do
+    it 'can view Users section and all abilities related to user_admin', singletenant: true do
       visit '/'
       click_on 'Users'
       expect(page).to have_content 'Manage Users'
@@ -25,6 +39,53 @@ RSpec.describe 'User Roles', multitenant: true do
       expect(page).to have_link 'Edit'
       expect(page).to have_link 'Delete'
       expect(page).to have_link 'Become'
+    end
+  end
+
+  context 'as an unregistered user' do
+
+    it 'can sign up' do
+      visit "http://#{account.cname}/"
+      click_on "Login"
+      click_on "Sign up"
+      fill_in "Email address", with: 'user@example.com'
+      fill_in "user_password", with: 'testing123'
+      fill_in "user_password_confirmation", with: 'testing123'
+      click_on "Create account"
+      expect(page).to have_content "Welcome! You have signed up successfully."
+    end
+  end
+
+  context 'as a registered user' do
+    let(:user) { FactoryBot.create(:user) }
+
+    before do
+      login_as(user, scope: :user)
+    end
+
+    it 'can view own profile', singletenant: true do
+      visit "http://#{account.cname}/dashboard"
+      click_on "Your activity"
+      click_on "Profile"
+      expect(page).to have_content "Profile"
+      expect(page).to have_content "#{user.email}"
+      expect(page).to have_content "Edit Profile"
+    end
+
+    it 'can edit own profile', singletenant: true do
+      visit "http://#{account.cname}/dashboard"
+      click_on "Your activity"
+      click_on "Profile"
+      click_on "Edit Profile"
+      expect(page).to have_content "Change picture"
+      expect(page).to have_content "ORCID Profile"
+      expect(page).to have_content "Twitter Handle"
+      expect(page).to have_content "Facebook Handle"
+      expect(page).to have_content "Google+ Handle"
+      fill_in "user_orcid", with: "0000-0000-0000-0000"
+      click_on "Save Profile"
+      expect(page).to have_content "Your profile has been updated"
+      expect(page).to have_content "https://orcid.org/0000-0000-0000-0000"
     end
   end
 

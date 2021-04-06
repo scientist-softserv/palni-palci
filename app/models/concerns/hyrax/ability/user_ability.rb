@@ -1,9 +1,7 @@
 module Hyrax
   module Ability
     module UserAbility
-      # TODO: Figure out how users can manage themselves
       def user_roles
-        # can :manage, User, id: current_user.id
         # Can create, read, edit/update, delete, and become of all Users
         if group_aware_role_checker.user_admin?
           can %i[manage], User

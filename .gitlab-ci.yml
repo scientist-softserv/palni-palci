@@ -1,6 +1,7 @@
 stages:
   - build
-  - test
+  - fast_test
+  - slow_test
   - deploy
 
 variables:
@@ -34,8 +35,69 @@ build:
   tags:
     - local
 
-test:
-  stage: test
+fast_test:
+  stage: fast_test
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  services:
+    - name: postgres:10-alpine
+      alias: db-test
+    - name: solr:7.5
+      alias: solr
+      command: ["solr", "-c", "-f"]
+    - name: ualbertalib/docker-fcrepo4:4.7
+      alias: fcrepo
+    - name: redis:4-alpine
+      alias: redis-test
+      command: ["redis-server"]
+  variables:
+    FF_NETWORK_PER_BUILD: 1
+    DATABASE_ADAPTER: postgresql
+    DATABASE_HOST: db-test
+    DATABASE_NAME: hyku
+    DATABASE_PASSWORD: DatabaseFTW
+    DATABASE_USER: postgres
+    DATBASE_TEST_NAME: hyku_test
+    FEDORA_URL: http://fcrepo:8080/fcrepo/rest
+    GIT_STRATEGY: none
+    IN_DOCKER: 'true'
+    LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
+    POSTGRES_DB: hyku_test
+    POSTGRES_PASSWORD: DatabaseFTW
+    POSTGRES_USER: postgres
+    RAILS_ENV: test
+    RAILS_LOG_TO_STDOUT: 'true'
+    RAILS_SERVE_STATIC_FILES: 'true'
+    REDIS_HOST: redis-test
+    REDIS_PORT: '6379'
+    SECRET_KEY_BASE: asdf
+    SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
+    SETTINGS__BULKRAX__ENABLED: 'false'
+    SETTINGS__FITS_PATH: /opt/fits/fits.sh
+    SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
+    SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: 'false'
+    SETTINGS__MULTITENANCY__DEFAULT_HOST: '%{tenant}.hyku.docker'
+    SETTINGS__MULTITENANCY__ENABLED: 'true'
+    SETTINGS__SOLR__URL: http://solr:8983/solr/
+    SETTINGS__ZOOKEEPER__CONNECTION_STR: solr:9983/configs
+    SOLR_URL: http://solr:8983/solr/
+  script:
+    - cd /home/app/webapp && bundle exec rake zookeeper:upload db:create db:schema:load
+    - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
+  after_script:
+    - cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+  tags:
+    - docker
+  allow_failure: false
+  artifacts:
+    paths:
+      - rspec.xml
+    reports:
+      junit: rspec.xml
+    expire_in: 1 week
+    when: always
+
+slow_test:
+  stage: slow_test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   services:
     - name: selenium/standalone-chrome-debug:3.141.59-20201010
@@ -88,7 +150,7 @@ test:
     - rm -f /home/app/webapp/tmp/capybara/*
     - rm -rf $CI_PROJECT_DIR/capybara
     - cd /home/app/webapp && bundle exec rake zookeeper:upload db:create db:schema:load
-    - bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
+    - bundle exec rspec --tag type:feature --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
   after_script:
     - cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
     - cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara

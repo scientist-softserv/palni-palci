@@ -26,6 +26,21 @@ FactoryBot.define do
       after(:build)   { |user| user.add_role(:superadmin) }
     end
 
+    factory :user_admin do
+      before(:create) { |user| user.add_role(:user_admin) }
+      after(:build)   { |user| user.add_role(:user_admin) }
+    end
+
+    factory :user_manager do
+      before(:create) { |user| user.add_role(:user_manager) }
+      after(:build)   { |user| user.add_role(:user_manager) }
+    end
+
+    factory :user_reader do
+      before(:create) { |user| user.add_role(:user_reader) }
+      after(:build)   { |user| user.add_role(:user_reader) }
+    end
+
     factory :collection_manager do
       before(:create) do |user|
         user.add_role(:collection_manager, Site.instance)

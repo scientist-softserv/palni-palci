@@ -3,6 +3,8 @@
 class Ability
   include Hydra::Ability
   include Hyrax::Ability
+  # OVERRIDE: Added custom user ability roles
+  include Hyrax::Ability::UserAbility
 
   # TODO: :everyone_can_create_curation_concerns allows everyone to create Collections,
   # FileSets, and Works. Because we are developing roles to explicitly grant creation
@@ -16,6 +18,7 @@ class Ability
     group_permissions
     superadmin_permissions
     collection_roles
+    user_roles
   ]
 
   # Override method from blacklight-access_controls-0.6.2 to define registered to include

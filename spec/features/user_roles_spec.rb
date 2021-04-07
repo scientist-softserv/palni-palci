@@ -31,7 +31,7 @@ RSpec.describe 'User Roles', multitenant: true do
       login_as(user_admin, scope: :user)
     end
 
-    it 'can view Users section and all abilities related to user_admin', singletenant: true do
+    it 'can view Users section and all abilities related to user_admin' do
       visit '/'
       click_on 'Users'
       expect(page).to have_content 'Manage Users'
@@ -63,7 +63,7 @@ RSpec.describe 'User Roles', multitenant: true do
       login_as(user, scope: :user)
     end
 
-    it 'can view own profile', singletenant: true do
+    it 'can view own profile' do
       visit "http://#{account.cname}/dashboard"
       click_on "Your activity"
       click_on "Profile"
@@ -72,7 +72,7 @@ RSpec.describe 'User Roles', multitenant: true do
       expect(page).to have_content "Edit Profile"
     end
 
-    it 'can edit own profile', singletenant: true do
+    it 'can edit own profile' do
       visit "http://#{account.cname}/dashboard"
       click_on "Your activity"
       click_on "Profile"

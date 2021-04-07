@@ -12,7 +12,7 @@ RSpec.describe 'UserAbility' do
     let(:user_admin) { FactoryBot.create(:user_admin) }
 
     it 'allows all abilities' do
-      is_expected.to be_able_to(:manage, user)
+      is_expected.to be_able_to(:manage, User)
     end
   end
 
@@ -22,7 +22,6 @@ RSpec.describe 'UserAbility' do
 
     it 'allows most abilities' do
       is_expected.to be_able_to(:create, User)
-      is_expected.to be_able_to(:create, user)
       is_expected.to be_able_to(:read, user)
       is_expected.to be_able_to(:update, user)
       is_expected.to be_able_to(:edit, user)
@@ -47,7 +46,7 @@ RSpec.describe 'UserAbility' do
       is_expected.not_to be_able_to(:become, user)
       is_expected.not_to be_able_to(:edit, user)
       is_expected.not_to be_able_to(:update, user)
-      is_expected.not_to be_able_to(:create, user)
+      is_expected.not_to be_able_to(:create, User)
     end
   end
 

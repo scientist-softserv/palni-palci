@@ -40,7 +40,6 @@ RSpec.describe 'UserAbility' do
 
     it 'allows read ability' do
       is_expected.to be_able_to(:read, user)
-      is_expected.to be_able_to(:manage, user_reader)
     end
 
     it 'denies most abilities' do
@@ -63,46 +62,6 @@ RSpec.describe 'UserAbility' do
       is_expected.to be_able_to(:become, user)
       is_expected.to be_able_to(:edit, user)
       is_expected.to be_able_to(:update, user)
-    end
-  end
-
-  context 'when registered user' do
-    subject { Ability.new(current_user) }
-    let(:current_user) { FactoryBot.create(:user) }
-
-    it 'allows all self abilities' do
-      is_expected.to be_able_to(:create, User)
-      is_expected.to be_able_to(:edit, current_user)
-      is_expected.to be_able_to(:update, current_user)
-      is_expected.to be_able_to(:destroy, current_user)
-      is_expected.to be_able_to(:read, current_user)
-    end
-
-    it 'denies most abilities' do
-      is_expected.not_to be_able_to(:create, user)
-      is_expected.not_to be_able_to(:read, user)
-      is_expected.not_to be_able_to(:update, user)
-      is_expected.not_to be_able_to(:edit, user)
-      is_expected.not_to be_able_to(:destroy, user)
-      is_expected.not_to be_able_to(:become, user)
-    end
-  end
-
-  context 'when registered user' do
-    subject { Ability.new(guest_user) }
-    let(:guest_user) { FactoryBot.create(:guest_user) }
-
-    it 'allows all self abilities' do
-      is_expected.to be_able_to(:create, guest_user)
-    end
-
-    it 'denies most abilities' do
-      is_expected.not_to be_able_to(:create, user)
-      is_expected.not_to be_able_to(:read, user)
-      is_expected.not_to be_able_to(:update, user)
-      is_expected.not_to be_able_to(:edit, user)
-      is_expected.not_to be_able_to(:destroy, user)
-      is_expected.not_to be_able_to(:become, user)
     end
   end
 

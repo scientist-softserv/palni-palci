@@ -13,28 +13,12 @@ class GroupAwareRoleChecker
     @user = user
   end
 
-  def collection_manager?
-    has_group_aware_role?('collection_manager')
-  end
-
-  def collection_editor?
-    has_group_aware_role?('collection_editor')
-  end
-
-  def collection_reader?
-    has_group_aware_role?('collection_reader')
-  end
-
-  def user_admin?
-    has_group_aware_role?('user_admin')
-  end
-
-  def user_manager?
-    has_group_aware_role?('user_manager')
-  end
-
-  def user_reader?
-    has_group_aware_role?('user_reader')
+  # Dynamically define all #<role_name>? methods so that, as more roles are added,
+  # their role checker methods are automatically defined
+  RolesService::ALL_DEFAULT_ROLES.each do |role_name|
+    define_method(:"#{role_name}?") do
+      has_group_aware_role?(role_name)
+    end
   end
 
   private

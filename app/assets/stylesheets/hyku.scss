@@ -16,6 +16,12 @@
   }
 }
 
+// remove the blur on the banner image
+.image-masthead .background-container {
+  -webkit-filter: none;
+  filter: none;
+}
+
 @media (min-width: $screen-sm-min) {
   .logo-set {
     display: flex;
@@ -94,7 +100,7 @@ footer.navbar {
     display: flex;
     flex-wrap: wrap;
   }
-  
+
   .grid-item {
     padding-left: 40px;
     padding-right: 40px;

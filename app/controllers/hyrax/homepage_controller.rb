@@ -17,6 +17,10 @@ module Hyrax
 
     around_action :inject_theme_views
 
+    rescue_from Blacklight::Exceptions::InvalidRequest do
+      render 'internal_server_error', status: 500
+    end
+
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
     def search_builder_class

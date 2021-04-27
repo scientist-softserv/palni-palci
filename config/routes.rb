@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
   get 'status', to: 'status#index'
 
+  get '/500', to: 'errors#internal_server_error', via: :all
+
   mount BrowseEverything::Engine => '/browse'
   resource :site, only: [:update] do
     resources :roles, only: [:index, :update]

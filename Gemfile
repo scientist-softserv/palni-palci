@@ -58,7 +58,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot', '~> 1.0'
-  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'launchy'
   # rack-test >= 0.71 does not work with older Capybara versions (< 2.17). See #214 for more details

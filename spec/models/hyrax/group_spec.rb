@@ -20,13 +20,9 @@ module Hyrax
     end
 
     context '.search' do
-      before(:context) do
+      before do
         FactoryBot.create(:group, name: 'IMPORTANT-GROUP-NAME')
         FactoryBot.create(:group, description: 'IMPORTANT-GROUP-DESCRIPTION')
-      end
-
-      after(:context) do
-        described_class.all.each(&:destroy)
       end
 
       it 'returns groups that match a query on a name' do

@@ -103,7 +103,6 @@ RSpec.describe 'CollectionAbility' do
   end
 
   context 'when a user has a Collections Editor role' do
-    # TODO: why does the destroy test fail if we build the collection instead of creating it?
     let!(:collection) { create(:collection_lw, with_permission_template: true, collection_type_gid: collection_type_gid) }
     let!(:solr_document) { SolrDocument.new(collection.to_solr) }
 
@@ -395,7 +394,7 @@ RSpec.describe 'CollectionAbility' do
 
     context 'when there are collection types that have create access' do
       before do
-        create(:user_collection_type)
+        create(:collection_type, creator_group: 'registered')
       end
 
       it 'allows create_any' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # TODO(bkiahstroud): filename and location make sense?
 module Hyrax
-  module GroupsService
+  class GroupsService
     ##
     # NOTE: DO NOT CHANGE THE NAMES OF THESE GROUPS!
     # They are required to exist for permissions to work properly.
@@ -16,7 +16,7 @@ module Hyrax
       # TODO(bkiahstroud): add default descriptions using i18n
       def create_default_hyrax_groups!
         ALL_DEFAULT_GROUPS_WITH_ROLES.each do |group_name, group_roles|
-          group = Hyrax::Group.find_or_create_by!(name: group_name)
+          group = Hyrax::Group.find_or_create_by!(name: group_name, humanized_name: group_name.titleize)
 
           group_roles.each do |role_name|
             next if role_name.blank?

@@ -25,9 +25,11 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
     * [With Kubernetes](#with-kubernetes)
   * [Single Tenant Mode](#single-tenancy)
   * [Switching accounts](#switching-accounts)
-  * [Roles and Auth](#roles-and-auth)
-    * [Auth-related Overrides](#auth-related-overrides)
-    * [Seeding Default Roles and Groups](#seeding-default-roles-and-groups)
+  * [Overrides to Dependencies](#overrides-to-dependencies)
+    * [Overrides using `#class_eval`](#overrides-using-class_eval)
+  * [Groups, Roles, and Auth](#groups-roles-and-auth)
+    * [Creating Default Roles and Groups](#creating-default-roles-and-groups)
+    * [Setup an Existing Application to use Groups with Roles](#setup-an-existing-application-to-use-groups-with-roles)
     * [Creating New Sets of Roles](#creating-new-sets-of-roles)
   * [Development dependencies](#development-dependencies)
     * [Postgres](#postgres) 
@@ -69,7 +71,7 @@ When you first start the app, you will need to create a superadmin. You can do t
 
  ```
  docker-compose exec web bash
- bundle exec rake hyku:seed:superadmin
+ bundle exec rake hyku:roles:seed_superadmin
  ```
 
 Login credential for the superadmin:
@@ -182,26 +184,53 @@ The recommend way to switch your current session from one account to another is 
 AccountElevator.switch!('repo.example.com')
 ```
 
-## Roles and Auth
-### Auth-related Overrides
+## Overrides to Dependencies
 
-_Some_ (not all) auth-related changes can be found in [config/initializers/permissions_overrides.rb](config/initializers/permissions_overrides.rb).
-Overrides in this file are generally small in scope that did not necessitate bringing an entire file into the local repo to make changes
-(e.g. overriding an individual method in a class).
+Overrides to Hyku, Hyrax, and other dependencies can be found throughout the repository. These are denoted with `OVERRIDE` code comments.
 
-Other overrides to Hyku, Hyrax, and other dependencies can be found throughout the repository. These are denoted with `OVERRIDE` code comments.
+When making an override to a dependency, please add an `OVERRIDE` comment explaining what changed and why.
 
-**Note**: not all overrides denoted with an `OVERRIDE` comment are auth-related.
+**Note**: legacy overrides may not have an all-caps `OVERRIDE` comment (e.g. `Override`).
 
-### Seeding Default Roles and Groups
+### Overrides using `#class_eval`
+
+Some classes from dependencies have had parts of them overwritten using the `#class_eval` method. These overrides live where the file originally lived in its dependency
+(e.g. the override for [hyrax/app/services/hyrax/collections/permissions_create_service.rb](https://github.com/samvera/hyrax/blob/v2.9.0/app/services/hyrax/collections/permissions_create_service.rb)
+lives in [app/services/hyrax/collections/permissions_create_service.rb](app/services/hyrax/collections/permissions_create_service.rb)).
+
+The reasons these overrides have been written the way they have are as follows:
+1. Only bring over code that needs to be touched / bring over less unnecessary code
+1. Easier to find what has been overwritten
+1. Using `#class_eval` in combination with `#require_dependency` in the original file's file path allows Rails autoload to work properly, ensuring the
+original file from the dependency is loaded and then the override is loaded on top of that
+1. Future dependency upgrades will be easier; reconciling different versions of one or two methods within a class is much easier than an entire file
+
+## Groups, Roles, and Auth
+### Creating Default Roles and Groups
 
 Default `Roles` and `Hyrax::Groups` are seeded into an account (tenant) at creation time (see [CreateAccount#create_defaults](app/services/create_account.rb)).
 
 To manually seed default `Roles` and `Hyrax::Groups` _across all tenants_, run this rake task:
 
 ```bash
-rake hyku:seed:default_roles_and_groups
+rake hyku:roles:create_default_roles_and_groups
 ```
+
+### Setup an Existing Application to use Groups with Roles
+
+These rake tasks will create data across all tenants necessary to setup Groups with Roles.
+
+Prerequisites:
+- All Collections must have CollectionTypes _and_ PermissionTemplates (see the **Collection Migration** section in the [Hyrax 2.1 Release Notes](https://github.com/samvera/hyrax/releases?after=v2.2.0))
+
+```bash
+rake hyku:roles:create_default_roles_and_groups
+rake hyku:roles:create_collection_accesses
+rake hyku:roles:create_collection_type_participants
+rake hyku:roles:destroy_registered_group_collection_type_participants # optional
+```
+
+<sup>\*</sup> The `hyku:roles:destroy_registered_group_collection_type_participants` task is technically optional. However, without it, collection readers will be allowed to create Collections.
 
 ### Creating New Sets of Roles
 

@@ -49,6 +49,14 @@ module Hyrax
           can :manage_discovery, Collection do |collection| # Discovery tab on edit form
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: collection.id)
           end
+
+          # OVERRIDE: add ability to restrict who can add works to / remove works from a Collection
+          can :manage_items_in_collection, Collection do |collection|
+            Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: collection.id)
+          end
+          can :manage_items_in_collection, ::SolrDocument do |solr_doc|
+            Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id)
+          end
         end
       end
 
@@ -63,6 +71,7 @@ module Hyrax
           can :manage, ::SolrDocument do |solr_doc|
             solr_doc.collection?
           end
+          can :create_collection_type, CollectionType
 
         # Can create, read, and edit/update all Collections
         elsif group_aware_role_checker.collection_editor?
@@ -74,6 +83,7 @@ module Hyrax
           can %i[read read_any view_admin_show view_admin_show_any], ::SolrDocument do |solr_doc|
             solr_doc.collection?
           end
+          can :create_collection_type, CollectionType
 
         # Can read all Collections
         elsif group_aware_role_checker.collection_reader?

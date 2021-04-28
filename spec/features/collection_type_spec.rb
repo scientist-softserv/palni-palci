@@ -1,5 +1,5 @@
 # OVERRIDE FILE from Hyrax v2.9.0
-# - Set :js to true so specs can be viewed in the Screen Sharing Mac app via VNC
+# - Set :js to true because some specs require it
 # - Changed #sign_in to #login_as (#sign_in was throwing undefined method errors)
 # Other overrides are marked with an OVERRIDE comment
 RSpec.describe 'collection_type', type: :feature, js: true, clean: true do

@@ -50,7 +50,7 @@ module Hyrax
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: collection.id)
           end
 
-          # OVERRIDE: add ability to restrict who can add works to / remove works from a Collection
+          # OVERRIDE: add ability to restrict who can add works and subcollections to / remove works and subcollections from a Collection
           can :manage_items_in_collection, Collection do |collection|
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: collection.id)
           end

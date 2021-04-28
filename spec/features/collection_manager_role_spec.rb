@@ -99,6 +99,133 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
       expect(find('input#visibility_restricted').checked?).to eq(false)
       expect(collection.reload.visibility).to eq('open')
     end
+
+    # Tests custom :manage_items_in_collection ability
+    describe 'managing subcollections' do
+      it 'can add an existing collection as a subcolleciton' do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true)
+        expect(collection.member_collection_ids.count).to eq(0)
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_button 'Add a subcollection'
+
+        within("div#add-subcollection-modal-#{collection.id}") do
+          select sub_col.title.first, from: 'child_id'
+          click_button 'Add a subcollection'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been added to '#{collection.title.first}'")
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+      end
+
+      it 'can create a new collection as a subcolleciton' do
+        expect(collection.member_collection_ids.count).to eq(0)
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_link 'Add new collection to this Collection'
+
+        fill_in('Title', with: 'CM-created subcollection')
+        click_button 'Save'
+
+        expect(page).to have_content('Collection was successfully created.')
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).to have_content('CM-created subcollection')
+      end
+
+      it "can remove a subcollection from the parent collection's show page" do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true, member_of_collections: [collection])
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).to have_content(sub_col.title.first)
+        find("li[data-id='#{sub_col.id}']").find('.remove-subcollection-button').click
+
+        within('.delete-collection-form') do
+          click_button 'Remove'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been removed from '#{collection.title.first}'")
+        expect(collection.member_collection_ids.count).to eq(0)
+      end
+
+      it "can remove a subcollection from the child collection's show page" do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true, member_of_collections: [collection])
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{sub_col.id}"
+        expect(page).to have_content(collection.title.first)
+        find("li[data-parent-id='#{collection.id}']").find('.remove-from-collection-button').click
+
+        within('.delete-collection-form') do
+          click_button 'Remove'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been removed from '#{collection.title.first}'")
+        expect(collection.member_collection_ids.count).to eq(0)
+      end
+    end
+
+    # Tests custom :manage_items_in_collection ability
+    describe 'managing works' do
+      it 'can add an existing work to a collection' do
+        # Make current_user the depositor because the "Add existing works to this collection"
+        # button navigates to the My Works index view
+        work = FactoryBot.create(:work, user: user)
+        expect(collection.member_work_ids).to be_empty
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_link 'Add existing works to this collection'
+
+        find("input#batch_document_#{work.id}").click
+        click_button 'Add to collection'
+        within('.modal-content') do
+          click_button 'Save changes'
+        end
+
+        expect(page).to have_content('Collection was successfully updated.')
+        expect(page).to have_content(work.title.first)
+        expect(collection.member_work_ids).to eq([work.id])
+      end
+
+      # TODO: This fails due to :everyone_can_create_curation_concerns being included in
+      # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
+      # is removed from ability logic (Work roles must be completed first)
+      xit 'cannot deposit a new work through a collection' do
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).not_to have_content('Deposit new work through this collection')
+      end
+
+      it 'can remove a public work from a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'open')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect { find("tr#document_#{work.id}").find('.collection-remove.btn-danger').click }
+          .to change { collection.member_work_ids }.to eq([])
+        expect(page).to have_content('Collection was successfully updated.')
+      end
+
+      it 'can remove an institutional work from a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'authenticated')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect { find("tr#document_#{work.id}").find('.collection-remove.btn-danger').click }
+          .to change { collection.member_work_ids }.to eq([])
+        expect(page).to have_content('Collection was successfully updated.')
+      end
+
+      it 'cannot see private works in a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'restricted')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).not_to have_selector("tr#document_#{work.id}")
+        expect(page).to have_content('The collection is either empty or does not contain items to which you have access.')
+      end
+    end
   end
 
   context 'a User in a Hyrax::Group that has the collection_manager role' do
@@ -194,6 +321,133 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
       expect(find('input#visibility_open').checked?).to eq(true)
       expect(find('input#visibility_restricted').checked?).to eq(false)
       expect(collection.reload.visibility).to eq('open')
+    end
+
+    # Tests custom :manage_items_in_collection ability
+    describe 'managing subcollections' do
+      it 'can add an existing collection as a subcolleciton' do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true)
+        expect(collection.member_collection_ids.count).to eq(0)
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_button 'Add a subcollection'
+
+        within("div#add-subcollection-modal-#{collection.id}") do
+          select sub_col.title.first, from: 'child_id'
+          click_button 'Add a subcollection'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been added to '#{collection.title.first}'")
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+      end
+
+      it 'can create a new collection as a subcolleciton' do
+        expect(collection.member_collection_ids.count).to eq(0)
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_link 'Add new collection to this Collection'
+
+        fill_in('Title', with: 'CM-created subcollection')
+        click_button 'Save'
+
+        expect(page).to have_content('Collection was successfully created.')
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).to have_content('CM-created subcollection')
+      end
+
+      it "can remove a subcollection from the parent collection's show page" do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true, member_of_collections: [collection])
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).to have_content(sub_col.title.first)
+        find("li[data-id='#{sub_col.id}']").find('.remove-subcollection-button').click
+
+        within('.delete-collection-form') do
+          click_button 'Remove'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been removed from '#{collection.title.first}'")
+        expect(collection.member_collection_ids.count).to eq(0)
+      end
+
+      it "can remove a subcollection from the child collection's show page" do
+        sub_col = FactoryBot.create(:private_collection_lw, with_permission_template: true, member_of_collections: [collection])
+        expect(collection.reload.member_collection_ids.count).to eq(1)
+
+        visit "/dashboard/collections/#{sub_col.id}"
+        expect(page).to have_content(collection.title.first)
+        find("li[data-parent-id='#{collection.id}']").find('.remove-from-collection-button').click
+
+        within('.delete-collection-form') do
+          click_button 'Remove'
+        end
+
+        expect(page).to have_content("'#{sub_col.title.first}' has been removed from '#{collection.title.first}'")
+        expect(collection.member_collection_ids.count).to eq(0)
+      end
+    end
+
+    # Tests custom :manage_items_in_collection ability
+    describe 'managing works' do
+      it 'can add an existing work to a collection' do
+        # Make current_user the depositor because the "Add existing works to this collection"
+        # button navigates to the My Works index view
+        work = FactoryBot.create(:work, user: user)
+        expect(collection.member_work_ids).to be_empty
+
+        visit "/dashboard/collections/#{collection.id}"
+        click_link 'Add existing works to this collection'
+
+        find("input#batch_document_#{work.id}").click
+        click_button 'Add to collection'
+        within('.modal-content') do
+          click_button 'Save changes'
+        end
+
+        expect(page).to have_content('Collection was successfully updated.')
+        expect(page).to have_content(work.title.first)
+        expect(collection.member_work_ids).to eq([work.id])
+      end
+
+      # TODO: This fails due to :everyone_can_create_curation_concerns being included in
+      # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
+      # is removed from ability logic (Work roles must be completed first)
+      xit 'cannot deposit a new work through a collection' do
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).not_to have_content('Deposit new work through this collection')
+      end
+
+      it 'can remove a public work from a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'open')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect { find("tr#document_#{work.id}").find('.collection-remove.btn-danger').click }
+          .to change { collection.member_work_ids }.to eq([])
+        expect(page).to have_content('Collection was successfully updated.')
+      end
+
+      it 'can remove an institutional work from a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'authenticated')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect { find("tr#document_#{work.id}").find('.collection-remove.btn-danger').click }
+          .to change { collection.member_work_ids }.to eq([])
+        expect(page).to have_content('Collection was successfully updated.')
+      end
+
+      it 'cannot see private works in a collection' do
+        work = FactoryBot.create(:work, member_of_collections: [collection], visibility: 'restricted')
+        expect(collection.member_work_ids).to eq([work.id])
+
+        visit "/dashboard/collections/#{collection.id}"
+        expect(page).not_to have_selector("tr#document_#{work.id}")
+        expect(page).to have_content('The collection is either empty or does not contain items to which you have access.')
+      end
     end
   end
 

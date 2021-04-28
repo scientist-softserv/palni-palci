@@ -13,6 +13,7 @@ class Ability
   # Once removed, update the following specs:
   # - spec/abilities/collection_ability_spec.rb (collection reader context)
   # - spec/features/collection_reader_role_spec.rb (specs testing creation)
+  # - spec/features/collection_manager_role_spec.rb ("cannot deposit a new work through a collection" specs)
   self.ability_logic += %i[
     everyone_can_create_curation_concerns
     group_permissions
@@ -37,6 +38,9 @@ class Ability
     @user_groups = default_user_groups
     @user_groups |= current_user.hyrax_group_names if current_user.respond_to? :hyrax_group_names
     @user_groups |= ['registered'] if !current_user.new_record? && current_user.roles.count.positive?
+    # OVERRIDE: add the names of all user's roles to the array of user_groups
+    @user_groups |= all_user_and_group_roles
+
     @user_groups
   end
 
@@ -50,7 +54,7 @@ class Ability
   end
 
   def admin_permissions
-    return unless admin?
+    return unless group_aware_role_checker.admin?
     return if superadmin?
 
     super
@@ -62,7 +66,7 @@ class Ability
   end
 
   def group_permissions
-    return unless admin?
+    return unless group_aware_role_checker.admin?
 
     can :manage, Hyrax::Group
   end
@@ -78,8 +82,17 @@ class Ability
     current_user.has_role? :superadmin
   end
 
-  # TODO: move method to GroupAwareRoleChecker, or use the GroupAwareRoleChecker
-  def admin?
-    current_user.has_role?(:admin, Site.instance) || user_groups.include?(admin_group_name)
+  private
+
+  # OVERRIDE: @return [Array<String>] a list of all role names that apply to the user
+  def all_user_and_group_roles
+    return @all_user_and_group_roles if @all_user_and_group_roles
+
+    @all_user_and_group_roles = []
+    RolesService::ALL_DEFAULT_ROLES.each do |role_name|
+      @all_user_and_group_roles |= [role_name.to_s] if group_aware_role_checker.public_send("#{role_name}?")
+    end
+
+    @all_user_and_group_roles
   end
 end

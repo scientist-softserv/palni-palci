@@ -25,7 +25,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'database_cleaner'
+require 'database_cleaner-active_record'
 require 'active_fedora/cleaner'
 require 'rspec/retry'
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -58,6 +58,7 @@ Hyrax::Admin
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+DatabaseCleaner.allow_remote_database_url = true
 
 # Uses faster rack_test driver when JavaScript support not needed
 Capybara.default_max_wait_time = 8
@@ -92,7 +93,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  
+
   # show retry status in spec process
   config.verbose_retry = true
   # Try twice (retry once)
@@ -113,19 +114,20 @@ RSpec.configure do |config|
   end
 
   config.before(clean: true) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with(:truncation)
     ActiveFedora::Cleaner.clean!
   end
 
   config.after(clean: true) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with(:truncation)
     ActiveFedora::Cleaner.clean!
   end
 
   config.before(:each) do |example|
-    # Pass `:clean' to destroy objects in fedora/solr and start from scratch
-    ActiveFedora::Cleaner.clean! if example.metadata[:clean]
-    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
+    # example.metadata[:js] tells Capybara to use the :selenium_chrome_headless_sandboxless
+    # driver (instead of the default :rack_test driver)
+    @remote_feature = (example.metadata[:type] == :feature && example.metadata[:js])
+    if @remote_feature
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction
@@ -139,9 +141,9 @@ RSpec.configure do |config|
     page.driver.reset!
   end
 
-  config.after do
+  config.after(:each) do
     begin
-      DatabaseCleaner.clean
+      DatabaseCleaner.clean unless @remote_feature
     rescue NoMethodError
       'This can happen which the database is gone, which depends on load order of tests'
     end

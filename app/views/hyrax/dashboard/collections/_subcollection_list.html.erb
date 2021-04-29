@@ -13,7 +13,7 @@
       <div class="collections-list-title">
         <%= link_to document.title_or_label, [hyrax, :dashboard, document], id: "src_copy_link_#{document.id}" %>
       </div>
-      <%# OVERRIDE: add :manage_items_in_collection check %>
+      <%# OVERRIDE: change id to @collection -- #can? was returning a false negative for the id, add :manage_items_in_collection check %>
       <% if can?(:edit, @collection) && can?(:manage_items_in_collection, @collection) %>
         <button class="btn btn-xs btn-danger remove-subcollection-button"><%= t('hyrax.collections.show.buttons.remove_this_sub_collection') %></button>
       <% end %>
@@ -24,7 +24,7 @@
 <%= render 'hyrax/collections/paginate', solr_response: @subcollection_solr_response, page_param_name: :sub_collection_page %>
 <% end %>
 
-<%# OVERRIDE: replace id with @collection -- #can? was returning a false negative for collection managers %>
+<%# OVERRIDE: replace id with @collection -- #can? was returning a false negative for the id %>
 <% if can? :edit, @collection %>
 <%= render 'modal_remove_sub_collection' %>
 <% end %>

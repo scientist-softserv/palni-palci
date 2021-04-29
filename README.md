@@ -28,9 +28,6 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
   * [Overrides to Dependencies](#overrides-to-dependencies)
     * [Overrides using `#class_eval`](#overrides-using-class_eval)
   * [Groups, Roles, and Auth](#groups-roles-and-auth)
-    * [Creating Default Roles and Groups](#creating-default-roles-and-groups)
-    * [Setup an Existing Application to use Groups with Roles](#setup-an-existing-application-to-use-groups-with-roles)
-    * [Creating New Sets of Roles](#creating-new-sets-of-roles)
   * [Development dependencies](#development-dependencies)
     * [Postgres](#postgres) 
   * [Importing](#importing)
@@ -206,33 +203,6 @@ original file from the dependency is loaded and then the override is loaded on t
 1. Future dependency upgrades will be easier; reconciling different versions of one or two methods within a class is much easier than an entire file
 
 ## Groups, Roles, and Auth
-### Creating Default Roles and Groups
-
-Default `Roles` and `Hyrax::Groups` are seeded into an account (tenant) at creation time (see [CreateAccount#create_defaults](app/services/create_account.rb)).
-
-To manually seed default `Roles` and `Hyrax::Groups` _across all tenants_, run this rake task:
-
-```bash
-rake hyku:roles:create_default_roles_and_groups
-```
-
-### Setup an Existing Application to use Groups with Roles
-
-These rake tasks will create data across all tenants necessary to setup Groups with Roles.
-
-Prerequisites:
-- All Collections must have CollectionTypes _and_ PermissionTemplates (see the **Collection Migration** section in the [Hyrax 2.1 Release Notes](https://github.com/samvera/hyrax/releases?after=v2.2.0))
-
-```bash
-rake hyku:roles:create_default_roles_and_groups
-rake hyku:roles:create_collection_accesses
-rake hyku:roles:create_collection_type_participants
-rake hyku:roles:destroy_registered_group_collection_type_participants # optional
-```
-
-<sup>\*</sup> The `hyku:roles:destroy_registered_group_collection_type_participants` task is technically optional. However, without it, collection readers will be allowed to create Collections.
-
-### Creating New Sets of Roles
 
 See [GROUPS_WITH_ROLES.md](GROUPS_WITH_ROLES.md)
 

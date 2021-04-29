@@ -22,8 +22,7 @@ class Ability
     user_roles
   ]
 
-  # Override method from blacklight-access_controls-0.6.2 to define registered to include
-  # having a role on this tenant and so that it includes Hyrax::Groups.
+  # Override method from blacklight-access_controls-0.6.2 to include the user's roles in the current tenant.
   #
   # NOTE: DO NOT RENAME THIS METHOD - it is required for permissions to function properly.
   #

@@ -7,9 +7,9 @@
     <div class="collections-list-title">
       <%= link_to document, [hyrax, :dashboard, document], id: "src_copy_link_#{document.id}" %>
     </div>
-    <%# OVERRIDE: replace id with @collection %>
+    <%# OVERRIDE: replace id with @collection -- #can? was returning a false negative for the id %>
     <% if can? :edit, @collection %>
-      <%# OVERRIDE: change document.id to document %>
+      <%# OVERRIDE: change document.id to document -- #can? was returning a false negative for the id, add check for :manage_items_in_collection %>
       <% if can?(:edit, document) && can?(:manage_items_in_collection, @collection) %>
         <button class="btn btn-xs btn-danger remove-from-collection-button"><%= t('hyrax.collections.show.buttons.remove_from_collection') %></button>
       <% else %>

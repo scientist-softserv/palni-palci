@@ -43,7 +43,7 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
 
     # This test is heavily inspired by a test in Hyrax v2.9.0, see
     # https://github.com/samvera/hyrax/blob/v2.9.0/spec/features/dashboard/collection_spec.rb#L365-L384
-    it 'can destroy a Collection from the Dashboard index view' do
+    it 'can destroy an individual Collection from the Dashboard index view' do
       visit '/dashboard/collections'
 
       within('table#collections-list-table') do
@@ -70,6 +70,22 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
       within('table#collections-list-table') do
         expect(page).not_to have_content(collection.title.first)
       end
+    end
+
+    it 'can destroy batches of Collections from the Dashboard index view' do
+      visit '/dashboard/collections'
+
+      within('#document_' + collection.id) do
+        first('#batch_document_' + collection.id).click
+      end
+
+      find('#delete-collections-button').click
+
+      within('.modal-content') do
+        find('.submits-batches').click
+      end
+
+      expect(page).not_to have_content(collection.title.first)
     end
 
     it 'can destroy a Collection from the Dashboard show view' do

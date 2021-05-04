@@ -43,7 +43,7 @@ RSpec.describe 'actions permitted by the collection_editor role', type: :feature
 
     # This test is heavily inspired by a test in Hyrax v2.9.0, see
     # https://github.com/samvera/hyrax/blob/v2.9.0/spec/features/dashboard/collection_spec.rb#L463-L476
-    it 'cannot destroy a Collection from the Dashboard index view' do
+    it 'cannot destroy an individual Collection from the Dashboard index view' do
       visit '/dashboard/collections'
 
       expect(page).to have_content(collection.title.first)
@@ -59,6 +59,13 @@ RSpec.describe 'actions permitted by the collection_editor role', type: :feature
         click_button('Close')
       end
       expect(page).to have_content(collection.title.first)
+    end
+
+    it 'cannot destroy batches of Collections from the Dashboard index view' do
+      visit '/dashboard/collections'
+
+      expect(find('tr#document_' + collection.id).first('input[type=checkbox]'))
+        .to be_disabled
     end
 
     it 'cannot destroy a Collection from the Dashboard show view' do

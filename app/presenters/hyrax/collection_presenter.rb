@@ -11,4 +11,18 @@ Hyrax::CollectionPresenter.class_eval do
   def create_any_work_types?
     create_work_presenter.authorized_models.any?
   end
+
+  # OVERRIDE: Because the only batch operation allowed currently is deleting,
+  # change the ability check because not all users who can edit can also destroy.
+  #
+  # Determine if the user can perform batch operations on this collection.  Currently, the only
+  # batch operation allowed is deleting, so this is equivalent to checking if the user can delete
+  # the collection determined by criteria...
+  # * user must be able to edit the collection to be able to delete it
+  # * the collection does not have to be empty
+  # @return Boolean true if the user can perform batch actions; otherwise, false
+  def allow_batch?
+    return true if current_ability.can?(:destroy, solr_document) # OVERRIDE: change :edit to :destroy
+    false
+  end
 end

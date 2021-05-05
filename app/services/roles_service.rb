@@ -106,6 +106,18 @@ class RolesService
       Hyrax::CollectionTypeParticipant.where(agent_type: 'group', agent_id: ::Ability.registered_group_name, access: 'create').map(&:destroy)
     end
 
+    # This method is inspired by the devise_guests:delete_old_guest_users rake task in the devise-guests gem:
+    # https://github.com/cbeer/devise-guests/blob/master/lib/railties/devise_guests.rake
+    def prune_stale_guest_users
+      stale_guest_users = User.unscoped.where('guest = ? and updated_at < ?', true, Time.now - 7.days)
+      progress = ProgressBar.new(stale_guest_users.count)
+
+      stale_guest_users.find_each do |u|
+        progress.increment!
+        u.destroy
+      end
+    end
+
     def seed_superadmin!
       return 'Seed data should not be used in the production environment' if Rails.env.production? || Rails.env.staging?
 

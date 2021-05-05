@@ -35,6 +35,7 @@ class Ability
     return @user_groups if @user_groups
 
     @user_groups = default_user_groups
+    # TODO: necessary to include #hyrax_group_names?
     @user_groups |= current_user.hyrax_group_names if current_user.respond_to? :hyrax_group_names
     @user_groups |= ['registered'] if !current_user.new_record? && current_user.roles.count.positive?
     # OVERRIDE: add the names of all user's roles to the array of user_groups
@@ -80,8 +81,6 @@ class Ability
   def superadmin?
     current_user.has_role? :superadmin
   end
-
-  private
 
   # OVERRIDE: @return [Array<String>] a list of all role names that apply to the user
   def all_user_and_group_roles

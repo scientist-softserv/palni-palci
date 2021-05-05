@@ -6,11 +6,16 @@ FactoryBot.define do
 
     transient do
       member_users { [] }
+      roles { [] }
     end
 
     after(:create) do |group, evaluator|
       evaluator.member_users.each do |user|
         group.add_members_by_id(user.id)
+      end
+
+      evaluator.roles.each do |role|
+        group.roles << Role.find_or_create_by(name: role)
       end
     end
 

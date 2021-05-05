@@ -34,6 +34,17 @@ GIT
       aws-sdk-sqs (~> 1)
       rails (>= 4.2)
 
+GIT
+  remote: https://github.com/tubbo/activejob-scheduler.git
+  revision: efe54965e08252da5232412df5bae98732cd045c
+  specs:
+    activejob-scheduler (1.0.0.pre)
+      actionmailer (> 5, < 7)
+      activejob (> 5, < 7)
+      activesupport (> 5, < 7)
+      fugit (~> 1.3)
+      travis-release (~> 0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -344,6 +355,8 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.10.0)
+    et-orbi (1.2.4)
+      tzinfo
     ethon (0.12.0)
       ffi (>= 1.3.0)
     execjs (2.7.0)
@@ -368,6 +381,9 @@ GEM
     flutie (2.2.0)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
+    fugit (1.4.5)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.32.1)
@@ -671,6 +687,7 @@ GEM
       rack (>= 1.2, < 3)
     openseadragon (0.5.0)
       rails (> 3.2.0)
+    options (2.3.2)
     orm_adapter (0.5.0)
     os (1.1.0)
     parallel (1.19.2)
@@ -680,6 +697,9 @@ GEM
     posix-spawn (0.3.15)
     power_converter (0.1.2)
     powerpack (0.1.2)
+    progress_bar (1.3.3)
+      highline (>= 1.6, < 3)
+      options (~> 2.3.0)
     public_suffix (4.0.5)
     pul_uv_rails (2.0.1)
     puma (3.12.6)
@@ -690,6 +710,7 @@ GEM
       nokogiri (~> 1.6)
       rails (~> 5.0)
       rdf
+    raabro (1.4.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-test (0.7.0)
@@ -969,6 +990,9 @@ GEM
       sync
     tinymce-rails (4.9.11)
       railties (>= 3.1.1)
+    travis-release (0.0.4)
+      bundler
+      rake
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -1016,6 +1040,7 @@ PLATFORMS
 DEPENDENCIES
   active-fedora (>= 11.1.4)
   active_elastic_job!
+  activejob-scheduler!
   activerecord-nulldb-adapter
   apartment
   aws-sdk-sqs
@@ -1053,6 +1078,7 @@ DEPENDENCIES
   mods (~> 2.4)
   parser (~> 2.5.3)
   pg
+  progress_bar
   puma (~> 3.12)
   rack-test (= 0.7.0)
   rails (~> 5.2.4, >= 5.2.4.3)

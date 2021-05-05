@@ -77,6 +77,14 @@ FactoryBot.define do
 
     factory :guest_user do
       guest { true }
+
+      transient do
+        stale { false }
+      end
+
+      after(:create) do |guest_user, evaluator|
+        guest_user.update!(updated_at: 8.days.ago) if evaluator.stale
+      end
     end
   end
 end

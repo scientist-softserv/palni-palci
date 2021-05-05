@@ -138,3 +138,5 @@ gem "sentry-raven"
 gem 'bootstrap-datepicker-rails'
 gem 'parser', '~> 2.5.3'
 gem 'tether-rails'
+gem 'progress_bar'
+gem 'activejob-scheduler', git: 'https://github.com/tubbo/activejob-scheduler.git'

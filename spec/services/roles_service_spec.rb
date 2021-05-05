@@ -277,6 +277,46 @@ RSpec.describe RolesService, clean: true do
     end
   end
 
+  describe '#prune_stale_guest_users' do
+    before do
+      3.times do |i|
+        u = FactoryBot.create(:user)
+        u.update!(updated_at: (i + 6).days.ago)
+      end
+    end
+
+    it 'does not delete non-guest users' do
+      expect { roles_service.prune_stale_guest_users }
+        .not_to change(User.unscoped, :count)
+    end
+
+    context 'when there are guest users that have not been updated in over 7 days' do
+      before do
+        3.times do
+          FactoryBot.create(:guest_user, stale: true)
+        end
+      end
+
+      it 'deletes them' do
+        expect { roles_service.prune_stale_guest_users }
+          .to change(User.unscoped, :count).by(-3)
+      end
+    end
+
+    context 'when there are guest users that have been updated in the last 7 days' do
+      before do
+        3.times do
+          FactoryBot.create(:guest_user)
+        end
+      end
+
+      it 'does not delete them' do
+        expect { roles_service.prune_stale_guest_users }
+          .not_to change(User.unscoped, :count)
+      end
+    end
+  end
+
   describe '#seed_superadmin!' do
     it 'creates a user with the :superadmin role' do
       expect_any_instance_of(User).to receive(:add_default_group_memberships!).once

@@ -49,7 +49,7 @@
               <td><%= link_to user.email, hyrax.user_path(user) %></td>
               <td><% roles = @presenter.user_roles(user) %>
                   <ul><% roles.each do |role| %>
-                    <li><%= role %></li>
+                    <li><%= role.titleize %></li>
                     <% end %>
                   </ul>
               </td>

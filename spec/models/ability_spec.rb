@@ -131,4 +131,17 @@ RSpec.describe Ability do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#all_user_and_group_roles' do
+    let(:user) { create(:user) }
+
+    before do
+      user.add_role('user_reader', Site.instance)
+      create(:group, name: 'test_group', member_users: [user], roles: %w[collection_editor tenant_manager])
+    end
+
+    it 'lists all role names that apply to the user' do
+      expect(subject.all_user_and_group_roles).to contain_exactly(*%w[user_reader collection_editor tenant_manager])
+    end
+  end
 end

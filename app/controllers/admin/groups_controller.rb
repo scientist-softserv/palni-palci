@@ -1,8 +1,13 @@
 module Admin
-  class GroupsController < AdminController
-    before_action :load_group, only: %i[edit update remove destroy]
+  # OVERRIDE from AdminController inheretence for user roles authorization
+  class GroupsController < ApplicationController
+    # OVERRIDE: replaced before_action :load_group with the following load_and_authorize_resource
+    load_and_authorize_resource class: '::Hyrax::Group', instance_name: :group, only: %i[create edit update remove destroy]
+    layout 'hyrax/dashboard'
 
     def index
+      # OVERRIDE: AUTHORIZE A READER ROLE TO ACCESS THE GROUPS INDEX
+      authorize! :read, Hyrax::Group
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
       add_breadcrumb t(:'hyku.admin.groups.title.index'), admin_groups_path
@@ -62,10 +67,6 @@ module Admin
     end
 
     private
-
-      def load_group
-        @group = Hyrax::Group.find_by(id: params[:id])
-      end
 
       def group_params
         params.require(:group).permit(:name, :humanized_name, :description)

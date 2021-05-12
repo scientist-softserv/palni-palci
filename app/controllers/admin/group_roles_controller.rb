@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 module Admin
-  class GroupRolesController < AdminController
+  # OVERRIDE from AdminController inheretence for user roles authorization
+  class GroupRolesController < ApplicationController
     before_action :load_group
+    layout 'hyrax/dashboard'
 
     rescue_from ActiveRecord::RecordNotFound, with: :redirect_not_found
 
     def index
+      # OVERRIDE: AUTHORIZE AN EDIT ROLE TO ACCESS THE ROLES INDEX
+      authorize! :edit, Hyrax::Group 
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
       add_breadcrumb t(:'hyku.admin.groups.title.edit'), edit_admin_group_path(@group)

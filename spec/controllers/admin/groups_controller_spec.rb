@@ -5,7 +5,7 @@ RSpec.describe Admin::GroupsController, singletenant: true do
     describe 'GET #index' do
       subject { get :index }
 
-      it { is_expected.to redirect_to root_path }
+      it { is_expected.to redirect_to new_user_session_path }
     end
   end
 

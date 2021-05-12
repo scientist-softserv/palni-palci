@@ -1,25 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
-  let(:account) { create(:account) }
+RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
   let(:tenant_user_attributes) { attributes_for(:user) }
+  let!(:public_group) { FactoryBot.create(:public_group, name: 'public') }
 
   context 'within a tenant' do
 
-    before do
-      WebMock.disable!
-      Apartment::Tenant.create(account.tenant)
-      Apartment::Tenant.switch(account.tenant) do
-        Site.update(account: account)
-      end
-    end
-  
-    after do
-      WebMock.enable!
-      Apartment::Tenant.drop(account.tenant)
-    end
-
-    context 'a registered user' do
+    context 'a registered user with no role' do
       let(:user) { FactoryBot.create(:user) }
 
       before do
@@ -27,32 +14,31 @@ RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
       end
   
       it 'can access the users profile' do
-        get "http://#{account.cname}/dashboard/profiles/#{user.email.gsub('.', '-dot-')}"
+        get "/dashboard/profiles/#{user.email.gsub('.', '-dot-')}"
         expect(response.status).to eq(200)
         expect(response).to have_http_status(:success)
       end
 
       it 'can access the users notifications' do
-        get "http://#{account.cname}/notifications"
+        get "/notifications"
         expect(response.status).to eq(200)
         expect(response).to have_http_status(:success)
       end
 
       it 'can access the users transfers' do
-        get "http://#{account.cname}/dashboard/transfers"
+        get "/dashboard/transfers"
         expect(response.status).to eq(200)
         expect(response).to have_http_status(:success)
       end
 
       it 'can access the users manage proxies' do
-        get "http://#{account.cname}/proxies"
+        get "/proxies"
         expect(response.status).to eq(200)
         expect(response).to have_http_status(:success)
       end
     end
 
     context 'an unregistered user' do
-
       let(:user_params) do 
         { 
           user: {
@@ -64,7 +50,7 @@ RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
       end
 
       it 'can sign up' do
-        expect { post "http://#{account.cname}/users", params: user_params }
+        expect { post "/users", params: user_params }
           .to change(User, :count).by(1)
         expect(response.status).to eq(302)
         expect(response).to have_http_status(:redirect)
@@ -73,74 +59,132 @@ RSpec.describe "User roles", type: :request, clean: true, multitenant: true do
 
   end
 
-  context 'a superadmin user' do
-    let(:superadmin) { FactoryBot.create(:superadmin) }
-
-    before do
-      login_as(superadmin, scope: :user)
-    end
-
-    it 'can access the users index' do
-      get proprietor_users_url
-      expect(response.status).to eq(200)
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  context 'a registered user with user_admin role' do
-    let(:user_admin) { FactoryBot.create(:user_admin) }
-
-    before do
-      login_as(user_admin, scope: :user)
-    end
-
-    it 'can access the users index' do
-      get proprietor_users_url
-      expect(response.status).to eq(200)
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   context 'a registered user with user_manager role' do
     let(:user_manager) { FactoryBot.create(:user_manager) }
+    let!(:user) { FactoryBot.create(:user, email: 'user@example.com', display_name: 'Regular User') }
 
     before do
       login_as(user_manager, scope: :user)
     end
 
     it 'can access the users index' do
-      get proprietor_users_url
+      get '/users'
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
+
+    it 'can access a users showpage' do
+      get '/users/user@example-dot-com'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access a users profile' do
+      get '/dashboard/profiles/user@example-dot-com'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access a users profile edit' do
+      get '/dashboard/profiles/user@example-dot-com/edit'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access manage groups' do
+      get '/admin/groups'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access manage users' do
+      get '/admin/users'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+    
+    it 'can access/edit manage groups user tab' do
+      get "/admin/groups/#{public_group.id}/users"
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access/edit manage groups role tab' do
+      get "/admin/groups/#{public_group.id}/roles"
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access/edit manage groups remove tab' do
+      get "/admin/groups/#{public_group.id}/remove"
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
   end
 
   context 'a registered user with user_reader role' do
     let(:user_reader) { FactoryBot.create(:user_reader) }
+    let!(:user) { FactoryBot.create(:user, email: 'user@example.com', display_name: 'Regular User') }
 
     before do
       login_as(user_reader, scope: :user)
     end
 
     it 'can access the users index' do
-      get proprietor_users_url
+      get '/users'
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
-  end
 
-  context 'a registered user with no role' do
-    let(:user) { FactoryBot.create(:user) }
-
-    before do
-      login_as(user, scope: :user)
+    it 'can access a users showpage' do
+      get '/users/user@example-dot-com'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
     end
 
-    it 'cannot access the users index' do
-      get proprietor_users_url
+    it 'can access a users profile' do
+      get '/dashboard/profiles/user@example-dot-com'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'cannot access a users profile edit' do
+      get '/dashboard/profiles/user@example-dot-com/edit'
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'can access manage groups' do
+      get '/admin/groups'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'can access manage users' do
+      get '/admin/users'
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+    
+    it 'cannot access/edit manage groups user tab' do
+      get "/admin/groups/#{public_group.id}/users"
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'cannot access/edit manage groups role tab' do
+      get "/admin/groups/#{public_group.id}/roles"
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'cannot access/edit manage groups remove tab' do
+      get "/admin/groups/#{public_group.id}/remove"
       expect(response.status).to eq(302)
       expect(response).to have_http_status(:redirect)
     end
+
   end
 
 end

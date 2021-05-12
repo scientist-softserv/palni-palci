@@ -9,10 +9,9 @@ class RolesService
     tenant_reader
   ].freeze
 
-  USER_ROLES = %w[
-    user_admin
-    user_manager
-    user_reader
+  USER_ROLES = [
+    'user_manager',
+    'user_reader'
   ].freeze
 
   COLLECTION_ROLES = %w[

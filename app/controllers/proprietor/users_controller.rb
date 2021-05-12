@@ -2,7 +2,7 @@
 
 module Proprietor
   class UsersController < ProprietorController
-    before_action :ensure_users_role!
+    before_action :ensure_admin!
 
     before_action :find_user, only: %i[show edit update destroy]
     load_and_authorize_resource
@@ -10,6 +10,7 @@ module Proprietor
     # GET /users
     # GET /users.json
     def index
+      authorize! :manage, User
       # TODO RG - this is added, why?
       @users = User.accessible_by(current_ability)
 
@@ -20,9 +21,6 @@ module Proprietor
     # GET /users/1
     # GET /users/1.json
     def show
-      superadmin_role_id = Role.find_or_create_by(name: 'superadmin').id
-      @disabled_values = !current_user.has_role?(:superadmin) ? [superadmin_role_id] : []
-
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.admin.sidebar.users'), proprietor_users_path
       add_breadcrumb @user.display_name, edit_proprietor_user_path(@user)
@@ -94,8 +92,8 @@ module Proprietor
 
     private
 
-    def ensure_users_role!
-      authorize! :read, User
+    def ensure_admin!
+      authorize! :read, :admin_dashboard
     end
 
     def user_params

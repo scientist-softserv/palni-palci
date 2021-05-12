@@ -107,6 +107,7 @@ en:
           delete: Remove Group “%{group}”
           edit: Edit Group
           index: Manage Groups
+          reader_index: View Groups
           list_members: Current Group Members
           members: Group Members
           new: New Group
@@ -232,7 +233,6 @@ en:
         actions: Actions
         header: Manage Users
         confirm_delete: Are you sure you wish to delete this user?
-        view_users: View Users
       new:
         header: Create a new user
       show:

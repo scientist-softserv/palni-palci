@@ -1,14 +1,10 @@
 <% content_for :page_header do %>
-  <% if can? :create, User %>
-    <h1><span class="fa fa-gears"></span> <%= t('.header') %></h1>
-    <div class="pull-right">
-      <%= link_to new_proprietor_user_path, class: 'btn btn-primary' do %>
-        <span class="fa fa-edit"></span> <%= t('.create_new') %>
-      <% end %>
-    </div>
-  <% else %>
-    <h1><span class="fa fa-gears"></span> <%= t('.view_users') %></h1>
-  <% end %>
+  <h1><span class="fa fa-gears"></span> <%= t('.header') %></h1>
+  <div class="pull-right">
+    <%= link_to new_proprietor_user_path, class: 'btn btn-primary' do %>
+      <span class="fa fa-edit"></span> <%= t('.create_new') %>
+    <% end %>
+  </div>
 <% end %>
 <div class="row">
   <div class="col-md-12">
@@ -37,14 +33,10 @@
                 <td><%= user.affiliation %></td>
                 <td><%= user.is_superadmin %></td>
                 <td class="col-md-2">
-                  <% if can? :create, User %>
-                    <%= link_to t('.manage'), proprietor_user_path(user) %>&nbsp;|&nbsp;
-                    <%= link_to t('helpers.action.edit'), edit_proprietor_user_path(user) %>&nbsp;|&nbsp;
-                    <%= link_to t('helpers.action.delete'), proprietor_user_path(user), method: :delete, data: { confirm: t('.confirm_delete') } %>&nbsp;|&nbsp;
-                  <% end %>
-                  <% if can? :become, User %>
-                    <%= link_to t('helpers.action.become'), become_proprietor_user_path(user.id), method: :post %>
-                  <% end %>
+                  <%= link_to t('.manage'), proprietor_user_path(user) %>&nbsp;|&nbsp;
+                  <%= link_to t('helpers.action.edit'), edit_proprietor_user_path(user) %>&nbsp;|&nbsp;
+                  <%= link_to t('helpers.action.delete'), proprietor_user_path(user), method: :delete, data: { confirm: t('.confirm_delete') } %>&nbsp;|&nbsp;
+                  <%= link_to t('helpers.action.become'), become_proprietor_user_path(user.id), method: :post %>
                 </td>
               </tr>
             <% end %>

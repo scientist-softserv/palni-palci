@@ -6,61 +6,54 @@ RSpec.describe 'UserAbility' do
   let(:ability) { Ability.new(current_user) }
   let(:user) { create(:user) }
   let(:current_user) { user }
-
-  context 'when user admin' do
-    subject { Ability.new(user_admin) }
-    let(:user_admin) { FactoryBot.create(:user_admin) }
-
-    it 'allows all abilities' do
-      is_expected.to be_able_to(:manage, User)
-    end
-  end
+  let(:hyrax_group) { FactoryBot.create(:group) }
 
   context 'when user manager' do
     subject { Ability.new(user_manager) }
     let(:user_manager) { FactoryBot.create(:user_manager) }
 
-    it 'allows most abilities' do
+    it 'allows all user abilities' do
       is_expected.to be_able_to(:create, User)
       is_expected.to be_able_to(:read, user)
-      is_expected.to be_able_to(:update, user)
       is_expected.to be_able_to(:edit, user)
-      is_expected.to be_able_to(:destroy, user)
+      is_expected.to be_able_to(:update, user)
+      is_expected.to be_able_to(:remove, user)
     end
 
-    it 'denies become ability' do
-      is_expected.not_to be_able_to(:become, user)
+    it 'allows all group abilities' do
+      is_expected.to be_able_to(:create, Hyrax::Group)
+      is_expected.to be_able_to(:read, Hyrax::Group)
+      is_expected.to be_able_to(:edit, hyrax_group)
+      is_expected.to be_able_to(:update, hyrax_group)
+      is_expected.to be_able_to(:destroy, hyrax_group)
     end
+
   end
 
   context 'when user reader' do
     subject { Ability.new(user_reader) }
     let(:user_reader) { FactoryBot.create(:user_reader) }
 
-    it 'allows read ability' do
+    it 'allows user read abilities' do
       is_expected.to be_able_to(:read, user)
     end
 
-    it 'denies most abilities' do
-      is_expected.not_to be_able_to(:destroy, user)
-      is_expected.not_to be_able_to(:become, user)
-      is_expected.not_to be_able_to(:edit, user)
-      is_expected.not_to be_able_to(:update, user)
+    it 'allows group read abilities' do
+      is_expected.to be_able_to(:read, Hyrax::Group)
+    end
+
+    it 'denies most user abilities' do
       is_expected.not_to be_able_to(:create, User)
+      is_expected.not_to be_able_to(:update, user)
+      is_expected.not_to be_able_to(:edit, user)
+      is_expected.not_to be_able_to(:remove, user)
     end
-  end
 
-  context 'when superadmin' do
-    subject { Ability.new(superadmin) }
-    let(:superadmin) { FactoryBot.create(:superadmin) }
-
-    it 'allows all abilities' do
-      is_expected.to be_able_to(:read, user)
-      is_expected.to be_able_to(:create, User)
-      is_expected.to be_able_to(:destroy, user)
-      is_expected.to be_able_to(:become, user)
-      is_expected.to be_able_to(:edit, user)
-      is_expected.to be_able_to(:update, user)
+    it 'denies most group abilities' do
+      is_expected.not_to be_able_to(:create, Hyrax::Group)
+      is_expected.not_to be_able_to(:update, hyrax_group)
+      is_expected.not_to be_able_to(:edit, hyrax_group)
+      is_expected.not_to be_able_to(:destroy, hyrax_group)
     end
   end
 

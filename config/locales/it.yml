@@ -107,6 +107,7 @@ it:
           delete: Rimuovi gruppo "%{group}"
           edit: Modifica gruppo
           index: Gestisci Gruppi
+          reader_index: Visualizza gruppi
           list_members: Membri del gruppo attuale
           members: Membri del gruppo
           new: Nuovo gruppo

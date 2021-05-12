@@ -107,6 +107,7 @@ zh:
           delete: 删除组 "%{group}"
           edit: 编辑组
           index: 管理组
+          reader_index: 查看組
           list_members: 当前组成员
           members: 小组成员
           new: 新组

@@ -1,4 +1,5 @@
 RSpec.describe 'Admin Dashboard', type: :request, singletenant: true, clean: true do
+
   context 'as a non logged-in user' do
     describe 'I cannot access the dashboard' do
       it 'redirects the user to the log-in page' do # You need to sign in or sign up before continuing
@@ -9,10 +10,10 @@ RSpec.describe 'Admin Dashboard', type: :request, singletenant: true, clean: tru
   end
 
   context 'as an admin user' do
-    let(:admin) { create(:admin, email: 'support@notch8.com') }
+    let(:admin) { FactoryBot.create(:admin) }
 
     before do
-      login_as admin
+      login_as(admin)
     end
 
     describe 'I can hit every url corresponding to each link in the admin dashboard' do

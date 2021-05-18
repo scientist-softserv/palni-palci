@@ -179,6 +179,14 @@ services:
     depends_on:
       - db
 
+  schedule_jobs:
+    extends:
+      service: app
+    command: bundle exec rake activejob:schedule
+    depends_on:
+      - web
+      - workers
+
   redis:
     image: redis:5
     command: redis-server

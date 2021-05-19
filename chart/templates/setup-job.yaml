@@ -53,7 +53,7 @@ spec:
           args:
             - "-l"
             - "-c"
-            - "(bundle check || bundle install) && bundle exec rails db:create && bundle exec rake zookeeper:upload && bundle exec rails db:migrate db:seed && echo SETUP COMPLETE"
+            - "(bundle check || bundle install) && bundle exec rails db:create && bundle exec rake zookeeper:upload && bundle exec rails db:migrate db:seed activejob:schedule && echo SETUP COMPLETE"
           envFrom:
             - configMapRef:
                 name: {{ template "hyku.rails-env.name" . }}

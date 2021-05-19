@@ -29,7 +29,6 @@ then
   /bin/bash -l -c 'chown -R app:app /home/app/webapp/tmp/cache' # mounted volume may have wrong permissions
   /bin/bash -l -c 'chown -R app:app /home/app/webapp/public/assets' # mounted volume may have wrong permissions
   /sbin/setuser app /bin/bash -l -c 'cd /home/app/webapp && rsync -a public/assets-new/ public/assets/'
-  /bin/bash -l -c 'cd /home/app/webapp && bundle exec rake activejob:schedule'
 fi
 
 exec /usr/sbin/nginx

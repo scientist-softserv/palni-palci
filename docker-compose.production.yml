@@ -151,6 +151,7 @@ services:
       - memcache
       - initialize_app
       - db_migrate
+      - schedule_jobs
     expose:
       - 3000
 
@@ -192,7 +193,6 @@ services:
       service: app
     command: bundle exec rake activejob:schedule
     depends_on:
-      - web
       - workers
 
   redis:

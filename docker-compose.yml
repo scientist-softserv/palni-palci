@@ -205,5 +205,5 @@ services:
     networks:
       internal:
     ports:
-      - "4444:4444"
-      - "5959:5900"
+      - "4444"
+      - "5959"

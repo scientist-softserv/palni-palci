@@ -60,11 +60,9 @@
             <tr id=<%= "#{group.name}" %>>
               <td>
                 <b><%= group.humanized_name %></b>
-                <% if group.description.present? %>
-                  <p class="help-block">
-                  <%= group.description %>
-                  </p>
-                <% end %>
+                <p class='help-block'>
+                  <%= group.description_label %>
+                </p>
               </td>
               <td>
                 <ul><% group.roles.each do |role| %>

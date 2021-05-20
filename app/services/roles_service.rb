@@ -3,15 +3,9 @@
 class RolesService
   ADMIN_ROLE = %w[admin]
 
-  TENANT_ROLES = %w[
-    tenant_manager
-    tenant_editor
-    tenant_reader
-  ].freeze
-
-  USER_ROLES = [
-    'user_manager',
-    'user_reader'
+  ADMIN_SET_ROLES = %w[
+    admin_set_editor
+    admin_set_depositor
   ].freeze
 
   COLLECTION_ROLES = %w[
@@ -20,7 +14,48 @@ class RolesService
     collection_reader
   ].freeze
 
-  ALL_DEFAULT_ROLES = ADMIN_ROLE + TENANT_ROLES + USER_ROLES + COLLECTION_ROLES
+  USER_ROLES = %w[
+    user_manager
+    user_reader
+  ].freeze
+
+  DEFAULT_ROLES = ADMIN_ROLE + ADMIN_SET_ROLES + COLLECTION_ROLES + USER_ROLES
+
+  DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES = {
+    # This Hyrax::Group is required to exist for permissions to work properly
+    "#{::Ability.admin_group_name}": {
+      humanized_name: 'Managers',
+      description: I18n.t("hyku.admin.groups.description.#{::Ability.admin_group_name}")
+    }.freeze,
+    # This Hyrax::Group is required to exist for permissions to work properly
+    "#{::Ability.registered_group_name}": {
+      humanized_name: 'Authorized Viewers',
+      description: I18n.t("hyku.admin.groups.description.#{::Ability.registered_group_name}")
+    }.freeze,
+    editors: {
+      humanized_name: 'Editors',
+      description: I18n.t('hyku.admin.groups.description.editors')
+    }.freeze,
+    depositors: {
+      humanized_name: 'Depositors',
+      description: I18n.t('hyku.admin.groups.description.depositors')
+    }.freeze
+  }.freeze
+
+  DEFAULT_ROLES_FOR_DEFAULT_HYRAX_GROUPS = {
+    "#{::Ability.admin_group_name}": {
+      roles: %i[admin].freeze
+    }.freeze,
+    "#{::Ability.registered_group_name}": {
+      roles: [].freeze
+    }.freeze,
+    editors: {
+      roles: %i[collection_editor admin_set_editor user_reader].freeze
+    }.freeze,
+    depositors: {
+      roles: %i[admin_set_depositor].freeze
+    }.freeze
+  }.freeze
 
   class << self
     def find_or_create_site_role!(role_name:)
@@ -32,11 +67,30 @@ class RolesService
     end
 
     def create_default_roles!
-      # Stop Roles from being created in public schema
+      # Prevent Roles from being created in the public schema
       return '`AccountElevator.switch!` into an Account before creating default Roles' if Site.instance.is_a?(NilSite)
 
-      ALL_DEFAULT_ROLES.each do |role_name|
+      DEFAULT_ROLES.each do |role_name|
         find_or_create_site_role!(role_name: role_name)
+      end
+    end
+
+    def create_default_hyrax_groups_with_roles!
+      # Prevent Hyrax::Groups from being created in the public schema
+      return '`AccountElevator.switch!` into an Account before creating default Hyrax::Groups' if Site.instance.is_a?(NilSite)
+
+      default_hyrax_groups_with_roles = DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.deep_merge(DEFAULT_ROLES_FOR_DEFAULT_HYRAX_GROUPS)
+
+      default_hyrax_groups_with_roles.each do |group_name, group_attrs|
+        group_roles = group_attrs.delete(:roles)
+        group = Hyrax::Group.find_or_create_by!(name: group_name)
+        group.update_attributes(group_attrs)
+
+        group_roles.each do |role_name|
+          next if role_name.blank?
+
+          group.roles |= [find_or_create_site_role!(role_name: role_name)]
+        end
       end
     end
 
@@ -146,7 +200,7 @@ class RolesService
       return 'Seed data should not be used in the production environment' if Rails.env.production? || Rails.env.staging?
 
       ActiveRecord::Base.transaction do
-        ALL_DEFAULT_ROLES.each do |role_name|
+        DEFAULT_ROLES.each do |role_name|
           user = User.where(email: "#{role_name}@example.com").first_or_initialize do |u|
             if u.new_record?
               u.password = 'testing123'

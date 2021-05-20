@@ -36,7 +36,7 @@ rake hyku:roles:destroy_registered_group_collection_type_participants # optional
 <sup>\*</sup> The `hyku:roles:destroy_registered_group_collection_type_participants` task is technically optional. However, without it, collection readers will be allowed to create Collections.
 
 ## Role Set Creation Guidelines
-1. Add role names to the [RolesService::ALL_DEFAULT_ROLES](app/services/roles_service.rb) constant
+1. Add role names to the [RolesService::DEFAULT_ROLES](app/services/roles_service.rb) constant
 2. Find related ability concern in Hyrax (if applicable)
   - Look in `app/models/concerns/hyrax/ability/` (local repo first, then Hyrax's repo)
   - E.g. ability concern for Collections is `app/models/concerns/hyrax/ability/collection_ability.rb`

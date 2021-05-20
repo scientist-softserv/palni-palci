@@ -15,7 +15,11 @@ FactoryBot.define do
       end
 
       evaluator.roles.each do |role|
-        group.roles << Role.find_or_create_by(name: role)
+        group.roles << Role.find_or_create_by(
+          name: role,
+          resource_id: Site.instance.id,
+          resource_type: 'Site'
+        )
       end
     end
 

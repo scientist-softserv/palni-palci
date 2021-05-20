@@ -15,4 +15,11 @@ class Role < ApplicationRecord
   scopify
 
   scope :site, -> { where(resource_type: "Site") }
+
+  def description_label
+    label = description || I18n.t("hyku.admin.roles.description.#{name}")
+    return '' if label =~ /^translation missing:/
+
+    label
+  end
 end

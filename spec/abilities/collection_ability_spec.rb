@@ -69,7 +69,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_manager_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_manager) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_management_group') }
 
@@ -135,7 +135,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_editor_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_editor) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_editing_group') }
 
@@ -204,7 +204,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_reader_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_reader) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_reader_group') }
 

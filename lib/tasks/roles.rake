@@ -7,7 +7,7 @@ namespace :hyku do
         Rails.logger.info("Creating default Roles and Hyrax::Groups for #{account.cname}")
 
         RolesService.create_default_roles!
-        Hyrax::GroupsService.create_default_hyrax_groups!
+        RolesService.create_default_hyrax_groups_with_roles!
       end
     end
 

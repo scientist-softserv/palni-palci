@@ -27,14 +27,14 @@ RSpec.describe GroupAwareRoleChecker, clean: true do
 
   # Dynamically test all #<role_name>? methods so that, as more roles are added,
   # their role checker methods are automatically covered
-  RolesService::ALL_DEFAULT_ROLES.each do |role_name|
+  RolesService::DEFAULT_ROLES.each do |role_name|
     context "when the User has the :#{role_name} role" do
       before do
         user.add_role(role.name)
       end
 
       describe "##{role_name}?" do
-        let(:role) { FactoryBot.create(:"#{role_name}_role") }
+        let(:role) { FactoryBot.create(:role, :"#{role_name}") }
 
         it { expect(group_aware_role_checker.public_send("#{role_name}?")).to eq(true) }
       end
@@ -47,7 +47,7 @@ RSpec.describe GroupAwareRoleChecker, clean: true do
       end
 
       describe "##{role_name}?" do
-        let(:role) { FactoryBot.create(:"#{role_name}_role") }
+        let(:role) { FactoryBot.create(:role, :"#{role_name}") }
         let(:hyrax_group) { FactoryBot.create(:group, name: "#{role_name.titleize}s") }
 
         it { expect(group_aware_role_checker.public_send("#{role_name}?")).to eq(true) }

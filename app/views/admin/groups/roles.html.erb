@@ -37,7 +37,7 @@
             <% @group.roles&.each do |role| %>
               <tr id=<%= "assigned-role-#{role.id}" %>>
                 <td><%= role.name.titleize %></td>
-                <td><%= role.description %>
+                <td><%= role.description_label %>
                 <td>
                 <%= simple_form_for :remove_role_from_group, url: remove_admin_group_roles_path(group_id: @group.to_param), method: :delete, html: { class: 'form' } do |f| %>
                   <%= f.input :role_id, as: :hidden, input_html: { name: :role_id, value: role.id } %>
@@ -72,7 +72,7 @@
             <% @roles&.each do |role| %>
               <tr id=<%= "available-role-#{role.id}" %>>
                 <td><%= role.name.titleize %></td>
-                <td><%= role.description %>
+                <td><%= role.description_label %>
                 <td>
                   <%= simple_form_for :add_role_to_group, url: add_admin_group_roles_path(group_id: @group.to_param), method: :post, html: { class: 'form' } do |f| %>
                     <%= f.input :role_id, as: :hidden, input_html: { name: :role_id, value: role.id } %>

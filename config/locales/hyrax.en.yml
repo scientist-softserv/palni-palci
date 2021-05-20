@@ -669,6 +669,7 @@ en:
           groups: 'Groups:'
           managed_access:
             deposit: Deposit
+            edit: Edit
             manage: Manage
             view: View
           users: 'Users:'

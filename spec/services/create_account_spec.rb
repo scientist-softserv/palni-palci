@@ -55,7 +55,7 @@ RSpec.describe CreateAccount do
 
     it 'seeds the account with default data' do
       expect(RolesService).to receive(:create_default_roles!)
-      expect(Hyrax::GroupsService).to receive(:create_default_hyrax_groups!)
+      expect(RolesService).to receive(:create_default_hyrax_groups_with_roles!)
       expect(Hyrax::CollectionType).to receive(:find_or_create_default_collection_type)
       expect(Hyrax::CollectionType).to receive(:find_or_create_admin_set_type)
       expect(AdminSet).to receive(:find_or_create_default_admin_set_id)

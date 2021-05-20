@@ -2,58 +2,53 @@ FactoryBot.define do
   factory :role do
     name { 'test_role' }
 
-    factory :admin_role do
-      name          { 'admin' }
+    trait :superadmin do
+      name { 'superadmin' }
+    end
+
+    trait :site_role do
       resource_id   { Site.instance.id }
       resource_type { 'Site' }
     end
 
-    factory :collection_manager_role do
-      name          { 'collection_manager' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :admin do
+      name { 'admin' }
+      site_role
     end
 
-    factory :collection_editor_role do
-      name          { 'collection_editor' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :admin_set_editor do
+      name { 'admin_set_editor' }
+      site_role
     end
 
-    factory :collection_reader_role do
-      name          { 'collection_reader' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :admin_set_depositor do
+      name { 'admin_set_depositor' }
+      site_role
     end
 
-    factory :tenant_manager_role do
-      name          { 'tenant_manager' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :collection_manager do
+      name { 'collection_manager' }
+      site_role
     end
 
-    factory :tenant_editor_role do
-      name          { 'tenant_editor' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :collection_editor do
+      name { 'collection_editor' }
+      site_role
     end
 
-    factory :tenant_reader_role do
-      name          { 'tenant_reader' }
-      resource_id   { Site.instance.id }
-      resource_type { 'Site' }
+    trait :collection_reader do
+      name { 'collection_reader' }
+      site_role
     end
 
-    factory :user_admin_role do
-      name          { 'user_admin' }
+    trait :user_manager do
+      name { 'user_manager' }
+      site_role
     end
 
-    factory :user_manager_role do
-      name          { 'user_manager' }
-    end
-
-    factory :user_reader_role do
-      name          { 'user_reader' }
+    trait :user_reader do
+      name { 'user_reader' }
+      site_role
     end
   end
 end

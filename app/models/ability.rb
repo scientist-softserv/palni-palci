@@ -87,7 +87,7 @@ class Ability
     return @all_user_and_group_roles if @all_user_and_group_roles
 
     @all_user_and_group_roles = []
-    RolesService::ALL_DEFAULT_ROLES.each do |role_name|
+    RolesService::DEFAULT_ROLES.each do |role_name|
       @all_user_and_group_roles |= [role_name.to_s] if group_aware_role_checker.public_send("#{role_name}?")
     end
 

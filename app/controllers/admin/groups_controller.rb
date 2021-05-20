@@ -25,7 +25,7 @@ module Admin
       new_group = Hyrax::Group.new(group_params)
       new_group.name = group_params[:humanized_name].gsub(" ", "_").downcase
       if new_group.save
-        redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.create.success', group: new_group.name)
+        redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.create.success', group: new_group.humanized_name)
       elsif new_group.invalid?
         redirect_to new_admin_group_path, alert: t('hyku.admin.groups.flash.create.invalid')
       else

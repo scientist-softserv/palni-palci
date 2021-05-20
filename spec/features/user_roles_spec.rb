@@ -216,5 +216,4 @@ RSpec.describe 'User Roles' do
     end
 
   end
-
 end

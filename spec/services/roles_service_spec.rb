@@ -4,7 +4,21 @@ require 'rails_helper'
 
 RSpec.describe RolesService, clean: true do
   subject(:roles_service) { described_class }
-  let(:default_role_count) { described_class::ALL_DEFAULT_ROLES.count }
+  let(:default_role_count) { described_class::DEFAULT_ROLES.count }
+  let(:default_hyrax_group_count) { described_class::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.keys.count }
+
+  shared_examples 'must run inside a tenant' do |method_to_run, scope_warning|
+    context 'when run outside the scope of a tenant' do
+      let(:scope_warning) { scope_warning }
+
+      before { allow(Site).to receive(:instance).and_return(NilSite.new) }
+      after { allow(Site).to receive(:instance).and_call_original } # un-stub Site
+
+      it 'returns a warning' do
+        expect(roles_service.public_send(method_to_run)).to eq(scope_warning)
+      end
+    end
+  end
 
   describe '#find_or_create_site_role!' do
     let(:test_role_name) { 'test_role' }
@@ -48,18 +62,9 @@ RSpec.describe RolesService, clean: true do
   end
 
   describe '#create_default_roles!' do
-    context 'when run outside the scope of a tenant' do
-      let(:scope_warning) do
-        '`AccountElevator.switch!` into an Account before creating default Roles'
-      end
-
-      before { allow(Site).to receive(:instance).and_return(NilSite.new) }
-      after { allow(Site).to receive(:instance).and_call_original } # un-stub Site
-
-      it 'returns a warning' do
-        expect(roles_service.create_default_roles!).to eq(scope_warning)
-      end
-    end
+    include_examples 'must run inside a tenant',
+      :create_default_roles!,
+      '`AccountElevator.switch!` into an Account before creating default Roles'
 
     context 'when run inside the scope of a tenant' do
       it 'creates all default roles' do
@@ -73,6 +78,55 @@ RSpec.describe RolesService, clean: true do
           .exactly(default_role_count).times
 
         roles_service.create_default_roles!
+      end
+    end
+  end
+
+  describe '#create_default_hyrax_groups_with_roles!' do
+    include_examples 'must run inside a tenant',
+      :create_default_hyrax_groups_with_roles!,
+      '`AccountElevator.switch!` into an Account before creating default Hyrax::Groups'
+
+    context 'when run inside the scope of a tenant' do
+      it 'creates all default hyrax groups with their default roles' do
+        expect { roles_service.create_default_hyrax_groups_with_roles! }
+          .to change(Hyrax::Group, :count).by(default_hyrax_group_count)
+      end
+
+      it 'creates the admin group' do
+        roles_service.create_default_hyrax_groups_with_roles!
+
+        admin_group = Hyrax::Group.find_by(name: 'admin')
+        expect(admin_group.humanized_name).to eq('Managers')
+        expect(admin_group.description).to eq(I18n.t("hyku.admin.groups.description.#{::Ability.admin_group_name}"))
+        expect(admin_group.roles.map(&:name)).to contain_exactly(*%w[admin])
+      end
+
+      it 'creates the registered group' do
+        roles_service.create_default_hyrax_groups_with_roles!
+
+        registered_group = Hyrax::Group.find_by(name: 'registered')
+        expect(registered_group.humanized_name).to eq('Authorized Viewers')
+        expect(registered_group.description).to eq(I18n.t("hyku.admin.groups.description.#{::Ability.registered_group_name}"))
+        expect(registered_group.roles.map(&:name)).to eq([])
+      end
+
+      it 'creates the tenant editors group' do
+        roles_service.create_default_hyrax_groups_with_roles!
+
+        editors_group = Hyrax::Group.find_by(name: 'editors')
+        expect(editors_group.humanized_name).to eq('Editors')
+        expect(editors_group.description).to eq(I18n.t('hyku.admin.groups.description.editors'))
+        expect(editors_group.roles.map(&:name)).to contain_exactly(*%w[collection_editor admin_set_editor user_reader])
+      end
+
+      it 'creates the tenant depositors group' do
+        roles_service.create_default_hyrax_groups_with_roles!
+
+        depositors_group = Hyrax::Group.find_by(name: 'depositors')
+        expect(depositors_group.humanized_name).to eq('Depositors')
+        expect(depositors_group.description).to eq(I18n.t('hyku.admin.groups.description.depositors'))
+        expect(depositors_group.roles.map(&:name)).to contain_exactly(*%w[admin_set_depositor])
       end
     end
   end
@@ -180,7 +234,6 @@ RSpec.describe RolesService, clean: true do
       let!(:collection_type) { FactoryBot.create(:collection_type) }
 
       it 'does not create any new CollectionTypeParticipant records' do
-        debugger
         expect { roles_service.create_collection_type_participants! }
           .not_to change(Hyrax::CollectionTypeParticipant, :count)
       end

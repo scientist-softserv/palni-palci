@@ -15,7 +15,7 @@ class GroupAwareRoleChecker
 
   # Dynamically define all #<role_name>? methods so that, as more roles are added,
   # their role checker methods are automatically defined
-  RolesService::ALL_DEFAULT_ROLES.each do |role_name|
+  RolesService::DEFAULT_ROLES.each do |role_name|
     define_method(:"#{role_name}?") do
       has_group_aware_role?(role_name)
     end

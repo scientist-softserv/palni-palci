@@ -145,7 +145,6 @@ services:
       - initialize_app
       - db_migrate
       - workers
-      - schedule_jobs
     expose:
       - 80
     networks:
@@ -179,13 +178,6 @@ services:
     command: bundle exec rails db:migrate
     depends_on:
       - db
-
-  schedule_jobs:
-    extends:
-      service: app
-    command: bundle exec rake activejob:schedule
-    depends_on:
-      - workers
 
   redis:
     image: redis:5

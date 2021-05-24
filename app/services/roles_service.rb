@@ -25,12 +25,12 @@ class RolesService
     # This Hyrax::Group is required to exist for permissions to work properly
     "#{::Ability.admin_group_name}": {
       humanized_name: 'Managers',
-      description: I18n.t("hyku.admin.groups.description.#{::Ability.admin_group_name}")
+      description: I18n.t('hyku.admin.groups.description.admin')
     }.freeze,
     # This Hyrax::Group is required to exist for permissions to work properly
     "#{::Ability.registered_group_name}": {
       humanized_name: 'Authorized Viewers',
-      description: I18n.t("hyku.admin.groups.description.#{::Ability.registered_group_name}")
+      description: I18n.t('hyku.admin.groups.description.registered')
     }.freeze,
     editors: {
       humanized_name: 'Editors',
@@ -50,7 +50,7 @@ class RolesService
       roles: [].freeze
     }.freeze,
     editors: {
-      roles: %i[collection_editor admin_set_editor user_reader].freeze
+      roles: %i[admin_set_editor collection_editor user_reader].freeze
     }.freeze,
     depositors: {
       roles: %i[admin_set_depositor].freeze

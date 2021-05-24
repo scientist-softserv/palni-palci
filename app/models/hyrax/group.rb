@@ -12,9 +12,14 @@ module Hyrax
 
     def self.search(query)
       if query.present?
-        where("name LIKE :q OR description LIKE :q", q: "%#{query}%")
+        left_outer_joins(:roles).where(
+          'lower(hyrax_groups.humanized_name) LIKE lower(:q) ' \
+          'OR lower(hyrax_groups.description) LIKE lower(:q) ' \
+          'OR lower(roles.name) LIKE lower(:q)',
+          q: "%#{query}%"
+        ).distinct
       else
-        all
+        includes(:roles).order('roles.sort_value')
       end
     end
 

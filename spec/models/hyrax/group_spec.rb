@@ -20,25 +20,64 @@ module Hyrax
     end
 
     context '.search' do
-      before do
-        FactoryBot.create(:group, name: 'IMPORTANT-GROUP-NAME')
-        FactoryBot.create(:group, description: 'IMPORTANT-GROUP-DESCRIPTION')
+      context 'with a query' do
+        before do
+          FactoryBot.create(:group, humanized_name: 'IMPORTANT-GROUP-NAME')
+          FactoryBot.create(:group, description: 'IMPORTANT-GROUP-DESCRIPTION')
+          FactoryBot.create(:group, roles: ['important_people', 'test'])
+        end
+
+        it 'returns groups that match a query on a humanized name' do
+          expect(described_class.search('IMPORTANT-GROUP-NAME').count).to eq(1)
+        end
+
+        it 'returns groups that match a query on a description' do
+          expect(described_class.search('IMPORTANT-GROUP-DESCRIPTION').count).to eq(1)
+        end
+
+        it 'returns groups with a partial match' do
+          expect(described_class.search('IMPORTANT-GROUP').count).to eq(2)
+        end
+
+        it 'returns an empty set when there is no match' do
+          expect(described_class.search('NULL').count).to eq(0)
+        end
+
+        it 'returns groups that match a query on a role name' do
+          expect(described_class.search('test').count).to eq(1)
+          expect(described_class.search('important').count).to eq(3)
+        end
+
+        it 'is case-insensitive' do
+          expect(described_class.search('important-group-name').count).to eq(1)
+          expect(described_class.search('iMpOrTaNt').count).to eq(3)
+          expect(described_class.search('TEST').count).to eq(1)
+        end
       end
 
-      it 'returns groups that match a query on a name' do
-        expect(described_class.search('IMPORTANT-GROUP-NAME').count).to eq(1)
-      end
+      context 'without a query' do
+        before do
+          FactoryBot.create(:group, humanized_name: 'Users')
+          FactoryBot.create(:group, humanized_name: 'Depositors', roles: ['admin_set_depositor'])
+          FactoryBot.create(:group, humanized_name: 'Readers', roles: ['user_reader'])
+          FactoryBot.create(:group, humanized_name: 'Managers', roles: ['admin'])
+          FactoryBot.create(:group, humanized_name: 'Editors', roles: ['collection_editor'])
+        end
 
-      it 'returns groups that match a query on a description' do
-        expect(described_class.search('IMPORTANT-GROUP-DESCRIPTION').count).to eq(1)
-      end
+        it 'returns all groups' do
+          expect(described_class.search(nil).count).to eq(5)
+        end
 
-      it 'returns groups with a partial match' do
-        expect(described_class.search('IMPORTANT-GROUP').count).to eq(2)
-      end
+        # See Role#set_sort_value
+        it "orders groups by their roles' sort_value" do
+          result = described_class.search(nil)
 
-      it 'returns an empty set when there is no match' do
-        expect(described_class.search('NULL').count).to eq(0)
+          expect(result[0].humanized_name).to eq('Managers')
+          expect(result[1].humanized_name).to eq('Editors')
+          expect(result[2].humanized_name).to eq('Depositors')
+          expect(result[3].humanized_name).to eq('Readers')
+          expect(result[4].humanized_name).to eq('Users')
+        end
       end
     end
 

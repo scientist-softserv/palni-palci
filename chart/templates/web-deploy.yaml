@@ -36,6 +36,19 @@ spec:
         - name: shared
           persistentVolumeClaim:
             claimName: {{ template "hyku.rails-env.name" . }}-shared
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchExpressions:
+                    - key: component
+                      operator: In
+                      values:
+                        - web
+                        - sidekiq
       containers:
         - name: web
           image: {{ .Values.rails.image.repository }}:{{ .Values.rails.image.tag }}

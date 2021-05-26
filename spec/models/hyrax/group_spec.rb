@@ -53,6 +53,10 @@ module Hyrax
           expect(described_class.search('iMpOrTaNt').count).to eq(3)
           expect(described_class.search('TEST').count).to eq(1)
         end
+
+        it 'searches humanized versions of role names' do
+          expect(described_class.search('Important People').count).to eq(1)
+        end
       end
 
       context 'without a query' do

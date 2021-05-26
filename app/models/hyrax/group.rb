@@ -13,9 +13,9 @@ module Hyrax
     def self.search(query)
       if query.present?
         left_outer_joins(:roles).where(
-          'lower(hyrax_groups.humanized_name) LIKE lower(:q) ' \
-          'OR lower(hyrax_groups.description) LIKE lower(:q) ' \
-          'OR lower(roles.name) LIKE lower(:q)',
+          "LOWER(hyrax_groups.humanized_name) LIKE LOWER(:q) " \
+          "OR LOWER(hyrax_groups.description) LIKE LOWER(:q) " \
+          "OR LOWER(REPLACE(roles.name, '_', ' ')) LIKE LOWER(:q)",
           q: "%#{query}%"
         ).distinct
       else

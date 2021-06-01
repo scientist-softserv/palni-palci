@@ -12,6 +12,7 @@ pg_upgrade_*.log
 **.orig
 rerun.txt
 pickle-email-*.html
+docker-compose.override.yml
 
 ## Environment normalization:
 /.bundle

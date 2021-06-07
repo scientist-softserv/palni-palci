@@ -16,12 +16,6 @@
   }
 }
 
-// remove the blur on the banner image
-.image-masthead .background-container {
-  -webkit-filter: none;
-  filter: none;
-}
-
 @media (min-width: $screen-sm-min) {
   .logo-set {
     display: flex;

@@ -19,7 +19,6 @@ module Hyrax
         @home_theme_names = load_home_theme_names
         @show_theme_names = load_show_theme_names
         @search_themes = load_search_themes
-
         flash[:alert] = t('hyrax.admin.appearances.show.forms.custom_css.warning')
       end
 

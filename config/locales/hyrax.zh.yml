@@ -654,6 +654,7 @@ zh:
           groups: 团体：
           managed_access:
             deposit: 存款
+            edit: 编辑
             manage: 管理
             view: 视图
           users: 使用者：

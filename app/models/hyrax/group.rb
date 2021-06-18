@@ -6,15 +6,20 @@ module Hyrax
     MEMBERSHIP_ROLE = :member
     DEFAULT_MEMBER_CLASS = ::User
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
     has_many :group_roles
     has_many :roles, through: :group_roles
 
     def self.search(query)
       if query.present?
-        where("name LIKE :q OR description LIKE :q", q: "%#{query}%")
+        left_outer_joins(:roles).where(
+          "LOWER(hyrax_groups.humanized_name) LIKE LOWER(:q) " \
+          "OR LOWER(hyrax_groups.description) LIKE LOWER(:q) " \
+          "OR LOWER(REPLACE(roles.name, '_', ' ')) LIKE LOWER(:q)",
+          q: "%#{query}%"
+        ).distinct
       else
-        all
+        includes(:roles).order('roles.sort_value')
       end
     end
 
@@ -47,6 +52,13 @@ module Hyrax
 
     def to_sipity_agent
       sipity_agent || create_sipity_agent!
+    end
+
+    def description_label
+      label = description || I18n.t("hyku.admin.groups.description.#{name}")
+      return '' if label =~ /^translation missing:/
+
+      label
     end
 
     private

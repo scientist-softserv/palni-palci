@@ -654,6 +654,7 @@ it:
           groups: 'gruppi:'
           managed_access:
             deposit: Depositare
+            edit: modificare
             manage: Gestire
             view: Visualizza
           users: 'utenti:'

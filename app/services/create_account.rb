@@ -40,7 +40,7 @@ class CreateAccount
 
   def create_defaults
     RolesService.create_default_roles!
-    Hyrax::GroupsService.create_default_hyrax_groups!
+    RolesService.create_default_hyrax_groups_with_roles!
     Hyrax::CollectionType.find_or_create_default_collection_type
     Hyrax::CollectionType.find_or_create_admin_set_type
     AdminSet.find_or_create_default_admin_set_id

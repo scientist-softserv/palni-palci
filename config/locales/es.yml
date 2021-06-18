@@ -66,6 +66,11 @@ es:
             clear: Reiniciar
         describe_quantity_html: Hay <b>%{number} grupos</b> en este repositorio.
         describe_singular_quantity_html: Hay <b>1 grupo</b> en este repositorio.
+        description:
+          admin: Los usuarios de este grupo se consideran administradores de este inquilino y tienen acceso sin restricciones.
+          registered: Contiene todos los usuarios que se han registrado en este inquilino.
+          depositors: Los usuarios de este grupo pueden depositar trabajos en cualquier conjunto de administración de este inquilino.
+          editors: 'Los usuarios de este grupo pueden leer y editar todas las colecciones y obras de este inquilino. También pueden: crear cobros, depositar y aprobar obras, gestionar embargos y arrendamientos y gestionar importadores y exportadores de Bulkrax.'
         flash:
           create:
             failure: No se pudo crear
@@ -107,11 +112,22 @@ es:
           delete: Eliminar grupo “%{group}”
           edit: Editar grupo
           index: Gestionar grupos
+          reader_index: Ver grupos
           list_members: Miembros del grupo actual
           members: Miembros del grupo
           new: Nuevo grupo
           remove: Eliminar grupo
           roles: Roles de grupo
+      roles:
+        description:
+          admin: Otorga acceso sin restricciones a este inquilino
+          admin_set_depositor: Puede depositar obras en cualquier conjunto de administración de este inquilino. Puede leer, editar y gestionar embargos / arrendamientos de obras que les pertenecen.
+          admin_set_editor: Puede leer cualquier conjunto de administración en este inquilino. Además, puede crear, leer, editar y aprobar cualquier trabajo en este inquilino, así como mover trabajos entre conjuntos de administración y administrar embargos y arrendamientos.
+          collection_editor: Puede crear, leer y editar cualquier colección en este inquilino
+          collection_manager: Puede crear, leer, editar y destruir cualquier colección en este inquilino
+          collection_reader: Puede leer cualquier colección en este inquilino
+          user_manager: Puede leer, editar, invitar y eliminar a cualquier usuario en este inquilino
+          user_reader: Puede leer cualquier usuario en este inquilino
       title: Administración
       work_types: Tipos de trabajo disponibles
     footer:
@@ -238,6 +254,7 @@ es:
         header: Administrar usuarios
         manage: Gestionar
         title: Título
+        view_users: Ver usuarios
       new:
         header: Crea un nuevo usuario
       show:

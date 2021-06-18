@@ -70,12 +70,14 @@ RSpec.describe Account, type: :model do
       allow(Settings.multitenancy).to receive(:admin_host).and_return(nil)
       allow(ENV).to receive(:[]).with('HOST').and_return('system-host')
       expect(described_class.admin_host).to eq 'system-host'
+      allow(ENV).to receive(:[]).and_call_original # "un-stub" ENV
     end
 
     it 'falls back to localhost' do
       allow(Settings.multitenancy).to receive(:admin_host).and_return(nil)
       allow(ENV).to receive(:[]).with('HOST').and_return(nil)
       expect(described_class.admin_host).to eq 'localhost'
+      allow(ENV).to receive(:[]).and_call_original # "un-stub" ENV
     end
   end
 

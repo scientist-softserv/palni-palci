@@ -16,83 +16,47 @@ RSpec.describe GroupAwareRoleChecker, clean: true do
       expect(group_aware_role_checker.user).to eq(user)
     end
 
-    it 'can accept a user id' do
-      expect(group_aware_role_checker.user).to eq(user)
-    end
-
     context 'guest users' do
       let(:user) { guest_user }
 
       it 'can accept a guest user' do
         expect(group_aware_role_checker.user).to eq(user)
       end
-
-      it 'can accept a guest user id' do
-        expect(group_aware_role_checker.user).to eq(user)
-      end
     end
   end
 
-  context 'when User has the role' do
-    before do
-      user.add_role(role.name)
-    end
+  # Dynamically test all #<role_name>? methods so that, as more roles are added,
+  # their role checker methods are automatically covered
+  RolesService::DEFAULT_ROLES.each do |role_name|
+    context "when the User has the :#{role_name} role" do
+      before do
+        user.add_role(role.name)
+      end
 
-    describe '#collection_manager?' do
-      let(:role) { FactoryBot.create(:collection_manager_role) }
+      describe "##{role_name}?" do
+        let(:role) { FactoryBot.create(:role, :"#{role_name}") }
 
-      it "infers Collection Manager status from the User's roles" do
-        expect(group_aware_role_checker.collection_manager?).to eq(true)
+        it { expect(group_aware_role_checker.public_send("#{role_name}?")).to eq(true) }
       end
     end
 
-    describe '#collection_editor?' do
-      let(:role) { FactoryBot.create(:collection_editor_role) }
+    context "when the User has a Hyrax::Group membership that includes the :#{role_name} role" do
+      before do
+        hyrax_group.roles << role
+        hyrax_group.add_members_by_id(user.id)
+      end
 
-      it "infers Collection Editor status from the User's roles" do
-        expect(group_aware_role_checker.collection_editor?).to eq(true)
+      describe "##{role_name}?" do
+        let(:role) { FactoryBot.create(:role, :"#{role_name}") }
+        let(:hyrax_group) { FactoryBot.create(:group, name: "#{role_name.titleize}s") }
+
+        it { expect(group_aware_role_checker.public_send("#{role_name}?")).to eq(true) }
       end
     end
 
-    describe '#collection_reader?' do
-      let(:role) { FactoryBot.create(:collection_reader_role) }
-
-      it "infers Collection Reader status from the User's roles" do
-        expect(group_aware_role_checker.collection_reader?).to eq(true)
-      end
-    end
-  end
-
-  context 'User has a Hyrax::Group membership that includes the role' do
-    before do
-      hyrax_group.roles << role
-      hyrax_group.add_members_by_id(user.id)
-    end
-
-    describe '#collection_manager?' do
-      let(:role) { FactoryBot.create(:collection_manager_role) }
-      let(:hyrax_group) { FactoryBot.create(:group, name: 'Collection Managers') }
-
-      it "infers Collection Manager status from the group membership" do
-        expect(group_aware_role_checker.collection_manager?).to eq(true)
-      end
-    end
-
-    describe '#collection_editor?' do
-      let(:role) { FactoryBot.create(:collection_editor_role) }
-      let(:hyrax_group) { FactoryBot.create(:group, name: 'Collection Editors') }
-
-      it "infers Collection Editor status from the group membership" do
-        expect(group_aware_role_checker.collection_editor?).to eq(true)
-      end
-    end
-
-    describe '#collection_reader?' do
-      let(:role) { FactoryBot.create(:collection_reader_role) }
-      let(:hyrax_group) { FactoryBot.create(:group, name: 'Collection Readers') }
-
-      it "infers Collection Reader status from the group membership" do
-        expect(group_aware_role_checker.collection_reader?).to eq(true)
+    context "when neither the User nor the User's Hyrax::Groups have the :#{role_name} role" do
+      describe "##{role_name}?" do
+        it { expect(group_aware_role_checker.public_send("#{role_name}?")).to eq(false) }
       end
     end
   end

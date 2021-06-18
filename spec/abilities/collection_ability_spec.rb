@@ -69,7 +69,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_manager_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_manager) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_management_group') }
 
@@ -103,7 +103,6 @@ RSpec.describe 'CollectionAbility' do
   end
 
   context 'when a user has a Collections Editor role' do
-    # TODO: why does the destroy test fail if we build the collection instead of creating it?
     let!(:collection) { create(:collection_lw, with_permission_template: true, collection_type_gid: collection_type_gid) }
     let!(:solr_document) { SolrDocument.new(collection.to_solr) }
 
@@ -136,7 +135,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_editor_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_editor) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_editing_group') }
 
@@ -205,7 +204,7 @@ RSpec.describe 'CollectionAbility' do
     end
 
     context 'through its group memberships' do
-      let!(:role) { FactoryBot.create(:collection_reader_role) }
+      let!(:role) { FactoryBot.create(:role, :collection_reader) }
       let(:user) { FactoryBot.create(:user) }
       let(:hyrax_group) { FactoryBot.create(:group, name: 'collection_reader_group') }
 
@@ -395,7 +394,7 @@ RSpec.describe 'CollectionAbility' do
 
     context 'when there are collection types that have create access' do
       before do
-        create(:user_collection_type)
+        create(:collection_type, creator_group: 'registered')
       end
 
       it 'allows create_any' do

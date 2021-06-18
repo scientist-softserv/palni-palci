@@ -653,6 +653,7 @@ de:
           groups: 'Gruppen:'
           managed_access:
             deposit: Anzahlung
+            edit: Bearbeiten
             manage: Verwalten
             view: Aussicht
           users: 'Benutzer:'

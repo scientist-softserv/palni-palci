@@ -654,6 +654,7 @@ pt-BR:
           groups: 'Grupos:'
           managed_access:
             deposit: Depósito
+            edit: Editar
             manage: Gerir
             view: Visão
           users: 'Comercial:'

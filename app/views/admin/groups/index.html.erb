@@ -7,21 +7,30 @@
     <span class='fa fa-exclamation-triangle' style='color: #ffcc00;' aria-hidden='true'></span>
   </h2>
   <p style='text-align: center;'><em>Some functionality may not be fully implemented yet.</em></p>
-  <h1>
-    <span class="fa fa-users"></span>
-    <%= t('hyku.admin.groups.title.index') %>
-  </h1>
+  <%if can? :edit, Hyrax::Group %>
+    <h1>
+      <span class="fa fa-users"></span>
+      <%= t('hyku.admin.groups.title.index') %>
+    </h1>
+  <% else %>
+    <h1>
+      <span class="fa fa-users"></span>
+      <%= t('hyku.admin.groups.title.reader_index') %>
+    </h1>
+  <% end %>
 <% end %>
 
 <div class="panel panel-default group-listing">
   <div class="panel-heading">
-    <% group_count = Hyrax::Group.all.count %>
+    <% group_count = Hyrax::Group.count %>
     <% if group_count == 1 %>
       <%= t('hyku.admin.groups.describe_singular_quantity_html') %>
     <% else %>
       <%= t('hyku.admin.groups.describe_quantity_html', number: group_count ) %>
     <% end %>
-    <%= link_to t('hyku.admin.groups.action.create'), new_admin_group_path, class: 'btn btn-primary pull-right new-group' %>
+    <% if can? :create, Hyrax::Group %>
+      <%= link_to t('hyku.admin.groups.action.create'), new_admin_group_path, class: 'btn btn-primary pull-right new-group' %>
+    <% end %>
   </div>
   <div class="panel-body">
     <div class="container-fluid full-width-container">
@@ -51,11 +60,9 @@
             <tr id=<%= "#{group.name}" %>>
               <td>
                 <b><%= group.humanized_name %></b>
-                <% if group.description.present? %>
-                  <p class="help-block">
-                  <%= group.description %>
-                  </p>
-                <% end %>
+                <p class='help-block'>
+                  <%= group.description_label %>
+                </p>
               </td>
               <td>
                 <ul><% group.roles.each do |role| %>
@@ -70,7 +77,9 @@
                 <%= group.created_at.to_date.to_formatted_s(:standard) %>
               </td>
               <td>
-                <%= link_to t('hyku.admin.groups.action.edit'), edit_admin_group_path(group), id: "edit-#{group.name}-group", class: 'btn btn-default' %>
+                <% if can? :edit, Hyrax::Group %>
+                  <%= link_to t('hyku.admin.groups.action.edit'), edit_admin_group_path(group), id: "edit-#{group.name}-group", class: 'btn btn-default' %>
+                <% end %>
               </td>
             </tr>
           <% end %>

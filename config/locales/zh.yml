@@ -66,6 +66,11 @@ zh:
             clear: 重启
         describe_quantity_html: 此存储库中有<b>%{number}组</b>。
         describe_singular_quantity_html: 此存储库中有<b> 1组</b>。
+        description:
+          admin: 该组中的用户被视为该租户的管理员，并且具有不受限制的访问权限。
+          registered: 包含已在此租户中注册的所有用户。
+          depositors: 允许该组中的用户将作品存放到该租户的任何管理集中。
+          editors: 允许该组中的用户阅读和编辑此租户中的所有“收藏夹”和“作品”。他们还可以：创建馆藏，存放和批准作品，管理禁运和租赁，以及管理Bulkrax进口商和出口商。
         flash:
           create:
             failure: 无法创建组
@@ -107,11 +112,22 @@ zh:
           delete: 删除组 "%{group}"
           edit: 编辑组
           index: 管理组
+          reader_index: 查看組
           list_members: 当前组成员
           members: 小组成员
           new: 新组
           remove: 删除组
           roles: 组角色
+      roles:
+        description:
+          admin: 授予该租户不受限制的访问权限
+          admin_set_depositor: 可以将作品存放到该租户的任何管理集中。可以阅读，编辑和管理属于他们的作品的禁运/租赁
+          admin_set_editor: 可以读取此租户中的任何管理集。此外，可以在此租户中创建，阅读，编辑和批准任何作品，以及在管理集之间移动作品以及管理禁运和租赁
+          collection_editor: 可以创建，读取和编辑此租户中的任何收藏集
+          collection_manager: 可以创建，读取，编辑和销毁此租户中的任何收藏集
+          collection_reader: 可以读取此租户中的任何收藏集
+          user_manager: 可以读取，编辑，邀请和删除此租户中的任何用户
+          user_reader: 可以读取此租户中的任何用户
       title: 行政
       work_types: 可用的工作类型
     footer:
@@ -238,6 +254,7 @@ zh:
         header: 管理用户
         manage: 管理
         title: 標題
+        view_users: 查看用户
       new:
         header: 创建一个新用户
       show:

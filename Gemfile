@@ -58,7 +58,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot', '~> 1.0'
-  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'launchy'
   # rack-test >= 0.71 does not work with older Capybara versions (< 2.17). See #214 for more details
@@ -88,7 +88,7 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
+gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'file_path_crossover'
 # gem 'bulkrax', path: 'vendor/engines/bulkrax'
 gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 
@@ -138,3 +138,5 @@ gem "sentry-raven"
 gem 'bootstrap-datepicker-rails'
 gem 'parser', '~> 2.5.3'
 gem 'tether-rails'
+gem 'progress_bar'
+gem 'activejob-scheduler', git: 'https://github.com/tubbo/activejob-scheduler.git'

@@ -25,10 +25,9 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
     * [With Kubernetes](#with-kubernetes)
   * [Single Tenant Mode](#single-tenancy)
   * [Switching accounts](#switching-accounts)
-  * [Roles and Auth](#roles-and-auth)
-    * [Auth-related Overrides](#auth-related-overrides)
-    * [Seeding Default Roles and Groups](#seeding-default-roles-and-groups)
-    * [Creating New Sets of Roles](#creating-new-sets-of-roles)
+  * [Overrides to Dependencies](#overrides-to-dependencies)
+    * [Overrides using `#class_eval`](#overrides-using-class_eval)
+  * [Groups, Roles, and Auth](#groups-roles-and-auth)
   * [Development dependencies](#development-dependencies)
     * [Postgres](#postgres) 
   * [Importing](#importing)
@@ -49,7 +48,7 @@ Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samv
 
 #### Dory
 
-On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.docker or tenant.hyku.docker, making multitenant development more straightforward and prevents the need to bind ports locally.  You can still run in development via docker with out Dory, but to do so please uncomment the ports section in docker-compose.yml and then find the running application at localhost:3000
+On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as http://pals.docker or http://tenant.pals.docker, making multitenant development more straightforward and prevents the need to bind ports locally.  You can still run in development via docker with out Dory, but to do so please uncomment the ports section in docker-compose.yml and then find the running application at localhost:3000
 
 ```bash
 gem install dory
@@ -62,14 +61,14 @@ dory up
 docker-compose up web # web here means you can start and stop Rails w/o starting or stopping other services. `docker-compose stop` when done shuts everything else down.
 ```
 
-Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with at either hyku.docker or localhost:3000 (see above)
+Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with http://pals.docker
 
 #### Seed a superadmin
 When you first start the app, you will need to create a superadmin. You can do that with a rake task:
 
  ```
  docker-compose exec web bash
- bundle exec rake hyku:seed:superadmin
+ bundle exec rake hyku:roles:seed_superadmin
  ```
 
 Login credential for the superadmin:
@@ -170,7 +169,7 @@ Much of the default configuration in Hyku is set up to use multi-tenant mode.  T
 
 To enable single tenant, in your settings.yml file change multitenancy/enabled to `false` or set `SETTINGS__MULTITENANCY__ENABLED=false` in your `docker-compose.yml` and `docker-compose.production.yml` configs. After changinig this setting, run `rails db:seed` to prepopulate the single tenant.
 
-In single tenant mode, both the application root (eg. localhost, or hyku.docker) and the tenant url single.* (eg. single.hyku.docker) will load the tenant. Override the root host by setting multitenancy/root_host in settings.yml or `SETTINGS__MULTITENANCY__ROOT_HOST`.
+In single tenant mode, both the application root (eg. http://pals.docker) and the tenant url single.* (eg. http://single.pals.docker) will load the tenant. Override the root host by setting multitenancy/root_host in settings.yml or `SETTINGS__MULTITENANCY__ROOT_HOST`.
 
 To change from single- to multi-tenant mode, change the multitenancy/enabled flag to true and restart the application. Change the 'single' tenant account cname in the Accounts edit interface to the correct hostname.
 
@@ -182,28 +181,28 @@ The recommend way to switch your current session from one account to another is 
 AccountElevator.switch!('repo.example.com')
 ```
 
-## Roles and Auth
-### Auth-related Overrides
+## Overrides to Dependencies
 
-_Some_ (not all) auth-related changes can be found in [config/initializers/permissions_overrides.rb](config/initializers/permissions_overrides.rb).
-Overrides in this file are generally small in scope that did not necessitate bringing an entire file into the local repo to make changes
-(e.g. overriding an individual method in a class).
+Overrides to Hyku, Hyrax, and other dependencies can be found throughout the repository. These are denoted with `OVERRIDE` code comments.
 
-Other overrides to Hyku, Hyrax, and other dependencies can be found throughout the repository. These are denoted with `OVERRIDE` code comments.
+When making an override to a dependency, please add an `OVERRIDE` comment explaining what changed and why.
 
-**Note**: not all overrides denoted with an `OVERRIDE` comment are auth-related.
+**Note**: legacy overrides may not have an all-caps `OVERRIDE` comment (e.g. `Override`).
 
-### Seeding Default Roles and Groups
+### Overrides using `#class_eval`
 
-Default `Roles` and `Hyrax::Groups` are seeded into an account (tenant) at creation time (see [CreateAccount#create_defaults](app/services/create_account.rb)).
+Some classes from dependencies have had parts of them overwritten using the `#class_eval` method. These overrides live where the file originally lived in its dependency
+(e.g. the override for [hyrax/app/services/hyrax/collections/permissions_create_service.rb](https://github.com/samvera/hyrax/blob/v2.9.0/app/services/hyrax/collections/permissions_create_service.rb)
+lives in [app/services/hyrax/collections/permissions_create_service.rb](app/services/hyrax/collections/permissions_create_service.rb)).
 
-To manually seed default `Roles` and `Hyrax::Groups` _across all tenants_, run this rake task:
+The reasons these overrides have been written the way they have are as follows:
+1. Only bring over code that needs to be touched / bring over less unnecessary code
+1. Easier to find what has been overwritten
+1. Using `#class_eval` in combination with `#require_dependency` in the original file's file path allows Rails autoload to work properly, ensuring the
+original file from the dependency is loaded and then the override is loaded on top of that
+1. Future dependency upgrades will be easier; reconciling different versions of one or two methods within a class is much easier than an entire file
 
-```bash
-rake hyku:seed:default_roles_and_groups
-```
-
-### Creating New Sets of Roles
+## Groups, Roles, and Auth
 
 See [GROUPS_WITH_ROLES.md](GROUPS_WITH_ROLES.md)
 

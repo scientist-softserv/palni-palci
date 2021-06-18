@@ -66,6 +66,11 @@ de:
             clear: Zurücksetzen
         describe_quantity_html: Es gibt <b>%{number} Gruppen</b> in diesem Repository.
         describe_singular_quantity_html: Es gibt <b>1 Gruppe</b> in diesem Repository.
+        description:
+          admin: Benutzer in dieser Gruppe gelten als Administratoren für diesen Mandanten und haben uneingeschränkten Zugriff.
+          registered: Enthält alle Benutzer, die sich bei diesem Mandanten angemeldet haben.
+          depositors: Benutzer in dieser Gruppe dürfen Works in jedem Admin-Set dieses Mandanten hinterlegen.
+          editors: 'Benutzer in dieser Gruppe dürfen alle Sammlungen und Werke in diesem Mandanten lesen und bearbeiten. Sie können auch: Sammlungen erstellen, Werke hinterlegen und genehmigen, Embargos und Leasingverträge verwalten und Bulkrax-Importeure und -Exporteure verwalten.'
         flash:
           create:
             failure: Gruppe konnte nicht erstellt werden
@@ -107,11 +112,22 @@ de:
           delete: Gruppe entfernen "%{group}"
           edit: Gruppe bearbeiten
           index: Gruppen verwalten
+          reader_index: Gruppen anzeigen
           list_members: Aktuelle Gruppenmitglieder
           members: Gruppenmitglieder
           new: Neue Gruppe
           remove: Gruppe entfernen
           roles: Gruppenrollen
+      roles:
+        description:
+          admin: Gewährt uneingeschränkten Zugang zu diesem Mieter
+          admin_set_depositor: Kann Works in ein beliebiges Admin-Set dieses Mandanten einzahlen. Kann Embargos / Leasingverträge für dazugehörige Werke lesen, bearbeiten und verwalten
+          admin_set_editor: Kann jedes Admin-Set in diesem Mandanten lesen. Sie können auch alle Arbeiten in diesem Mandanten erstellen, lesen, bearbeiten und genehmigen sowie Arbeiten zwischen Verwaltungssätzen verschieben und Embargos und Leases verwalten
+          collection_editor: Kann jede Sammlung in diesem Mandanten erstellen, lesen und bearbeiten
+          collection_manager: Kann jede Sammlung in diesem Mandanten erstellen, lesen, bearbeiten und zerstören
+          collection_reader: Kann jede Sammlung in diesem Mieter lesen
+          user_manager: Kann jeden Benutzer in diesem Mandanten lesen, bearbeiten, einladen und entfernen
+          user_reader: Kann jeden Benutzer in diesem Mandanten lesen
       title: Verwaltung
       work_types: Verfügbare Arbeitstypen
     footer:
@@ -242,6 +258,7 @@ de:
         header: Benutzer verwalten
         manage: Verwalten
         title: Titel
+        view_users: Benutzer anzeigen
       new:
         header: Erstellen Sie einen neuen Benutzer
       show:

@@ -254,6 +254,7 @@ en:
           id_label: Username
           role_label: Roles
           title: Manage Users
+          reader_title: View Users
       workflow_roles:
         header: Workflow Roles
         index:
@@ -668,6 +669,7 @@ en:
           groups: 'Groups:'
           managed_access:
             deposit: Deposit
+            edit: Edit
             manage: Manage
             view: View
           users: 'Users:'

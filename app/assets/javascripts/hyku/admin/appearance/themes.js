@@ -6,6 +6,7 @@ Blacklight.onLoad(function() {
   var theme = el.val();
   var themeInfo = el.data('theme-info');
   var assetPath = el.find(':selected').data('image');
+  
   if (typeof theme !== 'undefined' && typeof themeInfo !== 'undefined') {
     var themeData = themeInfo[theme];
     $('#home-theme-notes').html(themeData['notes']);
@@ -20,6 +21,7 @@ Blacklight.onLoad(function() {
     themeInfo = el.data('theme-info');
     themeData = themeInfo[theme];
     assetPath = el.find(':selected').data('image');
+    
     $('#home-theme-notes').html(themeData['notes']);
     themeData['banner_image'] === true ? $('#banner-image-notes').show() : $('#banner-image-notes').hide();
     themeData['home_page_text'] === true ? $('#home-page-text-notes').show() : $('#home-page-text-notes').hide();

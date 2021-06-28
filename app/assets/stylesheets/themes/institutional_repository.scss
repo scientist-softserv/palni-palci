@@ -177,6 +177,17 @@
     padding: 0;
   }
 
+  /* home page stats not in carousel */
+  .ir-stats {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* browse by collection page */
+  ul.all-collection-list {
+    list-style-type: none;
+    font-size: 1.5em;
+  }
 
  /* Medium Devices, Desktops */
 

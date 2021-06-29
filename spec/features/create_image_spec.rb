@@ -40,7 +40,8 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true do
       )
       login_as user
     end
-    it do
+    # TODO: unskip when Work roles are completed
+    xit do
       visit '/dashboard/works'
       # TODO(labradford) We are not able to get this link click to work in our automated tests, so this is a workaround.
       # I hope that if we move to system specs instead of feature specs we'll be able to move back to alignment with

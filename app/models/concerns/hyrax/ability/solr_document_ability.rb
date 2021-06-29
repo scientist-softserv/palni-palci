@@ -13,6 +13,13 @@ module Hyrax
           can :read, ::SolrDocument do |solr_doc|
             test_read(solr_doc.id)
           end
+
+          # "Undo" permission restrictions added by the Groups with Roles feature, effectively reverting them back to default Hyrax behavior
+          unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+            can :destroy, ::SolrDocument do |solr_doc|
+              test_edit(solr_doc.id)
+            end
+          end
         end
       end
     end

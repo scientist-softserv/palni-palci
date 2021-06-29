@@ -52,7 +52,6 @@ module Hyrax
         end
       end
 
-      # TODO: need to #authorize! the specific CollectionType trying to be created?
       def new
         # Coming from the UI, a collection type id should always be present.  Coming from the API, if a collection type id is not specified,
         # use the default collection type (provides backward compatibility with versions < Hyrax 2.1.0)

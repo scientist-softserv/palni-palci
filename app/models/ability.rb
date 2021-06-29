@@ -6,31 +6,24 @@ class Ability
   # OVERRIDE: Added custom user ability roles
   include Hyrax::Ability::UserAbility
 
-  # TODO: :everyone_can_create_curation_concerns allows everyone to create Collections,
-  # FileSets, and Works. Because we are developing roles to explicitly grant creation
-  # permissions specifically, this will need to be removed from the ability logic after
-  # Work roles have been completed (as to not disrupt current use).
-  # Once removed, update the following specs:
-  # - spec/abilities/collection_ability_spec.rb (collection reader context)
-  # - spec/features/collection_reader_role_spec.rb (specs testing creation)
-  # - spec/features/collection_manager_role_spec.rb ("cannot deposit a new work through a collection" specs)
   self.ability_logic += %i[
-    everyone_can_create_curation_concerns
     group_permissions
     superadmin_permissions
     collection_roles
     user_roles
   ]
+  # If the Groups with Roles feature is disabled, allow registered users to create curation concerns (Works, Collections, and FileSets).
+  # Otherwise, omit this ability logic as to not conflict with the roles that explicitly grant creation permissions.
+  self.ability_logic += %i[everyone_can_create_curation_concerns] unless ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
 
-  # Override method from blacklight-access_controls-0.6.2 to include the user's roles in the current tenant.
+  # OVERRIDE METHOD from blacklight-access_controls v0.6.2
   #
   # NOTE: DO NOT RENAME THIS METHOD - it is required for permissions to function properly.
   #
-  # All Users are part of the 'public' user_group, and all Users who can authenticate into a tenant are
-  # part of the 'registered' group. See User#add_default_group_memberships!
-  #
-  # This method is not referring to the Hyrax::Groups the Ability's User is a member of; instead,
-  # these are more like ability groups; groups that define a set of permissions.
+  # This method is used when checking if the current user has access to a given SolrDocument.
+  # For example, if #user_groups includes an element called "test", and a document's read access groups
+  # include an element called "test", then the user has read access to the document.
+  # This method is NOT referring to the Hyrax::Groups that the User is a member of. For that, see User#hyrax_groups.
   def user_groups
     return @user_groups if @user_groups
 

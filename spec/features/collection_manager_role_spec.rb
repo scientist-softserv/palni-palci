@@ -205,10 +205,7 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
         expect(collection.member_work_ids).to eq([work.id])
       end
 
-      # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-      # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
-      # is removed from ability logic (Work roles must be completed first)
-      xit 'cannot deposit a new work through a collection' do
+      it 'cannot deposit a new work through a collection' do
         visit "/dashboard/collections/#{collection.id}"
         expect(page).not_to have_content('Deposit new work through this collection')
       end
@@ -428,10 +425,7 @@ RSpec.describe 'actions permitted by the collection_manager role', type: :featur
         expect(collection.member_work_ids).to eq([work.id])
       end
 
-      # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-      # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
-      # is removed from ability logic (Work roles must be completed first)
-      xit 'cannot deposit a new work through a collection' do
+      it 'cannot deposit a new work through a collection' do
         visit "/dashboard/collections/#{collection.id}"
         expect(page).not_to have_content('Deposit new work through this collection')
       end

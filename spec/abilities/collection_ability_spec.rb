@@ -102,7 +102,7 @@ RSpec.describe 'CollectionAbility' do
     end
   end
 
-  context 'when a user has a Collections Editor role' do
+  context 'when a user has a Collection Editor role' do
     let!(:collection) { create(:collection_lw, with_permission_template: true, collection_type_gid: collection_type_gid) }
     let!(:solr_document) { SolrDocument.new(collection.to_solr) }
 
@@ -170,7 +170,7 @@ RSpec.describe 'CollectionAbility' do
     end
   end
 
-  context 'when a user has a Collections Reader role' do
+  context 'when a user has a Collection Reader role' do
     let!(:collection) { create(:collection_lw, with_permission_template: true, collection_type_gid: collection_type_gid) }
     let!(:solr_document) { SolrDocument.new(collection.to_solr) }
 
@@ -187,10 +187,7 @@ RSpec.describe 'CollectionAbility' do
       end
 
       it 'denies most abilities' do
-        # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-        # Ability.ability_logic. Uncomment after :everyone_can_create_curation_concerns
-        # is removed from ability_logic (Work roles must be completed first)
-        # is_expected.not_to be_able_to(:create, Collection)
+        is_expected.not_to be_able_to(:create, Collection)
         is_expected.not_to be_able_to(:edit, collection)
         is_expected.not_to be_able_to(:edit, solr_document)
         is_expected.not_to be_able_to(:update, collection)
@@ -223,10 +220,7 @@ RSpec.describe 'CollectionAbility' do
       end
 
       it 'denies most abilities' do
-        # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-        # Ability.ability_logic. Uncomment after :everyone_can_create_curation_concerns
-        # is removed from ability_logic (Work roles must be completed first)
-        # is_expected.not_to be_able_to(:create, Collection)
+        is_expected.not_to be_able_to(:create, Collection)
         is_expected.not_to be_able_to(:edit, collection)
         is_expected.not_to be_able_to(:edit, solr_document)
         is_expected.not_to be_able_to(:update, collection)

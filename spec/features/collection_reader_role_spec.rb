@@ -14,36 +14,31 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
       login_as user
     end
 
-    # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-    # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
-    # is removed from ability logic (Work roles must be completed first)
-    xit 'cannot create a Collection' do
+    it 'cannot create a Collection' do
       visit '/dashboard/collections/new'
-      fill_in('Title', with: 'Collection Reader Test')
-      expect { click_button 'Save' }.not_to change(Collection, :count)
 
-      expect(page).not_to have_content('Collection was successfully created.')
+      expect(page).to have_content('You are not authorized to access this page.')
     end
 
-    xit 'can view all Collections' do
+    it 'can view all Collections' do
       visit '/dashboard/collections'
       expect(find('table#collections-list-table'))
         .to have_selector(:id, "document_#{collection.id}")
     end
 
-    xit 'can view an individual Collection' do
+    it 'can view an individual Collection' do
       visit "/dashboard/collections/#{collection.id}"
       expect(page).to have_content(collection.title.first)
     end
 
-    xit 'cannot edit or update a Collection' do
+    it 'cannot edit or update a Collection' do
       visit "/dashboard/collections/#{collection.id}/edit"
       expect(page).to have_content('You do not have sufficient privileges to edit this document')
     end
 
     # This test is heavily inspired by a test in Hyrax v2.9.0, see
     # https://github.com/samvera/hyrax/blob/v2.9.0/spec/features/dashboard/collection_spec.rb#L463-L476
-    xit 'cannot destroy an individual Collection from the Dashboard index view' do
+    it 'cannot destroy an individual Collection from the Dashboard index view' do
       visit '/dashboard/collections'
 
       expect(page).to have_content(collection.title.first)
@@ -68,7 +63,7 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
         .to be_disabled
     end
 
-    xit 'cannot destroy a Collection from the Dashboard show view' do
+    it 'cannot destroy a Collection from the Dashboard show view' do
       visit "/dashboard/collections/#{collection.id}"
       expect(page).not_to have_content('Delete collection')
     end
@@ -139,15 +134,10 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
       login_as user
     end
 
-    # TODO: This fails due to :everyone_can_create_curation_concerns being included in
-    # Ability.ability_logic. Unskip after :everyone_can_create_curation_concerns
-    # is removed from ability logic (Work roles must be completed first)
-    xit 'cannot create a Collection' do
+    it 'cannot create a Collection' do
       visit '/dashboard/collections/new'
-      fill_in('Title', with: 'Collection Reader Test')
-      expect { click_button 'Save' }.not_to change(Collection, :count)
 
-      expect(page).not_to have_content('Collection was successfully created.')
+      expect(page).to have_content('You are not authorized to access this page.')
     end
 
     it 'can view all Collections' do

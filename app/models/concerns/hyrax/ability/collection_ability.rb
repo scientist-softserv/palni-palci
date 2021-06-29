@@ -57,6 +57,13 @@ module Hyrax
           can :manage_items_in_collection, ::SolrDocument do |solr_doc|
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id)
           end
+
+          # "Undo" permission restrictions added by the Groups with Roles feature, effectively reverting them back to default Hyrax behavior
+          unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+            can %i[destroy manage_discovery manage_items_in_collection], Collection do |collection|
+              test_edit(collection.id)
+            end
+          end
         end
       end
 

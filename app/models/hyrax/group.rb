@@ -9,6 +9,7 @@ module Hyrax
     validates :name, presence: true, uniqueness: true
     has_many :group_roles
     has_many :roles, through: :group_roles
+    before_destroy :can_destroy?
 
     def self.search(query)
       if query.present?
@@ -29,6 +30,16 @@ module Hyrax
       else
         members(member_class: member_class)
       end
+    end
+
+    def is_default_group?
+      return true if RolesService::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.stringify_keys.keys.include?(self.name)
+      false
+    end
+
+    def can_destroy?
+      return false if self.is_default_group?
+      true
     end
 
     # @example group.add_members_by_id(user.id)

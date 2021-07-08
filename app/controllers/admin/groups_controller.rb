@@ -55,9 +55,12 @@ module Admin
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
       add_breadcrumb t(:'hyku.admin.groups.title.edit'), edit_admin_group_path
       add_breadcrumb t(:'hyku.admin.groups.title.remove'), request.path
+      
+      flash.now[:alert] = "Default groups cannot be destroyed." if @group.is_default_group?
     end
 
-    def destroy
+    def destroy  
+      return redirect_back(fallback_location: admin_groups_path) if @group.is_default_group?
       if @group.destroy
         redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.destroy.success', group: @group.humanized_name)
       else

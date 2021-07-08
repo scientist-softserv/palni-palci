@@ -110,6 +110,25 @@ module Hyrax
       end
     end
 
+    context 'destroying groups 'do 
+    let!(:managers_group) { FactoryBot.create(:group, name: 'admin') }
+    let!(:users_group) { FactoryBot.create(:group, name: 'users') }
+    
+      describe '#is_default_group?' do
+        it 'returns true if the group is a Default Group' do
+          expect(managers_group.is_default_group?).to eq true
+          expect(users_group.is_default_group?).to eq false
+        end
+      end
+
+      describe '#can_delete?' do
+        it 'returns true if the group is a Default Group' do
+          expect(managers_group.can_destroy?).to eq false
+          expect(users_group.can_destroy?).to eq true
+        end
+      end
+    end
+
     describe '#add_members_by_id' do
       subject { FactoryBot.create(:group) }
 

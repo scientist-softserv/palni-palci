@@ -75,7 +75,8 @@
                   <% if can? :remove, User %>
                     <%= simple_form_for :revoke_membership, url: remove_admin_group_users_path(group_id: @group.to_param), method: :delete, html: { class: 'form' } do |f| %>
                       <%= f.input :user_ids, as: :hidden, input_html: { name: :user_ids, value: user.id } %>
-                      <%= f.submit class: 'btn btn-danger' %>
+                      <%# Cannot remove admin users from admin group %>
+                      <%= f.submit class: "btn btn-danger", disabled: @group.name == ::Ability.admin_group_name %>
                     <% end %>
                   <% end %>
                   </td>

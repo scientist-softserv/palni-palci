@@ -41,7 +41,7 @@
                 <td>
                 <%= simple_form_for :remove_role_from_group, url: remove_admin_group_roles_path(group_id: @group.to_param), method: :delete, html: { class: 'form' } do |f| %>
                   <%= f.input :role_id, as: :hidden, input_html: { name: :role_id, value: role.id } %>
-                  <%= f.submit class: 'btn btn-danger', id: "remove-role-#{role.id}-from-group" %>
+                  <%= f.submit class: 'btn btn-danger', disabled: @group.name == ::Ability.admin_group_name && role.name == 'admin', id: "remove-role-#{role.id}-from-group" %>
                 <% end %>
                 </td>
               </tr>

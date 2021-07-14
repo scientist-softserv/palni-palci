@@ -68,9 +68,9 @@ es:
         describe_singular_quantity_html: Hay <b>1 grupo</b> en este repositorio.
         description:
           admin: Los usuarios de este grupo se consideran administradores de este inquilino y tienen acceso sin restricciones.
-          registered: Contiene todos los usuarios que se han registrado en este inquilino.
           depositors: Los usuarios de este grupo pueden depositar trabajos en cualquier conjunto de administración de este inquilino.
           editors: 'Los usuarios de este grupo pueden leer y editar todas las colecciones y obras de este inquilino. También pueden: crear cobros, depositar y aprobar obras, gestionar embargos y arrendamientos y gestionar importadores y exportadores de Bulkrax.'
+          registered: Contiene todos los usuarios que se han registrado en este inquilino.
         flash:
           create:
             failure: No se pudo crear
@@ -112,10 +112,10 @@ es:
           delete: Eliminar grupo “%{group}”
           edit: Editar grupo
           index: Gestionar grupos
-          reader_index: Ver grupos
           list_members: Miembros del grupo actual
           members: Miembros del grupo
           new: Nuevo grupo
+          reader_index: Ver grupos
           remove: Eliminar grupo
           roles: Roles de grupo
       roles:

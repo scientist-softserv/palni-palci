@@ -68,9 +68,9 @@ it:
         describe_singular_quantity_html: In questo repository c'è <b>un gruppo</b> .
         description:
           admin: Gli utenti di questo gruppo sono considerati amministratori per questo tenant e hanno accesso illimitato.
-          registered: Contiene tutti gli utenti che si sono registrati in questo tenant.
           depositors: Gli utenti di questo gruppo possono depositare Works in qualsiasi set di amministratori in questo tenant.
           editors: 'Gli utenti di questo gruppo possono leggere e modificare tutte le raccolte e le opere in questo tenant. Possono anche: creare collezioni, depositare e approvare lavori, gestire embarghi e contratti di locazione e gestire importatori ed esportatori Bulkrax.'
+          registered: Contiene tutti gli utenti che si sono registrati in questo tenant.
         flash:
           create:
             failure: Impossibile creare il gruppo
@@ -112,10 +112,10 @@ it:
           delete: Rimuovi gruppo "%{group}"
           edit: Modifica gruppo
           index: Gestisci Gruppi
-          reader_index: Visualizza gruppi
           list_members: Membri del gruppo attuale
           members: Membri del gruppo
           new: Nuovo gruppo
+          reader_index: Visualizza gruppi
           remove: Rimuovi gruppo
           roles: Ruoli del gruppo
       roles:

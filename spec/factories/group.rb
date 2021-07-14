@@ -25,14 +25,12 @@ FactoryBot.define do
 
     factory :admin_group do
       name { 'admin' }
+      humanized_name { 'Managers' }
     end
 
     factory :registered_group do
       name { 'registered' }
-    end
-
-    factory :public_group do
-      name { 'public' }
+      humanized_name { 'Authorized Viewers' }
     end
   end
 end

@@ -18,6 +18,10 @@ module Hyrax
         user.ability.all_user_and_group_roles
       end
 
+      def user_groups(user)
+        user.hyrax_groups
+      end
+
       def last_accessed(user)
         user.last_sign_in_at || user.created_at
       end

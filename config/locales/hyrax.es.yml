@@ -242,7 +242,9 @@ es:
           describe_users_html:
             one: Hay <b>usuarios %{count}</b> en este repositorio.
             other: Hay <b>usuarios de %{count}</b> en este repositorio.
+          group_label: Grupos
           id_label: Nombre de usuario
+          reader_title: Ver usuarios
           role_label: Roles
           title: Administrar usuarios
       workflow_roles:

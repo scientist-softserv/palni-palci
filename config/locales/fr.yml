@@ -68,9 +68,9 @@ fr:
         describe_singular_quantity_html: Il y a <b>1 groupe</b> dans ce dépôt.
         description:
           admin: Les utilisateurs de ce groupe sont considérés comme des administrateurs pour ce locataire et ont un accès illimité.
-          registered: Contient tous les utilisateurs qui se sont inscrits dans ce locataire.
           depositors: Les utilisateurs de ce groupe sont autorisés à déposer des œuvres dans n'importe quel ensemble d'administration de ce client.
           editors: 'Les utilisateurs de ce groupe sont autorisés à lire et à modifier toutes les collections et tous les travaux de ce client. Ils peuvent également: créer des collections, déposer et approuver des travaux, gérer les embargos et les baux, et gérer les importateurs et exportateurs Bulkrax.'
+          registered: Contient tous les utilisateurs qui se sont inscrits dans ce locataire.
         flash:
           create:
             failure: Le groupe n'a pas pu être créé
@@ -112,10 +112,10 @@ fr:
           delete: Supprimer le groupe "%{group}"
           edit: Modifier le groupe
           index: Gérer les groupes
-          reader_index: Afficher les groupes
           list_members: Membres actuels du groupe
           members: Les membres du groupe
           new: Nouveau groupe
+          reader_index: Afficher les groupes
           remove: Supprimer le groupe
           roles: Rôles de groupe
       roles:

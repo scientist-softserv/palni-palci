@@ -240,7 +240,9 @@ fr:
           describe_users_html:
             one: Il y a <b>un utilisateur %{count}</b> dans ce référentiel.
             other: Il y <b>a des utilisateurs %{count}</b> dans ce référentiel.
+          group_label: Groupes
           id_label: Nom d'utilisateur
+          reader_title: Afficher les utilisateurs
           role_label: Les rôles
           title: gérer les utilisateurs
       workflow_roles:

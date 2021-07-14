@@ -68,9 +68,9 @@ de:
         describe_singular_quantity_html: Es gibt <b>1 Gruppe</b> in diesem Repository.
         description:
           admin: Benutzer in dieser Gruppe gelten als Administratoren für diesen Mandanten und haben uneingeschränkten Zugriff.
-          registered: Enthält alle Benutzer, die sich bei diesem Mandanten angemeldet haben.
           depositors: Benutzer in dieser Gruppe dürfen Works in jedem Admin-Set dieses Mandanten hinterlegen.
           editors: 'Benutzer in dieser Gruppe dürfen alle Sammlungen und Werke in diesem Mandanten lesen und bearbeiten. Sie können auch: Sammlungen erstellen, Werke hinterlegen und genehmigen, Embargos und Leasingverträge verwalten und Bulkrax-Importeure und -Exporteure verwalten.'
+          registered: Enthält alle Benutzer, die sich bei diesem Mandanten angemeldet haben.
         flash:
           create:
             failure: Gruppe konnte nicht erstellt werden
@@ -112,10 +112,10 @@ de:
           delete: Gruppe entfernen "%{group}"
           edit: Gruppe bearbeiten
           index: Gruppen verwalten
-          reader_index: Gruppen anzeigen
           list_members: Aktuelle Gruppenmitglieder
           members: Gruppenmitglieder
           new: Neue Gruppe
+          reader_index: Gruppen anzeigen
           remove: Gruppe entfernen
           roles: Gruppenrollen
       roles:

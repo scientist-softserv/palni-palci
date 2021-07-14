@@ -241,7 +241,9 @@ de:
           describe_users_html:
             one: In diesem Repository befindet sich ein <b>%{count}-Benutzer</b> .
             other: In diesem Repository befinden sich <b>%{count}-Benutzer</b> .
+          group_label: Gruppen
           id_label: Nutzername
+          reader_title: Benutzer anzeigen
           role_label: Rollen
           title: Benutzer verwalten
       workflow_roles:

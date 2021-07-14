@@ -4,10 +4,9 @@
 RSpec.describe 'User Roles' do
   let(:account) { create(:account) }
 
-
   context 'as a user manager' do
     let!(:user) { FactoryBot.create(:user, email: 'user@example.com', display_name: 'Regular User') }
-    let!(:public_group) { FactoryBot.create(:public_group, name: 'public') }
+    let!(:group_1) { FactoryBot.create(:group) }
     let(:user_manager) { FactoryBot.create(:user_manager) }
 
     before do
@@ -27,7 +26,7 @@ RSpec.describe 'User Roles' do
       click_on "Invite user"
       expect(page).to have_content 'An invitation email has been sent to user@test.com.'
     end
-    
+
     it 'can visit Manage Users and delete users' do
       visit "/admin/users"
       expect(page).to have_link 'Delete'
@@ -63,24 +62,24 @@ RSpec.describe 'User Roles' do
     end
 
     it 'can edit groups name' do
-      visit "/admin/groups/#{public_group.id}/edit"
+      visit "/admin/groups/#{group_1.id}/edit"
       expect(page).to have_content 'Edit Group:'
     end
 
     it 'can edit groups users' do
-      visit "/admin/groups/#{public_group.id}/users"
+      visit "/admin/groups/#{group_1.id}/users"
       expect(page).to have_content 'Current Group Members'
       expect(page).to have_link 'Remove'
     end
 
     it 'can edit groups roles' do
-      visit "/admin/groups/#{public_group.id}/roles"
+      visit "/admin/groups/#{group_1.id}/roles"
       expect(page).to have_content 'Current Group Roles'
       expect(page).to have_content 'Add Roles to Group'
     end
 
     it 'can remove a group' do
-      visit "/admin/groups/#{public_group.id}/remove"
+      visit "/admin/groups/#{group_1.id}/remove"
       expect(page).to have_content 'Remove Group'
       expect(page).to have_content 'This action is irreversible. It will remove all privileges group members have been assigned through this group.'
     end
@@ -128,7 +127,7 @@ RSpec.describe 'User Roles' do
       visit "/admin/users"
       expect(page).not_to have_content 'Invite user'
     end
-    
+
     it 'can visit Manage Users and cant delete users' do
       visit "/admin/users"
       expect(page).not_to have_link 'Delete'

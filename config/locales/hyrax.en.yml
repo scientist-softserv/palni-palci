@@ -253,6 +253,7 @@ en:
             other: There are <b>%{count} users</b> in this repository.
           id_label: Username
           role_label: Roles
+          group_label: Groups
           title: Manage Users
           reader_title: View Users
       workflow_roles:

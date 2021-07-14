@@ -2,7 +2,7 @@
 
 RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
   let(:tenant_user_attributes) { attributes_for(:user) }
-  let!(:public_group) { FactoryBot.create(:public_group, name: 'public') }
+  let!(:group_1) { FactoryBot.create(:group) }
 
   context 'within a tenant' do
 
@@ -12,7 +12,7 @@ RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
       before do
         login_as(user)
       end
-  
+
       it 'can access the users profile' do
         get "/dashboard/profiles/#{user.email.gsub('.', '-dot-')}"
         expect(response.status).to eq(200)
@@ -39,8 +39,8 @@ RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
     end
 
     context 'an unregistered user' do
-      let(:user_params) do 
-        { 
+      let(:user_params) do
+        {
           user: {
             email: tenant_user_attributes[:email],
             password: tenant_user_attributes[:password],
@@ -102,21 +102,21 @@ RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
-    
+
     it 'can access/edit manage groups user tab' do
-      get "/admin/groups/#{public_group.id}/users"
+      get "/admin/groups/#{group_1.id}/users"
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
 
     it 'can access/edit manage groups role tab' do
-      get "/admin/groups/#{public_group.id}/roles"
+      get "/admin/groups/#{group_1.id}/roles"
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
 
     it 'can access/edit manage groups remove tab' do
-      get "/admin/groups/#{public_group.id}/remove"
+      get "/admin/groups/#{group_1.id}/remove"
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
@@ -166,21 +166,21 @@ RSpec.describe "User roles", type: :request, singletenant: true, clean: true do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
-    
+
     it 'cannot access/edit manage groups user tab' do
-      get "/admin/groups/#{public_group.id}/users"
+      get "/admin/groups/#{group_1.id}/users"
       expect(response.status).to eq(401)
       expect(response).to have_http_status(:unauthorized)
     end
 
     it 'cannot access/edit manage groups role tab' do
-      get "/admin/groups/#{public_group.id}/roles"
+      get "/admin/groups/#{group_1.id}/roles"
       expect(response.status).to eq(401)
       expect(response).to have_http_status(:unauthorized)
     end
 
     it 'cannot access/edit manage groups remove tab' do
-      get "/admin/groups/#{public_group.id}/remove"
+      get "/admin/groups/#{group_1.id}/remove"
       expect(response.status).to eq(302)
       expect(response).to have_http_status(:redirect)
     end

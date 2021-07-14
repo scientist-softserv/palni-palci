@@ -41,6 +41,7 @@
           <tr>
             <th></th>
             <th><%= t('.id_label') %></th>
+            <th><%= t('.group_label') %></th>
             <th><%= t('.role_label') %></th>
             <th><%= t('.access_label') %></th>
             <th><%= t('.status_label') %></th>
@@ -49,13 +50,22 @@
         </thead>
         <tbody>
           <% @presenter.users.each do |user| %>
-            <tr>
+            <tr id="<%= user.email.parameterize %>">
               <td><%= link_to hyrax.user_path(user) do %>
                     <%= image_tag(user.avatar.url(:thumb), width: 30) if user.avatar.file %>
                   <% end %>
               </td>
               <td><%= link_to user.email, hyrax.user_path(user) %></td>
-              <td><% roles = @presenter.user_roles(user) %>
+
+              <td class="groups">
+                <% groups = @presenter.user_groups(user) %>
+                  <ul><% groups.each do |group| %>
+                    <li><%= group.humanized_name %></li>
+                    <% end %>
+                  </ul>
+              </td>
+
+              <td class="roles"><% roles = @presenter.user_roles(user) %>
                   <ul><% roles.each do |role| %>
                     <li><%= role.titleize %></li>
                     <% end %>

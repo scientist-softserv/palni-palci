@@ -68,9 +68,9 @@ zh:
         describe_singular_quantity_html: 此存储库中有<b> 1组</b>。
         description:
           admin: 该组中的用户被视为该租户的管理员，并且具有不受限制的访问权限。
-          registered: 包含已在此租户中注册的所有用户。
           depositors: 允许该组中的用户将作品存放到该租户的任何管理集中。
           editors: 允许该组中的用户阅读和编辑此租户中的所有“收藏夹”和“作品”。他们还可以：创建馆藏，存放和批准作品，管理禁运和租赁，以及管理Bulkrax进口商和出口商。
+          registered: 包含已在此租户中注册的所有用户。
         flash:
           create:
             failure: 无法创建组
@@ -112,10 +112,10 @@ zh:
           delete: 删除组 "%{group}"
           edit: 编辑组
           index: 管理组
-          reader_index: 查看組
           list_members: 当前组成员
           members: 小组成员
           new: 新组
+          reader_index: 查看組
           remove: 删除组
           roles: 组角色
       roles:

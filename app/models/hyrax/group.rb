@@ -10,6 +10,7 @@ module Hyrax
     has_many :group_roles
     has_many :roles, through: :group_roles
     before_destroy :can_destroy?
+    after_destroy :remove_all_members
 
     def self.search(query)
       if query.present?
@@ -30,16 +31,6 @@ module Hyrax
       else
         members(member_class: member_class)
       end
-    end
-
-    def is_default_group?
-      return true if RolesService::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.stringify_keys.keys.include?(self.name)
-      false
-    end
-
-    def can_destroy?
-      return false if self.is_default_group?
-      true
     end
 
     # @example group.add_members_by_id(user.id)
@@ -65,6 +56,12 @@ module Hyrax
       sipity_agent || create_sipity_agent!
     end
 
+    def is_default_group?
+      return true if RolesService::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.stringify_keys.keys.include?(self.name)
+
+      false
+    end
+
     def description_label
       label = description || I18n.t("hyku.admin.groups.description.#{name}")
       return '' if label =~ /^translation missing:/
@@ -73,6 +70,16 @@ module Hyrax
     end
 
     private
+
+      def can_destroy?
+        return false if self.is_default_group?
+
+        true
+      end
+
+      def remove_all_members
+        members.map { |m| m.remove_role(MEMBERSHIP_ROLE, self) }
+      end
 
       def sipity_agent
         Sipity::Agent.find_by(proxy_for_id: id, proxy_for_type: self.class.name)

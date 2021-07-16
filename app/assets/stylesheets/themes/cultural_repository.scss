@@ -27,7 +27,6 @@
     max-height: 100px !important;
   }
   $navbar-height: 100px !important;
-  
   ////// End Navbar //////
 
   div#featured_works > div.featured-works-4-column-layout:nth-child(1n+5){ display: none !important; }
@@ -225,7 +224,7 @@
   }
 
   @media screen and (max-width: $screen-md-min) {
-    div.recently-uploaded:nth-child(2n+3) {
+    div.recently-uploaded:nth-of-type(2n+3) {
       clear: left,
     }
     .mb-40-0 {

@@ -89,3 +89,11 @@ def save_timestamped_page_and_screenshot(page, meta)
   puts "\n  Screenshot: tmp/capybara/#{screenshot_name}"
   puts "  HTML: tmp/capybara/#{page_name}"
 end
+
+RSpec.configure do |config|
+  config.after do |example|
+    if example.metadata[:js]
+      save_timestamped_page_and_screenshot(Capybara.page, example.metadata) if example.exception
+    end
+  end
+end

@@ -102,7 +102,7 @@
               </thead>
               <tbody>
                 <% @presenter.users.each do |user| %>
-                  <tr id=<%= "#{user.user_key.gsub('@','-').gsub('.','-')}" %>>
+                  <tr id=<%= "#{user.user_key.parameterize}" %>>
                     <td data-sort="<%= user.user_key %>"><%= user.user_key %></td>
                     <td data-sort="<%= user.display_name %>"><%= user.display_name %></td>
                     <% agent_presenter = @presenter.presenter_for(user) %>

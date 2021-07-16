@@ -26,11 +26,31 @@ FactoryBot.define do
     factory :admin_group do
       name { 'admin' }
       humanized_name { 'Managers' }
+      description { 'Default group' }
+
+      roles { ['admin'] }
     end
 
     factory :registered_group do
       name { 'registered' }
       humanized_name { 'Authorized Viewers' }
+      description { 'Default group' }
+    end
+
+    factory :editors_group do
+      name { 'editors' }
+      humanized_name { 'Editors' }
+      description { 'Default group' }
+
+      roles { ['admin_set_editor', 'collection_editor', 'user_reader'] }
+    end
+
+    factory :depositors_group do
+      name { 'depositors' }
+      humanized_name { 'Depositors' }
+      description { 'Default group' }
+
+      roles { ['admin_set_depositor'] }
     end
   end
 end

@@ -110,21 +110,41 @@ module Hyrax
       end
     end
 
-    context 'destroying groups 'do 
-    let!(:managers_group) { FactoryBot.create(:group, name: 'admin') }
-    let!(:users_group) { FactoryBot.create(:group, name: 'users') }
-    
-      describe '#is_default_group?' do
-        it 'returns true if the group is a Default Group' do
-          expect(managers_group.is_default_group?).to eq true
-          expect(users_group.is_default_group?).to eq false
+    context '#destroy' do
+      context 'when destroying a non-default group' do
+        let!(:group) { FactoryBot.create(:group) }
+        let(:user_1) { FactoryBot.create(:user) }
+        let(:user_2) { FactoryBot.create(:user) }
+
+        it 'destroys successfully' do
+          expect { group.destroy }.to change(Hyrax::Group, :count).by(-1)
+        end
+
+        it 'removes the membership role for all members of the group' do
+          group.add_members_by_id([user_1.id, user_2.id])
+          expect(user_1.hyrax_groups).to include(group)
+          expect(user_2.hyrax_groups).to include(group)
+          expect(Role.where(resource_id: group.id, resource_type: 'Hyrax::Group', name: 'member').count).to eq(1) # group's membership Role
+
+          expect { group.destroy }.to change(Role, :count).by(-1)
+
+          expect(user_1.hyrax_groups).not_to include(group)
+          expect(user_2.hyrax_groups).not_to include(group)
+          expect(Role.where(resource_id: group.id, resource_type: 'Hyrax::Group', name: 'member').count).to eq(0) # group's membership Role
         end
       end
 
-      describe '#can_delete?' do
-        it 'returns true if the group is a Default Group' do
-          expect(managers_group.can_destroy?).to eq false
-          expect(users_group.can_destroy?).to eq true
+      context 'when attempting to destroy a default group' do
+        let(:admin_group) { FactoryBot.create(:admin_group) }
+        let(:registered_group) { FactoryBot.create(:registered_group) }
+        let(:editors_group) { FactoryBot.create(:editors_group) }
+        let(:depositors_group) { FactoryBot.create(:depositors_group) }
+
+        it 'does not succeed' do
+          expect { admin_group.destroy }.not_to change(Hyrax::Group, :count)
+          expect { registered_group.destroy }.not_to change(Hyrax::Group, :count)
+          expect { editors_group.destroy }.not_to change(Hyrax::Group, :count)
+          expect { depositors_group.destroy }.not_to change(Hyrax::Group, :count)
         end
       end
     end
@@ -204,6 +224,22 @@ module Hyrax
           expect(group1.roles).to include(edit_collection_role)
           expect(group2.roles).to include(edit_collection_role)
         end
+      end
+    end
+
+    context '#is_default_group?' do
+      let(:admin_group) { FactoryBot.create(:admin_group) }
+      let(:registered_group) { FactoryBot.create(:registered_group) }
+      let(:editors_group) { FactoryBot.create(:editors_group) }
+      let(:depositors_group) { FactoryBot.create(:depositors_group) }
+      let(:non_default_group) { FactoryBot.create(:group) }
+
+      it 'returns true if the group is a Default Group' do
+        expect(admin_group.is_default_group?).to eq true
+        expect(registered_group.is_default_group?).to eq true
+        expect(editors_group.is_default_group?).to eq true
+        expect(depositors_group.is_default_group?).to eq true
+        expect(non_default_group.is_default_group?).to eq false
       end
     end
   end

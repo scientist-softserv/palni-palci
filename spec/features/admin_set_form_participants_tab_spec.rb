@@ -42,8 +42,7 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
           find('input.btn-info').click
         end
 
-        expect(all('table.share-status').first).to have_content('dummy')
-        expect(all('table.share-status').last).not_to have_content('dummy')
+        expect(first('table.share-status')).to have_content('dummy')
       end
 
       it 'can add a group as a Depositor of the admin set' do

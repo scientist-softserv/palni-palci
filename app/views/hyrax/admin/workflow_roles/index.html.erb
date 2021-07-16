@@ -15,7 +15,7 @@
           </div>
           <div class='panel-body'>
             <%= simple_form_for Hyrax::Forms::WorkflowResponsibilityGroupForm.new, url: hyrax.admin_workflow_roles_path, html: { id: :new_sipity_group_workflow_responsibility } do |f| %>
-              <%= f.input :group_id, as: :select, collection: f.object.group_options %>
+              <%= f.input :group_id, as: :select, collection: f.object.group_options, label_method: :humanized_name, value_method: :id %>
               <%= f.input :workflow_role_id, as: :select, collection: f.object.workflow_role_options, input_html: { id: :sipity_workflow_responsibility_group_workflow_role_id } %>
               <%= f.submit id: 'assign_group_role_save_button', class: 'btn btn-sm btn-primary' %>
             <% end %>
@@ -61,7 +61,7 @@
               <tbody>
                 <% @presenter.groups.each do |group| %>
                   <tr id=<%= "#{group.name}" %>>
-                    <td data-sort="<%= group.name %>"><%= group.name %></td>
+                    <td data-sort="<%= group.name %>"><%= group.humanized_name %></td>
                     <% agent_presenter = @presenter.group_presenter_for(group) %>
                     <% if agent_presenter && agent_presenter.responsibilities_present? %>
                       <td>

@@ -25,7 +25,7 @@
                     <%= builder.hidden_field :agent_type %>
                     <%# changed select to use Hyrax::Groups %>
                     <%= builder.select :agent_id,
-                                Hyrax::Group.all.map { |g| g.name },
+                                Hyrax::Group.all.map { |g| [g.humanized_name, g.name] },
                                 { prompt: "Select a group..." },
                                 class: 'form-control' %>
                     as

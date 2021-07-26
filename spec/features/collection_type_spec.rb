@@ -121,6 +121,20 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true do
   end
 
   describe 'edit collection type' do
+    context 'adding participants' do
+      let!(:group) { FactoryBot.create(:group, name: 'dummy') }
+
+      before do
+        login_as admin_user
+        visit "/admin/collection_types/#{user_collection_type.id}/edit#participants"
+      end
+
+      it 'displays the groups humanized name' do
+        expect(page).to have_content 'Add Participants'
+        expect(page.has_select?('collection_type_participant_agent_id', with_options: [group.humanized_name])).to be true
+      end
+    end
+
     context 'when there are no collections of this type' do
       let(:title_old) { exhibit_title }
       let(:description_old) { exhibit_description }

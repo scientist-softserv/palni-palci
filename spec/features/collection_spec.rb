@@ -126,44 +126,58 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true do
 
   describe 'default collection sharing' do
     let(:user) { create(:admin) }
-
+    
     before do
       login_as user
     end
-
+    
     context 'when creating a collection' do
       before do
         visit 'dashboard/collections/new'
-
+        
         fill_in('Title', with: 'Default Sharing Test')
         click_button 'Save'
         expect(page).to have_content('Collection was successfully created.')
-
+        
         click_link 'Sharing'
       end
-
+      
       it 'gives the :collection_manager role manage access by default' do
         managers_table = first('table.share-status')
         collection_manager_row_html = managers_table.find(:xpath, '//td[@data-agent="collection_manager"]').find(:xpath, '..')['innerHTML']
-
+        
         expect(collection_manager_row_html).to include('<td data-agent="collection_manager">collection_manager</td>')
         expect(collection_manager_row_html).to include('<td>Group</td>')
       end
-
+      
       it 'gives the :collection_editor role view access by default' do
         viewers_table = all('table.share-status').last
         collection_editor_row_html = viewers_table.find(:xpath, '//td[@data-agent="collection_editor"]').find(:xpath, '..')['innerHTML']
-
+        
         expect(collection_editor_row_html).to include('<td data-agent="collection_editor">collection_editor</td>')
         expect(collection_editor_row_html).to include('<td>Group</td>')
       end
-
+      
       it 'gives the :collection_reader role view access by default' do
         viewers_table = all('table.share-status').last
         collection_reader_row_html = viewers_table.find(:xpath, '//td[@data-agent="collection_reader"]').find(:xpath, '..')['innerHTML']
-
+        
         expect(collection_reader_row_html).to include('<td data-agent="collection_reader">collection_reader</td>')
         expect(collection_reader_row_html).to include('<td>Group</td>')
+      end
+    end
+    
+    context 'sharing a collection' do
+      let!(:group) { FactoryBot.create(:group, name: 'dummy') }
+      let!(:collection) { FactoryBot.create(:collection) }
+
+      before do
+        visit "/dashboard/collections/#{ERB::Util.url_encode(collection.id)}/edit#sharing"
+      end
+      
+      it 'displays the groups humanized name' do
+        expect(page).to have_content 'Add Sharing'
+        expect(page.has_select?('permission_template_access_grants_attributes_0_agent_id', with_options: [group.humanized_name])).to be true
       end
     end
   end

@@ -24,8 +24,8 @@
   <div class="col-sm-9 form-inline">
     <label for="new_group_name_skel" class="sr-only">Group</label>
     <%# changed select to use Hyrax::Groups %>
-    <% hyrax_groups = Hyrax::Group.all.map { |g| g.name } %>
-    <%= select_tag 'new_group_name_skel', options_for_select(["Select a group"] + hyrax_groups), class: 'form-control' %>
+    <% hyrax_groups = Hyrax::Group.all.map { |g| [g.humanized_name, g.name] } %>
+    <%= select_tag 'new_group_name_skel', options_for_select(hyrax_groups), prompt: "Select a group...", class: 'form-control' %>
     <label for="new_group_permission_skel" class="sr-only">Access type to grant</label>
     <%= select_tag 'new_group_permission_skel', options_for_select(Hyrax.config.permission_options), class: 'form-control' %>
 

@@ -30,6 +30,10 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
         visit "/admin/admin_sets/#{ERB::Util.url_encode(admin_set_id)}/edit#participants"
       end
 
+      it 'displays the groups humanized name' do
+        expect(page.has_select?('permission_template_access_grants_attributes_0_agent_id', with_options: [group.humanized_name])).to be true
+      end
+
       it 'can add a group as a Manager of the admin set' do
         expect(page).to have_content('Add Participants')
         expect(page).to have_content('Add group')
@@ -37,7 +41,7 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
         expect(all('table.share-status').last).not_to have_content('dummy')
 
         within('form#group-participants-form') do
-          find('select#permission_template_access_grants_attributes_0_agent_id option', text: 'dummy').click
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: 'Group dummy').click
           find('select#permission_template_access_grants_attributes_0_access option', text: 'Manager').click
           find('input.btn-info').click
         end

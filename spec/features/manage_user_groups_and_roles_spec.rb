@@ -18,10 +18,10 @@ RSpec.describe "The Manage Users table", type: :feature, js: true, clean: true d
     before do
       user.add_role(collection_manager_role.name, Site.instance)
       login_as admin
+      visit '/admin/users'
     end
 
     it "lists each user's associated groups' humanized names" do
-      visit '/admin/users'
       expect(page).to have_content('Manage Users')
       expect(page).to have_css 'th', text: 'Groups'
       expect(find("tr##{admin.email.parameterize} td.groups")).to have_text(admin_group.humanized_name)
@@ -29,7 +29,6 @@ RSpec.describe "The Manage Users table", type: :feature, js: true, clean: true d
     end
 
     it "lists each user's associated direct and inherited roles" do
-      visit '/admin/users'
       expect(page).to have_content('Manage Users')
       expect(page).to have_css 'th', text: 'Roles'
       expect(find("tr##{admin.email.parameterize} td.roles")).to have_text(admin_role.name.titlecase)
@@ -37,5 +36,51 @@ RSpec.describe "The Manage Users table", type: :feature, js: true, clean: true d
       expect(find("tr##{user.email.parameterize} td.roles")).to have_text(collection_manager_role.name.titlecase)
     end
 
+    it 'can visit Manage Users and invite users with the admin role' do
+      expect(page).to have_content 'Add or Invite user via email'
+      expect(page.has_select?('user_roles', with_options: [admin_role.name.titleize, user_manager_role.name.titleize])).to be true
+      fill_in "Email address", with: 'user@test.com'
+      select "#{admin_role.name.titleize}", from: 'user_roles'
+      click_on "Invite user"
+      expect(page).to have_content 'An invitation email has been sent to user@test.com.'
+    end
+  end
+
+  context 'as a user manager' do
+    let!(:group_1) { FactoryBot.create(:group) }
+    let(:user_manager) { FactoryBot.create(:user_manager) }
+
+    before do
+      login_as(user_manager, scope: :user)
+    end
+
+    it 'can visit Manage Users and invite users' do
+      visit "/admin/users"
+      fill_in "Email address", with: 'user@test.com'
+      select "User Manager", from: 'user_roles'
+      click_on "Invite user"
+      expect(page).to have_content 'An invitation email has been sent to user@test.com.'
+    end
+
+    it 'can visit Manage Users but cannot invite admin users' do
+      visit '/admin/users'
+      select = page.find('select#user_roles').all('option').collect(&:text)
+      expect(select).to contain_exactly('Select a role...', 'Admin Set Editor', 'Admin Set Depositor', 'Collection Manager', 'Collection Editor', 'Collection Reader', 'User Manager', 'User Reader')
+      expect(select).not_to include('Admin')
+    end
+  end
+
+  context 'as a user reader' do
+    let(:user_reader) { FactoryBot.create(:user_reader) }
+
+    before do
+      login_as(user_reader, scope: :user)
+    end
+
+    it 'can visit Manage Users but cannot invite users' do
+      visit "/admin/users"
+      expect(page).not_to have_content 'Add or Invite user via email'
+      expect(page.has_select?('user_roles', with_options: ['Admin', 'Collection Editor', 'User Manager'])).to be false
+    end
   end
 end

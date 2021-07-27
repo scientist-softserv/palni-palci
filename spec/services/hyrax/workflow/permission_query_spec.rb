@@ -76,10 +76,9 @@ module Hyrax
 
       describe 'permissions assigned at the workflow level' do
         let(:reviewing_group_member) { create(:user) }
-        let(:reviewing_group) { Group.create(name: 'librarians') }
+        let(:reviewing_group) { create(:group, member_users: [reviewing_group_member]) }
 
         before do
-          allow(reviewing_group_member).to receive(:hyrax_groups).and_return(['librarians'])
           PermissionGenerator.call(roles: 'reviewing', workflow: sipity_workflow, agents: reviewing_user)
           PermissionGenerator.call(roles: 'reviewing', workflow: sipity_workflow, agents: reviewing_group)
           PermissionGenerator.call(roles: 'completing', workflow: sipity_workflow, agents: completing_user)
@@ -189,15 +188,11 @@ module Hyrax
           subject { described_class.scope_processing_agents_for(user: user) }
 
           let(:user) { create(:user) }
-          let!(:group) { create(:group, name: "librarians") }
-
-          before do
-            allow(user).to receive(:hyrax_groups).and_return(['librarians'])
-          end
+          let!(:group) { create(:group, member_users: [user]) }
 
           it 'will equal [kind_of(Sipity::Agent)]' do
-            is_expected.to contain_exactly(PowerConverter.convert_to_sipity_agent(user),
-                                           PowerConverter.convert_to_sipity_agent(group))
+            is_expected.to include(PowerConverter.convert_to_sipity_agent(user),
+                                   PowerConverter.convert_to_sipity_agent(group))
           end
         end
       end

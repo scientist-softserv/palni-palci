@@ -168,8 +168,7 @@ module Hyrax
         # Override from hyrax 2.5.1 - use User.workflow groups method
         group_agents = user.hyrax_groups&.map do |g|
           # Override from hyrax 2.5.1 - use sipity agent and not create new group
-          group = Hyrax::Group.find_by(name: g)
-          group&.to_sipity_agent
+          g.to_sipity_agent
         end
         Sipity::Agent.where(id: group_agents + [user_agent])
       end

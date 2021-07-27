@@ -56,6 +56,9 @@ class Ability
     can [:read, :update], Account do |account|
       account == Site.account
     end
+
+    # OVERRIDE: only admin users can make other users admins
+    can :grant_admin_role, User
   end
 
   def group_permissions

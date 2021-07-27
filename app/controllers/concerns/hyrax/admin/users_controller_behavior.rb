@@ -16,8 +16,12 @@ module Hyrax
         add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
         add_breadcrumb t(:'hyrax.admin.users.index.title'), hyrax.admin_users_path
         @presenter = Hyrax::Admin::UsersPresenter.new
+        @invite_roles_options = if current_user.ability.group_aware_role_checker.admin?
+                                  ::RolesService::DEFAULT_ROLES
+                                else
+                                  ::RolesService::DEFAULT_ROLES - [::RolesService::ADMIN_ROLE]
+                                end
       end
-
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # TODO(bkiahstroud): filename and location make sense?
 class RolesService
-  ADMIN_ROLE = %w[admin]
+  ADMIN_ROLE = 'admin'
 
   ADMIN_SET_ROLES = %w[
     admin_set_editor
@@ -19,7 +19,7 @@ class RolesService
     user_reader
   ].freeze
 
-  DEFAULT_ROLES = ADMIN_ROLE + ADMIN_SET_ROLES + COLLECTION_ROLES + USER_ROLES
+  DEFAULT_ROLES = [ADMIN_ROLE] + ADMIN_SET_ROLES + COLLECTION_ROLES + USER_ROLES
 
   DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES = {
     # This Hyrax::Group is required to exist for permissions to work properly

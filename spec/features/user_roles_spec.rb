@@ -22,7 +22,7 @@ RSpec.describe 'User Roles' do
     it 'can visit Manage Users and invite users' do
       visit "/admin/users"
       fill_in "Email address", with: 'user@test.com'
-      fill_in "Roles", with: 'user'
+      select "User Reader", from: 'user_roles'
       click_on "Invite user"
       expect(page).to have_content 'An invitation email has been sent to user@test.com.'
     end

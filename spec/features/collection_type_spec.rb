@@ -418,7 +418,9 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true do
   # OVERRIDE: new (non-hyrax) test cases below
 
   describe 'default collection type participants' do
-    let(:title) { 'Collection Type Participants test' }
+    let!(:non_role_group) { FactoryBot.create(:group, name: 'town_of_bedrock', humanized_name: 'Town of Bedrock') }
+    let!(:user) { FactoryBot.create(:user, email: 'user@example.com') }
+    let(:title) { 'Title Test' }
 
     before do
       login_as admin_user
@@ -426,17 +428,82 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true do
     end
 
     context 'when creating a collection type' do
-      it 'gives the :collection_manager role manage access by default' do
+      it "includes non-role group access_grants to render in tables" do
+        fill_in 'Type name', with: title
+        click_button 'Save'
+        expect(page).to have_content("The collection type #{title} has been created.")
+
+        # click the Participants tab and ensure the heading has rendered
+        click_link 'Participants'
+        expect(page).to have_content 'Add Participants'
+
+        # select the non-role group, assign role 'Manager', and add it to the collection type
+        select("Town of Bedrock", from: 'collection_type_participant_agent_id')
+        select("Manager", from: 'collection_type_participant_access', match: :first)
+        within('.section-participants') do
+          click_button('Add', match: :first)
+        end
+
+        # wait one second for the item to populate in the table and check for it's existence
+        sleep 1
+        expect(page).to have_content("Participants Updated")
+        managers_table = first('table.share-status')
+        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">town_of_bedrock</td>')
+      end
+
+      it 'excludes default role access_grants from rendering in tables' do
         fill_in 'Type name', with: title
         click_button 'Save'
         expect(page).to have_content("The collection type #{title} has been created.")
 
         click_link 'Participants'
-        managers_table = first('table.share-status')
-        collection_manager_row_html = managers_table.find(:xpath, '//td[@data-agent="collection_manager"]').find(:xpath, '..')['innerHTML']
 
-        expect(collection_manager_row_html).to include('<td data-agent="collection_manager">collection_manager</td>')
-        expect(collection_manager_row_html).to include('<td>Group</td>')
+        expect(page.html).not_to include('<td data-agent="collection_manager">Collection Manager</td>')
+        expect(page.html).not_to include('<td data-agent="collection_editor">Collection Editor</td>')
+        expect(page.html).not_to include('<td data-agent="collection_reader">Collection Reader</td>')
+      end
+
+      it "includes user access_grants to render in tables" do
+        fill_in 'Type name', with: title
+        click_button 'Save'
+        expect(page).to have_content("The collection type #{title} has been created.")
+
+        click_link 'Participants'
+        expect(page).to have_content 'Add Participants'
+
+        # within the typeahead input the first two characters of the user's
+        # email and wait one second for the item to populate in the table
+        within('#s2id_collection_type_participant_agent_id') do
+          fill_in "s2id_autogen1", with: 'us'
+          sleep 1
+        end
+
+        # check for the existence of the user's email from the typeahead dropdown menu
+        within('#select2-drop') do
+          within('.select2-results', match: :first) do
+            within('.select2-result', match: :first) do
+              find('.select2-result-label', text: 'user@example.com').click
+            end
+          end
+        end
+
+        # from the add user form select the value 'Manager' from the dropdown menu and click the 'Add' button
+        within('.section-participants') do
+          last_container = all('.form-add-participants-wrapper').last
+          within(last_container) do
+            select("Manager", from: 'collection_type_participant_access')
+            click_button('Add')
+          end
+        end
+
+        # wait one second for the item to populate in the table and check for it's existence
+        sleep 1
+        expect(page).to have_content("Participants Updated")
+        managers_table = first('table.share-status')
+        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="user@example.com">user@example.com</td>')
+        expect(manager_row_html).to include('<td>User</td>')
       end
     end
   end

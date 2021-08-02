@@ -97,7 +97,7 @@ RSpec.describe RolesService, clean: true do
         roles_service.create_default_hyrax_groups_with_roles!
 
         admin_group = Hyrax::Group.find_by(name: 'admin')
-        expect(admin_group.humanized_name).to eq('Managers')
+        expect(admin_group.humanized_name).to eq('Repository Administrators')
         expect(admin_group.description).to eq(I18n.t("hyku.admin.groups.description.#{::Ability.admin_group_name}"))
         expect(admin_group.roles.map(&:name)).to contain_exactly(*%w[admin])
       end
@@ -106,7 +106,7 @@ RSpec.describe RolesService, clean: true do
         roles_service.create_default_hyrax_groups_with_roles!
 
         registered_group = Hyrax::Group.find_by(name: 'registered')
-        expect(registered_group.humanized_name).to eq('Authorized Viewers')
+        expect(registered_group.humanized_name).to eq('Registered Users')
         expect(registered_group.description).to eq(I18n.t("hyku.admin.groups.description.#{::Ability.registered_group_name}"))
         expect(registered_group.roles.map(&:name)).to eq([])
       end

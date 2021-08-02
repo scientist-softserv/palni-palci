@@ -24,12 +24,12 @@ class RolesService
   DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES = {
     # This Hyrax::Group is required to exist for permissions to work properly
     "#{::Ability.admin_group_name}": {
-      humanized_name: 'Managers',
+      humanized_name: 'Repository Administrators',
       description: I18n.t('hyku.admin.groups.description.admin')
     }.freeze,
     # This Hyrax::Group is required to exist for permissions to work properly
     "#{::Ability.registered_group_name}": {
-      humanized_name: 'Authorized Viewers',
+      humanized_name: 'Registered Users',
       description: I18n.t('hyku.admin.groups.description.registered')
     }.freeze,
     editors: {

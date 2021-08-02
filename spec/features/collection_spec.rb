@@ -125,48 +125,86 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true do
   # OVERRIDE: new (non-hyrax) test cases below
 
   describe 'default collection sharing' do
+    let!(:user_2) { FactoryBot.create(:user, email: 'user@example.com') }
+    let!(:non_role_group) { FactoryBot.create(:group, name: 'town_of_bedrock', humanized_name: 'Town of Bedrock') }
     let(:user) { create(:admin) }
-    
+
     before do
       login_as user
     end
-    
+
     context 'when creating a collection' do
       before do
         visit 'dashboard/collections/new'
-        
+
         fill_in('Title', with: 'Default Sharing Test')
         click_button 'Save'
         expect(page).to have_content('Collection was successfully created.')
-        
+
         click_link 'Sharing'
       end
-      
-      it 'gives the :collection_manager role manage access by default' do
+
+      it 'excludes default role access_grants from rendering in tables' do
+        expect(page.html).not_to include('<td data-agent="collection_manager">collection_manager</td>')
+        expect(page.html).not_to include('<td data-agent="collection_editor">collection_editor</td>')
+        expect(page.html).not_to include('<td data-agent="collection_reader">collection_reader</td>')
+      end
+
+      it "includes user access_grants to render in tables" do
+        expect(page).to have_content 'Add Sharing'
+
+        # within the typeahead input the first two characters of the user's
+        # email and wait one second for the item to populate in the table
+        within('#s2id_permission_template_access_grants_attributes_0_agent_id') do
+          fill_in "s2id_autogen2", with: 'us'
+          sleep 1
+        end
+
+        # check for the existence of the user's email from the typeahead dropdown menu
+        within('#select2-drop') do
+          within('.select2-results', match: :first) do
+            within('.select2-result', match: :first) do
+              find('.select2-result-label', text: 'user@example.com').click
+            end
+          end
+        end
+
+        # from the add user form select the value 'Manager' from the dropdown menu and click the 'Add' button
+        within('.section-add-sharing') do
+          last_container = all('.form-add-sharing-wrapper').last
+          within(last_container) do
+            select("Manager", from: 'permission_template_access_grants_attributes_0_access')
+            click_button('Add')
+          end
+        end
+
+        # wait one second for the item to populate in the table and check for it's existence
+        sleep 1
+        expect(page).to have_content("The collection's sharing options have been updated.")
         managers_table = first('table.share-status')
-        collection_manager_row_html = managers_table.find(:xpath, '//td[@data-agent="collection_manager"]').find(:xpath, '..')['innerHTML']
-        
-        expect(collection_manager_row_html).to include('<td data-agent="collection_manager">collection_manager</td>')
-        expect(collection_manager_row_html).to include('<td>Group</td>')
+        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="user@example.com">user@example.com</td>')
       end
-      
-      it 'gives the :collection_editor role view access by default' do
-        viewers_table = all('table.share-status').last
-        collection_editor_row_html = viewers_table.find(:xpath, '//td[@data-agent="collection_editor"]').find(:xpath, '..')['innerHTML']
-        
-        expect(collection_editor_row_html).to include('<td data-agent="collection_editor">collection_editor</td>')
-        expect(collection_editor_row_html).to include('<td>Group</td>')
-      end
-      
-      it 'gives the :collection_reader role view access by default' do
-        viewers_table = all('table.share-status').last
-        collection_reader_row_html = viewers_table.find(:xpath, '//td[@data-agent="collection_reader"]').find(:xpath, '..')['innerHTML']
-        
-        expect(collection_reader_row_html).to include('<td data-agent="collection_reader">collection_reader</td>')
-        expect(collection_reader_row_html).to include('<td>Group</td>')
+
+      it "includes non-role group access_grants to render in tables" do
+        expect(page).to have_content 'Add Sharing'
+
+        # select the non-role group, assign role 'Manager', and add it to the collection type
+        select("Town of Bedrock", from: 'permission_template_access_grants_attributes_0_agent_id')
+        select("Manager", from: 'permission_template_access_grants_attributes_0_access', match: :first)
+        within('.section-add-sharing') do
+          click_button('Add', match: :first)
+        end
+
+        # wait one second for the item to populate in the table and check for it's existence
+        sleep 1
+        expect(page).to have_content("The collection's sharing options have been updated.")
+        managers_table = first('table.share-status')
+        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">town_of_bedrock</td>')
       end
     end
-    
+
     context 'sharing a collection' do
       let!(:group) { FactoryBot.create(:group, name: 'dummy') }
       let!(:collection) { FactoryBot.create(:collection) }
@@ -174,7 +212,7 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true do
       before do
         visit "/dashboard/collections/#{ERB::Util.url_encode(collection.id)}/edit#sharing"
       end
-      
+
       it 'displays the groups humanized name' do
         expect(page).to have_content 'Add Sharing'
         expect(page.has_select?('permission_template_access_grants_attributes_0_agent_id', with_options: [group.humanized_name])).to be true

@@ -85,37 +85,30 @@
     }
   }
 
-  .recently-uploaded {
-    a {
-      img {
-        width: 90px !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 auto !important;
-      }
-    }
-  }
 
   div.recently-uploaded:nth-child(2n+3) {
     clear: left,
   }
 
-  div.recently-uploaded:nth-last-child(4), div.recently-uploaded:last-child {
+  div.recently-uploaded:nth-last-child(4),
+  div.recently-uploaded:last-child {
     padding-bottom: 0px !important;
   }
 
-  ////// Collections Section //////
-
-  .collections-container {
+  .collections-container,
+  .recently-uploaded {
     a {
       img {
-        width: 240px !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 auto !important;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }
+
+  ////// Collections Section //////
 
   .collection-item-title, .recent-doc-title {
     text-align: center;
@@ -187,27 +180,6 @@
   ul.all-collection-list {
     list-style-type: none;
     font-size: 1.5em;
-  }
-
-  ////// Media Queries //////
-  @media (max-width: $screen-sm-max) {
-    .collections-container {
-      a {
-        img {
-          width: 200px !important;
-        }
-      }
-    }
-  }
-
-  @media (max-width: $screen-xs-min) {
-    .recently-uploaded {
-      a {
-        img {
-          width: 70px !important;
-        }
-      }
-    }
   }
 
   ////// Stats Carousel Media Queries //////

@@ -42,15 +42,17 @@
     }
   }
 
-  .neutral-repository-collections {
+  .neutral-repository-collections,
+  .recently-uploaded,
+  .featured-researcher {
 
     a {
-
       img {
-        width: 200px !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 auto !important;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }
@@ -65,18 +67,6 @@
   .recent-uploads-div-height {
     display: flex;
     flex-direction: column;
-  }
-
-  .recently-uploaded {
-    a {
-      img {
-        width: 90px !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 auto !important;
-
-      }
-    }
   }
 
   div.recently-uploaded:nth-child(2n+3) {
@@ -99,12 +89,6 @@
   }
 
   ////// Featured Researcher Section //////
-  .featured-researcher {
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
 
   div.neutral_repository.featured-researcher {
     background-color: #fff;
@@ -166,16 +150,6 @@
 
   ////// Media Queries //////
 
-  @media (min-width: $screen-xs-min) and (max-width: $screen-lg-min) {
-    .neutral-repository-collections {
-      a {
-        img {
-          width: 150px !important;
-        }
-      }
-    }
-  }
-
   @media (max-width: $screen-md-min) {
     div.neutral-repository-collections:nth-of-type(2n+3) {
       clear: left,
@@ -185,26 +159,6 @@
   @media (min-width: $screen-md-min) {
     div.neutral-repository-collections:nth-of-type(3n+4) {
       clear: left,
-    }
-  }
-
-  @media (min-width: $screen-sm-min) {
-    .recently-uploaded {
-      a {
-        img {
-          width: 70px !important;
-        }
-      }
-    }
-  }
-
-  @media (max-width: $screen-xs-min) {
-    .neutral-repository-collections {
-      a {
-        img {
-          width: 90px !important;
-        }
-      }
     }
   }
 

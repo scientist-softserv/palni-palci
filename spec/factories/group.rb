@@ -25,7 +25,7 @@ FactoryBot.define do
 
     factory :admin_group do
       name { 'admin' }
-      humanized_name { 'Managers' }
+      humanized_name { 'Repository Administrators' }
       description { 'Default group' }
 
       roles { ['admin'] }
@@ -33,7 +33,7 @@ FactoryBot.define do
 
     factory :registered_group do
       name { 'registered' }
-      humanized_name { 'Authorized Viewers' }
+      humanized_name { 'Registered Users' }
       description { 'Default group' }
     end
 

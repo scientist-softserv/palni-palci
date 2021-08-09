@@ -1,6 +1,7 @@
 # OVERRIDE FILE from Hyrax v2.9.0
 # - Give the :collection_manager role MANAGE_ACCESS to all non-AdminSet CollectionTypes by default
 # - Give the :collection_editor role CREATE_ACCESS to all non-AdminSet CollectionTypes by default
+# - Exclude CREATE_ACCESS from ::Ability.registered_group_name (all registered users) if we are restricting permissions
 module Hyrax
   module CollectionTypes
     # @api public
@@ -26,12 +27,16 @@ module Hyrax
         assigns_workflow: false,
         assigns_visibility: false,
         badge_color: "#663333",
-        # OVERRIDE: remove group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users)
         participants: [{ agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: ::Ability.admin_group_name, access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS },
                        # OVERRIDE: add :collection_manager role to participants array with MANAGE_ACCESS
                        { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_manager', access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS },
                        # OVERRIDE: add :collection_editor role to participants array with CREATE_ACCESS
-                       { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_editor', access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }]
+                       { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_editor', access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }].tap do |participants|
+                         # OVERRIDE: exclude group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users) if we are restricting permissions
+                         unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+                           participants << { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: ::Ability.registered_group_name, access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }
+                         end
+                       end
       }.freeze
 
       USER_COLLECTION_MACHINE_ID = Hyrax::CollectionType::USER_COLLECTION_MACHINE_ID
@@ -48,12 +53,16 @@ module Hyrax
         assigns_workflow: false,
         assigns_visibility: false,
         badge_color: "#705070",
-        # OVERRIDE: remove group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users)
         participants: [{ agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: ::Ability.admin_group_name, access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS },
                        # OVERRIDE: add :collection_manager role to participants array with MANAGE_ACCESS
                        { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_manager', access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS },
                        # OVERRIDE: add :collection_editor role to participants array with CREATE_ACCESS
-                       { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_editor', access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }]
+                       { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: 'collection_editor', access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }].tap do |participants|
+                         # OVERRIDE: exclude group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users) if we are restricting permissions
+                         unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+                           participants << { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE, agent_id: ::Ability.registered_group_name, access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }
+                         end
+                       end
       }.freeze
 
       ADMIN_SET_MACHINE_ID = Hyrax::CollectionType::ADMIN_SET_MACHINE_ID
@@ -129,7 +138,6 @@ module Hyrax
       #   If calling from Abilities, pass the ability.  If you try to get the ability from the user, you end up in an infinit loop.
       def self.add_default_participants(collection_type_id)
         return unless collection_type_id
-        # OVERRIDE: remove group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users)
         default_participants = [{ agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE,
                                   agent_id: ::Ability.admin_group_name,
                                   access: Hyrax::CollectionTypeParticipant::MANAGE_ACCESS },
@@ -140,7 +148,14 @@ module Hyrax
                                 # OVERRIDE: add :collection_editor role to participants array with CREATE_ACCESS
                                 { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE,
                                   agent_id: 'collection_editor',
-                                  access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }]
+                                  access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }].tap do |participants|
+                                    # OVERRIDE: exclude group with CREATE_ACCESS for ::Ability.registered_group_name (all registered users) if we are restricting permissions
+                                    unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+                                      participants << { agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE,
+                                                        agent_id: ::Ability.registered_group_name,
+                                                        access: Hyrax::CollectionTypeParticipant::CREATE_ACCESS }
+                                    end
+                                  end
         add_participants(collection_type_id, default_participants)
       end
 

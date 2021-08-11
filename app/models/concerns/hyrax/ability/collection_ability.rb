@@ -72,7 +72,7 @@ module Hyrax
       # as a manager of a Collection, they should be able to manage that Collection.
       def collection_roles
         # Can create, read, edit/update, destroy, and change visibility (discovery) of all Collections
-        if group_aware_role_checker.collection_manager?
+        if collection_manager?
           # Permit all actions (same collection permissions as admin users)
           can :manage, Collection
           can :manage, ::SolrDocument do |solr_doc|
@@ -81,7 +81,7 @@ module Hyrax
           can :create_collection_type, CollectionType
 
         # Can create, read, and edit/update all Collections
-        elsif group_aware_role_checker.collection_editor?
+        elsif collection_editor?
           can %i[edit update create create_any], Collection
           can %i[edit update], ::SolrDocument do |solr_doc|
             solr_doc.collection?
@@ -93,7 +93,7 @@ module Hyrax
           can :create_collection_type, CollectionType
 
         # Can read all Collections
-        elsif group_aware_role_checker.collection_reader?
+        elsif collection_reader?
           can %i[read read_any view_admin_show view_admin_show_any], Collection
           can %i[read read_any view_admin_show view_admin_show_any], ::SolrDocument do |solr_doc|
             solr_doc.collection?

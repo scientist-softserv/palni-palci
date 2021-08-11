@@ -139,7 +139,7 @@ RSpec.describe Hyrax::OerPresenter do
     end
 
     describe 'admin users' do
-      let(:user)    { create(:user) }
+      let(:user)    { create(:admin) }
       let(:ability) { Ability.new(user) }
       let(:attributes) do
         {
@@ -147,8 +147,6 @@ RSpec.describe Hyrax::OerPresenter do
           'id' => '99999'
         }
       end
-
-      before { allow(user).to receive_messages(groups: ['admin', 'registered']) }
 
       context 'with a new public work' do
         xit 'can feature the work' do

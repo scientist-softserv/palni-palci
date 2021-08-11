@@ -6,7 +6,6 @@ RSpec.describe 'actions permitted by the collection_editor role', type: :feature
   let!(:role) { FactoryBot.create(:role, :collection_editor) }
   let!(:collection) { FactoryBot.create(:private_collection_lw, with_permission_template: true) }
   let(:user) { FactoryBot.create(:user) }
-  let(:group_aware_role_checker) { ::GroupAwareRoleChecker.new(user: user) }
 
   context 'a User that has the collection_editor role' do
     before do

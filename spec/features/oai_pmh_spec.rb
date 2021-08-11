@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "OAI PMH Support", type: :feature do
+RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
   let(:user) { create(:user) }
   let(:work) { create(:work, user: user) }
   let(:identifier) { work.id }

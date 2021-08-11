@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Groups', type: :feature, js: true, clean: true do
+RSpec.describe 'Groups', type: :feature, js: true, clean: true, cohort: 'alpha' do
   let!(:user) { FactoryBot.create(:admin) }
   # Creating an admin user automatically creates the admin group
   let!(:managers_group) { Hyrax::Group.find_by(name: 'admin') }

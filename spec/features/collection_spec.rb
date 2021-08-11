@@ -1,5 +1,5 @@
 # OVERRIDE FILE from Hyrax v2.9.0
-RSpec.describe 'collection', type: :feature, js: true, clean: true do
+RSpec.describe 'collection', type: :feature, js: true, clean: true, cohort: 'alpha' do
   let(:user) { create(:user) }
 
   let(:collection1) { create(:public_collection_lw, user: user) }

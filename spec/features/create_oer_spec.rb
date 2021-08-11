@@ -7,7 +7,7 @@ include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 
-RSpec.feature 'Create a Oer', type: :feature, js: true, clean: true do
+RSpec.feature 'Create a Oer', type: :feature, js: true, clean: true, cohort: 'alpha' do
   context 'a logged in user' do
     let(:user_attributes) do
       { email: 'test@example.com' }

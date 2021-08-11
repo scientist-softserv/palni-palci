@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.describe 'Etd show page', type: :feature, js: true, clean: true do
+RSpec.describe 'Etd show page', type: :feature, js: true, clean: true, cohort: 'alpha' do
   include Warden::Test::Helpers
   let(:etd) { FactoryBot.create(:etd) }
 

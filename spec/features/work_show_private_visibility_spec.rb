@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Users trying to access a Private Work's show page", type: :feature, clean: true, js: true do
+RSpec.describe "Users trying to access a Private Work's show page", type: :feature, clean: true, js: true, cohort: 'bravo' do
   let(:fake_solr_document) do
     {
       'has_model_ssim': ['GenericWork'],

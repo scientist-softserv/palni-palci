@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # Two users, the user assigning roles and the user to whom a role is assigned
-RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true do
+RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true, cohort: 'alpha' do
   include Warden::Test::Helpers
   context 'an admin user' do
     let!(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Wilma Flinstone') }

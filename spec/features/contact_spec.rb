@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # NOTE: If want to run spec in browser, you have to set "js: true"
-RSpec.describe 'Site contact configuration', type: :feature, clean: true do
+RSpec.describe 'Site contact configuration', type: :feature, clean: true, cohort: 'alpha' do
   context 'as an administrator' do
     let(:user) { FactoryBot.create(:admin) }
 

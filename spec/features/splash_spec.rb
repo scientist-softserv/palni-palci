@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # NOTE: If want to run spec in broweser, you have to set "js: true"
-RSpec.describe "The splash page", type: :feature, clean: true, multitenant: true do
+RSpec.describe "The splash page", type: :feature, clean: true, multitenant: true, cohort: 'alpha' do
   around do |example|
     default_host = Capybara.default_host
     Capybara.default_host = Capybara.app_host || "http://#{Account.admin_host}"

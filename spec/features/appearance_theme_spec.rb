@@ -84,8 +84,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       expect(page).to have_css('a.view-type-gallery.active')
     end
 
-    # TODO: temp skip until GroupAwareRoleChecker#has_group_aware_role? bug is resolved
-    xit 'updates to the users preferred view' do
+    it 'updates to the users preferred view' do
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')

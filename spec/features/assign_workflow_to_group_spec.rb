@@ -8,7 +8,7 @@ RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true
   context 'an admin user' do
     let!(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Wilma Flinstone') }
     let!(:user) { FactoryBot.create(:user, email: 'user@example.com', display_name: 'Betty Rubble') }
-    let!(:group) { FactoryBot.create(:group, name: 'Flinstones') }
+    let!(:group) { FactoryBot.create(:group, name: 'flinstones', humanized_name: 'Flinstones') }
     let!(:group_3) { FactoryBot.create(:group, name: 'town_of_bedrock', humanized_name: 'Town of Bedrock') }
 
     let!(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
@@ -21,7 +21,7 @@ RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true
       )
     end
 
-    xit 'admin assigns an approving workflow role to a user' do
+    it 'admin assigns an approving workflow role to a user' do
       login_as admin
       visit '/admin/workflow_roles'
       expect(page).to have_content 'Current User Roles'
@@ -42,13 +42,13 @@ RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true
       expect(find('tr#user-example-com').find('td:nth-child(3)').text).to eq('Default Admin Set - approving (default)')
     end
 
-    xit 'admin assigns an approving workflow role to a group' do
+    it 'admin assigns an approving workflow role to a group' do
       group.add_members_by_id(user.id)
       login_as admin
       visit '/admin/workflow_roles'
       expect(page).to have_content 'Current Group Roles'
-      expect(find('tr#Flinstones').find('td:nth-child(1)').text).to eq('Flinstones')
-      expect(find('tr#Flinstones').find('td:nth-child(2)').text).to eq 'No roles'
+      expect(find('tr#flinstones').find('td:nth-child(1)').text).to eq('Flinstones')
+      expect(find('tr#flinstones').find('td:nth-child(2)').text).to eq 'No roles'
       find('#sipity_workflow_responsibility_group_id option', text: "Flinstones").click
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can find
@@ -59,8 +59,8 @@ RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true
         text: 'Default Admin Set - approving (default)'
       ).click
       find('#assign_group_role_save_button').click
-      expect(find('tr#Flinstones').find('td:nth-child(1)').text).to eq('Flinstones')
-      expect(find('tr#Flinstones').find('td:nth-child(2)').text).to eq 'Default Admin Set - approving (default)'
+      expect(find('tr#flinstones').find('td:nth-child(1)').text).to eq('Flinstones')
+      expect(find('tr#flinstones').find('td:nth-child(2)').text).to eq 'Default Admin Set - approving (default)'
     end
 
     it 'assigns role to group, UI displays group humanized name, and form sends id as value' do

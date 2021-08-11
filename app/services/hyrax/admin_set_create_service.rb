@@ -121,6 +121,7 @@ module Hyrax
 
       # Gives deposit access to registered users to default AdminSet
       def create_default_access_for(permission_template:, workflow:)
+        # OVERRIDE: do not give deposit access to the to default AdminSet to registered users if we are restricting permissions
         return if ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
 
         permission_template.access_grants.create(agent_type: 'group', agent_id: ::Ability.registered_group_name, access: Hyrax::PermissionTemplateAccess::DEPOSIT)

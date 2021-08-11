@@ -3,6 +3,7 @@
 class Ability
   include Hydra::Ability
   include Hyrax::Ability
+  include GroupAwareRoleChecker
   # OVERRIDE: Added custom user ability roles
   include Hyrax::Ability::UserAbility
 
@@ -37,17 +38,13 @@ class Ability
     @user_groups
   end
 
-  def group_aware_role_checker
-    @group_aware_role_checker ||= GroupAwareRoleChecker.new(user: current_user)
-  end
-
   # Define any customized permissions here.
   def custom_permissions
     can [:create], Account
   end
 
   def admin_permissions
-    return unless group_aware_role_checker.admin?
+    return unless admin?
     return if superadmin?
 
     super
@@ -62,7 +59,7 @@ class Ability
   end
 
   def group_permissions
-    return unless group_aware_role_checker.admin?
+    return unless admin?
 
     can :manage, Hyrax::Group
   end
@@ -84,7 +81,7 @@ class Ability
 
     @all_user_and_group_roles = []
     RolesService::DEFAULT_ROLES.each do |role_name|
-      @all_user_and_group_roles |= [role_name.to_s] if group_aware_role_checker.public_send("#{role_name}?")
+      @all_user_and_group_roles |= [role_name.to_s] if self.public_send("#{role_name}?")
     end
 
     @all_user_and_group_roles

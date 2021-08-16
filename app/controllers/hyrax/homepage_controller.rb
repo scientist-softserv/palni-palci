@@ -1,9 +1,11 @@
 # OVERRIDE: Hyrax v2.9.0 to add home_text content block to the index method - Adding themes
-# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page - inheriting from CatalogController rather than ApplicationController
+# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page -
+# inheriting from CatalogController rather than ApplicationController
 # OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add inject_theme_views method for theming
 # OVERRIDE: Hyrax v2.9.0 to add search_action_url method from Blacklight 6.23.0 to make facet links to go to /catalog
 # OVERRIDE: Hyrax v2.9.0 to add .sort_by to return collections in alphabetical order by title on the homepage
 # OVERRIDE: Hyrax v2.9.0 add all_collections page for IR theme
+# OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
 
 module Hyrax
   # Changed to inherit from CatalogController for home page facets
@@ -35,14 +37,15 @@ module Hyrax
       @featured_work_list = FeaturedWorkList.new
       @announcement_text = ContentBlock.for(:announcement)
       recent
+      ir_counts if home_page_theme == 'institutional_repository'
 
       # override hyrax v2.9.0 added for facets on homepage - Adding Themes
       (@response, @document_list) = search_results(params)
 
       respond_to do |format|
         format.html { store_preferred_view }
-        format.rss  { render :layout => false }
-        format.atom { render :layout => false }
+        format.rss  { render layout: false }
+        format.atom { render layout: false }
         format.json do
           @presenter = Blacklight::JsonPresenter.new(@response,
                                                      @document_list,
@@ -58,7 +61,7 @@ module Hyrax
       @presenter = presenter_class.new(current_ability, collections)
       @marketing_text = ContentBlock.for(:marketing)
       @announcement_text = ContentBlock.for(:announcement)
-      @collections = collections(rows: 100000)
+      @collections = collections(rows: 100_000)
     end
 
     # Added from Blacklight 6.23.0 to change url for facets on home page
@@ -90,6 +93,11 @@ module Hyrax
         (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
       rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
         @recent_documents = []
+      end
+
+      # OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
+      def ir_counts
+        @ir_counts = get_facet_field_response('resource_type_sim', {}, "f.resource_type_sim.facet.limit" => "-1")
       end
 
       def sort_field

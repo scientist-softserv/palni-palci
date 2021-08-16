@@ -1,5 +1,5 @@
 # Copied from Hyrax v2.9.0 to add home_text content block to the index method - Adding themes
-RSpec.describe Hyrax::HomepageController, type: :controller do
+RSpec.describe Hyrax::HomepageController, type: :controller, clean: true do
   routes { Hyrax::Engine.routes }
 
   describe "#index" do
@@ -99,6 +99,8 @@ RSpec.describe Hyrax::HomepageController, type: :controller do
       let(:collection) { create(:collection) }
       let(:collection_results) { double(documents: [collection]) }
 
+      # TODO: This test is failing. If I pass in an instance of Hyrax::CollectionSearchBuilder
+      # it fails with the wrong instance of the Hyrax::CollectionSearchBuilder
       before do
         allow(controller).to receive(:repository).and_return(repository)
         allow(controller).to receive(:search_results).and_return([nil, ['recent document']])
@@ -154,7 +156,21 @@ RSpec.describe Hyrax::HomepageController, type: :controller do
     end
 
     context 'with theming' do
-      it { should use_around_action(:inject_theme_views) }
+      it { is_expected.to use_around_action(:inject_theme_views) }
+    end
+
+    context 'with ir stats' do
+      before do
+        allow(controller).to receive(:home_page_theme).and_return('institutional_repository')
+      end
+
+      let!(:work_with_resource_type) { create(:work, user: user, resource_type: ['Article']) }
+
+      it 'gets the stats' do
+        get :index
+        expect(response).to be_success
+        expect(assigns(:ir_counts)['facet_counts']['facet_fields']['resource_type_sim']).to include('Article', 1)
+      end
     end
   end
 end

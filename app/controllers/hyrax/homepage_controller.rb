@@ -62,6 +62,7 @@ module Hyrax
       @marketing_text = ContentBlock.for(:marketing)
       @announcement_text = ContentBlock.for(:announcement)
       @collections = collections(rows: 100_000)
+      ir_counts if home_page_theme == 'institutional_repository'
     end
 
     # Added from Blacklight 6.23.0 to change url for facets on home page

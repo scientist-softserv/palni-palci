@@ -1,7 +1,8 @@
-# OVERRIDE: Hyrax v2.9.0 
+# OVERRIDE: Hyrax v2.9.0
 # - add inject_theme_views method for theming
 # - add homepage presenter for access to feature flippers
 # - add access to content blocks in the show method
+# - add access to ir_counts in the show method
 
 module Hyrax
   # Shows the about and help page
@@ -14,7 +15,7 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-    
+
     # OVERRIDE: Adding inject theme views method for theming
     around_action :inject_theme_views
 
@@ -24,7 +25,7 @@ module Hyrax
     def search_builder_class
       Hyrax::HomepageSearchBuilder
     end
-    
+
     # OVERRIDE: Hyrax v2.9.0 Add for theming
     class_attribute :presenter_class
     # OVERRIDE: Hyrax v2.9.0 Add for theming
@@ -41,6 +42,7 @@ module Hyrax
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
       @announcement_text = ContentBlock.for(:announcement)
+      ir_counts if home_page_theme == 'institutional_repository'
     end
 
     def edit
@@ -80,6 +82,11 @@ module Hyrax
 
       def pages_layout
         action_name == 'show' ? 'homepage' : 'hyrax/dashboard'
+      end
+
+      # OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
+      def ir_counts
+        @ir_counts = get_facet_field_response('resource_type_sim', {}, "f.resource_type_sim.facet.limit" => "-1")
       end
 
       # OVERRIDE: return collections for theming

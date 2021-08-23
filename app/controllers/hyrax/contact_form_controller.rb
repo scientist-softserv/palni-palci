@@ -1,17 +1,18 @@
-# OVERRIDE: Hyrax v2.9.0 
+# OVERRIDE: Hyrax v2.9.0
 # - add inject_theme_views method for theming
 # - add homepage presenter for access to feature flippers
 # - add access to content blocks in the show method
+# - add access to ir_counts in the show method
 
 module Hyrax
   class ContactFormController < ApplicationController
-    
+
     # OVERRIDE: Hyrax v2.9.0 Add for theming
     # Adds Hydra behaviors into the application controller
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-    
+
     before_action :build_contact_form
     layout 'homepage'
 
@@ -24,7 +25,7 @@ module Hyrax
     def search_builder_class
       Hyrax::HomepageSearchBuilder
     end
-    
+
     # OVERRIDE: Hyrax v2.9.0 Add for theming
     class_attribute :presenter_class
     # OVERRIDE: Hyrax v2.9.0 Add for theming
@@ -40,6 +41,7 @@ module Hyrax
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
       @announcement_text = ContentBlock.for(:announcement)
+      ir_counts if home_page_theme == 'institutional_repository'
     end
 
     def create
@@ -78,6 +80,11 @@ module Hyrax
       def contact_form_params
         return {} unless params.key?(:contact_form)
         params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
+      end
+
+      # OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
+      def ir_counts
+        @ir_counts = get_facet_field_response('resource_type_sim', {}, "f.resource_type_sim.facet.limit" => "-1")
       end
 
       # OVERRIDE: return collections for theming

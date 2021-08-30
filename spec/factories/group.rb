@@ -42,7 +42,7 @@ FactoryBot.define do
       humanized_name { 'Editors' }
       description { 'Default group' }
 
-      roles { ['admin_set_editor', 'collection_editor', 'user_reader'] }
+      roles { ['work_editor', 'collection_editor', 'user_reader'] }
     end
 
     factory :depositors_group do
@@ -50,7 +50,7 @@ FactoryBot.define do
       humanized_name { 'Depositors' }
       description { 'Default group' }
 
-      roles { ['admin_set_depositor'] }
+      roles { ['work_depositor'] }
     end
   end
 end

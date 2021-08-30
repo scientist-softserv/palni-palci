@@ -65,7 +65,7 @@ RSpec.describe "The Manage Users table", type: :feature, js: true, clean: true, 
     it 'can visit Manage Users but cannot invite admin users' do
       visit '/admin/users'
       select = page.find('select#user_roles').all('option').collect(&:text)
-      expect(select).to contain_exactly('Select a role...', 'Admin Set Editor', 'Admin Set Depositor', 'Collection Manager', 'Collection Editor', 'Collection Reader', 'User Manager', 'User Reader')
+      expect(select).to contain_exactly('Select a role...', 'Work Editor', 'Work Depositor', 'Collection Manager', 'Collection Editor', 'Collection Reader', 'User Manager', 'User Reader')
       expect(select).not_to include('Admin')
     end
   end

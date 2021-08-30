@@ -11,6 +11,20 @@ FactoryBot.define do
     # memberships until after the User has finished being created,
     # so we need to add the User's Roles before that happens.
 
+    transient do
+      roles { [] }
+    end
+
+    after(:create) do |group, evaluator|
+      evaluator.roles.each do |role|
+        group.roles << Role.find_or_create_by(
+          name: role,
+          resource_id: Site.instance.id,
+          resource_type: 'Site'
+        )
+      end
+    end
+
     factory :admin do
       before(:create) do |user|
         user.add_role(:admin, Site.instance)

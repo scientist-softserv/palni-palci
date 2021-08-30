@@ -24,7 +24,7 @@ module Hyrax
           end
           # TODO: make sure this does not apply to AdminSet solr documents -- this should be handled in admin_set_ability.rb
           can :destroy, ::SolrDocument do |solr_doc|
-            Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id)
+            Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id) if solr_doc.collection?
           end
 
           can :deposit, Collection do |collection|

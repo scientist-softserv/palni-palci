@@ -7,15 +7,9 @@ require 'rails_helper'
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, cohort: 'alpha' do
   include Warden::Test::Helpers
-  context 'a logged in user' do
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
-    let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
-    end
-    let!(:admin_group) { Hyrax::Group.create(name: "admin") }
-    let!(:registered_group) { Hyrax::Group.create(name: "registered") }
+
+  context 'a logged in user with the :work_depositor role' do
+    let(:user) { create(:user, roles: [:work_depositor]) }
     let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
     let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
     let(:workflow) do
@@ -28,6 +22,10 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
     end
 
     before do
+      create(:admin_group)
+      create(:registered_group)
+      create(:editors_group)
+      create(:depositors_group)
       # Create a single action that can be taken
       Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
 
@@ -40,9 +38,8 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       )
       login_as user
     end
-    # TODO: unskip when Work roles are completed
-    xit do
-      login_as user
+
+    it do
       visit '/dashboard/works'
       # TODO(bess) We are not able to get this link click to work in our automated tests, so this is a workaround.
       # I hope that if we move to system specs instead of feature specs we'll be able to move back to alignment with
@@ -68,11 +65,7 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
 
-      # With selenium and the chrome driver, focus remains on the
-      # select box. Click outside the box so the next line can't find
-      # its element
-      find('body').click
-      choose('generic_work_visibility_open')
+      page.choose('generic_work_visibility_open')
       # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       # rubocop:enable Metrics/LineLength

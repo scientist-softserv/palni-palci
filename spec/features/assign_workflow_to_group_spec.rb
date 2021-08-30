@@ -6,6 +6,14 @@ require 'rails_helper'
 RSpec.describe 'Assign workflow to group', type: :feature, js: true, clean: true, cohort: 'alpha' do
   include Warden::Test::Helpers
   context 'an admin user' do
+    # `before`s and `let!`s are order-dependent -- do not move this `before` from the top
+    before do
+      FactoryBot.create(:admin_group)
+      FactoryBot.create(:registered_group)
+      FactoryBot.create(:editors_group)
+      FactoryBot.create(:depositors_group)
+    end
+
     let!(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Wilma Flinstone') }
     let!(:user) { FactoryBot.create(:user, email: 'user@example.com', display_name: 'Betty Rubble') }
     let!(:group) { FactoryBot.create(:group, name: 'flinstones', humanized_name: 'Flinstones') }

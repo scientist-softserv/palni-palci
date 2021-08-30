@@ -123,9 +123,8 @@ en:
       roles:
         description:
           admin: Grants unrestricted access to this tenant
-          admin_set_depositor: Can deposit Works into any Admin Set in this tenant. Can read, edit, and manage Embargoes / Leases for Works belonging to them
-          admin_set_editor: 'Can read any Admin Set in this tenant. Also, can create, read, edit, and approve any Work in this tenant, as well as move Works
-                             between Admin Sets and manage Embargoes and Leases'
+          work_depositor: Can deposit Works into any Admin Set in this tenant. Can read, edit, and manage Embargoes / Leases for Works belonging to them
+          work_editor: Can create, read, edit, and approve any Work in this tenant, as well as move Works between Admin Sets and manage Embargoes and Leases
           collection_editor: Can create, read, and edit any Collection in this tenant
           collection_manager: Can create, read, edit, and destroy any Collection in this tenant
           collection_reader: Can read any Collection in this tenant

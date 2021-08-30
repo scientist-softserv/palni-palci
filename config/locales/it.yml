@@ -121,13 +121,13 @@ it:
       roles:
         description:
           admin: Concede l'accesso illimitato a questo tenant
-          admin_set_depositor: Può depositare Works in qualsiasi set di amministrazione in questo tenant. Può leggere, modificare e gestire Embarghi / Locazioni per Opere di loro proprietà
-          admin_set_editor: Può leggere qualsiasi set di amministrazione in questo tenant. Inoltre, può creare, leggere, modificare e approvare qualsiasi lavoro in questo tenant, nonché spostare i lavori tra i set di amministrazione e gestire gli embarghi e i contratti di locazione
           collection_editor: Può creare, leggere e modificare qualsiasi raccolta in questo tenant
           collection_manager: Può creare, leggere, modificare e distruggere qualsiasi raccolta in questo tenant
           collection_reader: Può leggere qualsiasi raccolta in questo inquilino
           user_manager: Può leggere, modificare, invitare e rimuovere qualsiasi utente in questo tenant
           user_reader: Può leggere qualsiasi utente in questo tenant
+          work_depositor: Può depositare Works in qualsiasi set di amministrazione in questo tenant. Può leggere, modificare e gestire Embarghi / Locazioni per Opere di loro proprietà
+          work_editor: Può leggere qualsiasi set di amministrazione in questo tenant. Inoltre, può creare, leggere, modificare e approvare qualsiasi lavoro in questo tenant, nonché spostare i lavori tra i set di amministrazione e gestire gli embarghi e i contratti di locazione
       title: Amministrazione
       work_types: Tipi di lavoro disponibili
     footer:

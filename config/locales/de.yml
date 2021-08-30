@@ -121,13 +121,13 @@ de:
       roles:
         description:
           admin: Gewährt uneingeschränkten Zugang zu diesem Mieter
-          admin_set_depositor: Kann Works in ein beliebiges Admin-Set dieses Mandanten einzahlen. Kann Embargos / Leasingverträge für dazugehörige Werke lesen, bearbeiten und verwalten
-          admin_set_editor: Kann jedes Admin-Set in diesem Mandanten lesen. Sie können auch alle Arbeiten in diesem Mandanten erstellen, lesen, bearbeiten und genehmigen sowie Arbeiten zwischen Verwaltungssätzen verschieben und Embargos und Leases verwalten
           collection_editor: Kann jede Sammlung in diesem Mandanten erstellen, lesen und bearbeiten
           collection_manager: Kann jede Sammlung in diesem Mandanten erstellen, lesen, bearbeiten und zerstören
           collection_reader: Kann jede Sammlung in diesem Mieter lesen
           user_manager: Kann jeden Benutzer in diesem Mandanten lesen, bearbeiten, einladen und entfernen
           user_reader: Kann jeden Benutzer in diesem Mandanten lesen
+          work_depositor: Kann Works in ein beliebiges Admin-Set dieses Mandanten einzahlen. Kann Embargos / Leasingverträge für dazugehörige Werke lesen, bearbeiten und verwalten
+          work_editor: Kann jedes Admin-Set in diesem Mandanten lesen. Sie können auch alle Arbeiten in diesem Mandanten erstellen, lesen, bearbeiten und genehmigen sowie Arbeiten zwischen Verwaltungssätzen verschieben und Embargos und Leases verwalten
       title: Verwaltung
       work_types: Verfügbare Arbeitstypen
     footer:

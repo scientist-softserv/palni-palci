@@ -3,11 +3,6 @@
 class RolesService
   ADMIN_ROLE = 'admin'
 
-  ADMIN_SET_ROLES = %w[
-    admin_set_editor
-    admin_set_depositor
-  ].freeze
-
   COLLECTION_ROLES = %w[
     collection_manager
     collection_editor
@@ -19,7 +14,12 @@ class RolesService
     user_reader
   ].freeze
 
-  DEFAULT_ROLES = [ADMIN_ROLE] + ADMIN_SET_ROLES + COLLECTION_ROLES + USER_ROLES
+  WORK_ROLES = %w[
+    work_editor
+    work_depositor
+  ].freeze
+
+  DEFAULT_ROLES = [ADMIN_ROLE] + COLLECTION_ROLES + USER_ROLES + WORK_ROLES
 
   DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES = {
     # This Hyrax::Group is required to exist for permissions to work properly
@@ -50,10 +50,10 @@ class RolesService
       roles: [].freeze
     }.freeze,
     editors: {
-      roles: %i[admin_set_editor collection_editor user_reader].freeze
+      roles: %i[work_editor collection_editor user_reader].freeze
     }.freeze,
     depositors: {
-      roles: %i[admin_set_depositor].freeze
+      roles: %i[work_depositor].freeze
     }.freeze
   }.freeze
 

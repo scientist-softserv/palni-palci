@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# One auth to rule them all!
-# Tie together all the concepts of auth in Hyrax, Hyku, and their dependencies.
+# Loop group memberships into the role-checking process
 module GroupAwareRoleChecker
   # Dynamically define all #<role_name>? methods so that, as more roles are added,
   # their role checker methods are automatically defined
@@ -23,7 +22,7 @@ module GroupAwareRoleChecker
     return true if current_user.has_role?(role_name, Site.instance)
 
     current_user.hyrax_groups.each do |group|
-      return true if group.roles.map(&:name).include?(role_name)
+      return true if group.has_site_role?(role_name)
     end
 
     false

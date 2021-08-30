@@ -8,8 +8,10 @@ RSpec.describe 'Etd show page', type: :feature, js: true, clean: true, cohort: '
   let(:etd) { FactoryBot.create(:etd) }
 
   before do
-    Hyrax::Group.create(name: 'admin')
-    Hyrax::Group.create(name: 'registered')
+    FactoryBot.create(:admin_group)
+    FactoryBot.create(:registered_group)
+    FactoryBot.create(:editors_group)
+    FactoryBot.create(:depositors_group)
 
     admin_set_id = AdminSet.find_or_create_default_admin_set_id
     permission_template = Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id)

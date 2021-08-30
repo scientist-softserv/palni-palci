@@ -62,7 +62,7 @@ module Hyrax
       context 'without a query' do
         before do
           FactoryBot.create(:group, humanized_name: 'Users')
-          FactoryBot.create(:group, humanized_name: 'Depositors', roles: ['admin_set_depositor'])
+          FactoryBot.create(:group, humanized_name: 'Depositors', roles: ['work_depositor'])
           FactoryBot.create(:group, humanized_name: 'Readers', roles: ['user_reader'])
           FactoryBot.create(:group, humanized_name: 'Managers', roles: ['admin'])
           FactoryBot.create(:group, humanized_name: 'Editors', roles: ['collection_editor'])
@@ -223,6 +223,42 @@ module Hyrax
           expect(group2.roles).to be_present
           expect(group1.roles).to include(edit_collection_role)
           expect(group2.roles).to include(edit_collection_role)
+        end
+      end
+
+      describe '#has_site_role?' do
+        subject(:group) { FactoryBot.build(:group) }
+
+        before do
+          group.roles << role
+        end
+
+        context 'when group has a non-site role that matches' do
+          let(:role) { FactoryBot.build(:role, name: 'non-site role', resource_type: 'non-site type') }
+
+          it 'returns false' do
+            expect(group.has_site_role?('non-site role')).to eq(false)
+          end
+        end
+
+        context 'when group has a site role that matches' do
+          let(:role) { FactoryBot.build(:role, name: 'my_role', resource_type: 'Site') }
+
+          it 'returns true' do
+            expect(group.has_site_role?('my_role')).to eq(true)
+          end
+
+          it 'handles being passed a symbol' do
+            expect(group.has_site_role?(:my_role)).to eq(true)
+          end
+        end
+
+        context 'when group has a site role that does not matches' do
+          let(:role) { FactoryBot.build(:role, name: 'my_role', resource_type: 'Site') }
+
+          it 'returns false' do
+            expect(group.has_site_role?('your_role')).to eq(false)
+          end
         end
       end
     end

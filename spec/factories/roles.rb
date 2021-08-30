@@ -16,13 +16,13 @@ FactoryBot.define do
       site_role
     end
 
-    trait :admin_set_editor do
-      name { 'admin_set_editor' }
+    trait :work_editor do
+      name { 'work_editor' }
       site_role
     end
 
-    trait :admin_set_depositor do
-      name { 'admin_set_depositor' }
+    trait :work_depositor do
+      name { 'work_depositor' }
       site_role
     end
 

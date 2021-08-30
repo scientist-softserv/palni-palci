@@ -136,15 +136,15 @@ RSpec.describe Ability do
     let(:user) { create(:user) }
     let(:user_reader_role) { create(:role, :user_reader) }
     let(:collection_editor_role) { create(:role, :collection_editor) }
-    let(:admin_set_depositor_role) { create(:role, :admin_set_depositor) }
+    let(:work_depositor_role) { create(:role, :work_depositor) }
 
     before do
       user.add_role(user_reader_role.name, Site.instance)
-      create(:group, name: 'test_group', member_users: [user], roles: [collection_editor_role.name, admin_set_depositor_role.name])
+      create(:group, name: 'test_group', member_users: [user], roles: [collection_editor_role.name, work_depositor_role.name])
     end
 
     it 'lists all role names that apply to the user' do
-      expect(subject.all_user_and_group_roles).to contain_exactly(*[user_reader_role.name, collection_editor_role.name, admin_set_depositor_role.name])
+      expect(subject.all_user_and_group_roles).to contain_exactly(*[user_reader_role.name, collection_editor_role.name, work_depositor_role.name])
     end
   end
 end

@@ -121,13 +121,13 @@ fr:
       roles:
         description:
           admin: Accorde un accès illimité à ce locataire
-          admin_set_depositor: Peut déposer des œuvres dans n'importe quel ensemble d'administration de ce client. Peut lire, modifier et gérer les embargos / baux pour les œuvres qui leur appartiennent
-          admin_set_editor: Peut lire n'importe quel ensemble d'administration dans ce client. En outre, peut créer, lire, modifier et approuver n'importe quel travail dans ce locataire, ainsi que déplacer des travaux entre les ensembles d'administration et gérer les embargos et les baux
           collection_editor: Peut créer, lire et modifier n'importe quelle collection dans ce client
           collection_manager: Peut créer, lire, modifier et détruire n'importe quelle collection de ce client
           collection_reader: Peut lire n'importe quelle collection dans ce locataire
           user_manager: Peut lire, modifier, inviter et supprimer n'importe quel utilisateur de ce client
           user_reader: Peut lire n'importe quel utilisateur de ce locataire
+          work_depositor: Peut déposer des œuvres dans n'importe quel ensemble d'administration de ce client. Peut lire, modifier et gérer les embargos / baux pour les œuvres qui leur appartiennent
+          work_editor: Peut lire n'importe quel ensemble d'administration dans ce client. En outre, peut créer, lire, modifier et approuver n'importe quel travail dans ce locataire, ainsi que déplacer des travaux entre les ensembles d'administration et gérer les embargos et les baux
       title: Administration
       work_types: Types de travail disponibles
     footer:

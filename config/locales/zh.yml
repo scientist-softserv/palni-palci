@@ -121,13 +121,13 @@ zh:
       roles:
         description:
           admin: 授予该租户不受限制的访问权限
-          admin_set_depositor: 可以将作品存放到该租户的任何管理集中。可以阅读，编辑和管理属于他们的作品的禁运/租赁
-          admin_set_editor: 可以读取此租户中的任何管理集。此外，可以在此租户中创建，阅读，编辑和批准任何作品，以及在管理集之间移动作品以及管理禁运和租赁
           collection_editor: 可以创建，读取和编辑此租户中的任何收藏集
           collection_manager: 可以创建，读取，编辑和销毁此租户中的任何收藏集
           collection_reader: 可以读取此租户中的任何收藏集
           user_manager: 可以读取，编辑，邀请和删除此租户中的任何用户
           user_reader: 可以读取此租户中的任何用户
+          work_depositor: 可以将作品存放到该租户的任何管理集中。可以阅读，编辑和管理属于他们的作品的禁运/租赁
+          work_editor: 可以读取此租户中的任何管理集。此外，可以在此租户中创建，阅读，编辑和批准任何作品，以及在管理集之间移动作品以及管理禁运和租赁
       title: 行政
       work_types: 可用的工作类型
     footer:

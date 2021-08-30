@@ -37,7 +37,7 @@ RSpec.describe Role, type: :model do
     end
 
     context 'when creating an editor role' do
-      let(:role) { FactoryBot.create(:role, :admin_set_editor) }
+      let(:role) { FactoryBot.create(:role, :work_editor) }
 
       it 'sets :sort_value to 2' do
         expect(role.sort_value).to eq(2)
@@ -45,7 +45,7 @@ RSpec.describe Role, type: :model do
     end
 
     context 'when creating an depositor role' do
-      let(:role) { FactoryBot.create(:role, :admin_set_depositor) }
+      let(:role) { FactoryBot.create(:role, :work_depositor) }
 
       it 'sets :sort_value to 3' do
         expect(role.sort_value).to eq(3)

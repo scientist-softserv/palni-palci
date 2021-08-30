@@ -117,7 +117,7 @@ RSpec.describe RolesService, clean: true do
         editors_group = Hyrax::Group.find_by(name: 'editors')
         expect(editors_group.humanized_name).to eq('Editors')
         expect(editors_group.description).to eq(I18n.t('hyku.admin.groups.description.editors'))
-        expect(editors_group.roles.map(&:name)).to contain_exactly(*%w[collection_editor admin_set_editor user_reader])
+        expect(editors_group.roles.map(&:name)).to contain_exactly(*%w[collection_editor work_editor user_reader])
       end
 
       it 'creates the tenant depositors group' do
@@ -126,7 +126,7 @@ RSpec.describe RolesService, clean: true do
         depositors_group = Hyrax::Group.find_by(name: 'depositors')
         expect(depositors_group.humanized_name).to eq('Depositors')
         expect(depositors_group.description).to eq(I18n.t('hyku.admin.groups.description.depositors'))
-        expect(depositors_group.roles.map(&:name)).to contain_exactly(*%w[admin_set_depositor])
+        expect(depositors_group.roles.map(&:name)).to contain_exactly(*%w[work_depositor])
       end
     end
   end

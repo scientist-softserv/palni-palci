@@ -121,13 +121,13 @@ es:
       roles:
         description:
           admin: Otorga acceso sin restricciones a este inquilino
-          admin_set_depositor: Puede depositar obras en cualquier conjunto de administración de este inquilino. Puede leer, editar y gestionar embargos / arrendamientos de obras que les pertenecen.
-          admin_set_editor: Puede leer cualquier conjunto de administración en este inquilino. Además, puede crear, leer, editar y aprobar cualquier trabajo en este inquilino, así como mover trabajos entre conjuntos de administración y administrar embargos y arrendamientos.
           collection_editor: Puede crear, leer y editar cualquier colección en este inquilino
           collection_manager: Puede crear, leer, editar y destruir cualquier colección en este inquilino
           collection_reader: Puede leer cualquier colección en este inquilino
           user_manager: Puede leer, editar, invitar y eliminar a cualquier usuario en este inquilino
           user_reader: Puede leer cualquier usuario en este inquilino
+          work_depositor: Puede depositar obras en cualquier conjunto de administración de este inquilino. Puede leer, editar y gestionar embargos / arrendamientos de obras que les pertenecen.
+          work_editor: Puede leer cualquier conjunto de administración en este inquilino. Además, puede crear, leer, editar y aprobar cualquier trabajo en este inquilino, así como mover trabajos entre conjuntos de administración y administrar embargos y arrendamientos.
       title: Administración
       work_types: Tipos de trabajo disponibles
     footer:

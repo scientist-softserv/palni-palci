@@ -69,6 +69,12 @@ module Hyrax
       label
     end
 
+    def has_site_role?(role_name)
+      site_roles = roles.select { |role| role.resource_type == 'Site' }
+
+      site_roles.map(&:name).include?(role_name.to_s)
+    end
+
     private
 
       def can_destroy?

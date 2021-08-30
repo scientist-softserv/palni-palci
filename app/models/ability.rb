@@ -6,12 +6,14 @@ class Ability
   include GroupAwareRoleChecker
   # OVERRIDE: Added custom user ability roles
   include Hyrax::Ability::UserAbility
+  include Hyrax::Ability::WorkAbility
 
   self.ability_logic += %i[
     group_permissions
     superadmin_permissions
     collection_roles
     user_roles
+    work_roles
   ]
   # If the Groups with Roles feature is disabled, allow registered users to create curation concerns (Works, Collections, and FileSets).
   # Otherwise, omit this ability logic as to not conflict with the roles that explicitly grant creation permissions.
@@ -56,6 +58,9 @@ class Ability
 
     # OVERRIDE: only admin users can make other users admins
     can :grant_admin_role, User
+
+    # OVERRIDE: add custom action used in WorkAbility for "Delete Selected" button on Works dashboard index views
+    can :batch_delete, :works
   end
 
   def group_permissions

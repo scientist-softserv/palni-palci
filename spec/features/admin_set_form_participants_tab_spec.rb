@@ -37,9 +37,9 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
 
         expect(page).to have_content('Add Participants')
         expect(page).to have_content('Add group')
-        expect(managers_table).not_to have_content('dummy')
-        expect(depositors_table).not_to have_content('dummy')
-        expect(viewers_table).not_to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content('dummy')
+        expect(find('table.depositors-table')).not_to have_content('dummy')
+        expect(find('table.viewers-table')).not_to have_content('dummy')
       end
 
       it 'displays the groups humanized name' do
@@ -53,9 +53,9 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
           find('input.btn-info').click
         end
 
-        expect(managers_table).to have_content('dummy')
-        expect(depositors_table).not_to have_content('dummy')
-        expect(viewers_table).not_to have_content('dummy')
+        expect(find('table.managers-table')).to have_content('dummy')
+        expect(find('table.depositors-table')).not_to have_content('dummy')
+        expect(find('table.viewers-table')).not_to have_content('dummy')
       end
 
       it 'can add a group as a Depositor of the admin set' do
@@ -65,9 +65,9 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
           find('input.btn-info').click
         end
 
-        expect(managers_table).not_to have_content('dummy')
-        expect(depositors_table).to have_content('dummy')
-        expect(viewers_table).not_to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content('dummy')
+        expect(find('table.depositors-table')).to have_content('dummy')
+        expect(find('table.viewers-table')).not_to have_content('dummy')
       end
 
       it 'can add a group as a Viewer of the admin set' do
@@ -77,24 +77,51 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
           find('input.btn-info').click
         end
 
-        expect(managers_table).not_to have_content('dummy')
-        expect(depositors_table).not_to have_content('dummy')
-        expect(viewers_table).to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content('dummy')
+        expect(find('table.depositors-table')).not_to have_content('dummy')
+        expect(find('table.viewers-table')).to have_content('dummy')
+      end
+    end
+
+    context 'remove a group participant' do
+      before do
+        visit "/admin/admin_sets/#{ERB::Util.url_encode(admin_set_id)}/edit#participants"
+      end
+
+      it 'displays the agent_type in title case' do
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td>Group</td>')
+      end
+
+      it 'shows a disabled remove button next to Repository Administrator group as a Manager' do
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
+        expect(manager_row_html).to include('<input class="btn btn-danger" disabled="disabled" title="The repository administrators group cannot be removed" type="submit" value="Remove">')
+      end
+
+      it 'shows an enabled remove button next to Repository Administrator group as a Depositor' do
+        within('form#group-participants-form') do
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: "Repository Administrators").click
+          find('select#permission_template_access_grants_attributes_0_access option', text: 'Depositor').click
+          find('input.btn-info').click
+        end
+
+        depositor_row_html = find('table.depositors-table').find(:xpath, './/td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(depositor_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
+        expect(depositor_row_html).to include('<input class="btn btn-danger" type="submit" value="Remove">')
+      end
+
+      it 'shows an enabled remove button next to Repository Administrator group as a Viewer' do
+        within('form#group-participants-form') do
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: "Repository Administrators").click
+          find('select#permission_template_access_grants_attributes_0_access option', text: 'Viewer').click
+          find('input.btn-info').click
+        end
+
+        viewer_row_html = find('table.viewers-table').find(:xpath, './/td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(viewer_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
+        expect(viewer_row_html).to include('<input class="btn btn-danger" type="submit" value="Remove">')
       end
     end
   end
-
-  private
-
-    def managers_table
-      all('table.share-status')[0]
-    end
-
-    def depositors_table
-      all('table.share-status')[1]
-    end
-
-    def viewers_table
-      all('table.share-status')[2]
-    end
 end

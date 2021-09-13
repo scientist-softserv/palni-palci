@@ -82,6 +82,9 @@ de:
           update:
             failure: "%{group} konnte nicht aktualisiert werden"
             success: "%{group} aktualisiert"
+        humanized_name:
+          admin: Repository-Administratoren
+          registered: Registrierte Benutzer
         label:
           actions: Aktionen
           created_at: Erstellungsdatum

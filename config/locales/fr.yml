@@ -82,6 +82,9 @@ fr:
           update:
             failure: "%{group} n'a pas pu être mis à jour"
             success: "%{group} a mis à jour"
+        humanized_name:
+          admin: Administrateurs de référentiel
+          registered: Utilisateurs enregistrés
         label:
           actions: actes
           created_at: date créée

@@ -82,6 +82,9 @@ pt-BR:
           update:
             failure: "%{group} não pôde ser atualizado"
             success: "%{group} atualizado"
+        humanized_name:
+          admin: Administradores de repositório
+          registered: Usuários registrados
         label:
           actions: Ações
           created_at: Data Criada

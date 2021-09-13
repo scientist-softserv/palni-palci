@@ -135,6 +135,42 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true, cohort:
       end
     end
 
+    context 'when removing a group participant' do
+      let!(:admin_group) { FactoryBot.create(:admin_group) }
+
+      before do
+        login_as admin_user
+        visit "/admin/collection_types/#{user_collection_type.id}/edit#participants"
+      end
+
+      it 'displays the agent_type in title case' do
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td>Group</td>')
+      end
+
+      it 'shows a disabled remove button next to Repository Administrator group as a Manager' do
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="admin"]', match: :first).find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
+        expect(manager_row_html).to include('<a class="btn btn-sm btn-danger disabled" disabled="disabled"')
+      end
+
+      it 'shows an enabled remove button next to Repository Administrator group as a Creator' do
+        # select the Repository Administrators, assign role 'Creator', and add it to the collection type
+        select("Repository Administrators", from: 'collection_type_participant_agent_id')
+        select("Creator", from: 'collection_type_participant_access', match: :first)
+        within('.section-participants') do
+          click_button('Add', match: :first)
+        end
+
+        # wait one second for the item to populate in the table and check for it's existence
+        sleep 1
+        expect(page).to have_content("Participants Updated")
+        creator_row_html = find('table.creators-table').find(:xpath, './/td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+        expect(creator_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
+        expect(creator_row_html).not_to include('<a class="btn btn-sm btn-danger disabled" disabled="disabled"')
+      end
+    end
+
     context 'when there are no collections of this type' do
       let(:title_old) { exhibit_title }
       let(:description_old) { exhibit_description }
@@ -447,9 +483,8 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true, cohort:
         # wait one second for the item to populate in the table and check for it's existence
         sleep 1
         expect(page).to have_content("Participants Updated")
-        managers_table = first('table.share-status')
-        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
-        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">town_of_bedrock</td>')
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
+        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">Town Of Bedrock</td>')
       end
 
       it 'excludes default role access_grants from rendering in tables' do
@@ -500,8 +535,7 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true, cohort:
         # wait one second for the item to populate in the table and check for it's existence
         sleep 1
         expect(page).to have_content("Participants Updated")
-        managers_table = first('table.share-status')
-        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
         expect(manager_row_html).to include('<td data-agent="user@example.com">user@example.com</td>')
         expect(manager_row_html).to include('<td>User</td>')
       end

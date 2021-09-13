@@ -150,6 +150,11 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true, cohort: 'alp
         expect(page.html).not_to include('<td data-agent="collection_reader">collection_reader</td>')
       end
 
+      it 'displays the groups humanized name' do
+        expect(page).to have_content 'Add Sharing'
+        expect(page.has_select?('permission_template_access_grants_attributes_0_agent_id', with_options: [non_role_group.humanized_name])).to be true
+      end
+
       it "includes user access_grants to render in tables" do
         expect(page).to have_content 'Add Sharing'
 
@@ -181,8 +186,7 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true, cohort: 'alp
         # wait one second for the item to populate in the table and check for it's existence
         sleep 1
         expect(page).to have_content("The collection's sharing options have been updated.")
-        managers_table = first('table.share-status')
-        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="user@example.com"]').find(:xpath, '..')['innerHTML']
         expect(manager_row_html).to include('<td data-agent="user@example.com">user@example.com</td>')
       end
 
@@ -199,23 +203,52 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true, cohort: 'alp
         # wait one second for the item to populate in the table and check for it's existence
         sleep 1
         expect(page).to have_content("The collection's sharing options have been updated.")
-        managers_table = first('table.share-status')
-        manager_row_html = managers_table.find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
+        manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
         expect(manager_row_html).to include('<td data-agent="town_of_bedrock">town_of_bedrock</td>')
       end
     end
 
     context 'sharing a collection' do
-      let!(:group) { FactoryBot.create(:group, name: 'dummy') }
-      let!(:collection) { FactoryBot.create(:collection) }
+      let!(:collection) { FactoryBot.create(:collection_lw, with_permission_template: true) }
+      let(:access) { Hyrax::PermissionTemplateAccess::MANAGE }
 
       before do
+        collection.permission_template.access_grants.find_or_create_by!(
+          access: access,
+          agent_type: Hyrax::PermissionTemplateAccess::GROUP,
+          agent_id: 'admin'
+        )
+
         visit "/dashboard/collections/#{ERB::Util.url_encode(collection.id)}/edit#sharing"
       end
 
-      it 'displays the groups humanized name' do
-        expect(page).to have_content 'Add Sharing'
-        expect(page.has_select?('permission_template_access_grants_attributes_0_agent_id', with_options: [group.humanized_name])).to be true
+      context 'when the Repository Administrators group is given MANAGE access' do
+        let(:access) { Hyrax::PermissionTemplateAccess::MANAGE }
+
+        it 'renders a disabled remove button' do
+          manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+          expect(manager_row_html).to include('<a class="btn btn-sm btn-danger disabled" disabled="disabled" title="The repository administrators group cannot be removed"')
+        end
+      end
+
+      context 'when the Repository Administrators group is given DEPOSIT access' do
+        let(:access) { Hyrax::PermissionTemplateAccess::DEPOSIT }
+
+        it 'renders an enabled remove button' do
+          depositor_row_html = find('table.depositors-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+          expect(depositor_row_html).to include('<a class="btn btn-sm btn-danger"')
+          expect(depositor_row_html).not_to include('<a class="btn btn-sm btn-danger disabled" disabled="disabled" title="The repository administrators group cannot be removed"')
+        end
+      end
+
+      context 'when the Repository Administrators group is given VIEW access' do
+        let(:access) { Hyrax::PermissionTemplateAccess::VIEW }
+
+        it 'renders an enabled remove button' do
+          viewer_row_html = find('table.viewers-table').find(:xpath, '//td[@data-agent="admin"]').find(:xpath, '..')['innerHTML']
+          expect(viewer_row_html).to include('<a class="btn btn-sm btn-danger"')
+          expect(viewer_row_html).not_to include('<a class="btn btn-sm btn-danger disabled" disabled="disabled" title="The repository administrators group cannot be removed"')
+        end
       end
     end
   end

@@ -82,6 +82,9 @@ zh:
           update:
             failure: "%{group}无法更新"
             success: "%{group}更新"
+        humanized_name:
+          admin: 存储库管理员
+          registered: 注册用户
         label:
           actions: 操作
           created_at: 创建日期

@@ -226,6 +226,121 @@ RSpec.describe RolesService, clean: true do
     end
   end
 
+  describe '#create_admin_set_accesses!' do
+    let!(:admin_set) { FactoryBot.create(:admin_set, with_permission_template: true) }
+
+    context 'when an AdminSet already has PermissionTemplateAccess records for all of the work roles' do
+      it 'does not create any new PermissionTemplateAccess records' do
+        expect { roles_service.create_admin_set_accesses! }
+          .not_to change(Hyrax::PermissionTemplateAccess, :count)
+      end
+
+      it "does not reset the AdminSet's access controls unnecessarily" do
+        expect_any_instance_of(AdminSet).not_to receive(:reset_access_controls!)
+
+        roles_service.create_admin_set_accesses!
+      end
+    end
+
+    context 'when an AdminSet does not have access records for the work roles' do
+      before do
+        admin_set.permission_template.access_grants.map(&:destroy)
+      end
+
+      it 'creates four new PermissionTemplateAccess records' do
+        expect { roles_service.create_admin_set_accesses! }
+          .to change(Hyrax::PermissionTemplateAccess, :count)
+          .by(4)
+      end
+
+      it 'creates a PermissionTemplateAccess record with MANAGE access for the admin group' do
+        expect(
+          access_count_for(
+            Ability.admin_group_name,
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::MANAGE
+          )
+        ).to eq(0)
+
+        roles_service.create_admin_set_accesses!
+
+        expect(
+          access_count_for(
+            Ability.admin_group_name,
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::MANAGE
+          )
+        ).to eq(1)
+      end
+
+      it 'creates a PermissionTemplateAccess record with DEPOSIT access for the :work_editor role' do
+        expect(
+          access_count_for(
+            'work_editor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::DEPOSIT
+          )
+        ).to eq(0)
+
+        roles_service.create_admin_set_accesses!
+
+        expect(
+          access_count_for(
+            'work_editor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::DEPOSIT
+          )
+        ).to eq(1)
+      end
+
+      it 'creates a PermissionTemplateAccess record with DEPOSIT access for the :work_depositor role' do
+        expect(
+          access_count_for(
+            'work_depositor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::DEPOSIT
+          )
+        ).to eq(0)
+
+        roles_service.create_admin_set_accesses!
+
+        expect(
+          access_count_for(
+            'work_depositor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::DEPOSIT
+          )
+        ).to eq(1)
+      end
+
+      it 'creates a PermissionTemplateAccess record with VIEW access for the :work_editor role' do
+        expect(
+          access_count_for(
+            'work_editor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::VIEW
+          )
+        ).to eq(0)
+
+        roles_service.create_admin_set_accesses!
+
+        expect(
+          access_count_for(
+            'work_editor',
+            admin_set.permission_template,
+            Hyrax::PermissionTemplateAccess::VIEW
+          )
+        ).to eq(1)
+      end
+
+      it "resets the AdminSet's access controls" do
+        expect_any_instance_of(AdminSet).to receive(:reset_access_controls!).once
+
+        roles_service.create_admin_set_accesses!
+      end
+    end
+  end
+
   describe '#create_collection_type_participants!' do
     context 'when the collection type already has participants for the collection roles' do
       # All non-AdminSet CollectionTypes created through the UI should automatically
@@ -370,6 +485,23 @@ RSpec.describe RolesService, clean: true do
     end
   end
 
+  describe '#grant_workflow_roles_for_all_admin_sets!' do
+    before do
+      3.times do
+        FactoryBot.create(:admin_set, with_permission_template: true)
+      end
+    end
+
+    it 'calls Hyrax::Workflow::PermissionGrantor#grant_default_workflow_roles!' do
+      expect(Hyrax::Workflow::PermissionGrantor)
+        .to receive(:grant_default_workflow_roles!)
+        .with(permission_template: instance_of(Hyrax::PermissionTemplate))
+        .exactly(3).times
+
+      roles_service.grant_workflow_roles_for_all_admin_sets!
+    end
+  end
+
   describe '#seed_superadmin!' do
     it 'creates a user with the :superadmin role' do
       expect_any_instance_of(User).to receive(:add_default_group_memberships!).once
@@ -420,10 +552,10 @@ RSpec.describe RolesService, clean: true do
     end
   end
 
-  def access_count_for(collection_role, permission_template, access)
+  def access_count_for(role, permission_template, access)
     permission_template.access_grants.where(
       agent_type: Hyrax::PermissionTemplateAccess::GROUP,
-      agent_id: collection_role,
+      agent_id: role,
       access: access
     ).count
   end

@@ -124,6 +124,41 @@ class RolesService
       end
     end
 
+    # Creating a Hyrax::PermissionTemplateAccess record (combined with Ability#user_groups)
+    # will allow Works in all AdminSets to show up in Blacklight / Solr queries.
+    def create_admin_set_accesses!
+      AdminSet.find_each do |as|
+        pt = Hyrax::PermissionTemplate.find_or_create_by!(source_id: as.id)
+        original_access_grants_count = pt.access_grants.count
+
+        pt.access_grants.find_or_create_by!(
+          access: Hyrax::PermissionTemplateAccess::MANAGE,
+          agent_type: Hyrax::PermissionTemplateAccess::GROUP,
+          agent_id: Ability.admin_group_name
+        )
+
+        pt.access_grants.find_or_create_by!(
+          access: Hyrax::PermissionTemplateAccess::DEPOSIT,
+          agent_type: Hyrax::PermissionTemplateAccess::GROUP,
+          agent_id: 'work_depositor'
+        )
+
+        pt.access_grants.find_or_create_by!(
+          access: Hyrax::PermissionTemplateAccess::DEPOSIT,
+          agent_type: Hyrax::PermissionTemplateAccess::GROUP,
+          agent_id: 'work_editor'
+        )
+
+        pt.access_grants.find_or_create_by!(
+          access: Hyrax::PermissionTemplateAccess::VIEW,
+          agent_type: Hyrax::PermissionTemplateAccess::GROUP,
+          agent_id: 'work_editor'
+        )
+
+        as.reset_access_controls! if pt.access_grants.count != original_access_grants_count
+      end
+    end
+
     # Because some of the collection roles have access to every Collection within a tenant, create a
     # Hyrax::CollectionTypeParticipant record for them on every Hyrax::CollectionType (except the AdminSet)
     def create_collection_type_participants!
@@ -157,6 +192,17 @@ class RolesService
     # has this Hyrax::CollectionTypeParticipant.
     def destroy_registered_group_collection_type_participants!
       Hyrax::CollectionTypeParticipant.where(agent_type: 'group', agent_id: ::Ability.registered_group_name, access: 'create').map(&:destroy)
+    end
+
+    # Permissions to deposit Works are controlled by Workflow Roles on individual AdminSets. In order for Hyrax::Group and
+    # User records who have either the :work_editor or :work_depositor Rolify Role to have the correct permissions for
+    # Works, we grant them Workflow Roles for all AdminSets.
+    #
+    # NOTE: All AdminSets must have a permission template or this will fail. Run #create_admin_set_accesses first.
+    def grant_workflow_roles_for_all_admin_sets!
+      AdminSet.find_each do |admin_set|
+        Hyrax::Workflow::PermissionGrantor.grant_default_workflow_roles!(permission_template: admin_set.permission_template)
+      end
     end
 
     # This method is inspired by the devise_guests:delete_old_guest_users rake task in the devise-guests gem:

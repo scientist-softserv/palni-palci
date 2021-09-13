@@ -21,6 +21,16 @@ namespace :hyku do
       end
     end
 
+    desc 'Create Hyrax::PermissionTemplateAccess records for work roles in all Admin Sets'
+    task create_admin_set_accesses: :environment do
+      Account.find_each do |account|
+        AccountElevator.switch!(account.cname)
+        Rails.logger.info("Creating default work role Hyrax::PermissionTemplateAccess records for all Admin Sets in #{account.cname}")
+
+        RolesService.create_admin_set_accesses!
+      end
+    end
+
     desc 'Create Hyrax::CollectionTypeParticipant records for collection roles in all Collection Types'
     task create_collection_type_participants: :environment do
       Account.find_each do |account|
@@ -28,6 +38,16 @@ namespace :hyku do
         Rails.logger.info("Creating default collection role Hyrax::CollectionTypeParticipant records for all Collection Types in #{account.cname}")
 
         RolesService.create_collection_type_participants!
+      end
+    end
+
+    desc 'Grant Workflow Roles for Work Roles and Admins in all AdminSets'
+    task grant_workflow_roles: :environment do
+      Account.find_each do |account|
+        AccountElevator.switch!(account.cname)
+        Rails.logger.info("Granting Workflow Roles for Work Roles and Admins in all AdminSets in #{account.cname}")
+
+        RolesService.grant_workflow_roles_for_all_admin_sets!
       end
     end
 

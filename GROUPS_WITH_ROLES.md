@@ -21,7 +21,7 @@ rake hyku:roles:create_default_roles_and_groups
 
 ## Setup an Existing Application to use Groups with Roles
 
-These rake tasks will create data across all tenants necessary to setup Groups with Roles.
+These rake tasks will create data across all tenants necessary to setup Groups with Roles. **Run them in the order listed below.**
 
 Prerequisites:
 - All Collections must have CollectionTypes _and_ PermissionTemplates (see the **Collection Migration** section in the [Hyrax 2.1 Release Notes](https://github.com/samvera/hyrax/releases?after=v2.2.0))
@@ -29,7 +29,9 @@ Prerequisites:
 ```bash
 rake hyku:roles:create_default_roles_and_groups
 rake hyku:roles:create_collection_accesses
+rake hyku:roles:create_admin_set_accesses
 rake hyku:roles:create_collection_type_participants
+rake hyku:roles:grant_workflow_roles
 rake hyku:roles:destroy_registered_group_collection_type_participants # optional
 ```
 

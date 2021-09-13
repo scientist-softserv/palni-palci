@@ -93,82 +93,9 @@ module Hyrax
 
       def create_workflows_for(permission_template:)
         workflow_importer.call(permission_template: permission_template)
-        # This code must be invoked before calling `Sipity::Role.all` or the managing, approving, and depositing roles won't be there
-        register_default_sipity_roles!
-
-        grant_all_workflow_roles_to_creating_user_and_admins!(permission_template: permission_template)
-        # OVERRIDE: add default Sipity roles to editors and depositors
-        grant_workflow_roles_to_editors!(permission_template: permission_template)
-        grant_workflow_roles_to_depositors!(permission_template: permission_template)
-
+        # OVERRIDE: Extract and expand upon granting Workflow Roles into service object so it can be used in RolesService
+        Hyrax::Workflow::PermissionGrantor.grant_default_workflow_roles!(permission_template: permission_template, creating_user: creating_user)
         Sipity::Workflow.activate!(permission_template: permission_template, workflow_name: Hyrax.config.default_active_workflow_name)
-      end
-
-      # OVERRIDE: register all roles, not just MANAGING
-      # Force creation of registered roles if they don't exist
-      def register_default_sipity_roles!
-        Sipity::Role[Hyrax::RoleRegistry::MANAGING]
-        Sipity::Role[Hyrax::RoleRegistry::APPROVING]
-        Sipity::Role[Hyrax::RoleRegistry::DEPOSITING]
-      end
-
-      # Grant all workflow roles to the creating_user and the admin group.
-      # OVERRIDE: Extract logic that updates the data into #grant_workflow_roles!
-      # so it can be reused.
-      def grant_all_workflow_roles_to_creating_user_and_admins!(permission_template:)
-        workflow_agents = [Hyrax::Group.find_by!(name: admin_group_name)] # The admin group should always receive workflow roles
-        workflow_agents |= Hyrax::Group.select { |g| g.has_site_role?(:admin) }
-        workflow_agents << creating_user if creating_user # The default admin set does not have a creating user
-
-        grant_workflow_roles!(permission_template: permission_template, workflow_agents: workflow_agents, role_filters: nil)
-      end
-
-      # OVERRIDE: Add new method to grant APPROVING and DEPOSITING Sipity roles to
-      # "Editors" (Users and Hyrax::Groups who have the :work_editor Rolify role).
-      def grant_workflow_roles_to_editors!(permission_template:)
-        editor_sipity_roles = [Hyrax::RoleRegistry::APPROVING, Hyrax::RoleRegistry::DEPOSITING]
-        workflow_agents = Hyrax::Group.select { |g| g.has_site_role?(:work_editor) }.tap do |agent_list|
-          ::User.find_each do |u|
-            agent_list << u if u.has_role?(:work_editor, Site.instance)
-          end
-        end
-
-        grant_workflow_roles!(permission_template: permission_template, workflow_agents: workflow_agents, role_filters: editor_sipity_roles)
-      end
-
-      # OVERRIDE: Add new method to grant DEPOSITING Sipity role to
-      # "Depositors" (Users and Hyrax::Groups who have the :work_depositor Rolify role).
-      def grant_workflow_roles_to_depositors!(permission_template:)
-        depositor_sipity_role = [Hyrax::RoleRegistry::DEPOSITING]
-        workflow_agents = Hyrax::Group.select { |g| g.has_site_role?(:work_depositor) }.tap do |agent_list|
-          ::User.find_each do |u|
-            agent_list << u if u.has_role?(:work_depositor, Site.instance)
-          end
-        end
-
-        grant_workflow_roles!(permission_template: permission_template, workflow_agents: workflow_agents, role_filters: depositor_sipity_role)
-      end
-
-      # OVERRIDE: Add new method to grant workflow roles to Users and Hyrax::Groups. This is modified
-      # logic extracted from the original #grant_all_workflow_roles_to_creating_user_and_admins method.
-      def grant_workflow_roles!(permission_template:, workflow_agents:, role_filters:)
-        role_set = if role_filters.present?
-                     Sipity::Role.select { |role| role_filters.include?(role.name) }
-                   else
-                     Sipity::Role.all
-                   end
-
-        permission_template.available_workflows.each do |workflow|
-          role_set.each do |role|
-            # OVERRIDE: Call the PermissionGenerator directly. Before, we were using
-            # Sipity::Workflow#update_responsibilities, which removes any workflow_agents
-            # not passed to it. Because we're building permissions across multiple
-            # methods now, appending is preferred over resetting.
-            Hyrax::Workflow::PermissionGenerator.call(roles: role,
-                                                      workflow: workflow,
-                                                      agents: workflow_agents)
-          end
-        end
       end
 
       # Gives deposit access to registered users to default AdminSet

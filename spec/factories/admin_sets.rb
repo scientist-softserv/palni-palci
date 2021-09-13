@@ -10,6 +10,10 @@ FactoryBot.define do
     after(:create) do |admin_set, evaluator|
       if evaluator.with_permission_template
         attributes = { source_id: admin_set.id }
+        # OVERRIDE: add default access groups
+        attributes[:manage_groups] = [Ability.admin_group_name]
+        attributes[:deposit_groups] = ['work_editor', 'work_depositor']
+        attributes[:view_groups] = ['work_editor']
         attributes = evaluator.with_permission_template.merge(attributes) if evaluator.with_permission_template.respond_to?(:merge)
         # There is a unique constraint on permission_templates.source_id; I don't want to
         # create a permission template if one already exists for this admin_set

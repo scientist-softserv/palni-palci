@@ -14,5 +14,5 @@ Hyrax::Admin::CollectionTypeParticipantsController.class_eval do
       )
     end
   end
-  private_instance_method :admin_group_participant_cannot_be_destroyed
+  private :admin_group_participant_cannot_be_destroyed
 end

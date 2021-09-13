@@ -82,6 +82,9 @@ es:
           update:
             failure: 'No se pudo actualizar %{group} '
             success: "%{group} actualizado"
+        humanized_name:
+          admin: Administradores de repositorios
+          registered: Usuarios Registrados
         label:
           actions: Comportamiento
           created_at: Fecha de creacion

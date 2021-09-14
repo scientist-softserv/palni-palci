@@ -66,23 +66,32 @@
     </td>
   </tr>
   <%= f.fields_for :permissions do |permission_fields| %>
+    <% agent = permission_fields.object %>
     <%# skip the public, registered, and depositor perms as they are displayed first at the top %>
     <%# OVERRIDE: in addition, skip perms for work roles since they should never be edited / removed %>
     <% agents_to_skip = ['public', 'registered', depositor] + RolesService::WORK_ROLES %>
-    <% next if agents_to_skip.include? permission_fields.object.agent_name.downcase %>
+    <% next if agents_to_skip.include? agent.agent_name.downcase %>
     <tr>
-      <td>
-        <%= permission_fields.select :access, Hyrax.config.permission_levels, {}, class: 'form-control select_perm' %>
-      </td>
-      <td>
-        <%= permission_fields.label :agent_name, class: "control-label" do %>
-          <%= user_display_name_and_key(permission_fields.object.agent_name) %>
-        <% end %>
-        <%# OVERRIDE: do not render remove button for admin group permission since it should never be removed %>
-        <% unless permission_fields.object.agent_name == Ability.admin_group_name %>
+      <%# OVERRIDE: display access for admin group in a way that does not allow access to be removed or access level to be changed %>
+      <% if agent.type == 'group' && agent.agent_name == Ability.admin_group_name %>
+        <td><%= Hyrax.config.permission_levels.key(agent.access) %></td>
+        <td><b><%= display_hyrax_group_name(agent.agent_name) %></b></td>
+      <% else %>
+        <td>
+          <%= permission_fields.select :access, Hyrax.config.permission_levels, {}, class: 'form-control select_perm' %>
+        </td>
+        <td>
+          <%= permission_fields.label :agent_name, class: "control-label" do %>
+            <%# OVERRIDE: use separate method to display group agents %>
+            <% if agent.type == 'person' %>
+              <%= user_display_name_and_key(agent.agent_name) %>
+            <% else %>
+              <%= display_hyrax_group_name(agent.agent_name) %>
+            <% end %>
+          <% end %>
           <button class="btn close remove_perm" data-index="<%= permission_fields.index %>">&times;</button>
-        <% end %>
-      </td>
+        </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

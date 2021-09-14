@@ -27,7 +27,7 @@ Hyrax.config do |config|
   config.google_analytics_id = Settings.google_analytics_id
 
   # Specify a date you wish to start collecting Google Analytic statistics for.
-  # config.analytic_start_date = DateTime.new(2014,9,10)
+  config.analytic_start_date = DateTime.new(2021,9,13)
 
   # Enables a link to the citations page for a generic_file.
   # Default is false

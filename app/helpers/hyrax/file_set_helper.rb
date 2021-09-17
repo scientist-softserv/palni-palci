@@ -22,10 +22,10 @@ module Hyrax::FileSetHelper
   # changed from hyrax 2.5.1 to change audio and video items to use default partial
   def media_display_partial(file_set)
     'hyrax/file_sets/media_display/' +
-      if file_set.image?
+      if file_set.pdf?
         'image'
-      elsif file_set.pdf?
-        'pdf'
+      elsif file_set.image?
+        'image'
       elsif file_set.office_document?
         'office_document'
       else

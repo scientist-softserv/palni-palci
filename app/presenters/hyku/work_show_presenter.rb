@@ -20,7 +20,7 @@ module Hyku
       isbns = extract_from_identifier(isbn_regex)
       isbns&.flatten&.compact
     end
-
+  
     private
 
       def extract_from_identifier(rgx)
@@ -31,5 +31,6 @@ module Hyku
         end
         ref
       end
+
   end
 end

@@ -1,12 +1,56 @@
-version: '2.2'
+version: '3.8'
+
+x-app: &app
+  build:
+    context: .
+    target: hyku-base
+    args:
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+  image: registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
+  env_file:
+    - .env
+    - .env.development
+  environment:
+      # version and location of fits are set in Dockerfile:
+    - FEDORA_URL=http://fcrepo:8080/fcrepo/rest
+    - IN_DOCKER=true
+    # version and location of fits are set in Dockerfile:
+    - LD_LIBRARY_PATH=/opt/fits/tools/mediainfo/linux
+    - PASSENGER_APP_ENV=development
+    - RAILS_LOG_TO_STDOUT=true
+    - RAILS_SERVE_STATIC_FILES=true
+    - REDIS_HOST=redis
+    - SECRET_KEY_BASE=asdf
+    - SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER=sidekiq
+    - SETTINGS__BULKRAX__ENABLED=true
+    - SETTINGS__FITS_PATH=/opt/fits/fits.sh
+    - SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS=true
+    # Comment out these 5 for single tenancy / Uncomment for multi
+    - SETTINGS__MULTITENANCY__ADMIN_HOST=pals.docker
+    - SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION=false
+    - SETTINGS__MULTITENANCY__ROOT_HOST=pals.docker
+    - SETTINGS__MULTITENANCY__DEFAULT_HOST=%{tenant}.pals.docker
+    - SETTINGS__MULTITENANCY__ENABLED=true
+    # Comment out these 2 for multi tenancy / Uncomment for single
+    # - SETTINGS__MULTITENANCY__ROOT_HOST=hyku.docker
+    # - SETTINGS__MULTITENANCY__ENABLED=false
+    - SETTINGS__SOLR__URL=http://solr:8983/solr/
+    - SETTINGS__ZOOKEEPER__CONNECTION_STR=zookeeper_cluster:2181/configs
+    - SOLR_URL=http://solr:8983/solr/
+  volumes:
+    - app:/home/app/webapp/tmp/uploads
+    - assets:/home/app/webapp/public/assets
+    - cache:/home/app/webapp/tmp/cache
+    - .:/home/app/webapp
+  networks:
+    internal:
 
 volumes:
   fcrepo:
   solr:
   db:
   redis:
-  zk1:
-  zkconf:
+  zk:
   app:
   assets:
   cache:
@@ -16,8 +60,10 @@ networks:
 
 services:
   zoo1:
-    image: zookeeper:3.4
+    image: bitnami/zookeeper:3.6
     environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_4LW_COMMANDS_WHITELIST=mntr,srvr,ruok,conf
       - ZOO_MY_ID=1
       - ZOO_SERVERS=server.1=zoo1:2888:3888
     expose:
@@ -25,8 +71,7 @@ services:
       - 2888
       - 3888
     volumes:
-      - zk1:/data
-      - zkconf:/conf
+      - zk:/bitnami/zookeeper
     networks:
       internal:
        aliases:
@@ -79,14 +124,6 @@ services:
     networks:
       internal:
 
-  base:
-    image: registry.gitlab.com/notch8/palni-palci/base:latest
-    build:
-      context: .
-      dockerfile: Dockerfile.base
-    env_file:
-      - .env
-
   app:
     build: .
     image: registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
@@ -129,8 +166,7 @@ services:
       internal:
 
   web:
-    extends:
-      service: app
+    <<: *app
     environment:
       - VIRTUAL_PORT=80
       - VIRTUAL_HOST=pals.docker
@@ -156,6 +192,14 @@ services:
   workers:
     extends:
       service: app
+    build:
+      context: .
+      target: hyku-worker
+      args:
+        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+      cache_from:
+        - registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
+        - registry.gitlab.com/notch8/palni-palci/worker:${TAG:-latest}
     command: bundle exec sidekiq
     depends_on:
       - db
@@ -165,6 +209,19 @@ services:
       - zoo1
       - initialize_app
       - db_migrate
+
+  # Do not recurse through all of tmp. derivitives will make booting
+  # very slow and eventually just time out as data grows
+  check_volumes:
+    <<: *app
+    user: root
+    entrypoint: ["sh", "-x", "-c"]
+    command:
+      - >
+        chown -R app:/home/app/webapp/tmp/uploads
+        chown -R assets:/home/app/webapp/public/assets
+        chown -R cache:/home/app/webapp/tmp/cache
+        chown -R .:/home/app/webapp
 
   initialize_app:
     extends:

@@ -2,25 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
+# For work approval permissions, see spec/features/work_approval_permissions_spec.rb
+RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true, cohort: 'bravo' do
+  include WorksHelper
+
+  let(:work_editor) { FactoryBot.create(:user, roles: [:work_editor]) }
+  let(:work_depositor) { FactoryBot.create(:user, roles: [:work_depositor]) }
+  let(:visibility) { 'open' }
   # `before`s and `let!`s are order-dependent -- do not move this `before` from the top
   before do
     FactoryBot.create(:admin_group)
     FactoryBot.create(:registered_group)
     FactoryBot.create(:editors_group)
     FactoryBot.create(:depositors_group)
-
-    login_as work_editor
-
-    allow(Hyrax.config).to receive(:default_active_workflow_name).and_return('default')
-    Hyrax::AdminSetCreateService.new(admin_set: AdminSet.find(admin_set.id), creating_user: nil).create
   end
-
-  let(:admin_set) { AdminSet.create!(title: ['Test Admin Set']) }
-  let(:work_editor) { FactoryBot.create(:user, roles: [:work_editor]) }
-  let(:work_depositor) { FactoryBot.create(:user, roles: [:work_depositor]) }
-  let(:visibility) { 'open' }
-  let!(:work) { create_work(depositor: work_depositor) }
+  let!(:admin_set) do
+    admin_set = AdminSet.new(title: ['Test Admin Set'])
+    allow(Hyrax.config).to receive(:default_active_workflow_name).and_return('default')
+    Hyrax::AdminSetCreateService.new(admin_set: admin_set, creating_user: nil).create
+    admin_set.reload
+  end
+  let!(:work) { process_through_actor_stack(build(:work), work_depositor, admin_set.id, visibility) }
+  before do
+    login_as work_editor
+  end
 
   describe 'read permissions' do
     %w[open authenticated restricted].each do |visibility|
@@ -34,7 +39,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
         end
 
         it 'can see works it deposited in the dashboard' do
-          my_work = create_work(depositor: work_editor)
+          my_work = process_through_actor_stack(build(:work), work_editor, admin_set.id, visibility)
           visit '/dashboard/my/works'
 
           expect(page).to have_content('works you own in the repository')
@@ -67,7 +72,22 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
 
     it 'can create a work' do
       visit new_hyrax_generic_work_path
-      fill_out_work_form
+
+      click_link 'Relationships' # switch tab
+      select(admin_set.title.first, from: 'Administrative Set')
+
+      click_link 'Files' # switch tab
+      within('span#addfiles') do
+        attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'image.jp2'), visible: false)
+      end
+      click_link 'Descriptions' # switch tab
+      fill_in('Title', with: 'WE Feature Spec Work')
+      fill_in('Creator', with: 'Test Creator')
+      fill_in('Keyword', with: 'testing')
+      select('In Copyright', from: 'Rights Statement')
+
+      page.choose('generic_work_visibility_open')
+      check('agreement')
 
       expect { click_on('Save') }
         .to change(GenericWork, :count)
@@ -83,7 +103,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
     end
 
     it 'can see the edit button for works it creates on the dashboard index page' do
-      my_work = create_work(depositor: work_editor)
+      my_work = process_through_actor_stack(build(:work), work_editor, admin_set.id, visibility)
       visit '/dashboard/my/works'
 
       click_button('Select')
@@ -106,7 +126,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
     end
 
     it 'cannot see the delete button for works it creates on the dashboard index page' do
-      my_work = create_work(depositor: work_editor)
+      my_work = process_through_actor_stack(build(:work), work_editor, admin_set.id, visibility)
       visit '/dashboard/my/works'
 
       click_button('Select')
@@ -119,64 +139,5 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true do
       click_button('Select')
       expect(page).not_to have_text('Delete Work')
     end
-  end
-
-  # TODO: Fix specs
-  xdescribe 'approve permissions' do
-    it "can see the workflow actions widget on the work's show page" do
-      visit hyrax_generic_work_path(work)
-
-      expect(page).to have_content('Review and Approval')
-      expect(page).to have_selector('.workflow-actions')
-    end
-
-    it 'can see works submitted for review in the dashboard' do
-      visit '/dashboard'
-      click_link 'Review Submissions'
-
-      expect(page).to have_content('Review Submissions')
-      expect(page).to have_content('Under Review')
-      expect(page).to have_content('Published')
-      expect(page).to have_content(work.title.first)
-    end
-  end
-
-  # Create a work through the UI instead of with factories to more closely mirrors how the application
-  # functions in reality, prmiarily because the work will travel through the actor stack.
-  # This is important when testing permissions because it ensures all the permission-related records
-  # (e.g. Hydra::AccessControls::Permission, Hyrax::PermissionTemplateAccess, etc.) get created.
-  def create_work(depositor:)
-    # The depositor is set using #current_user in the controller and receives edit permissions
-    # by default. To test the "global" nature of the :work_editor Role's permissions, most tests
-    # test against another user's work.
-    login_as depositor
-
-    visit new_hyrax_generic_work_path
-    fill_out_work_form
-    page.click_on('Save')
-
-    # Log back in as the user being tested if it was changed
-    login_as work_editor unless depositor == work_editor
-
-    GenericWork.where(title: 'WE Feature Spec Work').first
-  end
-
-  # Minimum valid data for a GenericWork
-  def fill_out_work_form
-    click_link 'Relationships' # switch tab
-    select(admin_set.title.first, from: 'Administrative Set')
-
-    click_link 'Files' # switch tab
-    within('span#addfiles') do
-      attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'image.jp2'), visible: false)
-    end
-    click_link 'Descriptions' # switch tab
-    fill_in('Title', with: 'WE Feature Spec Work')
-    fill_in('Creator', with: 'Test Creator')
-    fill_in('Keyword', with: 'testing')
-    select('In Copyright', from: 'Rights Statement')
-
-    page.choose("generic_work_visibility_#{visibility}")
-    check('agreement')
   end
 end

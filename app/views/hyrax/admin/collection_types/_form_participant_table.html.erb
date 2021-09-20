@@ -1,8 +1,8 @@
 <%# OVERRIDE FILE from Hryax v2.9.0 - more than one added, each specified below %>
 <h3><%= t(".#{access}.title") %></h3>
 <p><%= t(".#{access}.help") %></p>
-<%# OVERRIDE: use custom filtering method to filter out collection_type_participants for Collection Types %>
-<% if @form.filter_access_grants_by_collection_type(filter).any? %>
+<%# OVERRIDE: use custom method to filter by access as well as filter out rolify Roles %>
+<% if @form.filter_participants_by_access(filter).any? %>
   <%# OVERRIDE: use custom access-specific class in order to differentiate between access tables %>
   <table class='table table-striped share-status <%= "#{access}-table" %>'>
     <thead>
@@ -13,8 +13,8 @@
       </tr>
     </thead>
     <tbody>
-    <%# OVERRIDE: use custom filtering method to filter out collection_type_participants for Collection Types %>
-    <% @form.filter_access_grants_by_collection_type(filter).each do |g| %>
+    <%# OVERRIDE: use custom method to filter by access as well as filter out rolify Roles %>
+    <% @form.filter_participants_by_access(filter).each do |g| %>
       <tr>
         <td data-agent="<%= g.agent_id %>"><%= g.label %></td>
         <td><%= g.agent_type.titleize %></td>

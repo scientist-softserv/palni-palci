@@ -9,13 +9,13 @@ module Hyrax
 
     self.terms = %i[title creator resource_type date audience education_level learning_resource_type discipline
                     rights_statement license rights_holder additional_information description subject language publisher
-                    oer_size identifier table_of_contents alternative_title contributor accessibility_feature
+                    oer_size identifier table_of_contents alternative_title contributor related_url accessibility_feature
                     accessibility_hazard accessibility_summary representative_id thumbnail_id rendering_ids newer_version_id 
                     previous_version_id alternate_version_id related_item_id alt_title abstract keyword access_right rights_notes 
                     date_created based_near files visibility_during_embargo embargo_release_date visibility_after_embargo 
                     visibility_during_lease lease_expiration_date visibility_after_lease visibility ordered_member_ids in_works_ids 
                     member_of_collection_ids admin_set_id]
-    self.terms -=%i[keyword based_near related_url source date_created previous_version_id newer_version_id
+    self.terms -=%i[keyword based_near source date_created previous_version_id newer_version_id
                     alternate_version_id related_item_id alt_title abstract keyword access_right rights_notes]    
     self.required_fields = %i[title creator resource_type date audience education_level learning_resource_type
                               discipline rights_statement]

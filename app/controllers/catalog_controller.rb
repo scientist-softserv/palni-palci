@@ -113,6 +113,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("alternative_title", :stored_searchable), label: "Alternative title"
     config.add_show_field solr_name("creator", :stored_searchable)
     config.add_show_field solr_name("contributor", :stored_searchable)
+    config.add_show_field solr_name("related_url", :stored_searchable)
     config.add_show_field solr_name('learning_resource_type', :stored_searchable)
     config.add_show_field solr_name('education_level', :stored_searchable)
     config.add_show_field solr_name('audience', :stored_searchable)

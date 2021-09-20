@@ -204,7 +204,7 @@ RSpec.describe 'collection', type: :feature, js: true, clean: true, cohort: 'alp
         sleep 1
         expect(page).to have_content("The collection's sharing options have been updated.")
         manager_row_html = find('table.managers-table').find(:xpath, '//td[@data-agent="town_of_bedrock"]').find(:xpath, '..')['innerHTML']
-        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">town_of_bedrock</td>')
+        expect(manager_row_html).to include('<td data-agent="town_of_bedrock">Town Of Bedrock</td>')
       end
     end
 

@@ -1,7 +1,8 @@
 <%# OVERRIDE FILE from Hryax v2.9.0 %>
 <h3><%= t(".#{access}.title") %></h3>
 <p><%= t(".#{access}.help") %></p>
-<% if @form.permission_template.access_grants.select(&filter).any? %>
+<%# OVERRIDE: use custom method to filter by access as well as filter out rolify Roles %>
+<% if @form.filter_access_grants_by_access(filter).any? %>
   <%# OVERRIDE: use custom access-specific class in order to differentiate between access tables %>
   <table class='table table-striped share-status <%= "#{access}-table" %>'>
     <thead>
@@ -12,7 +13,8 @@
       </tr>
     </thead>
     <tbody>
-      <% @form.permission_template.access_grants.select(&filter).each do |g| %>
+      <%# OVERRIDE: use custom method to filter by access as well as filter out rolify Roles %>
+      <% @form.filter_access_grants_by_access(filter).each do |g| %>
         <tr>
           <td data-agent="<%= g.agent_id %>"><%= g.label %></td>
           <td><%= g.agent_type.titleize %></td>

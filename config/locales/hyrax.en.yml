@@ -303,7 +303,7 @@ en:
     background_attribution_html: ''
     base:
       citations:
-        header: 'Citations:'
+        header: 'Citations'
       form_child_work_relationships:
         actions:
           remove: Remove from this work

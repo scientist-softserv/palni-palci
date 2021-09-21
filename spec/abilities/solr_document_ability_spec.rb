@@ -90,7 +90,7 @@ RSpec.describe 'SolrDocumentAbility' do
   end
 
   context 'with works' do
-    # TODO: Need tests for works
+    # tested with work's solr doc in work_ability_spec.rb
   end
 
   context 'with files' do

@@ -1,4 +1,4 @@
-<%# OVERRIDE FILE from Hyrax v2.9.0 %>
+<%# OVERRIDE FILE from Hyrax v2.9.0 to restrict who can remove parent collections from subcollections %>
 <li
   data-id="<%= id %>"
   data-parent-id="<%= document.id %>"
@@ -7,10 +7,9 @@
     <div class="collections-list-title">
       <%= link_to document, [hyrax, :dashboard, document], id: "src_copy_link_#{document.id}" %>
     </div>
-    <%# OVERRIDE: replace id with @collection -- #can? was returning a false negative for the id %>
-    <% if can? :edit, @collection %>
-      <%# OVERRIDE: change document.id to document -- #can? was returning a false negative for the id, add check for :manage_items_in_collection %>
-      <% if can?(:edit, document) && can?(:manage_items_in_collection, @collection) %>
+    <% if can? :edit, id %>
+      <%# OVERRIDE: add check for :manage_items_in_collection %>
+      <% if can?(:edit, document.id) && can?(:manage_items_in_collection, id) %>
         <button class="btn btn-xs btn-danger remove-from-collection-button"><%= t('hyrax.collections.show.buttons.remove_from_collection') %></button>
       <% else %>
         <%= link_to "#",

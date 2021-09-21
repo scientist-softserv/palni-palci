@@ -9,7 +9,7 @@
     </div>
     <% if can? :edit, id %>
       <%# OVERRIDE: add check for :manage_items_in_collection %>
-      <% if can?(:edit, document.id) && can?(:manage_items_in_collection, id) %>
+      <% if can?(:edit, document.id) && can?(:manage_items_in_collection, document.id) %>
         <button class="btn btn-xs btn-danger remove-from-collection-button"><%= t('hyrax.collections.show.buttons.remove_from_collection') %></button>
       <% else %>
         <%= link_to "#",

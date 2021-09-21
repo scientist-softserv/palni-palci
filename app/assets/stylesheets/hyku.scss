@@ -393,3 +393,17 @@ a.restore-default-font, a.restore-default-color {
   }
 }
 
+// make sure that URLs don't go outside the container on all work-show pages
+.work-show ul.tabular li {
+  word-wrap: break-word;
+}
+
+// removes the extra whitespace extending past the sides of the page
+nav.navbar.navbar-default.navbar-static-top .container-fluid .row {
+  margin-left: 0;
+  margin-right: 0;
+  nav.navbar-nav.col-sm-5 {
+    padding-right: 0;
+  }
+}
+

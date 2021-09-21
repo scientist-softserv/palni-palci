@@ -54,6 +54,7 @@ class SolrDocument
   attribute :degree_name, Solr::Array, solr_name('degree_name')
   attribute :department, Solr::Array, solr_name('department')
   attribute :format, Solr::Array, solr_name('format')
+  attribute :title_ssi, Solr::Array, solr_name('title_ssi')
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

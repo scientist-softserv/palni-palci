@@ -27,7 +27,6 @@
           <div class="col-sm-3 text-center">
             <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
             <%= render 'citations', presenter: @presenter %>
-            <%= render 'social_media' %>
           </div>
           <div class="col-sm-9">
             <%= render 'work_description', presenter: @presenter %>

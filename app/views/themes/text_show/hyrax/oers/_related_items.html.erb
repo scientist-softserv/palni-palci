@@ -25,9 +25,5 @@
         </div><!-- /pager -->
     <% end %>
   </div>
-<% elsif can? :edit, presenter.id %>
-    <div class="alert alert-warning" role="alert"><%= t('.empty', type: presenter.human_readable_type) %></div>
-<% else %>
-  <div class="alert alert-warning" role="alert"><%= t('.unauthorized', type: presenter.human_readable_type) %></div>
-<% end %>
+  <% end %>
 

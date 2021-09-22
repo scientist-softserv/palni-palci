@@ -56,3 +56,5 @@ public/branding/*
 
 # Ignore Bulkrax in local development
 vendor/engines/*
+
+.DS_Store

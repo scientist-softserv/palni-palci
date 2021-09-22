@@ -12,6 +12,23 @@ Hyrax::CollectionPresenter.class_eval do
     create_work_presenter.authorized_models.any?
   end
 
+  # Terms is the list of fields displayed by
+  # app/views/collections/_show_descriptions.html.erb
+  # OVERRIDE Hyrax - removed size
+  def self.terms
+    %i[total_items resource_type creator contributor keyword license publisher date_created subject
+       language identifier based_near related_url]
+  end
+
+  def [](key)
+    case key
+    when :total_items
+      total_items
+    else
+      solr_document.send key
+    end
+  end
+
   # OVERRIDE: Add label for Edit access
   #
   # For the Managed Collections tab, determine the label to use for the level of access the user has for this admin set.

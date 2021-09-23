@@ -52,7 +52,7 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Recently Uploaded'
       expect(page).to have_content 'Pandas'
       click_link 'Recently Uploaded'
-      expect(page).to have_css('p.recent-field')
+      expect(page).to have_css('li.recent-item')
     end
   end
 

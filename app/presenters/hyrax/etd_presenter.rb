@@ -10,6 +10,7 @@ module Hyrax
              :advisor,
              :committee_member,
              :department,
+             :rights_notes,
              to: :solr_document
   end
 end

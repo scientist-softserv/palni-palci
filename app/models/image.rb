@@ -9,6 +9,10 @@ class Image < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :rights_notes, predicate: ::RDF::URI('https://hykucommons.org/terms/rights_notes') do |index|
+    index.as :stored_searchable
+  end
+
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata

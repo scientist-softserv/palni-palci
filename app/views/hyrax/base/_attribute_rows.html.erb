@@ -11,4 +11,5 @@
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted) %>
 <%= presenter.attribute_to_html(:source) %>
 <%= presenter.attribute_to_html(:rights_statement) %>
+<%= presenter.attribute_to_html(:rights_notes, render_as: :linked, html_dl: true) %>
 <%= presenter.attribute_to_html(:extent) %>

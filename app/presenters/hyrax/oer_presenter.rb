@@ -2,10 +2,10 @@
 #  `rails generate hyrax:work Oer`
 module Hyrax
   class OerPresenter < Hyku::WorkShowPresenter
-    delegate :alternative_title, :date, :table_of_contents, :additional_information,
+    delegate :alternative_title, :table_of_contents, :additional_information,
              :rights_holder, :oer_size, :accessibility_feature, :accessibility_hazard,
              :accessibility_summary, :audience, :education_level, :learning_resource_type,
-             :discipline, to: :solr_document
+             :discipline, :rights_notes, to: :solr_document
 
     # @return [Array] list to display with Kaminari pagination
     # for use in _related_items.html.erb partial

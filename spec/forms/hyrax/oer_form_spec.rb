@@ -20,7 +20,7 @@ RSpec.describe Hyrax::OerForm do
         education_level: ['adult education'],
         learning_resource_type: ['Lecture notes'],
         resource_type: ['Collection'],
-        date: ['10/3/2000'],
+        date_created: ['10/3/2000'],
         alternative_title: ['alternative title'],
         table_of_contents: ['table of contents'],
         additional_information: ['additional information'],
@@ -40,7 +40,7 @@ RSpec.describe Hyrax::OerForm do
       expect(subject['education_level']).to eq ['adult education']
       expect(subject['learning_resource_type']).to eq ['Lecture notes']
       expect(subject['resource_type']).to eq ['Collection']
-      expect(subject['date']).to eq ['10/3/2000']
+      expect(subject['date_created']).to eq ['10/3/2000']
       expect(subject['alternative_title']).to eq ['alternative title']
       expect(subject['table_of_contents']).to eq ['table of contents']
       expect(subject['additional_information']).to eq ['additional information']

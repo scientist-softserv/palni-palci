@@ -11,6 +11,7 @@
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted, label: label_for(term: :resource_type, record_class: Etd)) %>
 <%= presenter.attribute_to_html(:source) %>
 <%= presenter.attribute_to_html(:rights_statement, label: label_for(term: :rights_statement, record_class: Etd)) %>
+<%= presenter.attribute_to_html(:rights_notes, render_as: :linked, html_dl: true) %>
 <%= presenter.attribute_to_html(:extent) %>
 <%= presenter.attribute_to_html(:format, label: label_for(term: :format, record_class: Etd)) %>
 <%= presenter.attribute_to_html(:degree_name, label: label_for(term: :degree_name, record_class: Etd)) %>

@@ -6,42 +6,16 @@ x-app: &app
     target: hyku-base
     args:
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+      - SETTINGS__BULKRAX__ENABLED=true
   image: registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
   env_file:
     - .env
-    - .env.development
-  environment:
-      # version and location of fits are set in Dockerfile:
-    - FEDORA_URL=http://fcrepo:8080/fcrepo/rest
-    - IN_DOCKER=true
-    # version and location of fits are set in Dockerfile:
-    - LD_LIBRARY_PATH=/opt/fits/tools/mediainfo/linux
-    - PASSENGER_APP_ENV=development
-    - RAILS_LOG_TO_STDOUT=true
-    - RAILS_SERVE_STATIC_FILES=true
-    - REDIS_HOST=redis
-    - SECRET_KEY_BASE=asdf
-    - SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER=sidekiq
-    - SETTINGS__BULKRAX__ENABLED=true
-    - SETTINGS__FITS_PATH=/opt/fits/fits.sh
-    - SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS=true
-    # Comment out these 5 for single tenancy / Uncomment for multi
-    - SETTINGS__MULTITENANCY__ADMIN_HOST=pals.docker
-    - SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION=false
-    - SETTINGS__MULTITENANCY__ROOT_HOST=pals.docker
-    - SETTINGS__MULTITENANCY__DEFAULT_HOST=%{tenant}.pals.docker
-    - SETTINGS__MULTITENANCY__ENABLED=true
-    # Comment out these 2 for multi tenancy / Uncomment for single
-    # - SETTINGS__MULTITENANCY__ROOT_HOST=hyku.docker
-    # - SETTINGS__MULTITENANCY__ENABLED=false
-    - SETTINGS__SOLR__URL=http://solr:8983/solr/
-    - SETTINGS__ZOOKEEPER__CONNECTION_STR=zookeeper_cluster:2181/configs
-    - SOLR_URL=http://solr:8983/solr/
+  # NOTE: all common env variables moved to .env
   volumes:
-    - app:/home/app/webapp/tmp/uploads
-    - assets:/home/app/webapp/public/assets
-    - cache:/home/app/webapp/tmp/cache
-    - .:/home/app/webapp
+    - uploads:/app/samvera/hyrax-webapp/public/uploads
+    - assets:/app/samvera/hyrax-webapp/public/assets
+    - cache:/app/samvera/hyrax-webapp/tmp/cache
+    - .:/app/samvera/hyrax-webapp
   networks:
     internal:
 
@@ -50,8 +24,9 @@ volumes:
   solr:
   db:
   redis:
-  zk:
-  app:
+  zk1:
+  zkconf:
+  uploads:
   assets:
   cache:
 
@@ -60,18 +35,19 @@ networks:
 
 services:
   zoo1:
-    image: bitnami/zookeeper:3.6
+    image: zookeeper:3.4
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-      - ZOO_4LW_COMMANDS_WHITELIST=mntr,srvr,ruok,conf
       - ZOO_MY_ID=1
       - ZOO_SERVERS=server.1=zoo1:2888:3888
+      - ZOO_4LW_COMMANDS_WHITELIST=mntr,srvr,ruok,conf
     expose:
       - 2181
       - 2888
       - 3888
     volumes:
-      - zk:/bitnami/zookeeper
+      - zk1:/data
+      - zkconf:/conf
     networks:
       internal:
        aliases:
@@ -79,33 +55,39 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "echo 'ruok' | nc -w 2 -q 2 localhost 2181 | grep imok || exit 1"]
       interval: "10s"
-      timeout: "8s"
+      timeout: "8"
   solr:
-    image: solr:7.5
-    command: solr -c -f -z zoo1:2181
+    image: bitnami/solr:8
+    environment:
+      - OOM=script
+      - SOLR_ADMIN_USERNAME=admin
+      - SOLR_ADMIN_PASSWORD=admin
+      - SOLR_COLLECTION=hydra-development
+      - SOLR_CLOUD_BOOTSTRAP=yes
+      - SOLR_ENABLE_CLOUD_MODE=yes
+      - SOLR_ENABLE_AUTHENTICATION=yes
+      - SOLR_PORT_NUMBER=8983
+      - SOLR_ZK_HOSTS=zoo1
+      - VIRTUAL_PORT=8983
+      - VIRTUAL_HOST=solr.pals.test
     depends_on:
       zoo1:
         condition: service_healthy
     expose:
       - 8983
     volumes:
-      - .:/app
-      - solr:/opt/solr/server/solr
+      - solr:/bitnami
     networks:
       internal:
-    environment:
-      - OOM=script
-      - VIRTUAL_PORT=8983
-      - VIRTUAL_HOST=solr.pals.docker
 
   fcrepo:
-    image: cbeer/fcrepo4:4.7
+    image: ghcr.io/samvera/fcrepo4:4.7.5
+    volumes:
+      - fcrepo:/data:cached
     env_file:
       - .env
     expose:
       - 8080
-    volumes:
-      - fcrepo:/data
     environment:
       - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     networks:
@@ -124,91 +106,44 @@ services:
     networks:
       internal:
 
-  app:
-    build: .
-    image: registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
-    env_file:
-      - .env
-      - .env.development
-    environment:
-        # version and location of fits are set in Dockerfile:
-      - FEDORA_URL=http://fcrepo:8080/fcrepo/rest
-      - IN_DOCKER=true
-      # version and location of fits are set in Dockerfile:
-      - LD_LIBRARY_PATH=/opt/fits/tools/mediainfo/linux
-      - PASSENGER_APP_ENV=development
-      - RAILS_LOG_TO_STDOUT=true
-      - RAILS_SERVE_STATIC_FILES=true
-      - REDIS_HOST=redis
-      - SECRET_KEY_BASE=asdf
-      - SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER=sidekiq
-      - SETTINGS__BULKRAX__ENABLED=true
-      - SETTINGS__FITS_PATH=/opt/fits/fits.sh
-      - SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS=true
-      # Comment out these 5 for single tenancy / Uncomment for multi
-      - SETTINGS__MULTITENANCY__ADMIN_HOST=pals.docker
-      - SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION=false
-      - SETTINGS__MULTITENANCY__ROOT_HOST=pals.docker
-      - SETTINGS__MULTITENANCY__DEFAULT_HOST=%{tenant}.pals.docker
-      - SETTINGS__MULTITENANCY__ENABLED=true
-      # Comment out these 2 for multi tenancy / Uncomment for single
-      # - SETTINGS__MULTITENANCY__ROOT_HOST=hyku.docker
-      # - SETTINGS__MULTITENANCY__ENABLED=false
-      - SETTINGS__SOLR__URL=http://solr:8983/solr/
-      - SETTINGS__ZOOKEEPER__CONNECTION_STR=zookeeper_cluster:2181/configs
-      - SOLR_URL=http://solr:8983/solr/
-    volumes:
-      - app:/home/app/webapp/tmp/uploads
-      - assets:/home/app/webapp/public/assets
-      - cache:/home/app/webapp/tmp/cache
-      - .:/home/app/webapp
-    networks:
-      internal:
-
   web:
     <<: *app
     environment:
-      - VIRTUAL_PORT=80
-      - VIRTUAL_HOST=pals.docker
-      - IN_DOCKER='true'
-      - HUB_URL=http://chrome:4444/wd/hub
+      - VIRTUAL_PORT=3000
+      - VIRTUAL_HOST=.pals.test
     depends_on:
+      - check_volumes
       - db
+      - solr
       - fcrepo
       - redis
-      - solr
       - zoo1
       - chrome
       - initialize_app
-      - db_migrate
-      - workers
+      - worker
     expose:
-      - 80
-    networks:
-      internal:
-    # ports:
-      # 3000:80 # uncomment this if you dont use dory or another proxy
+      - 3000
 
-  workers:
-    extends:
-      service: app
+  worker:
+    <<: *app
     build:
       context: .
       target: hyku-worker
       args:
         - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+        - SETTINGS__BULKRAX__ENABLED=true
       cache_from:
         - registry.gitlab.com/notch8/palni-palci:${TAG:-latest}
         - registry.gitlab.com/notch8/palni-palci/worker:${TAG:-latest}
-    command: bundle exec sidekiq
+    image: registry.gitlab.com/notch8/palni-palci/worker:${TAG:-latest}
     depends_on:
+      - check_volumes
       - db
       - solr
       - fcrepo
       - redis
       - zoo1
       - initialize_app
-      - db_migrate
 
   # Do not recurse through all of tmp. derivitives will make booting
   # very slow and eventually just time out as data grows
@@ -218,24 +153,25 @@ services:
     entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        chown -R app:/home/app/webapp/tmp/uploads
-        chown -R assets:/home/app/webapp/public/assets
-        chown -R cache:/home/app/webapp/tmp/cache
-        chown -R .:/home/app/webapp
+        chown -R app:app /app/samvera/hyrax-webapp/public/uploads &&
+        chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
+        chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
 
   initialize_app:
-    extends:
-      service: app
-    command: bundle exec rails zookeeper:upload
-    depends_on:
-      - zoo1
-
-  db_migrate:
-    extends:
-      service: app
-    command: bundle exec rails db:migrate
+    <<: *app
+    environment:
+      - CONFDIR=/app/samvera/hyrax-webapp/solr/config
+    entrypoint: ["sh", "-c"]
+    command:
+      - >
+        solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config &&
+        solrcloud-assign-configset.sh &&
+        SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+        db-migrate-seed.sh
     depends_on:
       - db
+      - solr
+      - fcrepo
 
   redis:
     image: redis:5
@@ -246,14 +182,6 @@ services:
       internal:
 
   chrome:
-    image: selenium/standalone-chrome-debug:3.141.59-20201010
-    logging:
-      driver: none
-    volumes:
-      - /dev/shm:/dev/shm
-    shm_size: 2G
+    image: selenium/standalone-chrome:3.141
     networks:
       internal:
-    ports:
-      - "4444"
-      - "5959"

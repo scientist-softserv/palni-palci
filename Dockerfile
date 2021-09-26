@@ -9,6 +9,7 @@ RUN apk --no-cache upgrade && \
     libxml2-dev \
     mediainfo \
     perl \
+    cmake \
     $EXTRA_APK_PACKAGES
 
 ARG VIPS_VERSION=8.11.3
@@ -45,6 +46,7 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
 
+ARG SETTINGS__BULKRAX__ENABLED="false"
 RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
 
 FROM hyku-base as hyku-worker

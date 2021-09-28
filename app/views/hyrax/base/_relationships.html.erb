@@ -1,3 +1,4 @@
+<%# OVERRIDE Hyrax 2.9 to make relationships only show if they exist %>
 <% if !current_user && presenter.grouped_presenters.present? %>
   <div class="work-show">
     <h2><%= t('hyrax.base.show.relationships') %></h2>

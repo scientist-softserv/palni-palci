@@ -26,17 +26,19 @@
             <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>
           </div>
-          <div class="col-sm-4">
-            <% if @presenter.grouped_presenters(except: @presenter.presenter_types).any? %>
+          <div class="col-sm-4 relationships-container">
              <div class='relationships-box'>
               <%= render 'relationships', presenter: @presenter %>
               </div>
-            <% end %>
-              <div class='relationships-box'>
               <% if @presenter.class == Hyrax::OerPresenter %>
-                <%= render 'related_items', presenter: @presenter %>
+                <div class='relationships-box'>
+                  <%= render 'related_items', presenter: @presenter %>
+                </div>
               <% end %>
-              </div>
+                <div>
+                  <br>
+                  <%= render 'citations', presenter: @presenter %>
+                </div>
             </div>
           </div>
           <div class="col-sm-12">

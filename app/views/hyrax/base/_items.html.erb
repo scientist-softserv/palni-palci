@@ -3,9 +3,10 @@
 <%  members = presenter.member_presenters_for(array_of_ids) %>
 <% 
   if !current_user || !current_user.has_role?(:admin, Site.instance)
-    members = members.reject { |m| m.solr_document['is_derived_ssi'] == 'true' }
+    members = members.reject { |m| m.solr_document['is_derived_bsi'] == true }
   end
 %>
+
 <% if members.present? %>
   <table class="table table-striped related-files">
     <thead>
@@ -33,3 +34,4 @@
 <% else %>
   <div class="alert alert-warning" role="alert"><%= t('.unauthorized', type: presenter.human_readable_type) %></div>
 <% end %>
+

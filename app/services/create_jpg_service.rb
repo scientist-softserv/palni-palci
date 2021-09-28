@@ -36,7 +36,7 @@ class CreateJpgService
   end
 
   def create_uploaded_files(file, directory)
-    Dir.glob("#{directory}/*.jpg").map do |jpg|
+    Dir.glob("#{directory}/*.jpg").sort.map do |jpg|
       File.open(Rails.root.join(jpg)) do |jpg_file|
         Hyrax::UploadedFile.create(file: jpg_file, user_id: file.user_id, derived: true)
       end
@@ -44,7 +44,7 @@ class CreateJpgService
   end
 
   def files_present?(directory)
-    return true if self.cached
+    return true if cached
     Dir.glob("#{directory}/*.jpg").size.positive?
   end
 

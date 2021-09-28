@@ -12,15 +12,18 @@ class AttachFilesToWorkJob < Hyrax::ApplicationJob
     work_permissions = work.permissions.map(&:to_hash)
     metadata = visibility_attributes(work_attributes)
     visibility_attributes(work_attributes)
-    uploaded_files.each do |uploaded_file|
-      next if uploaded_file.file_set_uri.present?
-      actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
-      uploaded_file.update(file_set_uri: actor.file_set.uri)
-      actor.file_set.permissions_attributes = work_permissions
-      metadata[:is_derived] = uploaded_file.derived?
-      actor.create_metadata(metadata)
-      actor.create_content(uploaded_file)
-      actor.attach_to_work(work)
+    uploaded_files.in_groups_of(10, false) do |upload_group|
+      upload_group.each do |uploaded_file|
+        next if uploaded_file.file_set_uri.present?
+        actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
+        uploaded_file.update(file_set_uri: actor.file_set.uri)
+        actor.file_set.permissions_attributes = work_permissions
+        metadata[:is_derived] = uploaded_file.derived?
+        actor.create_metadata(metadata)
+        actor.create_content(uploaded_file)
+        actor.attach_to_work(work)
+      end
+      work.reload
     end
   end
 

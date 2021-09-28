@@ -62,6 +62,7 @@ module Hyrax
         file_set.date_uploaded = now
         file_set.date_modified = now
         file_set.creator = [user.user_key]
+        # OVERRIDE: Hyrax 2.9.1 set fileset to is_derived
         file_set.is_derived = file_set_params[:is_derived]
 
         if assign_visibility?(file_set_params)

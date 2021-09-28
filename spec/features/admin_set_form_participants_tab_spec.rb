@@ -30,16 +30,17 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
     end
 
     context 'add group participants' do
-      let!(:group) { FactoryBot.create(:group, name: 'dummy') }
+      let!(:group) { FactoryBot.create(:group) }
 
       before do
         visit "/admin/admin_sets/#{ERB::Util.url_encode(admin_set_id)}/edit#participants"
 
         expect(page).to have_content('Add Participants')
         expect(page).to have_content('Add group')
-        expect(find('table.managers-table')).not_to have_content('dummy')
-        expect(find('table.depositors-table')).not_to have_content('dummy')
-        expect(find('table.viewers-table')).not_to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content(group.name.titleize)
+        # group does not have access if the table does not render
+        expect(page).not_to have_selector('table.depositors-table')
+        expect(page).not_to have_selector('table.viewers-table')
       end
 
       it 'displays the groups humanized name' do
@@ -48,38 +49,39 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
 
       it 'can add a group as a Manager of the admin set' do
         within('form#group-participants-form') do
-          find('select#permission_template_access_grants_attributes_0_agent_id option', text: 'Group dummy').click
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: group.humanized_name).click
           find('select#permission_template_access_grants_attributes_0_access option', text: 'Manager').click
           find('input.btn-info').click
         end
 
-        expect(find('table.managers-table')).to have_content('dummy')
-        expect(find('table.depositors-table')).not_to have_content('dummy')
-        expect(find('table.viewers-table')).not_to have_content('dummy')
+        expect(find('table.managers-table')).to have_content(group.name.titleize)
+        # group does not have access if the table does not render
+        expect(page).not_to have_selector('table.depositors-table')
+        expect(page).not_to have_selector('table.viewers-table')
       end
 
       it 'can add a group as a Depositor of the admin set' do
         within('form#group-participants-form') do
-          find('select#permission_template_access_grants_attributes_0_agent_id option', text: 'dummy').click
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: group.humanized_name).click
           find('select#permission_template_access_grants_attributes_0_access option', text: 'Depositor').click
           find('input.btn-info').click
         end
 
-        expect(find('table.managers-table')).not_to have_content('dummy')
-        expect(find('table.depositors-table')).to have_content('dummy')
-        expect(find('table.viewers-table')).not_to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content(group.name.titleize)
+        expect(find('table.depositors-table')).to have_content(group.name.titleize)
+        expect(page).not_to have_selector('table.viewers-table') # group does not have access if the table does not render
       end
 
       it 'can add a group as a Viewer of the admin set' do
         within('form#group-participants-form') do
-          find('select#permission_template_access_grants_attributes_0_agent_id option', text: 'dummy').click
+          find('select#permission_template_access_grants_attributes_0_agent_id option', text: group.humanized_name).click
           find('select#permission_template_access_grants_attributes_0_access option', text: 'Viewer').click
           find('input.btn-info').click
         end
 
-        expect(find('table.managers-table')).not_to have_content('dummy')
-        expect(find('table.depositors-table')).not_to have_content('dummy')
-        expect(find('table.viewers-table')).to have_content('dummy')
+        expect(find('table.managers-table')).not_to have_content(group.name.titleize)
+        expect(page).not_to have_selector('table.depositors-table') # group does not have access if the table does not render
+        expect(find('table.viewers-table')).to have_content(group.name.titleize)
       end
     end
 

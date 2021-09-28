@@ -18,7 +18,7 @@ FactoryBot.define do
     identifier { ['Star Wars'] }
     keyword { ['jedi'] }
     language { ['Huttese'] }
-    license { ['http://creativecommons.org/publicdomain/mark/1.0/'] }
+    license { ['https://creativecommons.org/licenses/by/4.0/'] }
     publisher { ['Coruscant Weekly'] }
     related_url { ['https://hykucommons.org'] }
     resource_type { ['Dissertation'] }

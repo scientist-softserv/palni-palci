@@ -27,10 +27,13 @@
   // allows full width if tabs are turned off with feature flipper
   .home-content {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
   }
   .home-tabs-left {
     min-width: 50%;
+  }
+  .home-tabs-right, .home-tabs-left {
+    margin: 0 10px;
   }
 }
 
@@ -390,6 +393,20 @@ a.restore-default-font, a.restore-default-color {
     .grid-item {
       width: 100%;
     }
+  }
+}
+
+// make sure that URLs don't go outside the container on all work-show pages
+.work-show ul.tabular li {
+  word-wrap: break-word;
+}
+
+// removes the extra whitespace extending past the sides of the page
+nav.navbar.navbar-default.navbar-static-top .container-fluid .row {
+  margin-left: 0;
+  margin-right: 0;
+  nav.navbar-nav.col-sm-5 {
+    padding-right: 0;
   }
 }
 

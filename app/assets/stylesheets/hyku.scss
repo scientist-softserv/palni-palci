@@ -27,6 +27,8 @@
   // allows full width if tabs are turned off with feature flipper
   .home-content {
     display: flex;
+    justify-content: normal;
+    padding: 0 20px;
   }
   .home-tabs-left {
     min-width: 50%;

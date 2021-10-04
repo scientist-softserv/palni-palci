@@ -31,9 +31,6 @@ RSpec.describe 'Etd show page', type: :feature, js: true, clean: true, cohort: '
       expect(metadata).to have_content('Date')
       expect(metadata).not_to have_content('Date created')
 
-      expect(metadata).to have_content('Relation')
-      expect(metadata).not_to have_content('Related url')
-
       expect(metadata).to have_content('Type')
       expect(metadata).not_to have_content('Resource type')
 

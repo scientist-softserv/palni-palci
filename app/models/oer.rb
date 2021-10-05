@@ -29,7 +29,7 @@ class Oer < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :date, predicate: ::RDF::Vocab::DC.date do |index|
+  property :date_created, predicate: ::RDF::Vocab::DC.date do |index|
     index.as :stored_searchable
   end
 
@@ -43,6 +43,10 @@ class Oer < ActiveFedora::Base
 
   property :rights_holder, predicate: ::RDF::Vocab::DC.rightsHolder do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  property :rights_notes, predicate: ::RDF::URI('https://hykucommons.org/terms/rights_notes') do |index|
+    index.as :stored_searchable
   end
 
   property :oer_size, predicate: ::RDF::Vocab::DC.extent do |index|
@@ -77,8 +81,8 @@ class Oer < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :discipline, predicate: ::RDF::Vocab::DC.coverage do |index|
-    index.as :stored_searchable, :facetable
+  property :discipline, predicate: ::RDF::URI('https://hykucommons.org/terms/degree_discipline') do |index|
+    index.as :stored_searchable
   end
 
   self.human_readable_type = 'OER'

@@ -1,4 +1,4 @@
-<!-- Fix thumbnail nil problem -->
+<!-- Fix thumbnail nil problem & remove depositor -->
 <li class="recent-item">
   <div class="row">
     <div class="col-sm-12">
@@ -8,9 +8,7 @@
           <%= render_thumbnail_tag(recent_document, {width: 90}, {suppress_link: true}).to_s + recent_document.to_s %>
         <% end %>
       </h3>
-      <p class="recent-field">
-        <span class="recent-label"><%= t('hyrax.homepage.recently_uploaded.document.depositor_label') %>:</span> <%= link_to_profile recent_document.depositor(t('hyrax.homepage.recently_uploaded.document.depositor_missing')) %>
-      </p>
+      <%# Removed Depositor %>
       <%# Removed item keywords %>
     </div>
   </div>

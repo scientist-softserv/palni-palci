@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# For work approval permissions, see spec/requests/work_approval_permissions_spec.rb
 RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean: true do
   let(:work_depositor) { FactoryBot.create(:user, roles: [:work_depositor]) }
+  let(:work) { create(:work) }
 
   before do
     FactoryBot.create(:admin_group)
@@ -84,8 +86,6 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
   end
 
   describe 'edit permissions' do
-    let(:work) { create(:work) }
-
     it 'cannot edit the work' do
       get edit_hyrax_generic_work_path(work)
 
@@ -94,14 +94,10 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
   end
 
   describe 'destroy permissions' do
-    let(:work) { create(:work) }
-
-    it 'can edit the work' do
+    it 'cannot destroy the work' do
       delete hyrax_generic_work_path(work)
 
       expect(response).to have_http_status(:unauthorized)
     end
   end
-
-  # TODO: add approve permissions
 end

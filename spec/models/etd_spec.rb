@@ -67,9 +67,9 @@ RSpec.describe Etd do
     context ':license' do
       let(:etd) { FactoryBot.build(:etd) }
       it 'is a property' do
-        etd.license = ['http://creativecommons.org/licenses/by/3.0/us/']
+        etd.license = ['https://creativecommons.org/licenses/by/4.0/']
         expect(etd.resource.dump(:ttl)).to match(/purl.org\/dc\/terms\/rights/)
-        expect(etd.license.first).to match(/^http:\/\/creativecommons.org/)
+        expect(etd.license.first).to match(/^https:\/\/creativecommons.org/)
       end
     end
 

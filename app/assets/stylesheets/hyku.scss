@@ -27,15 +27,20 @@
   // allows full width if tabs are turned off with feature flipper
   .home-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: normal;
+    padding: 0 20px;
   }
   .home-tabs-left {
     min-width: 50%;
   }
+  .home-tabs-right,
+  .home-tabs-left {
+    margin: 0 10px;
+  }
 }
 
 #banner.jumbotron {
-  background: image_url('Hyku_Commons_Logo.png') no-repeat;
+  background: image_url("Hyku_Commons_Logo.png") no-repeat;
   background-position: center;
   height: 220px;
   background-color: $gray-lighter;
@@ -59,7 +64,11 @@
   }
 
   .btn-sign-up {
-    @include button-variant($classic-white, $jumbotron-button-background-color, $jumbotron-button-background-color);
+    @include button-variant(
+      $classic-white,
+      $jumbotron-button-background-color,
+      $jumbotron-button-background-color
+    );
     border-radius: 3px;
     font-size: 0.7em;
     margin-top: 15px;
@@ -318,7 +327,6 @@ footer.navbar {
   padding: 0;
 }
 
-
 #users > .panel {
   .panel-body {
     padding-left: 0px;
@@ -349,7 +357,8 @@ footer.navbar {
   margin: 0 10px 10px 0;
 }
 
-a.restore-default-font, a.restore-default-color {
+a.restore-default-font,
+a.restore-default-color {
   margin-bottom: 2em;
 }
 
@@ -393,3 +402,26 @@ a.restore-default-font, a.restore-default-color {
   }
 }
 
+// make sure that URLs don't go outside the container on all work-show pages
+.work-show ul.tabular li {
+  word-wrap: break-word;
+}
+
+// removes the extra whitespace extending past the sides of the page
+nav.navbar.navbar-default.navbar-static-top .container-fluid .row {
+  margin-left: 0;
+  margin-right: 0;
+  nav.navbar-nav.col-sm-5 {
+    padding-right: 0;
+  }
+}
+
+//these styles modify the theming for the citations section
+div#collapse-citations {
+  text-align: left;
+}
+@media (min-width: 576px) {
+  .citations-button {
+    max-width: 300px;
+  }
+}

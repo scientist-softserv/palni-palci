@@ -30,13 +30,13 @@ class SolrDocument
   attribute :extent, Solr::Array, solr_name('extent')
   attribute :rendering_ids, Solr::Array, solr_name('hasFormat', :symbol)
   attribute :alternative_title, Solr::String, solr_name('alternative_title')
-  attribute :date, Solr::Array, solr_name('date')
   attribute :audience, Solr::Array, solr_name('audience')
   attribute :education_level, Solr::Array, solr_name('education_level')
   attribute :learning_resource_type, Solr::Array, solr_name('learning_resource_type')
   attribute :table_of_contents, Solr::String, solr_name('table_of_contents')
   attribute :additional_information, Solr::String, solr_name('additional_information')
   attribute :rights_holder, Solr::String, solr_name('rights_holder')
+  attribute :rights_notes, Solr::String, solr_name('rights_notes')
   attribute :oer_size, Solr::String, solr_name('oer_size')
   attribute :accessibility_summary, Solr::String, solr_name('accessibility_summary')
   attribute :accessibility_feature, Solr::Array, solr_name('accessibility_feature')
@@ -54,6 +54,7 @@ class SolrDocument
   attribute :degree_name, Solr::Array, solr_name('degree_name')
   attribute :department, Solr::Array, solr_name('department')
   attribute :format, Solr::Array, solr_name('format')
+  attribute :title_ssi, Solr::Array, solr_name('title_ssi')
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

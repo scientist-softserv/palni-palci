@@ -22,7 +22,6 @@ module Hyrax
           can :destroy, Collection do |collection|
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: collection.id)
           end
-          # TODO: make sure this does not apply to AdminSet solr documents -- this should be handled in admin_set_ability.rb
           can :destroy, ::SolrDocument do |solr_doc|
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id) if solr_doc.collection?
           end
@@ -57,6 +56,9 @@ module Hyrax
           can :manage_items_in_collection, ::SolrDocument do |solr_doc|
             Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id)
           end
+          can :manage_items_in_collection, ::String do |id|
+            Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: id)
+          end
 
           # "Undo" permission restrictions added by the Groups with Roles feature, effectively reverting them back to default Hyrax behavior
           unless ::ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
@@ -78,6 +80,10 @@ module Hyrax
           can :manage, ::SolrDocument do |solr_doc|
             solr_doc.collection?
           end
+          can :manage, ::String do |id|
+            doc = permissions_doc(id)
+            doc.collection?
+          end
           can :create_collection_type, CollectionType
 
         # Can create, read, and edit/update all Collections
@@ -86,9 +92,17 @@ module Hyrax
           can %i[edit update], ::SolrDocument do |solr_doc|
             solr_doc.collection?
           end
+          can %i[edit update], ::String do |id|
+            doc = permissions_doc(id)
+            doc.collection?
+          end
           can %i[read read_any view_admin_show view_admin_show_any], Collection
           can %i[read read_any view_admin_show view_admin_show_any], ::SolrDocument do |solr_doc|
             solr_doc.collection?
+          end
+          can %i[read read_any view_admin_show view_admin_show_any], ::String do |id|
+            doc = permissions_doc(id)
+            doc.collection?
           end
           can :create_collection_type, CollectionType
 
@@ -97,6 +111,10 @@ module Hyrax
           can %i[read read_any view_admin_show view_admin_show_any], Collection
           can %i[read read_any view_admin_show view_admin_show_any], ::SolrDocument do |solr_doc|
             solr_doc.collection?
+          end
+          can %i[read read_any view_admin_show view_admin_show_any], ::String do |id|
+            doc = permissions_doc(id)
+            doc.collection?
           end
         end
       end

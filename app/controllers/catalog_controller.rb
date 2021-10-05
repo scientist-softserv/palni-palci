@@ -113,6 +113,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("alternative_title", :stored_searchable), label: "Alternative title"
     config.add_show_field solr_name("creator", :stored_searchable)
     config.add_show_field solr_name("contributor", :stored_searchable)
+    config.add_show_field solr_name("related_url", :stored_searchable)
     config.add_show_field solr_name('learning_resource_type', :stored_searchable)
     config.add_show_field solr_name('education_level', :stored_searchable)
     config.add_show_field solr_name('audience', :stored_searchable)
@@ -362,6 +363,8 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     # label is key, solr field is value
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
+    config.add_sort_field "title_ssi asc", label: "title (A-Z)"
+    config.add_sort_field "title_ssi desc", label: "title (Z-A)"
     config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
     config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
     config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"

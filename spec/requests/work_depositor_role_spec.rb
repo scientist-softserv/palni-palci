@@ -81,7 +81,6 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
     it 'can create a work' do
       expect { post hyrax_generic_works_path, params: valid_work_params }
         .to change(GenericWork, :count).by(1)
-      expect(response).to have_http_status(:redirect)
     end
   end
 

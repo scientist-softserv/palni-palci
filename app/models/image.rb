@@ -13,6 +13,22 @@ class Image < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :alternative_title, predicate: ::RDF::Vocab::DC.alternative do |index|
+    index.as :stored_searchable
+  end
+
+  property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
+    index.as :stored_searchable
+  end
+
+  property :bibliographic_citation, predicate: ::RDF::Vocab::DC.bibliographicCitation do |index|
+    index.as :stored_searchable
+  end
+
+  property :abstract, predicate: ::RDF::Vocab::DC.abstract do |index|
+    index.as :stored_searchable
+  end
+  
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata

@@ -55,6 +55,8 @@ class SolrDocument
   attribute :department, Solr::Array, solr_name('department')
   attribute :format, Solr::Array, solr_name('format')
   attribute :title_ssi, Solr::Array, solr_name('title_ssi')
+  attribute :abstract, Solr::String, solr_name('abstract')
+  attribute :bibliographic_citation, Solr::String, solr_name('bibliographic_citation')
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

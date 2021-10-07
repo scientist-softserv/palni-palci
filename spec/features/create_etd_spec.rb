@@ -56,7 +56,7 @@ RSpec.describe 'Create a Etd', type: :feature, js: true, clean: true, cohort: 'b
       end
       click_link 'Descriptions' # switch tab
       fill_in('Title', with: 'My Test Work')
-      fill_in('Author', with: 'Doe, Jane')
+      fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights')
       fill_in('Date', with: '01/27/2021')
       fill_in('Degree', with: 'CS')

@@ -4,6 +4,7 @@
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:learning_resource_type, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:abstract, html_dl: true) %>
 <%= presenter.attribute_to_html(:education_level, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:audience, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:discipline, render_as: :faceted, html_dl: true) %>
@@ -23,3 +24,6 @@
 <%= presenter.attribute_to_html(:accessibility_feature, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:accessibility_hazard, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:accessibility_summary, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:source, html_dl: true) %>
+<%= presenter.attribute_to_html(:bibliographic_citation, html_dl: true) %>

@@ -25,9 +25,6 @@ RSpec.describe 'Etd show page', type: :feature, js: true, clean: true, cohort: '
       visit "/concern/etds/#{etd.id}"
       metadata = find('dl.work-show.etd')
 
-      expect(metadata).to have_content('Author')
-      expect(metadata).not_to have_content('Creator')
-
       expect(metadata).to have_content('Date')
       expect(metadata).not_to have_content('Date created')
 

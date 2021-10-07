@@ -7,6 +7,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
-    self.terms += %i[rights_notes resource_type]
+    self.terms += %i[resource_type alternative_title additional_information rights_notes bibliographic_citation abstract]
+    self.terms -=%i[based_near]
   end
 end

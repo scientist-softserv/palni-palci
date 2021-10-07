@@ -7,21 +7,21 @@ en:
         format: Format
   hyrax:
     icons:
-      etd:     'fa fa-file-text-o'
+      etd: "fa fa-file-text-o"
     select_type:
       etd:
-        description:        "Electronic Theses & Dissertations"
-        name:               "ETD"
+        description: "Electronic Theses & Dissertations"
+        name: "ETD"
     etd:
       labels:
-        committee_member: 'Committee member'
-        creator: 'Author'
-        date_created: 'Date'
-        degree_discipline: 'Discipline'
-        degree_grantor: 'Grantor'
-        degree_level: 'Level'
-        degree_name: 'Degree'
-        description: 'Abstract / Description'
-        related_url: 'Relation'
-        resource_type: 'Type'
-        rights_statement: 'Rights'
+        committee_member: "Committee member"
+        creator: "Creator"
+        date_created: "Date"
+        degree_discipline: "Discipline"
+        degree_grantor: "Grantor"
+        degree_level: "Level"
+        degree_name: "Degree"
+        description: "Description"
+        related_url: "Relation"
+        resource_type: "Type"
+        rights_statement: "Rights"

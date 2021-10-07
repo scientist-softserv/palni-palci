@@ -85,6 +85,14 @@ class Oer < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :bibliographic_citation, predicate: ::RDF::Vocab::DC.bibliographicCitation do |index|
+    index.as :stored_searchable
+  end
+
+  property :abstract, predicate: ::RDF::Vocab::DC.abstract do |index|
+    index.as :stored_searchable
+  end
+
   self.human_readable_type = 'OER'
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

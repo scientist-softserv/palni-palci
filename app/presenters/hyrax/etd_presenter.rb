@@ -11,6 +11,7 @@ module Hyrax
              :committee_member,
              :department,
              :rights_notes,
+             :abstract,
              to: :solr_document
   end
 end

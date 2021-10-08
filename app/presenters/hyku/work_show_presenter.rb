@@ -20,7 +20,16 @@ module Hyku
       isbns = extract_from_identifier(isbn_regex)
       isbns&.flatten&.compact
     end
-  
+
+    # OVERRIDE FILE from Hyrax v2.9.0
+    # @return [Array] list to display with Kaminari pagination
+    # paginating on members so we can filter out derived status
+    Hyrax::WorkShowPresenter.class_eval do
+      def list_of_item_ids_to_display
+        paginated_item_list(page_array: members)
+      end
+    end
+
     private
 
       def extract_from_identifier(rgx)
@@ -32,5 +41,19 @@ module Hyku
         ref
       end
 
+      # OVERRIDE FILE from Hyrax v2.9.0
+      # Gets the member id's for pagination, filter out derived files
+      Hyrax::WorkShowPresenter.class_eval do
+        def members
+          members = member_presenters_for(authorized_item_ids)
+          filtered_members =
+            if current_ability.admin?
+              members
+            else
+              members.reject { |m| m.solr_document['is_derived_ssi'] == 'true' }
+            end
+          filtered_members.collect(&:id)
+        end
+      end
   end
 end

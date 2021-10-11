@@ -12,15 +12,20 @@
 <div id="collapse-citations" class="collapse">
   <br/>
   <h4>MLA citation style</h4>
-  <span class="mla-citation"><%= export_as_mla_citation(@presenter) %></span>
+  <span class="mla-citation"><%= export_as_mla_citation(@presenter) %>
+  <%= request.original_url %>
+  </span>
   <br /><br />
 
   <h4>APA citation style</h4>
-  <span class="apa-citation"><%= export_as_apa_citation(@presenter) %></span>
+  <span class="apa-citation"><%= export_as_apa_citation(@presenter) %>
+   <%= request.original_url %>
+  </span>
   <br /><br />
 
   <h4>Chicago citation style</h4>
-  <span class="chicago-citation"><%= export_as_chicago_citation(@presenter) %></span>
+  <span class="chicago-citation"><%= export_as_chicago_citation(@presenter) %>
+  <%= request.original_url %></span>
   <br /><br />
 
   <p>

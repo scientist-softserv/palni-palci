@@ -31,7 +31,7 @@ RSpec.describe Hyrax::EtdForm do
         language: ['Language'],
         license: ['License'],
         publisher: ['Publisher'],
-        related_url: ['Related Url'],
+        related_url: ['Related URL'],
         resource_type: ['Masters Thesis'],
         rights_statement: 'http://rightsstatements.org/vocab/InC/1.0/',
         source: ['Source'],
@@ -58,7 +58,7 @@ RSpec.describe Hyrax::EtdForm do
       expect(subject['language']).to eq ['Language']
       expect(subject['license']).to eq ['License']
       expect(subject['publisher']).to eq ['Publisher']
-      expect(subject['related_url']).to eq ['Related Url']
+      expect(subject['related_url']).to eq ['Related URL']
       expect(subject['resource_type']).to eq ['Masters Thesis']
       expect(subject['rights_statement']).to eq 'http://rightsstatements.org/vocab/InC/1.0/'
       expect(subject['source']).to eq ['Source']

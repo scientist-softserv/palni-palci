@@ -22,6 +22,6 @@ en:
         degree_level: "Level"
         degree_name: "Degree"
         description: "Description"
-        related_url: "Relation"
+        related_url: "Related URL"
         resource_type: "Type"
         rights_statement: "Rights"

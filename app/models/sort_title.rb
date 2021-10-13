@@ -12,7 +12,10 @@ class SortTitle
     new_title = []
     title_elements.each do |str|
       numbers = str.gsub(/[^\d]/, '')
-      str = numbers.rjust(6, '0') unless numbers.empty?
+      unless numbers.empty?
+        zero_num = numbers.rjust(6, '0')
+        str = str.gsub(numbers, zero_num)
+      end
       new_title.push(str)
     end
     title = new_title.join(' ')

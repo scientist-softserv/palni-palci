@@ -419,6 +419,7 @@ nav.navbar.navbar-default.navbar-static-top .container-fluid .row {
 //these styles modify the theming for the citations section
 div#collapse-citations {
   text-align: left;
+  word-wrap: break-word;
 }
 @media (min-width: 576px) {
   .citations-button {

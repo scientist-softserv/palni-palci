@@ -7,16 +7,19 @@ class SortTitle
 
   def alphabetical
     title = @title.downcase
-    title = title.sub(/^an/, '').sub(/^a/, '').sub(/^the/, '')
+    title = title.gsub(/^an(?:[[:space:]])/, '')
+                 .gsub(/^a(?:[[:space:]])/, '')
+                 .gsub(/^the(?:[[:space:]])/, '')
+                 .gsub(/"|'/, '')
     title_elements = title.split(' ')
     new_title = []
-    title_elements.each do |str|
-      numbers = str.gsub(/[^\d]/, '')
+    title_elements.each do |element|
+      numbers = element.gsub(/[^\d]/, '')
       unless numbers.empty?
         zero_num = numbers.rjust(6, '0')
-        str = str.gsub(numbers, zero_num)
+        element = element.gsub(numbers, zero_num)
       end
-      new_title.push(str)
+      new_title.push(element)
     end
     title = new_title.join(' ')
     title.strip

@@ -59,7 +59,7 @@ build:
     REDIS_PORT: '6379'
     SECRET_KEY_BASE: asdf
     SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
-    SETTINGS__BULKRAX__ENABLED: 'true'
+    SETTINGS__BULKRAX__ENABLED: 'false'
     SETTINGS__FITS_PATH: /opt/fits/fits.sh
     SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS: 'true'
     SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
@@ -70,7 +70,7 @@ build:
     SETTINGS__ZOOKEEPER__CONNECTION_STR: solr:9983/configs
     SOLR_URL: http://solr:8983/solr/
   after_script:
-    - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+    - cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
   tags:
     - docker
   allow_failure: false
@@ -97,7 +97,7 @@ fast_test:
       alias: redis-test
       command: ["redis-server"]
   script:
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
+    - cd /home/app/webapp && bundle exec rake zookeeper:upload db:create db:schema:load
     - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
 
 .slow_tests:
@@ -121,8 +121,8 @@ fast_test:
     CHROME_HOSTNAME: chrome
     HUB_URL: http://chrome:4444/wd/hub
   after_script:
-    - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
-    - cp -r /app/samvera/hyrax-webapp/tmp/capybara $CI_PROJECT_DIR/capybara
+    - cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+    - cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
   artifacts:
     paths:
       - rspec.xml
@@ -131,17 +131,17 @@ fast_test:
 slow_test_alpha:
   extends: .slow_tests
   script:
-    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
+    - rm -f /home/app/webapp/tmp/capybara/*
     - rm -rf $CI_PROJECT_DIR/capybara
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
+    - cd /home/app/webapp && bundle exec rake zookeeper:upload db:create db:schema:load
     - bundle exec rspec --tag cohort:alpha --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
 
 slow_test_bravo:
   extends: .slow_tests
   script:
-    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
+    - rm -f /home/app/webapp/tmp/capybara/*
     - rm -rf $CI_PROJECT_DIR/capybara
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
+    - cd /home/app/webapp && bundle exec rake zookeeper:upload db:create db:schema:load
     - bundle exec rspec --tag cohort:bravo --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
 
 staging:

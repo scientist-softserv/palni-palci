@@ -16,7 +16,7 @@ RSpec.describe Hyrax::Workflow::PermissionGrantor do
   describe '#initialize' do
     it 'requires a :permission_template argument' do
       expect { described_class.new }
-        .to raise_error(ArgumentError, 'missing keyword: :permission_template')
+        .to raise_error(ArgumentError, 'missing keyword: permission_template')
     end
 
     it 'sets the :permission_template and :creating_user attributes' do

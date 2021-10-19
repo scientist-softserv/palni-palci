@@ -40,8 +40,6 @@ bower.json
 /fcrepo4-test-data
 /fcrepo4-data
 
-app/fits
-
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
@@ -59,8 +57,4 @@ public/branding/*
 # Ignore Bulkrax in local development
 vendor/engines/*
 
-# mac add on
 .DS_Store
-# Ignore local VS Code history
-/.history
-.vscode/settings.json

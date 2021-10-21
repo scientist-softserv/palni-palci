@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.5'
+gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 
 gem 'activerecord-nulldb-adapter'
 # Use sqlite3 as the database for Active Record
@@ -51,8 +51,8 @@ group :development, :test do
   gem 'fcrepo_wrapper', '~> 0.4'
   gem 'solr_wrapper', '~> 2.0'
 
-  gem 'rubocop', '~> 0.50', '<= 0.52.1', require: false
-  gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', require: false
+  gem 'rubocop', '~> 0.50', '<= 0.52.1'
+  gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2'
 end
 
 group :test do
@@ -95,7 +95,7 @@ gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
-gem 'hyrax', '2.9.6'
+gem 'hyrax', '~> 2.9'
 
 gem 'rsolr', '~> 2.0'
 
@@ -136,7 +136,7 @@ gem 'riiif', '~> 1.1'
 
 gem "sentry-raven"
 gem 'bootstrap-datepicker-rails'
-gem 'parser', '~> 2.7.2'
+gem 'parser', '~> 2.5.3'
 gem 'tether-rails'
 gem 'progress_bar'
 gem 'activejob-scheduler', git: 'https://github.com/tubbo/activejob-scheduler.git'

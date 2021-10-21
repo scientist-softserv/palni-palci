@@ -55,31 +55,31 @@ spec:
           imagePullPolicy: IfNotPresent
           # Use sub-path for individual folders
           volumeMounts:
-            - mountPath: /app/samvera/hyrax-webapp/tmp/imports
+            - mountPath: /home/app/webapp/tmp/imports
               name: shared
               subPath: import_path
-            - mountPath: /app/samvera/hyrax-webapp/tmp/exports
+            - mountPath: /home/app/webapp/tmp/exports
               name: shared
               subPath: export_path
-            - mountPath: /app/samvera/hyrax-webapp/tmp/derivatives
+            - mountPath: /home/app/webapp/tmp/derivatives
               name: shared
               subPath: derivatives_path
-            - mountPath: /app/samvera/hyrax-webapp/tmp/network_files
+            - mountPath: /home/app/webapp/tmp/network_files
               name: shared
               subPath: network_files
-            - mountPath: /app/samvera/hyrax-webapp/tmp/uploads
+            - mountPath: /home/app/webapp/tmp/uploads
               name: shared
               subPath: upload_path
-            - mountPath: /app/samvera/hyrax-webapp/public/uploads
+            - mountPath: /home/app/webapp/public/uploads
               name: shared
               subPath: uploads
-            - mountPath: /app/samvera/hyrax-webapp/public/assets
+            - mountPath: /home/app/webapp/public/assets
               name: shared
               subPath: assets
-            - mountPath: /app/samvera/hyrax-webapp/public/branding
+            - mountPath: /home/app/webapp/public/branding
               name: shared
               subPath: branding
-            - mountPath: /app/samvera/hyrax-webapp/public/system
+            - mountPath: /home/app/webapp/public/system
               name: shared
               subPath: system
           readinessProbe:

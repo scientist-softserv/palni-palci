@@ -57,7 +57,7 @@ spec:
           args:
             - "-l"
             - "-c"
-            - "/sbin/setuser app bundle exec sidekiq"
+            - "bundle exec sidekiq"
           # livenessProbe:
           #   exec:
           #     command:

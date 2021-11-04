@@ -25,7 +25,7 @@ RSpec.describe RolesService, clean: true do
 
     it 'requires a :role_name argument' do
       expect { roles_service.find_or_create_site_role! }
-        .to raise_error(ArgumentError, 'missing keyword: role_name')
+        .to raise_error(ArgumentError, 'missing keyword: :role_name')
     end
 
     it 'returns the role' do

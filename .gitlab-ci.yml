@@ -1,8 +1,6 @@
 stages:
   - build
-  - fast_test
-  - slow_test
-  - deploy
+  - go
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -15,16 +13,6 @@ before_script:
   - export REPO_URL=${CI_REPOSITORY_URL}
   - touch .env.development
   - touch .env.production
-
-base:
-  stage: build
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - sc build -s base
-    - sc push -s base
-  when: manual
-  tags:
-    - local
 
 build:
   stage: build
@@ -84,7 +72,7 @@ build:
 
 fast_test:
   extends: .tests
-  stage: fast_test
+  stage: go
   services:
     - name: postgres:10-alpine
       alias: db-test
@@ -102,7 +90,7 @@ fast_test:
 
 .slow_tests:
   extends: .tests
-  stage: slow_test
+  stage: go
   services:
     - name: selenium/standalone-chrome-debug:3.141.59-20201010
       alias: chrome
@@ -145,7 +133,7 @@ slow_test_bravo:
     - bundle exec rspec --tag cohort:bravo --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
 
 staging:
-  stage: deploy
+  stage: go
   type: deploy
   script:
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
@@ -159,7 +147,7 @@ staging:
     - local
 
 production:
-  stage: deploy
+  stage: go
   type: deploy
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS

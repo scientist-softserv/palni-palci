@@ -1,4 +1,5 @@
 # Override from hyrax 2.5.1 to migrate Hyku::Group into Hyrax::Group
+# - remove #create_default_access_for, which granted deposit access to all registered users
 module Hyrax
   # Responsible for creating an AdminSet and its corresponding data:
   #
@@ -60,7 +61,6 @@ module Hyrax
           ActiveRecord::Base.transaction do
             permission_template = create_permission_template
             workflow = create_workflows_for(permission_template: permission_template)
-            create_default_access_for(permission_template: permission_template, workflow: workflow) if admin_set.default_set?
           end
         end
       end
@@ -96,16 +96,6 @@ module Hyrax
         # OVERRIDE: Extract and expand upon granting Workflow Roles into service object so it can be used in RolesService
         Hyrax::Workflow::PermissionGrantor.grant_default_workflow_roles!(permission_template: permission_template, creating_user: creating_user)
         Sipity::Workflow.activate!(permission_template: permission_template, workflow_name: Hyrax.config.default_active_workflow_name)
-      end
-
-      # Gives deposit access to registered users to default AdminSet
-      def create_default_access_for(permission_template:, workflow:)
-        # OVERRIDE: do not give deposit access to the to default AdminSet to registered users if we are restricting permissions
-        return if ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
-
-        permission_template.access_grants.create(agent_type: 'group', agent_id: ::Ability.registered_group_name, access: Hyrax::PermissionTemplateAccess::DEPOSIT)
-        deposit = Sipity::Role[Hyrax::RoleRegistry::DEPOSITING]
-        workflow.update_responsibilities(role: deposit, agents: Hyrax::Group.find_by!(name: ::Ability.registered_group_name))
       end
 
       def default_workflow_importer

@@ -22,6 +22,8 @@ spec:
         app: {{ template "hyku.name" . }}
         release: {{ .Release.Name }}
     spec:
+      securityContext:
+        runAsUser: 0
       restartPolicy: Never
       {{- if .Values.rails.imagePullSecrets }}
       imagePullSecrets:
@@ -53,7 +55,15 @@ spec:
           args:
             - "-l"
             - "-c"
-            - "(bundle check || bundle install) && bundle exec rails db:create && bundle exec rake zookeeper:upload && bundle exec rails db:migrate db:seed activejob:schedule && echo SETUP COMPLETE"
+            - >
+                (bundle check || bundle install) && 
+                uname="$(stat -c '%U' /app/samvera/hyrax-webapp/tmp/derivatives)" &&
+                if [ "x${uname}" != "xapp" ]; then chown -f app:app /app/samvera/hyrax-webapp/tmp; fi &&
+                if [ "x${uname}" != "xapp" ]; then chown -f app:app /app/samvera/hyrax-webapp/public; fi &&
+                bundle exec rails db:create && 
+                bundle exec rake zookeeper:upload && 
+                bundle exec rails db:migrate db:seed activejob:schedule && 
+                echo SETUP COMPLETE
           envFrom:
             - configMapRef:
                 name: {{ template "hyku.rails-env.name" . }}

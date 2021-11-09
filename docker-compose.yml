@@ -169,9 +169,12 @@ services:
     entrypoint: ["sh", "-x", "-c"]
     command:
       - >
-        chown -R app:app /app/samvera/hyrax-webapp/public/uploads &&
-        chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
-        chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
+        chown -f app:app /app/samvera/hyrax-webapp/tmp &&
+        chown -fR app:app /app/samvera/hyrax-webapp/public/uploads &&
+        chown -fR app:app /app/samvera/hyrax-webapp/public/assets &&
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/uploads &&
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/derivatives && 
+        chown -fR app:app /app/samvera/hyrax-webapp/tmp/cache
 
   initialize_app:
     <<: *app

@@ -57,9 +57,6 @@ spec:
             - "-c"
             - >
                 (bundle check || bundle install) && 
-                uname="$(stat -c '%U' /app/samvera/hyrax-webapp/tmp/derivatives)" &&
-                if [ "x${uname}" != "xapp" ]; then chown -f app:app /app/samvera/hyrax-webapp/tmp; fi &&
-                if [ "x${uname}" != "xapp" ]; then chown -f app:app /app/samvera/hyrax-webapp/public; fi &&
                 bundle exec rails db:create && 
                 bundle exec rake zookeeper:upload && 
                 bundle exec rails db:migrate db:seed activejob:schedule && 

@@ -12,6 +12,7 @@ module Hyrax
         validate_files(files, env) && attach_files(files, env)
         # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
         ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
+        true
       end
 
       # @param [Hyrax::Actors::Environment] env
@@ -23,6 +24,7 @@ module Hyrax
         validate_files(files, env) && attach_files(files, env)
         # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
         ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
+        true
       end
 
       private

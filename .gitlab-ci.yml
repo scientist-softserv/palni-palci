@@ -1,6 +1,7 @@
 stages:
   - build
-  - go
+  - test
+  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -13,6 +14,16 @@ before_script:
   - export REPO_URL=${CI_REPOSITORY_URL}
   - touch .env.development
   - touch .env.production
+
+base:
+  stage: build
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - sc build -s base
+    - sc push -s base
+  when: manual
+  tags:
+    - local
 
 build:
   stage: build
@@ -57,40 +68,30 @@ build:
     SETTINGS__SOLR__URL: http://solr:8983/solr/
     SETTINGS__ZOOKEEPER__CONNECTION_STR: solr:9983/configs
     SOLR_URL: http://solr:8983/solr/
+    TB_RSPEC_OPTIONS: --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+    TB_RSPEC_FORMATTER: progress
   after_script:
     - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+  only:
+    refs:
+      - merge_requests
+      - main
   tags:
     - docker
   allow_failure: false
   artifacts:
     paths:
+      - capybara/*.html
       - rspec.xml
     reports:
       junit: rspec.xml
     expire_in: 1 week
     when: always
+  parallel: 6
 
-fast_test:
+test:
   extends: .tests
-  stage: go
-  services:
-    - name: postgres:10-alpine
-      alias: db-test
-    - name: solr:7.5
-      alias: solr
-      command: ["solr", "-c", "-f"]
-    - name: ualbertalib/docker-fcrepo4:4.7
-      alias: fcrepo
-    - name: redis:4-alpine
-      alias: redis-test
-      command: ["redis-server"]
-  script:
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
-    - bundle exec rspec --tag ~type:feature --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
-
-.slow_tests:
-  extends: .tests
-  stage: go
+  stage: test
   services:
     - name: selenium/standalone-chrome-debug:3.141.59-20201010
       alias: chrome
@@ -108,6 +109,12 @@ fast_test:
     CAPYBARA_SERVER: build
     CHROME_HOSTNAME: chrome
     HUB_URL: http://chrome:4444/wd/hub
+  script:
+    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
+    - rm -rf $CI_PROJECT_DIR/capybara
+    - gem install semaphore_test_boosters
+    - cd /app/samvera/hyrax-webapp/ && bundle exec rake zookeeper:upload db:create db:schema:load
+    - rspec_booster --job $CI_NODE_INDEX/$CI_NODE_TOTAL
   after_script:
     - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
     - cp -r /app/samvera/hyrax-webapp/tmp/capybara $CI_PROJECT_DIR/capybara
@@ -116,24 +123,8 @@ fast_test:
       - rspec.xml
       - capybara/*.html
 
-slow_test_alpha:
-  extends: .slow_tests
-  script:
-    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
-    - rm -rf $CI_PROJECT_DIR/capybara
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
-    - bundle exec rspec --tag cohort:alpha --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
-
-slow_test_bravo:
-  extends: .slow_tests
-  script:
-    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
-    - rm -rf $CI_PROJECT_DIR/capybara
-    - cd /app/samvera/hyrax-webapp && bundle exec rake zookeeper:upload db:create db:schema:load
-    - bundle exec rspec --tag cohort:bravo --format progress --format RspecJunitFormatter --out rspec.xml # this should always be the last line in "script"
-
 staging:
-  stage: go
+  stage: deploy
   type: deploy
   script:
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
@@ -147,7 +138,7 @@ staging:
     - local
 
 production:
-  stage: go
+  stage: deploy
   type: deploy
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS

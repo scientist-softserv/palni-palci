@@ -9,15 +9,14 @@ unless ENV['DB_ADAPTER'] == 'nulldb'
   # Apartment Configuration
   #
   Apartment.configure do |config|
-
     # Add any models that you do not want to be multi-tenanted, but remain in the global (public) namespace.
     # A typical example would be a Customer or Tenant model that stores each Tenant's information.
-    config.excluded_models = %w{ Account Endpoint User UserStat SolrEndpoint FcrepoEndpoint RedisEndpoint }
+    config.excluded_models = %w[Account DomainName Endpoint User UserStat SolrEndpoint FcrepoEndpoint RedisEndpoint]
 
     # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
     # You can make this dynamic by providing a Proc object to be called on migrations.
     # This object should yield an array of strings representing each Tenant name.
-    config.tenant_names = lambda { Account.pluck :tenant }
+    config.tenant_names = -> { Account.pluck :tenant }
 
     #
     # ==> PostgreSQL only options
@@ -42,16 +41,15 @@ unless ENV['DB_ADAPTER'] == 'nulldb'
 
     # <== PostgreSQL only options
     #
-
   end
 
   Rails.application.config.after_initialize do
     # Callbacks from ActiveSupport::Callback: receives ZERO information about object/event.
     # Instead receives an [Apartment::Adapters::PostgresqlSchemaAdapter]
     # Therefore cannot be used as effectively as ActiveRecord hooks.
-    Apartment::Tenant.adapter.class.set_callback :switch, :after, ->() do
+    Apartment::Tenant.adapter.class.set_callback :switch, :after, -> do
       account = Account.find_by(tenant: current)
-      account.switch! if account
+      account&.switch!
     end
   end
 

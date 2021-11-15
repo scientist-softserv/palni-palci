@@ -14,7 +14,7 @@ module Hyrax
           text += pub_date_text_for(work)
           text += add_title_text_for(work)
           # Hyrax Override: adds addtl content for citation
-          text += " <span class='citation-link'>#{add_link_to_original(work)}.</span>"
+          text += " <span class='citation-link'>#{add_link_to_original(work)}</span>"
           # end
           text.html_safe
         end
@@ -36,7 +36,7 @@ module Hyrax
 
         def format_authors(authors_list = [])
           return '' if authors_list.blank?
-          authors_list = Array.wrap(authors_list).collect { |name| abbreviate_name(surname_first(name)).strip }
+          authors_list = Array.wrap(authors_list).collect { |name| name.strip }
           text = ''
           text += authors_list.first if authors_list.first
           authors_list[1..-1].each do |author|
@@ -67,7 +67,7 @@ module Hyrax
           def add_publisher_text_for(work)
             # Publisher info
             pub_info = clean_end_punctuation(setup_pub_info(work))
-            if pub_info.nil?
+            if pub_info.blank?
               ''
             else
               pub_info + "."

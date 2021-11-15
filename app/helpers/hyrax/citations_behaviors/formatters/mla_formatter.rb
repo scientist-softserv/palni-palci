@@ -19,16 +19,16 @@ module Hyrax
           text += format_title(title_info)
 
           # Hyrax Override: adds contributor
-          text += " #{work.contributor.join(', ')}." if work.contributor.present?
+          text += " #{work.contributor.join(', ')}." unless work.contributor.blank?
 
           # Publication
           pub_info = clean_end_punctuation(setup_pub_info(work, true))
-          text += "<span class=\"citation-publication-info\">#{pub_info}. </span>" if pub_info.present?
+          text += "<span class=\"citation-publication-info\">#{pub_info}. </span>" unless pub_info.blank?
           # text += (pub_info + ".") if pub_info.present?
 
           # Hyrax Override: adds addtl content for citation
           # text += add_link_to_original(work)
-          text += " <span class='citation-link'>#{add_link_to_original(work)}.</span>"
+          text += " <span class='citation-link'>#{add_link_to_original(work)}</span>"
           # end
 
           text.html_safe
@@ -47,13 +47,13 @@ module Hyrax
 
         def concatenate_authors_from(authors_list)
           text = ''
-          text += surname_first(authors_list.first)
+          text += authors_list.first
           if authors_list.length > 1
             if authors_list.length < 4
               authors_list[1...-1].each do |author|
-                text += ", #{given_name_first(author)}"
+                text += ", #{author}"
               end
-              text += ", and #{given_name_first(authors_list.last)}"
+              text += ", and #{authors_list.last}"
             else
               text += ", et al"
             end

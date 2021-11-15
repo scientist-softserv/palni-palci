@@ -16,10 +16,10 @@ module Hyrax
           text = "<span class=\"citation-author\">#{text}</span>" if text.present?
           text += format_title(work.to_s)
           pub_info = setup_pub_info(work, false)
-          text += " #{whitewash(pub_info)}." if pub_info.present?
+          text += " #{whitewash(pub_info)}." unless pub_info.blank?
           pub_date = setup_pub_date(work)
           text += " #{whitewash(pub_date)}." unless pub_date.nil?
-          text += "  <span class='citation-link'>#{add_link_to_original(work)}.</span>"
+          text += "  <span class='citation-link'>#{add_link_to_original(work)}</span>"
           # end
 
           text.html_safe
@@ -28,12 +28,12 @@ module Hyrax
         def format_authors(authors_list = [])
           return '' if authors_list.blank?
           text = ''
-          text += surname_first(authors_list.first) if authors_list.first
+          text += authors_list.first if authors_list.first
           authors_list[1..6].each_with_index do |author, index|
             text += if index + 2 == authors_list.length # we've skipped the first author
-                      ", and #{given_name_first(author)}."
+                      ", and #{author}."
                     else
-                      ", #{given_name_first(author)}"
+                      ", #{author}"
                     end
           end
           text += " et al." if authors_list.length > 7

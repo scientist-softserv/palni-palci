@@ -33,7 +33,7 @@ namespace :tenants do
                 @tenant_file_sizes.push(0)
               end
             end
-            if @tenant_file_sizes
+            if @tenant_file_sizes.any?
               tenant_file_sizes_total_megabytes = @tenant_file_sizes.inject(0, :+)
               @results.push("#{account.cname}: #{tenant_file_sizes_total_megabytes} Total MB / #{works.count} Works")
             else

@@ -6,9 +6,13 @@ class CatalogController < ApplicationController
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
   include BlacklightOaiProvider::Controller
-
+  before_action :sort_alphabetical
   # These before_action filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
+
+  def sort_alphabetical
+    params[:sort] = 'title_ssi asc' if params[:f].present?
+  end
 
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
@@ -29,7 +33,6 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
-
     config.search_builder_class = Hyrax::CatalogSearchBuilder
 
     # Show gallery view

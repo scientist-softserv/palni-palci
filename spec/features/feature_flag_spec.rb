@@ -56,11 +56,11 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
     end
   end
 
-  it 'has a setting for featured works' do
-    login_as admin
-    visit 'admin/features'
-    expect(page).to have_content 'PDFs display in the universal viewer'
-  end
+  # it 'has a setting for to display PDFs in the universal viewer' do
+  #   login_as admin
+  #   visit 'admin/features'
+  #   expect(page).to have_content 'PDFs display in the universal viewer'
+  # end
 
   context 'when all home tabs and share work features are turned off' do
     it 'the page only shows the collections tab' do

@@ -42,17 +42,15 @@ namespace :tenants do
             @results.push("#{account.cname}: #{tenant_file_sizes_total_megabytes} Total MB / #{works.count} Works")
           else
             @results.push("#{account.cname}: 0 Total MB / #{works.count} Works")
-            puts "#{account.cname}: 0 Total MB / #{works.count} Works"
           end
         else
           @results.push("#{account.cname}: 0 Total MB / 0 Works")
-          puts "#{account.cname}: 0 Total MB / #{works.count} Works"
+        end
+        puts "=================================================================="
+        @results.each do |result|
+          puts result
         end
       end
-    end
-    puts "=================================================================="
-    @results.each do |result|
-      puts result
     end
   end
 end

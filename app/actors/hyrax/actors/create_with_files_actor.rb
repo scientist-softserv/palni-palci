@@ -8,13 +8,12 @@ module Hyrax
       def create(env)
         uploaded_file_ids = filter_file_ids(env.attributes.delete(:uploaded_files))
         files = uploaded_files(uploaded_file_ids)
-        next_actor.create(env)
-        validate_files(files, env) && attach_files(files, env)
-        if Flipflop.pdfs_in_universal_viewer?
-          # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
-          ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
-        end
-        true
+        validate_files(files, env) && next_actor.create(env) && attach_files(files, env)
+        # if Flipflop.pdfs_in_universal_viewer?
+        # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
+        # ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
+        # end
+        # true
       end
 
       # @param [Hyrax::Actors::Environment] env
@@ -22,13 +21,12 @@ module Hyrax
       def update(env)
         uploaded_file_ids = filter_file_ids(env.attributes.delete(:uploaded_files))
         files = uploaded_files(uploaded_file_ids)
-        next_actor.update(env)
-        validate_files(files, env) && attach_files(files, env)
-        if Flipflop.pdfs_in_universal_viewer?
-          # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
-          ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
-        end
-        true
+        validate_files(files, env) && next_actor.update(env) && attach_files(files, env)
+        # if Flipflop.pdfs_in_universal_viewer?
+        # OVERRIDE: Hyrax 2.5.1 Split PDF into jpg for each page and sent to attach files method
+        # ConvertPdfToJpgJob.perform_later(files, env.curation_concern, env.attributes) if files.present?
+        # end
+        # true
       end
 
       private

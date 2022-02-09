@@ -17,7 +17,7 @@ RSpec.describe Hyrax::ContactForm, type: :model do
         allow(Site).to receive(:instance).and_return(site)
       end
       it 'uses the hyrax setting' do
-        expect(subject.headers[:to]).to eq('')
+        expect(subject.headers[:to]).to eq('consortial-ir@palci.org')
       end
     end
     context 'site email set' do

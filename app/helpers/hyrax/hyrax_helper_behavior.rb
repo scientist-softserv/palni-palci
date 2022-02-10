@@ -182,6 +182,21 @@ module Hyrax
       end
     end
 
+    def truncate_and_iconify_auto_link(field, show_link = true)
+      if field.is_a? Hash
+        options = field[:config].separator_options || {}
+        text = field[:value].to_sentence(options)
+      else
+        text = field
+      end
+      # this block is only executed when a link is inserted;
+      # if we pass text containing no links, it just returns text.
+      auto_link(html_escape(text)) do |value|
+        "<span class='glyphicon glyphicon-new-window'></span>#{('&nbsp;' + value) if show_link}"
+      end
+      text.truncate(230, separator: ' ')
+    end
+
     # *Sometimes* a Blacklight index field helper_method
     # @param [String,User,Hash{Symbol=>Array}] args if a hash, the user_key must be under :value
     # @return [ActiveSupport::SafeBuffer] the html_safe link

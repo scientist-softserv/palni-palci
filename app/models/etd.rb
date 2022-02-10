@@ -3,7 +3,6 @@
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 
-  self.human_readable_type = 'ETD'
   self.indexer = EtdIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

@@ -16,6 +16,8 @@ en:
       models:
         generic_work: "Work"
         image: "Image"
+        etd: "ETD"
+        oer: "OER"
     active_consent_to_agreement: I have read and agree to the
     admin:
       admin_sets:

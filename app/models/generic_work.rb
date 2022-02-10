@@ -27,6 +27,5 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  self.human_readable_type = 'Work'
   include ::Hyrax::BasicMetadata
 end

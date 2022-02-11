@@ -57,7 +57,8 @@ class SolrDocument
   attribute :title_ssi, Solr::Array, solr_name('title_ssi')
   attribute :abstract, Solr::String, solr_name('abstract')
   attribute :bibliographic_citation, Solr::String, solr_name('bibliographic_citation')
-
+  attribute :collection_subtitle, Solr::String, solr_name('collection_subtitle')
+  
   field_semantics.merge!(
     contributor: 'contributor_tesim',
     creator: 'creator_tesim',

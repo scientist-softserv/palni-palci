@@ -17,6 +17,11 @@
                   <%= collection.title_or_label %>
                 <% end %>
               </div>
+              <p>
+                <small>
+                  <%= collection.collection_subtitle.present? ?  collection.collection_subtitle : '' %>
+                </small>
+              </p>
             </div>
           </div>
         </td>

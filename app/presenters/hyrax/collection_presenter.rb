@@ -5,6 +5,8 @@
 require_dependency Hyrax::Engine.root.join('app', 'presenters', 'hyrax', 'collection_presenter').to_s
 
 Hyrax::CollectionPresenter.class_eval do
+  delegate :collection_subtitle, to: :solr_document
+  
   # OVERRIDE: Add new method to check if a user has permissions to create any works.
   # This is used to restrict who can deposit new works through collections. See
   # app/views/hyrax/dashboard/collections/_show_add_items_actions.html.erb for usage.
@@ -16,8 +18,11 @@ Hyrax::CollectionPresenter.class_eval do
   # app/views/collections/_show_descriptions.html.erb
   # OVERRIDE Hyrax - removed size
   def self.terms
-    %i[total_items resource_type creator contributor keyword license publisher date_created subject
-       language identifier based_near related_url]
+    %i[collection_subtitle total_items resource_type creator contributor keyword license publisher date_created subject language identifier based_near related_url]
+  end
+
+  def self.primary_terms
+    %i[title description collection_subtitle]
   end
 
   def [](key)

@@ -1,7 +1,6 @@
 stages:
   - build
-  - test
-  - deploy
+  - go
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -30,6 +29,7 @@ build:
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc build
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc push
   tags:
     - local
@@ -72,10 +72,6 @@ build:
     TB_RSPEC_FORMATTER: progress
   after_script:
     - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
-  only:
-    refs:
-      - merge_requests
-      - main
   tags:
     - docker
   allow_failure: false
@@ -91,7 +87,7 @@ build:
 
 test:
   extends: .tests
-  stage: test
+  stage: go
   services:
     - name: selenium/standalone-chrome-debug:3.141.59-20201010
       alias: chrome
@@ -124,7 +120,7 @@ test:
       - capybara/*.html
 
 staging:
-  stage: deploy
+  stage: go
   type: deploy
   script:
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
@@ -138,7 +134,7 @@ staging:
     - local
 
 production:
-  stage: deploy
+  stage: go
   type: deploy
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS

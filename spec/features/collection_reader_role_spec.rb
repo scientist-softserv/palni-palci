@@ -182,7 +182,7 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
 
     # Tests custom :manage_items_in_collection ability
     describe 'managing subcollections' do
-      it 'cannot add an existing collection as a subcolleciton' do
+      it 'cannot add an existing collection as a subcollection' do
         visit "/dashboard/collections/#{collection.id}"
         expect(page).not_to have_content('Add a subcollection')
       end

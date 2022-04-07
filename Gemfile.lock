@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: f2b6e33199eb121350e77f897805400b8f06876c
-  branch: file_path_crossover
+  revision: 970964df41223689b474df7da73a71f0338a1d0e
+  branch: main
   specs:
-    bulkrax (0.1.0)
+    bulkrax (3.0.0.beta3)
       bagit (~> 0.4)
       coderay
       iso8601 (~> 0.9.0)
@@ -721,6 +721,12 @@ GEM
     progress_bar (1.3.3)
       highline (>= 1.6, < 3)
       options (~> 2.3.0)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.9.0)
+      byebug (~> 11.0)
+      pry (~> 0.13.0)
     public_suffix (4.0.5)
     pul_uv_rails (2.0.1)
     puma (3.12.6)
@@ -1111,6 +1117,7 @@ DEPENDENCIES
   parser (~> 2.7.2)
   pg
   progress_bar
+  pry-byebug
   puma (~> 3.12)
   rack-test (= 0.7.0)
   rails (~> 5.2.5)

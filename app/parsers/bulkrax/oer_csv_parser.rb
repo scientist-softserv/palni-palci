@@ -5,6 +5,7 @@ module Bulkrax
     def entry_class
       Bulkrax::OerCsvEntry
     end
+    alias work_entry_class entry_class
 
     # TODO(bkiahstroud): need a spec for this method, or the 4 methods it calls
     def create_memberships

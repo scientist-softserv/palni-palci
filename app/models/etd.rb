@@ -12,6 +12,10 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :bulkrax_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/bulkrax_identifier"), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   property :committee_member, predicate: ::RDF::URI('https://hykucommons.org/terms/committee_member') do |index|
     index.as :stored_searchable
   end

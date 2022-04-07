@@ -39,6 +39,7 @@ gem 'flutie'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'pry-byebug'
 
   gem 'i18n-debug', require: false
   gem 'i18n-tasks'
@@ -89,7 +90,7 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'file_path_crossover'
+gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'main'
 # gem 'bulkrax', path: 'vendor/engines/bulkrax'
 gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 

@@ -17,6 +17,10 @@ class Oer < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :bulkrax_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/bulkrax_identifier"), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   property :education_level, predicate: ::RDF::Vocab::DC.educationLevel do |index|
     index.as :stored_searchable, :facetable
   end

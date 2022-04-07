@@ -27,6 +27,8 @@ RSpec.describe Oer do
   end
 
   describe "metadata" do
+    it { is_expected.to have_property(:bulkrax_identifier).with_predicate("https://hykucommons.org/terms/bulkrax_identifier") }
+
     it "has descriptive metadata" do
       expect(subject).to respond_to(:relative_path)
       expect(subject).to respond_to(:depositor)

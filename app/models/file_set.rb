@@ -7,6 +7,8 @@ class FileSet < ActiveFedora::Base
             multiple: false do |index|
               index.as :stored_searchable
             end
-
+  property :bulkrax_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/bulkrax_identifier"), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
   include ::Hyrax::FileSetBehavior
 end

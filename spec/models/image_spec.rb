@@ -7,4 +7,8 @@ RSpec.describe Image do
 
     it { is_expected.to eq ImageIndexer }
   end
+
+  describe "metadata" do
+    it { is_expected.to have_property(:bulkrax_identifier).with_predicate("https://hykucommons.org/terms/bulkrax_identifier") }
+  end
 end

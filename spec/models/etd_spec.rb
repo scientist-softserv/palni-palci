@@ -10,6 +10,8 @@ RSpec.describe Etd do
   end
 
   describe 'metadata properties' do
+    it { is_expected.to have_property(:bulkrax_identifier).with_predicate("https://hykucommons.org/terms/bulkrax_identifier") }
+
     context ':title' do
       let(:etd) { FactoryBot.build(:etd) }
       it 'is a property' do

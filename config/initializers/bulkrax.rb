@@ -52,43 +52,48 @@ Bulkrax.setup do |config|
   #   config.field_mappings = {
   #     "Bulkrax::OaiDcParser" => { **individual field mappings go here*** }
   #   }
+  config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
+
   basic_csv_mappings = {
-    'title' => { from: ['title'], split: '\|' },
-    'creator' => { from: ['creator'], split: '\|' },
-    'keyword' => { from: ['keyword'], split: '\|' },
-    'description' => { from: ['description'], split: '\|' },
-    'subject' => { from: ['subject'], split: '\|' },
-    'license' => { from: ['license'], split: '\|' },
-    'contributor' => { from: ['contributor'], split: '\|' },
-    'publisher' => { from: ['publisher'], split: '\|' },
-    'date_created' => { from: ['date_created'], split: '\|' },
-    'language' => { from: ['language'], split: '\|' },
-    'identifier' => { from: ['identifier'], split: '\|' },
     'based_near' => { from: ['location'], split: '\|' },
+    'bulkrax_identifier' => { from: ['source_identifier'], source_identifier: true },
+    'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
+    'contributor' => { from: ['contributor'], split: '\|' },
+    'creator' => { from: ['creator'], split: '\|' },
+    'date_created' => { from: ['date_created'], split: '\|' },
+    'description' => { from: ['description'], split: '\|' },
+    'file' => { from: ['item'], split: '\|' },
+    'identifier' => { from: ['identifier'], split: '\|' },
+    'keyword' => { from: ['keyword'], split: '\|' },
+    'language' => { from: ['language'], split: '\|' },
+    'license' => { from: ['license'], split: '\|' },
+    'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
+    'publisher' => { from: ['publisher'], split: '\|' },
     'related_url' => { from: ['related_url'], split: '\|' },
     'resource_type' => { from: ['type'], split: '\|' },
-    'file' => { from: ['item'], split: '\|' }
+    'subject' => { from: ['subject'], split: '\|' },
+    'title' => { from: ['title'], split: '\|' }
   }
 
   config.field_mappings['Bulkrax::CsvParser'] = basic_csv_mappings
 
   config.field_mappings['Bulkrax::OerCsvParser'] = basic_csv_mappings.merge({
-    'learning_resource_type' => { from: ['learning_resource_type'], split: '\|' },
-    'alternative_title' => { from: ['alternative_title'], split: '\|' },
-    'education_level' => { from: ['education_level'], split: '\|' },
-    'audience' => { from: ['audience'], split: '\|' },
-    'discipline' => { from: ['discipline'], split: '\|' },
-    'date' => { from: ['date'], split: '\|' },
-    'table_of_contents' => { from: ['table_of_contents'], split: '\|' },
-    'oer_size' => { from: ['oer_size'], split: '\|' },
-    'rights_holder' => { from: ['rights_holder'], split: '\|' },
     'accessibility_feature' => { from: ['accessibility_feature'], split: '\|' },
     'accessibility_hazard' => { from: ['accessibility_hazard'], split: '\|' },
     'accessibility_summary' => { from: ['accessibility_summary'] },
-    'previous_version' => { from: ['previous_version'], split: '\|' },
-    'newer_version' => { from: ['newer_version'], split: '\|' },
     'alternate_version' => { from: ['alternate_version'], split: '\|' },
-    'related_item' => { from: ['related_item'], split: '\|' }
+    'alternative_title' => { from: ['alternative_title'], split: '\|' },
+    'audience' => { from: ['audience'], split: '\|' },
+    'date' => { from: ['date'], split: '\|' },
+    'discipline' => { from: ['discipline'], split: '\|' },
+    'education_level' => { from: ['education_level'], split: '\|' },
+    'learning_resource_type' => { from: ['learning_resource_type'], split: '\|' },
+    'newer_version' => { from: ['newer_version'], split: '\|' },
+    'oer_size' => { from: ['oer_size'], split: '\|' },
+    'previous_version' => { from: ['previous_version'], split: '\|' },
+    'related_item' => { from: ['related_item'], split: '\|' },
+    'rights_holder' => { from: ['rights_holder'], split: '\|' },
+    'table_of_contents' => { from: ['table_of_contents'], split: '\|' }
   })
 
   config.field_mappings['Bulkrax::EtdCsvParser'] = basic_csv_mappings.merge({

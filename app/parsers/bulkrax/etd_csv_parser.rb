@@ -5,5 +5,6 @@ module Bulkrax
     def entry_class
       Bulkrax::EtdCsvEntry
     end
+    alias work_entry_class entry_class
   end
 end

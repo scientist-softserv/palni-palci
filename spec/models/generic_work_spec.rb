@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe GenericWork do
-  it "has tests" do
-    skip "Add your tests here"
+  describe "metadata" do
+    it { is_expected.to have_property(:bulkrax_identifier).with_predicate("https://hykucommons.org/terms/bulkrax_identifier") }
   end
 end

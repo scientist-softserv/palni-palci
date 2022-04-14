@@ -129,10 +129,7 @@ staging:
   after_script:
     - rm -f ./chart/*-values.yaml
     - keybase logout
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH != "main"
-      when: manual
+  when: manual
   tags:
     - local
 
@@ -147,10 +144,6 @@ production:
   after_script:
     - rm -f ./chart/*-values.yaml
     - keybase logout
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-    - if: $CI_COMMIT_BRANCH != "main"
-      when: manual
+  when: manual
   tags:
     - local

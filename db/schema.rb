@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_30_165510) do
+ActiveRecord::Schema.define(version: 2022_04_13_180915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 2022_03_30_165510) do
     t.date "finish_date"
     t.string "work_visibility"
     t.string "workflow_status"
+    t.boolean "include_thumbnails", default: false
+    t.boolean "generated_metadata", default: false
     t.index ["user_id"], name: "index_bulkrax_exporters_on_user_id"
   end
 

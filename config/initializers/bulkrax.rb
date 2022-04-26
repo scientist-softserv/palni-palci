@@ -55,22 +55,44 @@ Bulkrax.setup do |config|
   config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
 
   basic_csv_mappings = {
+    'abstract' => { from: ['abstract'], split: '\|', generated: true },
+    'additional_information' => { from: ['additional_information'], split: '\|', generated: true },
+    'admin_set_id' => { from: ['admin_set_id'], generated: true },
+    'alternative_title' => { from: ['alternative_title'], split: '\|', generated: true },
+    'arkivo_checksum' => { from: ['arkivo_checksum'], split: '\|', generated: true },
     'based_near' => { from: ['location'], split: '\|' },
+    'bibliographic_citation' => { from: ['bibliographic_citation'], split: '\|', generated: true },
     'bulkrax_identifier' => { from: ['source_identifier'], source_identifier: true },
     'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
     'contributor' => { from: ['contributor'], split: '\|' },
     'creator' => { from: ['creator'], split: '\|' },
     'date_created' => { from: ['date_created'], split: '\|' },
+    'date_uploaded' => { from: ['date_uploaded'], generated: true },
+    'depositor' => { from: ['depositor'], split: '\|', generated: true },
     'description' => { from: ['description'], split: '\|' },
+    'embargo_id' => { from: ['embargo_id'], generated: true },
     'file' => { from: ['item'], split: '\|' },
     'identifier' => { from: ['identifier'], split: '\|' },
+    'import_url' => { from: ['import_url'], split: '\|', generated: true },
     'keyword' => { from: ['keyword'], split: '\|' },
+    'label' => { from: ['label'], generated: true },
     'language' => { from: ['language'], split: '\|' },
+    'lease_id' => { from: ['lease_id'], generated: true },
     'license' => { from: ['license'], split: '\|' },
+    'on_behalf_of' => { from: ['on_behalf_of'], generated: true },
+    'owner' => { from: ['owner'], generated: true },
     'parents' => { from: ['parents'], split: /\s*[;|]\s*/, related_parents_field_mapping: true },
+    'proxy_depositor' => { from: ['proxy_depositor'], generated: true },
     'publisher' => { from: ['publisher'], split: '\|' },
+    'relative_path' => { from: ['relative_path'], split: '\|', generated: true },
     'related_url' => { from: ['related_url'], split: '\|' },
+    'rendering_ids' => { from: ['rendering_ids'], split: '\|', generated: true },
+    'representative_id' => { from: ['representative_id'], generated: true },
     'resource_type' => { from: ['type'], split: '\|' },
+    'rights_notes' => { from: ['rights_notes'], split: '\|', generated: true },
+    'rights_statement' => { from: ['rights_statement'], split: '\|', generated: true },
+    'source' => { from: ['source'], split: '\|', generated: true },
+    'state' => { from: ['state'], generated: true },
     'subject' => { from: ['subject'], split: '\|' },
     'title' => { from: ['title'], split: '\|' }
   }
@@ -119,4 +141,5 @@ Bulkrax.setup do |config|
 
   # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
   # config.reserved_properties += ['my_field']
+
 end

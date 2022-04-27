@@ -35,8 +35,8 @@ GIT
       rails (>= 4.2)
 
 GIT
-  remote: https://github.com/tubbo/activejob-scheduler.git
-  revision: efe54965e08252da5232412df5bae98732cd045c
+  remote: https://github.com/yalelibrary/activejob-scheduler.git
+  revision: 22850499dd0ab046eff2e1c113261782e7b8d8dc
   specs:
     activejob-scheduler (1.0.0.pre)
       actionmailer (> 5, < 7)
@@ -352,7 +352,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.10.0)
-    et-orbi (1.2.4)
+    et-orbi (1.2.7)
       tzinfo
     ethon (0.12.0)
       ffi (>= 1.3.0)
@@ -378,8 +378,8 @@ GEM
     flutie (2.2.0)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
-    fugit (1.4.5)
-      et-orbi (~> 1.1, >= 1.1.8)
+    fugit (1.5.3)
+      et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     gems (1.2.0)
     geocoder (1.6.7)

@@ -12,17 +12,6 @@ before_script:
   - export BRANCH=${CI_COMMIT_REF_NAME}
   - export REPO_URL=${CI_REPOSITORY_URL}
   - touch .env.development
-  - touch .env.production
-
-base:
-  stage: build
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - sc build -s base
-    - sc push -s base
-  when: manual
-  tags:
-    - local
 
 build:
   stage: build
@@ -34,9 +23,26 @@ build:
   tags:
     - local
 
-.tests:
+test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  stage: go
+  services:
+    - name: selenium/standalone-chrome-debug:3.141.59-20201010
+      alias: chrome
+    - name: postgres:10-alpine
+      alias: db-test
+    - name: solr:7.5
+      alias: solr
+      command: ["solr", "-c", "-f"]
+    - name: ualbertalib/docker-fcrepo4:4.7
+      alias: fcrepo
+    - name: redis:4-alpine
+      alias: redis-test
+      command: ["redis-server"]
   variables:
+    CAPYBARA_SERVER: build
+    CHROME_HOSTNAME: chrome
+    HUB_URL: http://chrome:4444/wd/hub
     FF_NETWORK_PER_BUILD: 1
     DATABASE_ADAPTER: postgresql
     DATABASE_HOST: db-test
@@ -70,41 +76,6 @@ build:
     SOLR_URL: http://solr:8983/solr/
     TB_RSPEC_OPTIONS: --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
     TB_RSPEC_FORMATTER: progress
-  after_script:
-    - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
-  tags:
-    - docker
-  allow_failure: false
-  artifacts:
-    paths:
-      - capybara/*.html
-      - rspec.xml
-    reports:
-      junit: rspec.xml
-    expire_in: 1 week
-    when: always
-  parallel: 6
-
-test:
-  extends: .tests
-  stage: go
-  services:
-    - name: selenium/standalone-chrome-debug:3.141.59-20201010
-      alias: chrome
-    - name: postgres:10-alpine
-      alias: db-test
-    - name: solr:7.5
-      alias: solr
-      command: ["solr", "-c", "-f"]
-    - name: ualbertalib/docker-fcrepo4:4.7
-      alias: fcrepo
-    - name: redis:4-alpine
-      alias: redis-test
-      command: ["redis-server"]
-  variables:
-    CAPYBARA_SERVER: build
-    CHROME_HOSTNAME: chrome
-    HUB_URL: http://chrome:4444/wd/hub
   script:
     - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
     - rm -rf $CI_PROJECT_DIR/capybara
@@ -118,6 +89,13 @@ test:
     paths:
       - rspec.xml
       - capybara/*.html
+    reports:
+      junit: rspec.xml
+    expire_in: 1 week
+    when: always
+  tags:
+    - docker
+  parallel: 6
 
 staging:
   stage: go
@@ -131,7 +109,7 @@ staging:
     - keybase logout
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH != "main"
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_COMMIT_BRANCH
       when: manual
   tags:
     - local

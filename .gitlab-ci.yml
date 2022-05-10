@@ -85,6 +85,7 @@ test:
   after_script:
     - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
     - cp -r /app/samvera/hyrax-webapp/tmp/capybara $CI_PROJECT_DIR/capybara
+  allow_failure: false
   artifacts:
     paths:
       - rspec.xml
@@ -99,7 +100,6 @@ test:
 
 staging:
   stage: go
-  type: deploy
   script:
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
     - ./chart/bin/decrypt staging
@@ -116,7 +116,6 @@ staging:
 
 production:
   stage: go
-  type: deploy
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"

@@ -20,6 +20,9 @@ build:
     - sc build
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc push
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   tags:
     - local
 
@@ -86,6 +89,9 @@ test:
     - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
     - cp -r /app/samvera/hyrax-webapp/tmp/capybara $CI_PROJECT_DIR/capybara
   allow_failure: false
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   artifacts:
     paths:
       - rspec.xml
@@ -109,8 +115,9 @@ staging:
     - keybase logout
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH != "main" && $CI_COMMIT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: manual
+  allow_failure: true # added so this doesnt block the automerge on_success option
   tags:
     - local
 

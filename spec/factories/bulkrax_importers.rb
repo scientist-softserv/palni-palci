@@ -6,7 +6,7 @@ FactoryBot.define do
     admin_set_id { 'MyString' }
     user { FactoryBot.build(:user) }
     frequency { 'PT0S' }
-    parser_klass { 'Bulkrax::OerCsvParser' }
+    parser_klass { 'Bulkrax::CsvParser' }
     limit { 10 }
     parser_fields { { 'import_file_path' => 'spec/fixtures/csv/oer_with_simple_relationships.csv' } }
     field_mapping { {} }
@@ -17,7 +17,7 @@ FactoryBot.define do
     admin_set_id { 'MyString' }
     user { FactoryBot.build(:user) }
     frequency { 'PT0S' }
-    parser_klass { 'Bulkrax::OerCsvParser' }
+    parser_klass { 'Bulkrax::CsvParser' }
     limit { 10 }
     parser_fields { { 'import_file_path' => 'spec/fixtures/csv/oer_with_complex_relationships.csv' } }
     field_mapping { {} }

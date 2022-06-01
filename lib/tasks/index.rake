@@ -10,7 +10,7 @@ namespace :hyku do
         klass = work_type.constantize
         progressbar = ProgressBar.create(total: klass.count, title: title, format: "%t %c of %C %a %B %p%%")
         klass.find_each do |w|
-          WorkIndexJob.perform_later(w)
+          ReindexWorksJob.perform_later(w)
           progressbar.increment
         end
       end

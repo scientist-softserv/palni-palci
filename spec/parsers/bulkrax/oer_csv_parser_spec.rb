@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Bulkrax
   RSpec.describe OerCsvParser do
-    subject           { described_class.new(importer) }
+    subject           { CsvParser.new(importer) }
 
     let(:importer)    { FactoryBot.create(:bulkrax_importer_oer_csv) }
     let(:oer_entry_1) { FactoryBot.build(:bulkrax_oer_csv_entry, importerexporter: importer, identifier: 'oer_1') }
@@ -13,10 +13,10 @@ module Bulkrax
     let(:oer_entry_4) { FactoryBot.build(:bulkrax_oer_csv_entry, importerexporter: importer, identifier: 'oer_4') }
 
     before do
-      allow(Bulkrax::OerCsvEntry).to receive(:where).with(identifier: 'oer_1', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_1])
-      allow(Bulkrax::OerCsvEntry).to receive(:where).with(identifier: 'oer_2', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_2])
-      allow(Bulkrax::OerCsvEntry).to receive(:where).with(identifier: 'oer_3', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_3])
-      allow(Bulkrax::OerCsvEntry).to receive(:where).with(identifier: 'oer_4', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_4])
+      allow(Bulkrax::CsvEntry).to receive(:where).with(identifier: 'oer_1', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_1])
+      allow(Bulkrax::CsvEntry).to receive(:where).with(identifier: 'oer_2', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_2])
+      allow(Bulkrax::CsvEntry).to receive(:where).with(identifier: 'oer_3', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_3])
+      allow(Bulkrax::CsvEntry).to receive(:where).with(identifier: 'oer_4', importerexporter_id: importer.id, importerexporter_type: 'Bulkrax::Importer').and_return([oer_entry_4])
     end
 
     describe '#records_with_previous_versions' do

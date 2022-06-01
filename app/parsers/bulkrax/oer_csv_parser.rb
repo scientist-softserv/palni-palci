@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 module Bulkrax
-  class OerCsvParser < CsvParser
-    def entry_class
-      Bulkrax::OerCsvEntry
-    end
-    alias work_entry_class entry_class
-
+  module OerCsvParser
     # TODO(bkiahstroud): need a spec for this method, or the 4 methods it calls
     def create_memberships
       create_previous_version_relationships

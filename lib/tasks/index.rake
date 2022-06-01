@@ -5,17 +5,22 @@ namespace :hyku do
       puts "=============== #{account.name}============"
       next if account.name == "search"
       switch!(account)
-      Site.instance.available_works.each do |work_type|
-        title = "~ #{account.name} - #{work_type}"
-        klass = work_type.constantize
-        progressbar = ProgressBar.create(total: klass.count, title: title, format: "%t %c of %C %a %B %p%%")
-        klass.find_each do |w|
-          ReindexWorksJob.perform_later(w)
-          progressbar.increment
+      begin
+        Site.instance.available_works.each do |work_type|
+          title = "~ #{account.name} - #{work_type}"
+          klass = work_type.constantize
+          progressbar = ProgressBar.create(total: klass.count, title: title, format: "%t %c of %C %a %B %p%%")
+          klass.find_each do |w|
+            ReindexWorksJob.perform_later(w)
+            progressbar.increment
+          end
         end
+      rescue => e
+        puts "(#{e.message})"
       end
     end
   end
+
   desc "reindex just the collections in the background"
   task reindex_collections: :environment do
     Account.find_each do |account|

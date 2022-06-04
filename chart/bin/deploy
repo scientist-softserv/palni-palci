@@ -27,5 +27,8 @@ else
     CONFIG_FILE=$3
 fi
 
+envsubst < chart/gitlab-token.tmpl.yaml > chart/gitlab-token.yaml
+kubectl apply -f chart/gitlab-token.yaml
+
 helm upgrade --install --namespace $1-$NAMESPACE $1 . -f $CONFIG_FILE --set rails.image.tag=$2
 

@@ -47,7 +47,7 @@ Bulkrax.setup do |config|
   config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
 
   # Field mappings
-  config.field_mappings['Bulkrax::CsvParser'] = {
+  parser_mappings = {
     'abstract' => { from: ['abstract'], split: '\|', generated: true },
     'accessibility_feature' => { from: ['accessibility_feature'], split: '\|' },
     'accessibility_hazard' => { from: ['accessibility_hazard'], split: '\|' },
@@ -60,7 +60,7 @@ Bulkrax.setup do |config|
     'audience' => { from: ['audience'], split: '\|' },
     'based_near' => { from: ['location'], split: '\|' },
     'bibliographic_citation' => { from: ['bibliographic_citation'], split: '\|', generated: true },
-    'bulkrax_identifier' => { from: ['source_identifier'], source_identifier: true },
+    'bulkrax_identifier' => { from: ['source_identifier', 'source'], source_identifier: true, generated: true },
     'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
     'committee_member' => { from: ['committee_member'], split: '\|' },
     'contributor' => { from: ['contributor'], split: '\|' },
@@ -103,12 +103,14 @@ Bulkrax.setup do |config|
     'rights_holder' => { from: ['rights_holder'], split: '\|' },
     'rights_notes' => { from: ['rights_notes'], split: '\|', generated: true },
     'rights_statement' => { from: ['rights', 'rights_statement'], split: '\|', generated: true },
-    'source' => { from: ['source'], split: '\|', generated: true },
     'state' => { from: ['state'], generated: true },
     'subject' => { from: ['subject'], split: '\|' },
     'table_of_contents' => { from: ['table_of_contents'], split: '\|' },
     'title' => { from: ['title'], split: '\|' }
   }
+
+  config.field_mappings['Bulkrax::BagitParser'] = parser_mappings
+  config.field_mappings['Bulkrax::CsvParser'] = parser_mappings
 
   # Add to, or change existing mappings as follows
   #   e.g. to exclude date

@@ -8,25 +8,6 @@ GIT
       rubyzip (>= 1.0.0)
 
 GIT
-  remote: https://github.com/samvera-labs/bulkrax.git
-  revision: bd2dbb13853976aa52e5870352634b1705a05bcd
-  branch: main
-  specs:
-    bulkrax (3.2.0)
-      bagit (~> 0.4)
-      coderay
-      iso8601 (~> 0.9.0)
-      kaminari
-      language_list (~> 1.2, >= 1.2.1)
-      libxml-ruby (~> 3.1.0)
-      loofah (>= 2.2.3)
-      oai (>= 0.4, < 2.x)
-      rack (>= 2.0.6)
-      rails (>= 5.1.6)
-      rdf (>= 2.0.2, < 4.0)
-      simple_form
-
-GIT
   remote: https://github.com/tawan/active-elastic-job.git
   revision: ec51c5d9dedc4a1b47f2db41f26d5fceb251e979
   specs:
@@ -201,6 +182,19 @@ GEM
       signet (~> 0.8)
       typhoeus
     builder (3.2.4)
+    bulkrax (3.3.0)
+      bagit (~> 0.4)
+      coderay
+      iso8601 (~> 0.9.0)
+      kaminari
+      language_list (~> 1.2, >= 1.2.1)
+      libxml-ruby (~> 3.1.0)
+      loofah (>= 2.2.3)
+      oai (>= 0.4, < 2.x)
+      rack (>= 2.0.6)
+      rails (>= 5.1.6)
+      rdf (>= 2.0.2, < 4.0)
+      simple_form
     byebug (11.1.3)
     cancancan (1.17.0)
     capybara (3.33.0)
@@ -1085,7 +1079,7 @@ DEPENDENCIES
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bootstrap-datepicker-rails
-  bulkrax!
+  bulkrax
   byebug
   capybara
   capybara-screenshot (~> 1.0)

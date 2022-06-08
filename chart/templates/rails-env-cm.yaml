@@ -12,7 +12,6 @@ data:
   SIDEKIQ_TIMEOUT: {{ .Values.sidekiq.timeout | quote }}
   SOLR_URL: "{{ $.Values.env.configmap.SOLR_URL}}"
   SETTINGS__SOLR__URL: "{{ $.Values.env.configmap.SOLR_URL}}"
-  SETTINGS__ZOOKEEPER__CONNECTION_STR: {{ template "hyku.zookeeper.name" . }}:2181/configs
   {{- if eq .Values.env.configmap.SETTINGS__MULTITENANCY__ENABLED false }}
   SETTINGS__MULTITENANCY__ROOT_HOST: {{ .Values.ingress.host }}
   {{- end -}}

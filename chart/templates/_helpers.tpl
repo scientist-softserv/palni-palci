@@ -56,19 +56,6 @@ Shorthand for component names
 {{- define "hyku.setup.name" -}}
 {{- include "hyku.fullname" . -}}-setup
 {{- end -}}
-{{- define "hyku.zookeeper.name" -}}
-{{- include "solr.zookeeper-service-name" . -}}
-{{- end -}}
-{{- define "hyku.zookeeper-env.name" -}}
-{{- include "hyku.fullname" . -}}-zookeeper-env
-{{- end -}}
-{{- define "hyku.solr.name" -}}
-{{- .Release.Name -}}-solr-svc
-{{- end -}}
-
-{{- define "hyku.solr.collection" -}}
-{{- if eq .Values.env.configmap.SETTINGS__MULTITENANCY__ENABLED false }}single{{- end -}}
-{{- end -}}
 
 {{- define "hyku.fcrepo.name" -}}
 {{- include "hyku.fullname" . -}}-fcrepo

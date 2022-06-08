@@ -90,7 +90,7 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'export-enhancements'
+gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'main'
 # gem 'bulkrax', path: 'vendor/engines/bulkrax'
 gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 

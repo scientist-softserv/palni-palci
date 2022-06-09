@@ -53,6 +53,13 @@ spec:
         - name: sidekiq
           image: {{ .Values.rails.image.repository }}:{{ .Values.rails.image.tag }}
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           command: ["/bin/bash"]
           args:
             - "-l"

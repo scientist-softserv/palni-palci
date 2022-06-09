@@ -37,7 +37,7 @@ spec:
       initContainers:
         - name: "remove-lost-found"
           image: "busybox:1.25.0"
-          command: 
+          command:
             - rm
             - -fr
             - /data/lost+found
@@ -47,6 +47,13 @@ spec:
       containers:
         - name: fcrepo
           image: {{ .Values.fcrepo.image.repository }}:{{ .Values.fcrepo.image.tag }}
+          resources:
+            requests:
+              memory: "768Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
           livenessProbe:
             tcpSocket:
               port: 8080

@@ -35,4 +35,19 @@ namespace :hyku do
       end
     end
   end
+
+  desc "reindex just the filesets in the background"
+  task reindex_filesets: :environment do
+    Account.find_each do |account|
+      puts "=============== #{account.name}============"
+      next if account.name == "search"
+      switch!(account)
+      title = "~ #{account.name}"
+      progressbar = ProgressBar.create(total: FileSet.count, title: title, format: "%t %c of %C %a %B %p%%")
+      FileSet.find_each do |file_set|
+        FileSetIndexJob.perform_later(file_set.id)
+        progressbar.increment
+      end
+    end
+  end
 end

@@ -11,6 +11,7 @@ RUN apk --no-cache upgrade && \
     perl \
     postgresql-client \
     cmake \
+    screen \
     $EXTRA_APK_PACKAGES
 
 ARG VIPS_VERSION=8.11.3

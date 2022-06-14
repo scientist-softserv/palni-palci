@@ -10,6 +10,9 @@ namespace :bulkrax do
         Bulkrax::Exporter.all.each do |e|
           e.update(parser_klass: 'Bulkrax::CsvParser') if e.parser_klass == 'Bulkrax::OerCsvParser' || e.parser_klass == 'Bulkrax::EtdCsvParser'
         end
+        Bulkrax::Importer.all.each do |e|
+          e.update(parser_klass: 'Bulkrax::CsvParser') if e.parser_klass == 'Bulkrax::OerCsvParser' || e.parser_klass == 'Bulkrax::EtdCsvParser'
+        end
         puts "=============== finished updating #{account.name} ============"
       rescue => e
         puts "(#{e.message})"

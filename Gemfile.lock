@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 4ba0377cb2eede46e1a95f1f5963fc65b745c184
+  revision: 2a31f37dfe9eae06fa94508b62f37b24189af6eb
   branch: main
   specs:
     bulkrax (3.3.2)
@@ -24,6 +24,7 @@ GIT
       rack (>= 2.0.6)
       rails (>= 5.1.6)
       rdf (>= 2.0.2, < 4.0)
+      rubyzip
       simple_form
 
 GIT

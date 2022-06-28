@@ -38,7 +38,8 @@ module Hyrax
       @announcement_text = ContentBlock.for(:announcement)
       recent
       ir_counts if home_page_theme == 'institutional_repository'
-
+      @top_level_collections = collections(rows: 100_000).select{ |c| c['nesting_collection__deepest_nested_depth_isi'] == 1 }[0..5] if home_page_theme == 'institutional_repository'
+  
       # override hyrax v2.9.0 added for facets on homepage - Adding Themes
       (@response, @document_list) = search_results(params)
 

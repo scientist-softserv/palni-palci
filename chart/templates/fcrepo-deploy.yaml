@@ -48,12 +48,12 @@ spec:
         - name: fcrepo
           image: {{ .Values.fcrepo.image.repository }}:{{ .Values.fcrepo.image.tag }}
           resources:
-            requests:
-              memory: "768Mi"
-              cpu: "250m"
             limits:
-              memory: "1Gi"
-              cpu: "500m"
+              cpu: "2"
+              memory: 4Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
           livenessProbe:
             tcpSocket:
               port: 8080

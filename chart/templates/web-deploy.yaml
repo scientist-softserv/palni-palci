@@ -54,12 +54,12 @@ spec:
           image: {{ .Values.rails.image.repository }}:{{ .Values.rails.image.tag }}
           imagePullPolicy: IfNotPresent
           resources:
-            requests:
-              memory: "1024Mi"
-              cpu: "250m"
             limits:
-              memory: "2048Mi"
-              cpu: "1000m"
+              cpu: "2"
+              memory: 4Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
           # Use sub-path for individual folders
           volumeMounts:
             - mountPath: /app/samvera/hyrax-webapp/tmp/imports

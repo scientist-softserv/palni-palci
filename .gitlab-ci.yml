@@ -1,141 +1,197 @@
+---
 stages:
   - build
   - go
 
-variables:
-  DOCKER_DRIVER: overlay2
-  REGISTRY_HOST: registry.gitlab.com
-  REGISTRY_URI: /notch8/palni-palci
-
 before_script:
   - export TAG=${CI_COMMIT_SHORT_SHA}
   - export BRANCH=${CI_COMMIT_REF_NAME}
-  - export REPO_URL=${CI_REPOSITORY_URL}
-  - touch .env.development
+  - export REGISTRY_HOST=${CI_REGISTRY}
+  - export REGISTRY_URI="/${CI_PROJECT_PATH}"
 
-build:
+hyku.build:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - sc build
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - sc push
+    - docker-compose build web
+    - docker-compose build worker
+    - docker-compose push web
+    - docker-compose push worker
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   tags:
     - local
 
-test:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-  stage: go
-  services:
-    - name: selenium/standalone-chrome-debug:3.141.59-20201010
-      alias: chrome
-    - name: postgres:10-alpine
-      alias: db-test
-    - name: solr:7.5
-      alias: solr
-      command: ["solr", "-c", "-f"]
-    - name: ualbertalib/docker-fcrepo4:4.7
-      alias: fcrepo
-    - name: redis:4-alpine
-      alias: redis-test
-      command: ["redis-server"]
-  variables:
-    CAPYBARA_SERVER: build
-    CHROME_HOSTNAME: chrome
-    HUB_URL: http://chrome:4444/wd/hub
-    FF_NETWORK_PER_BUILD: 1
-    DATABASE_ADAPTER: postgresql
-    DATABASE_HOST: db-test
-    DATABASE_NAME: hyku
-    DATABASE_PASSWORD: DatabaseFTW
-    DATABASE_USER: postgres
-    DATBASE_TEST_NAME: hyku_test
-    FEDORA_URL: http://fcrepo:8080/fcrepo/rest
-    GIT_STRATEGY: none
-    IN_DOCKER: 'true'
-    LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
-    POSTGRES_DB: hyku_test
-    POSTGRES_PASSWORD: DatabaseFTW
-    POSTGRES_USER: postgres
-    RAILS_ENV: test
-    RAILS_LOG_TO_STDOUT: 'true'
-    RAILS_SERVE_STATIC_FILES: 'true'
-    REDIS_HOST: redis-test
-    REDIS_PORT: '6379'
-    SECRET_KEY_BASE: asdf
-    SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
-    SETTINGS__BULKRAX__ENABLED: 'true'
-    SETTINGS__FITS_PATH: /opt/fits/fits.sh
-    SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS: 'true'
-    SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
-    SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: 'false'
-    SETTINGS__MULTITENANCY__DEFAULT_HOST: '%{tenant}.hyku.docker'
-    SETTINGS__MULTITENANCY__ENABLED: 'true'
-    SETTINGS__SOLR__URL: http://solr:8983/solr/
-    SETTINGS__ZOOKEEPER__CONNECTION_STR: solr:9983/configs
-    SOLR_URL: http://solr:8983/solr/
-    TB_RSPEC_OPTIONS: --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
-    TB_RSPEC_FORMATTER: progress
-  script:
-    - rm -f /app/samvera/hyrax-webapp/tmp/capybara/*
-    - rm -rf $CI_PROJECT_DIR/capybara
-    - gem install semaphore_test_boosters
-    - cd /app/samvera/hyrax-webapp/ && bundle exec rake zookeeper:upload db:create db:schema:load
-    - rspec_booster --job $CI_NODE_INDEX/$CI_NODE_TOTAL
-  after_script:
-    - cp /app/samvera/hyrax-webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
-    - cp -r /app/samvera/hyrax-webapp/tmp/capybara $CI_PROJECT_DIR/capybara
-  allow_failure: false
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  artifacts:
-    paths:
-      - rspec.xml
-      - capybara/*.html
-    reports:
-      junit: rspec.xml
-    expire_in: 1 week
-    when: always
-  tags:
-    - docker
-  parallel: 6
+# lint:
+#   stage: go
+#   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+#   allow_failure: true
+#   script:
+#     - cd /app/samvera/hyrax-webapp
+#     - bundle check || bundle
+#     - bundle exec rubocop
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#   tags:
+#     - kubernetes
 
-staging:
-  stage: go
-  script:
-    - "keybase status | grep 'Logged in:     no' && keybase oneshot"
-    - ./chart/bin/decrypt staging
-    - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA
-  after_script:
-    - rm -f ./chart/*-values.yaml
-    - keybase logout
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
-  allow_failure: true
-  tags:
-    - local
+# test:
+#   stage: go
+#   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+#   allow_failure: true
+#   variables:
+#     ALLOW_ANONYMOUS_LOGIN: "yes"
+#     BULKRAX_ENABLED: "true"
+#     CAPYBARA_SERVER: build
+#     CONFDIR: "/app/samvera/hyrax-webapp/solr/conf"
+#     CHROME_HOSTNAME: chrome
+#     DB_ADAPTER: postgresql
+#     DB_CLEANER_ALLOW_REMOTE_DB_URL: "true"
+#     DB_HOST: db
+#     DB_NAME: hyku
+#     DB_URL: postgres://postgres:postgres@db/hyku
+#     DB_USER: postgres
+#     DB_HOST: db
+#     DB_PORT: 5432
+#     DB_TEST_NAME: hyku_test
+#     FCREPO_HOST: fcrepo
+#     FCREPO_PORT: 8081
+#     FCREPO_URL: http://fcrepo:8081/rest
+#     FF_NETWORK_PER_BUILD: 1
+#     GIT_STRATEGY: none
+#     HUB_URL: http://chrome:4444/wd/hub
+#     HYKU_ADMIN_HOST:
+#     HYKU_ADMIN_ONLY_TENANT_CREATION: "false"
+#     HYKU_DEFAULT_HOST: "%{tenant}.hyku.docker"
+#     HYKU_MULTITENANT: "true"
+#     HYRAX_ACTIVE_JOB_QUEUE: sidekiq
+#     HYRAX_FITS_PATH:
+#     JAVA_OPTIONS: -Djetty.port=8081
+#     IN_DOCKER: "true"
+#     LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
+#     POSTGRESQL_DATABASE: hyku
+#     POSTGRESQL_PASSWORD: postgres
+#     POSTGRES_USER: postgres
+#     RAILS_ENV: test
+#     RAILS_LOG_TO_STDOUT: 'true'
+#     RAILS_SERVE_STATIC_FILES: 'true'
+#     REDIS_HOST: redis
+#     SECRET_KEY_BASE: asdf
+#     SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS: 'true'
+#     SOLR_ADMIN_PASSWORD: admin
+#     SOLR_ADMIN_USER: admin
+#     SOLR_ADMIN_USERNAME: admin
+#     SOLR_CLOUD_BOOTSTRAP: "yes"
+#     SOLR_COLLECTION_NAME: hyku-test
+#     SOLR_CONFIGSET_NAME: hyku
+#     SOLR_ENABLE_AUTHENTICATION: "yes"
+#     SOLR_ENABLE_CLOUD_MODE: "yes"
+#     SOLR_HOST: solr
+#     SOLR_PORT: 8983
+#     SOLR_URL: http://admin:admin@solr:8983/solr/
+#     SOLR_ZK_HOSTS: zk:2181
+#     ZOO_HEAP_SIZE: 128
+#     ZOO_PORT_NUMBER: 2181
+#   services:
+#     - name: bitnami/postgresql:12.6.0
+#       alias: db
+#     - name: samvera/fcrepo4:4.7.5
+#       alias: fcrepo
+#     - name: redis:5-alpine
+#       alias: redis
+#     - name: bitnami/zookeeper:3
+#       alias: zk
+#     - name: bitnami/solr:8
+#       alias: solr
+#     - name: selenium/standalone-chrome:3.141
+#       alias: chrome
+#   before_script:
+#     - >-
+#       solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/conf &&
+#       SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+#       solrcloud-assign-configset.sh
+#   script:
+#     - rm -f /home/app/webapp/tmp/capybara/*
+#     - rm -rf $CI_PROJECT_DIR/capybara
+#     - cd /app/samvera/hyrax-webapp
+#     # - sleep 30m
+#     - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+#   after_script:
+#     - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
+#     - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "main"
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#   artifacts:
+#     when: always
+#     paths:
+#       - capybara/*.html
+#       - rspec.xml
+#     reports:
+#       junit: rspec.xml
+#     expire_in: 1 week
+#     when: always
+#   tags:
+#     - docker
+#   parallel: 6
 
-production:
-  stage: go
-  script:
-    - export KUBECONFIG=$KUBECONFIG_PALS
-    - "keybase status | grep 'Logged in:     no' && keybase oneshot"
-    - ./chart/bin/decrypt production
-    - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA
-  after_script:
-    - rm -f ./chart/*-values.yaml
-    - keybase logout
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
-  allow_failure: true
-  tags:
-    - local
+# hyku.staging:
+#   stage: go
+#   extends:
+#     - .deploy
+#   variables:
+#     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+#     DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+#     WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
+#     HELM_EXPERIMENTAL_OCI: 1
+#     HELM_EXTRA_ARGS: >
+#       --values ops/staging-deploy.yaml
+#   script:
+#     # - "keybase status | grep 'Logged in:     no' && keybase oneshot"
+#     # - ./chart/bin/decrypt staging # wont need as we are swapping to the tmpl.yaml version
+#     - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
+#     - ./bin/helm_deploy staging-palni-palci staging
+#   after_script:
+#     - rm -f ./chart/*-values.yaml
+#     - keybase logout
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "main"
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#       when: manual
+#   allow_failure: true
+#   tags:
+#     - local
+
+# hyku.production:
+#   stage: go
+#   extends:
+#     - .deploy
+#   variables:
+#     DEPLOY_IMAGE: $CI_REGISTRY_IMAGE
+#     DEPLOY_TAG: $CI_COMMIT_SHORT_SHA
+#     WORKER_IMAGE: $CI_REGISTRY_IMAGE/worker
+#     HELM_EXPERIMENTAL_OCI: 1
+#     HELM_EXTRA_ARGS: >
+#       --values ops/production-deploy.yaml
+#   script:
+#     # - export KUBECONFIG=$KUBECONFIG_PALS
+#     # - "keybase status | grep 'Logged in:     no' && keybase oneshot"
+#     # - ./chart/bin/decrypt production
+#     # - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA
+#     - envsubst < ops/production-deploy.tmpl.yaml > ops/production-deploy.yaml
+#     - ./bin/helm_deploy production-palni-palci production
+#   # after_script:
+#   #   - rm -f ./chart/*-values.yaml
+#   #   - keybase logout
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "main"
+#       when: manual
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#       when: manual
+#   allow_failure: true
+#   tags:
+#     - local
+
+# .deploy:
+#   image: dtzar/helm-kubectl:3.5.3

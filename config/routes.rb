@@ -1,3 +1,5 @@
+# OVERRIDE Hyrax 2.9.0 to add featured collection routes
+
 require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
@@ -9,11 +11,11 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  if Settings.multitenancy.enabled
+  if ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     constraints host: Account.admin_host do
       get '/account/sign_up' => 'account_sign_up#new', as: 'new_sign_up'
       post '/account/sign_up' => 'account_sign_up#create'
-      get '/', to: 'splash#index'
+      get '/', to: 'splash#index', as: 'splash'
 
       # pending https://github.com/projecthydra-labs/hyrax/issues/376
       get '/dashboard', to: redirect('/')
@@ -35,7 +37,6 @@ Rails.application.routes.draw do
   resource :site, only: [:update] do
     resources :roles, only: [:index, :update]
     resource :labels, only: [:edit, :update]
-    resource :contact, only: [:edit, :update]
   end
 
   root 'hyrax/homepage#index'
@@ -45,7 +46,7 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
   mount Hyrax::Engine, at: '/'
-  if Settings.bulkrax.enabled
+  if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     mount Bulkrax::Engine, at: '/'
   end
 
@@ -97,5 +98,20 @@ Rails.application.routes.draw do
     end
   end
 
+  # OVERRIDE here to add featured collection routes
+  scope module: 'hyrax' do
+    # Generic collection routes
+    resources :collections, only: [] do
+      member do
+        resource :featured_collection, only: [:create, :destroy]
+      end
+    end
+    resources :featured_collection_lists, path: 'featured_collections', only: :create
+  end
+
   get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
+
+  # Upload a collection thumbnail
+  post "/dashboard/collections/:id/delete_uploaded_thumbnail", to: "hyrax/dashboard/collections#delete_uploaded_thumbnail", as: :delete_uploaded_thumbnail
+
 end

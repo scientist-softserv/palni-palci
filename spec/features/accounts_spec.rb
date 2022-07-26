@@ -25,7 +25,8 @@ RSpec.describe 'Accounts administration', multitenant: true, cohort: 'alpha' do
       Capybara.default_host = default_host
     end
 
-    xit 'changes the associated cname' do
+    it 'changes the associated cname' do
+      pending "adjust for domain names instead of single cname"
       visit edit_proprietor_account_path(account)
 
       fill_in 'Tenant CNAME', with: 'example.com'

@@ -38,12 +38,8 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true, cohort: 
       login_as user
     end
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       visit '/dashboard/works'
-      # TODO(labradford) We are not able to get this link click to work in our automated tests, so this is a workaround.
-      # I hope that if we move to system specs instead of feature specs we'll be able to move back to alignment with
-      # how upstream Hyku/ Hyrax do this.
-      # click_link "Works"
       click_link "Add new work"
 
       # If you generate more than one work uncomment these lines
@@ -61,6 +57,7 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true, cohort: 
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
 
@@ -68,12 +65,11 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true, cohort: 
       # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       # rubocop:enable Metrics/LineLength
-      check('agreement')
+      find(:css, "#agreement[value='1']").set(true)
 
       click_on('Save')
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyku Commons in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end

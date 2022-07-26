@@ -33,6 +33,7 @@ class CreateAccount
         create_defaults
         fillin_translations
         add_initial_users
+        schedule_recurring_jobs
         true
       end
     end
@@ -43,6 +44,8 @@ class CreateAccount
     RolesService.create_default_hyrax_groups_with_roles!
     Hyrax::CollectionType.find_or_create_default_collection_type
     Hyrax::CollectionType.find_or_create_admin_set_type
+    return if account.search_only?
+
     AdminSet.find_or_create_default_admin_set_id
   end
 
@@ -70,6 +73,15 @@ class CreateAccount
   # specifically Solr and Fedora, and creation of the default Admin Set.
   def create_account_inline
     CreateAccountInlineJob.perform_now(account)
+  end
+
+  # Schedules jobs that will run automatically after
+  # the first time they are called
+  def schedule_recurring_jobs
+    return if account.search_only?
+
+    EmbargoAutoExpiryJob.perform_later(account)
+    LeaseAutoExpiryJob.perform_later(account)
   end
 
   private

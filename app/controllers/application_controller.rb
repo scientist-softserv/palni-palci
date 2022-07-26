@@ -48,18 +48,39 @@ class ApplicationController < ActionController::Base
     @guest_user
   end
 
-  private
+  protected
 
     def is_hidden
       current_account.persisted? && !current_account.is_public?
     end
 
     def is_api_or_pdf
-      request.format.to_s.match('json') || params[:print] || request.path.include?('api') || request.path.include?('pdf')
+      request.format.to_s.match('json') ||
+        params[:print] ||
+        request.path.include?('api') ||
+        request.path.include?('pdf')
     end
 
     def is_staging
       ['staging'].include?(Rails.env)
+    end
+
+    ##
+    # Extra authentication for palni-palci during development phase
+    def authenticate_if_needed
+      # Disable this extra authentication in test mode
+      return true if Rails.env.test?
+      if (is_hidden || is_staging) && !is_api_or_pdf
+        authenticate_or_request_with_http_basic do |username, password|
+          username == "samvera" && password == "hyku"
+        end
+      end
+    end
+
+    def super_and_current_users
+      users = Role.find_by(name: 'superadmin')&.users.to_a
+      users << current_user if current_user && !users.include?(current_user)
+      users
     end
 
     ##
@@ -80,7 +101,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_active_account!
-      return unless Settings.multitenancy.enabled
+      return if singletenant?
       return if devise_controller?
       raise Apartment::TenantNotFound, "No tenant for #{request.host}" unless current_account.persisted?
     end
@@ -90,11 +111,11 @@ class ApplicationController < ActionController::Base
     end
 
     def multitenant?
-      Settings.multitenancy.enabled
+      @multitenant ||= ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_MULTITENANT', false))
     end
 
     def singletenant?
-      !Settings.multitenancy.enabled
+      !multitenant?
     end
 
     def elevate_single_tenant!
@@ -106,13 +127,13 @@ class ApplicationController < ActionController::Base
     end
 
     def admin_host?
-      return false unless multitenant?
+      return false if singletenant?
       Account.canonical_cname(request.host) == Account.admin_host
     end
 
     def current_account
       @current_account ||= Account.from_request(request)
-      @current_account ||= if Settings.multitenancy.enabled
+      @current_account ||= if multitenant?
                              Account.new do |a|
                                a.build_solr_endpoint
                                a.build_fcrepo_endpoint
@@ -145,7 +166,7 @@ class ApplicationController < ActionController::Base
     end
 
     def ssl_configured?
-      ActiveRecord::Type::Boolean.new.cast(Settings.ssl_configured)
+      ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
     end
 
     # Overrides method in devise-guest gem

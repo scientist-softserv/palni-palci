@@ -18,7 +18,9 @@
 //= require jquery.fontselect
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require stat_slider
 //= require turbolinks
+//= require cocoon
 
 //= require tether
 // Required by Blacklight
@@ -34,9 +36,12 @@
 //= require hyku/admin/appearance/themes
 //= require hyku/groups/per_page
 //= require hyku/groups/add_member
+//= require proprietor
 //= require bootstrap_carousel
 //= require bootstrap-datepicker
+
 //= require bulkrax/application
+
 //= require hyrax
 //= require jquery.flot.pie
 //= require flot_graph

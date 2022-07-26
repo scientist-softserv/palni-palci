@@ -6,36 +6,15 @@ class SitesController < ApplicationController
   layout 'hyrax/dashboard'
 
   def update
-    if params[:site]
-      @site.update(site_theme_params)
-    end
-    
     # FIXME: Pull these strings out to i18n locale
-
-    # Dynamic CarrierWave methods
-    remove_image_methods = %i[remove_banner_image
-                              remove_logo_image
-                              remove_directory_image
-                              remove_default_collection_image
-                              remove_default_work_image]
-
-    # JUST removes images from file system, does not update @site attrs
-    remove_image_methods.each do |key|
-      @site.send("#{key}!") if params[key]
+    if @site.update(update_params)
+      remove_appearance_text(update_params)
+      redirect_to hyrax.admin_appearance_path, notice: 'The appearance was successfully updated.'
+    else
+      redirect_to hyrax.admin_appearance_path, flash: { error: 'Updating the appearance was unsuccessful.' }
     end
 
-    @site.save
-
-    if params['remove_default_collection_image']
-      # Reindex all Collections and AdminSets to fall back on Hyrax's default collection image
-      ReindexCollectionsJob.perform_later
-      ReindexAdminSetsJob.perform_later
-    elsif params['remove_default_work_image']
-      # Reindex all Works to fall back on Hyrax's default work image
-      ReindexWorksJob.perform_later
-    end
-
-    redirect_to hyrax.admin_appearance_path, notice: 'The appearance was successfully updated.'
+    @site.update(site_theme_params) if params[:site]
   end
 
   private
@@ -44,7 +23,31 @@ class SitesController < ApplicationController
       @site ||= Site.instance
     end
 
+    def update_params
+      params.permit(:remove_banner_image,
+                    :remove_logo_image,
+                    :remove_directory_image,
+                    :remove_default_collection_image,
+                    :remove_default_work_image)
+    end
+
     def site_theme_params
       params.require(:site).permit(:home_theme, :search_theme, :show_theme)
+    end
+
+    REMOVE_TEXT_MAPS = {
+      "remove_logo_image"               => "logo_image_text",
+      "remove_banner_image"             => "banner_image_text",
+      "remove_directory_image"          => "directory_image_text",
+      "remove_default_collection_image" => "default_collection_image_text",
+      "remove_default_work_image"       => "default_work_image_text"
+    }.freeze
+
+    def remove_appearance_text(update_params)
+      image_text_keys = update_params.keys
+      image_text_keys.each do |image_text_key|
+        block = ContentBlock.find_by(name: REMOVE_TEXT_MAPS[image_text_key])
+        block.delete if block&.value.present?
+      end
     end
 end

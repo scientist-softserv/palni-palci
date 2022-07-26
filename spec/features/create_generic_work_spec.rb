@@ -39,12 +39,8 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       login_as user
     end
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       visit '/dashboard/works'
-      # TODO(bess) We are not able to get this link click to work in our automated tests, so this is a workaround.
-      # I hope that if we move to system specs instead of feature specs we'll be able to move back to alignment with
-      # how upstream Hyku/ Hyrax do this.
-      # click_link "Works"
       click_link "Add new work"
 
       # If you generate more than one work uncomment these lines
@@ -62,6 +58,7 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
 
@@ -75,6 +72,5 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyku Commons in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end

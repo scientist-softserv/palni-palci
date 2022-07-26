@@ -1,4 +1,4 @@
-ARG HYRAX_IMAGE_VERSION=3.0.1
+ARG HYRAX_IMAGE_VERSION=3.1.0
 FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as hyku-base
 
 USER root
@@ -49,8 +49,7 @@ COPY --chown=1001:101 $APP_PATH/bin/db-migrate-seed.sh /app/samvera/
 
 COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
 
-ARG SETTINGS__BULKRAX__ENABLED="false"
-RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DB_URL='postgresql://fake' bundle exec rake assets:precompile
 
 FROM hyku-base as hyku-worker
 ENV MALLOC_ARENA_MAX=2

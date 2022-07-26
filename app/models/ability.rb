@@ -14,6 +14,7 @@ class Ability
     collection_roles
     user_roles
     work_roles
+    featured_collection_abilities
   ]
   # If the Groups with Roles feature is disabled, allow registered users to create curation concerns (Works, Collections, and FileSets).
   # Otherwise, omit this ability logic as to not conflict with the roles that explicitly grant creation permissions.
@@ -90,5 +91,18 @@ class Ability
     end
 
     @all_user_and_group_roles
+
+  def featured_collection_abilities
+    can %i[create destroy update], FeaturedCollection if admin?
+  end
+
+  # Override from blacklight-access_controls-0.6.2 to define registered to include having a role on this tenant
+  def user_groups
+    return @user_groups if @user_groups
+
+    @user_groups = default_user_groups
+    @user_groups |= current_user.groups if current_user.respond_to? :groups
+    @user_groups |= ['registered'] if !current_user.new_record? && current_user.roles.count.positive?
+    @user_groups
   end
 end

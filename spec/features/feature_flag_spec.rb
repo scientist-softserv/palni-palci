@@ -5,20 +5,26 @@ require 'rails_helper'
 RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean: true, cohort: 'bravo' do
   let(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Adam Admin') }
   let(:account) { FactoryBot.create(:account) }
+
+  # rubocop:disable RSpec/LetSetup
   let!(:work) do
     create(:generic_work,
            title: ['Pandas'],
            keyword: ['red panda', 'giant panda'],
            user: admin)
   end
+
   let!(:collection) do
-    create(:public_collection_lw,
+    create(:collection,
            title: ['Pandas'],
            description: ['Giant Pandas and Red Pandas'],
            user: admin,
            members: [work])
   end
+
   let!(:feature) { FeaturedWork.create(work_id: work.id) }
+
+  # rubocop:enable RSpec/LetSetup
 
   context 'as a repository admin' do
     it 'has a setting for featured works' do
@@ -52,15 +58,9 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Recently Uploaded'
       expect(page).to have_content 'Pandas'
       click_link 'Recently Uploaded'
-      expect(page).to have_css('li.recent-item')
+      expect(page).to have_css('p.recent-field')
     end
   end
-
-  # it 'has a setting for to display PDFs in the universal viewer' do
-  #   login_as admin
-  #   visit 'admin/features'
-  #   expect(page).to have_content 'PDFs display in the universal viewer'
-  # end
 
   context 'when all home tabs and share work features are turned off' do
     it 'the page only shows the collections tab' do

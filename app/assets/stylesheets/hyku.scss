@@ -304,21 +304,21 @@ footer.navbar {
   padding: 0;
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal {
-  margin-right: 0px;
-  margin-left: 0px;
+.hyc-bl-sort > .per_page.form-horizontal {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
   padding-bottom: 1em;
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal:before,
-.hyc-bl-sort > form.per_page.form-horizontal:after {
+.hyc-bl-sort > .per_page.form-horizontal::before,
+.hyc-bl-sort > .per_page.form-horizontal::after {
   display: table;
   content: " ";
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal:after {
+.hyc-bl-sort > .per_page.form-horizontal::after {
   clear: both;
 }
 
@@ -329,7 +329,7 @@ footer.navbar {
 
 #users > .panel {
   .panel-body {
-    padding-left: 0px;
+    padding-left: 0;
   }
 
   ul,
@@ -351,6 +351,10 @@ footer.navbar {
 
 .defaultable-fonts div[class$="_font"] label {
   display: block;
+
+  label {
+    display: block;
+  }
 }
 
 .defaultable-fonts div.font-select {
@@ -421,8 +425,77 @@ div#collapse-citations {
   text-align: left;
   word-wrap: break-word;
 }
+
 @media (min-width: 576px) {
   .citations-button {
     max-width: 300px;
   }
+}
+
+body.public-facing {
+  .btn {
+    &.btn-primary,
+    &.btn-danger {
+      color: #fff;
+    }
+
+    &.btn-primary {
+      background-color: #337ab7;
+    }
+  }
+}
+
+// FEATURED COLLECTIONS
+@media (max-width: $screen-sm-min) {
+  .admin-show-page
+    .collection-title-row-wrapper
+    .collection-title-row-content
+    .btn.collapse {
+    display: none;
+  }
+}
+
+.dd-item.collapse {
+  display: none;
+}
+
+.dd-item.dd3-item.featured-item {
+  border-top: 0;
+  min-height: unset;
+  padding: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.collection-highlights img,
+.featured-item img {
+  border: 0;
+  height: 90px;
+  width: unset;
+}
+
+.featured-collection-section {
+  border: 1px solid #ccc;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.btn-primary.feature {
+  margin-left: 4px;
+}
+//Styles we need access to in the dashboard
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px;
 }

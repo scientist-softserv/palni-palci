@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   # OVERRIDE from AdminController inheretence for user roles authorization
   class GroupsController < ApplicationController

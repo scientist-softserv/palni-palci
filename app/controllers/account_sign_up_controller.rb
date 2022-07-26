@@ -15,8 +15,7 @@ class AccountSignUpController < ProprietorController
   # POST /account/sign_up.json
   def create
     respond_to do |format|
-      # TODO: RG - this is different that upstream, should upstream be changed and should this be change or are they divergent?
-      if CreateAccount.new(@account, [current_user]).save
+      if CreateAccount.new(@account, super_and_current_users).save
         format.html { redirect_to first_user_registration_url, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @account.cname }
       else
@@ -34,7 +33,7 @@ class AccountSignUpController < ProprietorController
     end
 
     def admin_only_tenant_creation?
-      Settings.multitenancy.admin_only_tenant_creation
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ADMIN_ONLY_TENANT_CREATION', false))
     end
 
     def first_user_registration_url

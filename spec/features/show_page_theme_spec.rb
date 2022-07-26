@@ -64,8 +64,8 @@ RSpec.describe 'Admin can select show page theme', type: :feature, js: true, cle
       click_link('Themes')
       select('Cultural Show Page', from: 'Show Page Theme')
       find('body').click
-      expect(page).to have_content('This image based show page is recommended for cultural repositories')    
-      expect(page.find('#show-wireframe img')['src']).to match(/assets\/themes\/cultural_show/)
+      expect(page).to have_content('This image based show page is recommended for cultural repositories.')
+      expect(page.find('#show-wireframe img')['src']).to match(%r{/assets\/themes\/cultural_show/})
     end
 
     it 'renders the partials in the theme folder' do
@@ -83,7 +83,7 @@ RSpec.describe 'Admin can select show page theme', type: :feature, js: true, cle
       expect(page).to have_css('.text-show-title')
     end
 
-    it 'updates the show theme when the theme is changed' do
+    it 'updates the show theme when the theme is changed' do # rubocop:disable RSpec/ExampleLength
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')

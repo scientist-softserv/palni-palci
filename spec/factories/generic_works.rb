@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :generic_work, aliases: [:work] do
     transient do
@@ -5,6 +7,12 @@ FactoryBot.define do
     end
 
     title { ["Test title"] }
+
+    factory :public_generic_work, aliases: [:public_work], traits: [:public]
+
+    trait :public do
+      visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+    end
 
     identifier do
       %w[

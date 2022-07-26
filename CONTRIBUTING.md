@@ -18,9 +18,31 @@ All code contributors must have an Individual Contributor License Agreement
 an institution, the institution must have a Corporate Contributor License
 Agreement (cCLA) on file.
 
-https://wiki.duraspace.org/display/samvera/Samvera+Community+Intellectual+Property+Licensing+and+Ownership
+[Samvera Community Intellectual Property Licensing and Ownership](https://samvera.atlassian.net/wiki/spaces/samvera/pages/405211651)
 
 You should also add yourself to the `CONTRIBUTORS.md` file in the root of the project.
+
+## Language
+
+The language we use matters.  Today, tomorrow, and for years to come
+people will read the code we write.  They will judge us for our
+design, logic, and the words we use to describe the system.
+
+Our words should be accessible.  Favor descriptive words that give
+meaning while avoiding reinforcing systemic inequities.  For example,
+in the Samvera community, we should favor using allowed\_list instead
+of whitelist, denied\_list instead of blacklist, or source/copy
+instead of master/slave.
+
+We're going to get it wrong, but this is a call to keep working to
+make it right.  View our code and the words we choose as a chance to
+have a conversation. A chance to grow an understanding of the systems
+we develop as well as the systems in which we live.
+
+See [“Blacklists” and “whitelists”: a salutary warning concerning the
+prevalence of racist language in discussions of predatory
+publishing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6148600/) for
+further details.
 
 ## Contribution Tasks
 
@@ -34,7 +56,7 @@ You should also add yourself to the `CONTRIBUTORS.md` file in the root of the pr
 ### Reporting Issues
 
 * Make sure you have a [GitHub account](https://github.com/signup/free)
-* Submit a [Github issue](https://github.com/samvera/questioning_authority/issues) by:
+* Submit a [Github issue](https://github.com/samvera/{{library}}/issues/) by:
   * Clearly describing the issue
     * Provide a descriptive summary
     * Explain the expected behavior
@@ -45,10 +67,10 @@ You should also add yourself to the `CONTRIBUTORS.md` file in the root of the pr
 
 * Fork the repository on GitHub
 * Create a topic branch from where you want to base your work.
-  * This is usually the master branch.
-  * To quickly create a topic branch based on master; `git branch fix/master/my_contribution master`
-  * Then checkout the new branch with `git checkout fix/master/my_contribution`.
-  * Please avoid working directly on the `master` branch.
+  * This is usually the main branch.
+  * To quickly create a topic branch based on main; `git branch fix/main/my_contribution main`
+  * Then checkout the new branch with `git checkout fix/main/my_contribution`.
+  * Please avoid working directly on the `main` branch.
   * You may find the [hub suite of commands](https://github.com/defunkt/hub) helpful
 * Make sure you have added sufficient tests and documentation for your changes.
   * Test functionality with RSpec; Test features / UI with Capybara.
@@ -109,15 +131,15 @@ You should also add yourself to the `CONTRIBUTORS.md` file in the root of the pr
 ### Submitting Changes
 
 * Read the article ["Using Pull Requests"](https://help.github.com/articles/using-pull-requests) on GitHub.
-* Make sure your branch is up to date with its parent branch (i.e. master)
-  * `git checkout master`
+* Make sure your branch is up to date with its parent branch (i.e. main)
+  * `git checkout main`
   * `git pull --rebase`
   * `git checkout <your-branch>`
-  * `git rebase master`
+  * `git rebase main`
   * It is a good idea to run your tests again.
 * If you've made more than one commit take a moment to consider whether squashing commits together would help improve their logical grouping.
   * [Detailed Walkthrough of One Pull Request per Commit](http://ndlib.github.io/practices/one-commit-per-pull-request/)
-  * `git rebase --interactive master` ([See Github help](https://help.github.com/articles/interactive-rebase))
+  * `git rebase --interactive main` ([See Github help](https://help.github.com/articles/interactive-rebase))
   * Squashing your branch's changes into one commit is "good form" and helps the person merging your request to see everything that is going on.
 * Push your changes to a topic branch in your fork of the repository.
 * Submit a pull request from your fork to the project.

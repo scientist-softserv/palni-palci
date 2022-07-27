@@ -6,7 +6,7 @@ x-app: &app
     target: hyku-base
     args:
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
-  image: ghcr.io/samvera/hyku:latest
+  image: registry.gitlab.com/notch8/palni-palci:latest
   env_file:
     - .env
   # NOTE: all common env variables moved to .env
@@ -151,7 +151,7 @@ services:
 
   worker:
     <<: *app
-    image: ghcr.io/samvera/hyku/worker:latest
+    image: registry.gitlab.com/notch8/palni-palci/worker:latest
     build:
       context: .
       target: hyku-worker

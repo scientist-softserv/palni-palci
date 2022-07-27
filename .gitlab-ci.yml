@@ -23,76 +23,55 @@ hyku.build:
   tags:
     - local
 
-# lint:
-#   stage: go
-#   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-#   allow_failure: true
-#   script:
-#     - cd /app/samvera/hyrax-webapp
-#     - bundle check || bundle
-#     - bundle exec rubocop
-#   rules:
-#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-#   tags:
-#     - kubernetes
+lint:
+  stage: go
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  allow_failure: true
+  script:
+    - cd /app/samvera/hyrax-webapp
+    - bundle check || bundle
+    - bundle exec rubocop
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  tags:
+    - kubernetes
 
 # test:
 #   stage: go
 #   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
 #   allow_failure: true
 #   variables:
-#     ALLOW_ANONYMOUS_LOGIN: "yes"
 #     BULKRAX_ENABLED: "true"
-#     CAPYBARA_SERVER: build
-#     CONFDIR: "/app/samvera/hyrax-webapp/solr/conf"
+#     CAPYBARA_SERVER: web
 #     CHROME_HOSTNAME: chrome
 #     DB_ADAPTER: postgresql
-#     DB_CLEANER_ALLOW_REMOTE_DB_URL: "true"
 #     DB_HOST: db
 #     DB_NAME: hyku
-#     DB_URL: postgres://postgres:postgres@db/hyku
+#     DB_PASSWORD: DatabaseFTW
+#     DB_TEST_NAME: hyku_test
 #     DB_USER: postgres
 #     DB_HOST: db
 #     DB_PORT: 5432
-#     DB_TEST_NAME: hyku_test
 #     FCREPO_HOST: fcrepo
-#     FCREPO_PORT: 8081
-#     FCREPO_URL: http://fcrepo:8081/rest
-#     FF_NETWORK_PER_BUILD: 1
-#     GIT_STRATEGY: none
-#     HUB_URL: http://chrome:4444/wd/hub
-#     HYKU_ADMIN_HOST:
-#     HYKU_ADMIN_ONLY_TENANT_CREATION: "false"
-#     HYKU_DEFAULT_HOST: "%{tenant}.hyku.docker"
-#     HYKU_MULTITENANT: "true"
-#     HYRAX_ACTIVE_JOB_QUEUE: sidekiq
-#     HYRAX_FITS_PATH:
-#     JAVA_OPTIONS: -Djetty.port=8081
+#     FCREPO_PORT: 8080
+#     FCREPO_URL: http://fcrepo:8080/rest
+#     INITIAL_ADMIN_EMAIL: admin@example.com
+#     INITIAL_ADMIN_PASSWORD: testing123
 #     IN_DOCKER: "true"
 #     LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
-#     POSTGRESQL_DATABASE: hyku
-#     POSTGRESQL_PASSWORD: postgres
-#     POSTGRES_USER: postgres
-#     RAILS_ENV: test
-#     RAILS_LOG_TO_STDOUT: 'true'
-#     RAILS_SERVE_STATIC_FILES: 'true'
+#     PASSENGER_APP_ENV: development
+#     RAILS_LOG_TO_STDOUT: "true"
 #     REDIS_HOST: redis
 #     SECRET_KEY_BASE: asdf
-#     SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS: 'true'
-#     SOLR_ADMIN_PASSWORD: admin
-#     SOLR_ADMIN_USER: admin
-#     SOLR_ADMIN_USERNAME: admin
-#     SOLR_CLOUD_BOOTSTRAP: "yes"
-#     SOLR_COLLECTION_NAME: hyku-test
+#     HYRAX_ACTIVE_JOB_QUEUE: sidekiq
+#     HYRAX_FITS_PATH: /app/fits/fits.sh
+#     SOLR_ADMIN_PASSWORD: SolrRocks
+#     SOLR_ADMIN_USER: solr
+#     SOLR_COLLECTION_NAME: hydra-development
 #     SOLR_CONFIGSET_NAME: hyku
-#     SOLR_ENABLE_AUTHENTICATION: "yes"
-#     SOLR_ENABLE_CLOUD_MODE: "yes"
 #     SOLR_HOST: solr
 #     SOLR_PORT: 8983
-#     SOLR_URL: http://admin:admin@solr:8983/solr/
-#     SOLR_ZK_HOSTS: zk:2181
-#     ZOO_HEAP_SIZE: 128
-#     ZOO_PORT_NUMBER: 2181
+#     SOLR_URL: http://solr:SolrRocks@solr:8983/solr/
 #   services:
 #     - name: bitnami/postgresql:12.6.0
 #       alias: db

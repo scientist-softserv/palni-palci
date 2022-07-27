@@ -1,5 +1,5 @@
 # These settings can also be provided as environment variables, in the form, e.g.:
-#    SETTINGS__ACTIVE_JOB_QUEUE__URL=http://...
+#    HYRAX_ACTIVE_JOB_QUEUE=http://...
 #
 # The mapping is described in `./config/initializers/config.rb`.
 #

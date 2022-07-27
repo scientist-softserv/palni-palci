@@ -11,7 +11,7 @@ test:
 staging:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= ENV['FEDORA_URL'] || "http://127.0.0.1:8983/fedora/rest" %>
+  url: <%= ENV['FCREPO_URL'] || "http://127.0.0.1:8983/fedora/rest" %>
   base_path: /staging
 production:
   user: fedoraAdmin

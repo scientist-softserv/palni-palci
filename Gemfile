@@ -84,9 +84,6 @@ group :development do
   gem 'scss_lint', require: false
   gem 'spring', '~> 1.7'
   gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'scss_lint', require: false
-  gem 'easy_translate'
 end
 
 # Bulkrax
@@ -98,7 +95,7 @@ gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 gem 'hyrax', '~> 3.4.0'
 
 gem 'bolognese', '>= 1.9.10'
-gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git', branch: 'hyrax_upgrade'
+# gem 'hyrax-doi' # commented out due to strict hyrax 2.9 dependency in gem
 gem 'postrank-uri', '>= 1.0.24'
 gem 'rsolr', '~> 2.0'
 
@@ -122,7 +119,7 @@ group :aws, :test do
 end
 
 group :aws do
-  gem 'active_elastic_job', git: 'https://github.com/tawan/active-elastic-job.git'
+  gem 'active_elastic_job'#, git: 'https://github.com/active-elastic-job/active-elastic-job'
   gem 'aws-sdk-sqs'
 end
 
@@ -139,4 +136,4 @@ gem 'sidekiq'
 gem 'terser' # to support the Safe Navigation / Optional Chaining operator (?.) and avoid uglifier precompile issue
 gem 'tether-rails'
 gem 'progress_bar'
-gem 'activejob-scheduler', git: 'https://github.com/yalelibrary/activejob-scheduler.git'
+gem 'activejob-scheduler', git: 'https://github.com/notch8/activejob-scheduler.git'

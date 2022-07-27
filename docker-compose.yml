@@ -185,8 +185,6 @@ services:
         chown -R app:app /app/samvera/hyrax-webapp/public/uploads &&
         chown -R app:app /app/samvera/hyrax-webapp/public/assets &&
         chown -R app:app /app/samvera/hyrax-webapp/tmp/cache
-        chown -R app:app /app/samvera/hyrax-webapp/tmp/uploads &&
-        chown -R app:app /app/samvera/hyrax-webapp/tmp/derivatives &&
 
   initialize_app:
     <<: *app

@@ -11,6 +11,8 @@ module Hyrax
   # @see Hyrax::PermissionTemplate
   # @see Sipity::Workflow
   class AdminSetCreateService
+    DEFAULT_ID = 'admin_set/default'
+    DEFAULT_TITLE = ['Default Admin Set'].freeze
     # @api public
     # Creates the default AdminSet and corresponding data
     # @param admin_set_id [String] The default admin set ID

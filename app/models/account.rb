@@ -22,6 +22,11 @@ class Account < ApplicationRecord
            inverse_of: :full_account
   has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
 
+  belongs_to :solr_endpoint, dependent: :delete
+  belongs_to :fcrepo_endpoint, dependent: :delete
+  belongs_to :redis_endpoint, dependent: :delete
+
+  accepts_nested_attributes_for :solr_endpoint, :fcrepo_endpoint, :redis_endpoint, update_only: true
   accepts_nested_attributes_for :domain_names, allow_destroy: true
   accepts_nested_attributes_for :full_accounts
   accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
@@ -60,34 +65,14 @@ class Account < ApplicationRecord
     joins(:domain_names).where(domain_names: { cname: tenant_list })
   end
 
-  attr_readonly :tenant
-  validates :name, presence: true, uniqueness: true
-  validates :tenant, presence: true, uniqueness: true
-
-  has_many :sites, dependent: :destroy
-  has_many :domain_names, dependent: :destroy
-  belongs_to :solr_endpoint, dependent: :delete
-  belongs_to :fcrepo_endpoint, dependent: :delete
-  belongs_to :redis_endpoint, dependent: :delete
-  accepts_nested_attributes_for :solr_endpoint, :fcrepo_endpoint, :redis_endpoint, update_only: true
-  accepts_nested_attributes_for :domain_names, allow_destroy: true
-
-  scope :is_public, -> { where(is_public: true) }
-  scope :sorted_by_name, -> { order("name ASC") }
-
-  before_validation do
-    self.tenant ||= SecureRandom.uuid
-    self.cname ||= self.class.default_cname(name)
-  end
-
   # @return [Account]
-  def self.from_request(request)
-    from_cname(request.host)
-  end
+    def self.from_request(request)
+      from_cname(request.host)
+    end
 
-  def self.from_cname(cname)
-    joins(:domain_names).find_by(domain_names: { is_active: true, cname: canonical_cname(cname) })
-  end
+    def self.from_cname(cname)
+      joins(:domain_names).find_by(domain_names: { is_active: true, cname: canonical_cname(cname) })
+    end
 
   # @return [Account] a placeholder account using the default connections configured by the application
   def self.single_tenant_default
@@ -169,24 +154,7 @@ class Account < ApplicationRecord
     end
   end
 
-  # Reader to convert old cname in to new domain name child object
-  def cname
-    self[:cname] || domain_names&.first&.canonicalize_cname
-  end
-
-  # Writer to convert old cname in to new domain name child object
-  def cname=(value)
-    self[:cname] = value
-    domain_names.build(cname: value) unless domain_names.detect { |dn| dn.cname == value }
-  end
-
   def cache_api?
     cache_api
   end
-
-  private
-
-    def default_cname(piece = name)
-      self.class.default_cname(piece)
-    end
 end

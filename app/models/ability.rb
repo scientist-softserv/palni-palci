@@ -91,6 +91,7 @@ class Ability
     end
 
     @all_user_and_group_roles
+  end # needed this for sure to-do April
 
   def featured_collection_abilities
     can %i[create destroy update], FeaturedCollection if admin?

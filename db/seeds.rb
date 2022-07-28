@@ -49,13 +49,40 @@ end
 if ENV['INITIAL_ADMIN_EMAIL'] && ENV['INITIAL_ADMIN_PASSWORD']
   u = User.find_or_create_by(email: ENV['INITIAL_ADMIN_EMAIL']) do |u|
     u.password = ENV['INITIAL_ADMIN_PASSWORD']
+    u.add_role(:superadmin)
+    u.add_role(:admin)
   end
-  u.add_role(:superadmin)
+  puts "\n== Finished seeding the default superadmin user"
 end
 
 if Rails.env.development?
-  u = User.where(email: 'rob@notch8.com').first_or_create do |u|
-    u.password = 'testing123'
+  if ENV['SUPPORT_EMAIL'] && ENV['SUPPORT_PASSWORD']
+    u = User.find_or_create_by(email: ENV['SUPPORT_EMAIL']) do |u|
+      u.password = ENV['SUPPORT_PASSWORD']
+      u.add_role(:superadmin)
+    end
+    puts "\n== Finished seeding the superadmin notch8 support user"
   end
-  u.add_role :superadmin unless u.has_role?(:superadmin)
+
+  if ENV['ROB_EMAIL'] && ENV['ROB_PASSWORD']
+    u = User.find_or_create_by(email: ENV['ROB_EMAIL']) do |u|
+      u.password = ENV['ROB_PASSWORD']
+      u.add_role(:superadmin)
+    end
+    puts "\n== Finished seeding Rob's superadmin user"
+  end
+
+  if ENV['INITIAL_USER_EMAIL'] && ENV['INITIAL_USER_PASSWORD']
+    u = User.find_or_create_by(email: ENV['INITIAL_USER_EMAIL']) do |u|
+      u.password = ENV['INITIAL_USER_PASSWORD']
+    end
+    puts "\n== Finished seeding the default registered user"
+  end
+
+  if ENV['TEST_USER_EMAIL'] && ENV['TEST_USER_PASSWORD']
+    u = User.find_or_create_by(email: ENV['TEST_USER_EMAIL']) do |u|
+      u.password = ENV['TEST_USER_PASSWORD']
+    end
+    puts "\n== Finished seeding the default notch8 registered user"
+  end
 end

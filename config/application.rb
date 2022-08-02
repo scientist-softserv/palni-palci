@@ -60,6 +60,11 @@ module Hyku
       if Settings.bulkrax.enabled
         Bundler.require('bulkrax')
       end
+
+      config.after_initialize do
+        # Psych Allow YAML Classes
+        config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), User, Time]
+      end
     end
   end
 end

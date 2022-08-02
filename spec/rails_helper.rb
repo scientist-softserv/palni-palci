@@ -169,10 +169,6 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    # example.metadata[:js] tells Capybara to use the :selenium_chrome_headless_sandboxless
-    # driver (instead of the default :rack_test driver)
-    @remote_feature = (example.metadata[:type] == :feature && example.metadata[:js])
-    if @remote_feature
     # make sure we are on the default fedora config
     ActiveFedora::Fedora.reset!
     ActiveFedora::SolrService.reset!

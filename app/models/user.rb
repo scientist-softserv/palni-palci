@@ -19,10 +19,6 @@ class User < ApplicationRecord
 
   after_save :add_default_group_memberships!
 
-  scope :for_repository, ->{
-    joins(:roles)
-  }
-
   # set default scope to exclude guest users
   def self.default_scope
     where(guest: false)

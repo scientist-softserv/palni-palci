@@ -60,7 +60,7 @@ jobs:
       SOLR_ADMIN_USER: admin
       SOLR_ADMIN_PASSWORD: admin
       SOLR_COLLECTION_NAME: hydra-test
-      SOLR_CONFIGSET_NAME: hyku
+      SOLR_CONFIGSET_NAME: hyku-1
       SOLR_HOST: localhost
       SOLR_PORT: 8985
       SOLR_URL: http://admin:admin@localhost:8985/solr/

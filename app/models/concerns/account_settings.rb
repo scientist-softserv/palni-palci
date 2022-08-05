@@ -83,7 +83,7 @@ module AccountSettings
         async: nil,
         auto_add_replicas: nil,
         collection: {
-          config_name: ENV.fetch('SOLR_CONFIGSET_NAME', 'hyku')
+          config_name: ENV.fetch('SOLR_CONFIGSET_NAME', 'hyku-1')
         },
         create_node_set: nil,
         max_shards_per_node: nil,

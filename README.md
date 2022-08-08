@@ -1,10 +1,4 @@
-Docker development setup
-1. Install and run Docker.app
-
-2. Install and run dory
-
-$ gem install dory
-$ dory up
+# Hyku, the Hydra-in-a-Box Repository Application
 
 Code:
 [![Build Status](https://circleci.com/gh/samvera/hyku.svg?style=svg)](https://circleci.com/gh/samvera/hyku)
@@ -16,12 +10,10 @@ Docs:
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 
-Run the dory setup to allow for using the .test domain
-http://playbook-staging.notch8.com/en/dev/environment/run-dory-without-password
+Jump In: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
 
-3. Build Docker Image
-
-$ docker compose build
+----
+## Table of Contents
 
   * [Running the stack](#running-the-stack)
     * [For development](#for-development)
@@ -44,21 +36,14 @@ $ docker compose build
   * [Help](#help)
   * [Acknowledgments](#acknowledgments)
 
-4. Start up server
+----
 
-$ docker compose up
+## Running the stack
 
-5. Seed a superadmin
+### For development / testing with Docker
 
-$ docker compose exec web bash
-$ bundle exec rake hyku:roles:seed_superadmin
+#### Dory
 
-Login credential for the superadmin: 
-
-- admin@example.com
-- testing123
-
-Once you are logged in as a superadmin, you can create an account/tenant in the UI by selecting Accounts from the menu bar
 On OS X or Linux we recommend running [Dory](https://github.com/FreedomBen/dory). It acts as a proxy allowing you to access domains locally such as hyku.test or tenant.hyku.test, making multitenant development more straightforward and prevents the need to bind ports locally. Be sure to [adjust your ~/.dory.yml file to support the .test tld](https://github.com/FreedomBen/dory#config-file).  You can still run in development via docker with out Dory. To do so, copy `docker-compose.override-nodory.yml` to `docker-compose.override.yml` before starting doing docker-compose up.  You can then see the application t the loopback domain 'lvh.me:3000'.
 
 ```bash
@@ -74,16 +59,11 @@ docker-compose up web
 
 This command starts the whole stack in individual containers allowing Rails to be started or stopped independent of the other services.  Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), you can view your app in a web browser with at either hyku.test or localhost:3000 (see above).  When done `docker-compose stop` shuts down everything.
 
-6. #### Tests in Docker
+#### Tests in Docker
 
 The full spec suite can be run in docker locally. There are several ways to do this, but one way is to run the following:
 
 ```bash
-$ docker compose exec web bash
-# To run a specific test
-$ bundle exec rspec spec/PATH_TO_FILE
-```
-** We recommend committing .env to your repo with good defaults. .env.development, .env.production etc can be used for local overrides and should not be in the repo.**
 docker-compose exec web rake
 ```
 

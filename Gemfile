@@ -90,7 +90,7 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'main'
+gem 'bulkrax'
 gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
 
 gem 'blacklight', '~> 6.7'
@@ -129,8 +129,6 @@ end
 gem 'sidekiq'
 
 gem 'secure_headers'
-
-#gem 'honeybadger', '~> 3.0'
 
 gem 'codemirror-rails'
 gem 'riiif', '~> 1.1'

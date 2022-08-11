@@ -201,6 +201,7 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
+    brakeman (5.2.3)
     breadcrumbs_on_rails (3.0.1)
     browse-everything (1.2.0)
       addressable (~> 2.5)
@@ -257,6 +258,8 @@ GEM
       csl (~> 1.6)
     clipboard-rails (1.7.1)
     cocoon (1.2.15)
+    code_analyzer (0.5.5)
+      sexp_processor
     codemirror-rails (5.16.0)
       railties (>= 3.0, < 6.0)
     coderay (1.1.3)
@@ -395,6 +398,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubi (1.10.0)
+    erubis (2.7.0)
     et-orbi (1.2.7)
       tzinfo
     ethon (0.15.0)
@@ -415,6 +419,11 @@ GEM
     fcrepo_wrapper (0.9.0)
       ruby-progressbar
     ffi (1.15.5)
+    flay (2.13.0)
+      erubi (~> 1.10)
+      path_expander (~> 1.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
     flipflop (2.7.0)
       activesupport (>= 4.0)
       terminal-table (>= 1.8)
@@ -429,6 +438,9 @@ GEM
     gender_detector (0.1.2)
       unicode_utils (>= 1.3.0)
     geocoder (1.8.0)
+    gitlab (4.19.0)
+      httparty (~> 0.20)
+      terminal-table (>= 1.5.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
     google-apis-core (0.7.0)
@@ -460,6 +472,9 @@ GEM
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
     http_logger (0.7.0)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     hydra-access-controls (11.0.7)
       active-fedora (>= 10.0.0)
@@ -753,6 +768,9 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    octokit (4.22.0)
+      faraday (>= 0.9)
+      sawyer (~> 0.8.0, >= 0.5.3)
     oj (3.13.18)
     oj_mimic_json (1.0.1)
     okcomputer (1.18.4)
@@ -766,6 +784,7 @@ GEM
     parser (2.5.3.0)
       ast (~> 2.4.0)
     parslet (2.0.0)
+    path_expander (1.1.1)
     pg (1.4.1)
     posix-spawn (0.3.15)
     postrank-uri (1.0.24)
@@ -777,6 +796,28 @@ GEM
     progress_bar (1.3.3)
       highline (>= 1.6, < 3)
       options (~> 2.3.0)
+    pronto (0.11.0)
+      gitlab (~> 4.4, >= 4.4.0)
+      httparty (>= 0.13.7)
+      octokit (~> 4.7, >= 4.7.0)
+      rainbow (>= 2.2, < 4.0)
+      rexml (~> 3.2)
+      rugged (>= 0.23.0, < 1.1.0)
+      thor (>= 0.20.3, < 2.0)
+    pronto-brakeman (0.11.1)
+      brakeman (>= 3.2.0)
+      pronto (~> 0.11.0)
+    pronto-flay (0.11.1)
+      flay (~> 2.8)
+      pronto (~> 0.11.0)
+    pronto-rails_best_practices (0.11.0)
+      pronto (~> 0.11.0)
+      rails_best_practices (~> 1.16, >= 1.15.0)
+    pronto-rails_schema (0.11.0)
+      pronto (>= 0.10, < 0.12)
+    pronto-rubocop (0.11.0)
+      pronto (~> 0.11.0)
+      rubocop (>= 0.49.1, < 1.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -827,6 +868,14 @@ GEM
       railties (>= 5.0, < 6)
     rails_autolink (1.1.6)
       rails (> 3.1)
+    rails_best_practices (1.23.1)
+      activesupport
+      code_analyzer (~> 0.5.5)
+      erubis
+      i18n
+      json
+      require_all (~> 3.0)
+      ruby-progressbar
     railties (5.2.8.1)
       actionpack (= 5.2.8.1)
       activesupport (= 5.2.8.1)
@@ -920,6 +969,7 @@ GEM
       uber (< 0.2.0)
     request_store (1.5.1)
       rack (>= 1.4)
+    require_all (3.0.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -981,7 +1031,10 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
+    ruby_parser (3.19.1)
+      sexp_processor (~> 4.16)
     rubyzip (2.3.2)
+    rugged (1.0.1)
     samvera-nesting_indexer (2.0.0)
       dry-equalizer
     sass (3.7.4)
@@ -997,6 +1050,9 @@ GEM
       tilt (>= 1.1, < 3)
     sassc (2.4.0)
       ffi (~> 1.9)
+    sawyer (0.8.2)
+      addressable (>= 2.3.5)
+      faraday (> 0.8, < 2.0)
     scanf (1.0.0)
     scss_lint (0.59.0)
       sass (~> 3.5, >= 3.5.5)
@@ -1013,6 +1069,7 @@ GEM
       semaphore_cucumber_booster_config (~> 1.4.2)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
+    sexp_processor (4.16.1)
     shacl (0.1.1)
       json-ld (~> 3.1, >= 3.1.7)
       rdf (~> 3.1, >= 3.1.8)
@@ -1208,6 +1265,12 @@ DEPENDENCIES
   pg
   postrank-uri (>= 1.0.24)
   progress_bar
+  pronto
+  pronto-brakeman
+  pronto-flay
+  pronto-rails_best_practices
+  pronto-rails_schema
+  pronto-rubocop
   pry-byebug
   puma (~> 4.3)
   rack-test (= 0.7.0)

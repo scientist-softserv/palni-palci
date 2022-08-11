@@ -137,3 +137,11 @@ gem 'terser' # to support the Safe Navigation / Optional Chaining operator (?.) 
 gem 'tether-rails'
 gem 'progress_bar'
 gem 'activejob-scheduler', git: 'https://github.com/notch8/activejob-scheduler.git'
+
+# Pronto adds comments to MRs in gitlab when rubocop offenses are made.
+gem 'pronto'
+gem 'pronto-brakeman', require: false
+gem 'pronto-flay', require: false
+gem 'pronto-rails_best_practices', require: false
+gem 'pronto-rails_schema', require: false
+gem 'pronto-rubocop', require: false

@@ -1,6 +1,6 @@
 class CreateDomainNames < ActiveRecord::Migration[5.2]
   def change
-    unless table_exists?(:domain_names)
+    unless data_source_exists?(:domain_names)
       create_table :domain_names do |t|
         t.references :account
         t.string :cname

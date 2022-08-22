@@ -15,6 +15,9 @@ pg_upgrade_*.log
 rerun.txt
 pickle-email-*.html
 solr_db_initialized
+/hyrax
+/charts
+*-deploy.yaml
 
 ## Environment normalization:
 /.bundle
@@ -67,3 +70,6 @@ vendor/engines/*
 docker-compose.override.yml
 *~undo-tree~
 .DS_Store
+
+# Ignore local test deploy script
+/bin/deploy-test

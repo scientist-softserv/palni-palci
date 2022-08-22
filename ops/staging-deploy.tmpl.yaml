@@ -150,12 +150,10 @@ extraEnvVars: &envVars
     value: solr.staging-solr
   - name: SOLR_PORT
     value: "8983"
-    # this value diverges on deploy. Use the prefix "STAGING_". This variable is set in CI/CD
   - name: SOLR_URL
     value: http://admin:$STAGING_SOLR_ADMIN_PASSWORD@solr.staging-solr:8983/solr/
   - name: SENTRY_DSN
     value: $SENTRY_DSN
-  # this value diverges on deploy. Use the prefix "STAGING_". This variable is set in CI/CD
   - name: DATABASE_URL
     value: postgresql://postgres:$STAGING_POSTGRES_PASSWORD@pg-postgresql.staging-postgres.svc.cluster.local/staging-palni-palci?pool=5
 

@@ -204,4 +204,4 @@ hyku.demo:
 #     - local
 
 .deploy:
-  image: dtzar/helm-kubectl:3.5.3
+  image: dtzar/helm-kubectl:3.8.0

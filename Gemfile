@@ -123,8 +123,12 @@ group :aws do
   gem 'aws-sdk-sqs'
 end
 
-gem 'bootstrap-datepicker-rails'
-gem "cocoon"
+gem 'sidekiq'
+
+gem 'secure_headers'
+
+#gem 'honeybadger', '~> 3.0'
+
 gem 'codemirror-rails'
 gem 'okcomputer'
 gem 'parser', '~> 2.5.3'

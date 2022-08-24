@@ -129,13 +129,6 @@ RSpec.describe SitesController, type: :controller, singletenant: true do
         expect(flash[:notice]).to include('The appearance was successfully updated')
         expect(Site.instance.default_collection_image?).to be false
       end
-
-      it 'enqueues two jobs' do
-        expect(ReindexCollectionsJob).to receive(:perform_later).once
-        expect(ReindexAdminSetsJob).to receive(:perform_later).once
-
-        post :update, params: { id: Site.instance.id, remove_default_collection_image: 'Remove default_collection image' }
-      end
     end
 
     context 'site with existing default work image' do
@@ -154,12 +147,6 @@ RSpec.describe SitesController, type: :controller, singletenant: true do
         expect(response).to redirect_to('/admin/appearance?locale=en')
         expect(flash[:notice]).to include('The appearance was successfully updated')
         expect(Site.instance.default_work_image?).to be false
-      end
-
-      it 'enqueues one jobs' do
-        expect(ReindexWorksJob).to receive(:perform_later).once
-
-        post :update, params: { id: Site.instance.id, remove_default_work_image: 'Remove default_work image' }
       end
     end
   end

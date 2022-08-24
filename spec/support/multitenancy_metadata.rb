@@ -45,11 +45,6 @@ RSpec.configure do |config|
       example.metadata[:singletenant] = true if example.metadata[:type] == :feature # flag for cleanup later
       ENV['HYKU_MULTITENANT'] = "false"
       Rails.application.reload_routes!
-    elsif example.metadata[:faketenant] || example.metadata[:type] == :controller
-      example.metadata[:faketenant] = true if example.metadata[:type] == :controller # flag for cleanup later
-      acct = FactoryBot.build(:account, tenant: 'FakeTenant', cname: 'tenant1')
-      allow(acct).to receive(:persisted?).and_return true # nevertheless
-      allow(Account).to receive(:from_request).and_return(acct)
     end
 
     example.run

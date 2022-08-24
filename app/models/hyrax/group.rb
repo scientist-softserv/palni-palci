@@ -7,13 +7,18 @@ module Hyrax
 
     MEMBERSHIP_ROLE = :member
     DEFAULT_MEMBER_CLASS = ::User
+    DEFAULT_NAME_PREFIX = 'group/'
 
     validates :name, presence: true, uniqueness: true
     has_many :group_roles
     has_many :roles, through: :group_roles
     before_destroy :can_destroy?
     after_destroy :remove_all_members
-
+    
+    def self.name_prefix
+      DEFAULT_NAME_PREFIX
+    end
+    
     def self.search(query)
       if query.present?
         left_outer_joins(:roles).where(

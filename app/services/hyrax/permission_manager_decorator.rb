@@ -13,7 +13,7 @@ module Hyrax
         group_name = permission.agent.gsub(Hyrax::Group.name_prefix, '')
         next if groups.include?(group_name)
 
-        acl.revoke(mode).from(Group.new(group_name))
+        acl.revoke(mode).from(Group.new(name: group_name))
       end
 
       groups.each { |g| acl.grant(mode).to(Group.new(name: g)) }

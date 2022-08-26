@@ -34,7 +34,7 @@ RSpec.describe Etd do
       let(:etd) { FactoryBot.build(:etd) }
       it 'is a property' do
         etd.keyword = ['Dolor']
-        expect(etd.resource.dump(:ttl)).to match(/purl.org\/dc\/elements\/1.1\/relation/)
+        expect(etd.resource.dump(:ttl)).to match(/schema.org\/keywords/)
         expect(etd.keyword.first).to eq('Dolor')
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe Etd do
       let(:etd) { FactoryBot.build(:etd) }
       it 'is a property' do
         etd.license = ['https://creativecommons.org/licenses/by/4.0/']
-        expect(etd.resource.dump(:ttl)).to match(/purl.org\/dc\/terms\/rights/)
+        expect(etd.resource.dump(:ttl)).to match(/purl.org\/dc\/terms\/license/)
         expect(etd.license.first).to match(/^https:\/\/creativecommons.org/)
       end
     end

@@ -44,84 +44,90 @@ hyku.lint:
   tags:
     - docker
 
-# test:
-#   stage: go
-#   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-#   allow_failure: true
-#   variables:
-#     BULKRAX_ENABLED: "true"
-#     CAPYBARA_SERVER: web
-#     CHROME_HOSTNAME: chrome
-#     DB_ADAPTER: postgresql
-#     DB_HOST: db
-#     DB_NAME: hyku
-#     DB_PASSWORD: DatabaseFTW
-#     DB_TEST_NAME: hyku_test
-#     DB_USER: postgres
-#     DB_HOST: db
-#     DB_PORT: 5432
-#     FCREPO_HOST: fcrepo
-#     FCREPO_PORT: 8080
-#     FCREPO_URL: http://fcrepo:8080/rest
-#     INITIAL_ADMIN_EMAIL: admin@example.com
-#     INITIAL_ADMIN_PASSWORD: testing123
-#     IN_DOCKER: "true"
-#     LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
-#     PASSENGER_APP_ENV: development
-#     RAILS_LOG_TO_STDOUT: "true"
-#     REDIS_HOST: redis
-#     SECRET_KEY_BASE: asdf
-#     HYRAX_ACTIVE_JOB_QUEUE: sidekiq
-#     HYRAX_FITS_PATH: /app/fits/fits.sh
-#     SOLR_ADMIN_PASSWORD: SolrRocks
-#     SOLR_ADMIN_USER: solr
-#     SOLR_COLLECTION_NAME: hydra-development
-#     SOLR_CONFIGSET_NAME: hyku
-#     SOLR_HOST: solr
-#     SOLR_PORT: 8983
-#     SOLR_URL: http://solr:SolrRocks@solr:8983/solr/
-#   services:
-#     - name: bitnami/postgresql:12.6.0
-#       alias: db
-#     - name: samvera/fcrepo4:4.7.5
-#       alias: fcrepo
-#     - name: redis:5-alpine
-#       alias: redis
-#     - name: bitnami/zookeeper:3
-#       alias: zk
-#     - name: bitnami/solr:8
-#       alias: solr
-#     - name: selenium/standalone-chrome:3.141
-#       alias: chrome
-#   before_script:
-#     - >-
-#       solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/conf &&
-#       SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
-#       solrcloud-assign-configset.sh
-#   script:
-#     - rm -f /home/app/webapp/tmp/capybara/*
-#     - rm -rf $CI_PROJECT_DIR/capybara
-#     - cd /app/samvera/hyrax-webapp
-#     # - sleep 30m
-#     - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
-#   after_script:
-#     - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
-#     - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == "main"
-#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-#   artifacts:
-#     when: always
-#     paths:
-#       - capybara/*.html
-#       - rspec.xml
-#     reports:
-#       junit: rspec.xml
-#     expire_in: 1 week
-#     when: always
-#   tags:
-#     - docker
-#   parallel: 6
+test:
+  stage: go
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  allow_failure: true
+  variables:
+    ALLOW_ANONYMOUS_LOGIN: "yes"
+    HYKU_BULKRAX_ENABLED: "true"
+    CAPYBARA_SERVER: web
+    CONFDIR: "/app/samvera/hyrax-webapp/solr/conf"
+    CHROME_HOSTNAME: chrome
+    DATABASE_URL: postgres://postgres:postgres@db/hyku
+    DB_ADAPTER: postgresql
+    DB_CLEANER_ALLOW_REMOTE_DB_URL: "true"
+    DB_HOST: db
+    DB_NAME: hyku
+    DB_PORT: 5432
+    DB_TEST_NAME: hyku_test
+    DB_USER: postgres
+    DB_PASSWORD: postgres
+    FCREPO_HOST: fcrepo
+    FCREPO_PORT: 8081
+    FCREPO_URL: http://fcrepo:8081/rest
+    FF_NETWORK_PER_BUILD: 1
+    GIT_STRATEGY: none
+    IN_DOCKER: "true"
+    JAVA_OPTIONS: -Djetty.port=8081
+    POSTGRESQL_DATABASE: hyku
+    POSTGRESQL_PASSWORD: postgres
+    REDIS_HOST: redis
+    SOLR_ADMIN_PASSWORD: SolrRocks
+    SOLR_ADMIN_USER: solr
+    SOLR_CLOUD_BOOTSTRAP: "yes"
+    SOLR_COLLECTION_NAME: hyku-test
+    SOLR_CONFIGSET_NAME: hyku
+    SOLR_ENABLE_AUTHENTICATION: "yes"
+    SOLR_ENABLE_CLOUD_MODE: "yes"
+    SOLR_HOST: solr
+    SOLR_PORT: 8983
+    SOLR_URL: http://solr:SolrRocks@solr:8983/solr/
+    SOLR_ZK_HOSTS: zk:2181
+    ZOO_HEAP_SIZE: 128
+    ZOO_PORT_NUMBER: 2181
+  services:
+    - name: bitnami/postgresql:12.6.0
+      alias: db
+    - name: samvera/fcrepo4:4.7.5
+      alias: fcrepo
+    - name: redis:5-alpine
+      alias: redis
+    - name: bitnami/zookeeper:3
+      alias: zk
+    - name: bitnami/solr:8
+      alias: solr
+    - name: selenium/standalone-chrome:3.141
+      alias: chrome
+  before_script:
+    - >-
+      solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/conf &&
+      SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
+      solrcloud-assign-configset.sh
+  script:
+    - rm -f /home/app/webapp/tmp/capybara/*
+    - rm -rf $CI_PROJECT_DIR/capybara
+    - cd /app/samvera/hyrax-webapp
+    # - sleep 30m
+    - rspec --format progress --tag ~speed:slow --format RspecJunitFormatter --out rspec.xml
+  after_script:
+    - test -e /home/app/webapp/tmp/capybara && cp -r /home/app/webapp/tmp/capybara $CI_PROJECT_DIR/capybara
+    - test -e /home/app/webapp/rspec.xml && cp /home/app/webapp/rspec.xml $CI_PROJECT_DIR/rspec.xml
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  artifacts:
+    when: always
+    paths:
+      - capybara/*.html
+      - rspec.xml
+    reports:
+      junit: rspec.xml
+    expire_in: 1 week
+    when: always
+  tags:
+    - docker
+  parallel: 6
 
 hyku.staging:
   stage: go
@@ -135,7 +141,7 @@ hyku.staging:
     HELM_EXTRA_ARGS: >
       --values ops/staging-deploy.yaml
   script:
-    - envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
+    - DOLLAR=$ envsubst < ops/staging-deploy.tmpl.yaml > ops/staging-deploy.yaml
     - ./bin/helm_deploy staging-palni-palci staging-palni-palci
   rules:
     - if: $CI_COMMIT_BRANCH == "main"

@@ -1225,7 +1225,8 @@ DEPENDENCIES
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
   bolognese (>= 1.9.10)
-  bulkrax (~> 3.5.0)
+  bootstrap-datepicker-rails
+  bulkrax (~> 4.2.1)
   byebug
   capybara
   capybara-screenshot (~> 1.0)

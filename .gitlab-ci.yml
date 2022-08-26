@@ -54,7 +54,6 @@ test:
     CAPYBARA_SERVER: web
     CONFDIR: "/app/samvera/hyrax-webapp/solr/conf"
     CHROME_HOSTNAME: chrome
-    DATABASE_URL: postgres://postgres:postgres@db/hyku
     DB_ADAPTER: postgresql
     DB_CLEANER_ALLOW_REMOTE_DB_URL: "true"
     DB_HOST: db

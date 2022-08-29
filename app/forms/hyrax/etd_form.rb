@@ -18,11 +18,9 @@ module Hyrax
       :advisor,
       :committee_member,
       :department,
-      :alternative_title,
       :creator,
       :additional_information,
       :bibliographic_citation,
-      :abstract
     ]
 
     self.terms -= [:based_near]

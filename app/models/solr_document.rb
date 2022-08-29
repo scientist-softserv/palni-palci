@@ -30,7 +30,6 @@ class SolrDocument
   attribute :extent, Solr::Array, 'extent_tesim'
   attribute :rendering_ids, Solr::Array, 'hasFormat_ssim'
   attribute :account_cname, Solr::Array, 'account_cname_tesim'
-  attribute :alternative_title, Solr::String, 'alternative_title_tesi'
   attribute :audience, Solr::Array, 'audience_tesim'
   attribute :education_level, Solr::Array, 'education_level_tesim'
   attribute :learning_resource_type, Solr::Array, 'learning_resource_type_tesim'
@@ -56,7 +55,6 @@ class SolrDocument
   attribute :department, Solr::Array, 'department_tesim'
   attribute :format, Solr::Array, 'format_tesim'
   attribute :title_ssi, Solr::Array, 'title_ssi_tesim'
-  attribute :abstract, Solr::String, 'abstract_tesi'
   attribute :bibliographic_citation, Solr::String, 'bibliographic_citation_tesi'
   attribute :collection_subtitle, Solr::String, 'collection_subtitle_tesi'
   

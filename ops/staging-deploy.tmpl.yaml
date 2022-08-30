@@ -112,6 +112,10 @@ extraEnvVars: &envVars
     value: redis://:staging@staging-palni-palci-redis-master:6379/pals
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
+  - name: HYRAX_ANALYTICS
+    value: 'true'
+  - name: HYRAX_ANALYTICS_PROVIDER
+    value: google
   - name: HYKU_BULKRAX_ENABLED
     value: "true"
   - name: HYKU_CONTACT_EMAIL
@@ -153,6 +157,8 @@ extraEnvVars: &envVars
   - name: SMTP_TYPE
     value: cram_md5
   - name: SOLR_ADMIN_USER
+    value: admin
+  - name: SOLR_ADMIN_USERNAME
     value: admin
   - name: SOLR_COLLECTION_NAME
     value: staging-palni-palci

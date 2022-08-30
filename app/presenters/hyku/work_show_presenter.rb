@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-# OVERRIDE here to add featured collection methods and to delegate collection presenters to the member presenter factory
+# OVERRIDE: Hyrax 3.4.1 here to add featured collection methods and to delegate collection presenters to the member presenter factory
 
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
 
-    delegate :title_or_label, :extent, :alternative_title, :additional_information, :rights_notes, :source, :bibliographic_citation, :abstract, to: :solr_document
+    delegate :title_or_label, :extent, :additional_information, :rights_notes, :source, :bibliographic_citation, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
     delegate :collection_presenters, to: :member_presenter_factory

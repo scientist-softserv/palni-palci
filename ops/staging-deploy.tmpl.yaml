@@ -62,6 +62,8 @@ extraEnvVars: &envVars
     value: pg-postgresql.staging-postgres.svc.cluster.local
   - name: DB_NAME
     value: staging-palni-palci
+  - name: DB_PASSWORD
+    value: $STAGING_POSTGRES_PASSWORD
   - name: DB_USER
     value: postgres
   - name: FCREPO_BASE_PATH

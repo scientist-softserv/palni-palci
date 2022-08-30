@@ -62,8 +62,9 @@ services:
       dockerfile: Dockerfile
     environment:
       - OOM=script
-      - SOLR_ADMIN_USER=solr
-      - SOLR_ADMIN_PASSWORD=SolrRocks
+      - SOLR_ADMIN_USER=admin
+      - SOLR_ADMIN_USERNAME=admin
+      - SOLR_ADMIN_PASSWORD=admin
       - SOLR_COLLECTION=hydra-development
       - SOLR_CLOUD_BOOTSTRAP=yes
       - SOLR_ENABLE_CLOUD_MODE=yes

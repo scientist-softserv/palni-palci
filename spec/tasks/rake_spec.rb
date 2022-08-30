@@ -57,7 +57,7 @@ RSpec.describe "Rake tasks" do
 
     before do
       # This omits a tenant that appears automatically created and is not switch-intoable
-      # allow(Account).to receive(:tenants).and_return(accounts)
+      allow(Account).to receive(:tenants).and_return(accounts)
     end
 
     it 'requires at least one argument' do
@@ -90,7 +90,7 @@ RSpec.describe "Rake tasks" do
         ENV.delete('tenants')
       end
 
-      skip 'runs against a single tenant and ignores bogus tenants' do
+      it 'runs against a single tenant and ignores bogus tenants' do
         expect(account).to receive(:switch).once.and_call_original
         allow(Rake::Task).to receive(:[]).with('hyrax:count').and_return(task)
         expect(task).to receive(:invoke).once

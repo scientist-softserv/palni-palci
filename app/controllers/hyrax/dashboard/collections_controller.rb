@@ -135,11 +135,6 @@ module Hyrax
         # OVERRIDE: ensure user is allowed to change visibility
         authorize! :manage_discovery, @collection if collection_params[:visibility].present? && @collection.visibility != collection_params[:visibility]
 
-        unless params[:update_collection].nil?
-          process_banner_input
-          process_logo_input
-        end
-
         case @collection
         when ActiveFedora::Base
           update_active_fedora_collection

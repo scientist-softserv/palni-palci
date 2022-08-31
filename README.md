@@ -216,8 +216,8 @@ switch!('myaccount')
 | SMTP_PASSWORD | Password for email sending | - | no |
 | SMTP_PORT | Port for email sending | - | no |
 | SMTP_USER_NAME | Username for the email connection | - | no |
-| SOLR_ADMIN_PASSWORD | admin | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
-| SOLR_ADMIN_USER | admin | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
+| SOLR_ADMIN_PASSWORD | SolrRocks | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
+| SOLR_ADMIN_USER | solr | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
 | SOLR_COLLECTION_NAME | Name of the Solr collection used by non-tenant search. This is required by Hyrax, but is currently unused by Hyku | hydra-development | no |
 | SOLR_CONFIGSET_NAME  | Name of the Solr configset to use when creating new Solr collections | hyku | no |
 | SOLR_HOST | Host for the Solr connection | solr | no |

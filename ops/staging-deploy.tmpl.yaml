@@ -158,8 +158,6 @@ extraEnvVars: &envVars
     value: cram_md5
   - name: SOLR_ADMIN_USER
     value: admin
-  - name: SOLR_ADMIN_USERNAME
-    value: admin
   - name: SOLR_COLLECTION_NAME
     value: staging-palni-palci
   - name: SOLR_CONFIGSET_NAME

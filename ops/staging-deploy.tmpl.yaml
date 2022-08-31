@@ -144,10 +144,10 @@ extraEnvVars: &envVars
     value: "true"
   # this value diverges on deploy. Use the prefix "STAGING_". This variable is set in CI/CD
   - name: SMTP_USER_NAME
-    value: $STAGING_SMTP_USER_NAME
+    value: $R2_STAGING_SMTP_USER_NAME
   # this value diverges on deploy. Use the prefix "STAGING_", this variable is set in CI/CD
   - name: SMTP_PASSWORD
-    value: $STAGING_SMTP_PASSWORD
+    value: $R2_STAGING_SMTP_PASSWORD
   - name: SMTP_ADDRESS
     value: smtp.mailtrap.io
   - name: SMTP_DOMAIN

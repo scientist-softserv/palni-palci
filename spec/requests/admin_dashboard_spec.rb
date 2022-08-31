@@ -103,11 +103,6 @@ RSpec.describe 'Admin Dashboard', type: :request, singletenant: true, clean: tru
       end
 
       # Configuration
-      it 'gets the url for contact' do # Contact
-        get '/site/contact/edit'
-        expect(response.status).to eq(200)
-      end
-
       it 'gets the url for labels' do # Labels
         get '/site/labels/edit'
         expect(response.status).to eq(200)
@@ -244,11 +239,6 @@ RSpec.describe 'Admin Dashboard', type: :request, singletenant: true, clean: tru
       end
 
       # Configuration
-      it 'renders a status of the page you are trying to access is private' do    # Contact
-        get '/site/contact/edit'
-        expect(response.status).to eq(401)
-      end
-
       it 'renders a status of the page you are trying to access is private' do    # Labels
         get '/site/labels/edit'
         expect(response.status).to eq(401)

@@ -294,7 +294,6 @@ RSpec.describe Account, type: :model do
           allow(ENV).to receive(:fetch).with('HYKU_ADMIN_HOST', anything).and_return('admin-host')
           expect(account1.errors).to be_empty
           expect(account1.domain_names.first.cname).to eq('example.admin-host')
-          Settings.multitenancy.default_host = original
         end
       end
     end

@@ -131,7 +131,9 @@ gem 'parser', '~> 2.5.3'
 gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
 gem 'riiif', '~> 1.1'
 gem 'secure_headers'
-gem "sentry-raven"
+gem "sentry-raven" # April ToDo: Need to take out once the transfer is complete to Sentry.io
+gem 'sentry-ruby'
+gem 'sentry-rails'
 gem 'sidekiq'
 gem 'terser' # to support the Safe Navigation / Optional Chaining operator (?.) and avoid uglifier precompile issue
 gem 'tether-rails'

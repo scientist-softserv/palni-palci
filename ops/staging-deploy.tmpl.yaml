@@ -137,7 +137,7 @@ extraEnvVars: &envVars
   - name: REDIS_URL
     value: redis://:staging@staging-palni-palci-redis-master:6379/pals
   - name: SENTRY_DSN
-    value: $SENTRY_DSN
+    value: $R2_STAGING_SENTRY_DSN
   - name: SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS
     value: "true"
   - name: SMTP_ENABLED

@@ -1067,8 +1067,13 @@ GEM
       thor (>= 0.19.1, < 2.0)
     semaphore_test_boosters (2.7.1)
       semaphore_cucumber_booster_config (~> 1.4.2)
+    sentry-rails (5.4.2)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.4.2)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
+    sentry-ruby (5.4.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sexp_processor (4.16.1)
     shacl (0.1.1)
       json-ld (~> 3.1, >= 3.1.7)
@@ -1293,7 +1298,9 @@ DEPENDENCIES
   secure_headers
   selenium-webdriver
   semaphore_test_boosters
+  sentry-rails
   sentry-raven
+  sentry-ruby
   shoulda-matchers (~> 4.0)
   sidekiq
   simplecov

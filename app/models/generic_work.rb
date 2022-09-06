@@ -5,10 +5,6 @@ class GenericWork < ActiveFedora::Base
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
-  property :rights_notes, predicate: ::RDF::URI('https://hykucommons.org/terms/rights_notes') do |index|
-    index.as :stored_searchable
-  end
-
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
     index.as :stored_searchable
   end

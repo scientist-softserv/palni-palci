@@ -44,10 +44,6 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :rights_notes, predicate: ::RDF::URI('https://hykucommons.org/terms/rights_notes') do |index|
-    index.as :stored_searchable
-  end
-
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
     index.as :stored_searchable
   end

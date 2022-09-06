@@ -68,7 +68,7 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'rspec-retry'
   gem 'semaphore_test_boosters'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '3.142.7'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers', '~> 4.0'
   gem 'webmock'

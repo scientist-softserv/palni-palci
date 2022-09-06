@@ -105,7 +105,6 @@ end
 
 Capybara.javascript_driver = :chrome
 
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -136,12 +135,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # show retry status in spec process
-  config.verbose_retry = true
-  # Try twice (retry once)
-  config.default_retry_count = 2
-  # Only retry when Selenium raises Net::ReadTimeout
-  config.exceptions_to_retry = [Net::ReadTimeout]
+    # show retry status in spec process
+    config.verbose_retry = true
+    # Try twice (retry once)
+    config.default_retry_count = 2
+    # Only retry when Selenium raises Net::ReadTimeout
+    config.exceptions_to_retry = [Net::ReadTimeout]
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Fixtures::FixtureFileUpload

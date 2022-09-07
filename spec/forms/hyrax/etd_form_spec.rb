@@ -39,6 +39,7 @@ RSpec.describe Hyrax::EtdForm do
       }
     end
 
+    # rubocop:disable RSpec/ExampleLength
     it 'permits parameters' do
       expect(subject['title']).to eq ['ETD Form Spec']
       expect(subject['advisor']).to eq ['Advisor']
@@ -64,6 +65,7 @@ RSpec.describe Hyrax::EtdForm do
       expect(subject['source']).to eq ['Source']
       expect(subject['subject']).to eq ['Subject']
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 
   include_examples("work_form")

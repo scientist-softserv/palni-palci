@@ -84,6 +84,7 @@ module Hyrax
           PermissionGenerator.call(roles: 'completing', workflow: sipity_workflow, agents: completing_user)
         end
 
+        # rubocop:disable RSpec/ExampleLength
         it 'will fullfil the battery of tests (of which they are nested because setup is expensive)' do
           expect_agents_for(entity: sipity_entity, role: 'reviewing', agents: [reviewing_user, reviewing_group])
           expect_agents_for(entity: sipity_entity, role: 'completing', agents: [completing_user])
@@ -124,8 +125,10 @@ module Hyrax
           expect_entities_for(user: reviewing_user, entities: [])
           expect_entities_for(user: completing_user, entities: [sipity_entity])
         end
+        # rubocop:enable RSpec/ExampleLength
       end
 
+      # rubocop:disable RSpec/ExampleLength
       # NOTE: I am stacking up expectations because these tests are non-trivial to build (lots of database interactions)
       describe 'permissions assigned at the entity level' do
         it 'will fullfil the battery of tests (of which they are nested because setup is expensive)' do
@@ -171,6 +174,7 @@ module Hyrax
           expect_entities_for(user: completing_user, entities: [sipity_entity])
         end
       end
+      # rubocop:enable RSpec/ExampleLength
 
       describe '.scope_processing_agents_for' do
         context 'when user is not persisted' do

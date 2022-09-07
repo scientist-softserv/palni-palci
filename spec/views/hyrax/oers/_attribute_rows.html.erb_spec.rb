@@ -54,6 +54,7 @@ RSpec.describe 'hyrax/oers/_attributes.html.erb' do
     render 'hyrax/oers/attribute_rows', presenter: presenter
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it 'has links to search for other objects with the same metadata' do
     expect(rendered).to have_css('li.attribute-alternative_title', text: alternative_title)
     expect(rendered).to have_link(creator)
@@ -73,4 +74,5 @@ RSpec.describe 'hyrax/oers/_attributes.html.erb' do
     expect(rendered).to have_link(accessibility_summary)
     expect(rendered).to have_link(discipline)
   end
+  # rubocop:enable RSpec/ExampleLength
 end

@@ -409,9 +409,6 @@ RSpec/DescribeClass:
     - 'spec/views/**/*'
     - 'spec/routing/**/*'
     - 'spec/tasks/**/*'
-    - 'spec/abilities/collection_ability_spec.rb'
-    - 'spec/abilities/solr_document_ability_spec.rb'
-    - 'spec/abilities/user_ability_spec.rb'
 
 # Offense count: 26
 RSpec/EmptyLineAfterFinalLet:
@@ -684,6 +681,10 @@ Style/IfUnlessModifier:
   Exclude:
     - 'app/models/user.rb'
     - 'app/services/roles_service.rb'
+    - 'app/controllers/hyku/invitations_controller.rb'
+    - 'app/presenters/hyku/work_show_presenter.rb'
+    - 'app/presenters/hyrax/collection_presenter.rb'
+    - 'lib/importer/csv_parser.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

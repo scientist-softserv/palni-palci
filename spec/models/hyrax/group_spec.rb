@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/ModuleLength
 module Hyrax
   RSpec.describe Group, type: :model, clean: true do
     describe 'group with no members' do
@@ -280,3 +281,4 @@ module Hyrax
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

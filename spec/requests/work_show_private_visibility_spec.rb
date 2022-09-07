@@ -37,7 +37,7 @@ RSpec.describe "Users trying to access a Private Work's show page", type: :reque
     end
 
     it 'is not authorized' do
-      login_as @tenant_user
+      login_as @tenant_user # rubocop:disable RSpec/InstanceVariable
       get "http://#{account.cname}/concern/generic_works/#{work.id}"
       expect(response.status).to eq(401)
     end
@@ -53,12 +53,12 @@ RSpec.describe "Users trying to access a Private Work's show page", type: :reque
       @tenant_admin = User.last
 
       Apartment::Tenant.switch(account.tenant) do
-        @tenant_admin.add_role(:admin, Site.instance)
+        @tenant_admin.add_role(:admin, Site.instance) # rubocop:disable RSpec/InstanceVariable
       end
     end
 
     it 'is authorized' do
-      login_as @tenant_admin
+      login_as @tenant_admin # rubocop:disable RSpec/InstanceVariable
       get "http://#{account.cname}/concern/generic_works/#{work.id}"
       expect(response.status).to eq(200)
     end

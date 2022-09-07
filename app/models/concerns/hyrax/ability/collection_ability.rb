@@ -2,7 +2,7 @@
 module Hyrax
   module Ability
     module CollectionAbility
-      def collection_abilities # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      def collection_abilities # rubocop:disable Metrics/MethodLength
         if admin?
           can :manage, Collection
           can :manage_any, Collection

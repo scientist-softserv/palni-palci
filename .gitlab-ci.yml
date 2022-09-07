@@ -33,7 +33,7 @@ hyku.lint:
     PRONTO_GITLAB_API_ENDPOINT: "https://gitlab.com/api/v4"
   before_script:
     - export PRONTO_GITLAB_API_PRIVATE_TOKEN=$GITLAB_API_TOKEN
-  allow_failure: true
+  allow_failure: false
   script:
     - git fetch && git checkout main && git checkout ${CI_COMMIT_SHORT_SHA}
     - bundle check || bundle

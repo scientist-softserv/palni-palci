@@ -161,7 +161,6 @@ module Hyrax
         # Although ActiveFedora clears the children nodes it leaves those fields in Solr populated.
         def unlink_from_work
           work = file_set.parent
-          # rubocop:disable Metrics/LineLength
           return unless work && (work.thumbnail_id == file_set.id || work.representative_id == file_set.id || work.rendering_ids.include?(file_set.id))
           # rubocop:enable Metrics/LineLength
           work.thumbnail = nil if work.thumbnail_id == file_set.id

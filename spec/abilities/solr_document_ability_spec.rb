@@ -1,7 +1,7 @@
 # OVERRIDE FILE from Hryax 2.5.1
 require 'cancan/matchers'
 
-RSpec.describe 'SolrDocumentAbility' do
+RSpec.describe SolrDocumentAbility do
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

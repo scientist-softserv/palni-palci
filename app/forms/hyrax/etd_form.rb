@@ -8,7 +8,6 @@ module Hyrax
     include HydraEditor::Form::Permissions
 
     self.terms += [
-      :rights_notes,
       :resource_type,
       :format,
       :degree_name,

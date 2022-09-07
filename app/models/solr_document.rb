@@ -36,7 +36,6 @@ class SolrDocument
   attribute :table_of_contents, Solr::Array, 'table_of_contents_tesim'
   attribute :additional_information, Solr::String, 'additional_information_tesi'
   attribute :rights_holder, Solr::Array, 'rights_holder_tesim'
-  attribute :rights_notes, Solr::String, 'rights_notes_tesi'
   attribute :oer_size, Solr::Array, 'oer_size_tesim'
   attribute :accessibility_summary, Solr::String, 'accessibility_summary_tesim'
   attribute :accessibility_feature, Solr::Array, 'accessibility_feature_tesim'

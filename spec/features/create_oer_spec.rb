@@ -71,9 +71,7 @@ RSpec.feature 'Create a Oer', type: :feature, js: true, clean: true, cohort: 'al
       select('In Copyright', from: 'Rights Statement')
 
       page.choose('oer_visibility_open')
-      # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      # rubocop:enable Metrics/LineLength
 
       click_on('Save')
       expect(page).to have_content('My Test Work')

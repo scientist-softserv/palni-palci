@@ -12,7 +12,7 @@ module Hyrax
   # @see Hyrax::AdministrativeSet
   # @see Hyrax::PermissionTemplate
   # @see Sipity::Workflow
-  class AdminSetCreateService # rubocop:disable Metrics/ClassLength
+  class AdminSetCreateService
     DEFAULT_ID = 'admin_set/default'
     DEFAULT_TITLE = ['Default Admin Set'].freeze
 

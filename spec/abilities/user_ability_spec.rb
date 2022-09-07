@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-RSpec.describe 'UserAbility' do
+RSpec.describe UserAbility do
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

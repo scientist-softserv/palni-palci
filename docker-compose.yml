@@ -156,7 +156,8 @@ services:
       context: .
       target: hyku-worker
       args:
-        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync  exiftool
+        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+    command: sh -l -c 'bundle && bundle exec sidekiq'
     depends_on:
       check_volumes:
         condition: service_completed_successfully

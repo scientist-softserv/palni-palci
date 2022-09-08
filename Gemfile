@@ -87,7 +87,7 @@ group :development do
 end
 
 # Bulkrax
-gem 'bulkrax', '~> 4.2.1'
+gem 'bulkrax', '~> 4.3.0'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'

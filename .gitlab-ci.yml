@@ -107,6 +107,7 @@ test:
 staging:
   stage: go
   script:
+    - export KUBECONFIG=$KUBECONFIG_PALS
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
     - ./chart/bin/decrypt staging
     - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA

@@ -1,5 +1,5 @@
 // jQuery Slider
-Blacklight.onLoad(function() {
+$(document).on('turbolinks:load', function() {
   $('.institutional-repository-carousel .item').each(function(){
     var itemToClone = $(this);
 

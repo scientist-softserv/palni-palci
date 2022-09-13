@@ -6,11 +6,12 @@ USER root
 ARG EXTRA_APK_PACKAGES="openjdk11-jre ffmpeg"
 RUN apk --no-cache upgrade && \
   apk --no-cache add \
+    cmake \
+    libreoffice \
     libxml2-dev \
     mediainfo \
     perl \
     postgresql-client \
-    cmake \
     screen \
     $EXTRA_APK_PACKAGES
 

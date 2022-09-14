@@ -36,9 +36,10 @@ hyku.lint:
   allow_failure: false
   script:
     - git fetch && git checkout main && git checkout ${CI_COMMIT_SHORT_SHA}
+    - cd /app/samvera/hyrax-webapp
     - bundle check || bundle
     - bundle exec pronto run -f gitlab -c origin/main
-    - cd /app/samvera/hyrax-webapp && bundle exec rubocop -P
+    - bundle exec rubocop -P
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   tags:

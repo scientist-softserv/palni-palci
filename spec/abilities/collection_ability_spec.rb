@@ -1,7 +1,7 @@
-# OVERRIDE FILE from Hyrax 2.5.1
+# OVERRIDE FILE from Hyrax 3.4.1
 require 'cancan/matchers'
 
-RSpec.describe CollectionAbility do
+RSpec.describe Ability::CollectionAbility do
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

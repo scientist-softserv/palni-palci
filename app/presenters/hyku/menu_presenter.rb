@@ -44,9 +44,9 @@ module Hyku
 
     def show_task?
       can?(:review, :submissions) ||
-      can?(:read, User) ||
-      can?(:read, Hyrax::Group) ||
-      can?(:read, :admin_dashboard)
+        can?(:read, User) ||
+        can?(:read, Hyrax::Group) ||
+        can?(:read, :admin_dashboard)
     end
   end
 end

@@ -1,7 +1,8 @@
 # OVERRIDE FILE from Hyrax 3.4.1
 require 'cancan/matchers'
-
+# rubocop:disable RSpec/FilePath
 RSpec.describe Ability::CollectionAbility do
+  # rubocop:enable RSpec/FilePath
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

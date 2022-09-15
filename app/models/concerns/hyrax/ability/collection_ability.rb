@@ -2,7 +2,9 @@
 module Hyrax
   module Ability
     module CollectionAbility
-      def collection_abilities # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/BlockLength
+      def collection_abilities
         models = [Hyrax::PcdmCollection, Hyrax.config.collection_class].uniq
         if admin?
           models.each do |collection_model|
@@ -50,7 +52,6 @@ module Hyrax
               Hyrax::Collections::PermissionsService.can_manage_collection?(ability: self, collection_id: solr_doc.id) if solr_doc.collection?
             end
 
-
             can :deposit, ::SolrDocument do |solr_doc|
               Hyrax::Collections::PermissionsService.can_deposit_in_collection?(ability: self, collection_id: solr_doc.id) # checks collections and admin_sets
             end
@@ -88,7 +89,7 @@ module Hyrax
         models = [Hyrax::PcdmCollection, Hyrax.config.collection_class].uniq
         if collection_manager?
           models.each do |collection_model|
-          # Permit all actions (same collection permissions as admin users)
+            # Permit all actions (same collection permissions as admin users)
             can :manage, collection_model
             can :manage, ::SolrDocument do |solr_doc|
               solr_doc.collection?
@@ -131,6 +132,8 @@ module Hyrax
           end
         end
       end
+      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/BlockLength
     end
   end
 end

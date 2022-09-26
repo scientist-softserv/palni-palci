@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bagit'
+
 Bulkrax.setup do |config|
   # Add or remove local parsers
   config.parsers -= [

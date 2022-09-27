@@ -37,7 +37,9 @@
             <th><%= t('.role_label') %></th>
             <th><%= t('.access_label') %></th>
             <th><%= t('.status_label') %></th>
-            <th><%= t('.action_label') %></th>
+            <% if can? :destroy, User %>
+              <th><%= t('.action_label') %></th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -71,11 +73,11 @@
               </td>
               <%# If user accepted invite or was a self-signup, they are active. Otherwise pending %>
               <td><%= user.accepted_or_not_invited? ? t('.status.active') : t('.status.pending') %></td>
-              <td>
-                <% if can? :remove, User %>
+              <% if can? :destroy, User %>
+                <td>
                   <%= link_to t('.delete'),  main_app.admin_user_path(user), class: 'btn btn-danger btn-sm action-delete', method: :delete, data: { confirm: t('hyrax.admin.users.destroy.confirmation', user: user.email) } %>
-                <% end %>
-              </td>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

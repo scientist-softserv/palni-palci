@@ -1,25 +1,37 @@
-<% provide :page_header do %>
-  <h1><span class="fa fa-user" aria-hidden="true"></span> <%= t('hyrax.admin.users.index.title') %></h1>
+<% if can? :create, User %>
+  <% provide :page_header do %>
+    <h1><span class="fa fa-user" aria-hidden="true"></span> <%= t('hyrax.admin.users.index.title') %></h1>
+  <% end %>
+<% else %>
+  <% provide :page_header do %>
+    <h1><span class="fa fa-user"></span> <%= t('hyrax.admin.users.index.reader_title') %></h1>
+  <% end %>
 <% end %>
 
-<div class="panel panel-default users-invite">
-  <div class="panel-heading">
-      <%= t('.invite_users') %>
-  </div>
+<% if can? :create, User %>
+  <div class="panel panel-default users-invite">
+    <div class="panel-heading">
+        <%= t('.invite_users') %>
+    </div>
 
-  <div class="panel-body">
-    <%# user_invitation_path is provided by devise_invitable %>
-    <%= simple_form_for :user,  url: main_app.user_invitation_path, html: { class: 'form-inline pull-left' } do |f| %>
-      <div class="form-group">
-        <%= f.hint :email %>
-        <%= f.label :email, class: "control-label", required: false %>
-        <%= f.input_field :email, class: "form-control", value: "" %>
-        <%= f.input :roles, required: false %>'
-        <%= f.submit t('.add'), class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+    <div class="panel-body">
+      <%# user_invitation_path is provided by devise_invitable %>
+      <%= simple_form_for :user,  url: main_app.user_invitation_path, html: { class: 'form-inline pull-left' } do |f| %>
+        <div class="form-group">
+          <%= f.hint :email %>
+          <%= f.label :email, class: "control-label", required: false %>
+          <%= f.input_field :email, class: "form-control", value: "" %>
+          <%= f.select :roles,
+                      @invite_roles_options.map { |r| [r.titleize, r ]},
+                      { prompt: 'Select a role...' },
+                      required: false,
+                      class: 'form-control' %> 
+          <%= f.submit t('.add'), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="panel panel-default users-listing">
   <div class="panel-heading">
@@ -38,7 +50,7 @@
             <th><%= t('.access_label') %></th>
             <th><%= t('.status_label') %></th>
             <% if can? :destroy, User %>
-              <th><%= t('.action_label') %></th>
+            <th><%= t('.action_label') %></th>
             <% end %>
           </tr>
         </thead>

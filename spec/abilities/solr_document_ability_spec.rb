@@ -1,7 +1,9 @@
 # OVERRIDE FILE from Hryax 2.5.1
 require 'cancan/matchers'
 
-RSpec.describe SolrDocumentAbility do
+# rubocop:disable RSpec/FilePath
+RSpec.describe Hyrax::Ability::SolrDocumentAbility do
+  # rubocop:enable RSpec/FilePath
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

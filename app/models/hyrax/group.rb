@@ -18,7 +18,13 @@ module Hyrax
     def self.name_prefix
       DEFAULT_NAME_PREFIX
     end
-    
+
+    ##
+    # @return [Hyrax::Group]
+    def self.from_agent_key(key)
+      new(key.delete_prefix(name_prefix))
+    end
+
     def self.search(query)
       if query.present?
         left_outer_joins(:roles).where(
@@ -57,6 +63,13 @@ module Hyrax
 
     def number_of_users
       members.count
+    end
+
+    ##
+    # @return [String] a local identifier for this group; for use (e.g.) in ACL
+    #   data
+    def agent_key
+      self.class.name_prefix + name
     end
 
     def to_sipity_agent

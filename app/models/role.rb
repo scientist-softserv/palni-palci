@@ -41,4 +41,16 @@ class Role < ApplicationRecord
                         99
                       end
   end
+
+  # By default in Hyrax, permissions can only be assigned to Groups or Users. For the
+  # Groups with Roles feature permissions to work, we treat Role the same as a group
+  # when assigning permissions to it.
+  # This method is needed to find permissions assigned to Roles.
+  # @see Hyrax::PermissionManagerDecorator#update_groups_for
+  ##
+  # @return [String] a local identifier for this group; for use (e.g.) in ACL
+  #   data
+  def agent_key
+    Hyrax::Group.name_prefix + name
+  end
 end

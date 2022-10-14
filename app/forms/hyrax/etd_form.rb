@@ -27,6 +27,7 @@ module Hyrax
     self.required_fields = [
       :title,
       :creator,
+      :keyword,
       :rights_statement,
       :date_created,
       :degree_name,

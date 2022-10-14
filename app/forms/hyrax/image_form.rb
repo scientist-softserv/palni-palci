@@ -8,5 +8,6 @@ module Hyrax
     self.model_class = ::Image
     self.terms += %i[resource_type extent additional_information bibliographic_citation]
     self.terms -=%i[based_near]
+    self.required_fields += %i[keyword]
   end
 end

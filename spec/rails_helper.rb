@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
 
 # In test most, unset some variables that can cause trouble
 # before booting up Rails

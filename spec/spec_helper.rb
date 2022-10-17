@@ -16,8 +16,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
 
 require 'webmock/rspec'
 require 'i18n/debug' if ENV['I18N_DEBUG']

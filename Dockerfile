@@ -60,4 +60,4 @@ RUN ln -sf /app/samvera/branding /app/samvera/hyrax-webapp/public/branding
 
 FROM hyku-base as hyku-worker
 ENV MALLOC_ARENA_MAX=2
-CMD ./bin/worker
+CMD bundle exec sidekiq

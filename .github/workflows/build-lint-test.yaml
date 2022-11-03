@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - main
+      - i492-hyku-upgrade # TODO: remove
 
 jobs: 
   call-workflow:

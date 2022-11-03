@@ -136,7 +136,7 @@ en:
       title: Administration
       work_types: Available Work Types
     footer:
-      admin_login: Administrator login
+      admin_login: Admin
     proprietor:
       accounts:
         nav: Accounts

@@ -13,6 +13,7 @@ module Hyrax
         delegate :banner_image, :banner_image?, to: :site
         delegate :logo_image, :logo_image?, to: :site
         delegate :directory_image, :directory_image?, to: :site
+        delegate :directory_image_alt_text, to: :site
         delegate :default_collection_image, :default_collection_image?, to: :site
         delegate :default_work_image, :default_work_image?, to: :site
 
@@ -62,7 +63,7 @@ module Hyrax
         end
 
         def self.image_params
-          %i[banner_image logo_image directory_image default_collection_image default_work_image]
+          %i[banner_image logo_image directory_image directory_image_alt_text default_collection_image default_work_image]
         end
 
         def site
@@ -87,11 +88,6 @@ module Hyrax
         # The alt text for the banner image
         def banner_image_text
           block_for('banner_image_text')
-        end
-
-        # The alt text for the directory image
-        def directory_image_text
-          block_for('directory_image_text')
         end
 
         # The alt text for the default_collection image
@@ -327,7 +323,7 @@ module Hyrax
         # @return [Array<Symbol>] a list of fields that are related to the directory
         def self.directory_fields
           %i[
-            directory_image directory_image_label
+            directory_image directory_image_label directory_image_alt_text
           ]
         end
 
@@ -377,7 +373,7 @@ module Hyrax
             custom_css_block
             logo_image_text
             banner_image_text
-            directory_image_text
+            directory_image_alt_text
             default_collection_image_text
             default_work_image_text
           ]

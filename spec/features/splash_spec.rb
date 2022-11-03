@@ -12,14 +12,12 @@ RSpec.describe "The splash page", type: :feature, clean: true, multitenant: true
     ENV['HYKU_ADMIN_ONLY_TENANT_CREATION'] = original
   end
 
-  it "shows the page, displaying the Hyku version" do
+  it "shows the page, displaying the Hyku for Consortia content" do
     visit '/'
-    expect(page).to have_content 'Hyku Commons'
+    expect(page).to have_content 'Collaborative Repository'
 
     within 'footer' do
-      expect(page).to have_link 'Administrator login'
+      expect(page).to have_link 'Admin'
     end
-
-    expect(page).to have_content("Hyku v#{Hyku::VERSION}")
   end
 end

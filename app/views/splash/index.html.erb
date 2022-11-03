@@ -2,18 +2,65 @@
 
 <% content_for :page_title, application_name %>
 <% content_for(:container_class) { 'row' } %>
-<section id="banner" class="jumbotron">
+<section id="banner">
+  <div class="splash-logo">
+  </div>
+  <div class="">
+    <h1>Collaborative Repository</h1>
+    <h3 class="splash-page">
+      Welcome to our shared repository, where you'll find scholarly research, cultural heritage items, 
+      educational materials, and more from libraries across PALNI, PALCI, and other Hyku for Consortia partners.
+    </h3>
+    <h3 class="splash-page">
+      Visit our public respositories one at a time by clicking on the icons below.
+    </h3>
+  </div>
 </section>
 
+
+
 <section class="product-features">
+  <h2>Browse our partner repositories:</h2>
   <div class="row grid-row accounts-row">
     <% @accounts.each_with_index do |account, i| %>
-      <div class="grid-item">
-        <div class='logo-set'>
-          <%= image_tag @images[i], class: 'img-responsive img-thumbnail' %>
-        </div>
-        <h2 class="heading"><%= link_to account.cname, "//#{account.cname}" %></h2>
-      </div>
+      <% unless @images[i].match(/placeholder/) %>
+        <%= link_to "//#{account.cname}" do %>
+          <%= image_tag @images[i], alt_text: @alt_text[i], class: 'logo-image' %>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
+</section>
+
+<section class="partnering-consortia">
+  <h3>Partnering consortia:</h3>
+  <div class="consortia-logos">
+    <%= image_tag "palci", alt: "PALCI logo", class: "img-responsive" %>
+
+    <%= image_tag "palni", alt: "PALNI logo", class: "img-responsive" %>
+
+    <%= image_tag "louis", alt: "LOUIS logo", class: "img-responsive" %>
+
+    <%= image_tag "viva", alt: "VIVA logo", class: "img-responsive" %>
+  </div>
+</section>
+
+<section class="splash-footer">
+  <p>
+    This project was made possible in part by the Institue of Museum and Library Services, LG-36-19-0108, as well as other funding sources.
+  </p>
+  <div class="imls-logo">
+    <%= image_tag "imls", alt: "IMLS logo", class: "img-responsive imls-logo" %>
+  </div>
+  <nav class="splash-footer-links">
+    <ul>
+      <% if admin_host? && !user_signed_in? %>
+        <li>
+          <p><%= link_to t('hyku.footer.admin_login', default: [:'hyrax.toolbar.profile.login']), main_app.new_user_session_path %></p>
+        </li>
+      <% end %>
+      <li><%= link_to "About", "https://www.hykuforconsortia.org", target: "blank" %></li>
+      <li><%= mail_to "help@hykuforconsortia.org", "Contact" %></li>
+    </ul>
+  </nav>
 </section>

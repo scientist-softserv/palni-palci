@@ -98,4 +98,7 @@ Rails.application.routes.draw do
   end
 
   get 'all_collections' => 'hyrax/homepage#all_collections', as: :all_collections
+  get '/hyrax/admin/workflows/approved.:format' => "hyrax/admin/workflows#approved"
+  get '/hyrax/admin/workflows/under_review.:format' => "hyrax/admin/workflows#under_review"
+
 end

@@ -1,0 +1,55 @@
+name: "Deploy"
+on: workflow_call
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    container: dtzar/helm-kubectl:3.9.4
+    environment: ${{ inputs.environment }}
+    env:
+      HELM_EXPERIMENTAL_OCI: 1
+      HELM_RELEASE_NAME: ${{ github.event.repository.name }}-${{ inputs.environment }}
+      KUBE_NAMESPACE: ${{ github.event.repository.name }}-${{ inputs.environment }}
+      HELM_EXTRA_ARGS: >
+        --values ops/${{ inputs.environment }}-deploy.yaml
+      KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_FILE }}
+      KUBECONFIG: ./kubeconfig.yml
+      SOLR_ADMIN_PASSWORD: ${{ secrets.SOLR_ADMIN_PASSWORD }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      GOOGLE_FONTS_KEY: ${{ secrets.GOOGLE_FONTS_KEY }}
+      GOOGLE_OAUTH_PRIVATE_KEY_SECRET: ${{ secrets.GOOGLE_OAUTH_PRIVATE_KEY_SECRET }}
+
+    steps:
+      - name: Set env
+        run: >-
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV;
+          echo "DEPLOY_TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV;
+      # - name: Set env
+      #   run: >-
+      #     echo "TAG=b2d8d1ca" >> $GITHUB_ENV;
+      #     echo "DEPLOY_TAG=b2d8d1ca" >> $GITHUB_ENV;
+      - name: Downcase repo
+        run: echo "REPO_LOWER=`echo ${REPO} | tr '[:upper:]' '[:lower:]'`" >> $GITHUB_ENV
+        env:
+          REPO: '${{ github.repository }}'
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        with:
+          limit-access-to-actor: true
+      - name: Do deploy
+        run: >-
+          echo $KUBECONFIG_FILE | base64 -d > $KUBECONFIG;
+          DOLLAR=$ envsubst < ops/${{ inputs.environment }}-deploy.tmpl.yaml > ops/${{ inputs.environment }}-deploy.yaml;
+          export DEPLOY_IMAGE=ghcr.io/${REPO_LOWER};
+          export WORKER_IMAGE=ghcr.io/${REPO_LOWER}/worker;
+          ./bin/helm_deploy ${{ inputs.environment }} ${{ inputs.environment }}-${{ github.event.repository.name }}

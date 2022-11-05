@@ -1,7 +1,7 @@
 replicaCount: 2
 
 imagePullSecrets:
-  - name: github-registry
+  - name: github
 
 livenessProbe:
   enabled: false
@@ -9,11 +9,11 @@ readinessProbe:
   enabled: false
 
 brandingVolume:
-  storageClass: aws-efs
+  storageClass: efs-sc
 derivativesVolume:
-  storageClass: aws-efs
+  storageClass: efs-sc
 uploadsVolume:
-  storageClass: aws-efs
+  storageClass: efs-sc
   size: 200Gi
 
 extraVolumeMounts: &volMounts
@@ -79,7 +79,7 @@ extraEnvVars: &envVars
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
   - name: GOOGLE_OAUTH_APP_NAME
-    value: pals-staging 
+    value: pals-staging
   - name: GOOGLE_OAUTHAPP_VERSION
     value: '1.0'
   - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET

@@ -12,8 +12,9 @@ module Hyrax
     # https://github.com/samvera/hyrax/blob/v3.4.2/app/forms/hyrax/forms/work_form.rb#L156-L165
     def attributes_for_actor
       sanitized_attributes = super
+      permissions_params = params.dig(hash_key_for_curation_concern, 'permissions_attributes')
       # Only change behavior if the user is an admin
-      return sanitized_attributes unless current_ability.admin?
+      return sanitized_attributes unless current_ability.admin? && permissions_params.present?
 
       # This chunk is inspired by Hyrax::Forms::WorkForm.workflow_for
       # https://github.com/samvera/hyrax/blob/v3.4.2/app/forms/hyrax/forms/work_form.rb#L189-L197
@@ -24,10 +25,9 @@ module Hyrax
         raise "Missing permission template for AdminSet(id:#{admin_set_id})"
       end
       raise Hyrax::MissingWorkflowError, "PermissionTemplate for AdminSet(id:#{admin_set_id}) does not have an active_workflow" unless workflow
-      return if workflow.allows_access_grant? # No need to alter permissions if they're allowed
+      return sanitized_attributes if workflow.allows_access_grant? # No need to alter permissions if they're allowed
 
       # Add stripped permissions params back to the sanitized attributes
-      permissions_params = params.dig(hash_key_for_curation_concern, 'permissions_attributes')
       permissions_attributes = { 'permissions_attributes' => permissions_params }
       sanitized_attributes.merge!(permissions_attributes)
       sanitized_attributes.require('permissions_attributes').permit!

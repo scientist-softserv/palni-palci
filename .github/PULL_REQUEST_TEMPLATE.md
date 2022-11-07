@@ -1,22 +1,9 @@
-Fixes #issuenumber ; refs #issuenumber
+# Summary
 
-Present tense short summary (50 characters or less)
+# Screenshots / Video
 
-More detailed description, if necessary. Try to be as descriptive as you can: even if you think that the PR content is obvious, it may not be obvious to others. Include tracebacks if helpful, and be sure to call out any bits of the PR that may be work-in-progress.
+# Expected Behavior
 
-Description can have multiple paragraphs and you can use code examples inside:
+# Notes
 
-``` ruby
-class PostsController
-  def index
-    respond_with Post.limit(10)
-  end
-end
-```
-
-Changes proposed in this pull request:
-*
-*
-*
-
-@samvera/hyku-code-reviewers
+If you need further information on how to fill this out, read the [playbook](https://playbook-staging.notch8.com/en/notch8/process/merge-requests)

@@ -36,10 +36,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: commons-archive.org
+    - host: hykucommons.org
       paths:
         - path: /
-    - host: "*.commons-archive.org"
+    - host: "*.hykucommons.org"
       paths:
         - path: /
   annotations: {
@@ -49,9 +49,9 @@ ingress:
   }
   tls:
     - hosts:
-        - commons-archive.org
-        - "*.commons-archive.org"
-      secretName: demo-palni-palci-tls
+        - hykucommons.org
+        - "*.hykucommons.org"
+      secretName: production-palni-palci-tls
 
 extraEnvVars: &envVars
   - name: CONFDIR
@@ -61,7 +61,7 @@ extraEnvVars: &envVars
   - name: DB_HOST
     value: postgres-cluster-alpha-ha.postgres.svc.cluster.local
   - name: DB_NAME
-    value: pals-demo-hyku
+    value: pals-production-hyku
   - name: DB_PASSWORD
     value: $DB_PASSWORD
   - name: DB_URL
@@ -69,7 +69,7 @@ extraEnvVars: &envVars
   - name: DB_USER
     value: main
   - name: FCREPO_BASE_PATH
-    value: /demo-palni-palci
+    value: /production-palni-palci
   - name: FCREPO_HOST
     value: fcrepo.fcrepo.svc.cluster.local:8080
   - name: FCREPO_PATH
@@ -87,11 +87,11 @@ extraEnvVars: &envVars
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
     value: cred.p12
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: pals-staging@pals-staging-360222.iam.gserviceaccount.com
+    value: pals-staging@pals-production-360222.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST
-    value: commons-archive.org
+    value: hykucommons.org
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: "false"
   - name: HYKU_ALLOW_SIGNUP
@@ -101,13 +101,13 @@ extraEnvVars: &envVars
   - name: HYKU_CONTACT_EMAIL
     value: support@notch8.com
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.commons-archive.org"
+    value: "%{tenant}.hykucommons.org"
   - name: HYKU_FILE_ACL
     value: "true"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: commons-archive.org
+    value: hykucommons.org
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
   - name: HYRAX_FITS_PATH
@@ -123,7 +123,7 @@ extraEnvVars: &envVars
   - name: PASSENGER_APP_ENV
     value: production
   - name: RAILS_CACHE_STORE_URL
-    value: redis://palni-palci-demo-redis-master:6379/1
+    value: redis://palni-palci-production-redis-master:6379/1
   - name: RAILS_ENV
     value: production
   - name: RAILS_LOG_TO_STDOUT
@@ -133,9 +133,9 @@ extraEnvVars: &envVars
   - name: RAILS_SERVE_STATIC_FILES
     value: "true"
   - name: REDIS_HOST
-    value: palni-palci-demo-redis-master
+    value: palni-palci-production-redis-master
   - name: REDIS_URL
-    value: redis://palni-palci-demo-redis-master:6379/1
+    value: redis://palni-palci-production-redis-master:6379/1
   - name: SENTRY_DSN
     value: https://d3dc5a781c0740fa8b29f93e6d355c36@o1008683.ingest.sentry.io/6707374
   - name: SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS
@@ -157,9 +157,9 @@ extraEnvVars: &envVars
   - name: SOLR_ADMIN_USER
     value: admin
   - name: SOLR_COLLECTION_NAME
-    value: demo-palni-palci
+    value: production-palni-palci
   - name: SOLR_CONFIGSET_NAME
-    value: demo-palni-palci
+    value: production-palni-palci
   - name: SOLR_HOST
     value: solr-headless.solr
   - name: SOLR_PORT
@@ -203,15 +203,15 @@ externalPostgresql:
   host: postgres-cluster-alpha-ha.postgres.svc.cluster.local
   username: main
   password: $DB_PASSWORD
-  database: pals-demo-hyku
+  database: pals-production-hyku
 
 externalSolrHost: solr-headless.solr
 externalSolrUser: admin
-externalSolrCollection: demo-palni-palci
+externalSolrCollection: production-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
-  hyraxName: palni-palci-demo-pals
+  hyraxName: palni-palci-production-pals
 
 nginx:
   enabled: true

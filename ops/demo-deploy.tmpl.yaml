@@ -64,8 +64,6 @@ extraEnvVars: &envVars
     value: pals-demo-hyku
   - name: DB_PASSWORD
     value: $DB_PASSWORD
-  - name: DB_URL
-    value: postgresql://main:$DB_PASSWORD@postgres-cluster-alpha-ha.postgres.svc.cluster.local
   - name: DB_USER
     value: main
   - name: FCREPO_BASE_PATH

@@ -12,7 +12,7 @@
       educational materials, and more from libraries across PALNI, PALCI, and other Hyku for Consortia partners.
     </h3>
     <h3 class="splash-page">
-      Visit our public respositories one at a time by clicking on the icons below.
+      Visit our public repositories one at a time by clicking on the icons below.
     </h3>
   </div>
 </section>
@@ -23,7 +23,7 @@
   <h2>Browse our partner repositories:</h2>
   <div class="row grid-row accounts-row">
     <% @accounts.each_with_index do |account, i| %>
-      <% unless @images[i].match(/placeholder/) %>
+      <% if @images[i].present? && !@images[i].match(/placeholder/) %>
         <%= link_to "//#{account.cname}" do %>
           <%= image_tag @images[i], alt_text: @alt_text[i], class: 'logo-image' %>
         <% end %>
@@ -60,7 +60,7 @@
         </li>
       <% end %>
       <li><%= link_to "About", "https://www.hykuforconsortia.org", target: "blank" %></li>
-      <li><%= mail_to "help@hykuforconsortia.org", "Contact" %></li>
+      <li><%= mail_to "consortial-ir@palci.org.", "Contact" %></li>
     </ul>
   </nav>
 </section>

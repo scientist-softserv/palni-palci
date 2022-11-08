@@ -1,4 +1,4 @@
-FROM ghcr.io/scientist-softserv/dev-ops/base:e9200061 as hyku-base
+FROM ghcr.io/scientist-softserv/dev-ops/samvera:e9200061 as hyku-base
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN bundle install --jobs "$(nproc)"

@@ -34,6 +34,8 @@
 }
 
 .splash.splash-index {
+  font-family: $splash-font-family;
+
   .splash-logo {
     background: image_url("Hyku_Commons_Logo.png") no-repeat;
     background-size: contain;
@@ -43,17 +45,19 @@
     background-color: #f6f6f6;
     padding: 16px;
     border: 0;
-    font-family: $primary-font-family;
+    font-family: $splash-font-family;
     margin-bottom: 0;
   }
 
   h1 {
+    font-family: $splash-font-family;
     color: $jumbotron-heading-color;
-    font-size: $jumbotron-heading-font-size;
+    font-size: 30px;
     font-weight: 400;
   }
 
   h3 {
+    font-family: $splash-font-family;
     color: $jumbotron-sub-heading-color;
     font-size: 1.6em;
     font-weight: 400;
@@ -61,6 +65,7 @@
   }
 
   h2 {
+    font-family: $splash-font-family;
     color: $jumbotron-sub-heading-color;
     font-weight: 400;
   }
@@ -85,7 +90,7 @@
     img {
       height: 120px;
       width: auto;
-      margin: 20px;
+      margin: 16 px;
     }
   }
 
@@ -95,12 +100,12 @@
     justify-content: flex-start;
     align-items: center;
     .img-responsive {
-      padding: 20px;
+      padding: 16px;
     }
   }
   
   .partnering-consortia, .splash-footer {
-    padding: 20px;
+    padding: 16px;
   }
 
   .imls-logo {
@@ -118,7 +123,7 @@
       justify-content: flex-start;
       padding-inline-start: 0;
       li {
-        padding: 20px;
+        padding: 20px 20px 20px 0;
         font-size: 16px;
       }
     }

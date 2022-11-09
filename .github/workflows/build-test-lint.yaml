@@ -6,7 +6,6 @@ on:
   pull_request:
     branches:
       - main
-      - i492-hyku-upgrade # TODO: remove
   workflow_dispatch:
     inputs:
       debug_enabled:

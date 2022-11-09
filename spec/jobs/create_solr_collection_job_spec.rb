@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe CreateSolrCollectionJob do
   let(:account) { FactoryBot.create(:account) }
   let(:client) { double }
@@ -18,7 +20,7 @@ RSpec.describe CreateSolrCollectionJob do
                                                                   'collection.configName': 'hyku'))
       described_class.perform_now(account)
 
-      expect(account.solr_endpoint.url).to eq "#{Settings.solr.url}#{account.tenant}"
+      expect(account.solr_endpoint.url).to eq "#{ENV.fetch('SOLR_URL')}#{account.tenant}"
     end
 
     it 'is idempotent' do

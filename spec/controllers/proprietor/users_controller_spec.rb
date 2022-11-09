@@ -148,17 +148,6 @@ RSpec.describe Proprietor::UsersController, type: :controller, multitenant: true
       end
     end
 
-    describe 'POST #create' do
-      context 'with valid params' do
-        it 'succeeds' do
-          expect do
-            post :create, params: { user: valid_attributes }
-          end.to change(User, :count).by(1)
-          expect(response).to be_redirect
-        end
-      end
-    end
-
     describe "DELETE #destroy" do
       it "destroys the user and redirects to the users list" do
         expect_any_instance_of(User).to receive(:destroy).and_return(true)

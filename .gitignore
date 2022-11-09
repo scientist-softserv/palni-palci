@@ -7,12 +7,14 @@ capybara-*.html
 /db/postgres
 pg_upgrade_*.log
 /public/system
+/public/uv
+/node_modules
 /coverage/
 /spec/tmp
 **.orig
 rerun.txt
 pickle-email-*.html
-docker-compose.override.yml
+*-deploy.yaml
 
 ## Environment normalization:
 /.bundle
@@ -59,8 +61,12 @@ public/branding/*
 # Ignore Bulkrax in local development
 vendor/engines/*
 
-# mac add on
-.DS_Store
 # Ignore local VS Code history
 /.history
 .vscode/settings.json
+docker-compose.override.yml
+*~undo-tree~
+.DS_Store
+
+# Ignore local test deploy script
+/bin/deploy-test

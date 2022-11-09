@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # OVERRIDE: Hyrax v2.9.0 to add home_text content block to the index method - Adding themes
 # OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page -
 # inheriting from CatalogController rather than ApplicationController
@@ -6,6 +8,7 @@
 # OVERRIDE: Hyrax v2.9.0 to add .sort_by to return collections in alphabetical order by title on the homepage
 # OVERRIDE: Hyrax v2.9.0 add all_collections page for IR theme
 # OVERRIDE: Hyrax v2.9.0 to add facet counts for resource types for IR theme
+# OVERRIDE: Hyrax v. 2.9.0 to add @featured_collection_list to index method
 
 module Hyrax
   # Changed to inherit from CatalogController for home page facets
@@ -35,11 +38,13 @@ module Hyrax
       @marketing_text = ContentBlock.for(:marketing)
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
+      # OVERRIDE here to add featured collection list
+      @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
       recent
       ir_counts if home_page_theme == 'institutional_repository'
       @top_level_collections = collections(rows: 100_000).select{ |c| c['nesting_collection__deepest_nested_depth_isi'] == 1 }[0..5] if home_page_theme == 'institutional_repository'
-  
+
       # override hyrax v2.9.0 added for facets on homepage - Adding Themes
       (@response, @document_list) = search_results(params)
 
@@ -103,7 +108,7 @@ module Hyrax
       end
 
       def sort_field
-        "#{Solrizer.solr_name('date_uploaded', :stored_sortable, type: :date)} desc"
+        "date_uploaded_dtsi desc"
       end
 
       # Add this method to prepend the theme views into the view_paths
@@ -113,7 +118,9 @@ module Hyrax
           home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
           prepend_view_path(home_theme_view_path)
           yield
+          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
           view_paths=(original_paths)
+          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
         else
           yield
         end

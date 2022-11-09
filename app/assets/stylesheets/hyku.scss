@@ -17,12 +17,6 @@
 }
 
 @media (min-width: $screen-sm-min) {
-  .logo-set {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-direction: column;
-  }
   // sets the home page tabs to use flex rather than columns
   // allows full width if tabs are turned off with feature flipper
   .home-content {
@@ -39,28 +33,100 @@
   }
 }
 
-#banner.jumbotron {
-  background: image_url("Hyku_Commons_Logo.png") no-repeat;
-  background-position: center;
-  height: 220px;
-  background-color: $gray-lighter;
-  border: 0;
-  font-family: $primary-font-family;
-  margin-bottom: 0;
-  text-align: center;
+.splash.splash-index {
+  font-family: $splash-font-family;
 
-  h1 {
-    color: $jumbotron-heading-color;
-    font-size: $jumbotron-heading-font-size;
-    font-weight: 700;
-    letter-spacing: 0.075em;
-    text-transform: uppercase;
+  .splash-logo {
+    background: image_url("Hyku_Commons_Logo.png") no-repeat;
+    background-size: contain;
+    height: 120px;
+  }
+  #banner {
+    background-color: #f6f6f6;
+    padding: 16px;
+    border: 0;
+    font-family: $splash-font-family;
+    margin-bottom: 0;
   }
 
-  p {
+  h1 {
+    font-family: $splash-font-family;
+    color: $jumbotron-heading-color;
+    font-size: 30px;
+    font-weight: 400;
+  }
+
+  h3 {
+    font-family: $splash-font-family;
     color: $jumbotron-sub-heading-color;
     font-size: 1.6em;
+    font-weight: 400;
     margin-bottom: 20px;
+  }
+
+  h2 {
+    font-family: $splash-font-family;
+    color: $jumbotron-sub-heading-color;
+    font-weight: 400;
+  }
+
+  .navbar {
+    margin-bottom: 0;
+  }
+
+  #masthead.navbar-inverse.navbar-static-top {
+    background-color: #439627;
+    border-color: #a0ce4e;
+  }
+
+  .img-thumbnail {
+    border: none;
+    border-radius: 0;
+    height: 150px;
+    width: auto;
+  }
+
+  .product-features {
+    img {
+      height: 120px;
+      width: auto;
+      margin: 16px;
+    }
+  }
+
+  .consortia-logos {
+    display: flex;
+    max-width: 20%;
+    justify-content: flex-start;
+    align-items: center;
+    .img-responsive {
+      padding: 16px;
+    }
+  }
+  
+  .partnering-consortia, .splash-footer {
+    padding: 16px;
+  }
+
+  .imls-logo {
+    max-width:45%;
+  }
+  .splash-footer {
+    p {
+      font-size: 16px;
+    }
+  }
+  .splash-footer-links {
+    ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: flex-start;
+      padding-inline-start: 0;
+      li {
+        padding: 20px 20px 20px 0;
+        font-size: 16px;
+      }
+    }
   }
 
   .btn-sign-up {
@@ -74,6 +140,22 @@
     margin-top: 15px;
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+
+@media (max-width: $screen-sm-min) {
+  .splash.splash-index {
+    .imls-logo {
+      max-width:80%;
+    }
+    .consortia-logos {
+      display: block;
+      max-width: 80%;
+      text-align: center;
+      .img-responsive {
+        padding: 20px;
+      }
+    }
   }
 }
 
@@ -94,22 +176,9 @@ footer.navbar {
 }
 
 .product-features {
-  background: $features-section-background-color;
-  border-top: 1px solid $features-section-border-color;
+
   font-family: $primary-font-family;
-  padding: 20px 0 50px;
-
-  .grid-row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .grid-item {
-    padding-left: 40px;
-    padding-right: 40px;
-    text-align: center;
-    width: 33.33%;
-  }
+  padding: 20px;
 
   .heading {
     color: $gray;
@@ -290,35 +359,26 @@ footer.navbar {
   }
 }
 
-.logo-set {
-  min-height: 320px;
-
-  img {
-    display: inline;
-    vertical-align: middle;
-  }
-}
-
 #s2id_collection_thumbnail_id {
   height: auto;
   padding: 0;
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal {
-  margin-right: 0px;
-  margin-left: 0px;
+.hyc-bl-sort > .per_page.form-horizontal {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
   padding-bottom: 1em;
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal:before,
-.hyc-bl-sort > form.per_page.form-horizontal:after {
+.hyc-bl-sort > .per_page.form-horizontal::before,
+.hyc-bl-sort > .per_page.form-horizontal::after {
   display: table;
   content: " ";
 }
 
-.hyc-bl-sort > form.per_page.form-horizontal:after {
+.hyc-bl-sort > .per_page.form-horizontal::after {
   clear: both;
 }
 
@@ -329,7 +389,7 @@ footer.navbar {
 
 #users > .panel {
   .panel-body {
-    padding-left: 0px;
+    padding-left: 0;
   }
 
   ul,
@@ -351,6 +411,10 @@ footer.navbar {
 
 .defaultable-fonts div[class$="_font"] label {
   display: block;
+
+  label {
+    display: block;
+  }
 }
 
 .defaultable-fonts div.font-select {
@@ -421,8 +485,77 @@ div#collapse-citations {
   text-align: left;
   word-wrap: break-word;
 }
+
 @media (min-width: 576px) {
   .citations-button {
     max-width: 300px;
   }
+}
+
+body.public-facing {
+  .btn {
+    &.btn-primary,
+    &.btn-danger {
+      color: #fff;
+    }
+
+    &.btn-primary {
+      background-color: #337ab7;
+    }
+  }
+}
+
+// FEATURED COLLECTIONS
+@media (max-width: $screen-sm-min) {
+  .admin-show-page
+    .collection-title-row-wrapper
+    .collection-title-row-content
+    .btn.collapse {
+    display: none;
+  }
+}
+
+.dd-item.collapse {
+  display: none;
+}
+
+.dd-item.dd3-item.featured-item {
+  border-top: 0;
+  min-height: unset;
+  padding: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.collection-highlights img,
+.featured-item img {
+  border: 0;
+  height: 90px;
+  width: unset;
+}
+
+.featured-collection-section {
+  border: 1px solid #ccc;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.btn-primary.feature {
+  margin-left: 4px;
+}
+//Styles we need access to in the dashboard
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px;
 }

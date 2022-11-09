@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# From Hyrax 2.5, add new colors, ability to save css file and expanded image types
+# OVERRIDE Hyrax 3.4.0 ot add custom theming
+
+# rubocop:disable Metrics/ClassLength
 module Hyrax
   module Forms
     module Admin
@@ -11,6 +13,7 @@ module Hyrax
         delegate :banner_image, :banner_image?, to: :site
         delegate :logo_image, :logo_image?, to: :site
         delegate :directory_image, :directory_image?, to: :site
+        delegate :directory_image_alt_text, to: :site
         delegate :default_collection_image, :default_collection_image?, to: :site
         delegate :default_work_image, :default_work_image?, to: :site
 
@@ -60,7 +63,7 @@ module Hyrax
         end
 
         def self.image_params
-          %i[banner_image logo_image directory_image default_collection_image default_work_image]
+          %i[banner_image logo_image directory_image directory_image_alt_text default_collection_image default_work_image]
         end
 
         def site
@@ -75,6 +78,26 @@ module Hyrax
         # Required to back a form (for route determination)
         def persisted?
           true
+        end
+
+        # The alt text for the logo image
+        def logo_image_text
+          block_for('logo_image_text')
+        end
+
+        # The alt text for the banner image
+        def banner_image_text
+          block_for('banner_image_text')
+        end
+
+        # The alt text for the default_collection image
+        def default_collection_image_text
+          block_for('default_collection_image_text')
+        end
+
+        # The alt text for the default_work image
+        def default_work_image_text
+          block_for('default_work_image_text')
         end
 
         # The font for the body copy
@@ -191,7 +214,6 @@ module Hyrax
         def custom_css_block
           # we want to be able to read the css
           block_for('custom_css_block', '/* custom stylesheet */').html_safe
-          # rubocop:enable Rails/OutputSafety
         end
 
         # DEFAULT BUTTON COLORS
@@ -286,20 +308,33 @@ module Hyrax
 
         # @return [Array<Symbol>] a list of fields that are related to the banner
         def self.banner_fields
-          [:banner_image]
+          %i[
+            banner_image banner_label
+          ]
         end
 
-        # @return [Array<Symbol>] a list of fields that are related to the banner
+        # @return [Array<Symbol>] a list of fields that are related to the logo
         def self.logo_fields
-          [:logo_image]
+          %i[
+            logo_image logo_label
+          ]
         end
 
+        # @return [Array<Symbol>] a list of fields that are related to the directory
         def self.directory_fields
-          [:directory_image]
+          %i[
+            directory_image directory_image_label directory_image_alt_text
+          ]
         end
 
+        # @return [Array<Symbol>] a list of fields that are related to default works & collections
         def self.default_image_fields
-          %i[default_collection_image default_work_image]
+          %i[
+            default_collection_image
+            default_work_image
+            default_collection_label
+            default_work_label
+          ]
         end
 
         # Persist the form values
@@ -336,6 +371,11 @@ module Hyrax
             searchbar_text_color
             searchbar_text_hover_color
             custom_css_block
+            logo_image_text
+            banner_image_text
+            directory_image_alt_text
+            default_collection_image_text
+            default_work_image_text
           ]
         end
 
@@ -393,7 +433,7 @@ module Hyrax
             # the fonts come with `Font Name:font-weight` - this removes the weight
             parts = font_style.split(':')
             # Google fonts use `+` in place of spaces. This fixes it for CSS.
-            parts[0].tr('+', ' ')
+            parts[0].tr('+', ' ').html_safe
           end
       end
     end

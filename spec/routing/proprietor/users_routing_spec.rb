@@ -1,40 +1,50 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Proprietor::UsersController, type: :routing do
-  xdescribe "routing" do
-    # skip these tests
+  let(:admin_host) { Account.admin_host }
+  let(:admin_host_url) { "http://#{admin_host}" }
 
+  describe "routing" do
     it "routes to #index" do
-      expect(:get => "/proprietor/users").to route_to("proprietor/users#index")
+      request = { get: "#{admin_host_url}/proprietor/users" }
+      expect(request).to route_to("proprietor/users#index", host: admin_host)
     end
 
     it "routes to #new" do
-      expect(:get => "/proprietor/users/new").to route_to("proprietor/users#new")
+      request = { get: "#{admin_host_url}/proprietor/users/new" }
+      expect(request).to route_to("proprietor/users#new", host: admin_host)
     end
 
     it "routes to #show" do
-      expect(:get => "/proprietor/users/1").to route_to("proprietor/users#show", :id => "1")
+      request = { get: "#{admin_host_url}/proprietor/users/1" }
+      expect(request).to route_to("proprietor/users#show", id: "1", host: admin_host)
     end
 
     it "routes to #edit" do
-      expect(:get => "/proprietor/users/1/edit").to route_to("proprietor/users#edit", :id => "1")
+      request = { get: "#{admin_host_url}/proprietor/users/1/edit" }
+      expect(request).to route_to("proprietor/users#edit", id: "1", host: admin_host)
     end
 
     it "routes to #create" do
-      expect(:post => "/proprietor/users").to route_to("proprietor/users#create")
+      request = { post: "#{admin_host_url}/proprietor/users" }
+      expect(request).to route_to("proprietor/users#create", host: admin_host)
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/proprietor/users/1").to route_to("proprietor/users#update", :id => "1")
+      request = { put: "#{admin_host_url}/proprietor/users/1" }
+      expect(request).to route_to("proprietor/users#update", id: "1", host: admin_host)
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/proprietor/users/1").to route_to("proprietor/users#update", :id => "1")
+      request = { patch: "#{admin_host_url}/proprietor/users/1" }
+      expect(request).to route_to("proprietor/users#update", id: "1", host: admin_host)
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/proprietor/users/1").to route_to("proprietor/users#destroy", :id => "1")
+      request = { delete: "#{admin_host_url}/proprietor/users/1" }
+      expect(request).to route_to("proprietor/users#destroy", id: "1", host: admin_host)
     end
-
   end
 end

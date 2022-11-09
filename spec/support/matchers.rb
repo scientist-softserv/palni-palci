@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Thank you, David Chelimsky: http://stackoverflow.com/a/11337889
 RSpec::Matchers.define :have_constant do |const|
   match do |owner|
@@ -6,9 +8,9 @@ RSpec::Matchers.define :have_constant do |const|
 end
 
 RSpec::Matchers.define :be_cname do |subdomain|
-  target_cname = if Settings.multitenancy.default_host.present?
+  target_cname = if ENV['HYKU_DEFAULT_HOST'].present?
                    # rubocop:disable Style/FormatStringToken
-                   Settings.multitenancy.default_host.gsub('%{tenant}', subdomain)
+                   ENV['HYKU_DEFAULT_HOST'].gsub('%{tenant}', subdomain)
                    # rubocop:enable Style/FormatStringToken
                  else
                    "#{subdomain}.localhost"

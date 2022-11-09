@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copied from hyrax 2.5.1 to override the mail to
+# OVERRIDE Hyrax 3.4.0 to override the mail to
 module Hyrax
   class ContactForm
     include ActiveModel::Model
@@ -20,27 +20,21 @@ module Hyrax
     # in ActionMailer accepts.
     ###### OVERRODE the to: field to add the Tenant's email, first
     def contact_email
-      Site.contact_email.presence || Settings.contact_email_to
+      Site.account.contact_email_to
     end
 
     def headers
-      ## override hyrax 2.5.1 send the mail 'from' the submitter, which doesn't work on most smtp transports
+      ## OVERRIDE Hyrax 3.4.0 send the mail 'from' the submitter, which doesn't work on most smtp transports
       {
-        subject: "#{Hyrax.config.subject_prefix} #{email} #{subject}",
+        subject: "#{Site.account.email_subject_prefix} #{email} #{subject}",
         to: contact_email,
-        from: Settings.contact_email,
+        from: Site.account.contact_email,
         reply_to: email
       }
     end
 
     def self.issue_types_for_locale
-      [
-        I18n.t('hyrax.contact_form.issue_types.depositing'),
-        I18n.t('hyrax.contact_form.issue_types.changing'),
-        I18n.t('hyrax.contact_form.issue_types.browsing'),
-        I18n.t('hyrax.contact_form.issue_types.reporting'),
-        I18n.t('hyrax.contact_form.issue_types.general')
-      ]
+      I18n.t('hyrax.contact_form.issue_types').values.select(&:present?)
     end
   end
 end

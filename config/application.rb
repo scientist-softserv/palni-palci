@@ -5,7 +5,8 @@ require 'i18n/debug' if ENV['I18N_DEBUG']
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+groups = Rails.groups
+Bundler.require(*groups)
 
 module Hyku
   class Application < Rails::Application
@@ -25,27 +26,30 @@ module Hyku
       "I18n::InvalidLocale" => :not_found
     )
 
-    if defined? ActiveElasticJob
+    if defined?(ActiveElasticJob) && ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', '') == 'elastic'
       Rails.application.configure do
-        config.active_elastic_job.process_jobs = Settings.worker == 'true'
+        process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
+        config.active_elastic_job.process_jobs = process_jobs
         config.active_elastic_job.aws_credentials = lambda { Aws::InstanceProfileCredentials.new }
         config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
       end
     end
-
+    
     config.to_prepare do
+      # Allows us to use decorator files in the app directory
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")).sort.each do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
     end
-
+    
     # resolve reloading issue in dev mode
     config.paths.add 'app/helpers', eager_load: true
 
     config.before_initialize do
-      if defined? ActiveElasticJob
+      if defined?(ActiveElasticJob) && ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', '') == 'elastic'
         Rails.application.configure do
-          config.active_elastic_job.process_jobs = Settings.worker == 'true'
+          process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
+          config.active_elastic_job.process_jobs = process_jobs
           config.active_elastic_job.aws_credentials = lambda { Aws::InstanceProfileCredentials.new }
           config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
         end
@@ -55,6 +59,11 @@ module Hyku
 
       if Settings.bulkrax.enabled
         Bundler.require('bulkrax')
+      end
+
+      config.after_initialize do
+        # Psych Allow YAML Classes
+        config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), User, Time]
       end
     end
   end

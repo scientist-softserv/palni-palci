@@ -8,7 +8,6 @@ module Hyrax
     include HydraEditor::Form::Permissions
 
     self.terms += [
-      :rights_notes,
       :resource_type,
       :format,
       :degree_name,
@@ -18,11 +17,9 @@ module Hyrax
       :advisor,
       :committee_member,
       :department,
-      :alternative_title,
       :creator,
       :additional_information,
       :bibliographic_citation,
-      :abstract
     ]
 
     self.terms -= [:based_near]
@@ -30,6 +27,7 @@ module Hyrax
     self.required_fields = [
       :title,
       :creator,
+      :keyword,
       :rights_statement,
       :date_created,
       :degree_name,

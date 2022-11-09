@@ -1,6 +1,8 @@
 require 'cancan/matchers'
 
-RSpec.describe 'UserAbility' do
+# rubocop:disable RSpec/FilePath
+RSpec.describe Hyrax::Ability::UserAbility do
+  # rubocop:enable RSpec/FilePath
   subject { ability }
 
   let(:ability) { Ability.new(current_user) }

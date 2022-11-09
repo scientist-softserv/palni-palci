@@ -11,7 +11,7 @@ RSpec.describe 'Admin Dashboard', type: :feature, js: true, clean: true, cohort:
       login_as(user, scope: :user)
     end
 
-    it 'shows the admin page' do
+    it 'shows the admin page' do # rubocop:disable RSpec/ExampleLength
       visit Hyrax::Engine.routes.url_helpers.dashboard_path
       within '.sidebar' do
         expect(page).to have_link('Activity Summary')
@@ -36,7 +36,6 @@ RSpec.describe 'Admin Dashboard', type: :feature, js: true, clean: true, cohort:
         expect(page).to have_link('Settings')
         # Need to click link to open collapsed menu
         click_link "Settings"
-        expect(page).to have_link('Contact')
         expect(page).to have_link('Labels')
         expect(page).to have_link('Appearance')
         expect(page).to have_link('Collection Types')
@@ -45,7 +44,6 @@ RSpec.describe 'Admin Dashboard', type: :feature, js: true, clean: true, cohort:
         expect(page).to have_link('Features')
         expect(page).to have_link('Available Work Types')
         expect(page).to have_link('Workflow Roles')
-       
       end
     end
 
@@ -72,7 +70,7 @@ RSpec.describe 'Admin Dashboard', type: :feature, js: true, clean: true, cohort:
       login_as(user, scope: :user)
     end
 
-    it 'shows the regular user page' do
+    it 'shows the regular user page' do # rubocop:disable RSpec/ExampleLength
       visit Hyrax::Engine.routes.url_helpers.dashboard_path
       within '.sidebar' do
         expect(page).to have_link('Activity Summary')

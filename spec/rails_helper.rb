@@ -1,21 +1,17 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
 # In test most, unset some variables that can cause trouble
 # before booting up Rails
-ENV['SETTINGS__MULTITENANCY__ADMIN_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION'] = nil
-ENV['SETTINGS__MULTITENANCY__DEFAULT_HOST'] = nil
-ENV['SETTINGS__MULTITENANCY__ENABLED'] = nil
+ENV['HYKU_ADMIN_HOST'] = 'test.host'
+ENV['HYKU_ROOT_HOST'] = 'test.host'
+ENV['HYKU_ADMIN_ONLY_TENANT_CREATION'] = nil
+ENV['HYKU_DEFAULT_HOST'] = nil
+ENV['HYKU_MULTITENANT'] = 'true'
 
 require 'simplecov'
-require 'coveralls'
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-  [
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
-)
 SimpleCov.start('rails')
 
 require File.expand_path('../config/environment', __dir__)
@@ -28,6 +24,7 @@ require 'database_cleaner-active_record'
 require 'active_fedora/cleaner'
 require 'webdrivers'
 require 'rspec/retry'
+require 'shoulda/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -63,6 +60,8 @@ DatabaseCleaner.allow_remote_database_url = true
 # Uses faster rack_test driver when JavaScript support not needed
 Capybara.default_max_wait_time = 8
 Capybara.default_driver = :rack_test
+
+ENV['WEB_HOST'] ||= `hostname -s`.strip
 
 if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
@@ -106,7 +105,6 @@ end
 
 Capybara.javascript_driver = :chrome
 
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -149,11 +147,14 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ApplicationHelper, type: :view
   config.include Warden::Test::Helpers, type: :feature
+  config.include ActiveJob::TestHelper
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     Account.destroy_all
     CreateSolrCollectionJob.new.without_account('hydra-test') if ENV['IN_DOCKER']
+    CreateSolrCollectionJob.new.without_account('hydra-sample')
+    CreateSolrCollectionJob.new.without_account('hydra-cross-search-tenant', 'hydra-test, hydra-sample')
   end
 
   config.before(clean: true) do
@@ -166,11 +167,13 @@ RSpec.configure do |config|
     ActiveFedora::Cleaner.clean!
   end
 
-  config.before(:each) do |example|
-    # example.metadata[:js] tells Capybara to use the :selenium_chrome_headless_sandboxless
-    # driver (instead of the default :rack_test driver)
-    @remote_feature = (example.metadata[:type] == :feature && example.metadata[:js])
-    if @remote_feature
+  config.before do |example|
+    # make sure we are on the default fedora config
+    ActiveFedora::Fedora.reset!
+    ActiveFedora::SolrService.reset!
+    # Pass `:clean' to destroy objects in fedora/solr and start from scratch
+    ActiveFedora::Cleaner.clean! if example.metadata[:clean]
+    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction
@@ -178,7 +181,10 @@ RSpec.configure do |config|
     end
   end
 
-  config.after(:each, type: :feature) do
+  config.after(:each, type: :feature) do |example|
+    # rubocop:disable Lint/Debugger
+    save_and_open_page if example.exception.present?
+    # rubocop:enable Lint/Debugger
     Warden.test_reset!
     Capybara.reset_sessions!
     page.driver.reset!

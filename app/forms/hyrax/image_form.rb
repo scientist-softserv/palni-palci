@@ -6,7 +6,8 @@ module Hyrax
   class ImageForm < Hyrax::Forms::WorkForm
     include Hyrax::FormTerms
     self.model_class = ::Image
-    self.terms += %i[resource_type extent alternative_title additional_information rights_notes bibliographic_citation abstract]
+    self.terms += %i[resource_type extent additional_information bibliographic_citation]
     self.terms -=%i[based_near]
+    self.required_fields += %i[keyword]
   end
 end

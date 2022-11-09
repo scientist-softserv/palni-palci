@@ -28,7 +28,9 @@
         <%= content_for?(:content) ? yield(:content) : yield %>
 
     </div><!-- /#content-wrapper -->
-    <%= render 'shared/footer' %>
+    <% unless controller.controller_name == 'splash' %>
+      <%= render 'shared/footer' %>
+    <% end %>
     <%= render 'shared/ajax_modal' %>
   </body>
 </html>

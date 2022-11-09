@@ -14,6 +14,7 @@ class Ability
     collection_roles
     user_roles
     work_roles
+    featured_collection_abilities
   ]
   # If the Groups with Roles feature is disabled, allow registered users to create curation concerns (Works, Collections, and FileSets).
   # Otherwise, omit this ability logic as to not conflict with the roles that explicitly grant creation permissions.
@@ -90,5 +91,9 @@ class Ability
     end
 
     @all_user_and_group_roles
+  end # needed this for sure to-do April
+
+  def featured_collection_abilities
+    can %i[create destroy update], FeaturedCollection if admin?
   end
 end

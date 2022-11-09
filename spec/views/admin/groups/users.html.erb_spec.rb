@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'admin/groups/users', type: :view do
   include Warden::Test::Helpers
   include Devise::Test::ControllerHelpers

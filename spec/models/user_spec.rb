@@ -1,4 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe User, type: :model do
+  it 'validates email and password' do
+    is_expected.to validate_presence_of(:email)
+    is_expected.to validate_presence_of(:password)
+  end
+
   context 'the first created user in global tenant' do
     subject { FactoryBot.create(:user) }
 
@@ -7,6 +14,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'does not get the admin role' do
+      expect(subject.persisted?).to eq true
       expect(subject).not_to have_role :admin
       expect(subject).not_to have_role :admin, Site.instance
     end

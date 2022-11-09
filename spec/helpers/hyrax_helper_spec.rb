@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe HyraxHelper, type: :helper do
   describe "#banner_image" do
     context "with uploaded banner image" do
@@ -35,6 +37,30 @@ RSpec.describe HyraxHelper, type: :helper do
     context "without uploaded directory image" do
       it "returns false" do
         expect(helper.directory_image).to eq(false)
+      end
+    end
+  end
+
+  describe "#block_for" do
+    let(:key_name) { 'some_key' }
+
+    context "when ContentBlock is found" do
+      let(:content_block) { FactoryBot.create(:content_block, name: key_name, value: a_value) }
+      let(:a_value) { 'some returned text' }
+
+      before do
+        content_block
+      end
+      it "returns text" do
+        expect(helper.block_for(name: key_name)).to eq(a_value)
+      end
+    end
+
+    context "when ContentBlock is not found" do
+      let(:a_value) { nil }
+
+      it "returns false" do
+        expect(helper.block_for(name: key_name)).to be false
       end
     end
   end

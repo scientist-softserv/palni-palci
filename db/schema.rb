@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_09_001128) do
+ActiveRecord::Schema.define(version: 2022_11_02_232441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_cross_searches", force: :cascade do |t|
+    t.bigint "search_account_id"
+    t.bigint "full_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["full_account_id"], name: "index_account_cross_searches_on_full_account_id"
+    t.index ["search_account_id"], name: "index_account_cross_searches_on_search_account_id"
+  end
 
   create_table "accounts", id: :serial, force: :cascade do |t|
     t.string "tenant"
@@ -25,10 +34,15 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.string "name"
     t.integer "redis_endpoint_id"
     t.boolean "is_public", default: false
+    t.jsonb "settings", default: {}
+    t.bigint "data_cite_endpoint_id"
+    t.boolean "search_only", default: false
     t.index ["cname", "tenant"], name: "index_accounts_on_cname_and_tenant"
     t.index ["cname"], name: "index_accounts_on_cname", unique: true
+    t.index ["data_cite_endpoint_id"], name: "index_accounts_on_data_cite_endpoint_id"
     t.index ["fcrepo_endpoint_id"], name: "index_accounts_on_fcrepo_endpoint_id", unique: true
     t.index ["redis_endpoint_id"], name: "index_accounts_on_redis_endpoint_id", unique: true
+    t.index ["settings"], name: "index_accounts_on_settings", using: :gin
     t.index ["solr_endpoint_id"], name: "index_accounts_on_solr_endpoint_id", unique: true
   end
 
@@ -250,6 +264,15 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "featured_collections", force: :cascade do |t|
+    t.integer "order", default: 6
+    t.string "collection_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_featured_collections_on_collection_id"
+    t.index ["order"], name: "index_featured_collections_on_order"
+  end
+
   create_table "featured_works", id: :serial, force: :cascade do |t|
     t.integer "order", default: 6
     t.string "work_id"
@@ -305,6 +328,12 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.boolean "brandable", default: true, null: false
     t.string "badge_color", default: "#663333"
     t.index ["machine_id"], name: "index_hyrax_collection_types_on_machine_id", unique: true
+  end
+
+  create_table "hyrax_default_administrative_set", force: :cascade do |t|
+    t.string "default_admin_set_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hyrax_features", id: :serial, force: :cascade do |t|
@@ -394,6 +423,9 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.string "mailbox_type", limit: 25
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_delivered", default: false
+    t.string "delivery_method"
+    t.string "message_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
   end
@@ -491,9 +523,9 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
   end
 
   create_table "single_use_links", id: :serial, force: :cascade do |t|
-    t.string "downloadKey"
+    t.string "download_key"
     t.string "path"
-    t.string "itemId"
+    t.string "item_id"
     t.datetime "expires"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -531,7 +563,7 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
 
   create_table "sipity_entity_specific_responsibilities", id: :serial, force: :cascade do |t|
     t.integer "workflow_role_id", null: false
-    t.string "entity_id", null: false
+    t.integer "entity_id", null: false
     t.integer "agent_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -673,6 +705,7 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.string "home_theme"
     t.string "show_theme"
     t.string "search_theme"
+    t.string "directory_image_alt_text"
   end
 
   create_table "subject_local_authority_entries", id: :serial, force: :cascade do |t|
@@ -795,6 +828,8 @@ ActiveRecord::Schema.define(version: 2022_06_09_001128) do
     t.index ["work_id"], name: "index_work_view_stats_on_work_id"
   end
 
+  add_foreign_key "account_cross_searches", "accounts", column: "full_account_id"
+  add_foreign_key "account_cross_searches", "accounts", column: "search_account_id"
   add_foreign_key "accounts", "endpoints", column: "fcrepo_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "redis_endpoint_id", on_delete: :nullify
   add_foreign_key "accounts", "endpoints", column: "solr_endpoint_id", on_delete: :nullify

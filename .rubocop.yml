@@ -9,7 +9,7 @@ RSpec/DescribedClass:
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
@@ -32,8 +32,8 @@ Rails/DynamicFindBy:
   Exclude:
     - 'lib/importer/factory/object_factory.rb'
 
-Layout/LineLength:
-  Max: 120
+Metrics/LineLength:
+  Max: 203
   Exclude:
     - 'app/controllers/catalog_controller.rb'
     - 'spec/controllers/curation_concerns/generic_works_controller_spec.rb'
@@ -43,7 +43,7 @@ Layout/LineLength:
     - 'spec/features/create_etd_spec.rb'
 
 Layout/IndentationConsistency:
-  EnforcedStyle: indented_internal_methods
+  EnforcedStyle: rails
 
 Layout/DotPosition:
   EnforcedStyle: leading

@@ -77,10 +77,10 @@ es:
             invalid: Los grupos deben tener un nombre
             success: "%{group} creado"
           destroy:
-            failure: 'No pudo ser destruido %{group} '
+            failure: "No pudo ser destruido %{group} "
             success: "%{group} destruido"
           update:
-            failure: 'No se pudo actualizar %{group} '
+            failure: "No se pudo actualizar %{group} "
             success: "%{group} actualizado"
         humanized_name:
           admin: Administradores de repositorios

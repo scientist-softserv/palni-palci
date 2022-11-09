@@ -9,11 +9,9 @@ gem 'activerecord-nulldb-adapter'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -70,7 +68,7 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'rspec-retry'
   gem 'semaphore_test_boosters'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '3.142.7'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers', '~> 4.0'
   gem 'webmock'
@@ -82,22 +80,23 @@ group :development do
 
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'easy_translate'
+  gem 'scss_lint', require: false
   gem 'spring', '~> 1.7'
   gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'scss_lint', require: false
-  gem 'easy_translate'
 end
 
 # Bulkrax
-gem 'bulkrax'
-gem 'willow_sword', git: 'https://github.com/notch8/willow_sword.git'
+gem 'bulkrax', '~> 4.3.0'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
-gem 'hyrax', '2.9.6'
+gem 'hyrax', '~> 3.4.0'
 
+gem 'bolognese', '>= 1.9.10'
+gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'#, branch: 'hyrax_upgrade'
+gem 'postrank-uri', '>= 1.0.24'
 gem 'rsolr', '~> 2.0'
 
 gem 'devise'
@@ -113,8 +112,6 @@ gem 'rolify'
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
 
-gem 'zk'
-
 gem 'mods', '~> 2.4'
 
 group :aws, :test do
@@ -122,20 +119,31 @@ group :aws, :test do
 end
 
 group :aws do
-  gem 'active_elastic_job', git: 'https://github.com/tawan/active-elastic-job.git'
+  gem 'active_elastic_job'#, git: 'https://github.com/active-elastic-job/active-elastic-job'
   gem 'aws-sdk-sqs'
 end
 
-gem 'sidekiq'
-
-gem 'secure_headers'
-
-gem 'codemirror-rails'
-gem 'riiif', '~> 1.1'
-
-gem "sentry-raven"
 gem 'bootstrap-datepicker-rails'
-gem 'parser', '~> 2.7.2'
+gem "cocoon"
+gem 'codemirror-rails'
+gem 'okcomputer'
+gem 'parser', '~> 2.5.3'
+gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
+gem 'riiif', '~> 1.1'
+gem 'secure_headers'
+gem "sentry-raven" # April ToDo: Need to take out once the transfer is complete to Sentry.io
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'sidekiq'
+gem 'terser' # to support the Safe Navigation / Optional Chaining operator (?.) and avoid uglifier precompile issue
 gem 'tether-rails'
 gem 'progress_bar'
-gem 'activejob-scheduler', git: 'https://github.com/yalelibrary/activejob-scheduler.git'
+gem 'activejob-scheduler', git: 'https://github.com/notch8/activejob-scheduler.git'
+
+# Pronto adds comments to MRs in gitlab when rubocop offenses are made.
+gem 'pronto'
+gem 'pronto-brakeman', require: false
+gem 'pronto-flay', require: false
+gem 'pronto-rails_best_practices', require: false
+gem 'pronto-rails_schema', require: false
+gem 'pronto-rubocop', require: false

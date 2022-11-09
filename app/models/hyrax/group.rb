@@ -1,16 +1,29 @@
-# Override from hyrax 2.5.1 to migrate Hyku::Group into Hyrax::Group
+# frozen_string_literal: true
+
+# Override from hyrax 3.4.1 to migrate Hyku::Group into Hyrax::Group
 module Hyrax
   class Group < ApplicationRecord
     resourcify # Declares Hyrax::Group a resource model so rolify can manage membership
 
     MEMBERSHIP_ROLE = :member
     DEFAULT_MEMBER_CLASS = ::User
+    DEFAULT_NAME_PREFIX = 'group/'
 
     validates :name, presence: true, uniqueness: true
     has_many :group_roles
     has_many :roles, through: :group_roles
     before_destroy :can_destroy?
     after_destroy :remove_all_members
+    
+    def self.name_prefix
+      DEFAULT_NAME_PREFIX
+    end
+
+    ##
+    # @return [Hyrax::Group]
+    def self.from_agent_key(key)
+      new(key.delete_prefix(name_prefix))
+    end
 
     def self.search(query)
       if query.present?
@@ -52,6 +65,13 @@ module Hyrax
       members.count
     end
 
+    ##
+    # @return [String] a local identifier for this group; for use (e.g.) in ACL
+    #   data
+    def agent_key
+      self.class.name_prefix + name
+    end
+
     def to_sipity_agent
       sipity_agent || create_sipity_agent!
     end
@@ -88,11 +108,11 @@ module Hyrax
       end
 
       def sipity_agent
-        Sipity::Agent.find_by(proxy_for_id: id, proxy_for_type: self.class.name)
+        Sipity::Agent.find_by(proxy_for_id: name, proxy_for_type: self.class.name)
       end
 
       def create_sipity_agent!
-        Sipity::Agent.create!(proxy_for_id: id, proxy_for_type: self.class.name)
+        Sipity::Agent.create!(proxy_for_id: name, proxy_for_type: self.class.name)
       end
   end
 end

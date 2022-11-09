@@ -6,12 +6,16 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
   let(:account) { FactoryBot.create(:account) }
   let(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Adam Admin') }
   let(:user) { create :user }
+
+  # rubocop:disable RSpec/LetSetup
   let!(:work) do
     create(:generic_work,
            title: ['Llamas and Alpacas'],
            keyword: ['llama', 'alpaca'],
            user: user)
   end
+
+  # rubocop:enable RSpec/LetSetup
 
   context "as a repository admin" do
     it "has a tab for themes on the appearance tab" do
@@ -60,7 +64,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
   end
 
   context 'when a search results theme is selected' do
-    it 'updates the search results page with the selected layout view' do
+    it 'updates the search results page with the selected layout view' do # rubocop:disable RSpec/ExampleLength
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')
@@ -120,7 +124,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       expect(page).to have_content('This theme uses a custom banner image')
       expect(page).to have_content('This theme uses home page text')
       expect(page).to have_content('This theme uses marketing text')
-      expect(page.find('#home-wireframe img')['src']).to match(/assets\/themes\/cultural_repository/)
+      expect(page.find('#home-wireframe img')['src']).to match(%r{/assets\/themes\/cultural_repository/})
     end
 
     it 'renders the partials in the theme folder' do
@@ -138,7 +142,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
     end
 
-    it 'updates the home theme when the theme is changed' do
+    it 'updates the home theme when the theme is changed' do # rubocop:disable RSpec/ExampleLength
       login_as admin
       visit '/admin/appearance'
       click_link('Themes')

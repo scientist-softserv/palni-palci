@@ -1,4 +1,4 @@
-unless ENV['DB_ADAPTER'] == 'nulldb'
+if ENV['DB_ADAPTER'] != 'nulldb' && db_created?
   # You can have Apartment route to the appropriate Tenant by adding some Rack middleware.
   # Apartment can support many different "Elevators" that can take care of this routing to your data.
   # Require whichever Elevator you're using below or none if you have a custom one.
@@ -11,7 +11,7 @@ unless ENV['DB_ADAPTER'] == 'nulldb'
   Apartment.configure do |config|
     # Add any models that you do not want to be multi-tenanted, but remain in the global (public) namespace.
     # A typical example would be a Customer or Tenant model that stores each Tenant's information.
-    config.excluded_models = %w[Account DomainName Endpoint User UserStat SolrEndpoint FcrepoEndpoint RedisEndpoint]
+    config.excluded_models = %w{ Account AccountCrossSearch DomainName Endpoint User UserStat SolrEndpoint FcrepoEndpoint RedisEndpoint }
 
     # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
     # You can make this dynamic by providing a Proc object to be called on migrations.
@@ -49,7 +49,7 @@ unless ENV['DB_ADAPTER'] == 'nulldb'
     # Therefore cannot be used as effectively as ActiveRecord hooks.
     Apartment::Tenant.adapter.class.set_callback :switch, :after, -> do
       account = Account.find_by(tenant: current)
-      account&.switch!
+      account.switch! if account
     end
   end
 

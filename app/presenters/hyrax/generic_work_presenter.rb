@@ -4,6 +4,6 @@
 #  `rails generate hyrax:work GenericWork`
 module Hyrax
   class GenericWorkPresenter < Hyku::WorkShowPresenter
-    delegate :rights_notes, :abstract, to: :solr_document
+    delegate :abstract, to: :solr_document
   end
 end

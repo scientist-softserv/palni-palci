@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   # TODO: swap this out for hyrax's collection_lw: see TODO(bkiahstroud) below
   factory :collection do
@@ -46,12 +48,22 @@ FactoryBot.define do
         attributes[:manage_users] = CollectionFactoryHelper.user_managers(evaluator.with_permission_template,
                                                                           evaluator.user,
                                                                           access)
-        if evaluator.with_permission_template.respond_to?(:merge)
-          attributes = evaluator.with_permission_template.merge(attributes)
-        end
+
+        attributes = evaluator.with_permission_template.merge(attributes) if evaluator.with_permission_template.respond_to?(:merge)
+
         create(:permission_template, attributes) unless Hyrax::PermissionTemplate.find_by(source_id: collection.id)
         collection.reset_access_controls!
       end
+    end
+
+    factory :public_collection, traits: [:public]
+
+    trait :public do
+      visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+    end
+
+    factory :private_collection do
+      visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
     end
   end
 

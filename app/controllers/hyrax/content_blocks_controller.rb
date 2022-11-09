@@ -1,4 +1,6 @@
-# Copied from Hyrax v2.9.0 to add home_text to permitted_params - Adding themes
+# frozen_string_literal: true
+
+# OVERRIDE Hyrax v3.4.0 to add home_text to permitted_params - Adding themes
 module Hyrax
   class ContentBlocksController < ApplicationController
     load_and_authorize_resource

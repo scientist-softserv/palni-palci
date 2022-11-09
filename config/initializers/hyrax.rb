@@ -7,7 +7,8 @@ Hyrax.config do |config|
   # Injected via `rails g hyrax:work Etd`
   config.register_curation_concern :etd
   # Email recipient of messages sent via the contact form
-  config.contact_email = Settings.contact_email
+  # This is set by account settings
+  # config.contact_email = 'changeme@example.com'
 
   # Text prefacing the subject entered in the contact form
   # config.subject_prefix = "Contact form:"
@@ -21,10 +22,12 @@ Hyrax.config do |config|
   # Enable displaying usage statistics in the UI
   # Defaults to FALSE
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
-  config.analytics = Settings.google_analytics_id.present?
+  # This is set by account settings
+  # config.analytics = false
 
   # Specify a Google Analytics tracking ID to gather usage statistics
-  config.google_analytics_id = Settings.google_analytics_id
+  # This is set by account settings
+  # config.google_analytics_id = 'UA-99999999-1'
 
   # Specify a date you wish to start collecting Google Analytic statistics for.
   config.analytic_start_date = DateTime.new(2021,9,13)
@@ -53,13 +56,14 @@ Hyrax.config do |config|
   # config.minter_statefile = '/tmp/minter-state'
 
   # Specify the prefix for Redis keys:
-  config.redis_namespace = Settings.redis.default_namespace
+  # Note this is only the default namespace for the proritor section. Tenants get their own namespace
+  config.redis_namespace = ENV.fetch('HYRAX_REDIS_NAMESPACE', 'hyrax')
 
   # Specify the path to the file characterization tool:
-  config.fits_path = Settings.fits_path
+  config.fits_path = ENV.fetch('HYRAX_FITS_PATH', '/app/fits/fits.sh')
 
   # Specify the path to the file derivatives creation tool:
-  # config.libreoffice_path = "soffice"
+  config.libreoffice_path = ENV.fetch('HYRAX_LIBREOFFICE_PATH', 'soffice')
 
   # Stream realtime notifications to users in the browser
   config.realtime_notifications = false
@@ -88,7 +92,8 @@ Hyrax.config do |config|
 
   # Location autocomplete uses geonames to search for named regions.
   # Specify the user for connecting to geonames:
-  config.geonames_username = Settings.geonames_username
+  # This is set in account settings
+  # config.geonames_username = ''
 
   # Should the acceptance of the licence agreement be active (checkbox), or
   # implied when the save button is pressed? Set to true for active.
@@ -114,14 +119,12 @@ Hyrax.config do |config|
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
-  if Settings.multitenancy.enabled
-   config.upload_path = ->() do
-     if Settings.s3.upload_bucket
-       "uploads/#{Apartment::Tenant.current}"
-     else
-       ENV['HYRAX_UPLOAD_PATH'].present? ? Pathname.new(File.join(ENV['HYRAX_UPLOAD_PATH'], Apartment::Tenant.current)) : Rails.root.join('public', 'uploads', Apartment::Tenant.current)
-     end
-   end
+  config.upload_path = ->() do
+    if Site.account&.s3_bucket
+      "uploads/#{Apartment::Tenant.current}"
+    else
+      ENV['HYRAX_UPLOAD_PATH'].present? ? Pathname.new(File.join(ENV['HYRAX_UPLOAD_PATH'], Apartment::Tenant.current)) : Rails.root.join('public', 'uploads', Apartment::Tenant.current)
+    end
   end
 
   # Location on local file system where derivatives will be stored.
@@ -144,11 +147,12 @@ Hyrax.config do |config|
   # config.display_media_download_link = true
 
   # Options to control the file uploader
-  # config.uploader = {
-  #   limitConcurrentUploads: 6,
-  #   maxNumberOfFiles: 100,
-  #   maxFileSize: 500.megabytes
-  # }
+  # Max size is set in accountsettings
+  config.uploader = {
+    limitConcurrentUploads: 6,
+    maxNumberOfFiles: 100,
+    maxFileSize: 5.gigabytes
+  }
 
   # Fedora import/export tool
   #
@@ -170,17 +174,16 @@ Hyrax.config do |config|
   #   config.browse_everything = nil
   # end
   config.browse_everything = nil
-  
+
   config.iiif_image_server = true
-  
-config.iiif_image_url_builder = lambda do |file_id, base_url, size|
+
+  config.iiif_image_url_builder = lambda do |file_id, base_url, size, _format|
     # Comment this next line to allow universal viewer to work in development
     # Issue with Hyrax v 2.9.0 where IIIF has mixed content error when running with SSL enabled
     # See Samvera Slack thread https://samvera.slack.com/archives/C0F9JQJDQ/p1596718417351200?thread_ts=1596717896.350700&cid=C0F9JQJDQ
     base_url = base_url.sub(/\Ahttp:/, 'https:')
-    Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
   end
-  
+
   config.iiif_info_url_builder = lambda do |file_id, base_url|
     uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
     uri = uri.sub(%r{/info\.json\Z}, '')
@@ -189,7 +192,6 @@ config.iiif_image_url_builder = lambda do |file_id, base_url, size|
     # See Samvera Slack thread https://samvera.slack.com/archives/C0F9JQJDQ/p1596718417351200?thread_ts=1596717896.350700&cid=C0F9JQJDQ
     uri.sub(/\Ahttp:/, 'https:')
   end
-  
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
@@ -199,6 +201,13 @@ Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Loca
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
 # set bulkrax default work type to first curation_concern if it isn't already set
-if Settings.bulkrax.enabled && Bulkrax.default_work_type.blank?
+if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true' && Bulkrax.default_work_type.blank?
   Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s
+end
+
+# Stop solr deprecation until ActiveFedora 13.2.8 comes out
+ActiveFedora::SolrService.class_eval do
+  def initialize(options = {})
+    @options = { timeout: 120, open_timeout: 120, url: 'http://localhost:8080/solr' }.merge(options)
+  end
 end

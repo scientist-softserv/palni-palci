@@ -6,7 +6,7 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.7.4
       bundler_version:
         type: string
         default: '2.0.1'
@@ -29,21 +29,42 @@ jobs:
       - image: ualbertalib/docker-fcrepo4:<< parameters.fcrepo_version>>
         environment:
           CATALINA_OPTS: "-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC"
-      - image: solr:7-alpine
-        command: bin/solr -cloud -noprompt -f -p <<parameters.solr_port>>
+      - image: bitnami/solr:8
+        environment:
+          SOLR_PORT_NUMBER: 8985
+          SOLR_CLOUD_BOOTSTRAP: "yes"
+          SOLR_ENABLE_CLOUD_MODE: "yes"
+          SOLR_ENABLE_AUTHENTICATION: "yes"
+          SOLR_COLLECTION: hydra-test
+          SOLR_ADMIN_USER: admin
+          SOLR_ADMIN_PASSWORD: admin
+          SOLR_ZK_HOSTS: localhost
+      - image: bitnami/zookeeper
+        environment:
+           ALLOW_ANONYMOUS_LOGIN: "yes"
+           JVMFLAGS: -Dzookeeper.4lw.commands.whitelist=ruok -Dzookeeper.admin.enableServer=false
+           ZOO_SERVERS: zoo1:2888:3888
+           ZOO_ADMIN_SERVER_PORT_NUMBER: 8020
       - image: circleci/redis:<<parameters.redis_version>>
       - image: circleci/postgres:9.6.2-alpine
     parallelism: 4
     environment:
       RAILS_VERSION: << parameters.rails_version >>
-      DATABASE_NAME: circle_test
-      DATABASE_HOST: 127.0.0.1
-      DATABASE_USER: postgres
-      DATABASE_TEST_NAME: circle_test
+      DB_NAME: circle_test
+      DB_HOST: 127.0.0.1
+      DB_USER: postgres
+      DB_TEST_NAME: circle_test
       BUNDLE_PATH: vendor/bundle
-      COVERALLS_PARALLEL: true
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
+      SOLR_ADMIN_USER: admin
+      SOLR_ADMIN_PASSWORD: admin
+      SOLR_COLLECTION_NAME: hydra-test
+      SOLR_CONFIGSET_NAME: hyku-1
+      SOLR_HOST: localhost
+      SOLR_PORT: 8985
+      SOLR_URL: http://admin:admin@localhost:8985/solr/
+      SETTINGS__SOLR__URL: http://admin:admin@localhost:8985/solr/
       RAILS_ENV: test
       RACK_ENV: test
       FCREPO_TEST_PORT: 8080/fcrepo
@@ -54,21 +75,16 @@ jobs:
       - samvera/bundle:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
-
-      - samvera/install_solr_core:
-          solr_config_path: << parameters.solr_config_path >>
       - samvera/rubocop
-      - run: bundle exec rake db:create db:schema:load zookeeper:upload
+      - run: bundle exec rake db:create db:schema:load
+      - run: bin/solrcloud-upload-configset.sh solr/conf
       - samvera/parallel_rspec
       - store_artifacts:
           path: coverage
-      - deploy:
-          command: |
-            curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$CIRCLE_BUILD_NUM&payload[status]=done"
 workflows:
   ci:
     jobs:
       - bundle_lint_test:
-          ruby_version: "2.5.5"
-          name: "ruby2-5-5"
-          solr_config_path: 'solr/config'
+          ruby_version: "2.7.4"
+          name: "ruby2-7-4"
+          solr_config_path: 'solr/conf'

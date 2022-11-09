@@ -29,10 +29,6 @@ class Oer < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :alternative_title, predicate: ::RDF::Vocab::DC.alternative do |index|
-    index.as :stored_searchable
-  end
-
   property :date_created, predicate: ::RDF::Vocab::DC.date do |index|
     index.as :stored_searchable
   end
@@ -90,10 +86,6 @@ class Oer < ActiveFedora::Base
   end
 
   property :bibliographic_citation, predicate: ::RDF::Vocab::DC.bibliographicCitation do |index|
-    index.as :stored_searchable
-  end
-
-  property :abstract, predicate: ::RDF::Vocab::DC.abstract do |index|
     index.as :stored_searchable
   end
 

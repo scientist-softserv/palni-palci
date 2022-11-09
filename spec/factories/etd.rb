@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :etd do
     title { ['Full ETD'] }
     advisor { ['Yoda'] }
-    based_near { [Hyrax::ControlledVocabularies::Location.new] }
     committee_member { ['Mace Windu'] }
     contributor { ['Obi Wan Kenobi'] }
     creator { ['The Librarian'] }

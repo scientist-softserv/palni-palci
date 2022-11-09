@@ -27,12 +27,13 @@
 
   ////// Collections Section //////
 
-  .collection-item-title, .recent-doc-title {
+  .collection-item-title,
+  .recent-doc-title {
     text-align: center;
 
     h3 {
-      font-size: 14px !important;
       cursor: default;
+      font-size: 14px !important;
       pointer-events: none;
       text-decoration: none;
 
@@ -48,11 +49,11 @@
 
     a {
       img {
-        max-width: 100%;
-        height: auto;
         display: block;
+        height: auto;
         margin-left: auto;
         margin-right: auto;
+        max-width: 100%;
       }
     }
   }
@@ -70,7 +71,7 @@
   }
 
   div.recently-uploaded:nth-child(2n+3) {
-    clear: left,
+    clear: left;
   }
 
   ////// Home Page text Section //////
@@ -109,16 +110,16 @@
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
     display: block;
-    max-width: 100%;
-    width: auto;
     height: 350px;
     margin: auto;
+    max-width: 100%;
+    width: auto;
   }
 
   div.carousel-caption {
     a {
-      text-decoration: none;
       color: #ffffff;
+      text-decoration: none;
     }
   }
 
@@ -130,36 +131,36 @@
 
   // Note: copied over to override /* line 112, /usr/local/rvm/gems/ruby-2.5.3/gems/bootstrap-sass-3.4.1/assets/stylesheets/bootstrap/_carousel.scss */
   .carousel-control.right {
-    right: 0;
-    left: auto;
     background-image: none;
-    filter: none;
     background-repeat: repeat-x;
+    filter: none;
+    left: auto;
+    right: 0;
     z-index: 10;
   }
 
-  .glyphicon-menu-right, .glyphicon-menu-left {
+  .glyphicon-menu-right,
+  .glyphicon-menu-left {
+    color: #555;
+    display: inline-block;
+    font-weight: 700;
+    margin-top: -10px;
     position: absolute;
     top: 50%;
     z-index: 5;
-    display: inline-block;
-    margin-top: -10px;
-    font-weight: 700;
-    color: #555;
   }
 
   ////// Media Queries //////
 
   @media (max-width: $screen-md-min) {
     div.neutral-repository-collections:nth-of-type(2n+3) {
-      clear: left,
+      clear: left;
     }
   }
 
   @media (min-width: $screen-md-min) {
     div.neutral-repository-collections:nth-of-type(3n+4) {
-      clear: left,
+      clear: left;
     }
   }
-
 }

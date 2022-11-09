@@ -1,7 +1,9 @@
-RSpec.describe CreateAccount do
-  let(:account) { FactoryBot.build(:sign_up_account) }
+# frozen_string_literal: true
 
+RSpec.describe CreateAccount do
   subject { described_class.new(account) }
+
+  let(:account) { FactoryBot.build(:sign_up_account) }
 
   describe '#create_tenant' do
     it 'creates a new apartment tenant' do
@@ -10,12 +12,11 @@ RSpec.describe CreateAccount do
     end
 
     it 'initializes the Site configuration with a link back to the Account' do
-      skip
-      expect(Apartment::Tenant).to receive(:create).with(account.tenant) do |&block|
+      expect(Apartment::Tenant).to receive(:create).with(any_args) do |&block|
         block.call
       end
       expect(AdminSet).to receive(:find_or_create_default_admin_set_id)
-      subject.create_tenant
+      subject.save
       expect(Site.reload.account).to eq account
     end
   end
@@ -108,6 +109,14 @@ RSpec.describe CreateAccount do
 
         expect(user.has_role?(:admin, Site.instance)).to eq(false)
       end
+    end
+  end
+  
+  describe '#schedule_recurring_jobs' do
+    it "Enques Embargo and Lease Expiry jobs" do
+      expect(EmbargoAutoExpiryJob).to receive(:perform_later).with(account)
+      expect(LeaseAutoExpiryJob).to receive(:perform_later).with(account)
+      subject.schedule_recurring_jobs
     end
   end
 end

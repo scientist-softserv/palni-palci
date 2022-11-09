@@ -1,38 +1,23 @@
-<table class="table table-striped collection-highlights">
-  <tbody>
-    <% collections.each do |collection| %>
-      <tr>
-        <td>
-          <div class="media">
-            <%= link_to [hyrax, collection], class: 'media-left', 'aria-hidden' => true do %>
-              <% if (collection.thumbnail_path == nil) %>
-                <%= image_tag(Site.instance.default_collection_image) %>
-              <% else %>
-                <%= image_tag(collection.thumbnail_path) %>
-              <% end %>
-            <% end %>
-            <div class="media-body">
-              <div class="media-heading">
-                <%= link_to [hyrax, collection] do %>
-                  <%= collection.title_or_label %>
-                <% end %>
-              </div>
-              <p>
-                <small>
-                  <%= collection.collection_subtitle.present? ?  collection.collection_subtitle : '' %>
-                </small>
-              </p>
-            </div>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<ul class="list-inline collection-highlights-list">
-  <li>
-    <%= link_to t('hyrax.homepage.admin_sets.link'),
-                main_app.search_catalog_path(f: { human_readable_type_sim: ["Collection"]}),
-                class: 'btn btn-default' %>
-  </li>
-</ul>
+<%# OVERRIDE from Hyrax 2.9.0 to add featured collection functionality %>
+
+<% featured_collection = f.object.presenter %>
+<tr>
+  <td>
+    <div class="d-flex">
+      <div>
+        <%= link_to [hyrax, featured_collection] do %>
+          <%= render_thumbnail_tag(featured_collection,
+                                   { class: 'img-responsive hidden-xs file_listing_thumbnail', alt: "#{featured_collection.title_or_label} #{ t('hyrax.homepage.admin_sets.thumbnail')}" },
+                                   {suppress_link: true}
+          ) %>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to [hyrax, featured_collection] do %>
+          <%= featured_collection.title.first %>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </td>
+</tr>

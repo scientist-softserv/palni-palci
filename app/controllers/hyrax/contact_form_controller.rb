@@ -1,45 +1,50 @@
-# OVERRIDE: Hyrax v2.9.0
+# frozen_string_literal: true
+
+# OVERRIDE: Hyrax v3.4.0
 # - add inject_theme_views method for theming
 # - add homepage presenter for access to feature flippers
 # - add access to content blocks in the show method
-# - add access to ir_counts in the show method
+# - add @featured_collection_list to new method
 
 module Hyrax
   class ContactFormController < ApplicationController
-
-    # OVERRIDE: Hyrax v2.9.0 Add for theming
+    # OVERRIDE: Hyrax v3.4.0 Add for theming
     # Adds Hydra behaviors into the application controller
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-
     before_action :build_contact_form
     layout 'homepage'
 
     # OVERRIDE: Adding inject theme views method for theming
     around_action :inject_theme_views
 
-    # OVERRIDE: Hyrax v2.9.0 Add for theming
+    class_attribute :model_class
+    self.model_class = Hyrax::ContactForm
+
+    # OVERRIDE: Hyrax v3.4.0 Add for theming
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
     def search_builder_class
       Hyrax::HomepageSearchBuilder
     end
 
-    # OVERRIDE: Hyrax v2.9.0 Add for theming
+    # OVERRIDE: Hyrax v3.4.0 Add for theming
     class_attribute :presenter_class
-    # OVERRIDE: Hyrax v2.9.0 Add for theming
+    # OVERRIDE: Hyrax v3.4.0 Add for theming
     self.presenter_class = Hyrax::HomepagePresenter
 
     helper Hyrax::ContentBlockHelper
 
     def new
-      # OVERRIDE: Hyrax v2.9.0 Add for theming
+      # OVERRIDE: Hyrax v3.4.0 Add for theming
       @presenter = presenter_class.new(current_ability, collections)
       @featured_researcher = ContentBlock.for(:researcher)
       @marketing_text = ContentBlock.for(:marketing)
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
+      # OVERRIDE: Hyrax 3.4.0 add @featured_collection_list
+      @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
       ir_counts if home_page_theme == 'institutional_repository'
     end
@@ -50,10 +55,10 @@ module Hyrax
         ContactMailer.contact(@contact_form).deliver_now
         flash.now[:notice] = 'Thank you for your message!'
         after_deliver
-        @contact_form = ContactForm.new
+        @contact_form = model_class.new
       else
-        flash.now[:error] = 'Sorry, this message was not sent successfully. '
-        flash.now[:error] << @contact_form.errors.full_messages.map(&:to_s).join(", ")
+        flash.now[:error] = 'Sorry, this message was not sent successfully. ' +
+                            @contact_form.errors.full_messages.map(&:to_s).join(", ")
       end
       render :new
     rescue RuntimeError => exception
@@ -74,7 +79,7 @@ module Hyrax
     private
 
       def build_contact_form
-        @contact_form = Hyrax::ContactForm.new(contact_form_params)
+        @contact_form = model_class.new(contact_form_params)
       end
 
       def contact_form_params
@@ -104,7 +109,9 @@ module Hyrax
           home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
           prepend_view_path(home_theme_view_path)
           yield
+          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
           view_paths=(original_paths)
+          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
         else
           yield
         end

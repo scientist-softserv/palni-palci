@@ -1,18 +1,20 @@
-ARG HYRAX_IMAGE_VERSION=3.0.1
+ARG HYRAX_IMAGE_VERSION=3.1.0
 FROM ghcr.io/samvera/hyrax/hyrax-base:$HYRAX_IMAGE_VERSION as hyku-base
 
 USER root
 
 ARG EXTRA_APK_PACKAGES="openjdk11-jre ffmpeg"
 RUN apk --no-cache upgrade && \
-  apk --no-cache add \
+    apk --no-cache add \
     cmake \
     libreoffice \
     libxml2-dev \
     mediainfo \
+    nodejs \
     perl \
     postgresql-client \
     screen \
+    yarn \
     $EXTRA_APK_PACKAGES
 
 ARG VIPS_VERSION=8.11.3
@@ -50,8 +52,11 @@ COPY --chown=1001:101 $APP_PATH/bin/db-migrate-seed.sh /app/samvera/
 
 COPY --chown=1001:101 $APP_PATH /app/samvera/hyrax-webapp
 
-ARG SETTINGS__BULKRAX__ENABLED="false"
-RUN RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile
+ARG HYKU_BULKRAX_ENABLED="true"
+RUN sh -l -c " \
+  yarn install && \
+  RAILS_ENV=production SECRET_KEY_BASE=`bin/rake secret` DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile"
+RUN ln -sf /app/samvera/branding /app/samvera/hyrax-webapp/public/branding
 
 FROM hyku-base as hyku-worker
 ENV MALLOC_ARENA_MAX=2

@@ -139,7 +139,7 @@ it:
       accounts:
         nav: conti
       users:
-        nav: Utenti
+        nav: utenti
     splash:
       account_denied: Non sei autorizzato a creare inquilini
       account_login: Accedi per iniziare

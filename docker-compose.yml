@@ -158,7 +158,7 @@ services:
         - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
       cache_from:
         - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
-        - ghcr.io/scientist-softserv/palni-palci/workder:${TAG:-latest}
+        - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
     image: ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
     command: sh -l -c 'bundle && bundle exec sidekiq'
     depends_on:

@@ -1,4 +1,4 @@
-name: "Build Test Lint"
+name: "Build Lint Test"
 on:
   push:
     branches:
@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    uses: scientist-softserv/actions/.github/workflows/build.yaml@v0.0.2
+    uses: scientist-softserv/actions/.github/workflows/build.yaml@self-hosted-runner
     with:
       target: hyku-base
       worker: true

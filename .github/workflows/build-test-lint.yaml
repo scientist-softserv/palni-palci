@@ -28,11 +28,11 @@ jobs:
       worker: true
   lint:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@vwith_subdir
+    uses: scientist-softserv/actions/.github/workflows/lint.yaml@with_subdir
     with:
       worker: true
   retag:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/retag.yaml@vwith_subdir
+    uses: scientist-softserv/actions/.github/workflows/retag.yaml@with_subdir
     with:
       worker: true

@@ -6,7 +6,6 @@ on:
   pull_request:
     branches:
       - main
-      - i492-hyku-upgrade # TODO: remove
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -24,16 +23,16 @@ jobs:
       workerTarget: hyku-worker
   test:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.1
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.2
     with:
       worker: true
   lint:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.1
+    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.2
     with:
       worker: true
   retag:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/retag.yaml@v0.0.1
+    uses: scientist-softserv/actions/.github/workflows/retag.yaml@v0.0.2
     with:
       worker: true

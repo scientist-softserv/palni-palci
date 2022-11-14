@@ -23,16 +23,16 @@ jobs:
       workerTarget: hyku-worker
   test:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.2
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@with_subdir
     with:
       worker: true
   lint:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.2
+    uses: scientist-softserv/actions/.github/workflows/lint.yaml@vwith_subdir
     with:
       worker: true
   retag:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/retag.yaml@v0.0.2
+    uses: scientist-softserv/actions/.github/workflows/retag.yaml@vwith_subdir
     with:
       worker: true

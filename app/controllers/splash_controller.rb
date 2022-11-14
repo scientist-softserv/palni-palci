@@ -2,7 +2,7 @@
 
 class SplashController < ProprietorController
   def index
-    @accounts = Account.where('is_public = ?', true).order(name: :asc)
+    @accounts = Account.where('is_public = ?', true).order(cname: :asc)
     @images = []
     @alt_text = []
     @accounts.map do |account|

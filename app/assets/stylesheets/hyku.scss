@@ -52,7 +52,7 @@
   h1 {
     font-family: $splash-font-family;
     color: $jumbotron-heading-color;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
   }
 
@@ -62,12 +62,14 @@
     font-size: 1.6em;
     font-weight: 400;
     margin-bottom: 20px;
+    font-size: 18px;
   }
 
   h2 {
     font-family: $splash-font-family;
     color: $jumbotron-sub-heading-color;
     font-weight: 400;
+    font-size: 20px;
   }
 
   .navbar {

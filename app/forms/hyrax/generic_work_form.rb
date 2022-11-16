@@ -9,6 +9,6 @@ module Hyrax
     include HydraEditor::Form::Permissions
     self.terms += %i[resource_type additional_information bibliographic_citation]
     self.terms -=%i[based_near]
-    self.required_fields += %i[keyword]
+    self.required_fields = %i[title creator keyword rights_statement]
   end
 end

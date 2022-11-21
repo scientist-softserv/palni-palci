@@ -12,5 +12,9 @@ module Hyrax
              :department,
              :abstract,
              to: :solr_document
+
+    def human_readable_type
+      Etd.model_name.i18n_key.upcase
+    end
   end
 end

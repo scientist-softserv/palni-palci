@@ -32,7 +32,10 @@ module Hyrax
       sanitized_attributes.merge!(permissions_attributes)
       sanitized_attributes.require('permissions_attributes').permit!
 
-      sanitized_attributes
+      # Wrap params in a HashWithIndifferentAccess because hydra-access-controls (v11.0.7)
+      # expects the permission's ID to be a Symbol, but instead gets passed a String.
+      # @see https://github.com/samvera/hydra-head/blob/v11.0.7/hydra-access-controls/app/models/hydra/access_control.rb#L25-L26
+      ActiveSupport::HashWithIndifferentAccess.new(sanitized_attributes)
     end
   end
 end

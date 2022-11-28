@@ -19,6 +19,9 @@ class CatalogController < ApplicationController
   def self.modified_field
     'system_modified_dtsi'
   end
+
+  before_action :setup_negative_captcha, only: [:email]
+
   configure_blacklight do |config|
     config.view.gallery.partials = %i[index_header index]
     # Removed the masonry and slideshow config partials for client themeing
@@ -398,5 +401,40 @@ class CatalogController < ApplicationController
   def show
     _, @document = fetch params[:id]
     render json: @document.to_h
+  end
+
+  private
+  def setup_negative_captcha
+    @captcha = NegativeCaptcha.new(
+      # A secret key entered in environment.rb. 'rake secret' will give you a good one.
+      secret: NEGATIVE_CAPTCHA_SECRET,
+      spinner: request.remote_ip,
+      # Whatever fields are in your form
+      fields: [:name, :email, :body],
+      # If you wish to override the default CSS styles (position: absolute; left: -2000px;) used to position the fields off-screen
+      css: "display: none",
+      params: params
+    )
+  end
+
+  # Email Action (this will render the appropriate view on GET requests and process the form and send the email on POST requests)
+  def email_action documents
+    mail = RecordMailer.email_record(documents, {:to => @captcha.values[:to], :message => @captcha.values[:message]}, url_options)
+    if mail.respond_to? :deliver_now
+      mail.deliver_now
+    else
+      mail.deliver
+    end
+  end
+  
+  def validate_email_params
+    if !@captcha.valid?
+      flash[:error] = @captcha.message
+    elsif @captcha.values[:to].blank?
+      flash[:error] = I18n.t('blacklight.email.errors.to.blank')
+    elsif !@captcha.values[:to].match(Blacklight::Engine.config.email_regexp)
+      flash[:error] = I18n.t('blacklight.email.errors.to.invalid', :to => @captcha.values[:to])
+    end
+
   end
 end

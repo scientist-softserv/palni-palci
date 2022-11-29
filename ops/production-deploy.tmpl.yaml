@@ -83,7 +83,7 @@ extraEnvVars: &envVars
   - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
     value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: cred.p12
+    value: prod-cred.p12
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
     value: pals-staging@pals-production-360222.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
@@ -141,17 +141,17 @@ extraEnvVars: &envVars
   - name: SMTP_ENABLED
     value: "true"
   - name: SMTP_USER_NAME
-    value: 3589f4a53e1731
+    value: AKIAJUV5DOPWWUKISN3Q
   - name: SMTP_PASSWORD
     value: $SMTP_PASSWORD
   - name: SMTP_ADDRESS
-    value: smtp.mailtrap.io
+    value: email-smtp.us-west-2.amazonaws.com
   - name: SMTP_DOMAIN
-    value: smtp.mailtrap.io
+    value: hykucommons.org
   - name: SMTP_PORT
-    value: "2525"
+    value: "587"
   - name: SMTP_TYPE
-    value: cram_md5
+    value: login
   - name: SOLR_ADMIN_USER
     value: admin
   - name: SOLR_COLLECTION_NAME

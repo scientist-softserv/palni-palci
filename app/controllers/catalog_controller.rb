@@ -403,6 +403,29 @@ class CatalogController < ApplicationController
     render json: @document.to_h
   end
 
+  def email
+    @response, @documents = action_documents
+
+    if request.post? && validate_email_params
+      email_action(@documents)
+      flash[:success] ||= I18n.t("blacklight.email.success", default: nil)
+
+      respond_to do |format|
+        format.html do
+          return render "email_success", layout: false if request.xhr?
+          redirect_to action_success_redirect_path
+        end
+      end
+    else
+      respond_to do |format|
+        format.html do
+          return render layout: false if request.xhr?
+          # Otherwise draw the full page
+        end
+      end
+    end
+  end
+
   private
 
     def setup_negative_captcha

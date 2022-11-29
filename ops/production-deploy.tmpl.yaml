@@ -69,11 +69,11 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /production-palni-palci
   - name: FCREPO_HOST
-    value: fcrepo.fcrepo.svc.cluster.local:8080
+    value: palsfcrepo:8080
   - name: FCREPO_PATH
     value: /rest
   - name: FCREPO_URL
-    value: http://fcrepo.fcrepo.svc.cluster.local:8080/rest
+    value: http://palsfcrepo:8080/rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
   - name: GOOGLE_OAUTH_APP_NAME

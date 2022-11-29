@@ -174,6 +174,8 @@ de:
               hint: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleichen Abmessungen für Höhe und Breite aufweist (100 Pixel breit und 100 Pixel hoch).
             directory_image:
               hint: Das Verzeichnisbild sollte ein Bild (JPG, GIF oder PNG) verwenden. Die Breite des Bildes sollte nicht größer als die doppelte Höhe sein.
+            favicon:
+              hint: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
             logo_image:
               hint: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht höher als der Header und nicht breiter als 400 Pixel ist.
             themes:
@@ -182,6 +184,7 @@ de:
             banner_image: Um ein Bild als Überschriften-Hintergrund zu verwenden, solltest du ein Bild (JPG, GIF oder PNG) verwenden, das mindestens 120 Pixel hoch und 1200 Pixel breit ist. Für beste Ergebnisse verwenden Sie ein Bild mindestens 1800 Pixel breit.
             default_image: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleiche Höhe und Breite hat (100 Pixel breit und 100 Pixel hoch).
             directory_image: Das Verzeichnisbild sollte ein Bild (JPG, GIF oder PNG) verwenden. Die Breite des Bildes sollte nicht größer als die doppelte Höhe sein.
+            favicon: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
             logo_image: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht größer als die Kopfzeile und nicht breiter als 400 Pixel ist.
           tabs:
             banner_image: Banner Bild
@@ -189,6 +192,7 @@ de:
             custom_css: Maßgeschneidert CSS
             default_images: Standardbilder
             directory_image: Verzeichnis Bild
+            favicon: favicon
             fonts: Schriftarten
             themes: Themen
       sidebar:

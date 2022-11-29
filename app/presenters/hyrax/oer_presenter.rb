@@ -25,6 +25,10 @@ module Hyrax
       paginated_item_list(page_array: authorized_related_items)
     end
 
+    def human_readable_type
+      Oer.model_name.i18n_key.upcase
+    end
+
     private
 
       # gets list of ids for previous versions

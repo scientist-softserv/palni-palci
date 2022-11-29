@@ -4,6 +4,16 @@
   <title>We're sorry, but something went wrong (500)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
+    a {
+      color: #2e74b2;
+    }
+    .splash-logo {
+      background: image_url("Hyku_Commons_Logo.png") no-repeat;
+      background-size: contain;
+      height: 120px;
+      width: 310px;
+      margin: auto;
+    }
     /**/
     :root {
       --main-color: #eaeaea;
@@ -13,20 +23,24 @@
     /**/
     body {
       background: var(--main-color);
+      margin-top: 100px;
     }
     h1 {
       margin: 100px auto 0 auto;
       color: var(--stroke-color);
-      font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
-      font-size: 10rem; line-height: 10rem;
-      font-weight: 200;
+      font-family: "Montserrat", "Lato", Helvetica, sans-serif;
+      color: #30373b;
+      font-size: 10rem; 
+      line-height: 10rem;
+      font-weight: 400;
       text-align: center;
     }
     h2 {
       margin: 20px auto 30px auto;
-      font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
+      font-family: "Montserrat", "Lato", Helvetica, sans-serif;
+      color: #30373b;
       font-size: 1.5rem;
-      font-weight: 200;
+      font-weight: 400;
       text-align: center;
     }
     h1, h2 {
@@ -153,8 +167,10 @@
   <!-- This file lives in public/500.html -->
   <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
   <body class="loading">
+    <div class="splash-logo">
+    </div>
     <h1>500</h1>
-    <h2>Unexpected Error <b>:(</b></h2>
+    <h2>An unexpected error occured, please <a class="" href="mailto:sconsortial-ir@palci.org">email us</a> if you continue to experience this error.</h2>
     <div class="gears">
       <div class="gear one">
         <div class="bar"></div>

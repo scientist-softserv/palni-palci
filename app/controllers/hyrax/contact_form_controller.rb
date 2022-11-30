@@ -22,7 +22,7 @@ module Hyrax
     class_attribute :model_class
     self.model_class = Hyrax::ContactForm
     
-    before_action :setup_negative_captcha, only: [:new, :create] # rubocop:disable Rails/LexicallyScopedActionFilter
+    before_action :setup_negative_captcha, only: [:new, :create]
     
     # OVERRIDE: Hyrax v3.4.0 Add for theming
     # The search builder for finding recent documents

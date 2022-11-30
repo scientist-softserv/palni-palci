@@ -13,16 +13,17 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-    before_filter :setup_negative_captcha, only: [:new, :create] # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :build_contact_form
     layout 'homepage'
-
+    
     # OVERRIDE: Adding inject theme views method for theming
     around_action :inject_theme_views
-
+    
     class_attribute :model_class
     self.model_class = Hyrax::ContactForm
-
+    
+    before_action :setup_negative_captcha, only: [:new, :create] # rubocop:disable Rails/LexicallyScopedActionFilter
+    
     # OVERRIDE: Hyrax v3.4.0 Add for theming
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
@@ -59,7 +60,8 @@ module Hyrax
         @contact_form = model_class.new
       else
         flash.now[:error] = 'Sorry, this message was not sent successfully. ' +
-                            @contact_form.errors.full_messages.map(&:to_s).join(", ")
+                            @contact_form.errors.full_messages.map(&:to_s).join(", ") +
+                            @captcha.error.map(&:to_s).join(", ") if @captcha.error
       end
       render :new
     rescue RuntimeError => exception
@@ -121,7 +123,7 @@ module Hyrax
       def setup_negative_captcha
         @captcha = NegativeCaptcha.new(
           # A secret key entered in environment.rb. 'rake secret' will give you a good one.
-          secret: NEGATIVE_CAPTCHA_SECRET,
+          secret: ENV.fetch('NEGATIVE_CAPTCHA_SECRET'),
           spinner: request.remote_ip,
           # Whatever fields are in your form
           fields: [:name, :email, :message],

@@ -19,6 +19,7 @@ class CatalogController < ApplicationController
   def self.modified_field
     'system_modified_dtsi'
   end
+
   configure_blacklight do |config|
     config.view.gallery.partials = %i[index_header index]
     # Removed the masonry and slideshow config partials for client themeing

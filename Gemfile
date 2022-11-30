@@ -123,9 +123,11 @@ group :aws do
   gem 'aws-sdk-sqs'
 end
 
+gem 'activejob-scheduler', git: 'https://github.com/notch8/activejob-scheduler.git'
 gem 'bootstrap-datepicker-rails'
 gem "cocoon"
 gem 'codemirror-rails'
+gem 'negative_captcha'
 gem 'okcomputer'
 gem 'parser', '~> 2.5.3'
 gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
@@ -138,7 +140,6 @@ gem 'sidekiq'
 gem 'terser' # to support the Safe Navigation / Optional Chaining operator (?.) and avoid uglifier precompile issue
 gem 'tether-rails'
 gem 'progress_bar'
-gem 'activejob-scheduler', git: 'https://github.com/notch8/activejob-scheduler.git'
 
 # Pronto adds comments to MRs in gitlab when rubocop offenses are made.
 gem 'pronto'

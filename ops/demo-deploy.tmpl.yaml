@@ -4,12 +4,12 @@ imagePullSecrets:
   - name: github
 
 resources:
-    requests:
-      memory: "1Gi"
-      cpu: "250m"
-    limits:
-      memory: "2Gi"
-      cpu: "1000m"
+  requests:
+    memory: "1Gi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
 
 livenessProbe:
   enabled: false

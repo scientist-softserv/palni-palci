@@ -7,7 +7,7 @@ namespace :hyku do
       next if collection.license.blank?
       next unless collection.license.first.include?('3.0')
 
-      collection.license = [collection.license.first.sub('3.0', '4.0')]
+      collection.license = [collection.license.first.sub('3.0/us/', '4.0/')]
       collection.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX
       collection.save!
     end
@@ -17,7 +17,7 @@ namespace :hyku do
         next if work.license.blank?
         next unless work.license.first.include?('3.0')
 
-        work.license = [work.license.first.sub('3.0', '4.0')]
+        work.license = [work.license.first.sub('3.0/us/', '4.0/')]
         work.save!
       end
     end

@@ -13,6 +13,7 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
+    before_filter :setup_negative_captcha, only: [:new, :create] # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :build_contact_form
     layout 'homepage'
 
@@ -51,7 +52,7 @@ module Hyrax
 
     def create
       # not spam and a valid form
-      if @contact_form.valid?
+      if @contact_form.valid? && @captcha.valid?
         ContactMailer.contact(@contact_form).deliver_now
         flash.now[:notice] = 'Thank you for your message!'
         after_deliver
@@ -116,5 +117,18 @@ module Hyrax
           yield
         end
       end
+
+      def setup_negative_captcha
+        @captcha = NegativeCaptcha.new(
+          # A secret key entered in environment.rb. 'rake secret' will give you a good one.
+          secret: NEGATIVE_CAPTCHA_SECRET,
+          spinner: request.remote_ip,
+          # Whatever fields are in your form
+          fields: [:name, :email, :message],
+          # If you wish to override the default CSS styles (position: absolute; left: -2000px;) used to position the fields off-screen
+          css: "display: none",
+          params: params
+        )
+      end  
   end
 end

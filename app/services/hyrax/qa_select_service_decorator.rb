@@ -6,7 +6,9 @@ module Hyrax
   module QaSelectServiceDecorator
     
     def active?(id)
-      authority.find(id)&.fetch('active') unless authority.find(id).empty?
+      result = authority.find(id)
+      return false if result.empty?
+      result&.fetch('active')
     end
 
     def include_current_value(value, _index, render_options, html_options)

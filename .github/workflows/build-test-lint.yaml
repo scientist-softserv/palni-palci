@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    uses: scientist-softserv/actions/.github/workflows/build.yaml@v0.0.5
+    uses: scientist-softserv/actions/.github/workflows/build.yaml@v005-but-on-github-runners
     secrets: inherit
     with:
       target: hyku-base

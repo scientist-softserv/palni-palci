@@ -60,8 +60,8 @@ module Hyrax
         @contact_form = model_class.new
       else
         flash.now[:error] = 'Sorry, this message was not sent successfully. ' +
-                            @contact_form.errors.full_messages.map(&:to_s).join(", ") + '' +
-                            @captcha.error if @captcha.error
+                            @contact_form.errors.full_messages.map(&:to_s).join(", ") + 
+                            "" + @captcha.error
       end
       render :new
     rescue RuntimeError => exception

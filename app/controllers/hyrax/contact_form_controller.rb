@@ -52,7 +52,7 @@ module Hyrax
     end
 
     def create
-      # not spam and a valid form
+      # not spam, form is valid, and captcha is valid
       if @contact_form.valid? && @captcha.valid?
         ContactMailer.contact(@contact_form).deliver_now
         flash.now[:notice] = 'Thank you for your message!'
@@ -60,7 +60,8 @@ module Hyrax
         @contact_form = model_class.new
       else
         flash.now[:error] = 'Sorry, this message was not sent successfully. ' +
-                            @contact_form.errors.full_messages.map(&:to_s).join(", ")
+                            @contact_form.errors.full_messages.map(&:to_s).join(", ") + 
+                            "" + @captcha.error
       end
       render :new
     rescue RuntimeError => exception
@@ -130,6 +131,6 @@ module Hyrax
           css: "display: none",
           params: params
         )
-      end  
+      end
   end
 end

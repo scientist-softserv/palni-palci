@@ -617,6 +617,7 @@ module Hyrax
       # @return <Hash> the inputs required for the collection member search builder
       def params_for_query
         params.merge(q: params[:cq])
+        # params.merge(search_field: 'all_fields')
       end
 
       # Only accept HTTP|HTTPS urls;
@@ -734,3 +735,55 @@ module Hyrax
     end
   end
 end
+
+
+# Processing by Hyrax::CollectionsController#show as HTML
+# web_1             |   Parameters: {"utf8"=>"✓", "cq"=>"chris p", "sort"=>"", "locale"=>"en", "id"=>"4a84c75e-6307-42e8-b622-a2ffb2391956"}
+
+# Solr parameters: {"facet.field"=>["human_readable_type_sim", "resource_type_sim", "creator_sim", "contributor_sim", "keyword_sim", "subject_sim", "language_sim", "based_near_label_sim", "publisher_sim", "file_format_sim", "member_of_collections_ssim"], 
+# "facet.query"=>[], 
+# "facet.pivot"=>[], 
+# "fq"=>[""], "hl.fl"=>[], 
+# "qt"=>"search", "rows"=>10, 
+# "qf"=>"title_tesim description_tesim creator_tesim keyword_tesim", 
+# "q"=>"chris p", 
+# "facet"=>true, 
+# "f.human_readable_type_sim.facet.limit"=>6, 
+# "f.resource_type_sim.facet.limit"=>6, 
+# "f.creator_sim.facet.limit"=>6, 
+# "f.contributor_sim.facet.limit"=>6, 
+# "f.keyword_sim.facet.limit"=>6, 
+# "f.subject_sim.facet.limit"=>6, 
+# "f.language_sim.facet.limit"=>6, 
+# "f.based_near_label_sim.facet.limit"=>6, 
+# "f.publisher_sim.facet.limit"=>6, 
+# "f.file_format_sim.facet.limit"=>6, 
+# "f.member_of_collections_ssim.facet.limit"=>6}
+
+# Solr query: get select 
+# {"qt"=>"search", 
+# "facet.field"=>["human_readable_type_sim", "resource_type_sim", "creator_sim", "contributor_sim", "keyword_sim", "subject_sim", "language_sim", "based_near_label_sim", "publisher_sim", "file_format_sim", "member_of_collections_ssim"], 
+# "facet.query"=>[], 
+# "facet.pivot"=>[], 
+# "fq"=>["", "{!terms f=has_model_ssim}GenericWork,Image,Oer,Etd", "-suppressed_bsi:true", "member_of_collection_ids_ssim:4a84c75e-6307-42e8-b622-a2ffb2391956"], 
+# "hl.fl"=>[], 
+# "rows"=>10, 
+# "qf"=>"title_tesim description_tesim creator_tesim keyword_tesim", 
+# "q"=>"chris p", 
+# "facet"=>true, 
+# "f.human_readable_type_sim.facet.limit"=>6, 
+# "f.resource_type_sim.facet.limit"=>6, 
+# "f.creator_sim.facet.limit"=>6, 
+# "f.contributor_sim.facet.limit"=>6, 
+# "f.keyword_sim.facet.limit"=>6, 
+# "f.subject_sim.facet.limit"=>6, 
+# "f.language_sim.facet.limit"=>6, 
+# "f.based_near_label_sim.facet.limit"=>6, 
+# "f.publisher_sim.facet.limit"=>6, 
+# "f.file_format_sim.facet.limit"=>6, 
+# "f.member_of_collections_ssim.facet.limit"=>6}
+
+# Processing by Hyrax::CollectionsController#show as HTML
+#   SELECT  "public"."users".* FROM "public"."users" WHERE "public"."users"."guest" = $1 AND "public"."users"."id" = $2 ORDER BY "public"."users"."id" ASC LIMIT $3  [["guest", false], ["id", 1], ["LIMIT", 1]]
+#   Parameters: {"utf8"=>"✓", "cq"=>"chris p", "sort"=>"", "locale"=>"en", "id"=>"4a84c75e-6307-42e8-b622-a2ffb2391956"}
+#   Role Load (0.8ms)  SELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND "roles"."name" = $2 AND "roles"."resource_type" = $3  [["user_id", 1], ["name", "member"], ["resource_type", "Hyrax::Group"]]

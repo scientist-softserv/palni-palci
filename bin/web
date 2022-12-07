@@ -1,6 +1,6 @@
 #!/usr/local/bin/ruby
 if ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] && !ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'].empty?
-  %x{echo #{ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET']} | base64 --decode > prod-cred.p12}
+  %x{echo #{ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET']} | base64 -d > prod-cred.p12}
 end
 
 exec "bundle exec puma -v -b tcp://0.0.0.0:3000"

@@ -53,11 +53,13 @@ module Hyrax
 
     def create
       # not spam, form is valid, and captcha is valid
+      @captcha.values[:category] =  params[:contact_form][:category]
+      @captcha.values[:contact_method] =  params[:contact_form][:contact_method]
+      @contact_form = model_class.new(@captcha.values)
       if @contact_form.valid? && @captcha.valid?
         ContactMailer.contact(@contact_form).deliver_now
         flash.now[:notice] = 'Thank you for your message!'
         after_deliver
-        @contact_form = model_class.new
       else
         flash.now[:error] = 'Sorry, this message was not sent successfully. ' +
                             @contact_form.errors.full_messages.map(&:to_s).join(", ") + 
@@ -126,7 +128,7 @@ module Hyrax
           secret: ENV.fetch('NEGATIVE_CAPTCHA_SECRET', 'default-value-change-me'),
           spinner: request.remote_ip,
           # Whatever fields are in your form
-          fields: [:email],
+          fields: [:name, :email, :subject, :message],
           # If you wish to override the default CSS styles (position: absolute; left: -2000px;) used to position the fields off-screen
           css: "display: none",
           params: params

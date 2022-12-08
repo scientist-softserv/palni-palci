@@ -53,8 +53,8 @@ module Hyrax
 
     def create
       # not spam, form is valid, and captcha is valid
-      @captcha.values[:category] =  params[:contact_form][:category]
-      @captcha.values[:contact_method] =  params[:contact_form][:contact_method]
+      @captcha.values[:category] = params[:contact_form][:category]
+      @captcha.values[:contact_method] = params[:contact_form][:contact_method]
       @contact_form = model_class.new(@captcha.values)
       if @contact_form.valid? && @captcha.valid?
         ContactMailer.contact(@contact_form).deliver_now

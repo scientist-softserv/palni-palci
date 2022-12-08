@@ -1,6 +1,6 @@
 #!/usr/local/bin/ruby
-if ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] && !ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'].empty?
-  %x{echo #{ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET']} | base64 -d > prod-cred.p12}
+if ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE'] && !ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE'].empty?
+  %x{echo #{ENV['GOOGLE_OAUTH_PRIVATE_KEY_VALUE']} | base64 -d > prod-cred.p12}
 end
 
 if ENV['DB_URL'] && !ENV['DB_URL'].empty?

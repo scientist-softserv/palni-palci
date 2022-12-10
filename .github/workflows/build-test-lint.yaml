@@ -16,22 +16,22 @@ on:
 
 jobs:
   build-web:
-    uses: scientist-softserv/actions/.github/workflows/build-web.yaml@arm-wrestle
+    uses: scientist-softserv/actions/.github/workflows/build-web.yaml@fix-build-issue-arm-vs-amd
     secrets: inherit
     with:
       target: hyku-base
   build-web-arm64:
-    uses: scientist-softserv/actions/.github/workflows/build-web-arm64.yaml@arm-wrestle
+    uses: scientist-softserv/actions/.github/workflows/build-web-arm64.yaml@fix-build-issue-arm-vs-amd
     secrets: inherit
     with:
       target: hyku-base
   build-worker:
-    uses: scientist-softserv/actions/.github/workflows/build-worker.yaml@arm-wrestle
+    uses: scientist-softserv/actions/.github/workflows/build-worker.yaml@fix-build-issue-arm-vs-amd
     secrets: inherit
     with:
       target: hyku-worker
   build-worker-arm64:
-    uses: scientist-softserv/actions/.github/workflows/build-worker-arm64.yaml@arm-wrestle
+    uses: scientist-softserv/actions/.github/workflows/build-worker-arm64.yaml@fix-build-issue-arm-vs-amd
     secrets: inherit
     with:
       target: hyku-worker

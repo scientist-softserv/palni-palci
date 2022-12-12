@@ -92,6 +92,8 @@ extraEnvVars: &envVars
     value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
     value: prod-cred.p12
+  - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
+    value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
     value: pals-staging@pals-production-360222.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL

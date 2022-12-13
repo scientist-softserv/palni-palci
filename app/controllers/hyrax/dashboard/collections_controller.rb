@@ -72,6 +72,9 @@ module Hyrax
       end
 
       def show
+        Rails.logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        Rails.logger.info("SHOW METHOD")
+        Rails.logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         # unused assignment to be removed in 4.0.0
         @banner_file = presenter.banner_file if collection_type.brandable?
 
@@ -578,6 +581,9 @@ module Hyrax
       end
 
       def query_collection_members
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        Rails.logger.info("QUERY_COLLECTION_MEMBERS METHOD")
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         member_works
         member_subcollections if collection_type.nestable?
         parent_collections if collection_type.nestable? && action_name == 'show'
@@ -585,10 +591,16 @@ module Hyrax
 
       # Instantiate the membership query service
       def collection_member_service
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        Rails.logger.info("COLLECTION_MEMBER_SERVICE METHOD")
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         @collection_member_service ||= membership_service_class.new(scope: self, collection: collection, params: params_for_query)
       end
 
       def member_works
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        Rails.logger.info("MEMBER_WORKS_METHOD")
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         @response = collection_member_service.available_member_works
         @member_docs = @response.documents
         @members_count = @response.total
@@ -616,8 +628,12 @@ module Hyrax
       #   search_field: 'all_fields'
       # @return <Hash> the inputs required for the collection member search builder
       def params_for_query
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        Rails.logger.info("PARAMS_FOR_QUERY METHOD")
+        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         params.merge(q: params[:cq])
-        # params.merge(search_field: 'all_fields')
+        # hash_to_merge = {search_field: 'all_fields', q: params[:cq]}
+        # params.merge(hash_to_merge)
       end
 
       # Only accept HTTP|HTTPS urls;
@@ -787,3 +803,25 @@ end
 #   SELECT  "public"."users".* FROM "public"."users" WHERE "public"."users"."guest" = $1 AND "public"."users"."id" = $2 ORDER BY "public"."users"."id" ASC LIMIT $3  [["guest", false], ["id", 1], ["LIMIT", 1]]
 #   Parameters: {"utf8"=>"✓", "cq"=>"chris p", "sort"=>"", "locale"=>"en", "id"=>"4a84c75e-6307-42e8-b622-a2ffb2391956"}
 #   Role Load (0.8ms)  SELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND "roles"."name" = $2 AND "roles"."resource_type" = $3  [["user_id", 1], ["name", "member"], ["resource_type", "Hyrax::Group"]]
+
+
+# CATALOG SEARCH
+# Started GET "/catalog?utf8=%E2%9C%93&cq=manifesto&sort=&search_field=all_fields&q=manifesto" for 172.20.0.7 at 2022-12-09 20:49:23 +000
+
+# Processing by CatalogController#index as HTML
+# web_1             |   Parameters: {"utf8"=>"✓", "cq"=>"manifesto", "sort"=>"", "search_field"=>"all_fields", "q"=>"manifesto"}
+
+# Search Create (0.5ms)  INSERT INTO "searches" ("query_params", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["query_params", "---\nutf8: \"✓\"\ncq: manifesto\nsearch_field: all_fields\nq: manifesto\ncontroller: catalog\naction: index\n"], ["created_at", "2022-12-09 20:49:23.929357"], ["updated_at", "2022-12-09 20:49:23.929357"]]
+
+# Solr parameters: {"facet.field"=>["human_readable_type_sim", "resource_type_sim", "creator_sim", "contributor_sim", "keyword_sim", "subject_sim", "language_sim", "based_near_label_sim", "publisher_sim", "file_format_sim", "member_of_collections_ssim"], "facet.query"=>[], "facet.pivot"=>[], "fq"=>[""], "hl.fl"=>[], "qt"=>"search", "rows"=>10, "qf"=>"title_tesim alternative_title_tesim creator_tesim contributor_tesim related_url_tesim learning_resource_type_tesim education_level_tesim audience_tesim discipline_tesim date_tesim description_tesim table_of_contents_tesim subject_tesim rights_statement_tesim license_tesim rights_holder_tesim additional_information_tesim language_tesim oer_size_tesim publisher_tesim identifier_tesim resource_type_tesim accessibility_feature_tesim accessibility_hazard_tesim accessibility_summary_tesim keyword_tesim based_near_label_tesim date_uploaded_tesim date_modified_tesim date_created_tesim format_tesim extent_tesim previous_version_id_tesim newer_version_id_tesim related_item_id_tesim file_format_tesim all_text_timv", "pf"=>"title_tesim", "q"=>"manifesto", "facet"=>true, "f.human_readable_type_sim.facet.limit"=>6, "f.resource_type_sim.facet.limit"=>6, "f.creator_sim.facet.limit"=>6, "f.contributor_sim.facet.limit"=>6, "f.keyword_sim.facet.limit"=>6, "f.subject_sim.facet.limit"=>6, "f.language_sim.facet.limit"=>6, "f.based_near_label_sim.facet.limit"=>6, "f.publisher_sim.facet.limit"=>6, "f.file_format_sim.facet.limit"=>6, "f.member_of_collections_ssim.facet.limit"=>6, "sort"=>"score desc, system_create_dtsi desc"}
+
+# Solr query: get select {"qt"=>"search", "facet.field"=>["human_readable_type_sim", "resource_type_sim", "creator_sim", "contributor_sim", "keyword_sim", "subject_sim", "language_sim", "based_near_label_sim", "publisher_sim", "file_format_sim", "member_of_collections_ssim"], "facet.query"=>[], "facet.pivot"=>[], "fq"=>["", "{!terms f=has_model_ssim}GenericWork,Image,Oer,Etd,Collection", "-suppressed_bsi:true", "", "-suppressed_bsi:true"], "hl.fl"=>[], "rows"=>10, "qf"=>"title_tesim alternative_title_tesim creator_tesim contributor_tesim related_url_tesim learning_resource_type_tesim education_level_tesim audience_tesim discipline_tesim date_tesim description_tesim table_of_contents_tesim subject_tesim rights_statement_tesim license_tesim rights_holder_tesim additional_information_tesim language_tesim oer_size_tesim publisher_tesim identifier_tesim resource_type_tesim accessibility_feature_tesim accessibility_hazard_tesim accessibility_summary_tesim keyword_tesim based_near_label_tesim date_uploaded_tesim date_modified_tesim date_created_tesim format_tesim extent_tesim previous_version_id_tesim newer_version_id_tesim related_item_id_tesim file_format_tesim all_text_timv", "pf"=>"title_tesim", "q"=>"{!lucene}_query_:\"{!dismax v=$user_query}\" _query_:\"{!join from=id to=file_set_ids_ssim}{!dismax v=$user_query}\"", "facet"=>true, "f.human_readable_type_sim.facet.limit"=>6, "f.resource_type_sim.facet.limit"=>6, "f.creator_sim.facet.limit"=>6, "f.contributor_sim.facet.limit"=>6, "f.keyword_sim.facet.limit"=>6, "f.subject_sim.facet.limit"=>6, "f.language_sim.facet.limit"=>6, "f.based_near_label_sim.facet.limit"=>6, "f.publisher_sim.facet.limit"=>6, "f.file_format_sim.facet.limit"=>6, "f.member_of_collections_ssim.facet.limit"=>6, "sort"=>"score desc, system_create_dtsi desc", "user_query"=>"manifesto", "defType"=>"lucene"}
+
+# COLLECTION SEARCH
+# Solr query: get select {"qt"=>"search", "facet.field"=>["human_readable_type_sim", "resource_type_sim", "creator_sim", "contributor_sim", "keyword_sim", "subject_sim", "language_sim", "based_near_label_sim", "publisher_sim", "file_format_sim", "member_of_collections_ssim"], "facet.query"=>[], "facet.pivot"=>[], "fq"=>["", "{!terms f=has_model_ssim}GenericWork,Image,Oer,Etd", "-suppressed_bsi:true", "member_of_collection_ids_ssim:4a84c75e-6307-42e8-b622-a2ffb2391956"], "hl.fl"=>[], "rows"=>10, "qf"=>"title_tesim alternative_title_tesim description_tesim creator_tesim contributor_tesim related_url_tesim learning_resource_type_tesim education_level_tesim audience_tesim degree_name_tesim degree_discipline_tesim degree_grantor_tesim date_tesim table_of_contents_tesim rights_statement_tesim license_tesim rights_holder_tesim additional_information_tesim oer_size_tesim publisher_tesim identifier_tesim keyword_tesim subject_tesim language_tesim resource_type_tesim date_created_tesim date_uploaded_tesim date_modified_tesim accessibility_feature_tesim accessibility_hazard_tesim accessibility_summary_tesim format_tesim extent_tesim all_text_timv", "q"=>"manifesto", "facet"=>true, "f.human_readable_type_sim.facet.limit"=>6, "f.resource_type_sim.facet.limit"=>6, "f.creator_sim.facet.limit"=>6, "f.contributor_sim.facet.limit"=>6, "f.keyword_sim.facet.limit"=>6, "f.subject_sim.facet.limit"=>6, "f.language_sim.facet.limit"=>6, "f.based_near_label_sim.facet.limit"=>6, "f.publisher_sim.facet.limit"=>6, "f.file_format_sim.facet.limit"=>6, "f.member_of_collections_ssim.facet.limit"=>6}
+# Processing by Hyrax::CollectionsController#show as HTML
+# web_1             |   Parameters: {"utf8"=>"✓", "cq"=>"manifesto", "sort"=>"", "id"=>"4a84c75e-6307-42e8-b622-a2ffb2391956"}
+
+
+# Parameters: {"utf8"=>"✓", "cq"=>"manifesto", "sort"=>"", "search_field"=>"all_fields", "q"=>"manifesto"}
+# Parameters: {"utf8"=>"✓", "cq"=>"manifesto", "sort"=>"", "id"=>"4a84c75e-6307-42e8-b622-a2ffb2391956"}

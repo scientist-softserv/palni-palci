@@ -70,3 +70,5 @@ docker-compose.override.yml
 
 # Ignore local test deploy script
 /bin/deploy-test
+cred.p12
+prod-cred.p12

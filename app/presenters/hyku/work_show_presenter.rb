@@ -33,6 +33,14 @@ module Hyku
       def list_of_item_ids_to_display
         paginated_item_list(page_array: members)
       end
+
+      def page_title
+        if human_readable_type == "Generic Work"
+          "#{title.first} | ID: #{id} | #{I18n.t('hyrax.product_name')}"
+        else
+          "#{human_readable_type} | #{title.first} | ID: #{id} | #{I18n.t('hyrax.product_name')}"
+        end 
+      end
     end
 
     # OVERRIDE here for featured collection methods

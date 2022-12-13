@@ -10,7 +10,7 @@
 <%= render 'shared/additional_citations' %>
 <div class="row work-type">
   <div class="col-sm-12">
-    <%= render 'work_type', presenter: @presenter %>
+    <%= render 'work_type', presenter: @presenter unless @presenter.human_readable_type == "Generic Work" %>
   </div>
   <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
     <%= render 'work_title', presenter: @presenter %>

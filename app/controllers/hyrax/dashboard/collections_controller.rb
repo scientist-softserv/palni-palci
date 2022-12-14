@@ -72,9 +72,6 @@ module Hyrax
       end
 
       def show
-        Rails.logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        Rails.logger.info("SHOW METHOD")
-        Rails.logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         # unused assignment to be removed in 4.0.0
         @banner_file = presenter.banner_file if collection_type.brandable?
 
@@ -581,9 +578,6 @@ module Hyrax
       end
 
       def query_collection_members
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        Rails.logger.info("QUERY_COLLECTION_MEMBERS METHOD")
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         member_works
         member_subcollections if collection_type.nestable?
         parent_collections if collection_type.nestable? && action_name == 'show'
@@ -591,16 +585,10 @@ module Hyrax
 
       # Instantiate the membership query service
       def collection_member_service
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        Rails.logger.info("COLLECTION_MEMBER_SERVICE METHOD")
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         @collection_member_service ||= membership_service_class.new(scope: self, collection: collection, params: params_for_query)
       end
 
       def member_works
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        Rails.logger.info("MEMBER_WORKS_METHOD")
-        Rails.logger.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         @response = collection_member_service.available_member_works
         @member_docs = @response.documents
         @members_count = @response.total

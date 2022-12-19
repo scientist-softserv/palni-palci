@@ -76,8 +76,8 @@ extraEnvVars: &envVars
     value: "%{tenant}.hyku-staging.example.com"
   - name: HYKU_ENABLED
     value: "true"
-  - name: HYKU_GOOGLE_ANALYTICS_ID
-    value: $HYKU_GOOGLE_ANALYTICS_ID
+  - name: GOOGLE_ANALYTICS_ID
+    value: $GOOGLE_ANALYTICS_ID
   - name: SOLR_ADMIN_USER
     value: admin
   - name: SOLR_COLLECTION_NAME

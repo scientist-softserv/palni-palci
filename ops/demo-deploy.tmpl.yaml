@@ -112,6 +112,8 @@ extraEnvVars: &envVars
     value: "%{tenant}.commons-archive.org"
   - name: HYKU_FILE_ACL
     value: "true"
+  - name: HYKU_GOOGLE_ANALYTICS_ID
+    value: $HYKU_GOOGLE_ANALYTICS_ID
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST

@@ -159,6 +159,7 @@ switch!('myaccount')
 | FCREPO_PORT | port for the fedora repo | 8080 | no |
 | FCREPO_TEST_PORT | Test port for the fedora repo, only if FCREPO_URL is blank | 8986 | yes |
 | FCREPO_URL | URL of the fedora repo, including port and prefix, but not repo name. | http://fcrepo:8080/rest | no |
+| GOOGLE_ANALYTICS_ID | Id for the applications Google Analytics account. Disabled if not set | - | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |
 | HYKU_ADMIN_ONLY_TENANT_CREATION | Restrict signing up a new tenant to the admin | false | no | |
 | HYKU_ALLOW_SIGNUP | Can users register themselves on a given Tenant | true  | no |
@@ -179,7 +180,6 @@ switch!('myaccount')
 | HYKU_FILE_ACL | Set Unix ACLs on file creation. Set to false if using Azure cloud or another network file system that does not allow setting permissions on files. | true | no |
 | HYKU_FILE_SIZE_LIMIT | How big a file do you want to accept in the work upload?  | 5242880 (5 MB) | no |
 | HYKU_GEONAMES_USERNAME | Username used for Geonames connections by the application | '' | no |
-| HYKU_GOOGLE_ANALYTICS_ID | Id for the applications Google Analytics account. Disabled if not set | - | no |
 | HYKU_GOOGLE_SCHOLARLY_WORK_TYPES | List of work types which should be presented to Google Scholar for indexing. Comman seperated WorkType list | - | no |
 | HYKU_GTM_ID | If set, enable Google Tag manager with this id.  | - | no |
 | HYKU_LOCALE_NAME | Not used. Placeholder for upcoming Ubiquity feature | en | no |
@@ -204,6 +204,7 @@ switch!('myaccount')
 | INITIAL_ADMIN_PASSWORD | Admin password used by database seeds. Be sure to change in production. | testing123 | no |
 | IN_DOCKER | Used specs to know if we are running inside a container or not. Set to true if in K8S regardless of Docker vs ContainerD | false | yes |
 | LD_LIBRARY_PATH | Path used for fits | /app/fits/tools/mediainfo/linux | no |
+| NEGATIVE_CAPTCHA_SECRET | A secret value you set. | testing123 | no |
 | RAILS_ENV | https://guides.rubyonrails.org/configuring.html#creating-rails-environments | development | no |
 | RAILS_LOG_TO_STDOUT | Redirect all logging to stdout | true | no |
 | RAILS_MAX_THREADS | Number of threads to use in puma or sidekiq | 5 | no |

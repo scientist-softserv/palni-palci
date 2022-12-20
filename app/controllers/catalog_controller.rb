@@ -4,6 +4,7 @@ class CatalogController < ApplicationController
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
   include BlacklightOaiProvider::Controller
+  include Blacklight::Catalog
   before_action :sort_alphabetical
   # These before_action filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
@@ -23,7 +24,8 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.view.gallery.partials = %i[index_header index]
     # Removed the masonry and slideshow config partials for client themeing
-
+    # Class for sending and receiving requests from a search index
+    config.repository_class = Blacklight::Solr::Repository
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     config.show.partials.insert(1, :openseadragon)
     # default advanced config values

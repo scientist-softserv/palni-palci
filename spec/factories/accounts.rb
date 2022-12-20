@@ -31,8 +31,7 @@ FactoryBot.define do
         google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'],
         gtm_id: "GTM-123456", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
-        allow_signup: "true",
-        google_analytics_id: 'UA-123456-12'
+        allow_signup: "true"
       }
     end
 

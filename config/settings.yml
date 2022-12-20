@@ -52,8 +52,6 @@ s3:
 
 fits_path: "/opt/fits/fits.sh"
 
-google_analytics_id: 'UA-207005751-1'
-
 # Register here: http://www.geonames.org/manageaccount
 geonames_username: 'jcoyne'
 

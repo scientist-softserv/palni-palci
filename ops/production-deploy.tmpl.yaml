@@ -84,16 +84,6 @@ extraEnvVars: &envVars
     value: http://palsfcrepo:8080/rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
-  - name: GOOGLE_OAUTH_APP_NAME
-    value: pals-staging
-  - name: GOOGLE_OAUTHAPP_VERSION
-    value: '1.0'
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: prod-cred.p12
-  - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: pals-staging@pals-production-360222.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST

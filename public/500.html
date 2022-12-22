@@ -8,14 +8,8 @@
         color: #2e74b2;
       }
       .splash-logo {
-        background: url("Hyku_Commons_Logo.png") no-repeat;
-        background-size: contain;
-        height: 120px;
-        width: 310px;
-        margin-top: 100px;
-        margin-bottom: 50px;
-        margin-left: auto;
-        margin-right: auto;
+        text-align: center;
+        margin: 100px auto 50px;
       }
       /**/
       :root {
@@ -165,6 +159,7 @@
   <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
   <body class="loading">
     <div class="splash-logo">
+      <img src="/Hyku_Commons_Logo.png" height="120" alt="Hyku Commons Logo" />
     </div>
     <h1>500</h1>
     <h2>An unexpected error occurred. </br>Please <a class="public" href="mailto:help@hykuforconsortia.org">email us</a> if you continue to experience this error.</h2>
@@ -185,14 +180,5 @@
         <div class="bar"></div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="js/main.js" type="text/javascript"></script>
-    <script>
-      $(function() {
-        setTimeout(function(){
-          $('body').removeClass('loading');
-        }, 1000);
-      });
-    </script>
   </body>
 </html>

@@ -156,14 +156,14 @@ To enable analytics tracking and reporting features within Hyku, please follow t
   - https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount
   - Please select the p12 format when making your service account key.
   - Note the private key secret so we can add as an env variable in the subsequent steps below.
-- Configure oAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
+- Configure OAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
 - Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
 
 ### Set the Environment Variables
-In Hyku there are a few areas to set the 6 environment variables needed for each of your environments development/staging/prodeuction/etc.
+In Hyku there are a few areas to set the environment variables needed for each of your environments development/staging/prodeuction/etc.
 
 - Uncomment the config/analytics.yml file where the below mentioned environment variables will connect to our application.
-Example:
+
 ```yaml
 analytics:
   google:
@@ -175,20 +175,26 @@ analytics:
     client_email: <%= ENV['GOOGLE_OAUTH_CLIENT_EMAIL'] %>
 ```
 
-- For local development please update/add the variables and values to the .env file
-Example:
+- For local development please see the .env file and see the "Enable Google Analytics" section.
+
 ```yaml
+##START## Enable Google Analytics
+# Uncomment to enable and configure Google Analytics, see README for instructions.
+HYRAX_ANALYTICS=true
 GOOGLE_ANALYTICS_ID=
 GOOGLE_OAUTH_APP_NAME=
 GOOGLE_OAUTH_APP_VERSION=
-GOOGLE_OAUTH_PRIVATE_KEY_SECRET=
-GOOGLE_OAUTH_PRIVATE_KEY_PATH=
-GOOGLE_OAUTH_CLIENT_EMAIL=
-HYRAX_ANALYTICS=true
+GOOGLE_OAUTH_PRIVATE_KEY_SECRET=n
+GOOGLE_OAUTH_PRIVATE_KEY_PATH=prod-cred.p12
+GOOGLE_OAUTH_CLIENT_EMAIL=palni-palci-demo@palni-palci-demo.iam.gserviceaccount.com
+
+# AND comment this out
+# HYRAX_ANALYTICS=false
+##END## Enable Google Analytics
 ```
 
 - For deployment to staging/production please update/add the variables and values to the helm values files located in the ops directory (example: staging-deploy.tmpl.yaml).
-Example:
+
 ```yaml
   - name: GOOGLE_ANALYTICS_ID
     value: $GOOGLE_ANALYTICS_ID # Set in GitHub's Environment Secrets
@@ -199,7 +205,7 @@ Example:
   - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
     value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: prod-cred.p12
+    value: prod-cred.p12 # The p12 file is in root and named `prod-cred.p12`
   - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
     value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
@@ -235,7 +241,7 @@ Once you run this script the value is on your local computers clipboard. You wil
 | GOOGLE_OAUTH_APP_NAME | The name of the application. | - | no |
 | GOOGLE_OAUTH_APP_VERSION | The version of application. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. | - | no |
-| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The path to your key. | - | no |
+| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption, only set on deployment as that is how we get the p12 file on the server (see bin/web & bin/worker files) | - | no
 | GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | - | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |

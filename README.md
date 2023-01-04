@@ -166,12 +166,13 @@ In Hyku there are a few areas to set the 6 environment variables needed for each
 Example:
 ```yaml
 analytics:
-  analytics_id: <%= ENV['GOOGLE_ANALYTICS_ID'] %>
-  app_name: <%= ENV['GOOGLE_OAUTH_APP_NAME'] %>
-  app_version: <%= ENV['GOOGLE_OAUTH_APP_VERSION'] %>
-  privkey_path: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_PATH'] %>
-  privkey_secret: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] %>
-  client_email: <%= ENV['GOOGLE_OAUTH_CLIENT_EMAIL'] %>
+  google:
+    analytics_id: <%= ENV['GOOGLE_ANALYTICS_ID'] %>
+    app_name: <%= ENV['GOOGLE_OAUTH_APP_NAME'] %>
+    app_version: <%= ENV['GOOGLE_OAUTH_APP_VERSION'] %>
+    privkey_path: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_PATH'] %>
+    privkey_secret: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] %>
+    client_email: <%= ENV['GOOGLE_OAUTH_CLIENT_EMAIL'] %>
 ```
 
 - For local development please update/add the variables and values to the .env file
@@ -183,6 +184,7 @@ GOOGLE_OAUTH_APP_VERSION=
 GOOGLE_OAUTH_PRIVATE_KEY_SECRET=
 GOOGLE_OAUTH_PRIVATE_KEY_PATH=
 GOOGLE_OAUTH_CLIENT_EMAIL=
+HYRAX_ANALYTICS=true
 ```
 
 - For deployment to staging/production please update/add the variables and values to the helm values files located in the ops directory (example: staging-deploy.tmpl.yaml).
@@ -199,7 +201,9 @@ Example:
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
     value: prod-cred.p12
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: 
+    value: set-me
+  - name: HYRAX_ANALYTICS
+    value: 'true'
 ```
 
 NOTE: This is currently setup to handle secrets through GitHub's Enironment Variable section. They are then added during the helm deployment process.
@@ -264,6 +268,7 @@ NOTE: This is currently setup to handle secrets through GitHub's Enironment Vari
 | HYKU_WEEKLY_EMAIL_LIST | Not used. Placeholder for upcoming Ubiquity feature | en | no |
 | HYKU_YEARLY_EMAIL_LIST | Not used. Placeholder for upcoming Ubiquity feature | en | no |
 | HYRAX_ACTIVE_JOB_QUEUE | Which Rails background job runner should be used? | sidekiq | no |
+| HYRAX_ANALYTICS | Flag to enable(true)/disable(false) the Google Analytics feature. | 'false' | no
 | HYRAX_FITS_PATH | Where is fits.sh installed on the system. Will try the PATH if not set. | /app/fits/fits.sh | no |
 | HYRAX_REDIS_NAMESPACE | What namespace should the application use by default | hyrax | no |
 | I18N_DEBUG | See [Working with Translations] above | false | yes |

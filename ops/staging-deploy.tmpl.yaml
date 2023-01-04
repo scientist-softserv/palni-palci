@@ -87,19 +87,17 @@ extraEnvVars: &envVars
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
   # - name: GOOGLE_ANALYTICS_ID
-  #   value: UPDATEME
+  #   value: $GOOGLE_ANALYTICS_ID  # Set in GitHub Environment Variables Section
   # - name: GOOGLE_OAUTH_APP_NAME
-  #   value: palni-palci-staging 
+  #   value: palni-palci-demo
   # - name: GOOGLE_OAUTH_APP_VERSION
   #   value: '1.0'
   # - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Add this value in github env variable section
+  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Set in GitHub Environment Variables Section
   # - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
   #   value: prod-cred.p12
-  # - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE # Add this value in github env variable section
   # - name: GOOGLE_OAUTH_CLIENT_EMAIL
-  #   value: UPDATEME
+  #   value: palni-palci-demo@palni-palci-demo.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST

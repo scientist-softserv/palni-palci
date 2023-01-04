@@ -191,22 +191,28 @@ HYRAX_ANALYTICS=true
 Example:
 ```yaml
   - name: GOOGLE_ANALYTICS_ID
-    value: $GOOGLE_ANALYTICS_ID
+    value: $GOOGLE_ANALYTICS_ID # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_APP_NAME
     value: hyku-demo
   - name: GOOGLE_OAUTH_APP_VERSION
     value: '1.0'
   - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
+    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
     value: prod-cred.p12
+  - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
+    value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
     value: set-me
   - name: HYRAX_ANALYTICS
     value: 'true'
 ```
 
-NOTE: This is currently setup to handle secrets through GitHub's Enironment Variable section. They are then added during the helm deployment process.
+To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value to set the variable in GitHub's Environment Secrets, you need the path to the p12 file you got from setting up your Google Service Account and run the following in your console locally.
+
+`base64 -i path/to/file.p12 | pbcopy`
+
+Once you run this script the value is on your local computers clipboard. You will need to paste this into GitHubs Environment Secrets or however you/your organization are handling secrets.
 
 ## Environment Variables
 
@@ -230,6 +236,7 @@ NOTE: This is currently setup to handle secrets through GitHub's Enironment Vari
 | GOOGLE_OAUTH_APP_VERSION | The version of application. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_PATH | The path to your key. | - | no |
+| GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption, only set on deployment as that is how we get the p12 file on the server (see bin/web & bin/worker files) | - | no
 | GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | - | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |
 | HYKU_ADMIN_ONLY_TENANT_CREATION | Restrict signing up a new tenant to the admin | false | no | |

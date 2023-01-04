@@ -142,6 +142,68 @@ switch!('my.site.com')
 switch!('myaccount')
 ```
 
+## Analytics Feature
+Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Universal Analytics property for this feature. 
+
+Note: Google has announced they will stop processing data using the Universal Analytics property on July 1, 2023  or July 1, 2024 for Analytics 360 properties.
+
+To enable analytics tracking and reporting features within Hyku, please follow the directions below.
+
+### Setup a Google Analytics Account
+- Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
+- Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
+- Create a Service Account: 
+  - https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount
+  - Please select the p12 format when making your service account key.
+  - Note the private key secret so we can add as an env variable in the subsequent steps below.
+- Configure oAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
+- Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
+
+### Set the Environment Variables
+In Hyku there are a few areas to set the 6 environment variables needed for each of your environments development/staging/prodeuction/etc.
+
+- Uncomment the config/analytics.yml file where the below mentioned environment variables will connect to our application.
+Example:
+```yaml
+analytics:
+  analytics_id: <%= ENV['GOOGLE_ANALYTICS_ID'] %>
+  app_name: <%= ENV['GOOGLE_OAUTH_APP_NAME'] %>
+  app_version: <%= ENV['GOOGLE_OAUTH_APP_VERSION'] %>
+  privkey_path: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_PATH'] %>
+  privkey_secret: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] %>
+  client_email: <%= ENV['GOOGLE_OAUTH_CLIENT_EMAIL'] %>
+```
+
+- For local development please update/add the variables and values to the .env file
+Example:
+```yaml
+GOOGLE_ANALYTICS_ID=
+GOOGLE_OAUTH_APP_NAME=
+GOOGLE_OAUTH_APP_VERSION=
+GOOGLE_OAUTH_PRIVATE_KEY_SECRET=
+GOOGLE_OAUTH_PRIVATE_KEY_PATH=
+GOOGLE_OAUTH_CLIENT_EMAIL=
+```
+
+- For deployment to staging/production please update/add the variables and values to the helm values files located in the ops directory (example: staging-deploy.tmpl.yaml).
+Example:
+```yaml
+  - name: GOOGLE_ANALYTICS_ID
+    value: $GOOGLE_ANALYTICS_ID
+  - name: GOOGLE_OAUTH_APP_NAME
+    value: hyku-demo
+  - name: GOOGLE_OAUTH_APP_VERSION
+    value: '1.0'
+  - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
+    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
+  - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
+    value: prod-cred.p12
+  - name: GOOGLE_OAUTH_CLIENT_EMAIL
+    value: 
+```
+
+NOTE: This is currently setup to handle secrets through GitHub's Enironment Variable section. They are then added during the helm deployment process.
+
 ## Environment Variables
 
 | Name | Description | Default | Development or Test Only |
@@ -159,6 +221,12 @@ switch!('myaccount')
 | FCREPO_PORT | port for the fedora repo | 8080 | no |
 | FCREPO_TEST_PORT | Test port for the fedora repo, only if FCREPO_URL is blank | 8986 | yes |
 | FCREPO_URL | URL of the fedora repo, including port and prefix, but not repo name. | http://fcrepo:8080/rest | no |
+| GOOGLE_ANALYTICS_ID | The Google Analytics account id. Disabled if not set | - | no |
+| GOOGLE_OAUTH_APP_NAME | The name of the application. | - | no |
+| GOOGLE_OAUTH_APP_VERSION | The version of application. | - | no |
+| GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. | - | no |
+| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The path to your key. | - | no |
+| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | - | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |
 | HYKU_ADMIN_ONLY_TENANT_CREATION | Restrict signing up a new tenant to the admin | false | no | |
 | HYKU_ALLOW_SIGNUP | Can users register themselves on a given Tenant | true  | no |

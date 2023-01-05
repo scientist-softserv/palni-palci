@@ -77,11 +77,11 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /demo-palni-palci
   - name: FCREPO_HOST
-    value: fcrepo.fcrepo.svc.cluster.local:8080
-  - name: FCREPO_PATH
-    value: /rest
-  - name: FCREPO_URL
-    value: http://fcrepo.fcrepo.svc.cluster.local:8080/rest
+    value: fcrepo.fcrepo.svc.cluster.local
+  - name: FCREPO_PORT
+    value: "8080"
+  - name: FCREPO_REST_PATH
+    value: rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
   - name: GOOGLE_ANALYTICS_ID
@@ -230,6 +230,8 @@ externalSolrHost: solr-headless.solr
 externalSolrUser: admin
 externalSolrCollection: demo-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
+
+externalFcrepoHost: fcrepo.fcrepo.svc.cluster.local
 
 global:
   hyraxName: palni-palci-demo-pals

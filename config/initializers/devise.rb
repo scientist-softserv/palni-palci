@@ -15,10 +15,11 @@ Devise.setup do |config|
   config.mailer_sender = ENV.fetch('HYKU_CONTACT_EMAIL', 'changeme@example.com')
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'HykuMailer'
 
-  # Configure the parent class responsible to send e-mails.
-  config.parent_mailer = 'HykuMailer'
+  # Configure the parent class responsible to send e-mails, this class
+  # will be prepended to the Devise::Mailer class to inherit from.
+  config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and

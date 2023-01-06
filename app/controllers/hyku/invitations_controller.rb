@@ -15,7 +15,7 @@ module Hyku
       self.resource = User.find_by(email: params[:user][:email]) || invite_resource
       resource_invited = resource.errors.empty?
 
-            # Set roles, whether they are a new user or not
+      # Set roles, whether they are a new user or not
       # safe because adding the same role twice is a noop
       site = Site.instance
       if params[:user][:roles].present?
@@ -37,7 +37,7 @@ module Hyku
           respond_with resource, location: after_invite_path_for(current_inviter, resource)
         end
       else
-        respond_with_navigational(resource) { render :new }
+        respond_with resource, location: after_invite_path_for(current_inviter, resource)
       end
     end
 

@@ -13,6 +13,7 @@ module Hyku
     def create
       authorize! :grant_admin_role, User if params[:user][:roles] == ::RolesService::ADMIN_ROLE
       self.resource = User.find_by(email: params[:user][:email]) || invite_resource
+      resource_invited = resource.errors.empty?
 
       # Set roles, whether they are a new user or not
       # safe because adding the same role twice is a noop
@@ -26,15 +27,19 @@ module Hyku
 
       yield resource if block_given?
 
-      # Override destination as this was a success either way
-      if is_flashing_format? && resource.invitation_sent_at
-        set_flash_message :notice, :send_instructions, email: resource.email
-      end
-      if method(:after_invite_path_for).arity == 1
-        respond_with resource, location: after_invite_path_for(current_inviter)
+      if resource_invited
+        # Override destination as this was a success either way
+        if is_flashing_format? && resource.invitation_sent_at
+          set_flash_message :notice, :send_instructions, email: resource.email
+        end
+        if method(:after_invite_path_for).arity == 1
+          respond_with resource, location: after_invite_path_for(current_inviter)
+        end
       else
         respond_with resource, location: after_invite_path_for(current_inviter, resource)
       end
+
+      super
     end
 
     protected

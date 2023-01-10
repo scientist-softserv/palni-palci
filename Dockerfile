@@ -16,6 +16,8 @@ RUN sh -l -c " \
   RAILS_ENV=production SECRET_KEY_BASE=FAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKE DB_ADAPTER=nulldb DATABASE_URL='postgresql://fake' bundle exec rake assets:precompile"
 RUN ln -sf /app/samvera/branding /app/samvera/hyrax-webapp/public/branding
 
+CMD ./bin/web
+
 FROM hyku-base as hyku-worker
 ENV MALLOC_ARENA_MAX=2
 CMD ./bin/worker

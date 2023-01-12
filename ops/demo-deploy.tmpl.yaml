@@ -109,7 +109,7 @@ extraEnvVars: &envVars
   - name: HYKU_BULKRAX_ENABLED
     value: "true"
   - name: HYKU_CONTACT_EMAIL
-    value: support@notch8.com
+    value: info@commons-archive.org
   - name: HYKU_DEFAULT_HOST
     value: "%{tenant}.commons-archive.org"
   - name: HYKU_FILE_ACL

@@ -1,5 +1,6 @@
-name: "Build Lint Test"
-run-name: Build Lint & Test of ${{ github.ref_name }} by @${{ github.actor }}
+name: "Build Test Lint"
+# run-name: Build Test Lint of ${{ github.ref_name }} by @${{ github.actor }}
+run-name: Deploy (${{ github.ref_name }} -> ${{ inputs.environment }}) by @${{ github.actor }}
 on:
   push:
     branches:

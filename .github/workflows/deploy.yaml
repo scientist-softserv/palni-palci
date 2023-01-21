@@ -1,5 +1,5 @@
 name: "Deploy"
-run-name: Deploy to Prod (${{ github.GITHUB_SHA }} -> ${{ inputs.environment }}) by @${{ github.actor }}
+run-name: Deploy to Prod (${{ github.ref_name }} -> ${{ inputs.environment }}) by @${{ github.actor }}
 on:
   workflow_dispatch:
     inputs:

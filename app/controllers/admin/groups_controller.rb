@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 module Admin
-  # OVERRIDE from AdminController inheretence for user roles authorization
   class GroupsController < ApplicationController
-    # OVERRIDE: replaced before_action :load_group with the following load_and_authorize_resource
-    load_and_authorize_resource class: '::Hyrax::Group', instance_name: :group, only: %i[create edit update remove destroy]
+    load_and_authorize_resource(
+      class: '::Hyrax::Group',
+      instance_name: :group,
+      only: %i[create edit update remove destroy]
+    )
     layout 'hyrax/dashboard'
 
     def index
-      # OVERRIDE: AUTHORIZE A READER ROLE TO ACCESS THE GROUPS INDEX
       authorize! :read, Hyrax::Group
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
@@ -25,9 +26,12 @@ module Admin
 
     def create
       new_group = Hyrax::Group.new(group_params)
-      new_group.name = group_params[:humanized_name].gsub(" ", "_").downcase
+      new_group.name = group_params[:humanized_name].tr(" ", "_").downcase
       if new_group.save
-        redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.create.success', group: new_group.humanized_name)
+        redirect_to(
+          admin_groups_path,
+          notice: t('hyku.admin.groups.flash.create.success', group: new_group.humanized_name)
+        )
       elsif new_group.invalid?
         redirect_to new_admin_group_path, alert: t('hyku.admin.groups.flash.create.invalid')
       else
@@ -42,7 +46,7 @@ module Admin
     end
 
     def update
-      @group.name = group_params[:humanized_name].gsub(" ", "_").downcase
+      @group.name = group_params[:humanized_name].tr(" ", "_").downcase
       if @group.update(group_params)
         redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.update.success', group: @group.humanized_name)
       else
@@ -57,17 +61,23 @@ module Admin
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
       add_breadcrumb t(:'hyku.admin.groups.title.edit'), edit_admin_group_path
       add_breadcrumb t(:'hyku.admin.groups.title.remove'), request.path
-      
-      flash.now[:alert] = "Default groups cannot be destroyed." if @group.is_default_group?
+
+      flash.now[:alert] = t('hyku.admin.groups.flash.remove.cannot_destroy_default_group') if @group.default_group?
     end
 
-    def destroy  
-      return redirect_back(fallback_location: admin_groups_path) if @group.is_default_group?
+    def destroy
+      return redirect_back(fallback_location: admin_groups_path) if @group.default_group?
       if @group.destroy
-        redirect_to admin_groups_path, notice: t('hyku.admin.groups.flash.destroy.success', group: @group.humanized_name)
+        redirect_to(
+          admin_groups_path,
+          notice: t('hyku.admin.groups.flash.destroy.success', group: @group.humanized_name)
+        )
       else
         logger.error("Hyrax::Group id:#{@group.id} could not be destroyed")
-        redirect_to admin_groups_path flash: { error: t('hyku.admin.groups.flash.destroy.failure', group: @group.humanized_name) }
+        redirect_to(
+          admin_groups_path,
+          flash: { error: t('hyku.admin.groups.flash.destroy.failure', group: @group.humanized_name) }
+        )
       end
     end
 

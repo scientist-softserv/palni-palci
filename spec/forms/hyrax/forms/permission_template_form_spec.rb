@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Hyrax::Forms::PermissionTemplateForm do
   subject { form }
 
@@ -59,21 +61,25 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
       let(:access_level) { 'manage' }
 
       it 'adds the expected permission template accesses and workflow responsibilities' do
+        FactoryBot.create(:group, name: 'admin')
+        FactoryBot.create(:group, name: 'bob')
         expect { subject }.to change {
           count_template_accesses_for(user, access_level)
         }.from(0).to(1).and change {
           count_workflow_responsibilities_for(user)
-        }.from(0).to(9)
+        }.from(0).to(6)
       end
 
       it 'removes workflow responsibilities' do
+        FactoryBot.create(:group, name: 'admin')
+        FactoryBot.create(:group, name: 'bob')
         subject
         expect do
           form.remove_access!(
             permission_template.access_grants.find_by(agent_id: user.user_key, access: access_level)
           )
         end.to change { count_workflow_responsibilities_for(user) }
-          .from(9).to(0)
+          .from(6).to(0)
       end
     end
 
@@ -86,7 +92,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
           count_template_accesses_for(user, access_level)
         }.from(0).to(1).and change {
           count_workflow_responsibilities_for(user)
-        }.from(0).to(3)
+        }.from(0).to(2)
       end
 
       it 'removes workflow responsibilities' do
@@ -96,7 +102,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
             permission_template.access_grants.find_by(agent_id: user.user_key, access: access_level)
           )
         end.to change { count_workflow_responsibilities_for(user) }
-          .from(3).to(0)
+          .from(2).to(0)
       end
     end
 
@@ -134,6 +140,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
     let(:permission_template) { create(:permission_template, source_id: admin_set.id) }
 
     let(:user) { create(:user) }
+    let(:user1) { create(:user) }
     let(:user2) { create(:user) }
     let(:user3) { create(:user) }
 
@@ -148,6 +155,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
              permission_template: permission_template,
              agent_type: 'group',
              agent_id: 'archivists')
+      create(:group, name: 'archivists')
     end
 
     context "with a user manager" do
@@ -193,6 +201,8 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
       end
 
       it "also adds edit_access to the AdminSet itself" do
+        FactoryBot.create(:group, name: 'admin')
+        FactoryBot.create(:group, name: 'bob')
         expect { subject }.to change { permission_template.access_grants.count }.by(1)
         expect(admin_set.reload.edit_groups).to match_array ['bob', 'archivists']
       end
@@ -201,7 +211,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
     context "without a manager" do
       let(:grant_attributes) do
         [ActionController::Parameters.new(agent_type: "user",
-                                          agent_id: "bob",
+                                          agent_id: user1.user_key,
                                           access: "view").permit!]
       end
 
@@ -221,8 +231,12 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
 
       it "updates the visibility, release_period=now, release_date=today" do
         expect { subject }
-          .to change { permission_template.reload.visibility }.from(nil).to('open')
-                                                              .and change { permission_template.reload.release_period }.from(nil).to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_NO_DELAY)
+          .to change { permission_template.reload.visibility }
+          .from(nil)
+          .to('open')
+          .and change { permission_template.reload.release_period }
+          .from(nil)
+          .to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_NO_DELAY)
         expect(permission_template.release_date).to eq(today)
       end
     end
@@ -238,7 +252,10 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
       end
 
       it "sets release_period=before and release_date" do
-        expect { subject }.to change { permission_template.reload.release_period }.from(nil).to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_BEFORE_DATE)
+        expect { subject }
+          .to change { permission_template.reload.release_period }
+          .from(nil)
+          .to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_BEFORE_DATE)
         expect(permission_template.release_date).to eq(today + 1.year)
       end
     end
@@ -254,7 +271,10 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
       end
 
       it "sets release_period to embargo period and release_date to 2 years from now" do
-        expect { subject }.to change { permission_template.reload.release_period }.from(nil).to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_2_YEARS)
+        expect { subject }
+          .to change { permission_template.reload.release_period }
+          .from(nil)
+          .to(Hyrax::PermissionTemplate::RELEASE_TEXT_VALUE_2_YEARS)
         expect(permission_template.release_date).to eq(today + 2.years)
       end
     end
@@ -367,6 +387,8 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
     before do
       permission_template.clear_changes_information
       workflow.workflow_roles.create!([{ role: role1 }, { role: role2 }])
+      FactoryBot.create(:group, name: 'admin')
+      FactoryBot.create(:group, name: 'bob')
     end
 
     context "when a new workflow has been chosen" do
@@ -378,7 +400,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
     context "when a workflow is not changed" do
       it "does nothing" do
         subject # Setting up the subject to verify that when we call it again things don't change
-        expect { subject }.not_to change { Sipity::WorkflowResponsibility.count }
+        expect { subject }.not_to change(Sipity::WorkflowResponsibility, :count)
       end
     end
   end
@@ -417,7 +439,12 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
 
         it 'trigger error from #update' do
           expect(response).to eq(content_tab: "visibility", updated: false, error_code: error_code)
-          expect(I18n.t(response[:error_code], scope: 'hyrax.admin.admin_sets.form.permission_update_errors')).not_to include('translation missing')
+          expect(
+            I18n.t(
+              response[:error_code],
+              scope: 'hyrax.admin.admin_sets.form.permission_update_errors'
+            )
+          ).not_to include('translation missing')
         end
       end
 

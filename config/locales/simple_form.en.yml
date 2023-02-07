@@ -36,7 +36,7 @@ en:
       hyku_group:
         description: A brief summary of the role of the group
       user:
-        email: Enter one email address at a time. If no role is selected, the new user will begin with only registered user permissions. Roles can also be granted to users through Workflow Roles or inclusion in Groups. You may also resend an invitation via this form.
+        email: Enter one email address at a time. You may also resend an invitation via this form. Roles only apply to this tenant.
     labels:
       account:
         admin_emails: Add or invite new administrator (via email)

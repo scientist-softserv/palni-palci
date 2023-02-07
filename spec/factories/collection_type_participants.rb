@@ -1,4 +1,6 @@
-# OVERRIDE FILE from Hyrax v2.9.0
+# frozen_string_literal: true
+
+# OVERRIDE Hyrax v3.4.2 This file required for various specs (no changes)
 FactoryBot.define do
   factory :collection_type_participant, class: Hyrax::CollectionTypeParticipant do
     association :hyrax_collection_type, factory: :collection_type

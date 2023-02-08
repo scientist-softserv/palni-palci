@@ -152,7 +152,7 @@ extraEnvVars: &envVars
     value: redis://palni-palci-production-redis-master:6379/1
   - name: SENTRY_DSN
     value: https://d3dc5a781c0740fa8b29f93e6d355c36@o1008683.ingest.sentry.io/6707374
-  - name: SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS
+  - name: HYKU_RESTRICT_CREATE_AND_DESTROY_PERMISSIONS
     value: "true"
   - name: SMTP_ENABLED
     value: "true"

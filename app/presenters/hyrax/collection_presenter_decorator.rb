@@ -15,20 +15,6 @@ module Hyrax
       create_work_presenter.authorized_models.any?
     end
 
-    # OVERRIDE Hyrax - removed size
-    def self.terms
-      %i[ total_items
-          resource_type
-          creator contributor
-          keyword license
-          publisher
-          date_created
-          subject language
-          identifier
-          based_near
-          related_url]
-    end
-
     def [](key)
       case key
       when :total_items
@@ -112,7 +98,24 @@ module Hyrax
       current_ability.can?(:create, FeaturedCollection)
     end
     # End Featured Collections Methods
+
+    module ClassMethodOverrides
+      # OVERRIDE Hyrax - removed size
+      def terms
+        %i[total_items
+           resource_type
+           creator contributor
+           keyword license
+           publisher
+           date_created
+           subject language
+           identifier
+           based_near
+           related_url]
+      end
+    end
   end
 end
 
 Hyrax::CollectionPresenter.prepend(Hyrax::CollectionPresenterDecorator)
+Hyrax::CollectionPresenter.singleton_class.send(:prepend, Hyrax::CollectionPresenterDecorator::ClassMethodOverrides)

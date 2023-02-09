@@ -7,6 +7,8 @@
 # Terms is the list of fields displayed by app/views/collections/_show_descriptions.html.erb
 module Hyrax
   module CollectionPresenterDecorator
+    delegate :collection_subtitle, to: :solr_document
+
     # Add new method to check if a user has permissions to create any works.
     # This is used to restrict who can deposit new works through collections.
     #
@@ -112,6 +114,10 @@ module Hyrax
            identifier
            based_near
            related_url]
+      end
+
+      def primary_terms
+        %i[title description collection_subtitle]
       end
     end
   end

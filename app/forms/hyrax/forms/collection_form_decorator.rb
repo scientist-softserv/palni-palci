@@ -8,6 +8,17 @@ module Hyrax
     #
     # @see app/views/hyrax/dashboard/collections/_form_share_table.html.erb
     module CollectionFormDecorator
+      def self.decorate(base)
+        base.prepend(self)
+
+        # Using += results in a duplicate :collection_subtitle being added
+        base.terms |= [:collection_subtitle]
+      end
+
+      def primary_terms
+        [:title, :collection_subtitle, :description]
+      end
+
       def filter_access_grants_by_access(access)
         roles_to_filter = ::RolesService::COLLECTION_ROLES + ::RolesService::WORK_ROLES
         filtered_access_grants = permission_template.access_grants.select(&access)
@@ -19,4 +30,4 @@ module Hyrax
   end
 end
 
-Hyrax::Forms::CollectionForm.include(Hyrax::Forms::CollectionFormDecorator)
+Hyrax::Forms::CollectionFormDecorator.decorate(Hyrax::Forms::CollectionForm)

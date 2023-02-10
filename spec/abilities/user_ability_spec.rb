@@ -62,5 +62,3 @@ RSpec.describe Hyrax::Ability::UserAbility do
     end
   end
 end
-
-end

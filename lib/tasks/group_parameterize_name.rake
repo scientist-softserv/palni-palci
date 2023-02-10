@@ -28,15 +28,3 @@ namespace :hyku do
     end
   end
 end
-
-      ActiveRecord::Base.transaction do
-        groups.each do |group|
-          parameterized_name = group.name.gsub(" ", "_").downcase
-          group.update!(name: parameterized_name)
-          print "."
-        end
-      end
-      puts " All group names are parameterized"
-    end
-  end
-end

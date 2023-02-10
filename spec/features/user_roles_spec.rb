@@ -34,7 +34,7 @@ RSpec.describe 'User Roles' do
 
     it 'can visit the users index page' do
       visit "/users"
-      expect(page).to have_content 'Hyku Users'
+      expect(page).to have_content 'Hyku Commons Users'
     end
 
     it 'can visit a users showpage and see the Edit Profile button' do
@@ -96,7 +96,7 @@ RSpec.describe 'User Roles' do
 
     it 'can view the users index page' do
       visit "/users"
-      expect(page).to have_content 'Hyku Users'
+      expect(page).to have_content 'Hyku Commons Users'
     end
 
     it 'can view a users showpage' do
@@ -160,7 +160,7 @@ RSpec.describe 'User Roles' do
 
     it 'cannot edit a users profile' do
       visit "/dashboard/profiles/user@example-dot-com/edit"
-      expect(page).to have_content 'The page you have tried to access is private'
+      expect(page).to have_content 'You are not authorized to access this page.'
     end
 
     it 'cannot view the manage groups page' do

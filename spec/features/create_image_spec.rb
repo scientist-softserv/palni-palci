@@ -50,7 +50,7 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true do
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
-      within('span#addfiles') do
+      within('div#add-files') do
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'image.jp2'), visible: false)
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'jp2_fits.xml'), visible: false)
       end

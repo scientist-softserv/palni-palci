@@ -69,10 +69,3 @@
   <%= render 'form_participant_table', access: 'managers', filter: :manager? %>
   <%= render 'form_participant_table', access: 'creators', filter: :creator? %>
 </section>
-
-<% end %>
-<section class="section-current-participants">
-  <legend><%= t('.current_participants') %></legend>
-  <%= render 'form_participant_table', access: 'managers', filter: :manager? %>
-  <%= render 'form_participant_table', access: 'creators', filter: :creator? %>
-</section>

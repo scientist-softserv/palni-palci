@@ -97,7 +97,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true, ci: 's
       fill_in('Creator', with: 'Test Creator')
       click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
-      select('In Copyright', from: 'Rights statement')
+      select('In Copyright', from: 'Rights Statement')
 
       page.choose('generic_work_visibility_open')
       # rubocop:disable Metrics/LineLength

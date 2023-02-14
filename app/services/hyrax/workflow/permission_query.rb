@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Override from hyrax 3.4.1 to migrate Hyku::Group into Hyrax::Group
+# OVERRIDE Hyrax v3.4.2 Expand functionality for Groups with Roles Feature
+# @see https://github.com/samvera/hyku/wiki/Groups-with-Roles-Feature
 # rubocop:disable Metrics/ModuleLength
 module Hyrax
   module Workflow
@@ -72,7 +73,7 @@ module Hyrax
       # @param role [Object] that can be converted into a Sipity::Role
       # @return [ActiveRecord::Relation<Sipity::Agent>] augmented with
       #
-      def scope_agents_associated_with_entity_and_role(entity:, role:)
+      def scope_agents_associated_with_entity_and_role(entity:, role:) # rubocop:disable Metrics/AbcSize
         entity = Sipity::Entity(entity)
         role = Sipity::Role(role)
 
@@ -195,7 +196,7 @@ module Hyrax
       #
       # @return [ActiveRecord::Relation<Sipity::Entity>]
       #
-      def scope_entities_for_the_user(user:)
+      def scope_entities_for_the_user(user:) # rubocop:disable Metrics/AbcSize
         entities = Sipity::Entity.arel_table
         workflow_state_actions = Sipity::WorkflowStateAction.arel_table
         workflow_states = Sipity::WorkflowState.arel_table
@@ -250,7 +251,7 @@ module Hyrax
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<User>]
       #
-      def scope_users_for_entity_and_roles(entity:, roles:)
+      def scope_users_for_entity_and_roles(entity:, roles:) # rubocop:disable Metrics/AbcSize
         entity = Sipity::Entity(entity)
         role_ids = Array.wrap(roles).map { |role| Sipity::Role(role).id }
         user_polymorphic_type = ::User.base_class

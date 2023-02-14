@@ -5,7 +5,7 @@
 require 'rails_helper'
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, cohort: 'alpha' do
+RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
   include Warden::Test::Helpers
 
   context 'a logged in user with the :work_depositor role' do
@@ -16,8 +16,7 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       Sipity::Workflow.create!(
         active: true,
         name: 'test-workflow',
-        permission_template:
-        permission_template
+        permission_template: permission_template
       )
     end
 
@@ -40,8 +39,8 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
     end
 
     it do # rubocop:disable RSpec/ExampleLength
-      visit '/dashboard/works'
-      click_link "Add new work"
+      visit '/dashboard/my/works'
+      click_link "Add New Work"
 
       # If you generate more than one work uncomment these lines
       choose "payload_concern", option: "GenericWork"
@@ -51,10 +50,12 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
-      within('span#addfiles') do
+      within('div#add-files') do
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'image.jp2'), visible: false)
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'jp2_fits.xml'), visible: false)
       end
+      expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
+
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
@@ -66,7 +67,7 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true, co
       # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       # rubocop:enable Metrics/LineLength
-      check('agreement')
+      find('#agreement').click
 
       click_on('Save')
       expect(page).to have_content('My Test Work')

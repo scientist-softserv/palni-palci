@@ -35,12 +35,12 @@ RSpec.describe 'Create a Etd', type: :feature, js: true, clean: true, cohort: 'b
     end
 
     it 'can create an Etd' do
-      visit '/dashboard/works'
+      visit '/dashboard/my/works'
       # TODO(bess) We are not able to get this link click to work in our automated tests, so this is a workaround.
       # I hope that if we move to system specs instead of feature specs we'll be able to move back to alignment with
       # how upstream Hyku/ Hyrax do this.
       # click_link "Works"
-      click_link "Add new work"
+      click_link "Add New Work"
 
       # If you generate more than one work uncomment these lines
       choose "payload_concern", option: "Etd"
@@ -50,13 +50,16 @@ RSpec.describe 'Create a Etd', type: :feature, js: true, clean: true, cohort: 'b
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
-      within('span#addfiles') do
+      within('div#add-files') do
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'image.jp2'), visible: false)
         attach_file("files[]", Rails.root.join('spec', 'fixtures', 'images', 'jp2_fits.xml'), visible: false)
       end
+      expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
+
       click_link 'Descriptions' # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights')
       fill_in('Date', with: '01/27/2021')
       fill_in('Degree', with: 'CS')
@@ -66,7 +69,7 @@ RSpec.describe 'Create a Etd', type: :feature, js: true, clean: true, cohort: 'b
 
       page.choose('etd_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      check('agreement')
+      find('#agreement').click
 
       click_on('Save')
       expect(page).to have_content('My Test Work')

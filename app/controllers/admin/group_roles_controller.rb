@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 module Admin
-  # OVERRIDE from AdminController inheretence for user roles authorization
   class GroupRolesController < ApplicationController
     before_action :load_group
-    before_action :cannot_remove_admin_role_from_admin_group, only: [:remove]
+    before_action :cannot_remove_admin_role_from_admin_group, only: [:destroy]
     layout 'hyrax/dashboard'
 
     rescue_from ActiveRecord::RecordNotFound, with: :redirect_not_found
 
     def index
-      # OVERRIDE: AUTHORIZE AN EDIT ROLE TO ACCESS THE ROLES INDEX
-      authorize! :edit, Hyrax::Group 
+      authorize! :edit, Hyrax::Group
       add_breadcrumb t(:'hyrax.controls.home'), root_path
       add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
       add_breadcrumb t(:'hyku.admin.groups.title.edit'), edit_admin_group_path(@group)
@@ -21,7 +19,7 @@ module Admin
       render template: 'admin/groups/roles'
     end
 
-    def add
+    def create
       role = ::Role.find(params[:role_id])
       @group.roles << role unless @group.roles.include?(role)
 
@@ -33,7 +31,7 @@ module Admin
       end
     end
 
-    def remove
+    def destroy
       @group.group_roles.find_by!(role_id: params[:role_id]).destroy
 
       respond_to do |format|
@@ -59,7 +57,10 @@ module Admin
         role = Role.find_by(id: params[:role_id])
         return unless @group.name == ::Ability.admin_group_name && role.name == 'admin'
 
-        redirect_back(fallback_location: edit_admin_group_path(@group), flash: { error: "Admin role cannot be removed from this group" })
+        redirect_back(
+          fallback_location: edit_admin_group_path(@group),
+          flash: { error: "Admin role cannot be removed from this group" }
+        )
       end
   end
 end

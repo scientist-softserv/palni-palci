@@ -14,6 +14,7 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
+    - 'vendor/**/*'
     - '.internal_test_app/**/*'
     - 'spec/fixtures/**/*'
     - 'spec/internal/**/*'
@@ -40,14 +41,13 @@ Rails/UnknownEnv:
     - test
 
 Metrics/LineLength:
-  Max: 203
+  Max: 120
   Exclude:
     - 'app/controllers/catalog_controller.rb'
     - 'spec/controllers/curation_concerns/generic_works_controller_spec.rb'
     - 'spec/services/iiif_collection_thumbnail_path_service_spec.rb'
     - 'spec/services/iiif_work_thumbnail_path_service_spec.rb'
     - 'spec/routing/proprietor/accounts_routing_spec.rb'
-    - 'spec/features/create_etd_spec.rb'
 
 Layout/IndentationConsistency:
   EnforcedStyle: rails
@@ -120,9 +120,6 @@ RSpec/NestedGroups:
   Max: 4
 
 RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/LetSetup:
   Enabled: false
 
 Metrics/BlockLength:

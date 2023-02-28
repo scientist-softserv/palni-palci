@@ -33,7 +33,8 @@ module Hyrax
       :degree_name,
       :degree_level,
       :degree_discipline,
-      :degree_grantor
+      :degree_grantor,
+      :resource_type
     ]
   end
 end

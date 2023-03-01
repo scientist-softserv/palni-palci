@@ -18,12 +18,10 @@ class GenericWork < ActiveFedora::Base
   end
 
   include ::Hyrax::BasicMetadata
+  # This line must be kept below all others that set up properties,
+  # including `include ::Hyrax::BasicMetadata`. All properties must
+  # be declared before they can be sorted.
+  prepend OrderAlready.for(*multi_valued_properties_for_ordering)
+
   self.indexer = GenericWorkIndexer
-
-  MULTI_VALUED_PROPERTIES = properties.collect do |prop_name, node_config|
-    next if %w[head tail].include?(prop_name)
-    prop_name.to_sym if node_config.instance_variable_get(:@opts)&.dig(:multiple)
-  end.compact.freeze
-
-  prepend OrderAlready.for(*MULTI_VALUED_PROPERTIES)
 end

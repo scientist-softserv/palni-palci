@@ -19,4 +19,11 @@ class GenericWork < ActiveFedora::Base
 
   include ::Hyrax::BasicMetadata
   self.indexer = GenericWorkIndexer
+
+  MULTI_VALUED_PROPERTIES = properties.collect do |prop_name, node_config|
+    next if %w[head tail].include?(prop_name)
+    prop_name.to_sym if node_config.instance_variable_get(:@opts)&.dig(:multiple)
+  end.compact.freeze
+
+  prepend OrderAlready.for(*MULTI_VALUED_PROPERTIES)
 end

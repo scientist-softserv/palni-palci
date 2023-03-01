@@ -17,6 +17,10 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :admin_note, predicate: ::RDF::Vocab::SCHEMA.positiveNotes, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   include ::Hyrax::BasicMetadata
   self.indexer = GenericWorkIndexer
 end

@@ -149,4 +149,4 @@ gem 'pronto-rails_best_practices', require: false
 gem 'pronto-rails_schema', require: false
 gem 'pronto-rubocop', require: false
 
-gem "order_already", "~> 0.2.1"
+gem "order_already", "~> 0.3.0"

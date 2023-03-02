@@ -7,7 +7,7 @@ module OrderMetadataValues
     def self.multi_valued_properties_for_ordering
       properties.collect do |prop_name, node_config|
         next if %w[head tail].include?(prop_name)
-        
+
         prop_name.to_sym if node_config.instance_variable_get(:@opts)&.dig(:multiple)
       end.compact
     end

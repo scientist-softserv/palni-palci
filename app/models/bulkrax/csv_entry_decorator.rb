@@ -12,7 +12,7 @@ module Bulkrax
 " #{importerexporter.parser.missing_elements(keys_without_numbers(keys_with_values)).join(', ')}"
       end
 
-      self.parsed_metadata = {} # rubocop:disable Style/RedundantSelf
+      self.parsed_metadata = {}
       add_identifier
       add_ingested_metadata
       add_collections

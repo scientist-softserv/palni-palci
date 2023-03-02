@@ -11,12 +11,14 @@ RSpec.describe OrderMetadataValues do
   end
 
   before do
+    # Mock the structure of a ActiveTriples::NodeConfig, which holds the
+    # information for whether a property allows multiple values or not
     multiple_property_config = OpenStruct.new
     multiple_property_config.instance_variable_set(:@opts, multiple: true)
-
     singular_property_config = OpenStruct.new
     singular_property_config.instance_variable_set(:@opts, {})
 
+    # Mock ActiveFedora::Base.properties for our TestWork Struct
     base_model.define_singleton_method(:properties) do
       {
         'prop_one_multi' => multiple_property_config,

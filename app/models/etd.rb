@@ -57,6 +57,6 @@ class Etd < ActiveFedora::Base
   include ::Hyrax::BasicMetadata
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must
-  # be declared before they can be sorted.
+  # be declared before their values can be ordered.
   include OrderMetadataValues
 end

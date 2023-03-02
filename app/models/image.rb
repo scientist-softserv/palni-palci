@@ -16,7 +16,7 @@ class Image < ActiveFedora::Base
   property :bibliographic_citation, predicate: ::RDF::Vocab::DC.bibliographicCitation do |index|
     index.as :stored_searchable
   end
-  
+
   property :bulkrax_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/bulkrax_identifier"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
@@ -26,7 +26,7 @@ class Image < ActiveFedora::Base
   include ::Hyrax::BasicMetadata
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must
-  # be declared before they can be sorted.
+  # be declared before their values can be ordered.
   include OrderMetadataValues
 
   self.indexer = ImageIndexer

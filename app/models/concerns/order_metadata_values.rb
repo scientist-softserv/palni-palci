@@ -6,6 +6,7 @@ module OrderMetadataValues
   included do
     def self.multi_valued_properties_for_ordering
       properties.collect do |prop_name, node_config|
+        # Only concerned with properties displayed to end users
         next if %w[head tail].include?(prop_name)
 
         prop_name.to_sym if node_config.instance_variable_get(:@opts)&.dig(:multiple)

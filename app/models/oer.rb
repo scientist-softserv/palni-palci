@@ -95,7 +95,7 @@ class Oer < ActiveFedora::Base
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before they can be sorted.
-  prepend OrderAlready.for(*multi_valued_properties_for_ordering)
+  include OrderMetadataValues
 
   def previous_version
     @previous_version ||= Oer.where(id: previous_version_id) if previous_version_id

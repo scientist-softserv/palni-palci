@@ -27,7 +27,7 @@ class Image < ActiveFedora::Base
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before they can be sorted.
-  prepend OrderAlready.for(*multi_valued_properties_for_ordering)
+  include OrderMetadataValues
 
   self.indexer = ImageIndexer
   # Change this to restrict which works can be added as a child.

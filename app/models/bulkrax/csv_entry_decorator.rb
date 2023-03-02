@@ -6,10 +6,13 @@ module Bulkrax
     # NOTE: fixes issue where required keys with empty values were considered present
     def build_metadata
       raise StandardError, 'Record not found' if record.nil?
-      keys_with_values = record.reject { |_,v| v.blank? }.keys
-      raise StandardError, "Missing required elements, missing element(s) are: #{importerexporter.parser.missing_elements(keys_without_numbers(keys_with_values)).join(', ')}" unless importerexporter.parser.required_elements?(keys_without_numbers(keys_with_values))
+      keys_with_values = record.reject { |_, v| v.blank? }.keys
+      unless importerexporter.parser.required_elements?(keys_without_numbers(keys_with_values))
+        raise StandardError, "Missing required elements, missing element(s) are:"\
+" #{importerexporter.parser.missing_elements(keys_without_numbers(keys_with_values)).join(', ')}"
+      end
 
-      self.parsed_metadata = {}
+      self.parsed_metadata = {} # rubocop:disable Style/RedundantSelf
       add_identifier
       add_ingested_metadata
       add_collections
@@ -19,10 +22,9 @@ module Bulkrax
       sanitize_controlled_uri_values!
       add_local
 
-      self.parsed_metadata
+      self.parsed_metadata # rubocop:disable Style/RedundantSelf
     end
   end
 end
 
 Bulkrax::CsvEntry.prepend(Bulkrax::CsvEntryDecorator)
-

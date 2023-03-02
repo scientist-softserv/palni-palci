@@ -2,7 +2,6 @@
 
 module Bulkrax
   module OerCsvParser
-
     # TODO(bkiahstroud): need a spec for this method, or the 4 methods it calls
     def create_memberships
       create_previous_version_relationships

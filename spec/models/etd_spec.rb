@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Etd do
+  include_examples('includes OrderMetadataValues')
+
   describe 'indexer' do
     subject { described_class.indexer }
 

@@ -4,6 +4,8 @@
 #  `rails generate hyrax:work Image`
 
 RSpec.describe Image do
+  include_examples('includes OrderMetadataValues')
+
   describe 'indexer' do
     subject { described_class.indexer }
 

@@ -51,6 +51,8 @@ en:
         gtm_id: Google tag manager
       add_user_to_group:
         user_ids: User ID
+      defaults:
+        admin_note: Administrative Notes
       domain_names:
         cname: Domain Name
       group_search:

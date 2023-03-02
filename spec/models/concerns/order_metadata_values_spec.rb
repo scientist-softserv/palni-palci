@@ -12,7 +12,7 @@ RSpec.describe OrderMetadataValues do
 
   before do
     multiple_property_config = OpenStruct.new
-    multiple_property_config.instance_variable_set(:@opts, { multiple: true })
+    multiple_property_config.instance_variable_set(:@opts, multiple: true)
 
     singular_property_config = OpenStruct.new
     singular_property_config.instance_variable_set(:@opts, {})
@@ -64,12 +64,12 @@ RSpec.describe OrderMetadataValues do
 
     it 'return properties that allow multiple values' do
       expect(base_model.multi_valued_properties_for_ordering)
-        .to include(*%i[prop_one_multi prop_three_multi])
+        .to include(:prop_one_multi, :prop_three_multi)
     end
 
     it 'does not return properties that only allow one value' do
       expect(base_model.multi_valued_properties_for_ordering)
-        .not_to include(*%i[prop_two_singular prop_four_singular])
+        .not_to include(:prop_two_singular, :prop_four_singular)
     end
   end
 end

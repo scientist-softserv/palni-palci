@@ -92,6 +92,10 @@ class Oer < ActiveFedora::Base
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+  # This line must be kept below all others that set up properties,
+  # including `include ::Hyrax::BasicMetadata`. All properties must
+  # be declared before their values can be ordered.
+  include OrderMetadataValues
 
   def previous_version
     @previous_version ||= Oer.where(id: previous_version_id) if previous_version_id

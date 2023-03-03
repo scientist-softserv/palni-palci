@@ -56,7 +56,8 @@ class SolrDocument
   attribute :title_ssi, Solr::Array, 'title_ssi_tesim'
   attribute :bibliographic_citation, Solr::String, 'bibliographic_citation_tesi'
   attribute :collection_subtitle, Solr::String, 'collection_subtitle_tesi'
-  
+  attribute :admin_note, Solr::String, 'admin_note_tesim'
+
   field_semantics.merge!(
     contributor: 'contributor_tesim',
     creator: 'creator_tesim',

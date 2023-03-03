@@ -7,6 +7,7 @@ module Hyrax
     self.model_class = ::Etd
     include HydraEditor::Form::Permissions
 
+    self.terms.prepend(:admin_note).uniq!
     self.terms += [
       :resource_type,
       :format,

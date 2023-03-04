@@ -8,10 +8,11 @@ module OAI
           @prefix = 'oai_hyku'
           @schema = 'http://dublincore.org/schemas/xmls/qdc/dcterms.xsd'
           @namespace = 'http://purl.org/dc/terms/'
-          @element_namespace = 'dcterms'
+          @element_namespace = 'hyku'
 
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
+          # TODO: ensure these are all "public" fields
           @fields = %i[
             abstract access_right accessibility_feature accessibility_hazard accessibility_summary
             additional_information advisor alternate_version_id alternative_title audience based_near

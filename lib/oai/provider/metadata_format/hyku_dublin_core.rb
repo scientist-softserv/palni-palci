@@ -12,16 +12,13 @@ module OAI
 
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
-          # TODO: ensure these are all "public" fields
           @fields = %i[
             abstract access_right accessibility_feature accessibility_hazard accessibility_summary
             additional_information advisor alternate_version_id alternative_title audience based_near
-            bibliographic_citation bulkrax_identifier committee_member contributor create_date
-            creator date_created date_modified date_uploaded degree_discipline degree_grantor
-            degree_level degree_name department depositor description discipline education_level
-            extent format has_model identifier import_url keyword label language learning_resource_type
-            license modified_date newer_version_id oer_size owner previous_version_id proxy_depositor
-            publisher related_item_id related_url relative_path resource_type rights_holder
+            bibliographic_citation committee_member contributor creator date_created degree_discipline
+            degree_grantor degree_level degree_name department description discipline education_level
+            extent format has_model identifier keyword language learning_resource_type license newer_version_id
+            oer_size previous_version_id publisher related_item_id related_url resource_type rights_holder
             rights_notes rights_statement source subject table_of_contents title
           ]
         end

@@ -4,13 +4,9 @@
 module Bulkrax
   module CsvEntryDecorator
     # NOTE: fixes issue where required keys with empty values were considered present
+    # remove if bulkrax has been upgraded to version 5.2 or higher
     def build_metadata
-      raise StandardError, 'Record not found' if record.nil?
-      keys_with_values = record.reject { |_, v| v.blank? }.keys
-      unless importerexporter.parser.required_elements?(keys_without_numbers(keys_with_values))
-        raise StandardError, "Missing required elements, missing element(s) are:"\
-" #{importerexporter.parser.missing_elements(keys_without_numbers(keys_with_values)).join(', ')}"
-      end
+      validate_record
 
       self.parsed_metadata = {}
       add_identifier
@@ -24,6 +20,13 @@ module Bulkrax
 
       self.parsed_metadata # rubocop:disable Style/RedundantSelf
     end
+
+    def validate_record
+      raise StandardError, 'Record not found' if record.nil?
+      raise StandardError, "Missing required elements, missing element(s) are: "\
+"#{importerexporter.parser.missing_elements(record).join(', ')}" unless importerexporter.parser.required_elements?(record)
+    end
+
   end
 end
 

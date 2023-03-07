@@ -21,6 +21,7 @@ module Bulkrax
       self.parsed_metadata # rubocop:disable Style/RedundantSelf
     end
 
+    # rubocop:disable Style/GuardClause
     def validate_record
       raise StandardError, 'Record not found' if record.nil?
       unless importerexporter.parser.required_elements?(record)
@@ -28,6 +29,7 @@ module Bulkrax
 "#{importerexporter.parser.missing_elements(record).join(', ')}"
       end
     end
+    # rubocop:enable Style/GuardClause
   end
 end
 

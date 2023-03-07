@@ -7,7 +7,7 @@ module Hyrax
     self.model_class = ::Etd
     include HydraEditor::Form::Permissions
 
-    self.terms.prepend(:admin_note).uniq!
+    self.terms.prepend(:admin_note).uniq! # rubocop:disable Style/RedundantSelf
     self.terms += [
       :resource_type,
       :format,

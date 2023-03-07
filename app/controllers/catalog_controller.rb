@@ -41,7 +41,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: "search",
       rows: 10,
-      qf: "title_tesim alternative_title_tesim description_tesim creator_tesim contributor_tesim related_url_tesim learning_resource_type_tesim education_level_tesim audience_tesim degree_name_tesim degree_discipline_tesim degree_grantor_tesim date_tesim table_of_contents_tesim rights_statement_tesim license_tesim rights_holder_tesim additional_information_tesim oer_size_tesim publisher_tesim identifier_tesim keyword_tesim subject_tesim language_tesim resource_type_tesim date_created_tesim date_uploaded_tesim date_modified_tesim accessibility_feature_tesim accessibility_hazard_tesim accessibility_summary_tesim format_tesim extent_tesim all_text_timv"
+      qf: "admin_note_tesim title_tesim alternative_title_tesim description_tesim creator_tesim contributor_tesim related_url_tesim learning_resource_type_tesim education_level_tesim audience_tesim degree_name_tesim degree_discipline_tesim degree_grantor_tesim date_tesim table_of_contents_tesim rights_statement_tesim license_tesim rights_holder_tesim additional_information_tesim oer_size_tesim publisher_tesim identifier_tesim keyword_tesim subject_tesim language_tesim resource_type_tesim date_created_tesim date_uploaded_tesim date_modified_tesim accessibility_feature_tesim accessibility_hazard_tesim accessibility_summary_tesim format_tesim extent_tesim all_text_timv"
     }
 
     # Specify which field to use in the tag cloud on the homepage.
@@ -113,6 +113,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field solr_name("title", :stored_searchable)
+    config.add_show_field solr_name('admin_note', :stored_searchable), label: "Administrative Notes"
     config.add_show_field solr_name("alternative_title", :stored_searchable), label: "Alternative title"
     config.add_show_field solr_name("creator", :stored_searchable)
     config.add_show_field solr_name("contributor", :stored_searchable)

@@ -30,6 +30,7 @@ en:
           rights_tesim: Rights
           subject_tesim: Subject
         show:
+          admin_note: Administrative Note
           based_near_label_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator

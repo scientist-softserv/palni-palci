@@ -7,7 +7,7 @@ module Hyrax
     self.model_class = ::Etd
     include HydraEditor::Form::Permissions
 
-    self.terms.prepend(:admin_note).uniq!
+    self.terms.prepend(:admin_note).uniq! # rubocop:disable Style/RedundantSelf
     self.terms += [
       :resource_type,
       :format,
@@ -34,7 +34,8 @@ module Hyrax
       :degree_name,
       :degree_level,
       :degree_discipline,
-      :degree_grantor
+      :degree_grantor,
+      :resource_type
     ]
   end
 end

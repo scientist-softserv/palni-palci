@@ -11,7 +11,6 @@ on:
         options:
           - demo
           - production
-          - staging
       debug_enabled:
         type: boolean
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
@@ -20,5 +19,5 @@ on:
 
 jobs:
   deploy:
-    uses: scientist-softserv/actions/.github/workflows/deploy.yaml@v0.0.6
+    uses: scientist-softserv/actions/.github/workflows/deploy.yaml@v0.0.13
     secrets: inherit

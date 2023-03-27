@@ -150,3 +150,4 @@ gem 'pronto-rails_schema', require: false
 gem 'pronto-rubocop', require: false
 
 gem "order_already", "~> 0.3.1"
+gem "redcarpet"

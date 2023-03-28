@@ -1,10 +1,11 @@
-<%# OVERRIDE Hyrax 2.9.1 to remove the hardcorded image width %>
+<%# OVERRIDE Hyrax 3.4.2 to remove the hardcorded image width and add markdown to the featured fields %>
 <div>
   <div class="featured-item-title">
     <span class="sr-only"><%= t('hyrax.homepage.featured_works.document.title_label') %></span>
     <h3>
       <%= link_to [main_app, featured] do %>
-        <%= render_thumbnail_tag(featured, {alt: "#{featured.title.first.to_s} #{ t('hyrax.homepage.admin_sets.thumbnail')}" }, {suppress_link: true}) + featured.title.first %>
+        <%# OVERRIDE here to enable markdown %>
+        <%= render_thumbnail_tag(featured, {alt: "#{featured.title.first.to_s} #{ t('hyrax.homepage.admin_sets.thumbnail')}" }, {suppress_link: true}) + markdown(featured.title.first) %>
       <% end %>
     </h3>
   </div>

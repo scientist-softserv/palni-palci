@@ -110,7 +110,7 @@
       padding: 16px;
     }
   }
-  
+
   .partnering-consortia, .splash-footer {
     padding: 16px;
   }
@@ -565,4 +565,10 @@ body.public-facing {
 
 .mt-20 {
   margin-top: 20px;
+}
+
+// make sure constraints are on only one line, even with markup
+span.constraint-value p, .facet-values p {
+  display: inline-block;
+  margin-bottom: 0;
 }

@@ -1,18 +1,12 @@
 # frozen_string_literal: true
+# OVERRIDE Hyrax v3.4.2 Enable markdown rendering on work show page metadata
+module Hyrax::Renderers
+  module AttributeRendererDecorator
+    include ApplicationHelper
 
-# OVERRIDE Hyrax v3.4.2 Expand functionality for Groups with Roles feature
-module Hyrax
-  module Renderers
-    module AttributeRendererDecorator
-      include ApplicationHelper
-
-      def attribute_value_to_html(value)
-        if microdata_value_attributes(field).present?
-          "<span#{html_attributes(microdata_value_attributes(field))}>#{markdown(li_value(value))}</span>"
-        else
-          markdown(li_value(value))
-        end
-      end
+    private
+    def li_value(value)
+      markdown(auto_link(ERB::Util.h(value)))
     end
   end
 end

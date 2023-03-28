@@ -1,4 +1,4 @@
-<%# OVERRIDE Hyrax 3.4.2 to enable markdown in the work description%>
+<%# OVERRIDE Hyrax 3.4.2 to enable markdown in the work description %>
 
 <% presenter.description.each do |description| %>
     <p class="work_description"><%= markdown(iconify_auto_link(description)) %></p>

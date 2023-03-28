@@ -5,8 +5,12 @@ module Hyrax::Renderers
     include ApplicationHelper
 
     private
-    def li_value(value)
-      markdown(auto_link(ERB::Util.h(value)))
+    def attribute_value_to_html(value)
+      if microdata_value_attributes(field).present?
+        "<span#{html_attributes(microdata_value_attributes(field))}>#{markdown(li_value(value))}</span>"
+      else
+        markdown(li_value(value))
+      end
     end
   end
 end

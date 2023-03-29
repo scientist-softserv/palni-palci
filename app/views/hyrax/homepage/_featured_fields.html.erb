@@ -1,4 +1,4 @@
-<%# OVERRIDE Hyrax 3.4.2 to remove the hardcorded image width and add markdown to the featured fields %>
+<%# OVERRIDE Hyrax 2.9.1 to remove the hardcorded image width & enable markdown %>
 <div>
   <div class="featured-item-title">
     <span class="sr-only"><%= t('hyrax.homepage.featured_works.document.title_label') %></span>
@@ -9,6 +9,10 @@
       <% end %>
     </h3>
   </div>
-  <%# Removed Depositor %>
-  <%# Removed item keywords %>
+  <div class="featured-field featured-item-depositor">
+    <span class="featured-label"><%= t('hyrax.homepage.featured_works.document.depositor_label') %>:</span> <%= link_to_profile featured.depositor(t('hyrax.homepage.featured_works.document.depositor_missing')) %>
+  </div>
+  <div class="featured-field featured-item-keywords">
+    <span class="featured-label"><%= t('hyrax.homepage.featured_works.document.keyword_label') %>:</span> <%= link_to_facet_list(featured.keyword, 'keyword', t('hyrax.homepage.featured_works.document.keyword_missing')) %>
+  </div>
 </div>

@@ -5,7 +5,7 @@
   <% end %>
   <div class="recent-doc-title">
     <%= link_to [main_app, recent_document] do %>
-      <h3><%= recent_document.to_s %></h3>
+      <h3><%= markdown(recent_document.to_s) %></h3>
     <% end %>
   </div>
 </div>

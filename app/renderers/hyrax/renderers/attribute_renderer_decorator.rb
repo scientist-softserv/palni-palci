@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # OVERRIDE Hyrax v3.4.2 Enable markdown rendering on work show page metadata
+
 module Hyrax::Renderers
   module AttributeRendererDecorator
     include ApplicationHelper

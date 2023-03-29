@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-
 # OVERRIDE Blacklight 6.7.0 to enable markdown in the facets
+
 require_dependency Blacklight::Engine.root.join('app', 'helpers', 'blacklight', 'facets_helper_behavior').to_s
 
 Blacklight::FacetsHelperBehavior.class_eval do

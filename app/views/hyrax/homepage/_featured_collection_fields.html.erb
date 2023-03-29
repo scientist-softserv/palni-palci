@@ -1,3 +1,5 @@
+<%# OVERRIDE Hyku 4.0.0 to add markdown to title %>
+
 <div class="featured-item-title d-flex">
   <div class="sr-only">
     <%= t('hyrax.homepage.featured_collections.document.title_label') %>
@@ -10,7 +12,8 @@
     <div>
       <h5>
         <%= link_to [hyrax, featured] do %>
-          <%= featured.title.first %>
+          <%# OVERRIDE here to enable markdown %>
+          <%= markdown(featured.title.first) %>
         <% end %>
       </h5>
     </div>

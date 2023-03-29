@@ -1,4 +1,5 @@
-<%# OVERRIDE Hyrax v3.4.2 Restrict who can remove works from collections %>
+<%# OVERRIDE Hyrax v3.4.2 Restrict who can remove works from collections, enable markdown for dashboard collections %>
+
 <% id = document.id %>
 <tr id="document_<%= id %>">
   <td>&nbsp;
@@ -13,7 +14,9 @@
       <% end %>
       <div class="media-body">
         <p class="media-heading">
-          <strong><%= link_to document.title_or_label, [main_app, document], id: "src_copy_link#{id}", class: "#{'document-title' if document.title_or_label == document.label}" %></strong>
+          <strong>
+            <%= markdown("#{link_to document.title_or_label, [main_app, document], id: "src_copy_link#{id}", class: "#{'document-title' if document.title_or_label == document.label}"}") %>
+          </strong>
           <a href="#" class="small" title="Click for more details"><i id="expand_<%= id %>" class="glyphicon glyphicon-chevron-right"></i></a>
         </p>
         <%= render_other_collection_links(document, @presenter.id) %>

@@ -963,6 +963,7 @@ GEM
     rdf-xsd (3.1.1)
       rdf (~> 3.1)
       rexml (~> 3.2)
+    redcarpet (3.6.0)
     redic (1.5.3)
       hiredis
     redis (4.8.0)
@@ -1301,6 +1302,7 @@ DEPENDENCIES
   rails (~> 5.2.5)
   rails-controller-testing
   rdf (~> 3.1.15)
+  redcarpet
   riiif (~> 1.1)
   rolify
   rsolr (~> 2.0)

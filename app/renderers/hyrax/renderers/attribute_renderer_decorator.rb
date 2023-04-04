@@ -10,7 +10,9 @@ module Hyrax
       private
 
         def attribute_value_to_html(value)
-          if microdata_value_attributes(field).present?
+          if field.to_s === 'abstract'
+            markdown(value)
+          elsif microdata_value_attributes(field).present?
             "<span#{html_attributes(microdata_value_attributes(field))}>#{markdown(li_value(value))}</span>"
           else
             markdown(li_value(value))

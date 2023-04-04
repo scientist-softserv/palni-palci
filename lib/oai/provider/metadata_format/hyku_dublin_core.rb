@@ -38,6 +38,13 @@ module OAI
                 xml.tag! field.to_s, values
               end
             end
+            # TODO: filter out private files
+            if record[:file_set_ids_ssim].present?
+              record[:file_set_ids_ssim].each do |fs_id|
+                file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
+                xml.tag! 'file_url', file_download_path
+              end
+            end
           end
           xml.target!
         end

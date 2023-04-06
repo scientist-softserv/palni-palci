@@ -13,13 +13,13 @@ module OAI
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
           @fields = %i[
-            abstract access_right accessibility_feature accessibility_hazard accessibility_summary
-            additional_information advisor alternate_version_id alternative_title audience based_near
-            bibliographic_citation committee_member contributor creator date_created degree_discipline
-            degree_grantor degree_level degree_name department description discipline education_level
-            extent format has_model identifier keyword language learning_resource_type license newer_version_id
-            oer_size previous_version_id publisher related_item_id related_url resource_type rights_holder
-            rights_notes rights_statement source subject table_of_contents title
+            identifier title abstract access_right accessibility_feature accessibility_hazard
+            accessibility_summary additional_information advisor alternate_version_id alternative_title
+            audience based_near bibliographic_citation committee_member contributor creator date_created
+            degree_discipline degree_grantor degree_level degree_name department description discipline
+            education_level extent format has_model  keyword language learning_resource_type license
+            newer_version_id oer_size previous_version_id publisher related_item_id related_url
+            resource_type rights_holder rights_notes rights_statement source subject table_of_contents
           ]
         end
 
@@ -30,6 +30,8 @@ module OAI
           xml.tag!(prefix.to_s) do
             fields.each do |field|
               values = value_for(field, record, map)
+              next if values.blank?
+
               if values.respond_to?(:each)
                 values.each do |value|
                   xml.tag! field.to_s, value

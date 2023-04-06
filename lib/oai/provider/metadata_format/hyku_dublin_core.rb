@@ -40,15 +40,21 @@ module OAI
                 xml.tag! field.to_s, values
               end
             end
-            # TODO: filter out private files
-            if record[:file_set_ids_ssim].present?
-              record[:file_set_ids_ssim].each do |fs_id|
-                file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
-                xml.tag! 'file_url', file_download_path
-              end
-            end
+            add_public_file_urls(xml, record)
           end
           xml.target!
+        end
+
+        def add_public_file_urls(xml, record)
+          if record[:file_set_ids_ssim].present?
+            record[:file_set_ids_ssim].each do |fs_id|
+              fs_solr_data = ActiveFedora::SolrService.query("id:#{fs_id}").first
+              next unless fs_solr_data['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+
+              file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
+              xml.tag! 'file_url', file_download_path
+            end
+          end
         end
 
         def header_specification

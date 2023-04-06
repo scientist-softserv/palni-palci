@@ -17,7 +17,7 @@ module OAI
             accessibility_summary additional_information advisor alternate_version_id alternative_title
             audience based_near bibliographic_citation committee_member contributor creator date_created
             degree_discipline degree_grantor degree_level degree_name department description discipline
-            education_level extent format has_model  keyword language learning_resource_type license
+            education_level extent format has_model keyword language learning_resource_type license
             newer_version_id oer_size previous_version_id publisher related_item_id related_url
             resource_type rights_holder rights_notes rights_statement source subject table_of_contents
           ]
@@ -46,14 +46,14 @@ module OAI
         end
 
         def add_public_file_urls(xml, record)
-          if record[:file_set_ids_ssim].present?
-            record[:file_set_ids_ssim].each do |fs_id|
-              fs_solr_data = ActiveFedora::SolrService.query("id:#{fs_id}").first
-              next unless fs_solr_data['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+          return if record[:file_set_ids_ssim].blank?
 
-              file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
-              xml.tag! 'file_url', file_download_path
-            end
+          record[:file_set_ids_ssim].each do |fs_id|
+            fs_solr_data = ActiveFedora::SolrService.query("id:#{fs_id}").first
+            next unless fs_solr_data['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+
+            file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
+            xml.tag! 'file_url', file_download_path
           end
         end
 

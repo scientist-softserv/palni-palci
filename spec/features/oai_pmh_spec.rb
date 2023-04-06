@@ -70,14 +70,10 @@ RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
 
       context 'when the work has public file sets' do
         before do
+          # Mock two public file set ids returned by Solr
           allow(ActiveFedora::SolrService)
             .to receive(:query)
-            .with('id:my-file-set-id-1')
-            .and_return([{ 'visibility_ssi' => 'open' }])
-          allow(ActiveFedora::SolrService)
-            .to receive(:query)
-            .with('id:my-file-set-id-2')
-            .and_return([{ 'visibility_ssi' => 'open' }])
+            .and_return([{ 'id' => 'my-file-set-id-1' }, { 'id' => 'my-file-set-id-2' }])
         end
 
         it 'adds download links' do
@@ -94,14 +90,10 @@ RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
 
       context 'when the work has non-public file sets' do
         before do
+          # Mock zero public file set ids returned by Solr
           allow(ActiveFedora::SolrService)
             .to receive(:query)
-            .with('id:my-file-set-id-1')
-            .and_return([{ 'visibility_ssi' => 'restricted' }])
-          allow(ActiveFedora::SolrService)
-            .to receive(:query)
-            .with('id:my-file-set-id-2')
-            .and_return([{ 'visibility_ssi' => 'authenticated' }])
+            .and_return([])
         end
 
         it 'does not add download links' do
@@ -118,14 +110,10 @@ RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
 
       context 'when the work has public and non-public file sets' do
         before do
+          # Mock one public file set ids returned by Solr
           allow(ActiveFedora::SolrService)
             .to receive(:query)
-            .with('id:my-file-set-id-1')
-            .and_return([{ 'visibility_ssi' => 'open' }])
-          allow(ActiveFedora::SolrService)
-            .to receive(:query)
-            .with('id:my-file-set-id-2')
-            .and_return([{ 'visibility_ssi' => 'restricted' }])
+            .and_return([{ 'id' => 'my-file-set-id-1' }])
         end
 
         it 'adds public download links' do

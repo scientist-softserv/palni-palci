@@ -48,11 +48,18 @@ module OAI
         def add_public_file_urls(xml, record)
           return if record[:file_set_ids_ssim].blank?
 
-          record[:file_set_ids_ssim].each do |fs_id|
-            fs_solr_data = ActiveFedora::SolrService.query("id:#{fs_id}").first
-            next unless fs_solr_data['visibility_ssi'] == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+          fs_ids = record[:file_set_ids_ssim].join('" OR "')
+          public_fs_ids = ActiveFedora::SolrService.query(
+            "id:(\"#{fs_ids}\") AND " \
+            "has_model_ssim:FileSet AND " \
+            "visibility_ssi:#{Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC}",
+            fl: ["id"],
+            rows: 1024 # maximum
+          )
+          return if public_fs_ids.blank?
 
-            file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id}"
+          public_fs_ids.each do |fs_id_hash|
+            file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id_hash['id']}"
             xml.tag! 'file_url', file_download_path
           end
         end

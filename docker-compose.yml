@@ -56,10 +56,12 @@ services:
       timeout: "8s"
 
   solr:
-    image: ghcr.io/scientist-softserv/atla-hyku/solr:${TAG:-latest}
     build:
-      context: solr
-      dockerfile: Dockerfile
+      context: ./solr
+      target: hyku-solr
+      cache_from:
+        - ghcr.io/scientist-softserv/atla-hyku/solr:${TAG:-latest}
+    image: ghcr.io/scientist-softserv/atla-hyku/solr:${TAG:-latest}
     environment:
       - OOM=script
       - SOLR_ADMIN_USER=solr

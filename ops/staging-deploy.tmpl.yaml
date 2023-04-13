@@ -36,10 +36,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: hyku-staging.$BASE_URL #needs to get changed later
+    - host: atla-hyku.notch8.cloud #needs to get changed later
       paths:
         - path: /
-    - host: "*.hyku-staging.$BASE_URL" #needs to get changed later
+    - host: "*.atla-hyku.notch8.cloud" #needs to get changed later
       paths:
         - path: /
   annotations: {
@@ -49,45 +49,48 @@ ingress:
   }
   tls:
     - hosts:
-        - hyku-staging.$BASE_URL #needs to get changed later
-        - "*.hyku-staging.$BASE_URL" #needs to get changed later
-      secretName: hykustaging-tls #needs to get changed later
+        - atla-hyku.notch8.cloud #needs to get changed later
+        - "*.atla-hyku.notch8.cloud" #needs to get changed later
+      secretName: atlahykustaging-tls #needs to get changed later
 
 extraEnvVars: &envVars
   - name: CONFDIR
-    value: "/app/samvera/hyrax-webapp/solr/config"
+    # value: "/app/samvera/hyrax-webapp/solr/conf" need to confirm
   - name: DB_ADAPTER
     value: postgresql
   - name: DB_HOST
-    value: pg-postgresql.staging-postgres.svc.cluster.local #needs to get changed later
+    value: pg-postgresql.staging-postgres.svc.cluster.local
   - name: DB_NAME
-    value: hyku-staging
+    value: atla-hyku-staging
   - name: DB_USER
     value: postgres
   - name: FCREPO_BASE_PATH
-    value: /hykustaging
+    value: /atlahykustaging
   - name: FCREPO_HOST
-    value: fcrepo.staging-fcrepo.svc.cluster.local #needs to get changed later
+    value: fcrepo.staging-fcrepo.svc.cluster.local
   - name: FCREPO_PORT
     value: "8080"
   - name: FCREPO_REST_PATH
     value: rest
-  - name: GOOGLE_ANALYTICS_ID
-    value: $GOOGLE_ANALYTICS_ID
-  - name: GOOGLE_OAUTH_APP_NAME
-    value: hyku-staging
-  - name: GOOGLE_OAUTH_APP_VERSION
-    value: '1.0'
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: prod-cred.p12
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-  - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: hyku-staging@hyku-staging.iam.gserviceaccount.com
+    # this is for the analytics feature flipper
+  - name: HYRAX_ANALYTICS
+    value: "false"
+  # - name: GOOGLE_ANALYTICS_ID
+  #   value: $GOOGLE_ANALYTICS_ID
+  # - name: GOOGLE_OAUTH_APP_NAME
+  #   value: atla-hyku-staging
+  # - name: GOOGLE_OAUTH_APP_VERSION
+  #   value: '1.0'
+  # - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
+  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
+  # - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
+  #   value: prod-cred.p12
+  # - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
+  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE
+  # - name: GOOGLE_OAUTH_CLIENT_EMAIL
+  #   value: atla-hyku-staging@atla-hyku-staging.iam.gserviceaccount.com
   - name: INITIAL_ADMIN_EMAIL
-    value: support@notch8.com
+    value: admin@example.com
   - name: INITIAL_ADMIN_PASSWORD
     value: testing123
   - name: IN_DOCKER
@@ -97,7 +100,7 @@ extraEnvVars: &envVars
   - name: PASSENGER_APP_ENV
     value: production
   - name: RAILS_CACHE_STORE_URL
-    value: redis://:staging@hyku-staging-redis-master:6379/staging #needs to get changed later???
+    value: redis://:$REDIS_PASSWORD@atla-hyku-staging-redis-master:6379/staging
   - name: RAILS_ENV
     value: production
   - name: RAILS_LOG_TO_STDOUT
@@ -107,55 +110,55 @@ extraEnvVars: &envVars
   - name: RAILS_SERVE_STATIC_FILES
     value: "true"
   - name: REDIS_HOST
-    value: hyku-staging-redis-master
+    value: atla-hyku-staging-redis-master
   - name: REDIS_URL
-    value: redis://:staging@hyku-staging-redis-master:6379/staging #needs to get changed later???
+    value: redis://:$REDIS_PASSWORD@atla-hyku-staging-redis-master:6379/staging
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
   - name: HYKU_BULKRAX_ENABLED
-    value: "true"
+    value: "false"
   - name: HYKU_CONTACT_EMAIL
-    value: support@notch8.com
+    value: dev-oops@scientist.com
   - name: HYKU_FILE_ACL
     value: "false"
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: HYKU_ADMIN_HOST
-    value: ir-staging.atla.com
+    value: atla-hyku.notch8.cloud
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
-    value: "true"
+    value: "false"
   - name: HYKU_ALLOW_SIGNUP
     value: "false"
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.ir-staging.atla.com"
+    value: "%{tenant}.atla-hyku.notch8.cloud"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: ir-staging.atla.com
+    value: atla-hyku.notch8.cloud
   - name: NEGATIVE_CAPTCHA_SECRET
     value: $NEGATIVE_CAPTCHA_SECRET #needs to get changed later
-  - name: SMTP_ENABLED
-    value: "true"
-  - name: SMTP_USER_NAME
-    value: $SMTP_USER_NAME
-  - name: SMTP_PASSWORD
-    value: $SMTP_PASSWORD
-  - name: SMTP_ADDRESS
-    value: smtp.mailtrap.io
-  - name: SMTP_DOMAIN
-    value: smtp.mailtrap.io
-  - name: SMTP_PORT
-    value: "2525"
-  - name: SMTP_TYPE
-    value: cram_md5
+  # - name: SMTP_ENABLED
+  #   value: "true"
+  # - name: SMTP_USER_NAME
+  #   value: $SMTP_USER_NAME
+  # - name: SMTP_PASSWORD
+  #   value: $SMTP_PASSWORD
+  # - name: SMTP_ADDRESS
+  #   value: smtp.mailtrap.io
+  # - name: SMTP_DOMAIN
+  #   value: smtp.mailtrap.io
+  # - name: SMTP_PORT
+  #   value: "2525"
+  # - name: SMTP_TYPE
+  #   value: cram_md5
   - name: SOLR_ADMIN_USER
     value: admin
   - name: SOLR_ADMIN_PASSWORD
     value: $SOLR_ADMIN_PASSWORD
- - name: SOLR_COLLECTION_NAME
-    value: hyku-staging
+  - name: SOLR_COLLECTION_NAME
+    value: atla-hyku-staging
   - name: SOLR_CONFIGSET_NAME
-    value: hyku-staging
+    value: atla-hyku-staging
   - name: SOLR_HOST
     value: solr.staging-solr #needs to get changed later????
   - name: SOLR_PORT
@@ -194,7 +197,7 @@ postgresql:
 redis:
   cluster:
     enabled: false
-  password: staging
+  password: $REDIS_PASSWORD
 solr:
   enabled: false
 
@@ -207,11 +210,11 @@ externalPostgresql:
 
 externalSolrHost: solr.staging-solr.svc.cluster.local #needs to get changed later
 externalSolrUser: admin
-externalSolrCollection: "hyku-staging"
+externalSolrCollection: "atla-hyku-staging"
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
-  hyraxName: hyku-staging-hyrax
+  hyraxName: atla-hyku-staging-hyrax
 
 nginx:
   enabled: true

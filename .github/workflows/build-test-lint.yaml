@@ -36,6 +36,5 @@ jobs:
     needs: build
     uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.14
     with:
-      confdir: "/app/samvera/hyrax-webapp/solr/conf"
       webTarget: hyku-web
       workerTarget: hyku-worker

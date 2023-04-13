@@ -20,6 +20,22 @@ jobs:
     uses: scientist-softserv/actions/.github/workflows/build.yaml@v0.0.14
     secrets: inherit
     with:
-      platforms: "linux/amd64" # "linux/amd64,linux/arm64"
+      platforms: "linux/amd64"
+      webTarget: hyku-web
+      workerTarget: hyku-worker
+
+  test:
+    needs: build
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.14
+    with:
+      confdir: "/app/samvera/hyrax-webapp/solr/conf"
+      webTarget: hyku-web
+      workerTarget: hyku-worker
+
+  lint:
+    needs: build
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.14
+    with:
+      confdir: "/app/samvera/hyrax-webapp/solr/conf"
       webTarget: hyku-web
       workerTarget: hyku-worker

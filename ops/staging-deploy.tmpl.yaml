@@ -56,6 +56,10 @@ ingress:
 extraEnvVars: &envVars
   - name: CONFDIR
     value: "/app/samvera/hyrax-webapp/solr/conf"
+  - name: CLIENT_ADMIN_USER_EMAIL
+    value: $CLIENT_ADMIN_USER_EMAIL
+  - name: CLIENT_ADMIN_USER_PASSWORD
+    value: $CLIENT_ADMIN_USER_PASSWORD
   - name: DB_ADAPTER
     value: postgresql
   - name: DB_HOST

@@ -51,4 +51,13 @@ if ENV['INITIAL_ADMIN_EMAIL'] && ENV['INITIAL_ADMIN_PASSWORD']
     u.password = ENV['INITIAL_ADMIN_PASSWORD']
   end
   u.add_role(:superadmin)
+  puts "\n== Finished seeding the default superadmin user"
+end
+
+if ENV['CLIENT_ADMIN_USER_EMAIL'] && ENV['CLIENT_ADMIN_USER_PASSWORD']
+  u = User.find_or_create_by(email: ENV['CLIENT_ADMIN_USER_EMAIL']) do |u|
+    u.password = ENV['CLIENT_ADMIN_USER_PASSWORD']
+  end
+  u.add_role(:superadmin)
+  puts "\n== Finished seeding the client admin user"
 end

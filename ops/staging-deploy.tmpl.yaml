@@ -36,10 +36,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: atla-hyku.notch8.cloud
+    - host: ir-staging.atla.com
       paths:
         - path: /
-    - host: "*.atla-hyku.notch8.cloud"
+    - host: "*.ir-staging.atla.com"
       paths:
         - path: /
   annotations: {
@@ -49,8 +49,8 @@ ingress:
   }
   tls:
     - hosts:
-        - atla-hyku.notch8.cloud
-        - "*.atla-hyku.notch8.cloud"
+        - ir-staging.atla.com
+        - "*.ir-staging.atla.com"
       secretName: atla-hyku-staging-tls
 
 extraEnvVars: &envVars
@@ -121,17 +121,17 @@ extraEnvVars: &envVars
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: HYKU_ADMIN_HOST
-    value: atla-hyku.notch8.cloud
+    value: ir-staging.atla.com
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: "false"
   - name: HYKU_ALLOW_SIGNUP
     value: "false"
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.atla-hyku.notch8.cloud"
+    value: "%{tenant}.ir-staging.atla.com"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: atla-hyku.notch8.cloud
+    value: ir-staging.atla.com
   - name: NEGATIVE_CAPTCHA_SECRET
     value: $NEGATIVE_CAPTCHA_SECRET
   - name: SMTP_ENABLED

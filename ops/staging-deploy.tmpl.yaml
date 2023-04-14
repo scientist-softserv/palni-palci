@@ -1,9 +1,5 @@
 replicaCount: 2
 
-service:
-  type: ClusterIP
-  port: 80
-
 livenessProbe:
   enabled: false
 readinessProbe:
@@ -219,3 +215,5 @@ global:
 
 nginx:
   enabled: false
+  service:
+    port: 80

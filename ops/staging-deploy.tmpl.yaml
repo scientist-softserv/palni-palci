@@ -39,9 +39,15 @@ ingress:
     - host: atla-hyku.notch8.cloud
       paths:
         - path: /
+          backend:
+            service:
+              port: 80
     - host: "*.atla-hyku.notch8.cloud"
       paths:
         - path: /
+          backend:
+            service:
+              port: 80
   annotations: {
     kubernetes.io/ingress.class: "nginx",
     nginx.ingress.kubernetes.io/proxy-body-size: "0",

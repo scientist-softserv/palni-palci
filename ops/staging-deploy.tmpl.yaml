@@ -170,6 +170,10 @@ extraEnvVars: &envVars
     value: $SENTRY_DSN
   - name: SENTRY_ENVIRONMENT
     value: $SENTRY_ENVIRONMENT
+  - name: TEST_USER_EMAIL
+    value: user@example.com
+  - name: TEST_USER_PASSWORD
+    value: testing123
 
 worker:
   replicaCount: 1

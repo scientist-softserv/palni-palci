@@ -49,15 +49,22 @@ end
 if ENV['INITIAL_ADMIN_EMAIL'] && ENV['INITIAL_ADMIN_PASSWORD']
   u = User.find_or_create_by(email: ENV['INITIAL_ADMIN_EMAIL']) do |u|
     u.password = ENV['INITIAL_ADMIN_PASSWORD']
+    u.add_role(:superadmin)
   end
-  u.add_role(:superadmin)
   puts "\n== Finished seeding the default superadmin user"
 end
 
 if ENV['CLIENT_ADMIN_USER_EMAIL'] && ENV['CLIENT_ADMIN_USER_PASSWORD']
   u = User.find_or_create_by(email: ENV['CLIENT_ADMIN_USER_EMAIL']) do |u|
     u.password = ENV['CLIENT_ADMIN_USER_PASSWORD']
+    u.add_role(:superadmin)
   end
-  u.add_role(:superadmin)
   puts "\n== Finished seeding the client admin user"
+end
+
+if ENV['TEST_USER_EMAIL'] && ENV['TEST_USER_PASSWORD']
+  u = User.find_or_create_by(email: ENV['TEST_USER_EMAIL']) do |u|
+    u.password = ENV['TEST_USER_PASSWORD']
+  end
+  puts "\n== Finished seeding the default notch8 registered user"
 end

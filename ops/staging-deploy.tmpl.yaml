@@ -116,6 +116,8 @@ extraEnvVars: &envVars
     value: redis://:$REDIS_PASSWORD@atla-hyku-staging-redis-master:6379/staging
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
+  - name: HYRAX_ANALYTICS
+    value: "true"
   - name: HYKU_BULKRAX_ENABLED
     value: "false"
   - name: HYKU_CONTACT_EMAIL

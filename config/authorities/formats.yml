@@ -1,5 +1,3 @@
-# use lowercase for alts
-# This is NOT WORKING
 terms:
   - id: application/pdf
     term: PDF

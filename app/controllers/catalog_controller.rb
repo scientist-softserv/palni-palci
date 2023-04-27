@@ -112,8 +112,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'identifier_tesim', helper_method: :index_field_link, field_name: 'identifier'
     config.add_index_field 'embargo_release_date_dtsi', label: "Embargo release date", helper_method: :human_readable_date
     config.add_index_field 'lease_expiration_date_dtsi', label: "Lease expiration date", helper_method: :human_readable_date
-    config.add_index_field 'format_tesim'
-    config.add_index_field 'institution_tesim'
+    config.add_index_field 'format_tesim', label: 'Format'
+    config.add_index_field 'institution_tesim', label: 'Institution'
     config.add_index_field 'types_tesim', label: "Type"
 
     # solr fields to be displayed in the show (single result) view
@@ -133,10 +133,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'rights_statement_tesim'
     config.add_show_field 'license_tesim'
     config.add_show_field 'resource_type_tesim', label: "Resource Type"
-    config.add_show_field 'format_tesim'
+    config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'identifier_tesim'
     config.add_show_field 'extent_tesim'
-    config.add_show_field 'institution_tesim'
+    config.add_show_field 'institution_tesim', label: 'Institution'
     config.add_show_field 'types_tesim', label: "Type"
 
     # "fielded" search configuration. Used by pulldown among other places.

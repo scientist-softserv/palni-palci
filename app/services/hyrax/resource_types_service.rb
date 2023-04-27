@@ -1,7 +1,7 @@
 module Hyrax
-  module FormatService
+  module ResourceTypesService
     mattr_accessor :authority
-    self.authority = Qa::Authorities::Local.subauthority_for('formats')
+    self.authority = Qa::Authorities::Local.subauthority_for('resource_types')
 
     def self.select_options
       authority.all.map do |element|
@@ -28,7 +28,7 @@ module Hyrax
     def self.microdata_type(id)
       return Hyrax.config.microdata_default_type if id.nil?
 
-      Microdata.fetch("format.#{id}", default: Hyrax.config.microdata_default_type)
+      Microdata.fetch("resource_type.#{id}", default: Hyrax.config.microdata_default_type)
     end
   end
 end

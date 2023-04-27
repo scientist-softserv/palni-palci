@@ -1,10 +1,3 @@
-# This field will include all participating libraries.
-# In a cross tenant search it will identify which tenant the item is from.
-
-# TODO: This currently is not setup dynamically, from the notes in the
-# spreadsheet it seems like there is an expectation of dynamic capability
-# that is currently not setup.
-
 terms:
   - id: Chicago Theological Seminary
     term: Chicago Theological Seminary

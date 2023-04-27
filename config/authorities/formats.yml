@@ -1,0 +1,101 @@
+# use lowercase for alts
+# This is NOT WORKING
+terms:
+  - id: application/pdf
+    term: PDF
+    alts: ['pdf','application/pdf']
+    active: true
+
+  - id: image/jpeg
+    term: JPEG
+    alts: ['image/jpeg','image/jpg','jpg']
+    active: true
+
+  - id: image/tiff
+    term: TIFF
+    alts: ['image/tiff','image/tif','tif']
+    active: true
+
+  - id: image/jp2
+    term: JP2
+    alts: ['image/jp2']
+    active: true
+
+  - id: image/png
+    term: PNG
+    alts: [image/png']
+    active: true
+
+  - id: image/gif
+    term: GIF
+    alts: ['image/gif']
+    active: true
+
+  - id: video/mp4
+    term: MP4
+    alts: ['video/mp4']
+    active: true
+
+  - id: video/ogg
+    term: OGG
+    alts: ['video/ogg']
+    active: true
+
+  - id: video/vnd.avi
+    term: AVI
+    alts: ['video/vnd.avi','video/avi']
+    active: true
+
+  - id: audio/aac
+    term: AAC
+    alts: ['audio/aac']
+    active: true
+
+  - id: audio/mp4
+    term: MP4
+    alts: ['audio/mp4']
+    active: true
+
+  - id: audio/mpeg
+    term: MPEG
+    alts: ['audio/mpeg','audio/mp3','audio/mpeg3','mp3','MP3','mpeg3']
+    active: true
+
+  - id: audio/ogg
+    term: OGG
+    alts: ['audio/ogg']
+    active: true
+
+  - id: audio/aiff
+    term: AIFF
+    alts: ['audio/aiff']
+    active: true
+
+  - id: audio/webm
+    term: WEBM
+    alts: ['audio/webm']
+    active: true
+
+  - id: audio/wav
+    term: WAV
+    alts: ['audio/wav']
+    active: true
+
+  - id: text/csv
+    term: CSV
+    alts: ['text/csv']
+    active: true
+
+  - id: text/html
+    term: HTML
+    alts: ['text/html']
+    active: true
+
+  - id: text/rtf
+    term: RTF
+    alts: ['text/rtf']
+    active: true
+
+  - id: url
+    term: URL
+    active: true

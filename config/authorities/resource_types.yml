@@ -1,28 +1,59 @@
+# This is Working
 terms:
-  - id: Article
-    term: Article
-  - id: Audio
-    term: Audio
-  - id: Book
-    term: Book
-  - id: Capstone Project
-    term: Capstone Project
-  - id: Conference Proceeding
-    term: Conference Proceeding
-  - id: Dataset
-    term: Dataset
+  - id: D.Ed.Min. Project
+    term: D.Ed.Min. Project
+  - id: D.Min. Project
+    term: D.Min. Project
+  - id: D.Miss. Project
+    term: D.Miss. Project
   - id: Dissertation
     term: Dissertation
-  - id: Image
-    term: Image
+  - id: M.Div. Project
+    term: M.Div. Project
+  - id: Other Terminal Project
+    term: Other Terminal Project
+  - id: Thesis
+    term: Thesis
+  - id: Abstract
+    term: Abstract
+  - id: Article
+    term: Article
+  - id: Book
+    term: Book
+  - id: Book chapter
+    term: Book chapter
+  - id: Book review
+    term: Book review
+  - id: Capstone Project
+    term: Capstone Project
+  - id: Ceremony
+    term: Ceremony
+  - id: Conference paper (published)
+    term: Conference paper (published)
+  - id: Conference paper (unpublished)
+    term: Conference paper (unpublished)
+  - id: Conference Proceeding
+    term: Conference Proceeding
+  - id: Exhibition
+    term: Exhibition
   - id: Journal
     term: Journal
+  - id: Leaflet
+    term: Leaflet
+  - id: Lecture
+    term: Lecture
   - id: Map or Cartographic Material
     term: Map or Cartographic Material
-  - id: Masters Thesis
-    term: Masters Thesis
-  - id: Part of Book
-    term: Part of Book
+  - id: Newsletter
+    term: Newsletter
+  - id: Other
+    term: Other
+  - id: Performance
+    term: Performance
+  - id: Photograph
+    term: Photograph
+  - id: Policy paper
+    term: Policy paper
   - id: Poster
     term: Poster
   - id: Presentation
@@ -33,9 +64,11 @@ terms:
     term: Report
   - id: Research Paper
     term: Research Paper
+  - id: Sermon
+    term: Sermon
   - id: Software or Program Code
     term: Software or Program Code
-  - id: Video
-    term: Video
-  - id: Other
-    term: Other
+  - id: Technical report
+    term: Technical report
+  - id: Website
+    term: Website

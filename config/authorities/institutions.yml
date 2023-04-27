@@ -1,0 +1,19 @@
+# This field will include all participating libraries.
+# In a cross tenant search it will identify which tenant the item is from.
+# This is NOT WORKING
+terms:
+  - id: Chicago Theological Seminary
+    term: Chicago Theological Seminary
+    active: true
+  - id: Oblate School of Theology
+    term: Oblate School of Theology
+    active: true
+
+  # - id:
+  #   term:
+  #   active: true or false
+# QUESTION: Do we need to set this up dynamically?
+# BL does similar:
+# partial: https://github.com/scientist-softserv/britishlibrary/blob/1c15eb23decbfcf6f247605f7b8a1ae222ec66a5/app/views/records/edit_fields/_institution.html.erb#L7
+# service: https://github.com/scientist-softserv/britishlibrary/blob/1c15eb23decbfcf6f247605f7b8a1ae222ec66a5/app/services/institution_service.rb
+# terms: https://github.com/scientist-softserv/britishlibrary/blob/1c15eb23decbfcf6f247605f7b8a1ae222ec66a5/config/authorities/institution.yml#L4

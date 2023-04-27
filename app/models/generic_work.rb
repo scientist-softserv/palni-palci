@@ -9,5 +9,18 @@ class GenericWork < ActiveFedora::Base
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
+  # ("https://iro.bl.uk/resource#bulkraxIdentifier")
+  property :institution, predicate: ::RDF::URI.new("http://hyku.test/institutions"), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :types, predicate: ::RDF::Vocab::DC.type, multiple: true do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :format, predicate: ::RDF::Vocab::DC.format, multiple: true do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   self.indexer = GenericWorkIndexer
 end

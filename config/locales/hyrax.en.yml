@@ -1133,7 +1133,9 @@ en:
         date_created: The date on which the work was created.
         description: Free-text notes about the work. Examples include abstracts of a paper or citation information for a journal article.
         extent: The extent (size, duration, number, etc.) of the work.
+        format: The file format of the digital resource.
         identifier: A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
+        institution: Participating institution to which the work is being uploaded to.
         keyword: Words or phrases you select to describe what the work is about. These are used to search for content.
         language: The language of the work's content.
         license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.
@@ -1142,6 +1144,7 @@ en:
         resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
         subject: Headings or index terms describing what the work is about; these do need to conform to an existing vocabulary.
         title: A name to aid in identifying a work.
+        types: Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.
     labels:
       collection:
         size: Size
@@ -1174,6 +1177,7 @@ en:
         related_url: Related URL
         rights_statement: Rights statement
         title: Title
+        types: Type
         visibility_after_embargo: then open it up to
         visibility_after_lease: then restrict it to
         visibility_during_embargo: Restricted to

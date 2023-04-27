@@ -17,3 +17,6 @@
 <%= presenter.attribute_to_html(:rights_notes, html_dl: true) %>
 <%= presenter.attribute_to_html(:access_right, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
+<%= presenter.attribute_to_html(:format, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:institution, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:types, render_as: :faceted, html_dl: true) %>

@@ -80,6 +80,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
+    config.add_facet_field 'format_tesim', limit: 5, label: 'Format'
+    config.add_facet_field 'institution_tesim', limit: 5, label: 'Institution'
+    config.add_facet_field 'types_tesim', limit: 5, label: 'Type'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -109,6 +112,9 @@ class CatalogController < ApplicationController
     config.add_index_field 'identifier_tesim', helper_method: :index_field_link, field_name: 'identifier'
     config.add_index_field 'embargo_release_date_dtsi', label: "Embargo release date", helper_method: :human_readable_date
     config.add_index_field 'lease_expiration_date_dtsi', label: "Lease expiration date", helper_method: :human_readable_date
+    config.add_index_field 'format_tesim'
+    config.add_index_field 'institution_tesim'
+    config.add_index_field 'types_tesim', label: "Type"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -130,6 +136,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'format_tesim'
     config.add_show_field 'identifier_tesim'
     config.add_show_field 'extent_tesim'
+    config.add_show_field 'institution_tesim'
+    config.add_show_field 'types_tesim', label: "Type"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

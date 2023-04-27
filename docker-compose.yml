@@ -5,9 +5,9 @@ x-app: &app
     context: .
     target: hyku-web
     cache_from:
-      - ghcr.io/samvera/hyku/base:${TAG:-latest}
-      - ghcr.io/samvera/hyku:${TAG:-latest}
-  image: ghcr.io/samvera/hyku:${TAG:-latest}
+      - ghcr.io/scientist-softserv/atla-hyku/base:${TAG:-latest}
+      - ghcr.io/scientist-softserv/atla-hyku:${TAG:-latest}
+  image: ghcr.io/scientist-softserv/atla-hyku:${TAG:-latest}
   env_file:
     - .env
   # NOTE: all common env variables moved to .env
@@ -56,10 +56,12 @@ services:
       timeout: "8s"
 
   solr:
-    image: ghcr.io/samvera/hyku/solr:${TAG:-latest}
     build:
-      context: solr
-      dockerfile: Dockerfile
+      context: ./solr
+      target: hyku-solr
+      cache_from:
+        - ghcr.io/scientist-softserv/atla-hyku/solr:${TAG:-latest}
+    image: ghcr.io/scientist-softserv/atla-hyku/solr:${TAG:-latest}
     environment:
       - OOM=script
       - SOLR_ADMIN_USER=solr
@@ -125,7 +127,7 @@ services:
   # Used exclusively for building and caching the base image to reduce build times
   base:
     <<: *app
-    image: ghcr.io/samvera/hyku/base:${TAG:-latest}
+    image: ghcr.io/scientist-softserv/atla-hyku/base:${TAG:-latest}
     build:
       context: .
       target: hyku-base
@@ -159,13 +161,13 @@ services:
 
   worker:
     <<: *app
-    image: ghcr.io/samvera/hyku/worker:${TAG:-latest}
+    image: ghcr.io/scientist-softserv/atla-hyku/worker:${TAG:-latest}
     build:
       context: .
       target: hyku-worker
       cache_from:
-        - ghcr.io/samvera/hyku:${TAG:-latest}
-        - ghcr.io/samvera/hyku/worker:${TAG:-latest}
+        - ghcr.io/scientist-softserv/atla-hyku:${TAG:-latest}
+        - ghcr.io/scientist-softserv/atla-hyku/worker:${TAG:-latest}
     command: bundle exec sidekiq
     depends_on:
       check_volumes:

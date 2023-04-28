@@ -4,5 +4,10 @@
 #  `rails generate hyrax:work GenericWork`
 module Hyrax
   class GenericWorkPresenter < Hyku::WorkShowPresenter
+    # delegate fields from Hyrax::GenricWorks::Metadata to solr_document
+    delegate :institution,
+             :types,
+             :format,
+             to: :solr_document
   end
 end

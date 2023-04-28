@@ -1,2 +1,3 @@
-<%= f.input :format, as: :select, collection: Hyrax::FormatService.select_options,
+<% # OVERRIDE: Hyrax 3.0.0 to add controlled vocabulary %>
+<%= f.input :format, as: :multi_value_select, collection: Hyrax::FormatService.select_options,
     input_html: { class: 'form-control', multiple: true } %>

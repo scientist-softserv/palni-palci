@@ -1,4 +1,5 @@
 <%= presenter.attribute_to_html(:abstract, html_dl: true) %>
+<%= presenter.attribute_to_html(:alternative_title, html_dl: true) %>
 <%= presenter.attribute_to_html(:date_modified, label: t('hyrax.base.show.last_modified'), html_dl: true) %>
 <%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
@@ -17,3 +18,19 @@
 <%= presenter.attribute_to_html(:rights_notes, html_dl: true) %>
 <%= presenter.attribute_to_html(:access_right, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true) %>
+<%= presenter.attribute_to_html(:institution, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:format, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:rights_holder, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:creator_orcid, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:creator_institutional_relationship, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:contributor_orcid, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:contributor_institutional_relationship, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:contributor_role, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:project_name, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:funder_name, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:funder_awards, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:event_title, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:event_location, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:event_date, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:official_link, render_as: :faceted, html_dl: true) %>
+

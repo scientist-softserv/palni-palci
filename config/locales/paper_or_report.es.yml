@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        # TODO: translate `human_name` into Spanish
+        description:        "Informes técnicos, documentos de conferencias, subvenciones u otros informes de proyectos y trabajos similares."
+        name:               "Paper or Report"
+        # TODO: translate `human_name` into Spanish

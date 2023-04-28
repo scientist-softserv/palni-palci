@@ -1,0 +1,16 @@
+en:
+  hyrax:
+    icons:
+      etd:     'fa fa-file-text-o'
+    select_type:
+      etd:
+        description:        "Etd works"
+        name:               "Etd"
+  simple_form:
+    hints:
+      defaults:
+        additional_information: "If rights are subject to a contractual or gift agreement or otherwise defined by a binding agreement that is in addition to or in place of intellectual property laws or open licensing, please detail here."
+    labels:
+      defaults:
+        additional_information: "Additional rights info"
+        bibliographic_citation: "Bibliographic citation"

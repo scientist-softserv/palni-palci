@@ -107,7 +107,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'keyword_tesim'
     config.add_show_field 'subject_tesim'
     config.add_show_field 'creator_tesim'
-    config.add_show_field 'contributor_tesim', label: "Contributo"
+    config.add_show_field 'contributor_tesim', label: "Contribute"
     config.add_show_field 'publisher_tesim'
     config.add_show_field 'based_near_label_tesim'
     config.add_show_field 'language_tesim'

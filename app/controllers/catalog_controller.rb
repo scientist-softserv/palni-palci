@@ -115,7 +115,6 @@ class CatalogController < ApplicationController
     # config.add_index_field 'format_sim', label: 'Format'
     # config.add_index_field 'institution_sim', label: 'Institution'
     # config.add_index_field 'types_sim', label: "Type"
-    # config.add_index_field 'additional_rights_information_sim', label: "Additional Rights Information"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -140,7 +139,6 @@ class CatalogController < ApplicationController
     # config.add_show_field 'extent_tesim'
     config.add_show_field 'institution_sim', label: 'Institution'
     config.add_show_field 'types_sim', label: "Type"
-    # config.add_show_field 'additional_rights_information_sim', label: "Additional Rights Information"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

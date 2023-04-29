@@ -1123,16 +1123,16 @@ pt-BR:
         title: ''
       defaults:
         access_rights: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
-        additional_rights_information: Se os direitos estiverem sujeitos a um acordo contratual ou de doação ou de outra forma definido por um acordo vinculativo que seja adicional ou substitua as leis de propriedade intelectual ou licenciamento aberto, detalhe aqui.
+        additional_rights_information: Se os direitos estiverem sujeitos a um acordo contratual ou de doação ou de outra forma definido por um acordo vinculativo que seja um complemento ou um substituto das leis de propriedade intelectual ou licenciamento aberto, detalhe aqui.
         based_near: Um nome de local relacionado ao trabalho, como o site da publicação ou a cidade, estado ou país em que o conteúdo do trabalho se refere. Solicita o <a href='http://www.geonames.org'> serviço da web GeoNames </a>.
         contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
         creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
         date_created: A data em que o trabalho foi criado.
         description: Uma conta de texto livre do recurso.
         extent: A extensão (tamanho, duração, número, etc.) do trabalho.
-        format:
+        format: O formato de arquivo do recurso digital.
         identifier: Um identificador exclusivo para identificar o trabalho. Um exemplo seria um DOI para um artigo de jornal ou um número de ISBN ou OCLC para um livro.
-        institution:
+        institution: Instituição participante para a qual o trabalho está sendo carregado.
         keyword: Palavras ou frases que você seleciona para descrever o assunto do trabalho. Estes não precisam ser um vocabulário controlado.
         language: A linguagem do conteúdo da obra.
         license: Informações de licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.
@@ -1143,7 +1143,7 @@ pt-BR:
         rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte https://rightsstatements.org para obter mais informações
         subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
         title: Um nome para ajudar na identificação de um trabalho.
-        types:
+        types: Categorias predefinidas para descrever a natureza ou gênero do recurso. Mais de um tipo pode ser selecionado.
       labels:
         extent: Extensão
     labels:

@@ -1120,28 +1120,28 @@ fr:
         share_applies_to_new_works: Lorsque de nouvelles œuvres sont créées directement dans la collection, accordez aux utilisateurs de partage et aux groupes des autorisations pour la nouvelle œuvre en fonction de leurs rôles de collection.
         title: ''
       defaults:
-        access_rights:
-        additional_rights_information:
+        access_rights: Si l'accès est limité à un certain groupe d'utilisateurs ou si le contenu est soumis à un embargo, incluez cette information ici.
+        additional_rights_information: Si les droits sont soumis à un accord contractuel ou à un cadeau ou autrement définis par un accord contraignant qui s'ajoute ou remplace les lois sur la propriété intellectuelle ou les licences ouvertes, veuillez les détailler ici.
         based_near: Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de l'œuvre, mais pas le rôle principal.
         creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
         date_created: Date à laquelle l'œuvre a été créée.
-        description:
+        description: Un compte rendu en texte libre de la ressource.
         extent: L'étendue (taille, durée, nombre, etc.) du travail.
-        format:
+        format: Format de fichier de la ressource numérique.
         identifier: Une poignée unique identifiant l'œuvre. Un exemple serait un DOI pour un article de journal, ou un numéro ISBN ou OCLC pour un livre.
-        institution:
-        keyword:
+        institution: Institution participante vers laquelle le travail est téléchargé.
+        keyword: Mots ou expressions que vous sélectionnez pour décrire le sujet de l'œuvre. Il n'est pas nécessaire qu'ils fassent partie d'un vocabulaire contrôlé.
         language: La langue du contenu de l'œuvre.
         license: Informations sur les licences et la distribution régissant l'accès à l'œuvre. Sélectionnez dans la liste déroulante fournie.
-        publisher:
+        publisher: La personne ou le groupe responsable de la mise à disposition de la ressource originale.
         related_url: Un lien vers un site Web ou tout autre contenu spécifique (audio, vidéo, document PDF) lié à l'œuvre. Un exemple est l'URL d'un projet de recherche dont le travail a été dérivé.
-        resource_type:
-        rights_notes:
-        rights_statement:
-        subject:
+        resource_type: Catégories prédéfinies pour décrire le type de contenu téléchargé, par exemple "article" ou "photo". Plusieurs types de ressources peuvent être sélectionnés.
+        rights_notes: Toute explication supplémentaire des droits ou des licences peut être incluse ici.
+        rights_statement: Sélectionnez la déclaration de droits appropriée dans la liste déroulante. Consultez https://rightsstatements.org pour plus d'informations.
+        subject: Titres ou termes d'index décrivant le sujet de l'ouvrage. Utilisez un vocabulaire contrôlé.
         title: Un nom pour aider à identifier une œuvre.
-        types:
+        types: Catégories prédéfinies pour décrire la nature ou le genre de la ressource. Plusieurs types peuvent être sélectionnés.
       labels:
         extent: Ampleur
     labels:

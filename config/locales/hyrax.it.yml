@@ -1122,28 +1122,28 @@ it:
         share_applies_to_new_works: Quando le nuove opere vengono create direttamente nella raccolta, concedere le autorizzazioni di condivisione di utenti e gruppi per la nuova opera in base ai ruoli della raccolta.
         title: ''
       defaults:
-        access_rights:
-        additional_rights_information:
+        access_rights: Se l'accesso è limitato a un determinato gruppo di utenti o se il contenuto è soggetto a embargo, includi tali informazioni qui.
+        additional_rights_information: Se i diritti sono soggetti a un accordo contrattuale o di donazione o altrimenti definiti da un accordo vincolante che si aggiunge o sostituisce le leggi sulla proprietà intellettuale o le licenze aperte, si prega di dettagliare qui.
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John."
         date_created: La data di creazione dell'opera.
-        description:
+        description: un resoconto a testo libero della risorsa.
         extent: La dimensione (dimensione, durata, numero, ecc.) Del lavoro.
-        format:
+        format: il formato del file della risorsa digitale.
         identifier: Una maniglia unica che identifica il lavoro. Un esempio potrebbe essere un DOI per un articolo di giornale o un codice ISBN o OCLC per un libro.
-        institution:
-        keyword:
+        institution: istituzione partecipante in cui viene caricato il lavoro.
+        keyword: Parole o frasi selezionate per descrivere l'argomento del lavoro. Non è necessario che siano un vocabolario controllato.
         language: La lingua del contenuto dell'opera.
         license: Informazioni su licenze e distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito.
-        publisher:
+        publisher: La persona o il gruppo responsabile della messa a disposizione della risorsa originale.
         related_url: Un collegamento a un sito Web o ad altri contenuti specifici (audio, video, documento PDF) relativi all'opera. Un esempio è l'URL di un progetto di ricerca da cui deriva il lavoro.
-        resource_type:
-        rights_notes:
-        rights_statement:
-        subject:
+        resource_type: Categorie predefinite per descrivere il tipo di contenuto caricato, ad esempio "articolo" o "fotografia". È possibile selezionare più di un tipo di risorsa.
+        rights_notes: Qualsiasi spiegazione aggiuntiva sui diritti o sulla licenza può essere inclusa qui.
+        rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
+        subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
         title: Un nome per aiutare a identificare un'opera.
-        types:
+        types: categorie predefinite per descrivere la natura o il genere della risorsa. È possibile selezionare più di un tipo.
       labels:
         extent: Estensione
     labels:

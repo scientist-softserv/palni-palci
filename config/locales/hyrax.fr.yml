@@ -1120,21 +1120,28 @@ fr:
         share_applies_to_new_works: Lorsque de nouvelles œuvres sont créées directement dans la collection, accordez aux utilisateurs de partage et aux groupes des autorisations pour la nouvelle œuvre en fonction de leurs rôles de collection.
         title: ''
       defaults:
+        access_rights:
+        additional_rights_information:
         based_near: Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de l'œuvre, mais pas le rôle principal.
         creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
         date_created: Date à laquelle l'œuvre a été créée.
-        description: Notes en texte libre sur l'œuvre. Les exemples incluent des résumés d'un article ou des informations de citation pour un article de revue.
+        description:
         extent: L'étendue (taille, durée, nombre, etc.) du travail.
+        format:
         identifier: Une poignée unique identifiant l'œuvre. Un exemple serait un DOI pour un article de journal, ou un numéro ISBN ou OCLC pour un livre.
-        keyword: Mots ou expressions que vous sélectionnez pour décrire l'objet du travail. Ils sont utilisés pour rechercher du contenu.
+        institution:
+        keyword:
         language: La langue du contenu de l'œuvre.
         license: Informations sur les licences et la distribution régissant l'accès à l'œuvre. Sélectionnez dans la liste déroulante fournie.
-        publisher: La personne ou le groupe qui met le travail à disposition. Il s'agit généralement de l'institution.
+        publisher:
         related_url: Un lien vers un site Web ou tout autre contenu spécifique (audio, vidéo, document PDF) lié à l'œuvre. Un exemple est l'URL d'un projet de recherche dont le travail a été dérivé.
-        resource_type: Catégories prédéfinies pour décrire le type de contenu en cours de téléchargement, telles que & quot; article & quot; ou & quot; ensemble de données. & quot; Plusieurs types peuvent être sélectionnés.
-        subject: En-têtes ou termes d'index décrivant l'objet du travail; ceux-ci doivent se conformer à un vocabulaire existant.
+        resource_type:
+        rights_notes:
+        rights_statement:
+        subject:
         title: Un nom pour aider à identifier une œuvre.
+        types:
       labels:
         extent: Ampleur
     labels:

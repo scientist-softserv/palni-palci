@@ -1122,21 +1122,28 @@ it:
         share_applies_to_new_works: Quando le nuove opere vengono create direttamente nella raccolta, concedere le autorizzazioni di condivisione di utenti e gruppi per la nuova opera in base ai ruoli della raccolta.
         title: ''
       defaults:
+        access_rights:
+        additional_rights_information:
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John."
         date_created: La data di creazione dell'opera.
-        description: Note a testo libero sull'opera. Gli esempi includono abstract di un documento o informazioni di citazione per un articolo di giornale.
+        description:
         extent: La dimensione (dimensione, durata, numero, ecc.) Del lavoro.
+        format:
         identifier: Una maniglia unica che identifica il lavoro. Un esempio potrebbe essere un DOI per un articolo di giornale o un codice ISBN o OCLC per un libro.
-        keyword: Parole o frasi selezionate per descrivere di cosa tratta il lavoro. Questi sono usati per cercare contenuti.
+        institution:
+        keyword:
         language: La lingua del contenuto dell'opera.
         license: Informazioni su licenze e distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito.
-        publisher: La persona o il gruppo che rende disponibile il lavoro. Generalmente questa è l'istituzione.
+        publisher:
         related_url: Un collegamento a un sito Web o ad altri contenuti specifici (audio, video, documento PDF) relativi all'opera. Un esempio è l'URL di un progetto di ricerca da cui deriva il lavoro.
-        resource_type: Categorie predefinite per descrivere il tipo di contenuto da caricare, come "articolo" o & quot; set di dati. & quot; È possibile selezionare più di un tipo.
-        subject: Intestazioni o termini indicativi che descrivono di cosa tratta il lavoro; questi devono conformarsi a un vocabolario esistente.
+        resource_type:
+        rights_notes:
+        rights_statement:
+        subject:
         title: Un nome per aiutare a identificare un'opera.
+        types:
       labels:
         extent: Estensione
     labels:

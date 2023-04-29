@@ -1121,21 +1121,28 @@ de:
         share_applies_to_new_works: Wenn neue Werke direkt in der Sammlung erstellt werden, erteilen Sie Benutzern und Gruppen Berechtigungen für das neue Werk entsprechend ihrer Sammlungsrollen.
         title: ''
       defaults:
+        access_rights:
+        additional_rights_information:
         based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Veröffentlichungsort oder die Stadt, das Bundesland oder das Land, um das es in dem Arbeitsinhalt geht. Ruft den <a href='http://www.geonames.org'> GeoNames-Webdienst </a> auf.
         contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Arbeit erkennen möchten, jedoch nicht die primäre Rolle.
         creator: Die Person oder Gruppe, die für die Arbeit verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
         date_created: Das Datum, an dem die Arbeit erstellt wurde.
-        description: Freitextnotizen zur Arbeit. Beispiele hierfür sind Abstracts eines Papiers oder Zitierinformationen für einen Zeitschriftenartikel.
+        description:
         extent: Das Ausmaß (Größe, Dauer, Anzahl, etc.) der Arbeit.
+        format:
         identifier: Ein einzigartiger Griff, der die Arbeit identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
-        keyword: Wörter oder Sätze, die Sie auswählen, um zu beschreiben, worum es in der Arbeit geht. Diese werden verwendet, um nach Inhalten zu suchen.
+        institution:
+        keyword:
         language: Die Sprache des Arbeitsinhalts.
         license: Lizenz- und Vertriebsinformationen für den Zugang zum Werk. Wählen Sie aus der bereitgestellten Dropdown-Liste.
-        publisher: Die Person oder Gruppe, die die Arbeit zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
+        publisher:
         related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Arbeit bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Arbeit abgeleitet wurde.
-        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
-        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
+        resource_type:
+        rights_notes:
+        rights_statement:
+        subject:
         title: Ein Name, der bei der Identifizierung eines Werks hilft.
+        types:
       labels:
         extent: Umfang
     labels:

@@ -1,4 +1,4 @@
-<%# OVERRIDE: Hyrax 3.5.0 to make license single value on form %>
+<% # OVERRIDE: Hyrax 3.5.0 to make license single value on form %>
 <% license_service = Hyrax.config.license_service_class.new %>
 <%= f.input :license, as: :select,
     collection: license_service.select_active_options,

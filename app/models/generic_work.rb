@@ -20,10 +20,6 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :additional_rights_information, predicate: ::RDF::Vocab::DC.accessRights, multiple: true do |index|
-    index.as :stored_searchable
-  end
-
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata

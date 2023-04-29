@@ -1123,7 +1123,6 @@ es:
         title: ''
       defaults:
         access_rights: Si el acceso está restringido a un determinado grupo de usuarios o si el contenido está sujeto a embargo, incluya esa información aquí.
-        additional_rights_information: Si los derechos están sujetos a un acuerdo contractual o de regalo o están definidos de otro modo por un acuerdo vinculante que se suma a las leyes de propiedad intelectual o las licencias abiertas o las reemplaza, por favor detalle aquí.
         based_near: Un nombre de lugar relacionado con el trabajo, como su sitio de publicación, o la ciudad, el estado o el país del que trata el contenido del trabajo. Llama al <a href='http://www.geonames.org'> servicio web GeoNames </a>.
         contributor: Una persona o grupo que desea reconocer por desempeñar un papel en la creación del trabajo, pero no el papel principal.
         creator: La persona o grupo responsable del trabajo. Por lo general, este es el autor del contenido. Los nombres personales deben ingresarse primero con el apellido, p. & quot; Smith, John & quot ;.

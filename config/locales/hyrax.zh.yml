@@ -1123,7 +1123,6 @@ zh:
         title: ''
       defaults:
         access_rights: 如果访问仅限于特定用户组或内容受到禁运，请在此处包含该信息
-        additional_rights_information: 如果權利受合同或贈與協議的約束，或者由附加或代替知識產權法或開放許可的具有約束力的協議定義，請在此處詳細說明。
         based_near: 与该作品相关的地名，例如其出版地或该作品所涉及的城市，州或国家。调用<a href='http://www.geonames.org'> GeoNames Web服务</a>。
         contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。

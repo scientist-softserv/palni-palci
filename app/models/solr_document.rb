@@ -33,7 +33,6 @@ class SolrDocument
   attribute :institution, Solr::Array, 'institution_tesim'
   attribute :types, Solr::Array, 'types_tesim'
   attribute :format, Solr::Array, 'format_tesim'
-  attribute :additional_rights_information, Solr::Array, 'additional_rights_information_sim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

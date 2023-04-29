@@ -1,5 +1,6 @@
-module PrependFileBasedAuthority
+# frozen_string_literal: true
 
+module PrependFileBasedAuthority
   # override all method to retrieve alt labels
   def all
     terms.map do |res|

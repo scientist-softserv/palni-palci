@@ -15,6 +15,5 @@ module Hyrax
     def primary_terms
       super - [:license]
     end
-
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   module InstitutionService
     mattr_accessor :authority

@@ -6,8 +6,9 @@ module ApplicationHelper
   include GroupNavigationHelper
   include SharedSearchHelper
 
-  def index_filter options={}
-    "#{ options[:value][0].truncate(300)}".html_safe
+  # rubocop:disable Rails/OutputSafety
+  def index_filter(options = {})
+    options[:value][0].truncate(300).to_s.html_safe
   end
-
+  # rubocop:enable Rails/OutputSafety
 end

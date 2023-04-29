@@ -6,9 +6,11 @@ class GenericWork < ActiveFedora::Base
     pdf_split_child_model: self
   )
 
+  # rubocop:disable Metrics/LineLength
   property :institution, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
+  # rubocop:enable Metrics/LineLength
 
   property :types, predicate: ::RDF::Vocab::DC.type, multiple: true do |index|
     index.as :stored_searchable, :facetable

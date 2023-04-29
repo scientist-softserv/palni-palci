@@ -6,7 +6,7 @@ class GenericWork < ActiveFedora::Base
     pdf_split_child_model: self
   )
 
-  property :institution, predicate: ::RDF::URI.new("http://hyku.test/institutions"), multiple: false do |index|
+  property :institution, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
@@ -16,6 +16,10 @@ class GenericWork < ActiveFedora::Base
 
   property :format, predicate: ::RDF::Vocab::DC.format, multiple: true do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  property :additional_rights_information, predicate: ::RDF::Vocab::DC.accessRights, multiple: true do |index|
+    index.as :stored_searchable
   end
 
   # This must come after the properties because it finalizes the metadata

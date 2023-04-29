@@ -80,9 +80,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
-    config.add_facet_field 'format_tesim', limit: 5, label: 'Format'
-    config.add_facet_field 'institution_tesim', limit: 5, label: 'Institution'
-    config.add_facet_field 'types_tesim', limit: 5, label: 'Type'
+    config.add_facet_field 'format_sim', limit: 5, label: 'Format'
+    config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
+    config.add_facet_field 'types_sim', limit: 5, label: 'Type'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -92,52 +92,53 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'title_tesim', label: "Title", itemprop: 'name', if: false
-    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :iconify_auto_link
-    config.add_index_field 'keyword_tesim', itemprop: 'keywords', link_to_search: 'keyword_sim'
-    config.add_index_field 'subject_tesim', itemprop: 'about', link_to_search: 'subject_sim'
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
-    config.add_index_field 'contributor_tesim', itemprop: 'contributor', link_to_search: 'contributor_sim'
-    config.add_index_field 'proxy_depositor_ssim', label: "Depositor", helper_method: :link_to_profile
-    config.add_index_field 'depositor_tesim', label: "Owner", helper_method: :link_to_profile
-    config.add_index_field 'publisher_tesim', itemprop: 'publisher', link_to_search: 'publisher_sim'
-    config.add_index_field 'based_near_label_tesim', itemprop: 'contentLocation', link_to_search: 'based_near_label_sim'
-    config.add_index_field 'language_tesim', itemprop: 'inLanguage', link_to_search: 'language_sim'
-    config.add_index_field 'date_uploaded_dtsi', itemprop: 'datePublished', helper_method: :human_readable_date
-    config.add_index_field 'date_modified_dtsi', itemprop: 'dateModified', helper_method: :human_readable_date
-    config.add_index_field 'date_created_tesim', itemprop: 'dateCreated'
-    config.add_index_field 'rights_statement_tesim', helper_method: :rights_statement_links
-    config.add_index_field 'license_tesim', helper_method: :license_links
+    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: 'index_filter'
     config.add_index_field 'resource_type_tesim', label: "Resource Type", link_to_search: 'resource_type_sim'
-    config.add_index_field 'file_format_tesim', link_to_search: 'file_format_sim'
-    config.add_index_field 'identifier_tesim', helper_method: :index_field_link, field_name: 'identifier'
-    config.add_index_field 'embargo_release_date_dtsi', label: "Embargo release date", helper_method: :human_readable_date
-    config.add_index_field 'lease_expiration_date_dtsi', label: "Lease expiration date", helper_method: :human_readable_date
-    config.add_index_field 'format_tesim', label: 'Format'
-    config.add_index_field 'institution_tesim', label: 'Institution'
-    config.add_index_field 'types_tesim', label: "Type"
+    # config.add_index_field 'keyword_tesim', itemprop: 'keywords', link_to_search: 'keyword_sim'
+    # config.add_index_field 'subject_tesim', itemprop: 'about', link_to_search: 'subject_sim'
+    # config.add_index_field 'contributor_tesim', itemprop: 'contributor', link_to_search: 'contributor_sim'
+    # config.add_index_field 'proxy_depositor_ssim', label: "Depositor", helper_method: :link_to_profile
+    # config.add_index_field 'depositor_tesim', label: "Owner", helper_method: :link_to_profile
+    # config.add_index_field 'publisher_tesim', itemprop: 'publisher', link_to_search: 'publisher_sim'
+    # config.add_index_field 'based_near_label_tesim', itemprop: 'contentLocation', link_to_search: 'based_near_label_sim'
+    # config.add_index_field 'language_tesim', itemprop: 'inLanguage', link_to_search: 'language_sim'
+    # config.add_index_field 'date_uploaded_dtsi', itemprop: 'datePublished', helper_method: :human_readable_date
+    # config.add_index_field 'date_modified_dtsi', itemprop: 'dateModified', helper_method: :human_readable_date
+    # config.add_index_field 'date_created_tesim', itemprop: 'dateCreated'
+    # config.add_index_field 'rights_statement_tesim', helper_method: :rights_statement_links
+    # config.add_index_field 'license_tesim', helper_method: :license_links
+    # config.add_index_field 'file_format_tesim', link_to_search: 'file_format_sim'
+    # config.add_index_field 'identifier_tesim', helper_method: :index_field_link, field_name: 'identifier'
+    # config.add_index_field 'embargo_release_date_dtsi', label: "Embargo release date", helper_method: :human_readable_date
+    # config.add_index_field 'lease_expiration_date_dtsi', label: "Lease expiration date", helper_method: :human_readable_date
+    # config.add_index_field 'format_sim', label: 'Format'
+    # config.add_index_field 'institution_sim', label: 'Institution'
+    # config.add_index_field 'types_sim', label: "Type"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title_tesim'
-    config.add_show_field 'description_tesim'
-    config.add_show_field 'keyword_tesim'
-    config.add_show_field 'subject_tesim'
     config.add_show_field 'creator_tesim'
-    config.add_show_field 'contributor_tesim'
-    config.add_show_field 'publisher_tesim'
-    config.add_show_field 'based_near_label_tesim'
-    config.add_show_field 'language_tesim'
-    config.add_show_field 'date_uploaded_tesim'
-    config.add_show_field 'date_modified_tesim'
-    config.add_show_field 'date_created_tesim'
-    config.add_show_field 'rights_statement_tesim'
-    config.add_show_field 'license_tesim'
+    config.add_show_field 'description_tesim', helper_method: 'index_filter'
     config.add_show_field 'resource_type_tesim', label: "Resource Type"
-    config.add_show_field 'format_tesim', label: 'Format'
-    config.add_show_field 'identifier_tesim'
-    config.add_show_field 'extent_tesim'
-    config.add_show_field 'institution_tesim', label: 'Institution'
-    config.add_show_field 'types_tesim', label: "Type"
+    # config.add_show_field 'alternative_title_tesim'
+    # config.add_show_field 'keyword_tesim'
+    # config.add_show_field 'subject_tesim'
+    # config.add_show_field 'contributor_tesim'
+    # config.add_show_field 'publisher_tesim'
+    # config.add_show_field 'based_near_label_tesim'
+    # config.add_show_field 'language_tesim'
+    # config.add_show_field 'date_uploaded_tesim'
+    # config.add_show_field 'date_modified_tesim'
+    # config.add_show_field 'date_created_tesim'
+    # config.add_show_field 'rights_statement_tesim'
+    # config.add_show_field 'license_tesim'
+    # config.add_show_field 'format_tesim', label: 'Format'
+    # config.add_show_field 'identifier_tesim'
+    # config.add_show_field 'extent_tesim'
+    config.add_show_field 'institution_sim', label: 'Institution'
+    config.add_show_field 'types_sim', label: "Type"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

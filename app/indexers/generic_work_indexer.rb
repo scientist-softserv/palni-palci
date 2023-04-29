@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work GenericWork`
 class GenericWorkIndexer < AppIndexer
-  # Uncomment this block if you want to add custom indexing behavior:
-  # def generate_solr_document
-  #  super.tap do |solr_doc|
-  #    solr_doc['my_custom_field_ssim'] = object.my_custom_property
-  #  end
-  # end
+
+  def generate_solr_document
+    super.tap do |solr_doc|
+      solr_doc['format_sim'] = object.format.first if object.format.present?
+      solr_doc['institution_sim'] = object.institution.first if object.institution.present?
+      solr_doc['types_sim']  = object.types.first if object.types.present?
+      solr_doc['additional_rights_information_sim']  = object.types.first if object.types.present?
+    end
+  end
 end

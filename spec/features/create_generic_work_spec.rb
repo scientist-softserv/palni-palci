@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Generated via
-#  `rails generate hyrax:work GenericWork`
 require 'rails_helper'
 
 # NOTE: If you generated more than one work, you have to set "js: true"
@@ -56,43 +54,36 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
       end
       expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
 
-      # TODO: add appropriate fields here
-      # would this be a good place for testing
-      # the character limit on description?
-      # Which fields are required?
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
-      # Rights statement # select
-      # Date Created
-      # Resource type # select multi value
-      # fill_in('Institution', with: 'The Institute') # select
-      # Type # multi select
-
-      click_on('Additional fields')
-      # select?
-      # Alternative title
-      # Contributor
-      # Description
-      # Abstract
-      fill_in('Keyword', with: 'testing')
-      # fill_in('License', with '') # select
-      # Access Rights
-      # Rights notes
-      # Publisher
-      # Subject
-      # Language
-      # Identifier (local)
-      # Location # select?
-      # Related URL
-      # Source
-      # Format # multi select
-      # Bibliographic citation
-      # Access Rights
-      # Rights notes
-
       select('In Copyright', from: 'Rights statement')
-
+      fill_in('Date Created', with: '09/03/2022')
+      select('Thesis', from: 'Resource type')
+      select('Oblate School of Theology', from: 'Institution')
+      select('Image', from: 'Type')
+      click_on('Additional fields')
+      fill_in('Alternative title', with: 'Alternative title')
+      fill_in('Contributor', with: 'Contributor')
+      # rubocop:disable Metrics/LineLength
+      fill_in('Description', with: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim doneci. This is past 300 characters')
+      # rubocop:enable Metrics/LineLength
+      fill_in('Abstract', with: 'Abstract')
+      fill_in('Keyword', with: 'Keyword')
+      select('Creative Commons BY Attribution 4.0 International', from: 'License')
+      fill_in('Access Rights', with: 'Access Rights')
+      fill_in('Rights notes', with: 'Rights notes')
+      fill_in('Publisher', with: 'Publisher')
+      fill_in('Subject', with: 'Subject')
+      fill_in('Language', with: 'Language')
+      fill_in('Identifier (local)', with: 'ISBN:978-83-7659-303-6 978-3-540-49698-4 9790879392788')
+      select('Location', from: 'San Diego')
+      fill_in('Related URL', with: 'https://test.hyku.test')
+      fill_in('Source', with: 'Source')
+      select('PDF', from: 'Format')
+      fill_in('Bibliographic citation', with: 'Bibliographic citation')
+      fill_in('Access Rights', with: 'Access Rights')
+      fill_in('Rights notes', with: 'Rights notes')
       page.choose('generic_work_visibility_open')
       # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')

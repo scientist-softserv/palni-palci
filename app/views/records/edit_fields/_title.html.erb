@@ -1,2 +1,2 @@
 <% # app/views/records/edit_fields/_title.html.erb %>
-<%= f.input :title, as: :string, input_html: { class: 'form-control', multiple: true } %>
+<%= f.input :title, as: :string, input_html: { class: 'form-control', multiple: true , value: "#{f.object.title.try(:first)}" } %>

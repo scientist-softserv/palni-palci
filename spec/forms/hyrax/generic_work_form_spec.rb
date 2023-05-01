@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-
-# Generated via
-#  `rails generate curation_concerns:work GenericWork`
 RSpec.describe Hyrax::GenericWorkForm do
   let(:work) { GenericWork.new }
   let(:form) { described_class.new(work, nil, nil) }

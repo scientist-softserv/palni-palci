@@ -56,11 +56,41 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
       end
       expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
 
+      # TODO: add appropriate fields here
+      # would this be a good place for testing
+      # the character limit on description?
+      # Which fields are required?
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      # Rights statement # select
+      # Date Created
+      # Resource type # select multi value
+      # fill_in('Institution', with: 'The Institute') # select
+      # Type # multi select
+
       click_on('Additional fields')
+      # select?
+      # Alternative title
+      # Contributor
+      # Description
+      # Abstract
       fill_in('Keyword', with: 'testing')
+      # fill_in('License', with '') # select
+      # Access Rights
+      # Rights notes
+      # Publisher
+      # Subject
+      # Language
+      # Identifier (local)
+      # Location # select?
+      # Related URL
+      # Source
+      # Format # multi select
+      # Bibliographic citation
+      # Access Rights
+      # Rights notes
+
       select('In Copyright', from: 'Rights statement')
 
       page.choose('generic_work_visibility_open')

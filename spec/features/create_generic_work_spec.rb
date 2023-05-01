@@ -77,7 +77,6 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
       fill_in('Subject', with: 'Subject')
       fill_in('Language', with: 'Language')
       fill_in('Identifier (local)', with: 'ISBN:978-83-7659-303-6 978-3-540-49698-4 9790879392788')
-      select('Location', from: 'San Diego')
       fill_in('Related URL', with: 'https://test.hyku.test')
       fill_in('Source', with: 'Source')
       select('PDF', from: 'Format')

@@ -21,5 +21,5 @@ RSpec.describe Hyrax::GenericWorkForm do
     end
   end
 
-  include_examples("work_form")
+  include_examples("generic_work_form")
 end

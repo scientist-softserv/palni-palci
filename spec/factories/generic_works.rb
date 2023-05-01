@@ -6,7 +6,7 @@ FactoryBot.define do
       user { FactoryBot.create(:user) }
     end
 
-    title { "Test title" }
+    title { ["Test title"] }
     institution { "institution" }
     format { ["format"] }
     types { ["types"] }

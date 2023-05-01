@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe GenericWork do
-
   it 'has a title' do
     subject.title = ['Test title']
     expect(subject.title).to eq ['Test title']
@@ -78,6 +77,7 @@ RSpec.describe GenericWork do
 
   describe "embargo" do
     subject(:work) { described_class.new(title: ['a title'], embargo_release_date: embargo_release_date) }
+
     let(:embargo_release_date) { Time.zone.today + 10 }
 
     it { is_expected.to be_valid }
@@ -124,6 +124,7 @@ RSpec.describe GenericWork do
     end
   end
 
+  # rubocop:disable RSpec/ExampleLength
   describe "metadata" do
     it "has descriptive metadata" do
       expect(subject).to respond_to(:depositor)
@@ -170,17 +171,17 @@ RSpec.describe GenericWork do
       expect(subject).to respond_to(:lease_id)
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe "validates title" do
     subject(:work) { FactoryBot.build(:generic_work, title: nil) }
 
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
 
     context 'with a title' do
-
       before { work.title = ['Test title'] }
 
-      it { should be_valid }
+      it { is_expected.to be_valid }
     end
   end
 end

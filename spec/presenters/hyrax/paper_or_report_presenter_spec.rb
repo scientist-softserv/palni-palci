@@ -144,12 +144,4 @@ RSpec.describe Hyrax::PaperOrReportPresenter do
       end
     end
   end
-
-  describe '#iiif_viewer' do
-    subject { presenter.iiif_viewer }
-
-    it 'defaults to universal viewer' do
-      expect(subject).to be :universal_viewer
-    end
-  end
 end

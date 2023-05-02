@@ -11,21 +11,21 @@
       <div class="panel-body">
         <div class="row">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <% if @presenter.video_embed_viewer? %>
-            <%= render 'video_embed_viewer', presenter: @presenter %>
-          <% end %>
-          <% if @presenter.universal_viewer? && !@presenter.video_embed_viewer? %>
-            <div class="col-sm-12 centered-media">
-              <%= render 'representative_media', presenter: @presenter, viewer: true %>
-            </div>
-          <% end %>
           <div class="col-sm-12">
             <%= render "show_actions", presenter: @presenter %>
           </div>
-          <% if !@presenter.video_embed_viewer? %>
-            <div class="centered-media <%= !@presenter.universal_viewer? ? 'col-sm-6 text-center' : '' %>">
-              <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
-            </div>
+          <% if @presenter.video_embed_viewer? %>
+            <%= render 'video_embed_viewer', presenter: @presenter %>
+          <% else %>
+            <% if @presenter.universal_viewer? %>
+              <div class="col-sm-12 centered-media">
+                <%= render 'representative_media', presenter: @presenter, viewer: true %>
+              </div>
+            <% else %>
+              <div class="centered-media <%= !@presenter.universal_viewer? ? 'col-sm-6 text-center' : '' %>">
+                <%= render 'representative_media', presenter: @presenter, viewer: false %>
+              </div>
+            <% end %>
           <% end %>
           <div class="<%= @presenter.universal_viewer? ? 'col-sm-6' : 'col-sm-6' %>">
             <%= render 'work_description', presenter: @presenter %>

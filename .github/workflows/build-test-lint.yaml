@@ -1,5 +1,5 @@
-name: "Build"
-run-name: Build of ${{ github.ref_name }} by @${{ github.actor }}
+name: "Build Test Lint"
+run-name: Build Test Lint of ${{ github.ref_name }} by @${{ github.actor }}
 on:
   push:
     branches:

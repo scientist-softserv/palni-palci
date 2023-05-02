@@ -71,6 +71,7 @@ module Hyku
     end
 
     private
+
       def extract_video_embed_presence
         solr_document[:video_embed_tesim].present?
       end

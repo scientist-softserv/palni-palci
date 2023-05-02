@@ -9,20 +9,22 @@ class GenericWork < ActiveFedora::Base
   self.indexer = GenericWorkIndexer
 
   validates :title, presence: { message: 'Your work must have a title.' }
+  # rubocop:disable Style/RegexpLiteral
   validates :video_embed,
-  format: {
-    # regex matches only youtube & vimeo urls that are formatted as embed links.
-    with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
-    message: "Error: must be a valid YouTube or Vimeo Embed URL." },
-  if: :video_embed?
-
+            format: {
+              # regex matches only youtube & vimeo urls that are formatted as embed links.
+              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+              message: "Error: must be a valid YouTube or Vimeo Embed URL."
+            },
+            if: :video_embed?
+  # rubocop:enable Style/RegexpLiteral
 
   property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
     index.as :stored_searchable
   end
 
   def video_embed?
-    video_embed.present? && !video_embed.blank?
+    video_embed.present?
   end
 
   # This must be included at the end of the file,

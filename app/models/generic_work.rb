@@ -9,6 +9,12 @@ class GenericWork < ActiveFedora::Base
   self.indexer = GenericWorkIndexer
 
   validates :title, presence: { message: 'Your work must have a title.' }
+  validates :video_embed,
+  format: {
+    with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+    message: "Error: must be a valid YouTube or Vimeo Embed URL." },
+  if: :video_embed?
+
 
   property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
     index.as :stored_searchable

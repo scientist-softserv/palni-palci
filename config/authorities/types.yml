@@ -23,3 +23,5 @@ terms:
     term: Still Image
   - id: Text
     term: Text
+  - id: Video
+    term: Video

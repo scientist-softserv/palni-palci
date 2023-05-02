@@ -17,7 +17,7 @@ RSpec.describe 'Work Editor role', type: :request, singletenant: true, clean: tr
   let(:valid_work_params) do
     {
       generic_work: {
-        title: ['Test Work'],
+        title: 'Test Work',
         creator: ['depositor@example.com'],
         keyword: ['asdf'],
         rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/',

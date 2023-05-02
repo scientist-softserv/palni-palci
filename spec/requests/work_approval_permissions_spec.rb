@@ -8,7 +8,7 @@ RSpec.describe 'Work approval permissions', type: :request, singletenant: true, 
   let(:valid_work_params) do
     {
       generic_work: {
-        title: ['Test Work'],
+        title: 'Test Work',
         creator: [work_creator.email],
         keyword: ['asdf'],
         rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/',

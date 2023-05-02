@@ -64,7 +64,7 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
     let(:valid_work_params) do
       {
         generic_work: {
-          title: ['Test Work'],
+          title: 'Test Work',
           creator: [work_depositor.email],
           keyword: ['asdf'],
           rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/'

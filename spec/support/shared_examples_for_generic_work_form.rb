@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples "generic_work_form" do
-  describe ".primary_terms" do
+RSpec.shared_examples 'generic_work_form' do
+  describe '.primary_terms' do
     it 'does not include the license field' do
       expect(form.primary_terms).not_to include(:license)
     end
@@ -26,7 +26,7 @@ RSpec.shared_examples "generic_work_form" do
     end
   end
 
-  describe ".primary_terms" do
+  describe '.primary_terms' do
     it 'includes the primary_terms aka the required fields' do
       expect(form.primary_terms).to include(:title)
       expect(form.primary_terms).to include(:creator)
@@ -38,7 +38,7 @@ RSpec.shared_examples "generic_work_form" do
     end
   end
 
-  describe ".secondary_terms" do
+  describe '.secondary_terms' do
     it 'does not include the primary_terms aka the required fields' do
       expect(form.secondary_terms).not_to include(:title)
       expect(form.secondary_terms).not_to include(:creator)
@@ -50,7 +50,7 @@ RSpec.shared_examples "generic_work_form" do
     end
   end
 
-  describe ".secondary_terms" do
+  describe '.secondary_terms' do
     it 'includes the license field' do
       expect(form.secondary_terms).to include(:license)
     end

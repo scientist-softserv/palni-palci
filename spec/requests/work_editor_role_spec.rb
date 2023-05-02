@@ -19,8 +19,11 @@ RSpec.describe 'Work Editor role', type: :request, singletenant: true, clean: tr
       generic_work: {
         title: 'Test Work',
         creator: ['depositor@example.com'],
-        keyword: ['asdf'],
         rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/',
+        date_created: '09/03/2022',
+        resource_type: 'Article',
+        institution: 'Chicago Theological Seminary',
+        types: ['Text'],
         visibility: visibility,
         admin_set_id: admin_set.id
       }

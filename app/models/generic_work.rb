@@ -6,6 +6,8 @@ class GenericWork < ActiveFedora::Base
     pdf_split_child_model: self
   )
 
+  validates :title, presence: { message: 'Your work must have a title.' }
+
   # rubocop:disable Metrics/LineLength
   property :institution, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"), multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -27,5 +29,4 @@ class GenericWork < ActiveFedora::Base
   self.indexer = GenericWorkIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
-  validates :title, presence: { message: 'Your work must have a title.' }
 end

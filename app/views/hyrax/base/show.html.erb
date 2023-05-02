@@ -18,7 +18,7 @@
           <% if @presenter.video_embed_viewer? %>
             <%= render 'video_embed_viewer', presenter: @presenter %>
           <% end %>
-          <% if @presenter.iiif_viewer? & !@presenter.video_embed_viewer? %>
+          <% if @presenter.iiif_viewer? && !@presenter.video_embed_viewer? %>
             <div class="col-sm-12">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
             </div>

@@ -11,6 +11,7 @@ class GenericWork < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :video_embed,
   format: {
+    # regex matches only youtube & vimeo urls that are formatted as embed links.
     with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
     message: "Error: must be a valid YouTube or Vimeo Embed URL." },
   if: :video_embed?

@@ -18,7 +18,7 @@ RSpec.describe Hyrax::PaperOrReportsController do
   describe "#presenter" do
     subject { controller.send :presenter }
 
-    let(:solr_document) { SolrDocument.new(FactoryBot.create(:generic_work).to_solr) }
+    let(:solr_document) { SolrDocument.new(FactoryBot.create(:paper_or_report).to_solr) }
 
     before do
       allow(controller).to receive(:search_result_document).and_return(solr_document)
@@ -26,7 +26,7 @@ RSpec.describe Hyrax::PaperOrReportsController do
 
     it "initializes a presenter" do
       expect(subject).to be_kind_of Hyku::WorkShowPresenter
-      expect(subject.manifest_url).to eq "http://test.host/concern/generic_works/#{solr_document.id}/manifest"
+      expect(subject.manifest_url).to eq "http://test.host/concern/paper_or_reports/#{solr_document.id}/manifest"
     end
   end
 end

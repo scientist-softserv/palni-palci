@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     title { ["title"] }
-    institution { "insitution" }
+    institution { "institution" }
     creator { ["creator"] }
 
     factory :paper_or_report_with_one_file do

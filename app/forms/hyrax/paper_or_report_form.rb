@@ -7,8 +7,8 @@ module Hyrax
   class PaperOrReportForm < Hyrax::Forms::WorkForm
     self.model_class = ::PaperOrReport
 
-    self.required_fields += [
-      :institution
+    self.required_fields += %i[
+      institution
     ]
     self.terms += %i[
       institution

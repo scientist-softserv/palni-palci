@@ -40,6 +40,11 @@ module Hyku
       Qa::Authorities::Local::FileBasedAuthority.prepend ::PrependFileBasedAuthority
     end
 
+    # OAI additions
+    Dir.glob(File.join(File.dirname(__FILE__), "../lib/oai/**/*.rb")).sort.each do |c|
+      Rails.configuration.cache_classes ? require(c) : load(c)
+    end
+
     # resolve reloading issue in dev mode
     config.paths.add 'app/helpers', eager_load: true
 

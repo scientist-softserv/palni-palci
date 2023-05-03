@@ -12,7 +12,7 @@ RSpec.describe Hyrax::GenericWorkPresenter do
   let(:attributes) do
     { "id" => '888888',
       "title_tesim" => ['My Title'],
-      "has_model_ssim" => ["PaperOrReport"],
+      "has_model_ssim" => ["GenericWork"],
       "date_created_tesim" => ['an unformatted date'],
       "depositor_tesim" => user_key }
   end

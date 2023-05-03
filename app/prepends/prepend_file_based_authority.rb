@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PrependFileBasedAuthority
-  # override all method to retrieve alt labels
+  # override Qa::Authorities::Local::FileBasedAuthority#all method to retrieve alt labels
   def all
     terms.map do |res|
       { id: res[:id],

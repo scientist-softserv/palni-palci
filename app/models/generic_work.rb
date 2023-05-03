@@ -8,18 +8,20 @@ class GenericWork < ActiveFedora::Base
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
-  # rubocop:disable Metrics/LineLength
-  property :institution, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"), multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-  # rubocop:enable Metrics/LineLength
-
-  property :types, predicate: ::RDF::Vocab::DC.type, multiple: true do |index|
+  property :institution,
+           predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"),
+           multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :format, predicate: ::RDF::Vocab::DC.format, multiple: true do |index|
+  property :types,
+           predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types"),
+           multiple: true do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  property :format, predicate: ::RDF::Vocab::DC11.format do |index|
+    index.as :stored_searchable
   end
 
   # This must come after the properties because it finalizes the metadata
@@ -27,6 +29,4 @@ class GenericWork < ActiveFedora::Base
   include ::Hyrax::BasicMetadata
 
   self.indexer = GenericWorkIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
 end

@@ -6,7 +6,7 @@ RSpec.describe GenericWork do
     expect(subject.title).to eq ['Test title']
   end
 
-  it 'has a institution' do
+  it 'has an institution' do
     subject.institution = 'institution'
     expect(subject.institution).to eq 'institution'
   end
@@ -16,7 +16,7 @@ RSpec.describe GenericWork do
     expect(subject.format).to eq ['format']
   end
 
-  it 'has a types' do
+  it 'has types' do
     subject.types = ['types']
     expect(subject.types).to eq ['types']
   end
@@ -30,7 +30,7 @@ RSpec.describe GenericWork do
   describe ".properties" do
     subject { described_class.properties.keys }
 
-    it { is_expected.to include("has_model", "create_date", "modified_date") }
+    it { is_expected.to include("has_model", "created_date", "modified_date") }
   end
 
   describe '#state' do

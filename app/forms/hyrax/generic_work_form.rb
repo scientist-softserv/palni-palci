@@ -7,11 +7,25 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
-    self.terms += %i[resource_type format institution types bibliographic_citation]
-    self.required_fields += %i[title creator rights_statement date_created resource_type institution types]
+    self.terms += %i[
+      resource_type
+      format
+      institution
+      types
+      bibliographic_citation
+    ]
+
+    self.required_fields += %i[
+      title
+      creator
+      rights_statement
+      date_created
+      resource_type
+      institution types
+    ]
 
     def primary_terms
-      super - [:license]
+      super - %i[license]
     end
   end
 end

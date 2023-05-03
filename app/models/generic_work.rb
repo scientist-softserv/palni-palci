@@ -31,4 +31,8 @@ class GenericWork < ActiveFedora::Base
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+
+  property :date_created, predicate: ::RDF::Vocab::DC.created do |index|
+    index.as :stored_searchable, :facetable
+  end
 end

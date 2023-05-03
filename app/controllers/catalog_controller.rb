@@ -69,7 +69,6 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field 'human_readable_type_sim', label: "Type", limit: 5
     config.add_facet_field 'resource_type_sim', label: "Resource Type", limit: 5
     config.add_facet_field 'creator_sim', limit: 5
     config.add_facet_field 'contributor_sim', label: "Contributor", limit: 5
@@ -95,8 +94,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'title_tesim', label: "Title", itemprop: 'name', if: false
-    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :iconify_auto_link
-    # config.add_index_field 'description_tesim', itemprop: 'description', , helper_method: 'index_filter', 'iconify_auto_link'
+    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :index_filter
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
     config.add_index_field 'resource_type_tesim', label: "Resource Type", link_to_search: 'resource_type_sim'
 
@@ -109,7 +107,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'license_tesim'
     config.add_show_field 'alternative_title_tesim'
     config.add_show_field 'contributor_tesim', label: "Contribute"
-    config.add_show_field 'description_tesim', helper_method: 'index_filter'
+    config.add_show_field 'description_tesim'
     config.add_show_field 'abstract_tesim'
     config.add_show_field 'access_right_tesim', label: 'Access Rights'
     config.add_show_field 'rights_notes_tesim'
@@ -120,7 +118,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'identifier_tesim'
     config.add_show_field 'related_url_tesim'
     config.add_show_field 'source_tesim'
-
     config.add_show_field 'based_near_label_tesim'
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'

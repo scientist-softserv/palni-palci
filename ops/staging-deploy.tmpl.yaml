@@ -119,7 +119,7 @@ extraEnvVars: &envVars
   - name: HYRAX_ANALYTICS
     value: "true"
   - name: HYKU_BULKRAX_ENABLED
-    value: "false"
+    value: "true"
   - name: HYKU_CONTACT_EMAIL
     value: dev-oops@scientist.com
   - name: HYKU_FILE_ACL

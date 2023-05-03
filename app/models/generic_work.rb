@@ -6,6 +6,10 @@ class GenericWork < ActiveFedora::Base
     pdf_split_child_model: self
   )
 
+  self.indexer = GenericWorkIndexer
+  # Change this to restrict which works can be added as a child.
+  # self.valid_child_concerns = []
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :institution,
@@ -27,6 +31,4 @@ class GenericWork < ActiveFedora::Base
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
-
-  self.indexer = GenericWorkIndexer
 end

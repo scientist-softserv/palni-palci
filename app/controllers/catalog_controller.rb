@@ -96,39 +96,53 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_index_field 'title_tesim', label: "Title", itemprop: 'name', if: false
     config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :iconify_auto_link
+    # config.add_index_field 'description_tesim', itemprop: 'description', , helper_method: 'index_filter', 'iconify_auto_link'
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
     config.add_index_field 'resource_type_tesim', label: "Resource Type", link_to_search: 'resource_type_sim'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title_tesim'
-    config.add_show_field 'alternative_title_tesim'
-    config.add_show_field 'description_tesim', helper_method: 'index_filter'
-    config.add_show_field 'keyword_tesim'
-    config.add_show_field 'subject_tesim'
     config.add_show_field 'creator_tesim'
+    config.add_show_field 'keyword_tesim'
     config.add_show_field 'rights_statement_tesim'
     config.add_show_field 'license_tesim'
-    config.add_show_field 'contributor_tesim'
+    config.add_show_field 'alternative_title_tesim'
+    config.add_show_field 'contributor_tesim', label: "Contribute"
+    config.add_show_field 'description_tesim', helper_method: 'index_filter'
     config.add_show_field 'abstract_tesim'
     config.add_show_field 'access_right_tesim', label: 'Access Rights'
     config.add_show_field 'rights_notes_tesim'
     config.add_show_field 'publisher_tesim'
     config.add_show_field 'date_created_tesim'
+    config.add_show_field 'subject_tesim'
     config.add_show_field 'language_tesim'
     config.add_show_field 'identifier_tesim'
     config.add_show_field 'related_url_tesim'
     config.add_show_field 'source_tesim'
+
+    config.add_show_field 'based_near_label_tesim'
+    config.add_show_field 'date_uploaded_tesim'
+    config.add_show_field 'date_modified_tesim'
     config.add_show_field 'resource_type_tesim', label: "Resource Type"
     config.add_show_field 'bibliographic_citation_tesim'
-    config.add_show_field 'types_tesim', labe: 'Type'
     config.add_show_field 'format_tesim', label: 'Format'
-    # config.add_show_field 'based_near_label_tesim'
-    # config.add_show_field 'date_uploaded_tesim'
-    # config.add_show_field 'date_modified_tesim'
-    # config.add_show_field 'extent_tesim'
-    config.add_show_field 'institution_sim', label: 'Institution'
-    config.add_show_field 'types_sim', label: "Type"
+    config.add_show_field 'extent_tesim'
+    config.add_show_field 'institution_tesim', label: 'Institution'
+    config.add_show_field 'types_tesim', label: 'Type'
+    config.add_show_field 'rights_holder_tesim', label: 'Rights holder'
+    config.add_show_field 'creator_orcid_tesim', label: 'Creator ORCID'
+    config.add_show_field 'creator_institutional_relationship_tesim', label: 'Creator institutional relationship'
+    config.add_show_field 'contributor_orcid_tesim', label: 'Contributor ORCID'
+    config.add_show_field 'contributor_institutional_relationship_tesim', label: 'Contributor institutional relationship'
+    config.add_show_field 'contributor_role_tesim', label: 'Contributor role'
+    config.add_show_field 'project_name_tesim', label: 'Project name'
+    config.add_show_field 'funder_name_tesim', label: 'Funder'
+    config.add_show_field 'funder_awards_tesim', label: 'Funder awards'
+    config.add_show_field 'event_title_tesim', label: 'Event title'
+    config.add_show_field 'event_location_tesim', label: 'Event location'
+    config.add_show_field 'event_date_tesim', label: 'Event date'
+    config.add_show_field 'official_link_tesim', label: 'Official URL'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

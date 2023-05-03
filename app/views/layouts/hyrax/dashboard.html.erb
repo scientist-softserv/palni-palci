@@ -20,7 +20,7 @@
       <div class="main-content maximized">
         <%# OVERRIDE here to hide broken flash messages on the dashboard edit work pages. %>
         <%# regex includes only the paths for works since this is the only known place flash messages are broken. %>
-        <% if (current_ability.admin? || current_ability.superadmin?) && !controller.request.env['REQUEST_PATH'].include?('concern') %>
+        <% if (current_ability.admin? || current_ability.superadmin?) && !controller&.request&.env['REQUEST_PATH']&.include?('concern') %>
           <%= render '/flash_msg' %>
         <% end %>
         <%= render_breadcrumbs builder: Hyrax::BootstrapBreadcrumbsBuilder %>

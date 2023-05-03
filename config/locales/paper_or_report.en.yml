@@ -1,0 +1,34 @@
+en:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        description:        "Technical reports, conference papers, grant or other project reports, and similar works."
+        name:               "Paper or Report"
+  simple_form:
+    hints:
+      defaults:
+        keyword: "Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary."
+        rights_statement: "Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information"
+        publisher: "The person or group responsible for making the original resource available."
+        institution: "Participating institution to which the work is being uploaded to."
+        format: "The file format of the digital resource."
+        rights_holder: "A person or organization owning or managing rights over the resource."
+        creator_orcid: "16 character ORCID identifier of creator."
+        creator_institutional_relationship: "Relationship between the contributor and the institution hosting the work."
+        contributor_orcid: "16 character ORCID identifier of contributor."
+        contributor_institutional_relationship: "Relationship between the contributor and the institution hosting the work."
+        contributor_role: "Relationship between the contributor and the resource."
+        project_name: "Full name of project if different from title of resource."
+        funder_name: "Name of the funder of the resource if created with awarded funds."
+        funder_awards: "Name of grant program or award program that funded the resource."
+        event_title: "Title of the event associated with the resource."
+        event_location: "Location of event associated with the resource."
+        event_date: "Date of event associated with the resource."
+        official_link: "URL associated with the project, if applicable."
+    labels:
+      defaults:
+        contributor_orcid: "Contributor ORCID"
+        creator_orcid: "Creator ORCID"
+        official_link: "Official URL"

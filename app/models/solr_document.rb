@@ -30,6 +30,21 @@ class SolrDocument
   attribute :extent, Solr::Array, 'extent_tesim'
   attribute :rendering_ids, Solr::Array, 'hasFormat_ssim'
   attribute :account_cname, Solr::Array, 'account_cname_tesim'
+  attribute :institution, Solr::String, 'institution_tesim'
+  attribute :format, Solr::Array, 'format_tesim'
+  attribute :rights_holder, Solr::Array, 'rights_holder_tesim'
+  attribute :creator_orcid, Solr::String, 'creator_orcid_tesim'
+  attribute :creator_institutional_relationship, Solr::Array, 'creator_institutional_relationship_tesim'
+  attribute :contributor_orcid, Solr::String, 'contributor_orcid_tesim'
+  attribute :contributor_institutional_relationship, Solr::Array, 'contributor_institutional_relationship_tesim'
+  attribute :contributor_role, Solr::Array, 'contributor_role_tesim'
+  attribute :project_name, Solr::Array, 'project_name_tesim'
+  attribute :funder_name, Solr::Array, 'funder_name_tesim'
+  attribute :funder_awards, Solr::Array, 'funder_awards_tesim'
+  attribute :event_title, Solr::Array, 'event_title_tesim'
+  attribute :event_location, Solr::Array, 'event_location_tesim'
+  attribute :event_date, Solr::Array, 'event_date_tesim'
+  attribute :official_link, Solr::Array, 'official_link_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

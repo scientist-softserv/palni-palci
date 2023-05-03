@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        description:        "Relatórios técnicos, documentos de conferências, relatórios de doações ou outros projetos e trabalhos similares."
+        name:               "Paper or Report"

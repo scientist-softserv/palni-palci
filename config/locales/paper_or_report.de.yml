@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        description:        "Technische Berichte, Konferenzbeiträge, Zuschuss- oder andere Projektberichte und ähnliche Arbeiten."
+        name:               "Paper or Report"

@@ -35,4 +35,20 @@ class GenericWork < ActiveFedora::Base
   property :date_created, predicate: ::RDF::Vocab::DC.created do |index|
     index.as :stored_searchable, :facetable
   end
+
+  property :source, predicate: ::RDF::Vocab::DC.source do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :keyword, predicate: ::RDF::Vocab::SCHEMA.keywords do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :contributor, predicate: ::RDF::Vocab::DC11.contributor do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :language, predicate: ::RDF::Vocab::DC11.language do |index|
+    index.as :stored_searchable, :facetable
+  end
 end

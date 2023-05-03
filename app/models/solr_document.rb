@@ -50,6 +50,10 @@ class SolrDocument
   attribute :date_created, Solr::String, 'date_created_tesim'
   attribute :identifier, Solr::String, 'identifier_tesim'
   attribute :license, Solr::Array, 'license_tesim'
+  attribute :keyword, Solr::Array, 'keyword_tesim'
+  attribute :contributor, Solr::Array, 'contributor_tesim'
+  attribute :subject, Solr::Array, 'subject_tesim'
+  attribute :language, Solr::Array, 'language_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

@@ -24,6 +24,10 @@ module Hyrax
       institution types
     ]
 
+    self.required_fields -= %i[
+      location
+    ]
+
     def primary_terms
       super - %i[license]
     end

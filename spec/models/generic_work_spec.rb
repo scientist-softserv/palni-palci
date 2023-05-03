@@ -30,7 +30,7 @@ RSpec.describe GenericWork do
   describe ".properties" do
     subject { described_class.properties.keys }
 
-    it { is_expected.to include("has_model", "created_date", "modified_date") }
+    it { is_expected.to include("has_model", "create_date", "modified_date") }
   end
 
   describe '#state' do

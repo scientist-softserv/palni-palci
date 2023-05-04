@@ -66,7 +66,15 @@ module Hyku
         members_include_viewable?
     end
 
+    def video_embed_viewer?
+      extract_video_embed_presence
+    end
+
     private
+
+      def extract_video_embed_presence
+        solr_document[:video_embed_tesim].present?
+      end
 
       def iiif_media?(presenter: representative_presenter)
         presenter.image? || presenter.video? || presenter.audio? || presenter.pdf?

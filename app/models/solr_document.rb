@@ -30,6 +30,7 @@ class SolrDocument
   attribute :extent, Solr::Array, 'extent_tesim'
   attribute :rendering_ids, Solr::Array, 'hasFormat_ssim'
   attribute :account_cname, Solr::Array, 'account_cname_tesim'
+  attribute :video_embed, Solr::String, 'video_embed_tesim'
   attribute :institution, Solr::String, 'institution_tesim'
   attribute :format, Solr::Array, 'format_tesim'
   attribute :rights_holder, Solr::Array, 'rights_holder_tesim'

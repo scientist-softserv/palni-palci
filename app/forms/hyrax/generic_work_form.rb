@@ -7,6 +7,10 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
-    self.terms += %i[resource_type]
+    self.terms += %i[resource_type video_embed]
+
+    def primary_terms
+      super + %i[video_embed]
+    end
   end
 end

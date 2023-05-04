@@ -110,19 +110,19 @@ class CatalogController < ApplicationController
     config.add_show_field 'description_tesim'
     config.add_show_field 'abstract_tesim'
     config.add_show_field 'access_right_tesim', label: 'Access Rights'
-    config.add_show_field 'rights_notes_tesim', label: "Rights Notes"
+    config.add_show_field 'rights_notes_tesim', label: "Rights notes"
     config.add_show_field 'publisher_tesim'
-    config.add_show_field 'date_created_tesim', label: "Date Created"
+    config.add_show_field 'date_created_tesim', label: "Date created"
     config.add_show_field 'subject_tesim'
     config.add_show_field 'language_tesim'
-    config.add_show_field 'identifier_tesim'
+    config.add_show_field 'identifier_tesim', label: "Identifier"
     config.add_show_field 'related_url_tesim', label: "Related URL"
     config.add_show_field 'source_tesim'
     config.add_show_field 'based_near_label_tesim'
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'
     config.add_show_field 'resource_type_tesim', label: "Resource Type"
-    config.add_show_field 'bibliographic_citation_tesim', label: "Bibliographic Citation"
+    config.add_show_field 'bibliographic_citation_tesim', label: "Bibliographic citation"
     config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'extent_tesim'
     config.add_show_field 'institution_tesim', label: 'Institution'

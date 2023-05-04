@@ -32,6 +32,7 @@ class GenericWork < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
 
+  # OVERRIDE: Hyrax 3.5.0 to add facet ability
   property :date_created, predicate: ::RDF::Vocab::DC.created do |index|
     index.as :stored_searchable, :facetable
   end
@@ -49,6 +50,10 @@ class GenericWork < ActiveFedora::Base
   end
 
   property :language, predicate: ::RDF::Vocab::DC11.language do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :resource_type, predicate: ::RDF::Vocab::DC.type do |index|
     index.as :stored_searchable, :facetable
   end
 end

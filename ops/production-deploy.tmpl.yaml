@@ -179,13 +179,6 @@ extraEnvVars: &envVars
   - name: TEST_USER_PASSWORD
     value: testing123
 
-worker:
-  replicaCount: 1
-  extraVolumeMounts: *volMounts
-  extraEnvVars: *envVars
-  podSecurityContext: *podSecValues
-  securityContext: *secValues
-
 securityContext: &secValues
   readOnlyRootFilesystem: false
   runAsNonRoot: false
@@ -196,6 +189,14 @@ podSecurityContext: &podSecValues
   runAsGroup: 101
   fsGroup: 101
   fsGroupChangePolicy: "OnRootMismatch"
+
+worker:
+  replicaCount: 1
+  extraVolumeMounts: *volMounts
+  extraEnvVars: *envVars
+  podSecurityContext: *podSecValues
+  securityContext: *secValues
+
 
 embargoRelease:
   enabled: false

@@ -69,17 +69,15 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field 'human_readable_type_sim', label: "Type", limit: 5
-    config.add_facet_field 'resource_type_sim', label: "Resource Type", limit: 5
+    config.add_facet_field 'resource_type_sim', label: 'Resource Type', limit: 5
     config.add_facet_field 'creator_sim', limit: 5
-    config.add_facet_field 'contributor_sim', label: "Contributor", limit: 5
-    config.add_facet_field 'keyword_sim', limit: 5
-    config.add_facet_field 'subject_sim', limit: 5
-    config.add_facet_field 'language_sim', limit: 5
+    config.add_facet_field 'contributor_sim', label: 'Contributor', limit: 5
+    config.add_facet_field 'keyword_sim', limit: 5, label: 'Keyword'
+    config.add_facet_field 'subject_sim', limit: 5, label: 'Subject'
+    config.add_facet_field 'language_sim', limit: 5, label: 'Language'
     config.add_facet_field 'based_near_label_sim', limit: 5
-    config.add_facet_field 'publisher_sim', limit: 5
-    config.add_facet_field 'file_format_sim', limit: 5
-    config.add_facet_field 'date_created_sim', limit: 5, label: "Date Created"
+    config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
+    config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
     config.add_facet_field 'format_sim', limit: 5, label: 'Format'
     config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
@@ -94,31 +92,37 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_tesim', label: "Title", itemprop: 'name', if: false
-    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :iconify_auto_link
+    config.add_index_field 'title_tesim', label: 'Title', itemprop: 'name', if: false
+    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :index_filter
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
-    config.add_index_field 'resource_type_tesim', label: "Resource Type", link_to_search: 'resource_type_sim'
+    config.add_index_field 'resource_type_tesim', label: 'Resource Type', link_to_search: 'resource_type_sim'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title_tesim'
-    config.add_show_field 'alternative_title_tesim'
-    config.add_show_field 'description_tesim'
-    config.add_show_field 'keyword_tesim'
-    config.add_show_field 'subject_tesim'
+    config.add_show_field 'title_tesim', label: 'Title'
     config.add_show_field 'creator_tesim'
-    config.add_show_field 'contributor_tesim', label: "Contribute"
+    config.add_show_field 'keyword_tesim'
+    config.add_show_field 'rights_statement_tesim', label: 'Rights Statement'
+    config.add_show_field 'license_tesim'
+    config.add_show_field 'alternative_title_tesim', label: 'Alternative Title'
+    config.add_show_field 'contributor_tesim', label: 'Contribute'
+    config.add_show_field 'description_tesim'
+    config.add_show_field 'abstract_tesim'
+    config.add_show_field 'access_right_tesim', label: 'Access Rights'
+    config.add_show_field 'rights_notes_tesim', label: 'Rights notes'
     config.add_show_field 'publisher_tesim'
-    config.add_show_field 'based_near_label_tesim'
+    config.add_show_field 'date_created_tesim', label: 'Date created'
+    config.add_show_field 'subject_tesim'
     config.add_show_field 'language_tesim'
+    config.add_show_field 'identifier_tesim', label: 'Identifier'
+    config.add_show_field 'related_url_tesim', label: 'Related URL'
+    config.add_show_field 'source_tesim'
+    config.add_show_field 'based_near_label_tesim'
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'
-    config.add_show_field 'date_created_tesim'
-    config.add_show_field 'rights_statement_tesim'
-    config.add_show_field 'license_tesim'
-    config.add_show_field 'resource_type_tesim', label: "Resource Type"
+    config.add_show_field 'resource_type_tesim', label: 'Resource Type'
+    config.add_show_field 'bibliographic_citation_tesim', label: 'Bibliographic citation'
     config.add_show_field 'format_tesim', label: 'Format'
-    config.add_show_field 'identifier_tesim'
     config.add_show_field 'extent_tesim'
     config.add_show_field 'institution_tesim', label: 'Institution'
     config.add_show_field 'rights_holder_tesim', label: 'Rights holder'

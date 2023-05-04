@@ -1,0 +1,8 @@
+<%# OVERRIDE: Hyrax 3.5.0 to make license a single value select field on the form  %>
+<% license_service = Hyrax.config.license_service_class.new %>
+<%= f.input :license, as: :select,
+    collection: license_service.select_active_options,
+    item_helper: license_service.method(:include_current_value),
+    include_blank: true, input_html: { class: 'form-control',
+                                       multiple: true,
+                                       value: :include_current_value } %>

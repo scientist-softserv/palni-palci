@@ -9,10 +9,11 @@ RSpec.describe 'Work approval permissions', type: :request, singletenant: true, 
     {
       generic_work: {
         title: ['Test Work'],
-        creator: [work_creator.email],
-        keyword: ['asdf'],
-        rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/',
-        admin_set_id: admin_set.id
+        creator: ['depositor@example.com'],
+        rights_statement: ['http://rightsstatements.org/vocab/CNE/1.0/'],
+        date_created: ['09/03/2022'],
+        resource_type: ['Article'],
+        institution: 'Chicago Theological Seminary'
       }
     }
   end

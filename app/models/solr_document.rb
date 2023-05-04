@@ -46,6 +46,7 @@ class SolrDocument
   attribute :event_location, Solr::Array, 'event_location_tesim'
   attribute :event_date, Solr::Array, 'event_date_tesim'
   attribute :official_link, Solr::Array, 'official_link_tesim'
+  attribute :date_created, Solr::String, 'date_created_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

@@ -13,8 +13,7 @@ RSpec.describe 'Work approval permissions', type: :request, singletenant: true, 
         rights_statement: ["http://rightsstatements.org/vocab/CNE/1.0/"],
         date_created: ["09/03/2022"],
         resource_type: ["Article"],
-        institution: "Chicago Theological Seminary",
-        types: ["Text"]
+        institution: "Chicago Theological Seminary"
       }
     }
   end

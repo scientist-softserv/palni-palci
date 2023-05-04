@@ -5,7 +5,6 @@ class GenericWorkIndexer < AppIndexer
     super.tap do |solr_doc|
       add_format(solr_doc)
       add_institution(solr_doc)
-      add_types(solr_doc)
       add_date_created(solr_doc)
       add_resource_type(solr_doc)
       add_contributor(solr_doc)
@@ -22,10 +21,6 @@ class GenericWorkIndexer < AppIndexer
 
   def add_institution(solr_doc)
     solr_doc['institution_sim'] = object.institution.first if object.institution.present?
-  end
-
-  def add_types(solr_doc)
-    solr_doc['types_sim'] = object.types.first if object.types.present?
   end
 
   def add_date_created(solr_doc)

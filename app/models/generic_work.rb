@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts "Loading GenericWork model..."
+
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
@@ -15,12 +17,6 @@ class GenericWork < ActiveFedora::Base
   property :institution,
            predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"),
            multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
-  property :types,
-           predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types"),
-           multiple: true do |index|
     index.as :stored_searchable, :facetable
   end
 

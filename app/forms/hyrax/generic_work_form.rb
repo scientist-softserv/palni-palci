@@ -11,7 +11,6 @@ module Hyrax
       resource_type
       format
       institution
-      types
       bibliographic_citation
     ]
 
@@ -21,11 +20,11 @@ module Hyrax
       rights_statement
       date_created
       resource_type
-      institution types
+      institution
     ]
 
-    self.required_fields -= %i[
-      location
+    self.terms -= %i[
+      based_near
     ]
 
     def primary_terms

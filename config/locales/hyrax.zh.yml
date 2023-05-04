@@ -1142,7 +1142,6 @@ zh:
         rights_statement: 從下拉列表中選擇適當的權利聲明。有關詳細信息，請參閱 https://rightsstatements.org。
         subject: 描述作品內容的標題或索引詞。使用受控詞彙。
         title: 有助于识别作品的名称。
-        types: 預定義的類別來描述資源的性質或類型。可以選擇不止一種類型。
       labels:
         extent: 程度
     labels:

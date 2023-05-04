@@ -1142,7 +1142,6 @@ pt-BR:
         rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte https://rightsstatements.org para obter mais informações
         subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
         title: Um nome para ajudar na identificação de um trabalho.
-        types: Categorias predefinidas para descrever a natureza ou gênero do recurso. Mais de um tipo pode ser selecionado.
       labels:
         extent: Extensão
     labels:

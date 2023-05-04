@@ -16,10 +16,6 @@ RSpec.describe GenericWork do
     expect(subject.format).to eq ['format']
   end
 
-  it 'has types' do
-    subject.types = ['types']
-    expect(subject.types).to eq ['types']
-  end
 
   describe '.model_name' do
     subject { described_class.model_name.singular_route_key }
@@ -137,7 +133,6 @@ RSpec.describe GenericWork do
       expect(subject).to respond_to(:arkivo_checksum)
       expect(subject).to respond_to(:owner)
       expect(subject).to respond_to(:institution)
-      expect(subject).to respond_to(:types)
       expect(subject).to respond_to(:format)
       expect(subject).to respond_to(:alternative_title)
       expect(subject).to respond_to(:label)

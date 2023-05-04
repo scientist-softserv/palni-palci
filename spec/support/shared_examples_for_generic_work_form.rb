@@ -34,7 +34,6 @@ RSpec.shared_examples 'generic_work_form' do
       expect(form.primary_terms).to include(:date_created)
       expect(form.primary_terms).to include(:resource_type)
       expect(form.primary_terms).to include(:institution)
-      expect(form.primary_terms).to include(:types)
     end
   end
 
@@ -46,7 +45,6 @@ RSpec.shared_examples 'generic_work_form' do
       expect(form.secondary_terms).not_to include(:date_created)
       expect(form.secondary_terms).not_to include(:resource_type)
       expect(form.secondary_terms).not_to include(:institution)
-      expect(form.secondary_terms).not_to include(:types)
     end
   end
 

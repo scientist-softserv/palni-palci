@@ -1140,7 +1140,6 @@ fr:
         rights_statement: Sélectionnez la déclaration de droits appropriée dans la liste déroulante. Consultez https://rightsstatements.org pour plus d'informations.
         subject: Titres ou termes d'index décrivant le sujet de l'ouvrage. Utilisez un vocabulaire contrôlé.
         title: Un nom pour aider à identifier une œuvre.
-        types: Catégories prédéfinies pour décrire la nature ou le genre de la ressource. Plusieurs types peuvent être sélectionnés.
       labels:
         extent: Ampleur
     labels:

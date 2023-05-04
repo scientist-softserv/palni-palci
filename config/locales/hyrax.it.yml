@@ -1142,7 +1142,6 @@ it:
         rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
         subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
         title: Un nome per aiutare a identificare un'opera.
-        types: categorie predefinite per descrivere la natura o il genere della risorsa. È possibile selezionare più di un tipo.
       labels:
         extent: Estensione
     labels:

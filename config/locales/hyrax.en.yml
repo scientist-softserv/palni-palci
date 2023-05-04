@@ -1147,7 +1147,6 @@ en:
         rights_statement: Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information.
         subject: Headings or index terms describing what the work is about. Use a controlled vocabulary.
         title: A name to aid in identifying a work.
-        types: Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.
     labels:
       collection:
         size: Size

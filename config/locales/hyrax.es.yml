@@ -1142,7 +1142,6 @@ es:
         rights_statement: Seleccione la declaración de derechos adecuada de la lista desplegable. Consulte https://rightsstatements.org para obtener más información.
         subject: Encabezados o términos de índice que describen de qué trata el trabajo Use un vocabulario controlado.
         title: Un nombre para ayudar a identificar una obra.
-        types: Categorías predefinidas para describir la naturaleza o el género del recurso, se puede seleccionar más de un tipo.
       labels:
         extent: Extensión
     labels:

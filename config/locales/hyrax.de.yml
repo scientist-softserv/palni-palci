@@ -1141,7 +1141,6 @@ de:
         rights_statement: Wählen Sie die entsprechende Rechteerklärung aus der Dropdown-Liste aus. Weitere Informationen finden Sie unter https://rightsstatements.org.
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht Verwenden Sie ein kontrolliertes Vokabular.
         title: Ein Name, der bei der Identifizierung eines Werks hilft.
-        types: Vordefinierte Kategorien zur Beschreibung der Art oder des Genres der Ressource Es kann mehr als ein Typ ausgewählt werden.
       labels:
         extent: Umfang
     labels:

@@ -7,8 +7,6 @@ class GenericWork < ActiveFedora::Base
   )
   # this line needs to be before the validations & properties in order for them to be indexed correctly
   self.indexer = GenericWorkIndexer
-
-  self.indexer = GenericWorkIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
 

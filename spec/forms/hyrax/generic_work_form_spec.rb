@@ -5,7 +5,7 @@ RSpec.describe Hyrax::GenericWorkForm do
   let(:form) { described_class.new(work, nil, nil) }
   let(:file_set) { FactoryBot.create(:file_set) }
 
-  describe ".model_attributes" do
+  describe '.model_attributes' do
     subject { described_class.model_attributes(params) }
 
     let(:params) { ActionController::Parameters.new(attributes) }
@@ -21,5 +21,5 @@ RSpec.describe Hyrax::GenericWorkForm do
     end
   end
 
-  include_examples("generic_work_form")
+  include_examples('generic_work_form')
 end

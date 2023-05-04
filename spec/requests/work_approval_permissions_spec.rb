@@ -8,12 +8,12 @@ RSpec.describe 'Work approval permissions', type: :request, singletenant: true, 
   let(:valid_work_params) do
     {
       generic_work: {
-        title: ["Test Work"],
-        creator: ["depositor@example.com"],
-        rights_statement: ["http://rightsstatements.org/vocab/CNE/1.0/"],
-        date_created: ["09/03/2022"],
-        resource_type: ["Article"],
-        institution: "Chicago Theological Seminary"
+        title: ['Test Work'],
+        creator: ['depositor@example.com'],
+        rights_statement: ['http://rightsstatements.org/vocab/CNE/1.0/'],
+        date_created: ['09/03/2022'],
+        resource_type: ['Article'],
+        institution: 'Chicago Theological Seminary'
       }
     }
   end

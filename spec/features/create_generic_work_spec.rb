@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-# NOTE: If you generated more than one work, you have to set "js: true"
+# NOTE: If you generated more than one work, you have to set 'js: true'
 RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
   include Warden::Test::Helpers
 
@@ -38,23 +38,23 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
 
     it do # rubocop:disable RSpec/ExampleLength
       visit '/dashboard/my/works'
-      click_link "Add New Work"
+      click_link 'Add New Work'
 
       # If you generate more than one work uncomment these lines
-      choose "payload_concern", option: "GenericWork"
-      click_button "Create work"
+      choose 'payload_concern', option: 'GenericWork'
+      click_button 'Create work'
 
-      # expect(page).to have_content "Add New Work"
-      click_link "Files" # switch tab
-      expect(page).to have_content "Add files"
-      expect(page).to have_content "Add folder"
+      # expect(page).to have_content 'Add New Work'
+      click_link 'Files' # switch tab
+      expect(page).to have_content 'Add files'
+      expect(page).to have_content 'Add folder'
       within('div#add-files') do
-        attach_file("files[]", File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
-        attach_file("files[]", File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
+        attach_file('files[]', File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
+        attach_file('files[]', File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
       end
       expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
 
-      click_link "Descriptions" # switch tab
+      click_link 'Descriptions' # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights statement')
@@ -91,7 +91,7 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
 
       click_on('Save')
       expect(page).to have_content('My Test Work')
-      expect(page).to have_content "Your files are being processed by Hyku in the background."
+      expect(page).to have_content 'Your files are being processed by Hyku in the background.'
     end
   end
 end

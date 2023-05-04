@@ -84,15 +84,15 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true, ci: 's
       select(admin_set.title.first, from: 'Administrative Set')
 
       click_link 'Files' # switch tab
-      expect(page).to have_content "Add files"
-      expect(page).to have_content "Add folder"
+      expect(page).to have_content 'Add files'
+      expect(page).to have_content 'Add folder'
       within('div#add-files') do
-        attach_file("files[]", File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
-        attach_file("files[]", File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
+        attach_file('files[]', File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
+        attach_file('files[]', File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
       end
       expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
 
-      click_link "Descriptions" # switch tab
+      click_link 'Descriptions' # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights statement')

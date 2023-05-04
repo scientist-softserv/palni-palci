@@ -21,7 +21,7 @@ terms:
 
   - id: image/png
     term: PNG
-    alts: [image/png']
+    alts: ['image/png']
     active: true
 
   - id: image/gif

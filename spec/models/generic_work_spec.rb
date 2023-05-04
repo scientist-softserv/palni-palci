@@ -23,10 +23,10 @@ RSpec.describe GenericWork do
     it { is_expected.to eq 'hyrax_generic_work' }
   end
 
-  describe ".properties" do
+  describe '.properties' do
     subject { described_class.properties.keys }
 
-    it { is_expected.to include("has_model", "create_date", "modified_date") }
+    it { is_expected.to include('has_model', 'create_date', 'modified_date') }
   end
 
   describe '#state' do
@@ -46,7 +46,7 @@ RSpec.describe GenericWork do
   describe '#suppressed?' do
     let(:work) { described_class.new(state: state) }
 
-    context "when state is inactive" do
+    context 'when state is inactive' do
       let(:state) { ::RDF::URI('http://fedora.info/definitions/1/0/access/ObjState#inactive') }
 
       it 'is suppressed' do
@@ -54,7 +54,7 @@ RSpec.describe GenericWork do
       end
     end
 
-    context "when the state is active" do
+    context 'when the state is active' do
       let(:state) { ::RDF::URI('http://fedora.info/definitions/1/0/access/ObjState#active') }
 
       it 'is not suppressed' do
@@ -62,7 +62,7 @@ RSpec.describe GenericWork do
       end
     end
 
-    context "when the state is nil" do
+    context 'when the state is nil' do
       let(:state) { nil }
 
       it 'is not suppressed' do
@@ -71,7 +71,7 @@ RSpec.describe GenericWork do
     end
   end
 
-  describe "embargo" do
+  describe 'embargo' do
     subject(:work) { described_class.new(title: ['a title'], embargo_release_date: embargo_release_date) }
 
     let(:embargo_release_date) { Time.zone.today + 10 }
@@ -87,7 +87,7 @@ RSpec.describe GenericWork do
         expect { work.valid? }
           .to change { work.errors.to_a }
           .from(be_empty)
-          .to include("Embargo release date Must be a future date")
+          .to include('Embargo release date Must be a future date')
       end
     end
 
@@ -105,15 +105,15 @@ RSpec.describe GenericWork do
     end
   end
 
-  describe "delegations" do
-    let(:work) { described_class.new { |gw| gw.apply_depositor_metadata("user") } }
+  describe 'delegations' do
+    let(:work) { described_class.new { |gw| gw.apply_depositor_metadata('user') } }
     let(:proxy_depositor) { create(:user) }
 
     before do
       work.proxy_depositor = proxy_depositor.user_key
     end
 
-    it "includes proxies" do
+    it 'includes proxies' do
       expect(work).to respond_to(:relative_path)
       expect(work).to respond_to(:depositor)
       expect(work.proxy_depositor).to eq proxy_depositor.user_key
@@ -121,8 +121,8 @@ RSpec.describe GenericWork do
   end
 
   # rubocop:disable RSpec/ExampleLength
-  describe "metadata" do
-    it "has descriptive metadata" do
+  describe 'metadata' do
+    it 'has descriptive metadata' do
       expect(subject).to respond_to(:depositor)
       expect(subject).to respond_to(:title)
       expect(subject).to respond_to(:date_uploaded)
@@ -168,7 +168,7 @@ RSpec.describe GenericWork do
   end
   # rubocop:enable RSpec/ExampleLength
 
-  describe "validates title" do
+  describe 'validates title' do
     subject(:work) { FactoryBot.build(:generic_work, title: nil) }
 
     it { is_expected.not_to be_valid }

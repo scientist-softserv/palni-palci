@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-puts "Loading GenericWork model..."
-
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
@@ -15,7 +13,7 @@ class GenericWork < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :institution,
-           predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#institution"),
+           predicate: ::RDF::URI.new('http://test.hyku.test/generic_work#institution'),
            multiple: false do |index|
     index.as :stored_searchable, :facetable
   end

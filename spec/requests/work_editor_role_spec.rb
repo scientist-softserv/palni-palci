@@ -17,12 +17,12 @@ RSpec.describe 'Work Editor role', type: :request, singletenant: true, clean: tr
   let(:valid_work_params) do
     {
       generic_work: {
-        title: ["Test Work"],
-        creator: ["depositor@example.com"],
-        rights_statement: ["http://rightsstatements.org/vocab/CNE/1.0/"],
-        date_created: ["09/03/2022"],
-        resource_type: ["Article"],
-        institution: "Chicago Theological Seminary"
+        title: ['Test Work'],
+        creator: ['depositor@example.com'],
+        rights_statement: ['http://rightsstatements.org/vocab/CNE/1.0/'],
+        date_created: ['09/03/2022'],
+        resource_type: ['Article'],
+        institution: 'Chicago Theological Seminary'
       }
     }
   end

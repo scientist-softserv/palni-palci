@@ -6,9 +6,9 @@ FactoryBot.define do
       user { FactoryBot.create(:user) }
     end
 
-    title { ["Test title"] }
-    institution { "institution" }
-    format { ["format"] }
+    title { ['Test title'] }
+    institution { 'institution' }
+    format { ['format'] }
 
     factory :public_generic_work, aliases: [:public_work], traits: [:public]
 

@@ -16,7 +16,6 @@ RSpec.describe GenericWork do
     expect(subject.format).to eq ['format']
   end
 
-
   describe '.model_name' do
     subject { described_class.model_name.singular_route_key }
 

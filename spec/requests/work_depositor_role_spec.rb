@@ -27,7 +27,7 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
       context "with #{visibility} visibility" do
         let(:work) { create(:work, visibility: visibility, admin_set_id: admin_set_id) }
 
-        it "can see the work's public show page" do
+        it 'can see the works public show page' do
           get hyrax_generic_work_path(work)
 
           expect(response).to have_http_status(:success)
@@ -45,7 +45,7 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
     context 'with restricted visibility' do
       let(:work) { create(:work, visibility: 'restricted', admin_set_id: admin_set_id) }
 
-      it "cannot see the work's show page" do
+      it 'cannot see the works show page' do
         get hyrax_generic_work_path(work)
 
         expect(response).to have_http_status(:unauthorized)
@@ -65,9 +65,11 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
       {
         generic_work: {
           title: ['Test Work'],
-          creator: [work_depositor.email],
-          keyword: ['asdf'],
-          rights_statement: 'http://rightsstatements.org/vocab/CNE/1.0/'
+          creator: ['depositor@example.com'],
+          rights_statement: ['http://rightsstatements.org/vocab/CNE/1.0/'],
+          date_created: ['09/03/2022'],
+          resource_type: ['Article'],
+          institution: 'Chicago Theological Seminary'
         }
       }
     end

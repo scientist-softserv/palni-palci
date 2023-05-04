@@ -1,2 +1,4 @@
-<%# OVERRIDE: Hyrax 3.5.0 to make date_created single value on form %>
-<%= f.input key, label: t("#{f.object.class}.date_created"), required: f.object.required?(key) %>
+<%# OVERRIDE: Hyrax 3.5.0 to make date_created form field input a string %>
+<%= f.input :date_created, as: :string, input_html: { class: 'form-control',
+    multiple: true, value: "#{f.object.date_created.try(:first)}" } %>
+

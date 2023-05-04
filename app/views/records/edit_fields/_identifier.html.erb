@@ -1,0 +1,3 @@
+<%# OVERRIDE: Hyrax 3.5.0 to make identifier form field input a string %>
+<%= f.input :identifier, as: :string, input_html: { class: 'form-control',
+    multiple: true, value: "#{f.object.identifier.try(:first)}" } %>

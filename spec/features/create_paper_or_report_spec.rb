@@ -59,7 +59,7 @@ RSpec.describe 'Create a PaperOrReport', js: true do
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights statement')
-      fill_in('Institution', with: 'The Institute')
+      select('Oblate School of Theology', from: 'Institution')
       click_on('Additional fields')
       fill_in('Keyword', with: 'My keyword')
 

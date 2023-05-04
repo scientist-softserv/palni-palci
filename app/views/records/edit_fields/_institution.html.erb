@@ -1,0 +1,3 @@
+<%# CUSTOM: app/views/records/edit_fields/_institution.html.erb %>
+<%= f.input :institution, as: :select, collection: Hyrax::InstitutionService.select_options,
+    input_html: { class: 'form-control', multiple: false } %>

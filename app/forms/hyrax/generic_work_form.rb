@@ -30,7 +30,6 @@ module Hyrax
 
     def primary_terms
       super - %i[license]
-      super + %i[video_embed]
     end
   end
 end

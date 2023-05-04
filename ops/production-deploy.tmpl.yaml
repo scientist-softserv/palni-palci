@@ -197,7 +197,6 @@ worker:
   podSecurityContext: *podSecValues
   securityContext: *secValues
 
-
 embargoRelease:
   enabled: false
 leaseRelease:

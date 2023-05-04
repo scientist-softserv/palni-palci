@@ -20,7 +20,7 @@ class GenericWorkIndexer < AppIndexer
   end
 
   def add_institution(solr_doc)
-    solr_doc['institution_sim'] = object.institution.first if object.institution.present?
+    solr_doc['institution_sim'] = object.institution if object.institution.present?
   end
 
   def add_date_created(solr_doc)

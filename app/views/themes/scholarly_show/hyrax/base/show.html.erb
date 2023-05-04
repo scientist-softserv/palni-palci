@@ -16,26 +16,35 @@
       <div class="panel-body">
         <div class="row">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <% if @presenter.universal_viewer? %>
-            <div class="col-sm-12">
-              <%= render 'representative_media', presenter: @presenter, viewer: true %>
-            </div>
+          <% if @presenter.video_embed_viewer? %>
+            <%= render 'video_embed_viewer', presenter: @presenter %>
             <div class="col-sm-12">
               <div class="image-show-description">
                 <%= render 'work_description', presenter: @presenter %>
               </div>
-            </div> 
+            </div>
           <% else %>
-            <div class="col-sm-3 mb-1">
-              <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
-            </div>
-            <div class="col-sm-9">
-              <%= render 'work_description', presenter: @presenter %>
-            </div>
+            <% if @presenter.universal_viewer? %>
+              <div class="col-sm-12 centered-media">
+                <%= render 'representative_media', presenter: @presenter, viewer: true %>
+              </div>
+              <div class="col-sm-12">
+                <div class="image-show-description">
+                  <%= render 'work_description', presenter: @presenter %>
+                </div>
+              </div>
+            <% else %>
+              <div class="col-sm-3 mb-1">
+                <%= render 'representative_media', presenter: @presenter, viewer: false %>
+              </div>
+              <div class="col-sm-9">
+                <%= render 'work_description', presenter: @presenter %>
+              </div>
+            <% end %>
           <% end %>
         </div>
         <div class="row">
-          <div class="col-sm-12 image-show-metadata">  
+          <div class="col-sm-12 image-show-metadata">
             <%= render 'metadata', presenter: @presenter %>
           </div>
           <div class="col-sm-12">

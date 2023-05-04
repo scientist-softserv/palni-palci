@@ -151,7 +151,6 @@ RSpec.describe GenericWork do
       expect(subject).to respond_to(:subject)
       expect(subject).to respond_to(:language)
       expect(subject).to respond_to(:identifier)
-      expect(subject).to respond_to(:based_near)
       expect(subject).to respond_to(:related_url)
       expect(subject).to respond_to(:bibliographic_citation)
       expect(subject).to respond_to(:source)

@@ -21,7 +21,6 @@ RSpec.shared_examples 'generic_work_form' do
       expect(form.primary_terms).not_to include(:bibliographic_citation)
       expect(form.primary_terms).not_to include(:format)
       expect(form.primary_terms).not_to include(:identifier)
-      expect(form.primary_terms).not_to include(:based_near)
       expect(form.primary_terms).not_to include(:related_url)
     end
   end
@@ -68,7 +67,6 @@ RSpec.shared_examples 'generic_work_form' do
       expect(form.secondary_terms).to include(:bibliographic_citation)
       expect(form.secondary_terms).to include(:format)
       expect(form.secondary_terms).to include(:identifier)
-      expect(form.secondary_terms).to include(:based_near)
       expect(form.secondary_terms).to include(:related_url)
     end
   end

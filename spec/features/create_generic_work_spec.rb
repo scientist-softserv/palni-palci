@@ -61,7 +61,6 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
       fill_in('Date Created', with: '09/03/2022')
       select('Thesis', from: 'Resource type')
       select('Oblate School of Theology', from: 'Institution')
-      select('Image', from: 'Type')
       click_on('Additional fields')
       fill_in('Alternative title', with: 'Alternative title')
       fill_in('Contributor', with: 'Contributor')

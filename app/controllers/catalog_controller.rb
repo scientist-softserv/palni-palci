@@ -80,7 +80,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
     config.add_facet_field 'format_sim', limit: 5, label: 'Format'
-    config.add_facet_field 'types_sim', limit: 5, label: 'Type'
     config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
     config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
     config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
@@ -126,7 +125,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'extent_tesim'
     config.add_show_field 'institution_tesim', label: 'Institution'
-    config.add_show_field 'types_tesim', label: 'Type'
     config.add_show_field 'rights_holder_tesim', label: 'Rights holder'
     config.add_show_field 'creator_orcid_tesim', label: 'Creator ORCID'
     config.add_show_field 'creator_institutional_relationship_tesim', label: 'Creator institutional relationship'
@@ -277,7 +275,7 @@ class CatalogController < ApplicationController
     config.add_search_field('format') do |field|
       field.include_in_advanced_search = false
       field.solr_parameters = {
-        'spellcheck.dictionary': "format"
+        "spellcheck.dictionary": "format"
       }
       solr_name = 'format_tesim'
       field.solr_local_parameters = {

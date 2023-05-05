@@ -9,8 +9,9 @@ en:
   simple_form:
     hints:
       defaults:
-        additional_information: "If rights are subject to a contractual or gift agreement or otherwise defined by a binding agreement that is in addition to or in place of intellectual property laws or open licensing, please detail here."
+        alternative_title: "Alternative title for the resource."
+        keyword: "Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary."
+        rights_statement: "Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information"
     labels:
       defaults:
-        additional_information: "Additional rights info"
         bibliographic_citation: "Bibliographic citation"

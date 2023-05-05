@@ -6,8 +6,10 @@ module Hyrax
     self.model_class = ::Etd
     self.terms += [
       :resource_type,
-      :additional_information,
       :bibliographic_citation
+    ]
+    self.terms -= %i[
+      based_near
     ]
   end
 end

@@ -30,7 +30,6 @@ class SolrDocument
   attribute :extent, Solr::Array, 'extent_tesim'
   attribute :rendering_ids, Solr::Array, 'hasFormat_ssim'
   attribute :account_cname, Solr::Array, 'account_cname_tesim'
-  attribute :additional_information, Solr::Array, 'additional_information_tesim'
   attribute :bibliographic_citation, Solr::Array, 'bibliographic_citation_tesim'
 
   field_semantics.merge!(

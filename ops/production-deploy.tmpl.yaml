@@ -148,6 +148,8 @@ extraEnvVars: &envVars
     value: 'true'
   - name: REDIS_HOST
     value: atla-hyku-prod-redis-master
+  - name: REDIS_PASSWORD
+    value: $REDIS_PASSWORD
   - name: REDIS_URL
     value: redis://:$REDIS_PASSWORD@atla-hyku-prod-redis-master
   - name: SMTP_ADDRESS

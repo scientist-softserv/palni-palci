@@ -250,8 +250,8 @@ externalSolrUser: admin
 externalSolrCollection: 'atla-hyku-production'
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
-global:
-  hyraxName: atla-hyku-production-hyrax
+# global:
+  # hyraxName: atla-hyku-production-hyrax
 
 nginx:
   # disabling for now until we confirm if the cluster can support

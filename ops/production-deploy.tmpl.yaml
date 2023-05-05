@@ -49,9 +49,19 @@ ingress:
     - host: atla-hyku-production.notch8.cloud
       paths:
         - path: /
-    - host: ir.atla.com
+    - host: "*.atla-hyku-production.notch8.cloud"
       paths:
         - path: /
+  annotations: {
+    kubernetes.io/ingress.class: "nginx",
+    nginx.ingress.kubernetes.io/proxy-body-size: "0",
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  }
+  tls:
+    - hosts:
+        - atla-hyku-production.notch8.cloud
+        - "*.atla-hyku-production.notch8.cloud"
+      secretName: atla-hyku-prod
 
 extraEnvVars: &envVars
   - name: CONFDIR

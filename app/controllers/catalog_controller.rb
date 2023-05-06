@@ -69,16 +69,20 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field 'human_readable_type_sim', label: "Type", limit: 5
-    config.add_facet_field 'resource_type_sim', label: "Resource Type", limit: 5
+    config.add_facet_field 'resource_type_sim', label: 'Resource Type', limit: 5
     config.add_facet_field 'creator_sim', limit: 5
-    config.add_facet_field 'contributor_sim', label: "Contributor", limit: 5
-    config.add_facet_field 'keyword_sim', limit: 5
-    config.add_facet_field 'subject_sim', limit: 5
-    config.add_facet_field 'language_sim', limit: 5
+    config.add_facet_field 'contributor_sim', label: 'Contributor', limit: 5
+    config.add_facet_field 'keyword_sim', limit: 5, label: 'Keyword'
+    config.add_facet_field 'subject_sim', limit: 5, label: 'Subject'
+    config.add_facet_field 'language_sim', limit: 5, label: 'Language'
     config.add_facet_field 'based_near_label_sim', limit: 5
-    config.add_facet_field 'publisher_sim', limit: 5
-    config.add_facet_field 'file_format_sim', limit: 5
+    config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
+    config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
+    config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
+    config.add_facet_field 'format_sim', limit: 5, label: 'Format'
+    config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
+    config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
+    config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -95,26 +99,45 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title_tesim'
-    config.add_show_field 'alternative_title_tesim'
-    config.add_show_field 'description_tesim'
-    config.add_show_field 'keyword_tesim'
-    config.add_show_field 'subject_tesim'
+    config.add_show_field 'title_tesim', label: 'Title'
     config.add_show_field 'creator_tesim'
-    config.add_show_field 'contributor_tesim'
+    config.add_show_field 'keyword_tesim'
+    config.add_show_field 'rights_statement_tesim', label: 'Rights Statement'
+    config.add_show_field 'license_tesim'
+    config.add_show_field 'alternative_title_tesim', label: 'Alternative Title'
+    config.add_show_field 'contributor_tesim', label: 'Contribute'
+    config.add_show_field 'description_tesim'
+    config.add_show_field 'abstract_tesim'
+    config.add_show_field 'access_right_tesim', label: 'Access Rights'
+    config.add_show_field 'rights_notes_tesim', label: 'Rights notes'
     config.add_show_field 'publisher_tesim'
-    config.add_show_field 'based_near_label_tesim'
+    config.add_show_field 'date_created_tesim', label: 'Date created'
+    config.add_show_field 'subject_tesim'
     config.add_show_field 'language_tesim'
+    config.add_show_field 'identifier_tesim', label: 'Identifier'
+    config.add_show_field 'related_url_tesim', label: 'Related URL'
+    config.add_show_field 'source_tesim'
+    config.add_show_field 'based_near_label_tesim'
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'
-    config.add_show_field 'date_created_tesim'
-    config.add_show_field 'rights_statement_tesim'
-    config.add_show_field 'bibliographic_citation_tesim'
-    config.add_show_field 'license_tesim'
-    config.add_show_field 'resource_type_tesim', label: "Resource Type"
-    config.add_show_field 'format_tesim'
-    config.add_show_field 'identifier_tesim'
+    config.add_show_field 'resource_type_tesim', label: 'Resource Type'
+    config.add_show_field 'bibliographic_citation_tesim', label: 'Bibliographic citation'
+    config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'extent_tesim'
+    config.add_show_field 'institution_tesim', label: 'Institution'
+    config.add_show_field 'rights_holder_tesim', label: 'Rights holder'
+    config.add_show_field 'creator_orcid_tesim', label: 'Creator ORCID'
+    config.add_show_field 'creator_institutional_relationship_tesim', label: 'Creator institutional relationship'
+    config.add_show_field 'contributor_orcid_tesim', label: 'Contributor ORCID'
+    config.add_show_field 'contributor_institutional_relationship_tesim', label: 'Contributor institutional relationship'
+    config.add_show_field 'contributor_role_tesim', label: 'Contributor role'
+    config.add_show_field 'project_name_tesim', label: 'Project name'
+    config.add_show_field 'funder_name_tesim', label: 'Funder'
+    config.add_show_field 'funder_awards_tesim', label: 'Funder awards'
+    config.add_show_field 'event_title_tesim', label: 'Event title'
+    config.add_show_field 'event_location_tesim', label: 'Event location'
+    config.add_show_field 'event_date_tesim', label: 'Event date'
+    config.add_show_field 'official_link_tesim', label: 'Official URL'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

@@ -6,7 +6,6 @@ class GenericWorkIndexer < AppIndexer
       add_format(solr_doc)
       add_institution(solr_doc)
       add_date_created(solr_doc)
-      add_resource_type(solr_doc)
       add_contributor(solr_doc)
       add_keyword(solr_doc)
       add_language(solr_doc)
@@ -25,10 +24,6 @@ class GenericWorkIndexer < AppIndexer
 
     def add_date_created(solr_doc)
       solr_doc['date_created_sim'] = object.date_created if object.date_created.present?
-    end
-
-    def add_resource_type(solr_doc)
-      solr_doc['resource_type_sim'] = object.resource_type.first if object.resource_type.present?
     end
 
     def add_contributor(solr_doc)

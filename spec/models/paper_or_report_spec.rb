@@ -18,6 +18,11 @@ RSpec.describe PaperOrReport do
     expect(subject.institution).to eq 'Institution'
   end
 
+  it "has date created as single value field" do
+    subject.date_created = ["2002"]
+    expect(subject.date_created).to eq ["2002"]
+  end
+
   describe "metadata" do
     it "responds to metadata items" do
       expect(subject).to respond_to(:title)

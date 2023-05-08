@@ -82,9 +82,4 @@ class PaperOrReport < ActiveFedora::Base
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
-
-  # OVERRIDE: Hyrax 3.5.0 BasicMetadata to make date_created a single value property
-  property :date_created, predicate: ::RDF::Vocab::DC.created, multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
 end

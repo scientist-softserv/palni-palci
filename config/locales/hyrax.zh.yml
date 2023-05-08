@@ -1122,20 +1122,25 @@ zh:
         share_applies_to_new_works: 在集合中直接创建新作品时，请根据其收藏角色授予共享用户和组新作品的权限。
         title: ''
       defaults:
+        access_rights: 如果访问仅限于特定用户组或内容受到禁运，请在此处包含该信息
         based_near: 与该作品相关的地名，例如其出版地或该作品所涉及的城市，州或国家。调用<a href='http://www.geonames.org'> GeoNames Web服务</a>。
         contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
         date_created: 工作创建的日期。
-        description: 关于这项工作的自由文本注释。示例包括论文摘要或期刊文章的引用信息。
+        description: 資源的自由文本帳戶。
         extent: 工作的程度（大小，持续时间，数量等）。
+        format: 數字資源的文件格式。
         identifier: 标识工作的唯一句柄。例如期刊文章的DOI或书籍的ISBN或OCLC编号。
-        keyword: 您选择用来描述工作内容的词或短语。这些用于搜索内容。
+        institution: 將作品上傳到的參與機構。
+        keyword: 您選擇用來描述作品內容的詞或短語。這些不需要是受控詞彙。
         language: 作品内容的语言。
         license: 有关访问作品的许可和发行信息。从提供的下拉列表中选择。
-        publisher: 使工作可用的个人或团体。通常这是机构。
+        publisher: 負責提供原始資源的個人或團體。
         related_url: 指向网站或与作品相关的其他特定内容（音频，视频，PDF文档）的链接。一个示例是该工作源自的研究项目的URL。
-        resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
-        subject: 描述工作内容的标题或索引词；这些确实需要符合现有词汇。
+        resource_type: 預定義類別，用於描述上傳內容的類型，例如“文章”或“照片”。可以選擇不止一種資源類型。
+        rights_notes: 此處可能包含任何對權利或許可的額外解釋。
+        rights_statement: 從下拉列表中選擇適當的權利聲明。有關詳細信息，請參閱 https://rightsstatements.org。
+        subject: 描述作品內容的標題或索引詞。使用受控詞彙。
         title: 有助于识别作品的名称。
       labels:
         extent: 程度

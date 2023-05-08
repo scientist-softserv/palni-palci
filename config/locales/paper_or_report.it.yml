@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        description:        "Rapporti tecnici, documenti di conferenze, sovvenzioni o altri rapporti di progetto e lavori simili."
+        name:               "Paper or Report"

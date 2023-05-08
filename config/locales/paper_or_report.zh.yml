@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      paper_or_report:     'fa fa-file-text-o'
+    select_type:
+      paper_or_report:
+        # TODO: translate `human_name` into Chinese
+        description:        "技术报告、会议论文、拨款或其他项目报告，以及类似的作品。"
+        name:               "论文或报告"
+        # TODO: translate `human_name` into Chinese

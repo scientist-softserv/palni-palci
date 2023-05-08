@@ -7,6 +7,29 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
-    self.terms += %i[resource_type]
+    self.terms += %i[
+      resource_type
+      format
+      institution
+      bibliographic_citation
+      video_embed
+    ]
+
+    self.required_fields += %i[
+      title
+      creator
+      rights_statement
+      date_created
+      resource_type
+      institution
+    ]
+
+    self.terms -= %i[
+      based_near
+    ]
+
+    def primary_terms
+      super + %i[video_embed] - %i[license]
+    end
   end
 end

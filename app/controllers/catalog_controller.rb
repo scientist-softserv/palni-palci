@@ -92,10 +92,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_tesim', label: "Title", itemprop: 'name', if: false
-    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :iconify_auto_link
+    config.add_index_field 'title_tesim', label: 'Title', itemprop: 'name', if: false
+    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :index_filter
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
-    config.add_index_field 'resource_type_tesim', label: "Resource Type", link_to_search: 'resource_type_sim'
+    config.add_index_field 'resource_type_tesim', label: 'Resource Type', link_to_search: 'resource_type_sim'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

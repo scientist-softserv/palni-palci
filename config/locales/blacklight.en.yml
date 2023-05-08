@@ -32,7 +32,9 @@ en:
         show:
           based_near_label_tesim: Location
           contributor_tesim: Contributor
+          contributor_orcid: Contributor ORCID
           creator_tesim: Creator
+          creator_orcid: Creator ORCID
           date_created_tesim: Date Created
           date_modified_dtsi: Date Modified
           date_uploaded_dtsi: Date Uploaded
@@ -46,3 +48,4 @@ en:
           rights_tesim: Rights
           subject_tesim: Subject
           title_tesim: Title
+

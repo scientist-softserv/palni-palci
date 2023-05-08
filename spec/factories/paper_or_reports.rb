@@ -9,7 +9,7 @@ FactoryBot.define do
     title { ["title"] }
     institution { "institution" }
     creator { ["creator"] }
-    date_created { "2002" }
+    date_created { ["2002"] }
 
     factory :paper_or_report_with_one_file do
       before(:create) do |work, evaluator|

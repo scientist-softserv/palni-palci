@@ -19,8 +19,8 @@ RSpec.describe PaperOrReport do
   end
 
   it "has date created as single value field" do
-    subject.date_created = "2002"
-    expect(subject.date_created).to eq "2002"
+    subject.date_created = ["2002"]
+    expect(subject.date_created).to eq ["2002"]
   end
 
   describe "metadata" do

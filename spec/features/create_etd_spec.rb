@@ -1,22 +1,30 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work Etd`
 require 'rails_helper'
-include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a Etd', js: false do
-  context 'a logged in user' do
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
-    let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
-    end
-    let(:admin_set_id) { Hyrax::AdminSetCreateService.find_or_create_default_admin_set.id.to_s }
+RSpec.feature 'Create a Etd', js: true do
+  include Warden::Test::Helpers
+  
+  context 'a logged in user with the :work_depositor role' do
+    let(:user) { create(:user, roles: [:work_depositor]) }
+    let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
     let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-    let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
+    let(:workflow) do
+      Sipity::Workflow.create!(
+        active: true,
+        name: 'test-workflow',
+        permission_template: permission_template
+      )
+    end
 
     before do
+      create(:admin_group)
+      create(:registered_group)
+      create(:editors_group)
+      create(:depositors_group)
       # Create a single action that can be taken
       Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
 
@@ -30,37 +38,35 @@ RSpec.feature 'Create a Etd', js: false do
       login_as user
     end
 
-    scenario do
-      pending 'Changes may be required for this test to pass.  See TODO in test.'
+    it do # rubocop:disable RSpec/ExampleLength
 
-      visit '/dashboard'
-      click_link "Works"
+      visit '/dashboard/my/works'
+      byebug
       click_link "Add new work"
-
-      # TODO: If you generate more than one work uncomment these lines
-      # choose "payload_concern", option: "Etd"
-      # click_button "Create work"
+      # If you generate more than one work uncomment these lines
+      choose "payload_concern", option: "Etd"
+      click_button "Create work"
 
       expect(page).to have_content "Add New Etd"
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
       within('div#add-files') do
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/image.jp2", visible: false)
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/jp2_fits.xml", visible: false)
+        attach_file("files[]", File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
+        attach_file("files[]", File.join(fixture_path, 'hyrax', 'jp2_fits.xml'), visible: false)
       end
+      expect(page).to have_selector(:link_or_button, 'Delete') # Wait for files to finish uploading
+
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights statement')
 
-      # With selenium and the chrome driver, focus remains on the
-      # select box. Click outside the box so the next line can't find
-      # its element
-      find('body').click
-      choose('etd_visibility_open')
+      page.choose('paper_or_report_visibility_open')
+      # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      check('agreement')
+      # rubocop:enable Metrics/LineLength
+      find('#agreement').click
 
       click_on('Save')
       expect(page).to have_content('My Test Work')

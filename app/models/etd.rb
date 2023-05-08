@@ -13,9 +13,21 @@ class Etd < ActiveFedora::Base
   validates :discipline, presence: { message: 'Your work must have a discipline.' }
   validates :degree_granting_institution, presence: { message: 'Your work must have a degree granting institution.' }
 
-  property :institution, predicate: ::RDF::Vocab::ORG.organization, multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
+  # rubocop:disable Style/RegexpLiteral
+  validates :video_embed,
+            format: {
+              # regex matches only youtube & vimeo urls that are formatted as embed links.
+              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+              message: "Error: must be a valid YouTube or Vimeo Embed URL."
+            },
+            if: :video_embed?
+  # rubocop:enable Style/RegexpLiteral
+
+  property :institution,
+           predicate: ::RDF::Vocab::ORG.organization,
+           multiple: false do |index|
+             index.as :stored_searchable, :facetable
+           end
 
   property :format, predicate: ::RDF::Vocab::DC11.format do |index|
     index.as :stored_searchable, :facetable
@@ -48,6 +60,14 @@ class Etd < ActiveFedora::Base
 
   property :department, predicate: ::RDF::URI('https://atla.com/terms/department') do |index|
     index.as :stored_searchable
+  end
+
+  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  def video_embed?
+    video_embed.present?
   end
 
   # This must be included at the end, because it finalizes the metadata

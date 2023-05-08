@@ -5,9 +5,6 @@ module Hyrax
   class EtdForm < Hyrax::Forms::WorkForm
     self.model_class = ::Etd
     self.required_fields += %i[
-      title
-      creator
-      rights_statement
       date_created
       subject
       resource_type
@@ -18,8 +15,10 @@ module Hyrax
       degree_granting_institution
     ]
     self.terms += %i[
-      resource_type
-      bibliographic_citation
+      video_embed
+      institution
+      # bibliographic_citation
+      format
       degree
       level
       discipline
@@ -31,5 +30,9 @@ module Hyrax
     self.terms -= %i[
       based_near
     ]
+
+    def primary_terms
+      super + %i[video_embed] - %i[license]
+    end
   end
 end

@@ -29,7 +29,7 @@ en:
         discipline: 'Area of study of the intellectual content of the document. Usually this will be the name of a program or department.'
         degree_granting_institution: 'Institution granting the degree associated with the work.'
         advisor: 'Name of thesis/dissertation advisor or committee chair.'
-        committee_member: 'ame of committee member/s.'
+        committee_member: 'name of committee member/s.'
         department: 'Name of the department or unit within the institution granting the degree.'
     labels:
       defaults:

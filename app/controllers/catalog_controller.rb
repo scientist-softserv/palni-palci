@@ -86,7 +86,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
     config.add_facet_field 'degree_sim', limit: 5, label: 'Degree'
     config.add_facet_field 'discipline_sim', limit: 5, label: 'Discipline'
-    config.add_facet_field 'degree_graning_institution_sim', limit: 5, label: 'Degree Granting Institution'
+    config.add_facet_field 'degree_granting_institution_sim', limit: 5, label: 'Degree Granting Institution'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

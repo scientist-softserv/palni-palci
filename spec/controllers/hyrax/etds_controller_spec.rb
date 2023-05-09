@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work Etd`
 require 'rails_helper'
@@ -24,7 +26,7 @@ RSpec.describe Hyrax::EtdsController do
 
     it 'initializes a presenter' do
       expect(subject).to be_kind_of Hyku::WorkShowPresenter
-      expect(subject.manifest_url).to eq 'http://test.host/concern/etds/#{solr_document.id}/manifest'
+      expect(subject.manifest_url).to eq "http://test.host/concern/etds/#{solr_document.id}/manifest"
     end
   end
 end

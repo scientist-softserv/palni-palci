@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work Etd`
 require 'rails_helper'
@@ -14,7 +16,7 @@ RSpec.describe Etd do
     subject.institution = 'Institution'
     subject.date_created = ['2000']
     subject.subject = ['My Subject']
-    subject.resource_type = ['Ceremony']    
+    subject.resource_type = ['Ceremony']
     subject.degree = ['Degree']
     subject.level = ['Level']
     subject.discipline = ['Discipline']

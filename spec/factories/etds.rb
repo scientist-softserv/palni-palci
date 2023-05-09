@@ -6,13 +6,13 @@ FactoryBot.define do
       user { FactoryBot.create(:user) }
     end
 
-    title { ["title"] }
-    institution { "institution" }
-    creator { ["creator"] }
-    degree { ["bachelor of arts"] }
-    level { ["level"] }
-    discipline { ["discipline"] }
-    degree_granting_institution { ["degree_granting_institution"] }
+    title { ['title'] }
+    institution { 'institution' }
+    creator { ['creator'] }
+    degree { ['bachelor of arts'] }
+    level { ['level'] }
+    discipline { ['discipline'] }
+    degree_granting_institution { ['degree_granting_institution'] }
 
     factory :etd_with_one_file do
       before(:create) do |work, evaluator|

@@ -13,7 +13,7 @@ RSpec.describe Hyrax::EtdsController do
                                         :original_file)
   end
 
-  describe "#presenter" do
+  describe '#presenter' do
     subject { controller.send :presenter }
 
     let(:solr_document) { SolrDocument.new(FactoryBot.create(:etd).to_solr) }
@@ -22,9 +22,9 @@ RSpec.describe Hyrax::EtdsController do
       allow(controller).to receive(:search_result_document).and_return(solr_document)
     end
 
-    it "initializes a presenter" do
+    it 'initializes a presenter' do
       expect(subject).to be_kind_of Hyku::WorkShowPresenter
-      expect(subject.manifest_url).to eq "http://test.host/concern/etds/#{solr_document.id}/manifest"
+      expect(subject.manifest_url).to eq 'http://test.host/concern/etds/#{solr_document.id}/manifest'
     end
   end
 end

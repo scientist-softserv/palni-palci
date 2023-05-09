@@ -53,6 +53,15 @@ class SolrDocument
   attribute :contributor, Solr::Array, 'contributor_tesim'
   attribute :subject, Solr::Array, 'subject_tesim'
   attribute :language, Solr::Array, 'language_tesim'
+  attribute :additional_rights_info, Solr::Array, 'additional_rights_info_tesim'
+  attribute :bibliographic_citation, Solr::Array, 'bibliographic_citation_tesim'
+  attribute :degree, Solr::Array, 'degree_tesim'
+  attribute :level, Solr::Array, 'level_tesim'
+  attribute :discipline, Solr::Array, 'discipline_tesim'
+  attribute :degree_granting_institution, Solr::Array, 'degree_granting_institution_tesim'
+  attribute :advisor, Solr::Array, 'advisor_tesim'
+  attribute :committee_member, Solr::Array, 'committee_member_tesim'
+  attribute :department, Solr::Array, 'department_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

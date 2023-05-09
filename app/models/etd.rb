@@ -33,6 +33,10 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :additional_rights_info, predicate: ::RDF::URI('https://atla.com/terms/additionalRightsInfo') do |index|
+    index.as :stored_searchable
+  end
+
   property :degree, predicate: ::RDF::URI('https://atla.com/terms/degree') do |index|
     index.as :stored_searchable, :facetable
   end
@@ -41,7 +45,7 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :discipline, predicate: ::RDF::URI('https://atla.com/terms/degree') do |index|
+  property :discipline, predicate: ::RDF::URI('https://atla.com/terms/discipline') do |index|
     index.as :stored_searchable, :facetable
   end
 

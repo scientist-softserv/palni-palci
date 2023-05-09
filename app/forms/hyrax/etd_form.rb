@@ -17,7 +17,9 @@ module Hyrax
     self.terms += %i[
       video_embed
       institution
-      # bibliographic_citation
+      resource_type
+      additional_rights_info
+      bibliographic_citation
       format
       degree
       level

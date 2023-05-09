@@ -30,6 +30,7 @@ en:
           rights_tesim: Rights
           subject_tesim: Subject
         show:
+          access_right_tesim: Access rights
           based_near_label_tesim: Location
           contributor_tesim: Contributor
           contributor_orcid: Contributor ORCID
@@ -45,6 +46,7 @@ en:
           keyword_tesim: Keyword
           language_tesim: Language
           publisher_tesim: Publisher
+          related_url: Related URL
           rights_tesim: Rights
           subject_tesim: Subject
           title_tesim: Title

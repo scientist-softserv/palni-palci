@@ -1122,7 +1122,7 @@ it:
         share_applies_to_new_works: Quando le nuove opere vengono create direttamente nella raccolta, concedere le autorizzazioni di condivisione di utenti e gruppi per la nuova opera in base ai ruoli della raccolta.
         title: ''
       defaults:
-        access_rights: Se l'accesso è limitato a un determinato gruppo di utenti o se il contenuto è soggetto a embargo, includi tali informazioni qui.
+        access_right: Se l'accesso è limitato a un determinato gruppo di utenti o se il contenuto è soggetto a embargo, includi tali informazioni qui.
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John."

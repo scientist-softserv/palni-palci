@@ -26,6 +26,7 @@ module Hyrax
       event_location
       event_date
       official_link
+      video_embed
     ]
     self.terms -= %i[
       description
@@ -37,5 +38,9 @@ module Hyrax
       related_url
       source
     ]
+
+    def primary_terms
+      super + %i[video_embed]
+    end
   end
 end

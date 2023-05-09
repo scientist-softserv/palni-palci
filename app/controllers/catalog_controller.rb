@@ -78,6 +78,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
+    config.add_facet_field 'year_sim', limit: 5, label: 'Year'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
     config.add_facet_field 'format_sim', limit: 5, label: 'Format'
     config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
@@ -115,6 +116,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'rights_notes_tesim', label: 'Rights notes'
     config.add_show_field 'publisher_tesim'
     config.add_show_field 'date_created_tesim', label: 'Date created'
+    config.add_show_field 'year_tesim', label: 'Year'
     config.add_show_field 'subject_tesim'
     config.add_show_field 'language_tesim'
     config.add_show_field 'identifier_tesim', label: 'Identifier'

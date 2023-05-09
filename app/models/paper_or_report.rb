@@ -14,6 +14,7 @@ class PaperOrReport < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :institution, presence: { message: 'Your work must have an institution.' }
   validates :creator, presence: { message: 'Your work must have a creator.' }
+  # rubocop:disable Style/RegexpLiteral
   validates :video_embed,
             format: {
               # regex matches only youtube & vimeo urls that are formatted as embed links.
@@ -21,6 +22,7 @@ class PaperOrReport < ActiveFedora::Base
               message: "Error: must be a valid YouTube or Vimeo Embed URL."
             },
             if: :video_embed?
+  # rubocop:enable Style/RegexpLiteral
 
   property :institution, predicate: ::RDF::Vocab::ORG.organization, multiple: false do |index|
     index.as :stored_searchable, :facetable

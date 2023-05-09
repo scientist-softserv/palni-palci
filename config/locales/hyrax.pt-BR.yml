@@ -1122,7 +1122,7 @@ pt-BR:
         share_applies_to_new_works: Quando novos trabalhos são criados diretamente na coleção, conceda aos usuários e grupos de compartilhamento permissões para o novo trabalho, de acordo com suas funções de coleção.
         title: ''
       defaults:
-        access_rights: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
+        access_right: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
         based_near: Um nome de local relacionado ao trabalho, como o site da publicação ou a cidade, estado ou país em que o conteúdo do trabalho se refere. Solicita o <a href='http://www.geonames.org'> serviço da web GeoNames </a>.
         contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
         creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".

@@ -9,7 +9,7 @@ RSpec.describe Hyrax::PaperOrReportForm do
   let(:form) { described_class.new(work, nil, nil) }
   let(:file_set) { FactoryBot.create(:file_set) }
 
-  describe ".model_attributes" do
+  describe '.model_attributes' do
     subject { described_class.model_attributes(params) }
 
     let(:params) { ActionController::Parameters.new(attributes) }

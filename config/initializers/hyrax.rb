@@ -5,6 +5,8 @@ Hyrax.config do |config|
   config.register_curation_concern :generic_work
   # Injected via `rails g hyrax:work Image`
   config.register_curation_concern :image
+  # Injected via `rails g hyrax:work Etd`
+  config.register_curation_concern :etd
   # Injected via `rails g hyrax:work PaperOrReport`
   config.register_curation_concern :paper_or_report
 

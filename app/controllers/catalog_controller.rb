@@ -84,6 +84,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
     config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
+    config.add_facet_field 'degree_sim', limit: 5, label: 'Degree'
+    config.add_facet_field 'discipline_sim', limit: 5, label: 'Discipline'
+    config.add_facet_field 'degree_granting_institution_sim', limit: 5, label: 'Degree Granting Institution'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -108,7 +111,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'contributor_tesim', label: 'Contribute'
     config.add_show_field 'description_tesim'
     config.add_show_field 'abstract_tesim'
-    config.add_show_field 'access_right_tesim', label: 'Access Rights'
+    config.add_show_field 'access_right_tesim', label: 'Access rights'
     config.add_show_field 'rights_notes_tesim', label: 'Rights notes'
     config.add_show_field 'publisher_tesim'
     config.add_show_field 'date_created_tesim', label: 'Date created'
@@ -121,6 +124,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'
     config.add_show_field 'resource_type_tesim', label: 'Resource Type'
+    config.add_show_field 'additional_rights_info_tesim', label: 'Additional rights info'
     config.add_show_field 'bibliographic_citation_tesim', label: 'Bibliographic citation'
     config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'extent_tesim'
@@ -138,6 +142,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'event_location_tesim', label: 'Event location'
     config.add_show_field 'event_date_tesim', label: 'Event date'
     config.add_show_field 'official_link_tesim', label: 'Official URL'
+    config.add_show_field 'degree_tesim', label: 'Degree'
+    config.add_show_field 'level_tesim', label: 'Level'
+    config.add_show_field 'discipline_tesim', label: 'Discipline'
+    config.add_show_field 'degree_graning_institution_tesim', label: 'Degree Granting Institution'
+    config.add_show_field 'advisor_tesim', label: 'Advisor'
+    config.add_show_field 'committee_member_tesim', label: 'Committee member'
+    config.add_show_field 'department_tesim', label: 'Department'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

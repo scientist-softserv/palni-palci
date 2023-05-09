@@ -1122,7 +1122,7 @@ zh:
         share_applies_to_new_works: 在集合中直接创建新作品时，请根据其收藏角色授予共享用户和组新作品的权限。
         title: ''
       defaults:
-        access_rights: 如果访问仅限于特定用户组或内容受到禁运，请在此处包含该信息
+        access_right: 如果访问仅限于特定用户组或内容受到禁运，请在此处包含该信息
         based_near: 与该作品相关的地名，例如其出版地或该作品所涉及的城市，州或国家。调用<a href='http://www.geonames.org'> GeoNames Web服务</a>。
         contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。

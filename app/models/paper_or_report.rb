@@ -14,6 +14,15 @@ class PaperOrReport < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :institution, presence: { message: 'Your work must have an institution.' }
   validates :creator, presence: { message: 'Your work must have a creator.' }
+  # rubocop:disable Style/RegexpLiteral
+  validates :video_embed,
+            format: {
+              # regex matches only youtube & vimeo urls that are formatted as embed links.
+              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+              message: "Error: must be a valid YouTube or Vimeo Embed URL."
+            },
+            if: :video_embed?
+  # rubocop:enable Style/RegexpLiteral
 
   property :institution, predicate: ::RDF::Vocab::ORG.organization, multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -77,6 +86,14 @@ class PaperOrReport < ActiveFedora::Base
 
   property :official_link, predicate: ::RDF::Vocab::SCHEMA.url do |index|
     index.as :stored_searchable
+  end
+
+  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  def video_embed?
+    video_embed.present?
   end
 
   # This must be included at the end, because it finalizes the metadata

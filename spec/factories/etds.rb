@@ -9,6 +9,7 @@ FactoryBot.define do
     title { ['title'] }
     institution { 'institution' }
     creator { ['creator'] }
+    year { '2023' }
     degree { ['bachelor of arts'] }
     level { ['level'] }
     discipline { ['discipline'] }

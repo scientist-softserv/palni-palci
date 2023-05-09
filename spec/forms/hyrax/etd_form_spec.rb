@@ -18,7 +18,7 @@ RSpec.describe Hyrax::EtdForm do
         title: ['Title'],
         creator: ['Creator'],
         institution: 'Institution',
-        date_created: ['2000'],
+        year: '2000',
         subject: ['My Subject'],
         resource_type: ['Ceremony'],
         degree: ['Degree'],
@@ -32,7 +32,7 @@ RSpec.describe Hyrax::EtdForm do
       expect(subject['title']).to eq ['Title']
       expect(subject['creator']).to eq ['Creator']
       expect(subject['institution']).to eq 'Institution'
-      expect(subject['date_created']).to eq ['2000']
+      expect(subject['year']).to eq '2000'
       expect(subject['subject']).to eq ['My Subject']
       expect(subject['resource_type']).to eq ['Ceremony']
       expect(subject['degree']).to eq ['Degree']

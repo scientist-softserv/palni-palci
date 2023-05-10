@@ -62,17 +62,18 @@ dory up
 ```bash
 gem install stack_car
 ```
+_Or use the equivalent docker compose commands commented below_
 
 4. If this is the first time building the application or if any of the dependencies changed, please build with:
 
 ```bash
-sc build
+sc build # `docker compose build web`
 ```
 
 5. After building the application, bring the container up with:
 
 ```bash
-sc up
+sc up # `docker compose up web`
 ```
 
 6. Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), navigate to [hyku.test](https://hyku.test)in the browser.
@@ -80,18 +81,16 @@ sc up
 7. Seed a superadmin
 
 ```bash
-docker compose exec web bash
-
+sc sh # `docker compose exec web sh`
 bundle exec rake hyku:roles:seed_superadmin
-
 ```
 
 Login credential for the superadmin:
-
 - admin@example.com
 - testing123
 
 Once you are logged in as a superadmin, you can create an account/tenant in the UI by selecting Accounts from the menu bar
+_If logging in as the superadmin redirects you to the home page, clear the cookies for hyku.test and try again._
 
 - When loading a tenant you may need to login through the browser: un: pals pw: pals
 
@@ -100,7 +99,7 @@ Once you are logged in as a superadmin, you can create an account/tenant in the 
 The full spec suite can be run in docker locally. There are several ways to do this, but one way is to run the following:
 
 ```bash
-$ docker compose exec web bash
+$ sc sh # `docker compose exec web sh`
 # To run a specific test
 $ bundle exec rspec spec/PATH_TO_FILE
 ```
@@ -130,8 +129,8 @@ The server must be running when you connect.
 
     ```bash
     # drop all containers and volumes
-    $ docker-compose down -v
-    $ docker-compose build --no-cache
+    $ docker compose down -v
+    $ docker compose build --no-cache
     $ sc up
     ```
 
@@ -150,7 +149,7 @@ In config.hyrax.rb in the config.iiif_image_url_builder lambdas, comment these l
   ```
 
   and
-  
+
   ```ruby
   # uri.sub(/\Ahttp:/, 'https:')
   ```

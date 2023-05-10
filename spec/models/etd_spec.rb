@@ -14,7 +14,7 @@ RSpec.describe Etd do
     subject.creator = ['Creator']
     subject.rights_statement = ['In Copyright']
     subject.institution = 'Institution'
-    subject.date_created = ['2000']
+    subject.year = '2000'
     subject.subject = ['My Subject']
     subject.resource_type = ['Ceremony']
     subject.degree = ['Degree']
@@ -25,7 +25,7 @@ RSpec.describe Etd do
     expect(subject.creator).to eq ['Creator']
     expect(subject.rights_statement).to eq ['In Copyright']
     expect(subject.institution).to eq 'Institution'
-    expect(subject.date_created).to eq ['2000']
+    expect(subject.year).to eq '2000'
     expect(subject.subject).to eq ['My Subject']
     expect(subject.resource_type).to eq ['Ceremony']
     expect(subject.degree).to eq ['Degree']
@@ -38,6 +38,7 @@ RSpec.describe Etd do
     it 'responds to metadata items' do
       expect(subject).to respond_to(:title)
       expect(subject).to respond_to(:creator)
+      expect(subject).to respond_to(:year)
       expect(subject).to respond_to(:rights_statement)
       expect(subject).to respond_to(:institution)
     end

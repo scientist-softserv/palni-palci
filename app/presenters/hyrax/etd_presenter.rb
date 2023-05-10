@@ -15,6 +15,7 @@ module Hyrax
              :advisor,
              :committee_member,
              :types,
-             :department, to: :solr_document
+             :department,
+             :year, to: :solr_document
   end
 end

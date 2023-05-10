@@ -7,7 +7,7 @@ module Hyrax
   class EtdForm < Hyrax::Forms::WorkForm
     self.model_class = ::Etd
     self.required_fields += %i[
-      date_created
+      year
       subject
       resource_type
       institution
@@ -18,6 +18,7 @@ module Hyrax
       types
     ]
     self.terms += %i[
+      year
       video_embed
       institution
       resource_type
@@ -35,6 +36,7 @@ module Hyrax
     ]
     self.terms -= %i[
       based_near
+      date_created
     ]
 
     def primary_terms

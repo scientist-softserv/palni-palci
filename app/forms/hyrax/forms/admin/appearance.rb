@@ -38,7 +38,7 @@ module Hyrax
           'default_button_background_color'  => '#ffffff',
           'default_button_border_color'      => '#cccccc',
           'default_button_text_color'        => '#333333',
-          'active_tabs_background_color'     => '#337ab7',
+          # 'active_tabs_background_color'     => '#337ab7',
           'facet_panel_background_color'     => '#f5f5f5',
           'facet_panel_text_color'           => '#333333'
         }.freeze
@@ -171,7 +171,7 @@ module Hyrax
         end
 
         # PRIMARY BUTTON COLORS
-        # The background color for "primary" buttons
+        # The background hover color for "primary" buttons
         def primary_button_hover_color
           block_for('primary_button_hover_color')
         end
@@ -264,7 +264,6 @@ module Hyrax
           darken_color(default_button_border_color, 0.25)
         end
 
-        # ???
         # The color for the background of the home page nav-pills tab with active class
         def active_tabs_background_color
           block_for('active_tabs_background_color')

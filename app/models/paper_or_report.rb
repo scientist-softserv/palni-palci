@@ -96,7 +96,7 @@ class PaperOrReport < ActiveFedora::Base
     video_embed.present?
   end
 
-    # types must be initially defined before the include ::Hyrax::BasicMetadata
+  # types must be initially defined before the include ::Hyrax::BasicMetadata
   # so that it can be added to the metadata schema
   # and then be overridden below to map to DC.type.
   property :types, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types")

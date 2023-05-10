@@ -24,23 +24,23 @@ class PaperOrReportIndexer < Hyrax::WorkIndexer
 
   private
 
-  def add_format(solr_doc)
-    solr_doc['format_sim'] = object.format.first if object.format.present?
-  end
+    def add_format(solr_doc)
+      solr_doc['format_sim'] = object.format.first if object.format.present?
+    end
 
-  def add_date_created(solr_doc)
-    solr_doc['date_created_sim'] = object.date_created if object.date_created.present?
-  end
+    def add_date_created(solr_doc)
+      solr_doc['date_created_sim'] = object.date_created if object.date_created.present?
+    end
 
-  def add_keyword(solr_doc)
-    solr_doc['funder_name_sim'] = object.funder_name.first if object.funder_name.present?
-  end
+    def add_keyword(solr_doc)
+      solr_doc['funder_name_sim'] = object.funder_name.first if object.funder_name.present?
+    end
 
-  def add_contributor(solr_doc)
-    solr_doc['event_title_sim'] = object.event_title.first if object.event_title.present?
-  end
+    def add_event_title(solr_doc)
+      solr_doc['event_title_sim'] = object.event_title.first if object.event_title.present?
+    end
 
-  def add_contributor(solr_doc)
-    solr_doc['event_date_sim'] = object.event_date.first if object.event_date.present?
-  end
+    def add_event_date(solr_doc)
+      solr_doc['event_date_sim'] = object.event_date.first if object.event_date.present?
+    end
 end

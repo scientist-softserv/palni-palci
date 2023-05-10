@@ -67,13 +67,13 @@ _Or use the equivalent docker compose commands commented below_
 4. If this is the first time building the application or if any of the dependencies changed, please build with:
 
 ```bash
-sc build # `docker compose build web`
+sc build # `docker compose build (web)`
 ```
 
 5. After building the application, bring the container up with:
 
 ```bash
-sc up # `docker compose up web`
+sc up # `docker compose up (web)`
 ```
 
 6. Once that starts (you'll see the line `Passenger core running in multi-application mode.` to indicate a successful boot), navigate to [hyku.test](https://hyku.test)in the browser.

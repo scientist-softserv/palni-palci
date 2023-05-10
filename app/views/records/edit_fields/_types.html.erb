@@ -1,0 +1,4 @@
+<%# OVERRIDE: Hyrax 3.5.0 to make resource_type a single value select field on the form %>
+<%= f.input :types, as: :select,
+    collection: Hyrax::TypesService.select_options,
+    input_html: { class: 'form-control', multiple: true, value: f.object.types.try(:first) } %>

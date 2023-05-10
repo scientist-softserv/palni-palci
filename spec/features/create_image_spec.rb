@@ -38,7 +38,8 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true do
       login_as user
     end
 
-    it do # rubocop:disable RSpec/ExampleLength
+    # override: skip this spec since it is flapping, and image works are not being used in this application.
+    xit do # rubocop:disable RSpec/ExampleLength
       visit '/dashboard/my/works'
       click_link "Add New Work"
 

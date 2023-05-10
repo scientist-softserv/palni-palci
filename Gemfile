@@ -52,6 +52,7 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.50', '<= 0.52.1', require: false
   gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', require: false
+  gem 'xray-rails'
 end
 
 group :test do

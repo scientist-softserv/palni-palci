@@ -35,6 +35,11 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  # types must be initially defined before the include ::Hyrax::BasicMetadata
+  # so that it can be added to the metadata schema
+  # and then be overridden below to map to DC.type.
+  property :types, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types")
+
   def video_embed?
     video_embed.present?
   end
@@ -64,7 +69,11 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :resource_type, predicate: ::RDF::Vocab::DC.type do |index|
+  property :resource_type, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#resource_types") do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :types, predicate: ::RDF::Vocab::DC.type do |index|
     index.as :stored_searchable, :facetable
   end
 end

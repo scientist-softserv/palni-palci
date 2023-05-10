@@ -18,6 +18,7 @@ module Hyrax
              :event_title,
              :event_location,
              :event_date,
+             :types,
              :official_link, to: :solr_document
   end
 end

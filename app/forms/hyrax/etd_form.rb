@@ -15,6 +15,7 @@ module Hyrax
       level
       discipline
       degree_granting_institution
+      types
     ]
     self.terms += %i[
       video_embed
@@ -30,6 +31,7 @@ module Hyrax
       advisor
       committee_member
       department
+      types
     ]
     self.terms -= %i[
       based_near

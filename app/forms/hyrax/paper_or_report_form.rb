@@ -27,6 +27,7 @@ module Hyrax
       event_date
       official_link
       video_embed
+      types
     ]
     self.terms -= %i[
       description
@@ -37,6 +38,7 @@ module Hyrax
       based_near
       related_url
       source
+      types
     ]
 
     def primary_terms

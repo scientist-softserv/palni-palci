@@ -13,6 +13,7 @@ module Hyrax
       institution
       bibliographic_citation
       video_embed
+      types
     ]
 
     self.required_fields += %i[
@@ -22,6 +23,7 @@ module Hyrax
       date_created
       resource_type
       institution
+      types
     ]
 
     self.terms -= %i[

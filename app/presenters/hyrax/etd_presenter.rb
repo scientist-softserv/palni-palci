@@ -14,6 +14,7 @@ module Hyrax
              :degree_granting_institution,
              :advisor,
              :committee_member,
+             :types,
              :department, to: :solr_document
   end
 end

@@ -7,6 +7,7 @@ module Hyrax
     # delegate fields from Hyrax::GenricWorks::Metadata to solr_document
     delegate :institution,
              :format,
+             :types,
              to: :solr_document
   end
 end

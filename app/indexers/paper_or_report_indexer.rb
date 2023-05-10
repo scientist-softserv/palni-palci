@@ -32,7 +32,7 @@ class PaperOrReportIndexer < Hyrax::WorkIndexer
       solr_doc['date_created_sim'] = object.date_created if object.date_created.present?
     end
 
-    def add_keyword(solr_doc)
+    def add_funder_name(solr_doc)
       solr_doc['funder_name_sim'] = object.funder_name.first if object.funder_name.present?
     end
 

@@ -60,7 +60,6 @@ RSpec.describe 'Create a Etd', js: true do
       fill_in('Creator', with: 'Doe, Jane')
       select('In Copyright', from: 'Rights statement')
       select('2023', from: 'Year')
-      # fill_in('Year', with: '2002')
       fill_in('Subject', with: 'subject')
       select('Ceremony', from: 'Resource type')
       select('Oblate School of Theology', from: 'Institution')
@@ -68,6 +67,7 @@ RSpec.describe 'Create a Etd', js: true do
       fill_in('Level', with: 'level')
       fill_in('Discipline', with: 'discipline')
       fill_in('etd_degree_granting_institution', with: 'degree granting institution')
+      select('Text', from: 'Types')
       click_on('Additional fields')
       fill_in('Keyword', with: 'My keyword')
 

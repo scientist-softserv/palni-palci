@@ -19,4 +19,3 @@ class PaperOrReportIndexer < Hyrax::WorkIndexer
   #  end
   # end
 end
-

@@ -65,7 +65,7 @@ extraEnvVars: &envVars
   - name: DB_HOST
     value: hyrax20181216.cn4nhxyoxlnu.us-west-2.rds.amazonaws.com
   - name: DB_NAME
-    value: atla_hyku_production
+    value: atla-hyku-production
   - name: DB_USER
     value: hydra_user
   - name: DISABLE_SPRING

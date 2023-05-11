@@ -13,10 +13,14 @@ module OAI
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
           @fields = %i[
-            abstract access_right alternative_title based_near bibliographic_citation
-            contributor creator date_created date_modified date_uploaded depositor
-            description identifier keyword language license owner publisher related_url
-            resource_type rights_notes rights_statement source subject title
+            abstract access_right additional_rights_info advisor alternative_title based_near
+            bibliographic_citation committee_member contributor contributor_orcid contributor_institutional_relationship
+            contributor_role creator creator_institutional_relationship creator_orcid date_created
+            date_modified date_uploaded degree department depositor degree_granting_institution
+            description discipline event_date event_location event_title format funder_name funder_awards
+            identifier institution keyword language level license official_link owner project_name
+            publisher related_url resource_type rights_holder rights_notes rights_statement source
+            subject title year
           ]
         end
 

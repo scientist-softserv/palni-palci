@@ -96,7 +96,20 @@ class PaperOrReport < ActiveFedora::Base
     video_embed.present?
   end
 
+  # types must be initially defined before the include ::Hyrax::BasicMetadata
+  # so that it can be added to the metadata schema
+  # and then be overridden below to map to DC.type.
+  property :types, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types")
+
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+
+  property :resource_type, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#resource_types") do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :types, predicate: ::RDF::Vocab::DC.type do |index|
+    index.as :stored_searchable, :facetable
+  end
 end

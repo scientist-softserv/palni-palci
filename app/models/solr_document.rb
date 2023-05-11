@@ -63,6 +63,7 @@ class SolrDocument
   attribute :advisor, Solr::Array, 'advisor_tesim'
   attribute :committee_member, Solr::Array, 'committee_member_tesim'
   attribute :department, Solr::Array, 'department_tesim'
+  attribute :types, Solr::Array, 'types_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

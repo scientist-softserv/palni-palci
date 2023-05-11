@@ -75,19 +75,20 @@ class CatalogController < ApplicationController
     config.add_facet_field 'keyword_sim', limit: 5, label: 'Keyword'
     config.add_facet_field 'subject_sim', limit: 5, label: 'Subject'
     config.add_facet_field 'language_sim', limit: 5, label: 'Language'
-    config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
+    config.add_facet_field 'types_sim', limit: 5, label: 'Types'
     config.add_facet_field 'year_sim', limit: 5, label: 'Year'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
     config.add_facet_field 'format_sim', limit: 5, label: 'Format'
-    config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
-    config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
-    config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
     config.add_facet_field 'degree_sim', limit: 5, label: 'Degree'
     config.add_facet_field 'discipline_sim', limit: 5, label: 'Discipline'
     config.add_facet_field 'degree_granting_institution_sim', limit: 5, label: 'Degree Granting Institution'
+    config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
+    config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
+    config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
+    # config.add_facet_field 'based_near_label_sim', limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -126,6 +127,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'date_uploaded_tesim'
     config.add_show_field 'date_modified_tesim'
     config.add_show_field 'resource_type_tesim', label: 'Resource Type'
+    config.add_show_field 'types_tesim', label: 'Type'
     config.add_show_field 'additional_rights_info_tesim', label: 'Additional rights info'
     config.add_show_field 'bibliographic_citation_tesim', label: 'Bibliographic citation'
     config.add_show_field 'format_tesim', label: 'Format'

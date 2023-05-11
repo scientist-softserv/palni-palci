@@ -9,6 +9,8 @@ module Hyrax
 
     self.required_fields += %i[
       institution
+      resource_type
+      types
     ]
     self.terms += %i[
       institution
@@ -27,6 +29,8 @@ module Hyrax
       event_date
       official_link
       video_embed
+      resource_type
+      types
     ]
     self.terms -= %i[
       description

@@ -15,6 +15,7 @@ module Hyrax
       level
       discipline
       degree_granting_institution
+      types
     ]
     self.terms += %i[
       year
@@ -31,6 +32,7 @@ module Hyrax
       advisor
       committee_member
       department
+      types
     ]
     self.terms -= %i[
       based_near

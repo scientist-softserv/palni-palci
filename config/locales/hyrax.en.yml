@@ -1145,8 +1145,9 @@ en:
         resource_type: Pre-defined categories to describe the type of content being uploaded, such as "article" or "photograph." More than one resource type may be selected.
         rights_notes: Any additional explanation of rights or licensing may be included here.
         rights_statement: Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information.
-        subject: Headings or index terms describing what the work is about. Use a controlled vocabulary.
+        subject: Headings or index terms describing what the work is about.
         title: A name to aid in identifying a work.
+        types: 'Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.'
         video_embed: "If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
     labels:
       collection:

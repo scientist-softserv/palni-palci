@@ -5,10 +5,7 @@ module Bulkrax::HasLocalProcessing
   # add any special processing here, for example to reset a metadata property
   # to add a custom property from outside of the import data
   def add_local
-    if (parsed_metadata['model'] == 'Etd' ||
-        parsed_metadata['work_type'] === 'Etd')
-      parsed_metadata['year'] = parse_year(parsed_metadata['year'])
-    end
+      parsed_metadata['year'] = parse_year(parsed_metadata['year']) if parsed_metadata['year']
   end
 
   def parse_year(src)

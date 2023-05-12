@@ -95,6 +95,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true, ci: 's
       click_link 'Descriptions' # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      select('Text', from: 'Types')
       select('In Copyright', from: 'Rights statement')
       fill_in('Date Created', with: '09/03/2022')
       select('Thesis', from: 'Resource type')

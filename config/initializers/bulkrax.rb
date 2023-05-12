@@ -55,7 +55,8 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
 
     default_field_mapping = {
       'parents' => { from: ['parents'], related_parents_field_mapping: true },
-      'children' => { from: ['children'], related_children_field_mapping: true }
+      'children' => { from: ['children'], related_children_field_mapping: true },
+      "resource_type" => { from: ["resource_type"] }
     }
 
     config.field_mappings["Bulkrax::BagitParser"] = default_field_mapping.merge({
@@ -64,7 +65,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
 
     config.field_mappings["Bulkrax::CsvParser"] = default_field_mapping.merge({
       # add or remove custom mappings for this parser here
-      'video_embed' => { from: ['video_embed'] }
     })
 
     config.field_mappings["Bulkrax::OaiDcParser"] = default_field_mapping.merge({
@@ -79,13 +79,21 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
       # add or remove custom mappings for this parser here
     })
 
+    config.default_work_type = 'GenericWork'
+
     # To duplicate a set of mappings from one parser to another
     #   config.field_mappings["Bulkrax::OaiOmekaParser"] = {}
     #   config.field_mappings["Bulkrax::OaiDcParser"].each {|key,value| config.field_mappings["Bulkrax::OaiOmekaParser"][key] = value }
 
     # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
     # config.reserved_properties += ['my_field']
-  end
 
+      # List of Questioning Authority properties that are controlled via YAML files in
+  # the config/authorities/ directory. For example, the :rights_statement property
+  # is controlled by the active terms in config/authorities/rights_statements.yml
+  # Defaults: 'rights_statement' and 'license'
+  config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
+
+  end
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true
 end

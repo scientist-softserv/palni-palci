@@ -14,6 +14,7 @@ module Hyrax
       bibliographic_citation
       video_embed
       types
+      additional_rights_info
     ]
 
     self.required_fields += %i[

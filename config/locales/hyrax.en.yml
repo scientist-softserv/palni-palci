@@ -1127,6 +1127,7 @@ en:
         share_applies_to_new_works: When new works are created directly in the collection, grant sharing users and groups permissions for the new work according to their collection roles.
         title: ""
       defaults:
+        additional_rights_info: 'If rights are subject to a contractual or gift agreement or otherwise defined by a binding agreement that is in addition to or in place of intellectual property laws or open licensing, please detail here.'
         access_right: If access is restricted to a certain group of users or if the content is subject to embargo, include that information here.
         based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
         contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role.
@@ -1148,7 +1149,7 @@ en:
         subject: Headings or index terms describing what the work is about.
         title: A name to aid in identifying a work.
         types: 'Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.'
-        video_embed: "If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
+        video_embed: "Youtube or Vimeo iframe embed code to show video embedded in the work page. If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
     labels:
       collection:
         size: Size

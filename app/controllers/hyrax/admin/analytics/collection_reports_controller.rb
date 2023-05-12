@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# OVERRIDE: Hyrax hyrax-v3-5-0 file to create and use #present_collections so that stop showing deleted collections
+# OVERRIDE: Hyrax hyrax-v3-5-0 file to create and use #present_collections so that we stop showing deleted collections
 # on the collections analytics page
 
 module Hyrax
@@ -74,5 +74,3 @@ module Hyrax
     end
   end
 end
-
-Hyrax::Admin::Analytics::CollectionReportsController.prepend(Hyrax::Admin::Analytics::CollectionReportsControllerDecorator)

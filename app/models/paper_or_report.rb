@@ -88,7 +88,7 @@ class PaperOrReport < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
+  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/videoEmbed"), multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -99,13 +99,13 @@ class PaperOrReport < ActiveFedora::Base
   # types must be initially defined before the include ::Hyrax::BasicMetadata
   # so that it can be added to the metadata schema
   # and then be overridden below to map to DC.type.
-  property :types, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#types")
+  property :types, predicate: ::RDF::URI.new("https://atla.com/terms/types")
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
 
-  property :resource_type, predicate: ::RDF::URI.new("http://test.hyku.test/generic_work#resource_types") do |index|
+  property :resource_type, predicate: ::RDF::URI.new("https://atla.com/terms/resourceType") do |index|
     index.as :stored_searchable, :facetable
   end
 

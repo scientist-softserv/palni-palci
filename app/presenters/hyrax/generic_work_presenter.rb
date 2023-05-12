@@ -8,6 +8,8 @@ module Hyrax
     delegate :institution,
              :format,
              :types,
+             :additional_rights_info,
+             :bibliographic_citation,
              to: :solr_document
   end
 end

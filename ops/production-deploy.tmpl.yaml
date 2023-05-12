@@ -73,7 +73,7 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /hykuprod
   - name: FCREPO_HOST
-    value: fcrepo.default
+    value: fcrepo.default.svc.cluster.local
   - name: FCREPO_PORT
     value: '8080'
   - name: FCREPO_REST_PATH
@@ -165,15 +165,15 @@ extraEnvVars: &envVars
   - name: SOLR_ADMIN_PASSWORD
     value: $SOLR_ADMIN_PASSWORD
   - name: SOLR_COLLECTION_NAME
-    value: atla-hyku-prod
+    value: atla-hyku-production
   - name: SOLR_CONFIGSET_NAME
-    value: atla-hyku-prod
+    value: atla-hyku-production
   - name: SOLR_HOST
-    value: solr.default
+    value: solr.default.svc.cluster.local
   - name: SOLR_PORT
     value: '8983'
   - name: SOLR_URL
-    value: http://admin:$SOLR_ADMIN_PASSWORD@solr.default:8983/solr/atla-hyku-prod
+    value: http://admin:$SOLR_ADMIN_PASSWORD@solr.default.svc.cluster.local:8983/solr/atla-hyku-production
   - name: SENTRY_DSN
     value: $SENTRY_DSN
   - name: SENTRY_ENVIRONMENT

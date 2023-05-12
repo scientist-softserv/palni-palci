@@ -31,7 +31,9 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :additional_rights_info, predicate: ::RDF::URI("https://atla.com/terms/additionalRightsInfo"), multiple: true do |index|
+  property :additional_rights_info,
+           predicate: ::RDF::URI("https://atla.com/terms/additionalRightsInfo"),
+           multiple: true do |index|
     index.as :stored_searchable
   end
 

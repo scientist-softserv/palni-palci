@@ -52,8 +52,8 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     default_field_mapping = {
       'children' => { from: ['children'], related_children_field_mapping: true },
       'parents' => { from: ['parents'], related_parents_field_mapping: true },
-      'resource_type' => { from: ['resource_type'] }
-      'source_identifier' => { from: ['source_identifier'], source_identifier: true },
+      'resource_type' => { from: ['resource_type'] },
+      'source_identifier' => { from: ['source_identifier'], source_identifier: true }
     }
 
     config.field_mappings["Bulkrax::BagitParser"] = default_field_mapping.merge({
@@ -88,7 +88,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # List of Questioning Authority properties that are controlled via YAML files in
     # the config/authorities/ directory. For example, the :rights_statement property
     # is controlled by the active terms in config/authorities/rights_statements.yml
-    # Default controlled properties are: 'rights_statement' and 'license'
+    # Default properties: 'rights_statement' and 'license'
     config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
   end
 

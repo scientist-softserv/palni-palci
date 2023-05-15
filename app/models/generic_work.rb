@@ -19,7 +19,11 @@ class GenericWork < ActiveFedora::Base
               message: "Error: must be a valid YouTube or Vimeo Embed URL."
             },
             if: :video_embed?
-  # rubocop:enable Style/RegexpLiteral
+              # rubocop:enable Style/RegexpLiteral
+
+  def video_embed?
+    video_embed.present?
+  end
 
   property :institution,
            predicate: ::RDF::URI.new('http://test.hyku.test/generic_work#institution'),
@@ -46,9 +50,10 @@ class GenericWork < ActiveFedora::Base
   # and then be overridden below to map to DC.type.
   property :types, predicate: ::RDF::URI.new("https://atla.com/terms/types")
 
-  def video_embed?
-    video_embed.present?
-  end
+  # this is the unique identifier bulkrax uses for import.
+  # this property only needs to be added to the model so it can be saved for works.
+  # it will not show in the public view for users, and cannot be entered manually via the edit work form.
+  property :source_identifier, predicate: ::RDF::URI.new("https://atla.com/terms/sourceIdentifier")
 
   # This must come after the properties because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

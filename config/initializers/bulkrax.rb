@@ -7,10 +7,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     #   { name: 'MODS - My Local MODS parser', class_name: 'Bulkrax::ModsXmlParser', partial: 'mods_fields' },
     # ]
 
-    # Field to use during import to identify if the Work or Collection already exists.
-    # Default is 'source'.
-    # config.system_identifier_field = 'source'
-
     # WorkType to use as the default if none is specified in the import
     # Default is the first returned by Hyrax.config.curation_concerns
     # config.default_work_type = MyWork
@@ -56,7 +52,8 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     default_field_mapping = {
       'parents' => { from: ['parents'], related_parents_field_mapping: true },
       'children' => { from: ['children'], related_children_field_mapping: true },
-      "resource_type" => { from: ["resource_type"] }
+      'source_identifier' => { from: ['source_identifier'], source_identifier: true },
+      'resource_type' => { from: ['resource_type'] }
     }
 
     config.field_mappings["Bulkrax::BagitParser"] = default_field_mapping.merge({
@@ -88,12 +85,15 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
     # config.reserved_properties += ['my_field']
 
-      # List of Questioning Authority properties that are controlled via YAML files in
-  # the config/authorities/ directory. For example, the :rights_statement property
-  # is controlled by the active terms in config/authorities/rights_statements.yml
-  # Defaults: 'rights_statement' and 'license'
-  config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
+    # List of Questioning Authority properties that are controlled via YAML files in
+    # the config/authorities/ directory. For example, the :rights_statement property
+    # is controlled by the active terms in config/authorities/rights_statements.yml
+    # Defaults: 'rights_statement' and 'license'
+    config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
 
+  #   # generate a source identifier for works when they don't have one.
+  #   config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
   end
+
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true
 end

@@ -16,13 +16,17 @@ class PaperOrReport < ActiveFedora::Base
   validates :creator, presence: { message: 'Your work must have a creator.' }
   # rubocop:disable Style/RegexpLiteral
   validates :video_embed,
-            format: {
-              # regex matches only youtube & vimeo urls that are formatted as embed links.
-              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
-              message: "Error: must be a valid YouTube or Vimeo Embed URL."
-            },
-            if: :video_embed?
-  # rubocop:enable Style/RegexpLiteral
+  format: {
+    # regex matches only youtube & vimeo urls that are formatted as embed links.
+    with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+    message: "Error: must be a valid YouTube or Vimeo Embed URL."
+  },
+  if: :video_embed?
+    # rubocop:enable Style/RegexpLiteral
+
+  def video_embed?
+    video_embed.present?
+  end
 
   property :institution, predicate: ::RDF::Vocab::ORG.organization, multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -92,14 +96,15 @@ class PaperOrReport < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  def video_embed?
-    video_embed.present?
-  end
-
   # types must be initially defined before the include ::Hyrax::BasicMetadata
   # so that it can be added to the metadata schema
   # and then be overridden below to map to DC.type.
   property :types, predicate: ::RDF::URI.new("https://atla.com/terms/types")
+
+  # this is the unique identifier bulkrax uses for import.
+  # this property only needs to be added to the model so it can be saved for works.
+  # it will not show in the public view for users, and cannot be entered manually via the edit work form.
+  property :source_identifier, predicate: ::RDF::URI.new("https://atla.com/terms/sourceIdentifier")
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

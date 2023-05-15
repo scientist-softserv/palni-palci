@@ -90,9 +90,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # is controlled by the active terms in config/authorities/rights_statements.yml
     # Defaults: 'rights_statement' and 'license'
     config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
-
-    # generate a source identifier for works when they don't have one.
-    config.fill_in_blank_source_identifiers = ->(obj, index) { "#{Site.instance.account.name}-#{obj.importerexporter.id}-#{index}" }
   end
 
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true

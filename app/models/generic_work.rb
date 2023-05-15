@@ -19,7 +19,7 @@ class GenericWork < ActiveFedora::Base
               message: "Error: must be a valid YouTube or Vimeo Embed URL."
             },
             if: :video_embed?
-              # rubocop:enable Style/RegexpLiteral
+  # rubocop:enable Style/RegexpLiteral
 
   def video_embed?
     video_embed.present?

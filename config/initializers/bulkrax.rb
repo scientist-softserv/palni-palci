@@ -135,7 +135,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # List of Questioning Authority properties that are controlled via YAML files in
     # the config/authorities/ directory. For example, the :rights_statement property
     # is controlled by the active terms in config/authorities/rights_statements.yml
-    # Defaults: 'rights_statement' and 'license'
+    # Default properties: 'rights_statement' and 'license'
     config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
   end
 

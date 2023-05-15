@@ -88,7 +88,7 @@ class Etd < ActiveFedora::Base
   # this is the unique identifier bulkrax uses for import.
   # this property only needs to be added to the model so it can be saved for works.
   # it will not show in the public view for users, and cannot be entered manually via the edit work form.
-  property :source_identifier, predicate: ::RDF::URI.new("https://atla.com/terms/sourceIdentifier"), multiple: false
+  property :source_identifier, predicate: ::RDF::URI.new("https://atla.com/terms/sourceIdentifier")
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

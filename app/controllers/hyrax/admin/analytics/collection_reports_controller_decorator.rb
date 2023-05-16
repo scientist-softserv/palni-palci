@@ -26,16 +26,17 @@ module Hyrax
 
         private
 
-        def present_collections(all_top_collections)
-          # filter out collections that have been deleted or are otherwise not present
-          all_top_collections.select do |col|
-            begin
-              Collection.find(col[0]).present?
-            rescue ActiveFedora::ObjectNotFoundError
-              next
+          def present_collections(all_top_collections)
+            # filter out collections that have been deleted or are otherwise not present
+            all_top_collections.select do |col|
+              begin
+                Collection.find(col[0]).present?
+              rescue StandardError
+                # account for errors such as ActiveFedora::ObjectNotFoundError, Ldp::Gone, etc.
+                next
+              end
             end
           end
-        end
       end
     end
   end

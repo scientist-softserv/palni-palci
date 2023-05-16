@@ -1145,7 +1145,7 @@ en:
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived.
         resource_type: Pre-defined categories to describe the type of content being uploaded, such as "article" or "photograph." More than one resource type may be selected.
         rights_notes: Any additional explanation of rights or licensing may be included here.
-        rights_statement: Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information.
+        rights_statement: Select the appropriate rights statement from the dropdown list. See <a href='https://rightsstatements.org'>https://rightsstatements.org</a> for more information.
         subject: Headings or index terms describing what the work is about.
         title: A name to aid in identifying a work.
         types: 'Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.'

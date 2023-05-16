@@ -9,19 +9,7 @@ en:
   simple_form:
     hints:
       defaults:
-        alternative_title: 'Alternative title for the resource.'
-        keyword: 'Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary.'
-        rights_statement: 'Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information'
-        description: 'A free text account of the resource'
-        access_right: 'If access is restricted to a certain group of users or if the content is subject to embargo, include that information here.'
-        rights_notes: 'Any additional explanation of rights or licensing may be included here.'
-        publisher: 'The person or group responsible for making the original resource available.'
         year: 'The year in which the work was created. This should be a 4-digit number'
-        subject: 'Choose headings or index terms describing what the work is about from the our subject list. If your terms are missing from the list use FAST subject headings. For additional religion and theology terms that should be added to our list use this form.'
-        resource_type: 'Pre-defined categories to describe the type of content being uploaded, such as "article" or "photograph." More than one resource type may be selected.'
-        institution: 'Participating institution to which the work is being uploaded to.'
-        type: 'Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.'
-        format: 'The file format of the digital resource.'
         degree: 'Name of the degree associated with the work as it appears within the work.'
         level: 'Level of education associated with the document.'
         discipline: 'Area of study of the intellectual content of the document. Usually this will be the name of a program or department.'

@@ -31,7 +31,7 @@ module Hyrax
             all_top_collections.select do |col|
               begin
                 Collection.find(col[0]).present?
-              rescue
+              rescue StandardError
                 # account for errors such as ActiveFedora::ObjectNotFoundError, Ldp::Gone, etc.
                 next
               end

@@ -5,6 +5,6 @@ zh:
     select_type:
       etd:
         # TODO: translate `human_name` into Chinese
-        description:        "Etd 作品"
-        name:               "Etd"
+        description:        "ETD 作品"
+        name:               "ETD"
         # TODO: translate `human_name` into Chinese

@@ -4,5 +4,5 @@ pt-BR:
       etd:     'fa fa-file-text-o'
     select_type:
       etd:
-        description:        "Etd obras"
-        name:               "Etd"
+        description:        "ETD obras"
+        name:               "ETD"

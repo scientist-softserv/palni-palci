@@ -28,7 +28,7 @@ RSpec.describe WorkViewStat, type: :model do
     end
     context "when a profile is available" do
       let(:views) { double }
-			# OVERRIDE Hyrax hyrax-v3.5.0
+      # OVERRIDE Hyrax hyrax-v3.5.0
       let(:profile) { double(hyrax__pageviews: views) }
 
       it "calls the Legato method with the correct path" do

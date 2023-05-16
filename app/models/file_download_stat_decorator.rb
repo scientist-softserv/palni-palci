@@ -18,7 +18,7 @@ module FileDownloadStatClass
                             start_date: start_date,
                             end_date: Date.yesterday,
                             limit: 10_000)
-            .for_file(file.id)
+           .for_file(file.id)
   end
 end
 

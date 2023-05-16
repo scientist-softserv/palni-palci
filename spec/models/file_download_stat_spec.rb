@@ -26,7 +26,7 @@ RSpec.describe FileDownloadStat, type: :model do
     end
     context "when a profile is available" do
       let(:views) { double }
-			# OVERRIDE Hyrax hyrax-v3.5.0
+      # OVERRIDE Hyrax hyrax-v3.5.0
       let(:profile) { double(hyrax__download: views) }
 
       it "calls the Legato method with the correct path" do

@@ -20,7 +20,7 @@ module Hyrax
                               start_date: start_date,
                               end_date: Date.yesterday,
                               limit: 10_000)
-              .for_path(path)
+             .for_path(path)
     end
   end
 end

@@ -50,15 +50,15 @@ group :development, :test do
   gem 'fcrepo_wrapper', '~> 0.4'
   gem 'solr_wrapper', '~> 2.0'
 
-  gem 'rubocop', '~> 0.50', '<= 0.52.1', require: false
-  gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', require: false
+  gem 'rubocop', '~> 0.50', '<= 0.52.1'
+  gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2'
   gem 'xray-rails'
 end
 
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot', '~> 1.0'
-  gem 'database_cleaner-active_record'
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'launchy'
   # rack-test >= 0.71 does not work with older Capybara versions (< 2.17). See #214 for more details
@@ -66,10 +66,11 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-its'
+  gem 'rspec-retry'
   gem 'rspec_junit_formatter'
   gem 'rspec-retry'
   gem 'semaphore_test_boosters'
-  gem 'selenium-webdriver', '3.142.7'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers', '~> 4.0'
   gem 'webmock'
@@ -87,8 +88,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-# Bulkrax
-gem 'bulkrax', '~> 4.3.0'
+gem 'bulkrax', '~> 5.0'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
@@ -155,3 +155,8 @@ gem 'pronto-rubocop', require: false
 
 gem "order_already", "~> 0.3.1"
 gem "redcarpet"
+# When first attempting to upgrade to Hyrax v3.4.2, this dry-monads gem was upgraded to v1.5.0.
+# This version threw the following error:
+# NameError: uninitialized constant Dry::Monads::Result::Transformer
+# Locking it to v1.4.x does not throw an error.
+gem 'dry-monads', '~> 1.4.0'

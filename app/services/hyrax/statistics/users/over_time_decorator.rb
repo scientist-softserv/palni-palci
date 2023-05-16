@@ -8,8 +8,8 @@ module Hyrax
       module OverTimeDecorator
         # OVERRIDE: Hyrax hyrax-v3-5-0
         def point(date_string)
-          # convert the User::ActiveRecord_Relation to an array so that ".count" returns a number,
-          # instead of a hash of { user_id: count }
+          # convert the User::ActiveRecord_Relation to an array so that ".size" returns a number,
+          # instead of a hash of { user_id: size }
           relation.where(query(date_string)).to_a.size
         end
       end

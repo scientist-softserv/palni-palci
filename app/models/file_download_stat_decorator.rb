@@ -2,7 +2,7 @@
 
 # OVERRIDE Hyrax hyrax-v3.5.0 to require Hyrax::Download so the method below doesn't fail
 
-require 'hyrax/download'
+Hyrax::Download
 
 module FileDownloadStatClass
   # Hyrax::Download is sent to Hyrax::Analytics.profile as #hyrax__download

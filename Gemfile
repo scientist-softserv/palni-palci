@@ -66,7 +66,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-its'
-  gem 'rspec-retry'
   gem 'rspec_junit_formatter'
   gem 'rspec-retry'
   gem 'semaphore_test_boosters'

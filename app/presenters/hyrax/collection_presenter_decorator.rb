@@ -54,6 +54,7 @@ module Hyrax
     # the user has for this admin set. Checks from most permissive to most restrictive.
     # @return String the access label (e.g. Manage, Deposit, View)
     def managed_access
+      # rubocp:disable Style/IfUnlessModifier
       # OVERRIDE: Change check for manage access from :edit to :destroy
       if current_ability.can?(:destroy, solr_document)
         return I18n.t('hyrax.dashboard.my.collection_list.managed_access.manage')
@@ -69,6 +70,7 @@ module Hyrax
         return I18n.t('hyrax.dashboard.my.collection_list.managed_access.view')
       end
       ''
+      # rubocop:enable Style/IfUnlessModifier
     end
 
     # OVERRIDE: Because the only batch operation allowed currently is deleting,
@@ -112,9 +114,11 @@ module Hyrax
 
     def collection_featured?
       # only look this up if it's not boolean; ||= won't work here
+      # rubocop:disable Style/IfUnlessModifier
       if @collection_featured.nil?
         @collection_featured = FeaturedCollection.where(collection_id: solr_document.id).exists?
       end
+      # rubocop:enable Style/IfUnlessModifier
       @collection_featured
     end
 

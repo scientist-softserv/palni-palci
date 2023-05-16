@@ -9,11 +9,6 @@ en:
   simple_form:
     hints:
       defaults:
-        keyword: "Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary."
-        rights_statement: "Select the appropriate rights statement from the dropdown list. See https://rightsstatements.org for more information"
-        publisher: "The person or group responsible for making the original resource available."
-        institution: "Participating institution to which the work is being uploaded to."
-        format: "The file format of the digital resource."
         rights_holder: "A person or organization owning or managing rights over the resource."
         creator_orcid: "16 character ORCID identifier of creator."
         creator_institutional_relationship: "Relationship between the contributor and the institution hosting the work."

@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+# OVERRIDE Hyrax hyrax-v3.5.0 to reference hyrax__pageviews as listed in app/models/hyrax/statistic_decorator.rb
+
 RSpec.describe WorkViewStat, type: :model do
   let(:work_id) { work.id }
   let(:user_id) { 123 }
@@ -25,6 +28,7 @@ RSpec.describe WorkViewStat, type: :model do
     end
     context "when a profile is available" do
       let(:views) { double }
+			# OVERRIDE Hyrax hyrax-v3.5.0
       let(:profile) { double(hyrax__pageviews: views) }
 
       it "calls the Legato method with the correct path" do

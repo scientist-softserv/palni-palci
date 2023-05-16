@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+# OVERRIDE Hyrax hyrax-v3.5.0 to reference hyrax__pageviews as listed in app/models/file_download_stat_decorator.rb
+
 RSpec.describe FileDownloadStat, type: :model do
   let(:file_id) { file.id }
   let(:date) { Time.current }
@@ -23,6 +26,7 @@ RSpec.describe FileDownloadStat, type: :model do
     end
     context "when a profile is available" do
       let(:views) { double }
+			# OVERRIDE Hyrax hyrax-v3.5.0
       let(:profile) { double(hyrax__download: views) }
 
       it "calls the Legato method with the correct path" do

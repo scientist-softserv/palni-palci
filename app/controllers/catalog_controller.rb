@@ -20,9 +20,25 @@ class CatalogController < ApplicationController
     'system_modified_dtsi'
   end
 
+  # CatalogController-scope behavior and configuration for BlacklightIiifSearch
+  include BlacklightIiifSearch::Controller
+
   configure_blacklight do |config|
+    # IiifPrint index fields
+    config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
+
+    # configuration for Blacklight IIIF Content Search
+    config.iiif_search = {
+      full_text_field: 'all_text_tsimv',
+      object_relation_field: 'is_page_of_ssim',
+      supported_params: %w[q page],
+      autocomplete_handler: 'iiif_suggest',
+      suggester_name: 'iiifSuggester'
+    }
+
     config.view.gallery.partials = %i[index_header index]
-    # Removed the masonry and slideshow config partials for client themeing
+    config.view.masonry.partials = [:index]
+    config.view.slideshow.partials = [:index]
 
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     config.show.partials.insert(1, :openseadragon)
@@ -32,10 +48,12 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
-    config.search_builder_class = Hyrax::CatalogSearchBuilder
+
+    config.search_builder_class = IiifPrint::CatalogSearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
+    config.view.slideshow.partials = [:index]
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {

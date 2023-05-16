@@ -37,7 +37,7 @@ pt-BR:
       hyku_group:
         description: Um breve resumo do papel do grupo
       user:
-        email: Digite um endereço de e-mail por vez. Se nenhuma função for selecionada, o novo usuário começará apenas com as permissões de usuário registradas. As funções também podem ser concedidas a usuários por meio de Funções de fluxo de trabalho ou inclusão em grupos. Você também pode reenviar um convite por meio deste formulário.
+        email: Digite um endereço de e-mail por vez. Você também pode reenviar um convite por meio deste formulário.
     labels:
       account:
         admin_emails: Adicionar ou convidar novo administrador (via email)

@@ -143,21 +143,23 @@ switch!('myaccount')
 ```
 
 ## Analytics Feature
-Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Universal Analytics property for this feature. 
+Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Universal Analytics property for this feature.
 
 Note: Google has announced they will stop processing data using the Universal Analytics property on July 1, 2023  or July 1, 2024 for Analytics 360 properties.
 
 To enable analytics tracking and reporting features within Hyku, please follow the directions below.
 
 ### Setup a Google Analytics Account
-- Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
-- Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
-- Create a Service Account: 
-  - https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount
-  - Please select the p12 format when making your service account key.
-  - Note the private key secret so we can add as an env variable in the subsequent steps below.
-- Configure OAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
+- Create a Service Account: https://cloud.google.com/iam/docs/creating-managing-service-accounts
+  - Note the service account email
+  - When making a service account key, make sure the key type is set to p12
+  - Note the service account private key secret
 - Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
+- Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
+  - Note Google Universal Analytics ID number
+- Add service account email  as User, and grant "View" access: https://support.google.com/analytics/answer/1009702?hl=en#Add&zippy=%2Cin-this-article
+- Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
+- Enable the "IAM Service Account Credentials API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
 
 ### Set the Environment Variables
 In Hyku there are a few areas to set the environment variables needed for each of your environments development/staging/prodeuction/etc.
@@ -209,7 +211,7 @@ GOOGLE_OAUTH_CLIENT_EMAIL=palni-palci-demo@palni-palci-demo.iam.gserviceaccount.
   - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
     value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE # Set in GitHub's Environment Secrets
   - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: set-me
+    value: set-me@email.com
   - name: HYRAX_ANALYTICS
     value: 'true'
 ```
@@ -232,18 +234,22 @@ Once you run this script the value is on your local computers clipboard. You wil
 | DB_PORT | Port for database connections | 5432 | no |
 | DB_TEST_NAME | name of database on database host for tests to run against. Should be different than the development database name or your tests will clobber your dev set up | hyku_test | yes |
 | DB_USER | username for the database connection | postgres | no |
-| FCREPO_DEVELOPMENT_PORT | Port used for fedora dev instance, only if FCREPO_URL is blank | 8984 | yes
-| FCREPO_HOST | host name for the fedora repo | ? | no |
+| FCREPO_BASE_PATH | Fedora root path | /hykudemo | no
+| FCREPO_DEV_BASE_PATH | Fedora root path used for dev instance | /dev | yes
+| FCREPO_DEVELOPMENT_PORT | Port used for fedora dev instance | 8984 | yes
+| FCREPO_HOST | host name for the fedora repo | fcrepo | no |
 | FCREPO_PORT | port for the fedora repo | 8080 | no |
-| FCREPO_TEST_PORT | Test port for the fedora repo, only if FCREPO_URL is blank | 8986 | yes |
-| FCREPO_URL | URL of the fedora repo, including port and prefix, but not repo name. | http://fcrepo:8080/rest | no |
+| FCREPO_REST_PATH | Fedora REST endpoint | rest | no
+| FCREPO_STAGING_BASE_PATH | Fedora root path used for dev instance | /staging | no
+| FCREPO_TEST_BASE_PATH | Fedora root path used for test instance | /test | yes
+| FCREPO_TEST_PORT | Test port for the fedora repo  8986 | yes |
 | GOOGLE_ANALYTICS_ID | The Google Analytics account id. Disabled if not set | - | no |
 | GOOGLE_OAUTH_APP_NAME | The name of the application. | - | no |
 | GOOGLE_OAUTH_APP_VERSION | The version of application. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. | - | no |
 | GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption, only set on deployment as that is how we get the p12 file on the server (see bin/web & bin/worker files) | - | no
-| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | - | no |
+| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | set-me@email.com | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |
 | HYKU_ADMIN_ONLY_TENANT_CREATION | Restrict signing up a new tenant to the admin | false | no | |
 | HYKU_ALLOW_SIGNUP | Can users register themselves on a given Tenant | true  | no |
@@ -253,7 +259,7 @@ Once you run this script the value is on your local computers clipboard. You wil
 | HYKU_CACHE_API | Use Redis instead of disk for caching | false | no |
 | HYKU_CACHE_ROOT | Directory of file cache (if CACHE_API is false) | /app/samvera/file_cache | no |
 | HYKU_CONTACT_EMAIL | Email address used for the FROM field when the contact form is submitted | change-me-in-settings@example.com | no |
-| HYKU_CONTACT_EMAIL_TO | Email addresses (comma seperated) that receive contact form submissions | change-me-in-settings@example.com | no |
+| HYKU_CONTACT_EMAIL_TO | Email addresses (comma separated) that receive contact form submissions | change-me-in-settings@example.com | no |
 | HYKU_DEFAULT_HOST  | The host name pattern each tenant will respond to by default. %{tenant} is substituted for the tenants name. | "%{tenant}.#{admin_host}" | no |
 | HYKU_DOI_READER | Does the work new / edit form allow reading in a DOI from Datacite? | false | no |
 | HYKU_DOI_WRITER | Does saving or updating a work write to Datacite once the work is approved | false | no |
@@ -264,7 +270,7 @@ Once you run this script the value is on your local computers clipboard. You wil
 | HYKU_FILE_ACL | Set Unix ACLs on file creation. Set to false if using Azure cloud or another network file system that does not allow setting permissions on files. | true | no |
 | HYKU_FILE_SIZE_LIMIT | How big a file do you want to accept in the work upload?  | 5242880 (5 MB) | no |
 | HYKU_GEONAMES_USERNAME | Username used for Geonames connections by the application | '' | no |
-| HYKU_GOOGLE_SCHOLARLY_WORK_TYPES | List of work types which should be presented to Google Scholar for indexing. Comman seperated WorkType list | - | no |
+| HYKU_GOOGLE_SCHOLARLY_WORK_TYPES | List of work types which should be presented to Google Scholar for indexing. Comma separated WorkType list | - | no |
 | HYKU_GTM_ID | If set, enable Google Tag manager with this id.  | - | no |
 | HYKU_LOCALE_NAME | Not used. Placeholder for upcoming Ubiquity feature | en | no |
 | HYKU_MONTHLY_EMAIL_LIST | Not used. Placeholder for upcoming Ubiquity feature | en | no |
@@ -281,7 +287,6 @@ Once you run this script the value is on your local computers clipboard. You wil
 | HYKU_WEEKLY_EMAIL_LIST | Not used. Placeholder for upcoming Ubiquity feature | en | no |
 | HYKU_YEARLY_EMAIL_LIST | Not used. Placeholder for upcoming Ubiquity feature | en | no |
 | HYRAX_ACTIVE_JOB_QUEUE | Which Rails background job runner should be used? | sidekiq | no |
-| HYRAX_ANALYTICS | Flag to enable(true)/disable(false) the Google Analytics feature. | 'false' | no
 | HYRAX_FITS_PATH | Where is fits.sh installed on the system. Will try the PATH if not set. | /app/fits/fits.sh | no |
 | HYRAX_REDIS_NAMESPACE | What namespace should the application use by default | hyrax | no |
 | I18N_DEBUG | See [Working with Translations] above | false | yes |
@@ -289,6 +294,7 @@ Once you run this script the value is on your local computers clipboard. You wil
 | INITIAL_ADMIN_PASSWORD | Admin password used by database seeds. Be sure to change in production. | testing123 | no |
 | IN_DOCKER | Used specs to know if we are running inside a container or not. Set to true if in K8S regardless of Docker vs ContainerD | false | yes |
 | LD_LIBRARY_PATH | Path used for fits | /app/fits/tools/mediainfo/linux | no |
+| NEGATIVE_CAPTCHA_SECRET | A secret value you set for the appliations negative_captcha to work. | default-value-change-me | no |
 | RAILS_ENV | https://guides.rubyonrails.org/configuring.html#creating-rails-environments | development | no |
 | RAILS_LOG_TO_STDOUT | Redirect all logging to stdout | true | no |
 | RAILS_MAX_THREADS | Number of threads to use in puma or sidekiq | 5 | no |
@@ -301,8 +307,8 @@ Once you run this script the value is on your local computers clipboard. You wil
 | SMTP_PASSWORD | Password for email sending | - | no |
 | SMTP_PORT | Port for email sending | - | no |
 | SMTP_USER_NAME | Username for the email connection | - | no |
-| SOLR_ADMIN_PASSWORD | SolrRocks | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
-| SOLR_ADMIN_USER | solr | Solr requires a user/password when accesing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
+| SOLR_ADMIN_PASSWORD | Solr requires a user/password when accessing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
+| SOLR_ADMIN_USER | Solr requires a user/password when accessing the collections API (which we use to create and manage solr collections and aliases) | admin | no |
 | SOLR_COLLECTION_NAME | Name of the Solr collection used by non-tenant search. This is required by Hyrax, but is currently unused by Hyku | hydra-development | no |
 | SOLR_CONFIGSET_NAME  | Name of the Solr configset to use when creating new Solr collections | hyku | no |
 | SOLR_HOST | Host for the Solr connection | solr | no |
@@ -317,32 +323,19 @@ Once you run this script the value is on your local computers clipboard. You wil
 Hyku supports multitenancy using the `apartment` gem. `apartment` works best with a postgres database.
 
 ## Importing
-### Enable Bulkrax:
+### Bulkrax:
 
-- Set bulkrax -> enabled to true in the [config/settings.yml](config/settings.yml) and [.env](.env) files
-- Add `  require bulkrax/application` to app/assets/javascripts/application.js and app/assets/stylesheets/application.css files.
+Bulkrax is enabled by default and CSV, OAI and XML importers can be used in the admin dashboard or through the command line API.
+More info about configuring and using bulkrax can be found [here](https://github.com/samvera-labs/bulkrax/wiki)
 
-(in a `docker-compose exec web bash` if you're doing docker otherwise in your terminal)
-```bash
-bundle exec rails db:migrate
-```
+### Commandline Importers
 
-### from CSV:
-
-```bash
-./bin/import_from_csv localhost spec/fixtures/csv/gse_metadata.csv ../hyku-objects
-```
-
-### from purl:
-
-```bash
-./bin/import_from_purl ../hyku-objects bc390xk2647 bc402fk6835 bc483gc9313
-```
+Importing from CSV and PURL directly can be done via Bulkrax and the built in code in Hyku is slated for deletion in the next release.
 
 ## Compatibility
 
-* Ruby 2.4 or the latest 2.3 version is recommended.  Later versions may also work.
-* Rails 5 is required. We recommend the latest Rails 5.1 release.
+* Ruby 2.7 is recommended.  Later versions may also work.
+* Rails 5.2 is required.
 
 ### Product Owner
 

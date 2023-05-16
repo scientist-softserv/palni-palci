@@ -54,7 +54,7 @@ module OAI
             "has_model_ssim:FileSet AND " \
             "visibility_ssi:#{Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC}",
             fl: ["id"],
-            method: :post, # higher request size limit than :get
+            method: :post,
             rows: 1024 # maximum
           )
           return if public_fs_ids.blank?

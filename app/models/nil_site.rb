@@ -16,6 +16,8 @@ class NilSite
               :institution_name_full, :banner_image, :primary_key,
               :logo_image, :default_collection_image, :default_work_image,
               :directory_image, :favicon, :contact_email
+
+  # rubocop:disable Lint/DuplicateMethods
   def reload
     NilSite.instance
   end

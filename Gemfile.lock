@@ -11,7 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi.git
-  revision: c7466b65b517456a13c8e08b8177092c37411a59
+  revision: f29b3ef86e7feb12509cf2c4608817bb275f097e
+  branch: hyrax_upgrade
   specs:
     hyrax-doi (0.2.0)
       bolognese (>= 1.8.6, < 1.10)
@@ -22,6 +23,7 @@ GIT
 GIT
   remote: https://github.com/samvera-labs/hyrax-iiif_av.git
   revision: 6273f90016c153d2add33f85cc24285d51a25382
+  branch: main
   specs:
     hyrax-iiif_av (0.2.0)
       blacklight
@@ -32,6 +34,7 @@ GIT
 GIT
   remote: https://github.com/scientist-softserv/iiif_print.git
   revision: 8aaa943573bdf561c5382ba75f0da5762ff9b73f
+  branch: main
   specs:
     iiif_print (1.0.0)
       blacklight_iiif_search (~> 1.0)

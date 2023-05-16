@@ -7,10 +7,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     #   { name: 'MODS - My Local MODS parser', class_name: 'Bulkrax::ModsXmlParser', partial: 'mods_fields' },
     # ]
 
-    # Field to use during import to identify if the Work or Collection already exists.
-    # Default is 'source'.
-    # config.system_identifier_field = 'source'
-
     # WorkType to use as the default if none is specified in the import
     # Default is the first returned by Hyrax.config.curation_concerns
     # config.default_work_type = MyWork
@@ -54,9 +50,57 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
 
     default_field_mapping = {
-      'parents' => { from: ['parents'], related_parents_field_mapping: true },
+      'abstract' => { from: ['abstract'] },
+      'access_right' => { from: ['access_rights'] },
+      'additional_rights_info' => { from: ['additional_rights_info'] },
+      'advisor' => { from: ['advisor'] },
+      'alternative_title' => { from: ['alternative_title'] },
+      'bibliographic_citation' => { from: ['bibliographic_citation'] },
       'children' => { from: ['children'], related_children_field_mapping: true },
-      "resource_type" => { from: ["resource_type"] }
+      'committee_member' => { from: ['committee_member'] },
+      'contributor_institutional_relationship' => { from: ['contributor_institutional_relationship'] },
+      'contributor_orcid' => { from: ['contributor_orcid'] },
+      'contributor_role' => { from: ['contributor_role'] },
+      'contributor' => { from: ['contributor'] },
+      'creator_institutional_relationship' => { from: ['creator_institutional_relationship'] },
+      'creator_orcid' => { from: ['creator_orcid'] },
+      'creator' => { from: ['creator'] },
+      'date_created' => { from: ['date_created'] },
+      'degree_granting_institution' => { from: ['degree_granting_institution'] },
+      'degree' => { from: ['degree'] },
+      'department' => { from: ['department'] },
+      'description' => { from: ['description'] },
+      'discipline' => { from: ['discipline'] },
+      'event_date' => { from: ['event_date'] },
+      'event_location' => { from: ['event_location'] },
+      'event_title' => { from: ['event_title'] },
+      'extent' => { from: ['extent'] },
+      'format' => { from: ['format'] },
+      'funder_awards' => { from: ['funder_awards'] },
+      'funder_name' => { from: ['funder_name'] },
+      'identifier' => { from: ['identifier'] },
+      'institution' => { from: ['institution'] },
+      'keyword' => { from: ['keyword'] },
+      'label' => { from: ['label'] },
+      'language' => { from: ['language'] },
+      'level' => { from: ['level'] },
+      'license' => { from: ['license'] },
+      'official_link' => { from: ['official_link'] },
+      'parents' => { from: ['parents'], related_parents_field_mapping: true },
+      'project_name' => { from: ['project_name'] },
+      'publisher' => { from: ['publisher'] },
+      'related_url' => { from: ['related_url'] },
+      'resource_type' => { from: ['resource_type'] },
+      'rights_holder' => { from: ['rights_holder'] },
+      'rights_notes' => { from: ['rights_notes'] },
+      'rights_statement' => { from: ['rights_statement'] },
+      'source_identifier' => { from: ['source_identifier'], source_identifier: true },
+      'source' => { from: ['source'] },
+      'subject' => { from: ['subject'] },
+      'title' => { from: ['title'] },
+      'types' => { from: ['types'] },
+      'video_embed' => { from: ['video_embed'] },
+      'year' => { from: ['year'] },
     }
 
     config.field_mappings["Bulkrax::BagitParser"] = default_field_mapping.merge({
@@ -88,12 +132,12 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
     # config.reserved_properties += ['my_field']
 
-      # List of Questioning Authority properties that are controlled via YAML files in
-  # the config/authorities/ directory. For example, the :rights_statement property
-  # is controlled by the active terms in config/authorities/rights_statements.yml
-  # Defaults: 'rights_statement' and 'license'
-  config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
-
+    # List of Questioning Authority properties that are controlled via YAML files in
+    # the config/authorities/ directory. For example, the :rights_statement property
+    # is controlled by the active terms in config/authorities/rights_statements.yml
+    # Default properties: 'rights_statement' and 'license'
+    config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
   end
+
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true
 end

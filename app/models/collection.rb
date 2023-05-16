@@ -12,4 +12,9 @@ class Collection < ActiveFedora::Base
   def remove_featured
     FeaturedCollection.where(collection_id: id).destroy_all
   end
+
+  # this is the unique identifier bulkrax uses for import.
+  # this property only needs to be added to the model so it can be saved for works.
+  # it will not show in the public view for users, and cannot be entered manually via the edit work form.
+  property :source_identifier, predicate: ::RDF::URI.new("https://atla.com/terms/sourceIdentifier"), multiple: false
 end

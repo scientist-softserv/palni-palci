@@ -19,7 +19,7 @@
 <%= presenter.attribute_to_html(:additional_rights_info, html_dl: true) %>
 <%= presenter.attribute_to_html(:bibliographic_citation, html_dl: true) %>
 <%= presenter.attribute_to_html(:institution, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:types, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:types, render_as: :faceted, html_dl: true, label: "Type") %>
 <%= presenter.attribute_to_html(:format, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_holder, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:creator_orcid, render_as: :faceted, html_dl: true) %>

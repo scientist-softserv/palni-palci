@@ -4,5 +4,5 @@ it:
       etd:     'fa fa-file-text-o'
     select_type:
       etd:
-        description:        "Etd opere"
-        name:               "Etd"
+        description:        "ETD opere"
+        name:               "ETD"

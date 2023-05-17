@@ -77,7 +77,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'language_sim', limit: 5, label: 'Language'
     config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
-    config.add_facet_field 'types_sim', limit: 5, label: 'Types'
+    config.add_facet_field 'types_sim', limit: 5, label: 'Type'
     config.add_facet_field 'year_sim', limit: 5, label: 'Year'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
     config.add_facet_field 'format_sim', limit: 5, label: 'Format'

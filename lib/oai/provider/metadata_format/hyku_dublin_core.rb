@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Override to allow custom OAI export formats (prefixes).
 module OAI
   module Provider
     module MetadataFormat

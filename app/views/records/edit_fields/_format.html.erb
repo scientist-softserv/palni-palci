@@ -1,5 +1,5 @@
 <%# CUSTOM: app/views/records/edit_fields/_format.html.erb  %>
-<% formats = Hyrax::FormatService.select_options.map { |format| format.first } %>
+<% formats = Hyrax::FormatService.select_options.map { |format| format.first }.uniq %>
 <%= f.input :format,
   collection: formats,
   as: :multi_value_select,

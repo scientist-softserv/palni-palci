@@ -29,13 +29,13 @@ module AccountSettings
     setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :geonames_username, type: 'string', default: ''
     setting :gtm_id, type: 'string'
-    setting :google_analytics_id, type: 'string'
-    setting :google_oauth_app_name, type: 'string'
-    setting :google_oauth_app_version, type: 'string'
-    setting :google_oauth_private_key_secret, type: 'string'
-    setting :google_oauth_private_key_path, type: 'string'
-    setting :google_oauth_private_key_value, type: 'string'
-    setting :google_oauth_client_email, type: 'string'
+    setting :analytics_id, type: 'string'
+    setting :analytics_oauth_app_name, type: 'string'
+    setting :analytics_oauth_app_version, type: 'string'
+    setting :analytics_oauth_private_key_secret, type: 'string'
+    setting :analytics_oauth_private_key_path, type: 'string'
+    setting :analytics_oauth_private_key_value, type: 'string'
+    setting :analytics_oauth_client_email, type: 'string'
     setting :locale_name, type: 'string', disabled: true
     setting :monthly_email_list, type: 'array', disabled: true
     setting :oai_admin_email, type: 'string', default: 'changeme@example.com'
@@ -163,7 +163,7 @@ module AccountSettings
         config.uploader[:maxFileSize] = file_size_limit
       end
 
-      reload_google_analytics
+      reload_analytics
 
       Devise.mailer_sender = contact_email
 
@@ -191,17 +191,17 @@ module AccountSettings
       ActionMailer::Base.default_url_options[:protocol] = 'https'
     end
 
-    def reload_google_analytics
-      # require the google analytics to be set per tenant
-      Hyrax::Analytics.config.analytics_id = google_analytics_id
-      Hyrax::Analytics.config.app_name = google_oauth_app_name
-      Hyrax::Analytics.config.app_version = google_oauth_app_version
-      Hyrax::Analytics.config.privkey_secret = google_oauth_private_key_secret
-      Hyrax::Analytics.config.privkey_path = google_oauth_private_key_path
-      Hyrax::Analytics.config.privkey_value = google_oauth_private_key_value
-      Hyrax::Analytics.config.client_email = google_oauth_client_email
+    def reload_analytics
+      # require the analytics to be set per tenant
+      Hyrax::Analytics.config.analytics_id = analytics_id
+      Hyrax::Analytics.config.app_name = analytics_oauth_app_name
+      Hyrax::Analytics.config.app_version = analytics_oauth_app_version
+      Hyrax::Analytics.config.privkey_secret = analytics_oauth_private_key_secret
+      Hyrax::Analytics.config.privkey_path = analytics_oauth_private_key_path
+      Hyrax::Analytics.config.privkey_value = analytics_oauth_private_key_value
+      Hyrax::Analytics.config.client_email = analytics_oauth_client_email
 
-      # only show analytics partials if it's set on the tenant
+      # only show analytics partials if analytics are set on the tenant
       Hyrax.config.analytics = Hyrax::Analytics.config.valid?
     end
 end

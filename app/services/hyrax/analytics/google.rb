@@ -58,15 +58,15 @@ module Hyrax
           def valid?
             config_keys = @config.keys
             # OVERRIDE: Hyrax hyrax-v3.5.0 to require either setting
-            return false unless config_keys.include?(privkey_path) || config_keys.include?(privkey_value)
+            return false unless config_keys.include?('privkey_value') || config_keys.include?('privkey_path')
 
-            REQUIRED_KEYS.all? { |required| config_keys.include?(required) }
+            REQUIRED_KEYS.all? { |required| config_keys.include?(required) && @config[required].present? }
           end
 
           # OVERRIDE: Hyrax hyrax-v3.5.0 to allow setting all analytics config values
           KEYS.each do |key|
-            class_eval %{ def #{key};  @config.fetch('#{key}'); end }
-            class_eval %{ def #{key}=(value);  @config['#{key}'] = value; end }
+            class_eval %{ def #{key}; @config.fetch('#{key}'); end }
+            class_eval %{ def #{key}=(value); @config['#{key}'] = value; end }
           end
         end
 

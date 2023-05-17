@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# All settings have a presedence order as follows
+# All settings have a precedence order as follows
 # Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
 
 module AccountSettings
@@ -65,7 +65,7 @@ module AccountSettings
   class_methods do
     def setting(name, args)
       known_type = ['array', 'boolean', 'hash', 'string'].include?(args[:type])
-      raise "Setting type #{args[:type]} is not supported. Can not laod." unless known_type
+      raise "Setting type #{args[:type]} is not supported. Can not load." unless known_type
 
       send("#{args[:type]}_settings") << name
       all_settings[name] = args
@@ -192,24 +192,7 @@ module AccountSettings
     end
 
     def reload_google_analytics
-      # fall back to the default values if they aren't set in the tenant
-      unless google_analytics_id.present? &&
-             google_oauth_app_name.present? &&
-             google_oauth_app_version.present? &&
-             google_oauth_private_key_secret.present? &&
-             google_oauth_private_key_value.present? &&
-             google_oauth_client_email.present?
-
-        config = Hyrax::Analytics::Config.load_from_yaml
-        google_analytics_id ||= config.analytics_id
-        google_oauth_app_name ||= config.app_name
-        google_oauth_app_version ||= config.app_version
-        google_oauth_private_key_secret ||= config.privkey_secret
-        google_oauth_private_key_value ||= config.privkey_value
-        google_oauth_client_email ||= config.client_email
-      end
-
-      # allow the google analytics to be set per tenant
+      # require the google analytics to be set per tenant
       Hyrax::Analytics.config.analytics_id = google_analytics_id
       Hyrax::Analytics.config.app_name = google_oauth_app_name
       Hyrax::Analytics.config.app_version = google_oauth_app_version

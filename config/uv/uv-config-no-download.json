@@ -1,0 +1,9 @@
+{
+  "modules": {
+    "footerPanel": {
+      "options": {
+        "downloadEnabled": false
+      }
+    }
+  }
+}

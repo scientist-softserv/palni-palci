@@ -5,6 +5,7 @@ require 'signet/oauth_2/client'
 
 # OVERRIDE: Hyrax hyrax-v3.5.0 to make analytics a bit more dynamic
 # TODO(alishaevn): remove once https://github.com/samvera/hyrax/pull/6063 is available in our current hyrax version
+
 module Hyrax
   module Analytics
     module Google
@@ -65,8 +66,10 @@ module Hyrax
 
           # OVERRIDE: Hyrax hyrax-v3.5.0 to allow setting all analytics config values
           KEYS.each do |key|
+            # rubocop:disable Style/EvalWithLocation
             class_eval %{ def #{key}; @config.fetch('#{key}'); end }
             class_eval %{ def #{key}=(value); @config['#{key}'] = value; end }
+            # rubocop:enable Style/EvalWithLocation
           end
         end
 

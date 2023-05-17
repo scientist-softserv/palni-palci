@@ -169,15 +169,15 @@ Dashboard >> Settings >> Account
 
 | Name | Description |
 | ------------- | ------------- |
-| ANALYTICS_ID | The Google Analytics account id. |
+| ANALYTICS_ID | The Analytics account id. |
 | ANALYTICS_OAUTH_APP_NAME | The name of the application. |
 | ANALYTICS_OAUTH_APP_VERSION | The version of application. |
-| ANALYTICS_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. |
+| ANALYTICS_OAUTH_PRIVATE_KEY_SECRET | The secret provided when you created the key. |
 | ANALYTICS_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. |
 | ANALYTICS_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption. |
 | ANALYTICS_OAUTH_CLIENT_EMAIL | OAuth Client email address. |
 
-- To get the `ANALYTICS_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Google Service Account and run the following in your console locally.
+- To get the `ANALYTICS_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
   - `base64 -i path/to/file.p12 | pbcopy`
   - Once you run this script the value is on your local computers clipboard. You will need to paste this into the corresponding account setting.
 - You can use the `ANALYTICS_OAUTH_PRIVATE_KEY_VALUE` OR `ANALYTICS_OAUTH_PRIVATE_KEY_PATH` value. VALUE takes precedence.

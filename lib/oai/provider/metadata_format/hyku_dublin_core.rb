@@ -46,7 +46,6 @@ module OAI
           xml.target!
         end
 
-        # Override to strip namespace and header out
         def add_work_url(xml, record)
           work_type = record[:has_model_ssim].first.underscore.pluralize
           work_path = "https://#{Site.instance.account.cname}/concern/#{work_type}/#{record[:id]}"

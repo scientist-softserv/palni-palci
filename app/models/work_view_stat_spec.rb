@@ -2,10 +2,11 @@
 
 # OVERRIDE Hyrax hyrax-v3.5.0 to reference hyrax__pageviews as listed in app/models/hyrax/statistic_decorator.rb
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe WorkViewStat, type: :model do
   let(:work_id) { work.id }
   let(:user_id) { 123 }
-  let(:date) { DateTime.new.in_time_zone }
+  let(:date) { Time.new.in_time_zone }
   let(:work_stat) { described_class.create(work_views: "25", date: date, work_id: work_id, user_id: user_id) }
   let(:work) { mock_model(GenericWork, id: 199) }
 
@@ -110,3 +111,4 @@ RSpec.describe WorkViewStat, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

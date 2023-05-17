@@ -2,7 +2,7 @@
 
 # OVERRIDE Hyrax hyrax-v3.5.0 to require Hyrax::Pageview so the method below doesn't fail
 
-Hyrax::Pageview
+Hyrax::Pageview # rubocop:disable Lint/Void
 
 module Hyrax
   module StatisticClassDecorator

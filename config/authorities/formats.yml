@@ -39,6 +39,11 @@ terms:
     alts: ['image/jp2']
     active: true
 
+  - id: mov
+    term: MOV
+    alts: ['mov']
+    active: true
+
   - id: audio/mpeg
     term: MPEG
     alts: ['audio/mpeg','audio/mp3','audio/mpeg3','mp3','MP3','mpeg3']

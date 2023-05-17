@@ -33,6 +33,7 @@ module AccountSettings
     setting :google_oauth_app_name, type: 'string'
     setting :google_oauth_app_version, type: 'string'
     setting :google_oauth_private_key_secret, type: 'string'
+    setting :google_oauth_private_key_path, type: 'string'
     setting :google_oauth_private_key_value, type: 'string'
     setting :google_oauth_client_email, type: 'string'
     setting :locale_name, type: 'string', disabled: true
@@ -213,6 +214,7 @@ module AccountSettings
       Hyrax::Analytics.config.app_name = google_oauth_app_name
       Hyrax::Analytics.config.app_version = google_oauth_app_version
       Hyrax::Analytics.config.privkey_secret = google_oauth_private_key_secret
+      Hyrax::Analytics.config.privkey_path = google_oauth_private_key_path
       Hyrax::Analytics.config.privkey_value = google_oauth_private_key_value
       Hyrax::Analytics.config.client_email = google_oauth_client_email
 

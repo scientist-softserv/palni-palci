@@ -40,7 +40,7 @@
         <% end %>
     </li>
   <% end %>
-  <% if can?(:manage, Sipity::WorkflowResponsibility) %>
+  <% if Flipflop.show_workflow_roles_menu_item_in_admin_dashboard_sidebar? && can?(:manage, Sipity::WorkflowResponsibility) %>
     <%= menu.nav_link(hyrax.admin_workflow_roles_path) do %>
        <span class="fa fa-users" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.workflow_roles') %></span>
     <% end %>

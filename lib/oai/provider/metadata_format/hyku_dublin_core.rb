@@ -24,7 +24,6 @@ module OAI
           ]
         end
 
-        # Override to strip namespace and header out
         def encode(model, record)
           xml = Builder::XmlMarkup.new
           map = model.respond_to?("map_#{prefix}") ? model.send("map_#{prefix}") : {}
@@ -41,9 +40,17 @@ module OAI
                 xml.tag! field.to_s, values
               end
             end
-            add_public_file_urls(xml, record)
+            # add_public_file_urls(xml, record)
+            add_work_url(xml, record)
           end
           xml.target!
+        end
+
+        # Override to strip namespace and header out
+        def add_work_url(xml, record)
+          work_type = record[:has_model_ssim].first.underscore.pluralize
+          work_path = "https://#{Site.instance.account.cname}/concern/#{work_type}/#{record[:id]}"
+          xml.tag! 'work_url', work_path
         end
 
         def add_public_file_urls(xml, record)

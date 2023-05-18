@@ -16,14 +16,14 @@ class Etd < ActiveFedora::Base
   validates :degree_granting_institution, presence: { message: 'Your work must have a degree granting institution.' }
   # rubocop:disable Style/RegexpLiteral
   validates :year,
-    presence: {
-      message: 'Your work must have a four-digit year.'
-      },
-    format: {
-      # regex matches only youtube & vimeo urls that are formatted as embed links.
-      with: /\A(19|20)\d{2}\z/,
-      message: "Error: must be a valid YouTube or Vimeo Embed URL."
-    }
+            presence: {
+              message: 'Your work must have a four-digit year.'
+            },
+            format: {
+              # regex matches only youtube & vimeo urls that are formatted as embed links.
+              with: /\A(19|20)\d{2}\z/,
+              message: "Error: must be a valid four digit year."
+            }
   validates :video_embed,
             format: {
               # regex matches only youtube & vimeo urls that are formatted as embed links.

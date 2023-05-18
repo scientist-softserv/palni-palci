@@ -20,36 +20,36 @@ class AppIndexer < Hyrax::WorkIndexer
 
   private
 
-  # parses the subject to contain normalized capitalization
-  def parse_subject
-    # rubocop:disable Style/GuardClause
-    if object.subject.present?
-      object.subject.map do |subject|
-        no_periods_or_spaces = subject.strip.chomp('.')
-        no_periods_or_spaces.slice(0, 1).capitalize + no_periods_or_spaces.slice(1..-1)
+    # parses the subject to contain normalized capitalization
+    def parse_subject
+      # rubocop:disable Style/GuardClause
+      if object.subject.present?
+        object.subject.map do |subject|
+          no_periods_or_spaces = subject.strip.chomp('.')
+          no_periods_or_spaces.slice(0, 1).capitalize + no_periods_or_spaces.slice(1..-1)
+        end
       end
+      # rubocop:enable Style/GuardClause
     end
-    # rubocop:enable Style/GuardClause
-  end
 
-  # parses the format to save the correct labels
-  def parse_format
-    if object.format.present?
+    # parses the format to save the correct labels
+    def parse_format
+      return if object.format.blank?
+
       object.format.map do |format|
         Hyrax::FormatService.label_from_alt(format.to_s.strip)
       end
     end
-  end
 
-  # adds parsed format to solr document
-  def add_format(solr_doc)
-    solr_doc['format_tesim'] = parse_format
-    solr_doc['format_sim'] = parse_format
-  end
+    # adds parsed format to solr document
+    def add_format(solr_doc)
+      solr_doc['format_tesim'] = parse_format
+      solr_doc['format_sim'] = parse_format
+    end
 
-  # adds parsed subject to solr document
-  def add_subject(solr_doc)
-    solr_doc['subject_tesim'] = parse_subject
-    solr_doc['subject_sim'] = parse_subject
-  end
+    # adds parsed subject to solr document
+    def add_subject(solr_doc)
+      solr_doc['subject_tesim'] = parse_subject
+      solr_doc['subject_sim'] = parse_subject
+    end
 end

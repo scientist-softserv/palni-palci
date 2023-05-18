@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Flipflop.configure do
+  feature :show_workflow_roles_menu_item_in_admin_dashboard_sidebar,
+          default: false,
+          description: "Shows the Workflow Roles menu item in the admin dashboard sidebar."
+
   feature :show_featured_researcher,
           default: true,
           description: "Shows the Featured Researcher tab on the homepage."

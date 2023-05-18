@@ -59,7 +59,7 @@ module Hyrax
           def valid?
             config_keys = @config.keys
             # OVERRIDE: Hyrax hyrax-v3.5.0 to require either setting
-            return false unless config_keys.include?('privkey_value') || config_keys.include?('privkey_path')
+            return false unless @config['privkey_value'].present? || @config['privkey_path'].present?
 
             REQUIRED_KEYS.all? { |required| config_keys.include?(required) && @config[required].present? }
           end

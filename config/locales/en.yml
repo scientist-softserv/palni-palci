@@ -138,7 +138,7 @@ en:
       title: Administration
       work_types: Available Work Types
     footer:
-      admin_login: Admin
+      admin_login: Administrator login
     proprietor:
       accounts:
         nav: Accounts
@@ -186,7 +186,7 @@ en:
               alert: "Please upload at least one file before submitting."
               hint: "For default images, you should use an image (JPG, GIF or PNG) that has equal height and width dimensions (100 pixels wide and 100 pixels tall)"
             directory_image:
-              hint: "The directory image should use an image (JPG, GIF or PNG). The width of the image should be no wider than 2x the height."
+              hint: "To use an image as the directory image, you should use an image (JPG, GIF or PNG) that is no taller than the header and no wider than 400 pixels wide."
             logo_image:
               hint: "To use an image as the logo, you should use an image (JPG, GIF or PNG) that is no taller than the header and no wider than 400 pixels wide."
             themes:

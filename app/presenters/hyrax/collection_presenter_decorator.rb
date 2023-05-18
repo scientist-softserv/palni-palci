@@ -54,13 +54,23 @@ module Hyrax
     # the user has for this admin set. Checks from most permissive to most restrictive.
     # @return String the access label (e.g. Manage, Deposit, View)
     def managed_access
+      # rubocop:disable Style/IfUnlessModifier
       # OVERRIDE: Change check for manage access from :edit to :destroy
-      return I18n.t('hyrax.dashboard.my.collection_list.managed_access.manage') if current_ability.can?(:destroy, solr_document)
+      if current_ability.can?(:destroy, solr_document)
+        return I18n.t('hyrax.dashboard.my.collection_list.managed_access.manage')
+      end
       # OVERRIDE: Add label for Edit access
-      return I18n.t('hyrax.dashboard.my.collection_list.managed_access.edit') if current_ability.can?(:edit, solr_document)
-      return I18n.t('hyrax.dashboard.my.collection_list.managed_access.deposit') if current_ability.can?(:deposit, solr_document)
-      return I18n.t('hyrax.dashboard.my.collection_list.managed_access.view') if current_ability.can?(:read, solr_document)
+      if current_ability.can?(:edit, solr_document)
+        return I18n.t('hyrax.dashboard.my.collection_list.managed_access.edit')
+      end
+      if current_ability.can?(:deposit, solr_document)
+        return I18n.t('hyrax.dashboard.my.collection_list.managed_access.deposit')
+      end
+      if current_ability.can?(:read, solr_document)
+        return I18n.t('hyrax.dashboard.my.collection_list.managed_access.view')
+      end
       ''
+      # rubocop:enable Style/IfUnlessModifier
     end
 
     # OVERRIDE: Because the only batch operation allowed currently is deleting,
@@ -104,7 +114,11 @@ module Hyrax
 
     def collection_featured?
       # only look this up if it's not boolean; ||= won't work here
-      @collection_featured = FeaturedCollection.where(collection_id: solr_document.id).exists? if @collection_featured.nil?
+      # rubocop:disable Style/IfUnlessModifier
+      if @collection_featured.nil?
+        @collection_featured = FeaturedCollection.where(collection_id: solr_document.id).exists?
+      end
+      # rubocop:enable Style/IfUnlessModifier
       @collection_featured
     end
 

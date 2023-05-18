@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # OVERRIDE: Hyrax v2.9.0 to add home_text content block to the index method - Adding themes
-# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page -
-# inheriting from CatalogController rather than ApplicationController
+# OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add facets to home page - inheriting from
+# CatalogController rather than ApplicationController
 # OVERRIDE: Hyrax v2.9.0 from Hyrax v2.9.0 to add inject_theme_views method for theming
 # OVERRIDE: Hyrax v2.9.0 to add search_action_url method from Blacklight 6.23.0 to make facet links to go to /catalog
 # OVERRIDE: Hyrax v2.9.0 to add .sort_by to return collections in alphabetical order by title on the homepage

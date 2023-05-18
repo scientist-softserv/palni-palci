@@ -72,5 +72,4 @@ class SolrDocument
     title: 'title_tesim',
     type: 'human_readable_type_tesim'
   )
-
 end

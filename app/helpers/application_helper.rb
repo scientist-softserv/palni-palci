@@ -4,6 +4,7 @@ module ApplicationHelper
   include ::HyraxHelper
   include Hyrax::OverrideHelperBehavior
   include GroupNavigationHelper
+  include SharedSearchHelper
 
   def label_for(term:, record_class: nil)
     locale_for(type: 'labels', term: term, record_class: record_class)

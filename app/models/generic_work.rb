@@ -2,6 +2,11 @@
 
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: self
+  )
+
+  self.indexer = GenericWorkIndexer
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
@@ -26,6 +31,4 @@ class GenericWork < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
-
-  self.indexer = GenericWorkIndexer
 end

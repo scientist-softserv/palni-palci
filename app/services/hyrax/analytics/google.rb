@@ -12,7 +12,7 @@ module Hyrax
       extend ActiveSupport::Concern
       # rubocop:disable Metrics/BlockLength
       class_methods do
-        # Loads configuration options from config/analytics.yml. You only need PRIVATE_KEY_PATH or
+        # Loads configuration options from config/analytics.yml for Hyrax apps only. You only need PRIVATE_KEY_PATH or
         # PRIVATE_KEY_VALUE. VALUE takes precedence.
         # Expected structure:
         # `analytics:`

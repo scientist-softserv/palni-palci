@@ -86,19 +86,19 @@ extraEnvVars: &envVars
     value: http://fcrepo.staging-fcrepo.svc.cluster.local:8080/rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
-  # - name: GOOGLE_ANALYTICS_ID
-  #   value: $GOOGLE_ANALYTICS_ID  # Set in GitHub Environment Variables Section
-  # - name: GOOGLE_OAUTH_APP_NAME
+  # - name: ANALYTICS_ID
+  #   value: $ANALYTICS_ID # Refer to the README
+  # - name: ANALYTICS_OAUTH_APP_NAME
   #   value: palni-palci-demo
-  # - name: GOOGLE_OAUTH_APP_VERSION
+  # - name: ANALYTICS_OAUTH_APP_VERSION
   #   value: '1.0'
-  # - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Set in GitHub Environment Variables Section
-  # - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
+  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_SECRET
+  #   value: $ANALYTICS_OAUTH_PRIVATE_KEY_SECRET # Refer to the README
+  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_PATH
   #   value: prod-cred.p12
-  # - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-  #   value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-  # - name: GOOGLE_OAUTH_CLIENT_EMAIL
+  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_VALUE
+  #   value: $ANALYTICS_OAUTH_PRIVATE_KEY_VALUE # Refer to the README
+  # - name: ANALYTICS_OAUTH_CLIENT_EMAIL
   #   value: palni-palci-demo@palni-palci-demo.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq

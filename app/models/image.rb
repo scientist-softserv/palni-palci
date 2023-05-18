@@ -5,7 +5,7 @@
 class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
-    pdf_split_child_model: self
+    pdf_split_child_model: GenericWork
   )
 
   self.indexer = ImageIndexer
@@ -41,5 +41,4 @@ class Image < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
-
 end

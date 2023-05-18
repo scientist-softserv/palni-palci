@@ -34,7 +34,7 @@ class AppIndexer < Hyrax::WorkIndexer
 
     # parses the format to save the correct labels
     def parse_format
-      return unless object.format.present?
+      return if object.format.blank?
 
       object.format.map do |format|
         Hyrax::FormatService.label_from_alt(format.to_s.strip)

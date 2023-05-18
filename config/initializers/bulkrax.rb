@@ -136,7 +136,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # the config/authorities/ directory. For example, the :rights_statement property
     # is controlled by the active terms in config/authorities/rights_statements.yml
     # Default properties: 'rights_statement' and 'license'
-    config.qa_controlled_properties += ['types', 'resource_type', 'format', 'institution']
+    config.qa_controlled_properties += ['types', 'resource_type', 'institution']
   end
 
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true

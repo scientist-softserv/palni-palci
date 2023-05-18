@@ -9,6 +9,7 @@ on:
         default: 'staging'
         type: choice
         options:
+          - staging
           - demo
           - production
       debug_enabled:

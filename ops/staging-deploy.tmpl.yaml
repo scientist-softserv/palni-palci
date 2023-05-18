@@ -1,7 +1,7 @@
 replicaCount: 2
 
 imagePullSecrets:
-  - name: github-registry
+  - name: github
 
 resources:
   requests:
@@ -44,10 +44,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: staging-palni-palci.notch8.cloud
+    - host: palni-palci-staging.notch8.cloud
       paths:
         - path: /
-    - host: "*.staging-palni-palci.notch8.cloud"
+    - host: "*.palni-palci-staging.notch8.cloud"
       paths:
         - path: /
   annotations: {
@@ -57,9 +57,9 @@ ingress:
   }
   tls:
     - hosts:
-        - staging-palni-palci.notch8.cloud
-        - "*.staging-palni-palci.notch8.cloud"
-      secretName: staging-palni-palci-tls
+        - palni-palci-staging.notch8.cloud
+        - "*.palni-palci-staging.notch8.cloud"
+      secretName: palni-palci-staging-tls
 
 extraEnvVars: &envVars
   - name: CONFDIR
@@ -69,15 +69,15 @@ extraEnvVars: &envVars
   - name: DB_HOST
     value: pg-postgresql.staging-postgres.svc.cluster.local
   - name: DB_NAME
-    value: staging-palni-palci
+    value: palni-palci-staging
   - name: DB_PASSWORD
     value: $DB_PASSWORD
   - name: DATABASE_URL
-    value: postgresql://postgres:$DB_PASSWORD@pg-postgresql.staging-postgres.svc.cluster.local/staging-palni-palci?pool=5
+    value: postgresql://postgres:$DB_PASSWORD@pg-postgresql.staging-postgres.svc.cluster.local/palni-palci-staging?pool=5
   - name: DB_USER
     value: postgres
   - name: FCREPO_BASE_PATH
-    value: /staging-palni-palci
+    value: /palni-palci-staging
   - name: FCREPO_HOST
     value: fcrepo.staging-fcrepo.svc.cluster.local:8080
   - name: FCREPO_PATH
@@ -103,7 +103,7 @@ extraEnvVars: &envVars
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST
-    value: staging-palni-palci.notch8.cloud
+    value: palni-palci-staging.notch8.cloud
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: "false"
   - name: HYKU_ALLOW_SIGNUP
@@ -113,13 +113,13 @@ extraEnvVars: &envVars
   - name: HYKU_CONTACT_EMAIL
     value: support@notch8.com
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.staging-palni-palci.notch8.cloud"
+    value: "%{tenant}.palni-palci-staging.notch8.cloud"
   - name: HYKU_FILE_ACL
     value: "true"
   - name: HYKU_MULTITENANT
     value: "true"
   - name: HYKU_ROOT_HOST
-    value: staging-palni-palci.notch8.cloud
+    value: palni-palci-staging.notch8.cloud
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
   # - name: HYRAX_ANALYTICS
@@ -139,7 +139,7 @@ extraEnvVars: &envVars
   - name: PASSENGER_APP_ENV
     value: production
   - name: RAILS_CACHE_STORE_URL
-    value: redis://:$REDIS_PASSWORD@staging-palni-palci-redis-master:6379/pals
+    value: redis://:$REDIS_PASSWORD@palni-palci-staging-redis-master:6379/pals
   - name: RAILS_ENV
     value: production
   - name: RAILS_LOG_TO_STDOUT
@@ -149,9 +149,9 @@ extraEnvVars: &envVars
   - name: RAILS_SERVE_STATIC_FILES
     value: "true"
   - name: REDIS_HOST
-    value: staging-palni-palci-redis-master
+    value: palni-palci-staging-redis-master
   - name: REDIS_URL
-    value: redis://:$REDIS_PASSWORD@staging-palni-palci-redis-master:6379/pals
+    value: redis://:$REDIS_PASSWORD@palni-palci-staging-redis-master:6379/pals
   - name: SENTRY_DSN
     value: https://d3dc5a781c0740fa8b29f93e6d355c36@o1008683.ingest.sentry.io/6707374
   - name: HYKU_RESTRICT_CREATE_AND_DESTROY_PERMISSIONS
@@ -173,9 +173,9 @@ extraEnvVars: &envVars
   - name: SOLR_ADMIN_USER
     value: admin
   - name: SOLR_COLLECTION_NAME
-    value: staging-palni-palci
+    value: palni-palci-staging
   - name: SOLR_CONFIGSET_NAME
-    value: staging-palni-palci
+    value: palni-palci-staging
   - name: SOLR_HOST
     value: solr.staging-solr
   - name: SOLR_PORT
@@ -230,123 +230,5 @@ externalPostgresql:
 
 externalSolrHost: solr.staging-solr.svc.cluster.local
 externalSolrUser: admin
-externalSolrCollection: "staging-palni-palci"
+externalSolrCollection: "palni-palci-staging"
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
-
-global:
-  hyraxName: staging-palni-palci-hyrax
-
-nginx:
-  enabled: true
-  image:
-    registry: registry.gitlab.com
-    repository: notch8/scripts/bitnami-nginx
-    tag: 1.21.5-debian-10-r4
-  serverBlock: |-
-    upstream rails_app {
-      server {{ .Values.global.hyraxName }};
-    }
-
-    map ${DOLLAR}status ${DOLLAR}loggable {
-        ~^444  0;
-        default 1;
-    }
-
-    log_format loki 'host=${DOLLAR}host ip=${DOLLAR}http_x_forwarded_for remote_user=${DOLLAR}remote_user [${DOLLAR}time_local] '
-                      'request="${DOLLAR}request" status=${DOLLAR}status bytes=${DOLLAR}body_bytes_sent '
-                      'referer="${DOLLAR}http_referer" agent="${DOLLAR}http_user_agent" request_time=${DOLLAR}request_time upstream_response_time=${DOLLAR}upstream_response_time upstream_response_length=${DOLLAR}upstream_response_length';
-
-    error_log  /opt/bitnami/nginx/logs/error.log warn;
-    #tcp_nopush     on;
-
-    # Cloudflare ips see for refresh
-    # https://support.cloudflare.com/hc/en-us/articles/200170786-Restoring-original-visitor-IPs-logging-visitor-IP-addresses
-    # update list https://www.cloudflare.com/ips/
-    set_real_ip_from 103.21.244.0/22;
-    set_real_ip_from 103.22.200.0/22;
-    set_real_ip_from 103.31.4.0/22;
-    set_real_ip_from 104.16.0.0/13;
-    set_real_ip_from 104.24.0.0/14;
-    set_real_ip_from 108.162.192.0/18;
-    set_real_ip_from 131.0.72.0/22;
-    set_real_ip_from 141.101.64.0/18;
-    set_real_ip_from 162.158.0.0/15;
-    set_real_ip_from 172.64.0.0/13;
-    set_real_ip_from 173.245.48.0/20;
-    set_real_ip_from 188.114.96.0/20;
-    set_real_ip_from 190.93.240.0/20;
-    set_real_ip_from 197.234.240.0/22;
-    set_real_ip_from 198.41.128.0/17;
-    set_real_ip_from 2400:cb00::/32;
-    set_real_ip_from 2606:4700::/32;
-    set_real_ip_from 2803:f800::/32;
-    set_real_ip_from 2405:b500::/32;
-    set_real_ip_from 2405:8100::/32;
-    set_real_ip_from 2a06:98c0::/29;
-    set_real_ip_from 2c0f:f248::/32;
-
-    real_ip_header X-Forwarded-For;
-    real_ip_recursive on;
-    include /opt/bitnami/nginx/conf/conf.d/*.conf;
-    server {
-        listen 8080;
-        server_name _;
-        root /app/samvera/hyrax-webapp/public;
-        index index.html;
-
-        client_body_in_file_only clean;
-        client_body_buffer_size 32K;
-        client_max_body_size 0;
-        access_log /opt/bitnami/nginx/logs/access.log loki;
-        # if=${DOLLAR}loggable;
-
-        sendfile on;
-        send_timeout 300s;
-
-        include /opt/bitnami/nginx/conf/bots.d/ddos.conf;
-        include /opt/bitnami/nginx/conf/bots.d/blockbots.conf;
-
-        location ~ (\.php|\.aspx|\.asp) {
-        	return 404;
-        }
-
-        # deny requests for files that should never be accessed
-        location ~ /\. {
-          deny all;
-        }
-
-        location ~* ^.+\.(rb|log)${DOLLAR} {
-          deny all;
-        }
-
-        # serve static (compiled) assets directly if they exist (for rails production)
-        location ~ ^/(assets|packs|fonts|images|javascripts|stylesheets|swfs|system)/ {
-          try_files ${DOLLAR}uri @rails;
-
-          # access_log off;
-          gzip_static on; # to serve pre-gzipped version
-
-          expires max;
-          add_header Cache-Control public;
-
-          # Some browsers still send conditional-GET requests if there's a
-          # Last-Modified header or an ETag header even if they haven't
-          # reached the expiry date sent in the Expires header.
-          add_header Last-Modified "";
-          add_header ETag "";
-          break;
-        }
-
-        # send non-static file requests to the app server
-        location / {
-          try_files ${DOLLAR}uri @rails;
-        }
-
-        location @rails {
-          proxy_set_header  X-Real-IP  ${DOLLAR}remote_addr;
-          proxy_set_header  X-Forwarded-For ${DOLLAR}proxy_add_x_forwarded_for;
-          proxy_set_header Host ${DOLLAR}http_host;
-          proxy_redirect off;
-          proxy_pass http://rails_app;
-        }
-    }

@@ -37,6 +37,10 @@ module Hyku
         can?(:manage, Hyrax::Group)
     end
 
+    def display_workflow_roles_menu_item_in_admin_dashboard_sidebar?
+      Flipflop.show_workflow_roles_menu_item_in_admin_dashboard_sidebar?
+    end
+
     # Returns true if we ought to show the user Admin-only areas of the menu
     def show_admin_menu_items?
       can?(:read, :admin_dashboard)

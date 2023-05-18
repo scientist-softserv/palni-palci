@@ -8,6 +8,12 @@ class Image < ActiveFedora::Base
     pdf_split_child_model: self
   )
 
+  self.indexer = ImageIndexer
+
+  # Change this to restrict which works can be added as a child.
+  # self.valid_child_concerns = []
+  validates :title, presence: { message: 'Your work must have a title.' }
+
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
   end
@@ -36,8 +42,4 @@ class Image < ActiveFedora::Base
   # be declared before their values can be ordered.
   include OrderMetadataValues
 
-  self.indexer = ImageIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
-  validates :title, presence: { message: 'Your work must have a title.' }
 end

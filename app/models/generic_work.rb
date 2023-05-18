@@ -5,6 +5,9 @@ class GenericWork < ActiveFedora::Base
   include IiifPrint.model_configuration(
     pdf_split_child_model: self
   )
+
+  self.indexer = GenericWorkIndexer
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
@@ -29,5 +32,4 @@ class GenericWork < ActiveFedora::Base
   # be declared before their values can be ordered.
   include OrderMetadataValues
 
-  self.indexer = GenericWorkIndexer
 end

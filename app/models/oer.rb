@@ -2,6 +2,9 @@
 #  `rails generate hyrax:work Oer`
 class Oer < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: self
+  )
 
   self.indexer = OerIndexer
   # Change this to restrict which works can be added as a child.

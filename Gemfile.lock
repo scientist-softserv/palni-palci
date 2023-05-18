@@ -1360,7 +1360,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   scss_lint
   secure_headers
-  selenium-webdriver
+  selenium-webdriver (= 3.142.7)
   semaphore_test_boosters
   sentry-rails
   sentry-raven

@@ -1,7 +1,7 @@
 replicaCount: 2
 
 imagePullSecrets:
-  - name: github-registry
+  - name: github
 
 resources:
   requests:
@@ -237,7 +237,7 @@ global:
   hyraxName: staging-palni-palci-hyrax
 
 nginx:
-  enabled: true
+  enabled: false
   image:
     registry: registry.gitlab.com
     repository: notch8/scripts/bitnami-nginx

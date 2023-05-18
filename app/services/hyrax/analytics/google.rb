@@ -57,10 +57,10 @@ module Hyrax
 
           # @return [Boolean] are all the required values present?
           def valid?
-            config_keys = @config.keys
             # OVERRIDE: Hyrax hyrax-v3.5.0 to require either setting
             return false unless @config['privkey_value'].present? || @config['privkey_path'].present?
 
+            # OVERRIDE: Hyrax hyrax-v3.5.0 to confirm the presence of required values
             REQUIRED_KEYS.all? { |required| @config[required].present? }
           end
 
@@ -136,7 +136,6 @@ module Hyrax
 
           [start_date, end_date]
         end
-        # rubocop:enabl e Metrics/MethodLength
 
         def keyword_conversion(date)
           case date

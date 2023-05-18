@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 # OVERRIDE Hyrax hyrax-v3.5.0 to reference hyrax__pageviews as listed in app/models/hyrax/statistic_decorator.rb
-
-# rubocop:disable Metrics/BlockLength
 RSpec.describe WorkViewStat, type: :model do
   let(:work_id) { work.id }
   let(:user_id) { 123 }

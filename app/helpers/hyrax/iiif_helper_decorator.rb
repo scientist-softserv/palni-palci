@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Overrides to add download restricted specific uv-config
+# OVERRIDE: Hyrax hyrax-v3.5.0 to add download restricted specific uv-config
 module Hyrax
   IiifHelper.module_eval do
     def universal_viewer_config_url

@@ -61,7 +61,7 @@ module Hyrax
             # OVERRIDE: Hyrax hyrax-v3.5.0 to require either setting
             return false unless @config['privkey_value'].present? || @config['privkey_path'].present?
 
-            REQUIRED_KEYS.all? { |required| config_keys.include?(required) && @config[required].present? }
+            REQUIRED_KEYS.all? { |required| @config[required].present? }
           end
 
           # OVERRIDE: Hyrax hyrax-v3.5.0 to allow setting all analytics config values

@@ -12,8 +12,8 @@ file_system:
 #   :client_id: YOUR_BOX_CLIENT_ID
 #   :client_secret: YOUR_BOX_CLIENT_SECRET
 # google_drive:
-#   :client_id: YOUR_ANALYTICS_API_CLIENT_ID
-#   :client_secret: YOUR_ANALYTICS_API_CLIENT_SECRET
+#   :client_id: YOUR_GOOGLE_API_CLIENT_ID
+#   :client_secret: YOUR_GOOGLE_API_CLIENT_SECRET
 # sky_drive:
 #   :client_id: YOUR_MS_LIVE_CONNECT_CLIENT_ID
 #   :client_secret: YOUR_MS_LIVE_CONNECT_CLIENT_SECRET

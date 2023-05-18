@@ -5,7 +5,7 @@
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
-    pdf_split_child_model: self
+    pdf_split_child_model: GenericWork
   )
 
   self.indexer = EtdIndexer

@@ -15,6 +15,7 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
+    setting :allow_downloads, type: 'boolean', default: true
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'
@@ -62,7 +63,7 @@ module AccountSettings
   class_methods do
     def setting(name, args)
       known_type = ['array', 'boolean', 'hash', 'string'].include?(args[:type])
-      raise "Setting type #{args[:type]} is not supported. Can not laod." unless known_type
+      raise "Setting type #{args[:type]} is not supported. Can not load." unless known_type
 
       send("#{args[:type]}_settings") << name
       all_settings[name] = args

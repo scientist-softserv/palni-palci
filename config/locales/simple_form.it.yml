@@ -37,7 +37,7 @@ it:
       hyku_group:
         description: Un breve riepilogo del ruolo del gruppo
       user:
-        email: Inserisci un indirizzo email alla volta. Se non viene selezionato alcun ruolo, il nuovo utente inizierà solo con le autorizzazioni dell'utente registrato. I ruoli possono essere concessi agli utenti anche tramite i ruoli del flusso di lavoro o l'inclusione nei gruppi. Puoi anche inviare nuovamente un invito tramite questo modulo.
+        email: Inserisci un indirizzo email alla volta. Puoi anche inviare nuovamente un invito tramite questo modulo.
     labels:
       account:
         admin_emails: Aggiungi o invita un nuovo amministratore (via email)

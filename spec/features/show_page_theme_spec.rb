@@ -30,7 +30,7 @@ RSpec.describe 'Admin can select show page theme', type: :feature, js: true, cle
     Hyrax::Group.create(name: "registered")
   end
 
-  context "as a repository admin" do   
+  context "as a repository admin" do
     it 'has a select box for the show page themes' do
       login_as admin
       visit '/admin/appearance'

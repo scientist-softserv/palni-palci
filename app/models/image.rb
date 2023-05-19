@@ -4,6 +4,15 @@
 #  `rails generate hyrax:work Image`
 class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: GenericWork
+  )
+
+  self.indexer = ImageIndexer
+
+  # Change this to restrict which works can be added as a child.
+  # self.valid_child_concerns = []
+  validates :title, presence: { message: 'Your work must have a title.' }
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
@@ -32,9 +41,4 @@ class Image < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
-
-  self.indexer = ImageIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
-  validates :title, presence: { message: 'Your work must have a title.' }
 end

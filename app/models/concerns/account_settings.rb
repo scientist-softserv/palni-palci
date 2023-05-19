@@ -34,6 +34,7 @@ module AccountSettings
     setting :email_subject_prefix, type: 'string'
     setting :enable_oai_metadata, type: 'string', disabled: true
     setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
+    setting :google_analytics_id, type: 'string'
     setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :geonames_username, type: 'string', default: ''
     setting :gtm_id, type: 'string'
@@ -57,6 +58,9 @@ module AccountSettings
               format: { with: URI::MailTo::EMAIL_REGEXP },
               allow_blank: true
     validate :validate_email_format, :validate_contact_emails
+    validates :google_analytics_id,
+              format: { with: /((UA|YT|MO)-\d+-\d+|G-[A-Z0-9]{10})/i },
+              allow_blank: true
 
     after_initialize :initialize_settings
   end
@@ -160,6 +164,8 @@ module AccountSettings
     def reload_library_config
       Hyrax.config do |config|
         config.contact_email = contact_email
+        config.analytics = google_analytics_id.present?
+        config.google_analytics_id = google_analytics_id if google_analytics_id.present?
         config.geonames_username = geonames_username
         config.uploader[:maxFileSize] = file_size_limit
       end

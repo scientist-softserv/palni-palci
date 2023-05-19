@@ -15,13 +15,13 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
-    setting :analytics_id, type: 'string'
-    setting :analytics_oauth_app_name, type: 'string'
-    setting :analytics_oauth_app_version, type: 'string'
-    setting :analytics_oauth_private_key_secret, type: 'string'
-    setting :analytics_oauth_private_key_path, type: 'string'
-    setting :analytics_oauth_private_key_value, type: 'string'
-    setting :analytics_oauth_client_email, type: 'string'
+    setting :google_analytics_id, type: 'string'
+    setting :google_oauth_app_name, type: 'string'
+    setting :google_oauth_app_version, type: 'string'
+    setting :google_oauth_private_key_value, type: 'string'
+    setting :google_oauth_private_key_path, type: 'string'
+    setting :google_oauth_private_key_secret, type: 'string'
+    setting :google_oauth_client_email, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'
@@ -193,30 +193,30 @@ module AccountSettings
 
     def reload_analytics
       # fall back to the default values if they aren't set in the tenant
-      unless analytics_id.present? &&
-             analytics_oauth_app_name.present? &&
-             analytics_oauth_app_version.present? &&
-             analytics_oauth_private_key_secret.present? &&
-             analytics_oauth_client_email.present? &&
-             (analytics_oauth_private_key_value.present? || analytics_oauth_private_key_path.present?)
+      unless google_analytics_id.present? &&
+             google_oauth_app_name.present? &&
+             google_oauth_app_version.present? &&
+             google_oauth_private_key_secret.present? &&
+             google_oauth_client_email.present? &&
+             (google_oauth_private_key_value.present? || google_oauth_private_key_path.present?)
 
         config = Hyrax::Analytics::Config.load_from_yaml
-        analytics_id ||= config.analytics_id
-        analytics_oauth_app_name ||= config.app_name
-        analytics_oauth_app_version ||= config.app_version
-        analytics_oauth_private_key_secret ||= config.privkey_secret
-        analytics_oauth_private_key_value ||= config.privkey_value
-        analytics_oauth_client_email ||= config.client_email
+        google_analytics_id ||= config.analytics_id
+        google_oauth_app_name ||= config.app_name
+        google_oauth_app_version ||= config.app_version
+        google_oauth_private_key_secret ||= config.privkey_secret
+        google_oauth_private_key_value ||= config.privkey_value
+        google_oauth_client_email ||= config.client_email
       end
 
       # require the analytics to be set per tenant
-      Hyrax::Analytics.config.analytics_id = analytics_id
-      Hyrax::Analytics.config.app_name = analytics_oauth_app_name
-      Hyrax::Analytics.config.app_version = analytics_oauth_app_version
-      Hyrax::Analytics.config.privkey_secret = analytics_oauth_private_key_secret
-      Hyrax::Analytics.config.privkey_path = analytics_oauth_private_key_path
-      Hyrax::Analytics.config.privkey_value = analytics_oauth_private_key_value
-      Hyrax::Analytics.config.client_email = analytics_oauth_client_email
+      Hyrax::Analytics.config.analytics_id = google_analytics_id
+      Hyrax::Analytics.config.app_name = google_oauth_app_name
+      Hyrax::Analytics.config.app_version = google_oauth_app_version
+      Hyrax::Analytics.config.privkey_value = google_oauth_private_key_value
+      Hyrax::Analytics.config.privkey_path = google_oauth_private_key_path
+      Hyrax::Analytics.config.privkey_secret = google_oauth_private_key_secret
+      Hyrax::Analytics.config.client_email = google_oauth_client_email
 
       # only show analytics partials if analytics are set on the tenant
       Hyrax.config.analytics = Hyrax::Analytics.config.valid?

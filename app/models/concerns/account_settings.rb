@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# All settings have a presedence order as follows
+# All settings have a precedence order as follows
 # Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
 
 module AccountSettings
@@ -16,6 +16,13 @@ module AccountSettings
 
     setting :allow_signup, type: 'boolean', default: true
     setting :allow_downloads, type: 'boolean', default: true
+    setting :google_analytics_id, type: 'string'
+    setting :google_oauth_app_name, type: 'string'
+    setting :google_oauth_app_version, type: 'string'
+    setting :google_oauth_private_key_value, type: 'string'
+    setting :google_oauth_private_key_path, type: 'string'
+    setting :google_oauth_private_key_secret, type: 'string'
+    setting :google_oauth_client_email, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'
@@ -157,6 +164,8 @@ module AccountSettings
         config.uploader[:maxFileSize] = file_size_limit
       end
 
+      reload_analytics
+
       Devise.mailer_sender = contact_email
 
       if s3_bucket.present?
@@ -181,5 +190,36 @@ module AccountSettings
       return unless ssl_configured
       ActionMailer::Base.default_url_options ||= {}
       ActionMailer::Base.default_url_options[:protocol] = 'https'
+    end
+
+    def reload_analytics
+      # fall back to the default values if they aren't set in the tenant
+      unless google_analytics_id.present? &&
+             google_oauth_app_name.present? &&
+             google_oauth_app_version.present? &&
+             google_oauth_private_key_secret.present? &&
+             google_oauth_client_email.present? &&
+             (google_oauth_private_key_value.present? || google_oauth_private_key_path.present?)
+
+        config = Hyrax::Analytics::Config.load_from_yaml
+        google_analytics_id ||= config.analytics_id
+        google_oauth_app_name ||= config.app_name
+        google_oauth_app_version ||= config.app_version
+        google_oauth_private_key_secret ||= config.privkey_secret
+        google_oauth_private_key_value ||= config.privkey_value
+        google_oauth_client_email ||= config.client_email
+      end
+
+      # require the analytics to be set per tenant
+      Hyrax::Analytics.config.analytics_id = google_analytics_id
+      Hyrax::Analytics.config.app_name = google_oauth_app_name
+      Hyrax::Analytics.config.app_version = google_oauth_app_version
+      Hyrax::Analytics.config.privkey_value = google_oauth_private_key_value
+      Hyrax::Analytics.config.privkey_path = google_oauth_private_key_path
+      Hyrax::Analytics.config.privkey_secret = google_oauth_private_key_secret
+      Hyrax::Analytics.config.client_email = google_oauth_client_email
+
+      # only show analytics partials if analytics are set on the tenant
+      Hyrax.config.analytics = Hyrax::Analytics.config.valid?
     end
 end

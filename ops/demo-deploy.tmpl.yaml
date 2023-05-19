@@ -106,6 +106,8 @@ extraEnvVars: &envVars
     value: commons-archive.org
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
+  - name: HYRAX_ANALYTICS
+    value: 'false'
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: INITIAL_ADMIN_EMAIL

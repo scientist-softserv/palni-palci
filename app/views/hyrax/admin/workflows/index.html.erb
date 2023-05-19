@@ -37,7 +37,7 @@
                         <td>
                           <%# OVERRIDE: show the user/depositor's display_name if available %>
                           <% user = User.find_by(email: document.depositor) %>
-                          <%= user&.display_name.presence || document.depositor %>
+                          <%= user&.display_name.presence %>
                         </td>
                         <td>
                           <%= document.date_modified %>

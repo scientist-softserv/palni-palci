@@ -194,11 +194,11 @@ module AccountSettings
     def reload_analytics
       # fall back to the default values if they aren't set in the tenant
       unless analytics_id.present? &&
-        analytics_oauth_app_name.present? &&
-        analytics_oauth_app_version.present? &&
-        analytics_oauth_private_key_secret.present? &&
-        analytics_oauth_client_email.present? &&
-        (analytics_oauth_private_key_value.present? || analytics_oauth_private_key_path.present?)
+             analytics_oauth_app_name.present? &&
+             analytics_oauth_app_version.present? &&
+             analytics_oauth_private_key_secret.present? &&
+             analytics_oauth_client_email.present? &&
+             (analytics_oauth_private_key_value.present? || analytics_oauth_private_key_path.present?)
 
         config = Hyrax::Analytics::Config.load_from_yaml
         analytics_id ||= config.analytics_id

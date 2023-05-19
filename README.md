@@ -149,39 +149,51 @@ Note: Google has announced they will stop processing data using the Universal An
 
 Analytics tracking and reporting features will be turned off by default. To enable them within Hyku, please follow the directions below.
 
-### Create the account
-#### Google
+
+### Google
+#### Create the account
+<!-- TODO: check for updates when we've moved to GA4 -->
 - Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
 - Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
 - Create a Service Account:
   - https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount
   - Please select the p12 format when making your service account key.
-  - Note the private key secret so we can add as an env variable in the subsequent steps below.
+  - Note the private key secret so we can add it to the tenant settings.
 - Configure OAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
 - Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
 
-#### Matomo
-<!-- TODO -->
-
-### Set the Account Settings
+#### Set the Account Settings
 This applies to each of your environments: development/staging/production/etc.
 Dashboard >> Settings >> Account
 
 | Name | Description |
 | ------------- | ------------- |
-| ANALYTICS_ID | The Analytics account id. |
-| ANALYTICS_OAUTH_APP_NAME | The name of the application. |
-| ANALYTICS_OAUTH_APP_VERSION | The version of application. |
-| ANALYTICS_OAUTH_PRIVATE_KEY_SECRET | The secret provided when you created the key. |
-| ANALYTICS_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. |
-| ANALYTICS_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption. |
-| ANALYTICS_OAUTH_CLIENT_EMAIL | OAuth Client email address. |
+| GOOGLE_ANALYTICS_ID | The ID of your Google Analytics account. |
+| GOOGLE_OAUTH_APP_NAME | The name of the Google application in the Google API console. |
+| GOOGLE_OAUTH_APP_VERSION | The version of the Google application in the Google API console. |
+| GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption. |
+| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. |
+| GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided when you created the p12 key. |
+| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address. |
 
-- To get the `ANALYTICS_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
+- To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
   - `base64 -i path/to/file.p12 | pbcopy`
   - Once you run this script the value is on your local computers clipboard. You will need to paste this into the corresponding account setting.
-- You can use the `ANALYTICS_OAUTH_PRIVATE_KEY_VALUE` OR `ANALYTICS_OAUTH_PRIVATE_KEY_PATH` value. VALUE takes precedence.
+- You can use the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` OR `GOOGLE_OAUTH_PRIVATE_KEY_PATH` value. VALUE takes precedence.
 
+### Matomo
+#### Create the account
+<!-- TODO -->
+
+#### Set the Account Settings
+This applies to each of your environments: development/staging/production/etc.
+Dashboard >> Settings >> Account
+
+| Name | Description |
+| ------------- | ------------- |
+| MATOMO_BASE_URL | |
+| MATOMO_SITE_ID | |
+| MATOMO_AUTH_TOKEN | |
 
 ## Environment Variables
 

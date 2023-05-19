@@ -7,7 +7,7 @@ module Hyrax
     self.model_class = ::Oer
     include HydraEditor::Form::Permissions
 
-    self.terms = %i[title creator resource_type audience education_level learning_resource_type
+    self.terms = %i[admin_note title creator resource_type audience education_level learning_resource_type
                     discipline bibliographic_citation source rights_statement license rights_holder
                     rights_notes additional_information description subject language publisher oer_size
                     identifier table_of_contents alternative_title contributor related_url accessibility_feature

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 # rubocop:disable Metrics/ModuleLength
@@ -125,13 +127,25 @@ module Hyrax
           group.add_members_by_id([user_1.id, user_2.id])
           expect(user_1.hyrax_groups).to include(group)
           expect(user_2.hyrax_groups).to include(group)
-          expect(Role.where(resource_id: group.id, resource_type: 'Hyrax::Group', name: 'member').count).to eq(1) # group's membership Role
+          expect(
+            Role.where(
+              resource_id: group.id,
+              resource_type: 'Hyrax::Group',
+              name: 'member'
+            ).count
+          ).to eq(1) # group's membership Role
 
           expect { group.destroy }.to change(Role, :count).by(-1)
 
           expect(user_1.hyrax_groups).not_to include(group)
           expect(user_2.hyrax_groups).not_to include(group)
-          expect(Role.where(resource_id: group.id, resource_type: 'Hyrax::Group', name: 'member').count).to eq(0) # group's membership Role
+          expect(
+            Role.where(
+              resource_id: group.id,
+              resource_type: 'Hyrax::Group',
+              name: 'member'
+            ).count
+          ).to eq(0) # group's membership Role
         end
       end
 
@@ -217,6 +231,7 @@ module Hyrax
         let(:group1) { described_class.create(name: "Pirate Studies") }
         let(:group2) { described_class.create(name: "Arcane Arts") }
         let(:edit_collection_role) { FactoryBot.create(:role, name: "Edit Collection") }
+
         it "can add a role" do
           group1.roles << edit_collection_role
           group2.roles << edit_collection_role
@@ -264,7 +279,7 @@ module Hyrax
       end
     end
 
-    context '#is_default_group?' do
+    context '#default_group?' do
       let(:admin_group) { FactoryBot.create(:admin_group) }
       let(:registered_group) { FactoryBot.create(:registered_group) }
       let(:editors_group) { FactoryBot.create(:editors_group) }
@@ -272,11 +287,11 @@ module Hyrax
       let(:non_default_group) { FactoryBot.create(:group) }
 
       it 'returns true if the group is a Default Group' do
-        expect(admin_group.is_default_group?).to eq true
-        expect(registered_group.is_default_group?).to eq true
-        expect(editors_group.is_default_group?).to eq true
-        expect(depositors_group.is_default_group?).to eq true
-        expect(non_default_group.is_default_group?).to eq false
+        expect(admin_group.default_group?).to eq true
+        expect(registered_group.default_group?).to eq true
+        expect(editors_group.default_group?).to eq true
+        expect(depositors_group.default_group?).to eq true
+        expect(non_default_group.default_group?).to eq false
       end
     end
   end

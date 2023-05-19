@@ -110,7 +110,7 @@
       padding: 16px;
     }
   }
-  
+
   .partnering-consortia, .splash-footer {
     padding: 16px;
   }
@@ -433,6 +433,10 @@ a.restore-default-color {
   margin-bottom: 2em;
 }
 
+a.btn.btn-default.restore-default-color.with-color-hint {
+  margin-top: 4em;
+}
+
 .defaultable-colors div[class$="_color"] {
   margin-bottom: 0.75em;
 }
@@ -565,4 +569,10 @@ body.public-facing {
 
 .mt-20 {
   margin-top: 20px;
+}
+
+// make sure constraints are on only one line, even with markdown
+span.constraint-value p, .facet-values p {
+  display: inline-block;
+  margin-bottom: 0;
 }

@@ -14,6 +14,7 @@ en:
       labels:
         resource_type: "Type"
         description: "Description"
+        admin_note: "Administrative Notes"
       show:
         related_items: "Related Versions and Items"
       works:

@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'cancan/matchers'
 
+# rubocop:disable RSpec/FilePath
 RSpec.describe Hyrax::Ability::WorkAbility do
+  # rubocop:enable RSpec/FilePath
   subject(:ability) { ::Ability.new(user) }
 
   let(:user) { FactoryBot.create(:user) }
@@ -13,7 +17,7 @@ RSpec.describe Hyrax::Ability::WorkAbility do
     (Hyrax.config.curation_concerns + [::FileSet]).each do |model|
       context "#{model} permissions" do
         let(:model_instance) { FactoryBot.create(model.to_s.underscore.to_sym, title: ["#{model} instance"]) }
-        let(:solr_doc) { ::SolrDocument.new(model_instance.to_solr.merge({ 'title_tesim' => ["#{model} solr doc"] })) }
+        let(:solr_doc) { ::SolrDocument.new(model_instance.to_solr.merge('title_tesim' => ["#{model} solr doc"])) }
         let(:id) { model_instance.id }
 
         it { is_expected.to be_able_to(:create, model) }
@@ -45,7 +49,7 @@ RSpec.describe Hyrax::Ability::WorkAbility do
     (Hyrax.config.curation_concerns + [::FileSet]).each do |model|
       context "#{model} permissions" do
         let(:model_instance) { FactoryBot.create(model.to_s.underscore.to_sym, title: ["#{model} instance"]) }
-        let(:solr_doc) { ::SolrDocument.new(model_instance.to_solr.merge({ 'title_tesim' => ["#{model} solr doc"] })) }
+        let(:solr_doc) { ::SolrDocument.new(model_instance.to_solr.merge('title_tesim' => ["#{model} solr doc"])) }
         let(:id) { model_instance.id }
 
         it { is_expected.to be_able_to(:create, model) }

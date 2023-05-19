@@ -52,6 +52,7 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.50', '<= 0.52.1', require: false
   gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', require: false
+  gem 'xray-rails'
 end
 
 group :test do
@@ -92,7 +93,7 @@ gem 'bulkrax', '~> 4.3.0'
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
-gem 'hyrax', '~> 3.4.0'
+gem 'hyrax', '~> 3.5.0'
 
 gem 'bolognese', '>= 1.9.10'
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'#, branch: 'hyrax_upgrade'
@@ -148,3 +149,6 @@ gem 'pronto-flay', require: false
 gem 'pronto-rails_best_practices', require: false
 gem 'pronto-rails_schema', require: false
 gem 'pronto-rubocop', require: false
+
+gem "order_already", "~> 0.3.1"
+gem "redcarpet"

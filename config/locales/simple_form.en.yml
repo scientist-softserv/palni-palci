@@ -13,6 +13,13 @@ en:
           url: Fedora URL should not end with a slash
         name: A single or hyphenated name used for technical aspects of the repository (e.g., "acme" or "acme-library").
         gtm_id: The ID of your Google Tag Manager account
+        google_analytics_id: The ID of your Google Analytics account
+        google_oauth_app_name: The name of the Google application in the Google API console
+        google_oauth_app_version: The version of the Google application in the Google API console
+        google_oauth_private_key_value: The value of the p12 file with base64 encryption
+        google_oauth_private_key_path: The full path to your p12, key file
+        google_oauth_private_key_secret: The secret provided when you created the p12 key
+        google_oauth_client_email: OAuth Client email address
         contact_email: Email recipient of messages sent via the contact form
         weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
         monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
@@ -36,7 +43,7 @@ en:
       hyku_group:
         description: A brief summary of the role of the group
       user:
-        email: Enter one email address at a time. If no role is selected, the new user will begin with only registered user permissions. Roles can also be granted to users through Workflow Roles or inclusion in Groups. You may also resend an invitation via this form.
+        email: Enter one email address at a time. You may also resend an invitation via this form. Roles only apply to this tenant.
     labels:
       account:
         admin_emails: Add or invite new administrator (via email)
@@ -51,6 +58,8 @@ en:
         gtm_id: Google tag manager
       add_user_to_group:
         user_ids: User ID
+      defaults:
+        admin_note: Administrative Notes
       domain_names:
         cname: Domain Name
       group_search:

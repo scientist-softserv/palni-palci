@@ -2,19 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Groups', type: :feature, js: true, clean: true, cohort: 'alpha' do
+RSpec.describe 'Groups', type: :feature, js: true, clean: true do
   let!(:managers_group) { FactoryBot.create(:admin_group, roles: ['admin', 'dinosaur']) }
   let!(:user) { FactoryBot.create(:admin) }
   let!(:users_group) { FactoryBot.create(:group, name: 'users') }
 
   context 'An admin user' do
     before do
+      Hyrax::Group.find_or_create_by!(name: Ability.admin_group_name).add_members_by_id(user.id)
       login_as(user, scope: :user)
     end
 
     it 'cannot destroy a default group' do
       visit "/admin/groups/#{managers_group.id}/remove"
-      expect(page).to have_content('Default groups cannot be destroyed.')
+      expect(page).to have_content('Default groups cannot be destroyed')
       within(".callout-action") do
         expect(page).to have_css('a.disabled', text: 'Remove')
       end
@@ -23,8 +24,8 @@ RSpec.describe 'Groups', type: :feature, js: true, clean: true, cohort: 'alpha' 
     it 'can destroy a non-default group' do
       visit "/admin/groups/#{users_group.id}/remove"
 
-      expect(page).not_to have_content('Default groups cannot be destroyed.')
-      expect do 
+      expect(page).not_to have_content('Default groups cannot be destroyed')
+      expect do
         within(".callout-action") do
           click_link 'Remove'
         end
@@ -43,13 +44,13 @@ RSpec.describe 'Groups', type: :feature, js: true, clean: true, cohort: 'alpha' 
 
       visit "/admin/groups/#{managers_group.id}/roles"
       tr = find("#assigned-role-#{admin_role.id}")
-      
+
       expect(tr).to have_button('Remove', disabled: true)
     end
-    
+
     it 'can destroy a non-admin role in the Managers group' do
       dinosaur_role = managers_group.roles.find_by(name: 'dinosaur')
-      
+
       visit "/admin/groups/#{managers_group.id}/roles"
       tr = find("#assigned-role-#{dinosaur_role.id}")
 

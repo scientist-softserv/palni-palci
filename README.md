@@ -143,82 +143,57 @@ switch!('myaccount')
 ```
 
 ## Analytics Feature
-Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Universal Analytics property for this feature. 
+Hyku currently only supports Google Analytics with the Universal Analytics property for this feature. An account will need to be established per tenant.
 
 Note: Google has announced they will stop processing data using the Universal Analytics property on July 1, 2023  or July 1, 2024 for Analytics 360 properties.
 
-To enable analytics tracking and reporting features within Hyku, please follow the directions below.
+Analytics tracking and reporting features will be turned off by default. To enable them within Hyku, please follow the directions below.
 
-### Setup a Google Analytics Account
+
+### Google
+#### Create the account
+<!-- TODO: check for updates when we've moved to GA4 -->
 - Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
 - Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
-- Create a Service Account: 
+- Create a Service Account:
   - https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount
   - Please select the p12 format when making your service account key.
-  - Note the private key secret so we can add as an env variable in the subsequent steps below.
+  - Note the private key secret so we can add it to the tenant settings.
 - Configure OAuth 2.0 consent screen: https://support.google.com/cloud/answer/10311615?hl=en&ref_topic=3473162
 - Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
 
-### Set the Environment Variables
-In Hyku there are a few areas to set the environment variables needed for each of your environments development/staging/prodeuction/etc.
+#### Set the Account Settings
+This applies to each of your environments: development/staging/production/etc.
+Dashboard >> Settings >> Account
 
-- Uncomment the config/analytics.yml file where the below mentioned environment variables will connect to our application.
+| Name | Description |
+| ------------- | ------------- |
+| GOOGLE_ANALYTICS_ID | The ID of your Google Analytics account. |
+| GOOGLE_OAUTH_APP_NAME | The name of the Google application in the Google API console. |
+| GOOGLE_OAUTH_APP_VERSION | The version of the Google application in the Google API console. |
+| GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption. |
+| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. |
+| GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided when you created the p12 key. |
+| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address. |
 
-```yaml
-analytics:
-  google:
-    analytics_id: <%= ENV['GOOGLE_ANALYTICS_ID'] %>
-    app_name: <%= ENV['GOOGLE_OAUTH_APP_NAME'] %>
-    app_version: <%= ENV['GOOGLE_OAUTH_APP_VERSION'] %>
-    privkey_path: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_PATH'] %>
-    privkey_secret: <%= ENV['GOOGLE_OAUTH_PRIVATE_KEY_SECRET'] %>
-    client_email: <%= ENV['GOOGLE_OAUTH_CLIENT_EMAIL'] %>
-```
+- To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
+  - `base64 -i path/to/file.p12 | pbcopy`
+  - Once you run this script the value is on your local computers clipboard. You will need to paste this into the corresponding account setting.
+- You can use the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` OR `GOOGLE_OAUTH_PRIVATE_KEY_PATH` value. VALUE takes precedence.
 
-- For local development please see the .env file and see the "Enable Google Analytics" section.
+### Matomo
+#### Create the account
+<!-- TODO -->
 
-```yaml
-##START## Enable Google Analytics
-# Uncomment to enable and configure Google Analytics, see README for instructions.
-HYRAX_ANALYTICS=true
-GOOGLE_ANALYTICS_ID=
-GOOGLE_OAUTH_APP_NAME=
-GOOGLE_OAUTH_APP_VERSION=
-GOOGLE_OAUTH_PRIVATE_KEY_SECRET=n
-GOOGLE_OAUTH_PRIVATE_KEY_PATH=prod-cred.p12
-GOOGLE_OAUTH_CLIENT_EMAIL=palni-palci-demo@palni-palci-demo.iam.gserviceaccount.com
+#### Set the Account Settings
+This applies to each of your environments: development/staging/production/etc.
+Dashboard >> Settings >> Account
 
-# AND comment this out
-# HYRAX_ANALYTICS=false
-##END## Enable Google Analytics
-```
-
-- For deployment to staging/production please update/add the variables and values to the helm values files located in the ops directory (example: staging-deploy.tmpl.yaml).
-
-```yaml
-  - name: GOOGLE_ANALYTICS_ID
-    value: $GOOGLE_ANALYTICS_ID # Set in GitHub's Environment Secrets
-  - name: GOOGLE_OAUTH_APP_NAME
-    value: hyku-demo
-  - name: GOOGLE_OAUTH_APP_VERSION
-    value: '1.0'
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET # Set in GitHub's Environment Secrets
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: prod-cred.p12 # The p12 file is in root and named `prod-cred.p12`
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE # Set in GitHub's Environment Secrets
-  - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: set-me
-  - name: HYRAX_ANALYTICS
-    value: 'true'
-```
-
-To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value to set the variable in GitHub's Environment Secrets, you need the path to the p12 file you got from setting up your Google Service Account and run the following in your console locally.
-
-`base64 -i path/to/file.p12 | pbcopy`
-
-Once you run this script the value is on your local computers clipboard. You will need to paste this into GitHubs Environment Secrets or however you/your organization are handling secrets.
+| Name | Description |
+| ------------- | ------------- |
+| MATOMO_BASE_URL | |
+| MATOMO_SITE_ID | |
+| MATOMO_AUTH_TOKEN | |
 
 ## Environment Variables
 
@@ -237,13 +212,6 @@ Once you run this script the value is on your local computers clipboard. You wil
 | FCREPO_PORT | port for the fedora repo | 8080 | no |
 | FCREPO_TEST_PORT | Test port for the fedora repo, only if FCREPO_URL is blank | 8986 | yes |
 | FCREPO_URL | URL of the fedora repo, including port and prefix, but not repo name. | http://fcrepo:8080/rest | no |
-| GOOGLE_ANALYTICS_ID | The Google Analytics account id. Disabled if not set | - | no |
-| GOOGLE_OAUTH_APP_NAME | The name of the application. | - | no |
-| GOOGLE_OAUTH_APP_VERSION | The version of application. | - | no |
-| GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided by Google when you created the key. | - | no |
-| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. | - | no |
-| GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption, only set on deployment as that is how we get the p12 file on the server (see bin/web & bin/worker files) | - | no
-| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address.  | - | no |
 | HYKU_ADMIN_HOST | URL of the admin / proprietor host in a multitenant environment | hyku.test | no |
 | HYKU_ADMIN_ONLY_TENANT_CREATION | Restrict signing up a new tenant to the admin | false | no | |
 | HYKU_ALLOW_SIGNUP | Can users register themselves on a given Tenant | true  | no |

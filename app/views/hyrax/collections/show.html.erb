@@ -1,10 +1,10 @@
-<%# OVERRIDE Hyrax 2.9.1 add show actions buttons to collection show page %>
+<%# OVERRIDE Hyrax 2.9.1 add show actions buttons to collection show page, enable markdown in title %>
 
 <% provide :page_title, construct_page_title(@presenter.title) %>
 <div class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
   <div class="row hyc-header">
     <div class="col-md-12">
-    
+
       <% if @presenter.banner_file.present? %>
         <div class="hyc-banner" style="background-image:url(<%= @presenter.banner_file[:relative_path] %>)" title="<%= @presenter.banner_file[:alt_text] %>">
       <% else %>
@@ -12,7 +12,7 @@
       <% end %>
 
       <div class="hyc-title">
-        <h1><%= @presenter.title.first %></h1>
+        <h1><%= markdown(@presenter.title.first) %></h1>
         <%= @presenter.collection_type_badge %>
         <%= @presenter.permission_badge %>
       </div>

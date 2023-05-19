@@ -4,7 +4,7 @@ class Ability
   include Hydra::Ability
   include Hyrax::Ability
   include GroupAwareRoleChecker
-  # OVERRIDE: Added custom user ability roles
+  # Add custom ability roles
   include Hyrax::Ability::UserAbility
   include Hyrax::Ability::WorkAbility
 
@@ -16,9 +16,14 @@ class Ability
     work_roles
     featured_collection_abilities
   ]
-  # If the Groups with Roles feature is disabled, allow registered users to create curation concerns (Works, Collections, and FileSets).
-  # Otherwise, omit this ability logic as to not conflict with the roles that explicitly grant creation permissions.
-  self.ability_logic += %i[everyone_can_create_curation_concerns] unless ENV['SETTINGS__RESTRICT_CREATE_AND_DESTROY_PERMISSIONS'] == 'true'
+  # If the Groups with Roles feature is disabled, allow registered users to create curation concerns
+  # (Works, Collections, and FileSets). Otherwise, omit this ability logic as to not
+  # conflict with the roles that explicitly grant creation permissions.
+  unless ActiveModel::Type::Boolean.new.cast(
+    ENV.fetch('HYKU_RESTRICT_CREATE_AND_DESTROY_PERMISSIONS', nil)
+  )
+    self.ability_logic += %i[everyone_can_create_curation_concerns]
+  end
 
   # OVERRIDE METHOD from blacklight-access_controls v0.6.2
   #
@@ -81,17 +86,17 @@ class Ability
     current_user.has_role? :superadmin
   end
 
-  # OVERRIDE: @return [Array<String>] a list of all role names that apply to the user
+  # @return [Array<String>] a list of all role names that apply to the user
   def all_user_and_group_roles
     return @all_user_and_group_roles if @all_user_and_group_roles
 
     @all_user_and_group_roles = []
     RolesService::DEFAULT_ROLES.each do |role_name|
-      @all_user_and_group_roles |= [role_name.to_s] if self.public_send("#{role_name}?")
+      @all_user_and_group_roles |= [role_name.to_s] if public_send("#{role_name}?")
     end
 
     @all_user_and_group_roles
-  end # needed this for sure to-do April
+  end
 
   def featured_collection_abilities
     can %i[create destroy update], FeaturedCollection if admin?

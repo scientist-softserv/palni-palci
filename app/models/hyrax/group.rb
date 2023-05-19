@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Override from hyrax 3.4.1 to migrate Hyku::Group into Hyrax::Group
+# OVERRIDE Hyrax v3.4.2 Expand functionality for Groups with Roles Feature
+# @see https://github.com/samvera/hyku/wiki/Groups-with-Roles-Feature
 module Hyrax
   class Group < ApplicationRecord
     resourcify # Declares Hyrax::Group a resource model so rolify can manage membership
@@ -10,11 +11,11 @@ module Hyrax
     DEFAULT_NAME_PREFIX = 'group/'
 
     validates :name, presence: true, uniqueness: true
-    has_many :group_roles
+    has_many :group_roles, dependent: :destroy
     has_many :roles, through: :group_roles
     before_destroy :can_destroy?
     after_destroy :remove_all_members
-    
+
     def self.name_prefix
       DEFAULT_NAME_PREFIX
     end
@@ -76,8 +77,8 @@ module Hyrax
       sipity_agent || create_sipity_agent!
     end
 
-    def is_default_group?
-      return true if RolesService::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.stringify_keys.keys.include?(self.name)
+    def default_group?
+      return true if RolesService::DEFAULT_HYRAX_GROUPS_WITH_ATTRIBUTES.stringify_keys.keys.include?(name)
 
       false
     end
@@ -89,7 +90,7 @@ module Hyrax
       label
     end
 
-    def has_site_role?(role_name)
+    def has_site_role?(role_name) # rubocop:disable Naming/PredicateName
       site_roles = roles.select { |role| role.resource_type == 'Site' }
 
       site_roles.map(&:name).include?(role_name.to_s)
@@ -98,7 +99,7 @@ module Hyrax
     private
 
       def can_destroy?
-        return false if self.is_default_group?
+        return false if default_group?
 
         true
       end

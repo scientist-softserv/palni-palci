@@ -1,5 +1,8 @@
-<%# Override from hyrax 2.5.1 to use Hyrax::Groups for groups select box %>
-<% access_options = options_for_select([['Manager', 'manage'], ['Depositor', 'deposit'], ['Viewer', 'view']]) %>
+<%# OVERRIDE Hyrax v3.4.2 Use Hyrax::Groups for groups select box %>
+<% access_options = options_for_select([
+    [t('hyrax.dashboard.collections.form_share.access_options.manager'), 'manage'],
+    [t('hyrax.dashboard.collections.form_share.access_options.depositor'), 'deposit'],
+    [t('hyrax.dashboard.collections.form_share.access_options.viewer'), 'view']]) %>
 
 <div id="participants" class="tab-pane">
   <div class="panel panel-default labels edit-sharing-tab">
@@ -23,7 +26,7 @@
                   <label class="col-md-2 col-xs-4 control-label"><%= t('.add_group') %>:</label>
                   <div class="col-md-10 col-xs-8 form-group">
                     <%= builder.hidden_field :agent_type %>
-                    <%# changed select to use Hyrax::Groups %>
+                    <%# OVERRIDE: Change select to use Hyrax::Groups %>
                     <%= builder.select :agent_id,
                                 Hyrax::Group.all.map { |g| [g.humanized_name, g.name] },
                                 { prompt: "Select a group..." },

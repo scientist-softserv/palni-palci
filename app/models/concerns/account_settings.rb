@@ -192,6 +192,7 @@ module AccountSettings
     end
 
     def reload_analytics
+      # rubocop:disable Style/RedundantSelf
       # fall back to the default values if they aren't set in the tenant
       unless self.google_analytics_id.present? &&
              self.google_oauth_app_name.present? &&
@@ -221,5 +222,6 @@ module AccountSettings
 
       # only show analytics partials if analytics are set on the tenant
       Hyrax.config.analytics = Hyrax::Analytics.config.valid?
+      # rubocop:enable Style/RedundantSelf
     end
 end

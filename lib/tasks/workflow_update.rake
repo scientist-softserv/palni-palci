@@ -48,7 +48,7 @@ namespace :workflow do
                   csv << ["#{admin_set.id}", "default_workflow.present? == false for #{admin_set.id}"]
                 end
               else
-                csv << ["#{admin_set.id}", "admin_set_permission_template_active_workflow.present? && admin_set_permission_template_active_workflow.name == 'hyku_commons_mediated_deposit' == false",]
+                csv << ["#{admin_set.id}", "admin_set_permission_template_active_workflow.presence != 'hyku_commons_mediated_deposit'",]
               end
             rescue Sipity::Workflow::NoActiveWorkflowError => e
               csv << ["#{admin_set.id}", "Sipity::Workflow::NoActiveWorkflowError & #{e.message}"]

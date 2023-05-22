@@ -46,10 +46,10 @@ extraVolumeMounts: &volMounts
 ingress:
   enabled: true
   hosts:
-    - host: atla-hyku-production.notch8.cloud
+    - host: ir.atla.com
       paths:
         - path: /
-    - host: '*.atla-hyku-production.notch8.cloud'
+    - host: '*.ir.atla.com'
       paths:
         - path: /
 
@@ -99,7 +99,7 @@ extraEnvVars: &envVars
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: HYKU_ADMIN_HOST
-    value: atla-hyku-production.notch8.cloud
+    value: ir.atla.com
   - name: HYKU_ADMIN_ONLY_TENANT_CREATION
     value: 'false'
   - name: HYKU_ALLOW_SIGNUP
@@ -109,13 +109,13 @@ extraEnvVars: &envVars
   - name: HYKU_CONTACT_EMAIL
     value: dev-oops@scientist.com
   - name: HYKU_DEFAULT_HOST
-    value: "%{tenant}.atla-hyku-production.notch8.cloud"
+    value: "%{tenant}.ir.atla.com"
   - name: HYKU_FILE_ACL
     value: 'false'
   - name: HYKU_MULTITENANT
     value: 'true'
   - name: HYKU_ROOT_HOST
-    value: atla-hyku-production.notch8.cloud
+    value: ir.atla.com
   - name: INITIAL_ADMIN_EMAIL
     value: admin@example.com
   - name: INITIAL_ADMIN_PASSWORD

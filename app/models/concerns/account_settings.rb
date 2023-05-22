@@ -202,13 +202,13 @@ module AccountSettings
              self.google_oauth_client_email.present?
 
         config = Hyrax::Analytics::Config.load_from_yaml
-        self.google_analytics_id ||= config.analytics_id
-        self.google_oauth_app_name ||= config.app_name
-        self.google_oauth_app_version ||= config.app_version
-        self.google_oauth_private_key_value ||= config.privkey_value
-        self.google_oauth_private_key_path ||= config.privkey_path
-        self.google_oauth_private_key_secret ||= config.privkey_secret
-        self.google_oauth_client_email ||= config.client_email
+        self.google_analytics_id = self.google_analytics_id.presence || config.analytics_id
+        self.google_oauth_app_name = self.google_oauth_app_name.presence || config.app_name
+        self.google_oauth_app_version = self.google_oauth_app_version.presence || config.app_version
+        self.google_oauth_private_key_value = self.google_oauth_private_key_value.presence || config.privkey_value
+        self.google_oauth_private_key_path = self.google_oauth_private_key_path.presence || config.privkey_path
+        self.google_oauth_private_key_secret = self.google_oauth_private_key_secret.presence || config.privkey_secret
+        self.google_oauth_client_email = self.google_oauth_client_email.presence || config.client_email
       end
 
       # require the analytics to be set per tenant

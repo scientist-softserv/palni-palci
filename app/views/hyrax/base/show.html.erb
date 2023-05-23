@@ -27,7 +27,6 @@
           <div class="col-sm-3 text-center">
             <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
             <%= render 'citations', presenter: @presenter %>
-            <%= self.method(:universal_viewer_config_url).source_location %>
           </div>
           <div class="col-sm-9">
             <%= render 'work_description', presenter: @presenter %>

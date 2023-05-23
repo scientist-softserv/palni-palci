@@ -49,11 +49,11 @@ module OAI
 
         def add_work_url(xml, record)
           work_type = record[:has_model_ssim].first.underscore.pluralize
-          if work_type === 'collections'
-            work_path = "https://#{Site.instance.account.cname}/#{work_type}/#{record[:id]}"
-          else
-            work_path = "https://#{Site.instance.account.cname}/concern/#{work_type}/#{record[:id]}"
-          end
+          work_path = if work_type == 'collections'
+                        "https://#{Site.instance.account.cname}/#{work_type}/#{record[:id]}"
+                      else
+                        "https://#{Site.instance.account.cname}/concern/#{work_type}/#{record[:id]}"
+                      end
           xml.tag! 'work_url', work_path
         end
 

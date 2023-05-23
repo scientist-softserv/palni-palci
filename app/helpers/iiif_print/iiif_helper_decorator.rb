@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # OVERRIDE Hyrax v2.9.6 add #uv_search_param
+# OVERRDIDE IIIFPRINT v1.0.0 to modify the config url
 
 module IiifPrint
   module IiifHelperDecorator

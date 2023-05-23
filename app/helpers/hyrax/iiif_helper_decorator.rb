@@ -2,7 +2,7 @@
 #
 # OVERRIDE: Hyrax hyrax-v3.5.0 to add download restricted specific uv-config
 module Hyrax
-  IiifHelper.module_eval do
+  module IiifHelperDecorator
     def universal_viewer_config_url
       if Site.account.settings[:allow_downloads].nil? || Site.account.settings[:allow_downloads].to_i.nonzero?
         "#{request&.base_url}/uv/uv-config.json"
@@ -12,3 +12,5 @@ module Hyrax
     end
   end
 end
+
+Hyrax::IiifHelper.prepend(Hyrax::IiifHelperDecorator)

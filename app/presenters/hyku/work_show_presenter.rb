@@ -73,7 +73,7 @@ module Hyku
     private
 
       def extract_video_embed_presence
-        solr_document[:video_embed_tesim].present?
+        solr_document[:video_embed_tesim]&.all?(&:present?)
       end
 
       def iiif_media?(presenter: representative_presenter)

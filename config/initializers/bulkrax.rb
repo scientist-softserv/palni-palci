@@ -100,6 +100,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
       'title' => { from: ['title'] },
       'types' => { from: ['types'] },
       'video_embed' => { from: ['video_embed'] },
+      'work_url' => { from: ['work_url']},
       'year' => { from: ['year'] },
     }
 

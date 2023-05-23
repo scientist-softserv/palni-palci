@@ -233,6 +233,7 @@ solr:
   enabled: false
 
 externalFcrepoHost: fcrepo.default.svc.cluster.local
+fcrepoBasePathOverride: /hykuprod
 
 externalPostgresql:
   host: hyrax20181216.cn4nhxyoxlnu.us-west-2.rds.amazonaws.com

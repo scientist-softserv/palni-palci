@@ -13,7 +13,8 @@ class AppIndexer < Hyrax::WorkIndexer
   def generate_solr_document
     super.tap do |solr_doc|
       solr_doc['title_ssi'] = SortTitle.new(object.title.first).alphabetical
-      solr_doc["account_cname_tesim"] = Site.instance&.account&.cname
+      solr_doc['account_cname_tesim'] = Site.instance&.account&.cname
+      solr_doc['bulkrax_identifier_tesim'] = object.bulkrax_identifier
     end
   end
 end

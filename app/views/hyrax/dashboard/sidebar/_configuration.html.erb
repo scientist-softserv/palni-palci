@@ -10,6 +10,10 @@
         <%= menu.nav_link(main_app.edit_admin_account_path) do %>
           <span class="fa fa-gear"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.account') %></span>
         <% end %>
+         <%# TODO: figure out how to render edit when no auth_provider exists %>
+        <%= menu.nav_link(main_app.edit_auth_provider_path(AuthProvider.where(account_id: @site.account_id).first)) do %>
+          <span class="fa fa-gear"></span> <span class="sidebar-action-text">Auth Provider</span>
+        <% end %>
 
         <%= menu.nav_link(main_app.edit_site_labels_path) do %>
           <span class="fa fa-institution"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.labels') %></span>

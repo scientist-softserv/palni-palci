@@ -1,0 +1,9 @@
+<h1>Auth Provider</h1>
+<p id="notice"><%= notice %></p>
+<%= @auth_provider.provider %><br>
+<%= @auth_provider.client_id %><br>
+<%= @auth_provider.client_secret %><br>
+<%= @auth_provider.idp_sso_service_url %><br>
+<%= @auth_provider.account_id %><br>
+<%= link_to 'Edit', edit_auth_provider_path(@auth_provider) %> |
+<%= link_to 'Back', auth_providers_path %>

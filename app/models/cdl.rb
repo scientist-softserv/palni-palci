@@ -25,11 +25,11 @@ class Cdl < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :contributing_library, predicate: ::RDF::URI("https://hykucommons.org/terms/contributing_library"), do |index|
+  property :contributing_library, predicate: ::RDF::URI("https://hykucommons.org/terms/contributing_library") do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :library_catalog_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/library_catalog_identifier"), do |index|
+  property :library_catalog_identifier, predicate: ::RDF::URI("https://hykucommons.org/terms/library_catalog_identifier") do |index|
     index.as :stored_searchable, :facetable
   end
 

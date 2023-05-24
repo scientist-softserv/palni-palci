@@ -64,12 +64,14 @@ Bulkrax.setup do |config|
     'bibliographic_citation' => { from: ['bibliographic_citation'], split: '\|', generated: true },
     'bulkrax_identifier' => { from: ['source_identifier'], source_identifier: true, generated: true },
     'children' => { from: ['children'], split: /\s*[;|]\s*/, related_children_field_mapping: true },
+    'chronology_note' => { from: ['chronology_note'], split: '\|' },
     'committee_member' => { from: ['committee_member'], split: '\|' },
+    'contributing_library' => { from: ['contributing_library'], split: '\|' },
     'contributor' => { from: ['contributor'], split: '\|' },
     'creator' => { from: ['author', 'creator'], split: '\|' },
-    'date' => { from: ['date'], split: '\|' },
     'date_created' => { from: ['date', 'date_created'], split: '\|' },
     'date_uploaded' => { from: ['date_uploaded'], generated: true },
+    'date' => { from: ['date'], split: '\|' },
     'degree_discipline' => { from: ['discipline'], split: '\|' },
     'degree_grantor' => { from: ['grantor'], split: '\|' },
     'degree_level' => { from: ['level'], split: '\|' },
@@ -87,6 +89,7 @@ Bulkrax.setup do |config|
     'language' => { from: ['language'], split: '\|' },
     'learning_resource_type' => { from: ['learning_resource_type'], split: '\|' },
     'lease_id' => { from: ['lease_id'], generated: true },
+    'library_catalog_identifier' => { from: ['library_catalog_identifier'], split: '\|' },
     'license' => { from: ['license'], split: '\|' },
     'newer_version' => { from: ['newer_version'], split: '\|' },
     'oer_size' => { from: ['oer_size'], split: '\|' },
@@ -109,7 +112,7 @@ Bulkrax.setup do |config|
     'state' => { from: ['state'], generated: true },
     'subject' => { from: ['subject'], split: '\|' },
     'table_of_contents' => { from: ['table_of_contents'], split: '\|' },
-    'title' => { from: ['title'], split: '\|' }
+    'title' => { from: ['title'], split: '\|' },
   }
 
   config.field_mappings['Bulkrax::BagitParser'] = parser_mappings

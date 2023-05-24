@@ -9,6 +9,8 @@ Hyrax.config do |config|
   config.register_curation_concern :oer
   # Injected via `rails g hyrax:work Etd`
   config.register_curation_concern :etd
+  # Injected via `rails g hyrax:work Cdl`
+  config.register_curation_concern :cdl
   # Email recipient of messages sent via the contact form
   # This is set by account settings
   # config.contact_email = 'changeme@example.com'

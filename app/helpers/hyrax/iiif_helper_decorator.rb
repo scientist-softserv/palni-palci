@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # OVERRIDE: Hyrax hyrax-v3.5.0 to add download restricted specific uv-config
 module Hyrax

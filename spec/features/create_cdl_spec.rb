@@ -64,7 +64,6 @@ RSpec.describe 'Create a Cdl', type: :feature, js: true, clean: true do
       select('In Copyright', from: 'Rights Statement')
 
       page.choose('cdl_visibility_open')
-      # rubocop:disable Metrics/LineLength
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       # rubocop:enable Metrics/LineLength
       find('#agreement').click

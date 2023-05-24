@@ -83,7 +83,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
-    config.add_facet_field 'library_catalog_identifier_sim', limit: 5
+    config.add_facet_field 'contributing_library_sim', limit: 5
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
     # Have BL send all facet field names to Solr, which has been the default

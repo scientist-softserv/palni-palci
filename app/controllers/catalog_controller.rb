@@ -83,6 +83,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
+    config.add_facet_field 'library_catalog_identifier_sim', limit: 5
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -166,6 +167,9 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('previous_version_id', :stored_searchable)
     config.add_show_field solr_name('newer_version_id', :stored_searchable)
     config.add_show_field solr_name('related_item_id', :stored_searchable)
+    config.add_show_field solr_name('contributing_library', :stored_searchable)
+    config.add_show_field solr_name('library_catalog_identifier', :stored_searchable)
+    config.add_show_field solr_name('chronology_note', :stored_searchable)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

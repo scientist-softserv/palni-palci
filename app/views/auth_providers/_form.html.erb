@@ -1,5 +1,4 @@
 <div class="panel panel-default">
-  <%# TODO: dynamic form   for new or edit %>
   <%= simple_form_for(@auth_provider) do |f| %>
     <div class="panel-body">
       <% if @auth_provider.errors.any? %>
@@ -12,7 +11,7 @@
           </ul>
         </div>
       <% end %>
-      <%= f.hidden_field :account_id, value: @site.account_id %>
+      <%= f.hidden_field :account_id, value: @current_account.id %>
       <%# TODO: add localizations %>
       <%= f.input :provider, label: t('hyku.admin.auth_providers.label.provider'), required: true %>
       <%= f.input :client_id, label: t('hyku.admin.auth_providers.label.client_id'), required: true %>
@@ -21,6 +20,10 @@
     </div>
 
     <div class="panel-footer text-right">
+      <% if AuthProvider.count.nonzero? %>
+        <%= link_to 'Delete', auth_provider, method: :delete, data: { confirm: 'Are you sure?' }, class: 
+      'btn btn-danger' %>
+      <% end %>
       <%= f.submit class: 'btn btn-primary action-save' %>
     </div>
   <% end %>

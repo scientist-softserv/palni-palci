@@ -6,10 +6,11 @@ RSpec.describe AuthProvider, type: :model do
       provider: 'saml',
       client_id: 'client_id',
       client_secret: 'client_secret',
-      idp_sso_service_url: 'idp_sso_service_url'
+      idp_sso_service_url: 'idp_sso_service_url',
+      account_id: 1
     )
   end
-  
+
   context 'attributes and validations' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
@@ -17,17 +18,17 @@ RSpec.describe AuthProvider, type: :model do
 
     it 'is not valid without a provider' do
       subject.provider = nil
-      expect(subject).to_not be_valid
+      expect(subject).not_to be_valid
     end
 
     it 'is not valid without a client_id' do
       subject.client_id = nil
-      expect(subject).to_not be_valid
+      expect(subject).not_to be_valid
     end
 
     it 'is not valid without a client_secret' do
       subject.client_secret = nil
-      expect(subject).to_not be_valid 
+      expect(subject).not_to be_valid
     end
   end
 
@@ -41,6 +42,7 @@ RSpec.describe AuthProvider, type: :model do
         provider: 'saml',
         client_id: 'client_id',
         client_secret: 'client_secret',
+        account_id: 1
       )
       expect(described_class.count).to eq 1
     end

@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe AuthProvidersController, type: :routing do
-
   describe "routing" do
     it "routes to #new" do
       expect(get: "/auth_providers/new").to route_to("auth_providers#new")

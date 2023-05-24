@@ -13,10 +13,10 @@
       <% end %>
       <%= f.hidden_field :account_id, value: @current_account.id %>
       <%# TODO: add localizations %>
-      <%= f.input :provider, label: t('hyku.admin.auth_providers.label.provider'), required: true %>
-      <%= f.input :client_id, label: t('hyku.admin.auth_providers.label.client_id'), required: true %>
-      <%= f.input :client_secret, label: t('hyku.admin.auth_providers.label.client_secret'), required: true %>
-      <%= f.input :idp_sso_service_url, label: t('hyku.admin.auth_providers.label.idp_sso_service_url') %>
+      <%= f.input :provider, label: t('hyku.auth_provider.label.provider'), required: true %>
+      <%= f.input :client_id, label: t('hyku.auth_provider.label.client_id'), required: true %>
+      <%= f.input :client_secret, label: t('hyku.auth_provider.label.client_secret'), required: true %>
+      <%= f.input :idp_sso_service_url, label: t('hyku.auth_provider.label.idp_sso_service_url') %>
     </div>
 
     <div class="panel-footer text-right">

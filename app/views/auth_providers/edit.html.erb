@@ -1,8 +1,5 @@
-<%# TODO: dynamic header for new or edit %>
 <% provide :page_header do %>
-  <%#<h1><span class="fa fa-address-book"></span> <%= t('hyku.auth_provider.header') %><%#</h1>%>
-  <%# TODO: add local for page header %>
-  <h1><span class="fa fa-gear"></span> Authentication Provider</h1>
+  <h1><span class="fa fa-key"></span> <%= t('hyku.auth_provider.header') %></h1>
 <% end %>
 
 <%= render 'form', auth_provider: @auth_provider %>

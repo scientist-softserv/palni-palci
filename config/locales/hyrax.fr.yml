@@ -1,5 +1,21 @@
 ---
 fr:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: Informations supplémentaires sur les droits
+          creator: Créateur
+          date_created: date créée
+          format: Format
+          institution: Institution
+          language: Langue
+          publisher: Éditeur
+          resource_type: Type de ressource
+          rights_statement: Déclaration des droits
+          source: Source
+          subject: Sujet
+          types: Taper
   hyrax:
     account_label: Utilisateur
     account_name: Identifiant de compte
@@ -1165,21 +1181,31 @@ fr:
         share_applies_to_new_works: APPLIQUER AUX NOUVEAUX OEUVRES
         title: Saisissez le nom
       defaults:
+        additional_rights_info: Informations supplémentaires sur les droits
         admin_set_id: Ensemble administratif
         based_near: Emplacement
+        contributor: Donateur
         creator: Créateur
         date_created: date créée
         description: Descripción
         embargo_release_date: jusqu'à ce que
         files: Télécharger un fichier
+        format: Format
+        institution: Institution
         keyword: Mot-clé
+        language: Langue
         lease_expiration_date: jusqu'à ce que
         license: Licence
         member_of_collection_ids: Ajouter à la collection
+        publisher: Éditeur
         related_url: URL associée
+        resource_type: Type de ressource
         rights_statement: Déclaration des droits
+        source: Source
+        subject: Sujet
         title: Titre
         types: Taper
+        video_embed: Vidéo intégrée
         visibility_after_embargo: puis ouvrez-le pour
         visibility_after_lease: puis limitez-le à
         visibility_during_embargo: Limité à

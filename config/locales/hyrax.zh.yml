@@ -1,5 +1,21 @@
 ---
 zh:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: 附加权利信息
+          creator: 造物主
+          date_created: 创建日期
+          format: 格式
+          institution: 机构
+          language: 语言
+          publisher: 出版商
+          resource_type: 资源类型
+          rights_statement: 权利声明
+          source: 来源
+          subject: 主题
+          types: 类型
   hyrax:
     account_label: 用户
     account_name: 我的机构帐户标识符
@@ -1167,21 +1183,31 @@ zh:
         share_applies_to_new_works: 申请新作品
         title: 类型名称
       defaults:
+        additional_rights_info: 附加权利信息
         admin_set_id: 行政套装
         based_near: 位置
+        contributor: 贡献者
         creator: 创作者
         date_created: 创建日期
         description: 描述
         embargo_release_date: 直到
         files: 上传一个文件
+        format: 格式
+        institution: 机构
         keyword: 关键词
+        language: 语言
         lease_expiration_date: 直到
         license: 执照
         member_of_collection_ids: 添加到收藏
+        publisher: 出版商
         related_url: 相关网址
+        resource_type: 资源类型
         rights_statement: 权利声明
+        source: 来源
+        subject: 主题
         title: 标题
         types: 类型
+        video_embed: 嵌入式视频
         visibility_after_embargo: 然后打开它
         visibility_after_lease: 然后将其限制为
         visibility_during_embargo: 受限于

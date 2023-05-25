@@ -1,5 +1,21 @@
 ---
 pt-BR:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: Informações adicionais sobre direitos
+          creator: O Criador
+          date_created: Data Criada
+          format: Formatar
+          institution: Instituição
+          language: Linguagem
+          publisher: Editor
+          resource_type: Tipo de recurso
+          rights_statement: Declaração de Direitos
+          source: Fonte
+          subject: Assunto
+          types: Tipo
   hyrax:
     account_label: Do utilizador
     account_name: ID da conta
@@ -1167,21 +1183,31 @@ pt-BR:
         share_applies_to_new_works: APLICAR-SE A NOVOS TRABALHOS
         title: Digite o nome
       defaults:
+        additional_rights_info: Informações adicionais sobre direitos
         admin_set_id: Conjunto administrativo
         based_near: Localização
+        contributor: Contribuinte
         creator: O Criador
         date_created: Data Criada
         description: Descrição
         embargo_release_date: até
         files: Enviar um arquivo
+        format: Formatar
+        institution: Instituição
         keyword: Palavra-chave
+        language: Linguagem
         lease_expiration_date: até
         license: Licença
         member_of_collection_ids: Adicionar a coleção
+        publisher: Editor
         related_url: URL relacionado
+        resource_type: Tipo de recurso
         rights_statement: Declaração de direitos
+        source: Fonte
+        subject: Assunto
         title: Título
         types: Tipo
+        video_embed: vídeo incorporado
         visibility_after_embargo: depois abra
         visibility_after_lease: então restrinja-o a
         visibility_during_embargo: Restrito a

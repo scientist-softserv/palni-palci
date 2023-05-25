@@ -1,5 +1,21 @@
 ---
 de:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: Zusätzliche Rechteinformationen
+          creator: Schöpfer
+          date_created: Datum erstellt
+          format: Format
+          institution: Institution
+          language: Sprache
+          publisher: Herausgeber
+          resource_type: Ressourcentyp
+          rights_statement: Rechteerklärung
+          source: Quelle
+          subject: Thema
+          types: Typ
   hyrax:
     account_label: Benutzer
     account_name: Konto-ID
@@ -1166,21 +1182,31 @@ de:
         share_applies_to_new_works: BEWERBEN SIE SICH AUF NEUE WERKE
         title: Modellname
       defaults:
+        additional_rights_info: Zusätzliche Rechteinformationen
         admin_set_id: Verwaltungsset
         based_near: Ort
+        contributor: Mitwirkender
         creator: Schöpfer
         date_created: Datum erstellt
         description: Beschreibung
         embargo_release_date: bis um
         files: Eine Datei hochladen
+        format: Format
+        institution: Institution
         keyword: Stichwort
+        language: Sprache
         lease_expiration_date: bis um
         license: Lizenz
         member_of_collection_ids: Zur Sammlung hinzufügen
+        publisher: Herausgeber
         related_url: Verwandte URL
+        resource_type: Ressourcentyp
         rights_statement: Rechteerklärung
+        source: Quelle
+        subject: Thema
         title: Titel
         types: Typ
+        video_embed: Eingebettetes Video
         visibility_after_embargo: dann öffne es bis
         visibility_after_lease: dann beschränken Sie es auf
         visibility_during_embargo: Beschränkt auf

@@ -1,5 +1,21 @@
 ---
 it:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: Ulteriori informazioni sui diritti
+          creator: Creatore
+          date_created: data di creazione
+          format: Formato
+          institution: Istituzione
+          language: Lingua
+          publisher: Editore
+          resource_type: Tipo di risorsa
+          rights_statement: Dichiarazione dei diritti
+          source: Fonte
+          subject: Soggetto
+          types: Tipo
   hyrax:
     account_label: Utente
     account_name: Account ID
@@ -1167,21 +1183,31 @@ it:
         share_applies_to_new_works: CANDIDATI A NUOVI LAVORI
         title: Digita il nome
       defaults:
+        additional_rights_info: Ulteriori informazioni sui diritti
         admin_set_id: Set amministrativo
         based_near: Posizione
+        contributor: Collaboratore
         creator: Creatore
         date_created: data di creazione
         description: Descrizione
         embargo_release_date: fino a
         files: Caricare un file
+        format: Formato
+        institution: Istituzione
         keyword: Parola chiave
+        language: Lingua
         lease_expiration_date: fino a
         license: Licenza
         member_of_collection_ids: Aggiungere alla collezione
+        publisher: Editore
         related_url: URL correlato
+        resource_type: Tipo di risorsa
         rights_statement: Dichiarazione dei diritti
+        source: Fonte
+        subject: Soggetto
         title: Titolo
         types: Tipo
+        video_embed: Video incorporato
         visibility_after_embargo: quindi aprilo fino a
         visibility_after_lease: quindi limitalo a
         visibility_during_embargo: Limitato a

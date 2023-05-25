@@ -1183,6 +1183,7 @@ es:
         share_applies_to_new_works: APLICAR A NUEVAS OBRAS
         title: Escribe un nombre
       defaults:
+        additional_rights_info: Información de derechos adicionales
         admin_set_id: Conjunto administrativo
         based_near: Ubicación
         contributor: Contribuyente
@@ -1191,6 +1192,8 @@ es:
         description: Descripción
         embargo_release_date: hasta
         files: Cargar un archivo
+        format: Formato
+        institution: Institución
         keyword: Palabra clave
         language: Idioma
         lease_expiration_date: hasta
@@ -1200,6 +1203,7 @@ es:
         related_url: URL relacionada
         resource_type: Tipo de recurso
         rights_statement: Declaración de derechos
+        source: Fuente
         subject: Sujeto
         title: Título
         types: Tipo

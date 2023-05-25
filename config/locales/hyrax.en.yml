@@ -1187,6 +1187,7 @@ en:
         share_applies_to_new_works: APPLY TO NEW WORKS
         title: Type name
       defaults:
+        additional_rights_info: Additional rights info
         admin_set_id: Administrative Set
         based_near: Location
         contributor: Contributor
@@ -1195,6 +1196,8 @@ en:
         description: Description
         embargo_release_date: until
         files: Upload a file
+        format: Format
+        institution: Institution
         keyword: Keyword
         language: Language
         lease_expiration_date: until
@@ -1204,6 +1207,7 @@ en:
         related_url: Related URL
         resource_type: Resource Type
         rights_statement: Rights statement
+        source: Source
         subject: Subject
         title: Title
         types: Type

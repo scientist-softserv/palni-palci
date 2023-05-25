@@ -42,7 +42,10 @@ concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
 
   root 'hyrax/homepage#index'
 
-  devise_for :users, controllers: { invitations: 'hyku/invitations', registrations: 'hyku/registrations' }
+  devise_for :users, controllers: { invitations: 'hyku/invitations', registrations: 'hyku/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
+  match 'users/auth/:user/:provider', to: 'users/omniauth_callbacks#passthru', via: [:get, :post], as: :user_omniauth_authorize
+  match 'users/auth/:user/:provider/callback', to: 'users/omniauth_callbacks#callback', via: [:get, :post], as: :user_omniauth_callback
+
   mount Qa::Engine => '/authorities'
 
   mount Blacklight::Engine => '/'

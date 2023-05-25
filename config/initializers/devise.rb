@@ -290,6 +290,20 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  require 'omniauth/strategies/dynamic'
+  config.omniauth :dynamic, :strategy_class => OmniAuth::Strategies::Dynamic,
+                  provider: lambda {
+  #                 lambda { |env|
+  #   #request = Rack::Request.new(env)
+                                                                                            #
+    provider = AuthProvider.first #nd_by(name: request.params['provider'])
+
+    if provider
+      provider
+    else
+      nil
+    end
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

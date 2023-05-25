@@ -5,6 +5,7 @@ Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
 
+  resources :auth_providers
   concern :iiif_search, BlacklightIiifSearch::Routes.new
   concern :oai_provider, BlacklightOaiProvider::Routes.new
   

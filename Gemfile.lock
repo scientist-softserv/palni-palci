@@ -825,6 +825,16 @@ GEM
     oj (3.13.21)
     oj_mimic_json (1.0.1)
     okcomputer (1.18.4)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
+    omniauth-saml (2.1.0)
+      omniauth (~> 2.0)
+      ruby-saml (~> 1.12)
     openseadragon (0.6.0)
       rails (> 3.2.0)
     optimist (3.0.1)
@@ -893,6 +903,8 @@ GEM
     raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.4)
+    rack-protection (3.0.6)
+      rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rails (5.2.8.1)
@@ -1084,6 +1096,9 @@ GEM
       multipart-post
       oauth2
     ruby-progressbar (1.11.0)
+    ruby-saml (1.14.0)
+      nokogiri (>= 1.10.5)
+      rexml
     ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     ruby_parser (3.19.1)
@@ -1278,6 +1293,7 @@ GEM
 
 PLATFORMS
   aarch64-linux-musl
+  ruby
   x86_64-linux-musl
 
 DEPENDENCIES
@@ -1327,6 +1343,8 @@ DEPENDENCIES
   mods (~> 2.4)
   negative_captcha
   okcomputer
+  omniauth-rails_csrf_protection
+  omniauth-saml
   order_already (~> 0.3.1)
   parser (~> 2.5.3)
   pg

@@ -1122,6 +1122,7 @@ de:
         title: ''
       defaults:
         access_right: Wenn der Zugriff auf eine bestimmte Benutzergruppe beschränkt ist oder der Inhalt einem Embargo unterliegt, geben Sie diese Informationen hier an.
+        additional_rights_info: Wenn Rechte einer vertraglichen oder Schenkungsvereinbarung unterliegen oder anderweitig durch eine verbindliche Vereinbarung definiert sind, die zusätzlich zu oder anstelle von Gesetzen zum Schutz des geistigen Eigentums oder einer offenen Lizenzierung gilt, geben Sie dies bitte hier näher an.
         based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Veröffentlichungsort oder die Stadt, das Bundesland oder das Land, um das es in dem Arbeitsinhalt geht. Ruft den <a href='http://www.geonames.org'> GeoNames-Webdienst </a> auf.
         contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Arbeit erkennen möchten, jedoch nicht die primäre Rolle.
         creator: Die Person oder Gruppe, die für die Arbeit verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
@@ -1141,6 +1142,10 @@ de:
         rights_statement: Wählen Sie die entsprechende Rechteerklärung aus der Dropdown-Liste aus. Weitere Informationen finden Sie unter https://rightsstatements.org.
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht Verwenden Sie ein kontrolliertes Vokabular.
         title: Ein Name, der bei der Identifizierung eines Werks hilft.
+        types: Vordefinierte Kategorien zur Beschreibung der Art oder des Genres der Ressource. Es können mehrere Typen ausgewählt werden.
+        video_embed: Youtube- oder Vimeo-Iframe-Einbettungscode zum Anzeigen des in die Arbeitsseite eingebetteten Videos. Wenn Sie einen Einbettungslink für ein Video eingeben, muss es sich um eine ordnungsgemäß formatierte URL handeln, die mit „http://“ oder „https://“ beginnt. Es muss außerdem einen gültigen Link zu einem gehosteten Video enthalten, das in einem Iframe angezeigt werden kann. <br /><br /><i>Beispiele:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht. Verwenden Sie einen kontrollierten Wortschatz.
       labels:
         extent: Umfang
     labels:
@@ -1175,6 +1180,7 @@ de:
         related_url: Verwandte URL
         rights_statement: Rechteerklärung
         title: Titel
+        types: Typ
         visibility_after_embargo: dann öffne es bis
         visibility_after_lease: dann beschränken Sie es auf
         visibility_during_embargo: Beschränkt auf

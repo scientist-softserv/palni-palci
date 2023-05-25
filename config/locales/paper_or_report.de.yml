@@ -1,8 +1,30 @@
+---
 de:
   hyrax:
     icons:
-      paper_or_report:     'fa fa-file-text-o'
+      paper_or_report: fa fa-file-text-o
     select_type:
       paper_or_report:
-        description:        "Technische Berichte, Konferenzbeiträge, Zuschuss- oder andere Projektberichte und ähnliche Arbeiten."
-        name:               "Paper or Report"
+        description: Technische Berichte, Konferenzbeiträge, Zuschuss- oder andere Projektberichte und ähnliche Arbeiten.
+        name: Paper or Report
+  simple_form:
+    hints:
+      defaults:
+        contributor_institutional_relationship: Beziehung zwischen dem Mitwirkenden und der Institution, die das Werk hostet.
+        contributor_orcid: 16-stellige ORCID-Kennung des Mitwirkenden.
+        contributor_role: Beziehung zwischen dem Mitwirkenden und der Ressource.
+        creator_institutional_relationship: Beziehung zwischen dem Mitwirkenden und der Institution, die das Werk hostet.
+        creator_orcid: 16-stellige ORCID-Kennung des Erstellers.
+        event_date: Datum des mit der Ressource verknüpften Ereignisses.
+        event_location: Ort des mit der Ressource verknüpften Ereignisses.
+        event_title: Titel des mit der Ressource verknüpften Ereignisses.
+        funder_awards: Name des Förderprogramms oder Auszeichnungsprogramms, das die Ressource finanziert hat.
+        funder_name: Name des Geldgebers der Ressource, wenn sie mit bewilligten Mitteln erstellt wurde.
+        official_link: Gegebenenfalls mit dem Projekt verknüpfte URL.
+        project_name: Vollständiger Name des Projekts, falls dieser vom Titel der Ressource abweicht.
+        rights_holder: Eine Person oder Organisation, die Rechte an der Ressource besitzt oder verwaltet.
+    labels:
+      defaults:
+        contributor_orcid: Mitwirkender ORCID
+        creator_orcid: Ersteller ORCID
+        official_link: Offizielle URL

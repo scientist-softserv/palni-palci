@@ -1,5 +1,21 @@
 ---
 es:
+  blacklight:
+    search:
+      fields:
+        show:
+          additional_rights_info: Información de derechos adicionales
+          creator: Creador
+          date_created: fecha de creacion
+          format: Formato
+          institution: Institución
+          language: Idioma
+          publisher: Editor
+          resource_type: Tipo de recurso
+          rights_statement: Declaración de derechos
+          source: Fuente
+          subject: Sujeto
+          types: Tipo
   hyrax:
     account_label: Usuario
     account_name: Mi identificador de cuenta institucional
@@ -1123,6 +1139,7 @@ es:
         title: ''
       defaults:
         access_right: Si el acceso está restringido a un determinado grupo de usuarios o si el contenido está sujeto a embargo, incluya esa información aquí.
+        additional_rights_info: Si los derechos están sujetos a un acuerdo contractual o de obsequio o están definidos de otro modo por un acuerdo vinculante que se suma a las leyes de propiedad intelectual o las licencias abiertas o las reemplaza, por favor detalle aquí.
         based_near: Un nombre de lugar relacionado con el trabajo, como su sitio de publicación, o la ciudad, el estado o el país del que trata el contenido del trabajo. Llama al <a href='http://www.geonames.org'> servicio web GeoNames </a>.
         contributor: Una persona o grupo que desea reconocer por desempeñar un papel en la creación del trabajo, pero no el papel principal.
         creator: La persona o grupo responsable del trabajo. Por lo general, este es el autor del contenido. Los nombres personales deben ingresarse primero con el apellido, p. & quot; Smith, John & quot ;.
@@ -1142,6 +1159,10 @@ es:
         rights_statement: Seleccione la declaración de derechos adecuada de la lista desplegable. Consulte https://rightsstatements.org para obtener más información.
         subject: Encabezados o términos de índice que describen de qué trata el trabajo Use un vocabulario controlado.
         title: Un nombre para ayudar a identificar una obra.
+        types: Categorías predefinidas para describir la naturaleza o el género del recurso. Se puede seleccionar más de un tipo.
+        video_embed: Código de incrustación iframe de Youtube o Vimeo para mostrar el video incrustado en la página de trabajo. Si ingresa un enlace de inserción para un video, debe ser una URL con el formato correcto que comience con 'http://' o 'https://'. También debe contener un enlace válido a un video alojado que pueda aparecer en un iframe. <br /><br /><i>Ejemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Encabezados o términos de índice que describen de qué trata el trabajo. Utiliza un vocabulario controlado.
       labels:
         extent: Extensión
     labels:
@@ -1164,18 +1185,25 @@ es:
       defaults:
         admin_set_id: Conjunto administrativo
         based_near: Ubicación
+        contributor: Contribuyente
         creator: Creador
         date_created: fecha de creacion
         description: Descripción
         embargo_release_date: hasta
         files: Cargar un archivo
         keyword: Palabra clave
+        language: Idioma
         lease_expiration_date: hasta
         license: Licencia
         member_of_collection_ids: Añadir a la colección
+        publisher: Editor
         related_url: URL relacionada
+        resource_type: Tipo de recurso
         rights_statement: Declaración de derechos
+        subject: Sujeto
         title: Título
+        types: Tipo
+        video_embed: vídeo incrustado
         visibility_after_embargo: luego ábralo para
         visibility_after_lease: luego restringirlo a
         visibility_during_embargo: Prohibido para

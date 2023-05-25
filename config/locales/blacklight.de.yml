@@ -31,8 +31,11 @@ de:
           rights_tesim: Rechte
           subject_tesim: Fach
         show:
+          access_right_tesim: Zugangsrechte
           based_near_label_tesim: Ort
+          contributor_orcid: Mitwirkender ORCID
           contributor_tesim: Mitwirkender
+          creator_orcid: Ersteller ORCID
           creator_tesim: Schöpfer
           date_created_tesim: Datum erstellt
           date_modified_dtsi: Datum geändert
@@ -44,6 +47,7 @@ de:
           keyword_tesim: Stichwort
           language_tesim: Sprache
           publisher_tesim: Herausgeber
+          related_url: Verwandte URL
           rights_tesim: Rechte
           subject_tesim: Fach
           title_tesim: Titel

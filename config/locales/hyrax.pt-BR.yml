@@ -1123,6 +1123,7 @@ pt-BR:
         title: ''
       defaults:
         access_right: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
+        additional_rights_info: Se os direitos estiverem sujeitos a um acordo contratual ou de doação ou de outra forma definido por um acordo vinculativo que seja um complemento ou um substituto das leis de propriedade intelectual ou licenciamento aberto, detalhe aqui.
         based_near: Um nome de local relacionado ao trabalho, como o site da publicação ou a cidade, estado ou país em que o conteúdo do trabalho se refere. Solicita o <a href='http://www.geonames.org'> serviço da web GeoNames </a>.
         contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
         creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
@@ -1142,6 +1143,10 @@ pt-BR:
         rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte https://rightsstatements.org para obter mais informações
         subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
         title: Um nome para ajudar na identificação de um trabalho.
+        types: Categorias predefinidas para descrever a natureza ou gênero do recurso. Mais de um tipo pode ser selecionado.
+        video_embed: Código de incorporação do iframe do Youtube ou Vimeo para mostrar o vídeo incorporado na página de trabalho. Se você inserir um link de incorporação para um vídeo, ele deve ser um URL formatado corretamente começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que pode aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
       labels:
         extent: Extensão
     labels:
@@ -1176,6 +1181,7 @@ pt-BR:
         related_url: URL relacionado
         rights_statement: Declaração de direitos
         title: Título
+        types: Tipo
         visibility_after_embargo: depois abra
         visibility_after_lease: então restrinja-o a
         visibility_during_embargo: Restrito a

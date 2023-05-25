@@ -31,8 +31,11 @@ it:
           rights_tesim: Diritti
           subject_tesim: Soggetto
         show:
+          access_right_tesim: Diritti di accesso
           based_near_label_tesim: luogo
+          contributor_orcid: Collaboratore ORCID
           contributor_tesim: Collaboratore
+          creator_orcid: Creatore ORCID
           creator_tesim: Creatore
           date_created_tesim: data di creazione
           date_modified_dtsi: Data modificata
@@ -44,6 +47,7 @@ it:
           keyword_tesim: Parola chiave
           language_tesim: Lingua
           publisher_tesim: Editore
+          related_url: URL correlato
           rights_tesim: Diritti
           subject_tesim: Soggetto
           title_tesim: Titolo

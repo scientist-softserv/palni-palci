@@ -1,10 +1,30 @@
+---
 zh:
   hyrax:
     icons:
-      paper_or_report:     'fa fa-file-text-o'
+      paper_or_report: fa fa-file-text-o
     select_type:
       paper_or_report:
-        # TODO: translate `human_name` into Chinese
-        description:        "技术报告、会议论文、拨款或其他项目报告，以及类似的作品。"
-        name:               "论文或报告"
-        # TODO: translate `human_name` into Chinese
+        description: 技术报告、会议论文、拨款或其他项目报告，以及类似的作品。
+        name: 论文或报告
+  simple_form:
+    hints:
+      defaults:
+        contributor_institutional_relationship: 贡献者与托管作品的机构之间的关系。
+        contributor_orcid: 贡献者的 16 个字符 ORCID 标识符。
+        contributor_role: 贡献者和资源之间的关系。
+        creator_institutional_relationship: 贡献者与托管作品的机构之间的关系。
+        creator_orcid: 创建者的 16 个字符 ORCID 标识符。
+        event_date: 与资源关联的事件日期。
+        event_location: 与资源关联的事件的位置。
+        event_title: 与资源关联的事件的标题。
+        funder_awards: 资助资源的赠款计划或奖励计划的名称。
+        funder_name: 如果使用奖励资金创建，则为资源资助者的姓名。
+        official_link: 与项目关联的 URL（如果适用）。
+        project_name: 如果与资源标题不同，则为项目全名。
+        rights_holder: 拥有或管理资源权利的个人或组织。
+    labels:
+      defaults:
+        contributor_orcid: 贡献者兽人
+        creator_orcid: 创作者ORCID
+        official_link: 官方网址

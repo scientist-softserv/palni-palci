@@ -31,8 +31,11 @@ zh:
           rights_tesim: 权
           subject_tesim: 学科
         show:
+          access_right_tesim: 访问权
           based_near_label_tesim: 位置
+          contributor_orcid: 贡献者兽人
           contributor_tesim: 贡献者
+          creator_orcid: 创作者ORCID
           creator_tesim: 创造者
           date_created_tesim: 创建日期
           date_modified_dtsi: 修改日期
@@ -44,6 +47,7 @@ zh:
           keyword_tesim: 关键词
           language_tesim: 语言
           publisher_tesim: 出版者
+          related_url: 相关网址
           rights_tesim: 权
           subject_tesim: 学科
           title_tesim: 标题

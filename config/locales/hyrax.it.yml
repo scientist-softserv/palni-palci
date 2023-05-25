@@ -1123,6 +1123,7 @@ it:
         title: ''
       defaults:
         access_right: Se l'accesso è limitato a un determinato gruppo di utenti o se il contenuto è soggetto a embargo, includi tali informazioni qui.
+        additional_rights_info: Se i diritti sono soggetti a un accordo contrattuale o di donazione o altrimenti definiti da un accordo vincolante che si aggiunge o sostituisce le leggi sulla proprietà intellettuale o le licenze aperte, si prega di dettagliare qui.
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John."
@@ -1142,6 +1143,10 @@ it:
         rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
         subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
         title: Un nome per aiutare a identificare un'opera.
+        types: Categorie predefinite per descrivere la natura o il genere della risorsa. È possibile selezionare più di un tipo.
+        video_embed: Codice di incorporamento iframe Youtube o Vimeo per mostrare il video incorporato nella pagina di lavoro. Se inserisci un link di incorporamento per un video, deve essere un URL formattato correttamente che inizia con "http://" o "https://". Deve inoltre contenere un collegamento valido a un video ospitato che può essere visualizzato in un iframe. <br /><br /><i>Esempi:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Intestazioni o termini di indice che descrivono l'argomento del lavoro. Usa un vocabolario controllato.
       labels:
         extent: Estensione
     labels:
@@ -1176,6 +1181,7 @@ it:
         related_url: URL correlato
         rights_statement: Dichiarazione dei diritti
         title: Titolo
+        types: Tipo
         visibility_after_embargo: quindi aprilo fino a
         visibility_after_lease: quindi limitalo a
         visibility_during_embargo: Limitato a

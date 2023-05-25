@@ -19,7 +19,9 @@ module OAI
           audience: :audience,
           based_near: :based_near,
           bibliographic_citation: :bibliographic_citation,
+          chronology_note: :chronology_note,
           committee_member: :committee_member,
+          contributing_library: :contributing_library,
           contributor: :contributor,
           creator: :creator,
           date_created: :date_created,
@@ -38,6 +40,7 @@ module OAI
           keyword: :keyword,
           language: :language,
           learning_resource_type: :learning_resource_type,
+          library_catalog_identifier: :library_catalog_identifier,
           license: :license,
           newer_version_id: :newer_version_id,
           oer_size: :oer_size,
@@ -52,7 +55,7 @@ module OAI
           source: :source,
           subject: :subject,
           table_of_contents: :table_of_contents,
-          title: :title
+          title: :title,
         }
       end
       # rubocop:enable Metrics/MethodLength

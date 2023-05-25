@@ -6,7 +6,6 @@ module OmniAuth
       #
       def initialize(app, *args, &block)
         super
-        debugger
         auth_provider = @options&.provider&.call
         require 'omniauth/strategies/saml' if auth_provider&.provider == :saml
       end

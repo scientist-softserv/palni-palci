@@ -4,7 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def callback
-    byebug
     # Here you will need to implement your logic for processing the callback
     # for example, finding or creating a user
     @user = User.from_omniauth(request.env['omniauth.auth'])

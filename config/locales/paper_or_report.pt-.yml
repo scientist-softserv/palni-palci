@@ -1,0 +1,30 @@
+---
+pt-:
+  hyrax:
+    icons:
+      paper_or_report: fa fa-arquivo-texto-o
+    select_type:
+      paper_or_report:
+        description: Relatórios técnicos, documentos de conferências, subvenções ou outros relatórios de projetos e trabalhos semelhantes.
+        name: Papel ou Relatório
+  simple_form:
+    hints:
+      defaults:
+        contributor_institutional_relationship: Relação entre o colaborador e a instituição que acolhe a obra.
+        contributor_orcid: Identificador ORCID de 16 caracteres do colaborador.
+        contributor_role: Relação entre o contribuinte e o recurso.
+        creator_institutional_relationship: Relação entre o colaborador e a instituição que acolhe a obra.
+        creator_orcid: Identificador ORCID de 16 caracteres do criador.
+        event_date: Data do evento associado ao recurso.
+        event_location: Localização do evento associado ao recurso.
+        event_title: Título do evento associado ao recurso.
+        funder_awards: Nome do programa de concessão ou programa de premiação que financiou o recurso.
+        funder_name: Nome do financiador do recurso, se criado com fundos premiados.
+        official_link: URL associado ao projeto, se aplicável.
+        project_name: Nome completo do projeto, se diferente do título do recurso.
+        rights_holder: Uma pessoa ou organização que possui ou gerencia direitos sobre o recurso.
+    labels:
+      defaults:
+        contributor_orcid: Colaborador ORCID
+        creator_orcid: Criador ORCID
+        official_link: URL oficial

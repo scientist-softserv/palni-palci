@@ -4,18 +4,33 @@ en:
     search:
       fields:
         show:
-          creator: "Creator"
-          rights_statement: "Rights Statement"
-          publisher: "Publisher"
-          date_created: "Date Created"
-          subject: "Subject"
-          language: "Language"
-          source: "Source"
-          resource_type: "Resource Type"
+          abstract: "Abstract"
           additional_rights_info: "Additional rights info"
-          institution: "Institution"
-          types: "Type"
+          access_right: "Access Rights"
+          advisor: "Advisor"
+          alternative_title: "Alternative Title"
+          bibliographic_citation: "Bibliographic citation"
+          committee_member: "Committee member"
+          creator: "Creator"
+          date_created: "Date Created"
+          degree: "Degree"
+          degree_granting_institution: "Degree Granting Institution"
+          department: "Department"
+          discipline: "Discipline"
           format: "Format"
+          identifier: "Identifier"
+          institution: "Institution"
+          language: "Language"
+          level: "Level"
+          license: "License"
+          publisher: "Publisher"
+          resource_type: "Resource Type"
+          rights_notes: "Rights notes"
+          rights_statement: "Rights Statement"
+          source: "Source"
+          subject: "Subject"
+          types: "Type"
+          year: "Year"
 
   hyrax:
     product_name: "Hyku"
@@ -1189,10 +1204,16 @@ en:
       defaults:
         additional_rights_info: Additional rights info
         admin_set_id: Administrative Set
+        advisor: Advisor
         based_near: Location
+        committee_member: Committee member
         contributor: Contributor
         creator: Creator
         date_created: Date Created
+        discipline: Discipline
+        degree: Degree
+        degree_granting_institution: Degree Granting Institution
+        department: Department
         description: Description
         embargo_release_date: until
         files: Upload a file
@@ -1201,6 +1222,7 @@ en:
         keyword: Keyword
         language: Language
         lease_expiration_date: until
+        level: Level
         license: License
         member_of_collection_ids: Add to collection
         publisher: Publisher
@@ -1216,6 +1238,7 @@ en:
         visibility_after_lease: then restrict it to
         visibility_during_embargo: Restricted to
         visibility_during_lease: Is available to
+        year: Year
       proxy_deposit_request:
         sender_comment: Comments
         transfer_to: User

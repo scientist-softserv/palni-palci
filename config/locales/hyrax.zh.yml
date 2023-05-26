@@ -4,18 +4,35 @@ zh:
     search:
       fields:
         show:
+          abstract: 抽象的
+          access_right: 访问权
+          access_rights: 访问权
           additional_rights_info: 附加权利信息
+          advisor: 顾问
+          alternative_title: 替代标题
+          bibliographic_citation: 书目引文
+          committee_member: 委员会成员
           creator: 造物主
           date_created: 创建日期
+          degree: 程度
+          degree_granting_institution: 学位授予机构
+          department: 部门
+          discipline: 纪律
           format: 格式
+          identifier: 标识符
           institution: 机构
           language: 语言
+          level: 等级
+          license: 执照
+          livense: 执照
           publisher: 出版商
           resource_type: 资源类型
+          rights_notes: 维权说明
           rights_statement: 权利声明
           source: 来源
           subject: 主题
           types: 类型
+          year: 年
   hyrax:
     account_label: 用户
     account_name: 我的机构帐户标识符
@@ -1185,11 +1202,17 @@ zh:
       defaults:
         additional_rights_info: 附加权利信息
         admin_set_id: 行政套装
+        advisor: 顾问
         based_near: 位置
+        committee_member: 委员会成员
         contributor: 贡献者
         creator: 创作者
         date_created: 创建日期
+        degree: 程度
+        degree_granting_institution: 学位授予机构
+        department: 部门
         description: 描述
+        discipline: 纪律
         embargo_release_date: 直到
         files: 上传一个文件
         format: 格式
@@ -1197,6 +1220,7 @@ zh:
         keyword: 关键词
         language: 语言
         lease_expiration_date: 直到
+        level: 等级
         license: 执照
         member_of_collection_ids: 添加到收藏
         publisher: 出版商
@@ -1212,6 +1236,7 @@ zh:
         visibility_after_lease: 然后将其限制为
         visibility_during_embargo: 受限于
         visibility_during_lease: 可用于
+        year: 年
       proxy_deposit_request:
         sender_comment: 注释
         transfer_to: 用户

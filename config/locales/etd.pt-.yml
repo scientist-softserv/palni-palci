@@ -1,0 +1,26 @@
+---
+pt-:
+  hyrax:
+    icons:
+      etd: fa fa-arquivo-texto-o
+    select_type:
+      etd:
+        description: Teses e Dissertações Eletrônicas
+        name: ETD
+  simple_form:
+    hints:
+      defaults:
+        advisor: Nome do orientador da tese/dissertação ou presidente do comitê.
+        committee_member: Nome do(s) membro(s) do comitê.
+        degree: Nome do grau associado ao trabalho conforme aparece no trabalho.
+        degree_granting_institution: Instituição que confere o grau associado ao trabalho.
+        department: Nome do departamento ou unidade dentro da instituição que concede o grau.
+        discipline: Área de estudo do conteúdo intelectual do documento. Normalmente, este será o nome de um programa ou departamento.
+        level: Grau de escolaridade associado ao documento.
+        year: O ano em que a obra foi criada. Este deve ser um ano de 4 dígitos e começar com 19 ou 20
+      etd:
+        subject: Escolha títulos ou termos de índice que descrevam do que se trata o trabalho em nossa lista de <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>assunto</a>. Se seus termos estiverem faltando na lista, use <a href='https://fast.oclc.org/searchfast/'>cabeçalhos de assunto FAST</a>. Para termos adicionais de religião e teologia que devem ser adicionados à nossa lista, use <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>este formulário.</a>
+    labels:
+      defaults:
+        bibliographic_citation: Citação bibliográfica
+        date: Ano

@@ -4,18 +4,33 @@ pt-BR:
     search:
       fields:
         show:
+          abstract: Abstrato
+          access_right: Direitos de acesso
           additional_rights_info: Informações adicionais sobre direitos
+          advisor: Orientador
+          alternative_title: Título Alternativo
+          bibliographic_citation: Citação bibliográfica
+          committee_member: membro do Comitê
           creator: O Criador
           date_created: Data Criada
+          degree: Grau
+          degree_granting_institution: Instituição que concede diploma
+          department: Departamento
+          discipline: Disciplina
           format: Formatar
+          identifier: identificador
           institution: Instituição
           language: Linguagem
+          level: Nível
+          license: Licença
           publisher: Editor
           resource_type: Tipo de recurso
+          rights_notes: Notas de direitos
           rights_statement: Declaração de Direitos
           source: Fonte
           subject: Assunto
           types: Tipo
+          year: Ano
   hyrax:
     account_label: Do utilizador
     account_name: ID da conta
@@ -1185,11 +1200,17 @@ pt-BR:
       defaults:
         additional_rights_info: Informações adicionais sobre direitos
         admin_set_id: Conjunto administrativo
+        advisor: Orientador
         based_near: Localização
+        committee_member: membro do Comitê
         contributor: Contribuinte
         creator: O Criador
         date_created: Data Criada
+        degree: Grau
+        degree_granting_institution: Instituição que concede diploma
+        department: Departamento
         description: Descrição
+        discipline: Disciplina
         embargo_release_date: até
         files: Enviar um arquivo
         format: Formatar
@@ -1197,6 +1218,7 @@ pt-BR:
         keyword: Palavra-chave
         language: Linguagem
         lease_expiration_date: até
+        level: Nível
         license: Licença
         member_of_collection_ids: Adicionar a coleção
         publisher: Editor
@@ -1212,6 +1234,7 @@ pt-BR:
         visibility_after_lease: então restrinja-o a
         visibility_during_embargo: Restrito a
         visibility_during_lease: Está disponível para
+        year: Ano
       proxy_deposit_request:
         sender_comment: Comentários
         transfer_to: Do utilizador

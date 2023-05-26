@@ -4,18 +4,33 @@ de:
     search:
       fields:
         show:
+          abstract: Abstrakt
+          access_right: Zugangsrechte
           additional_rights_info: Zusätzliche Rechteinformationen
+          advisor: Berater
+          alternative_title: Alternativer Titel
+          bibliographic_citation: Bibliografische Angabe
+          committee_member: Ausschussmitglied
           creator: Schöpfer
           date_created: Datum erstellt
+          degree: Grad
+          degree_granting_institution: Institution, die einen Abschluss verleiht
+          department: Abteilung
+          discipline: Disziplin
           format: Format
+          identifier: Kennung
           institution: Institution
           language: Sprache
+          level: Eben
+          license: Lizenz
           publisher: Herausgeber
           resource_type: Ressourcentyp
+          rights_notes: Rechtehinweise
           rights_statement: Rechteerklärung
           source: Quelle
           subject: Thema
           types: Typ
+          year: Jahr
   hyrax:
     account_label: Benutzer
     account_name: Konto-ID
@@ -1184,11 +1199,17 @@ de:
       defaults:
         additional_rights_info: Zusätzliche Rechteinformationen
         admin_set_id: Verwaltungsset
+        advisor: Berater
         based_near: Ort
+        committee_member: Ausschussmitglied
         contributor: Mitwirkender
         creator: Schöpfer
         date_created: Datum erstellt
+        degree: Grad
+        degree_granting_institution: Institution, die einen Abschluss verleiht
+        department: Abteilung
         description: Beschreibung
+        discipline: Disziplin
         embargo_release_date: bis um
         files: Eine Datei hochladen
         format: Format
@@ -1196,6 +1217,7 @@ de:
         keyword: Stichwort
         language: Sprache
         lease_expiration_date: bis um
+        level: Eben
         license: Lizenz
         member_of_collection_ids: Zur Sammlung hinzufügen
         publisher: Herausgeber
@@ -1211,6 +1233,7 @@ de:
         visibility_after_lease: dann beschränken Sie es auf
         visibility_during_embargo: Beschränkt auf
         visibility_during_lease: Ist verfügbar für
+        year: Jahr
       proxy_deposit_request:
         sender_comment: Bemerkungen
         transfer_to: Benutzer

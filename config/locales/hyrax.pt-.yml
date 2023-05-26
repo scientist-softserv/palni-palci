@@ -1,0 +1,1242 @@
+---
+pt-:
+  blacklight:
+    search:
+      fields:
+        show:
+          abstract: Abstrato
+          access_right: Direitos de acesso
+          additional_rights_info: Informações adicionais sobre direitos
+          advisor: Orientador
+          alternative_title: Título Alternativo
+          bibliographic_citation: Citação bibliográfica
+          committee_member: membro do Comitê
+          creator: O Criador
+          date_created: Data Criada
+          degree: Grau
+          degree_granting_institution: Instituição que concede diploma
+          department: Departamento
+          discipline: Disciplina
+          format: Formatar
+          identifier: identificador
+          institution: Instituição
+          language: Linguagem
+          level: Nível
+          license: Licença
+          publisher: Editor
+          resource_type: Tipo de recurso
+          rights_notes: Notas de direitos
+          rights_statement: Declaração de direitos
+          source: Fonte
+          subject: Assunto
+          types: Tipo
+          year: Ano
+  hyrax:
+    account_label: Do utilizador
+    account_name: ID da conta
+    active_consent_to_agreement: Eu li e concordo com o
+    activefedora:
+      models:
+        generic_work: Trabalhar
+        image: Imagem
+    admin:
+      admin_sets:
+        delete:
+          error_default_set: O conjunto administrativo não pode ser excluído, pois é o conjunto padrão
+          error_not_empty: O conjunto administrativo não pode ser excluído porque não está vazio
+          notification: Conjunto administrativo excluído com sucesso
+        document_list:
+          edit: Editar
+          no_works: O conjunto administrativo não contém obras.
+          title: Lista de itens neste conjunto administrativo
+        edit:
+          header: 'Editar Conjunto Administrativo: %{title}'
+        form:
+          cancel: Cancelar
+          note: Os usuários que receberem uma nova função só ganharão a função em obras que forem depositadas após a atribuição dessa função.
+          permission_destroy_errors:
+            admin_group: O grupo de administradores do repositório não pode ser removido
+          permission_update_errors:
+            error: Opção de atualização inválida para modelo de permissão.
+            no_date: É necessária uma data para a opção de liberação selecionada.
+            no_embargo: É necessário um período de embargo para a opção selecionada.
+            nothing: Selecione as opções de liberação antes de pressionar salvar.
+          permission_update_notices:
+            new_admin_set: O conjunto administrativo '%{name}' foi criado. Use as guias adicionais para definir outros aspectos do conjunto administrativo.
+            participants: Os direitos de participante do conjunto administrativo foram atualizados
+            updated_admin_set: O conjunto administrativo '%{name}' foi atualizado.
+            visibility: As configurações de liberação e visibilidade do conjunto administrativo foram atualizadas.
+            workflow: O fluxo de trabalho do conjunto administrativo foi atualizado.
+          tabs:
+            description: Descrição
+            participants: participantes
+            visibility: Lançamento e Visibilidade
+            workflow: fluxo de trabalho
+        form_participant_table:
+          admin_users: Administradores de repositório
+          allow_all_registered: Permitir que todos os usuários registrados depositem
+          depositors:
+            action: Ação
+            agent_name: Depositantes deste conjunto
+            empty: Nenhum depositante foi adicionado a este conjunto administrativo.
+            help: Os depositantes podem adicionar novas obras a este conjunto administrativo.
+            remove: Remover
+            title: Depositantes
+            type: Tipo
+          managers:
+            action: Ação
+            agent_name: Gerentes deste conjunto
+            empty: Nenhum gerente foi adicionado a este conjunto administrativo.
+            help: Os gerentes deste conjunto administrativo podem editar os metadados do conjunto, participantes e configurações de liberação e visibilidade. Os gerentes também podem editar metadados de trabalho, adicionar ou remover arquivos de um trabalho e adicionar novos trabalhos ao conjunto.
+            remove: Remover
+            title: gerentes
+            type: Tipo
+          registered_users: Usuários registrados
+          viewers:
+            action: Ação
+            agent_name: Espectadores deste conjunto
+            empty: Nenhum visualizador foi adicionado a este conjunto administrativo.
+            help: Os visualizadores deste conjunto administrativo podem visualizar os trabalhos no conjunto independentemente das configurações de visibilidade aplicadas ao trabalho. Por exemplo, os espectadores podem ver as obras neste conjunto, mesmo que as obras estejam atualmente embargadas ou restritas.
+            remove: Remover
+            title: visualizadores
+            type: Tipo
+        form_participants:
+          add_group: 'Adicionar grupo:'
+          add_participants: Adicione participantes
+          add_user: 'Adicionar usuário:'
+          current_participants: Participantes Atuais
+        form_visibility:
+          cancel: Cancelar
+          page_description: As configurações de liberação e visibilidade determinam as opções disponíveis aos depositantes ao submeter uma obra a este conjunto administrativo. As alterações nessas configurações não afetam os trabalhos previamente depositados.
+          release:
+            description: Definir embargos e políticas de arrendamento para este conjunto administrativo.
+            fixed: O depositante deve escolher o embargo -- adiar a liberação de todos os trabalhos até
+            no_delay: Não permitir embargos ou locações
+            title: Liberar
+            varies:
+              any: O depositante pode escolher qualquer duração de embargo; arrendamentos são permitidos
+              between: 'O depositante pode optar pelo embargo atualizado:'
+              description: 'Permitir que o depositante escolha as configurações:'
+              embargo:
+                1yr: 1 ano após depósito
+                2yrs: 2 anos após o depósito
+                3yrs: 3 anos após o depósito
+                6mos: 6 meses após o depósito
+                select: Selecione o período de embargo..
+              period: 'O depositante pode escolher o período de embargo até:'
+          visibility:
+            description: Defina políticas de visibilidade para o conjunto administrativo. Definir as políticas de embargo de honra acima.
+            everyone: Público - o depositante só pode escolher a configuração de visibilidade pública
+            institution: Instituição -- o depositante só pode selecionar a configuração de visibilidade da instituição
+            restricted: Privado -- o depositante só pode selecionar privado para visibilidade. O acesso é restrito a administradores de repositório, gerentes e visualizadores do conjunto. Deve ser usado com a configuração "Sem embargo" acima.
+            title: Visibilidade
+            varies: Todas as configurações permitidas - o depositante pode escolher. Deve usar esta opção para permitir concessões.
+        form_workflow:
+          cancel: Cancelar
+          no_workflows: Não há fluxos de trabalho para selecionar.
+          page_description: Cada conjunto administrativo tem um fluxo de trabalho associado a ele. Este fluxo de trabalho é aplicado a todos os trabalhos adicionados ao conjunto administrativo. Selecione o fluxo de trabalho a ser usado para este conjunto administrativo abaixo.
+        new:
+          header: Criar Novo Conjunto Administrativo
+        show:
+          breadcrumb: Ver conjunto
+          header: Conjunto Administrativo
+          item_list_header: Funciona neste conjunto
+        show_actions:
+          confirm_delete: Tem certeza de que deseja excluir este Conjunto Administrativo? Essa ação não pode ser desfeita.
+      appearances:
+        show:
+          header: Aparência
+        update:
+          flash:
+            success: A aparência foi atualizada com sucesso
+      collection_types:
+        create:
+          notification: O tipo de coleção %{name} foi criado.
+        delete:
+          notification: O tipo de coleção %{name} foi excluído.
+        edit:
+          header: Editar tipo de coleção
+          submit: Salvar alterações
+        errors:
+          no_settings_change_for_admin_sets: As configurações do tipo de coleção não podem ser alteradas para o tipo Conjunto Administrativo
+          no_settings_change_for_user_collections: As configurações do tipo de coleção não podem ser alteradas para o tipo de coleção do usuário
+          no_settings_change_if_not_empty: As configurações do tipo de coleção não podem ser alteradas para um tipo que tenha coleções
+          not_empty: O tipo de coleção não pode ser alterado, pois possui coleções
+        form:
+          tab:
+            appearance: Cor do distintivo
+            metadata: Descrição
+            participants: participantes
+            settings: Configurações
+        form_participant_table:
+          creators:
+            action: Ação
+            agent_name: Criadores de coleção
+            empty: Nenhum criador foi adicionado a este tipo de coleção.
+            help: Os criadores de coleções desse tipo podem criar e gerenciar suas próprias coleções.
+            title: criadores
+            type: Tipo
+          managers:
+            action: Ação
+            agent_name: Gerentes de cobrança
+            empty: Nenhum gerente foi adicionado a este tipo de coleção.
+            help: Os gerentes de coleções desse tipo podem editar as coleções que outros usuários criaram, incluindo adicionar e remover obras de uma coleção, modificar os metadados da coleção e excluir coleções.
+            title: Gerentes
+            type: Tipo
+        form_participants:
+          add_group: Adicionar grupo
+          add_participants: Adicione participantes
+          add_user: Adicionar usuário
+          current_participants: Participantes Atuais
+          header: Participantes da coleta
+          instructions: Você pode designar grupos e usuários como criadores e gerentes de coleções desse tipo
+          remove_success: Participante removido
+          submit: Adicionar
+          update_notice: Participantes atualizados
+        form_settings:
+          instructions: Essas configurações determinam como coleções desse tipo podem ser gerenciadas e descobertas.
+          warning: 'Aviso: essas configurações não podem ser alteradas após a criação de uma coleção desse tipo.'
+        index:
+          breadcrumb: Tipos de coleção
+          create_new_button: Criar novo tipo de coleção
+          description: Os tipos de coleção permitem que você defina as configurações que controlam as coleções que atendem a diferentes propósitos em seu repositório. Você pode definir quantos tipos de coleção precisar.
+          header: Tipos de coleção
+          modal:
+            can_delete_body_html: "<p>Excluir este tipo de coleção removerá permanentemente o tipo e suas configurações do repositório. Tem certeza de que deseja excluir este tipo de coleção?</p>"
+            cannot_delete_body_html: "<p>Você não pode excluir este tipo de coleção porque uma ou mais coleções desse tipo já foram criadas.</p><p> Para excluir este tipo de coleção, primeiro certifique-se de que todas as coleções desse tipo foram excluídas.</p>"
+            header_can_delete: Excluir tipo de coleção?
+            header_cannot_delete: Não é possível excluir o tipo de coleção
+            view_collections: Ver coleções deste tipo
+          more_toggle_content_html: "<p>Cenários típicos para tipos de coleção incluem:</p><ul><li> <strong>User Collections</strong> que qualquer usuário registrado pode criar para organizar os itens que deposita.</li><li> <strong>Exposições</strong> que a equipe cria e organiza para exibição pública, onde os itens podem ser incluídos em qualquer número de exposições.</li><li> <strong>Coleções controladas</strong> criadas e gerenciadas por funcionários e não destinadas à exibição pública, como coleções associadas a unidades organizacionais ou departamentos.</li><li> <strong>Coleções da comunidade</strong> destinadas à exibição pública, semelhante a como as comunidades e coleções do DSpace às vezes são usadas.</li></ul>"
+          more_toggle_header_html: "<span>Mais</span> sobre os tipos de coleção"
+          table:
+            actions: Ações
+            name: Nome
+        multiple_membership_checker:
+          error_preamble: 'Erro: você especificou mais de um do mesmo tipo de coleção de associação única'
+          error_type_and_collections: "(tipo: %{type}, coleções: %{collections})"
+        new:
+          header: Criar novo tipo de coleção
+          submit: Salvar
+        update:
+          notification: O tipo de coleção %{name} foi atualizado.
+      features:
+        index:
+          action: Ação
+          description: Descrição
+          feature: Recurso
+          header: Características
+      sidebar:
+        activity: Atividade
+        appearance: Aparência
+        collection_types: Tipos de coleção
+        collections: Coleções
+        configuration: Configuração
+        contact: Contato
+        content_blocks: Blocos de conteúdo
+        notifications: Notificações
+        pages: Páginas
+        profile: Perfil
+        repository_objects: Conteúdo do repositório
+        settings: Configurações
+        statistics: Relatórios
+        tasks: Tarefas
+        technical: Características
+        transfers: Traslados
+        user_activity: sua atividade
+        users: Gerenciar usuários
+        workflow_review: Revisar envios
+        workflow_roles: Funções de Fluxo de Trabalho
+        works: Funciona
+      stats:
+        deposited_form:
+          end_label: fim [o padrão é agora]
+          heading: 'Exibir arquivos depositados:'
+          start_label: Começar
+        repository_objects:
+          series:
+            published: Publicados
+            unknown: Desconhecido
+            unpublished: não publicado
+        user_deposits:
+          end_label: Fim [o padrão é agora]
+          heading: Exibir arquivos depositados pelos usuários
+          start_label: Iniciando
+        works:
+          headers:
+            main: Estatísticas de Trabalho
+            total: 'Trabalhos Totais:'
+            visibility: Totais por Visibilidade
+      users:
+        index:
+          access_label: Último acesso
+          describe_users_html:
+            one: Há um <b>usuário %{count}</b> neste repositório.
+            other: Existem <b>%{count} usuários</b> neste repositório.
+          group_label: Grupos
+          id_label: Nome de usuário
+          reader_title: Exibir usuários
+          role_label: Funções
+          title: Gerenciar usuários
+      workflow_roles:
+        header: Funções de Fluxo de Trabalho
+        index:
+          current_group_roles: Funções atuais do grupo
+          current_roles: Funções Atuais
+          current_user_roles: Funções do usuário atual
+          delete:
+            confirm: Tem certeza?
+          header:
+            display_name: Nome de exibição
+            email: E-mail
+            group_name: Nome do grupo
+            group_roles: Funções do Grupo
+            roles: Funções
+            user: Do utilizador
+            user_roles: Funções do usuário
+          new_group_role: Atribuir função ao grupo
+          new_user_role: Atribuir função ao usuário
+          no_roles: Sem papéis
+      workflows:
+        index:
+          header: Revisar envios
+          tabs:
+            published: Publicados
+            under_review: Sob revisão
+    api:
+      accepted:
+        default: Sua solicitação foi aceita para processamento, mas o processamento não foi concluído. Veja o trabalho para mais informações.
+      bad_request:
+        default: Não foi possível processar sua solicitação. Consulte os erros para obter mais informações.
+      deleted:
+        default: Excluído o recurso
+      forbidden:
+        default: Você não está autorizado a acessar este conteúdo.
+      internal_error:
+        default: O servidor encontrou um erro.
+      not_found:
+        default: Não foi possível encontrar um recurso que corresponda à sua solicitação.
+      success:
+        default: Seu pedido foi processado com sucesso.
+      unauthorized:
+        default: Você deve estar logado para fazer isso!
+      unprocessable_entity:
+        default: O recurso que você tentou modificar não pode ser modificado de acordo com sua solicitação.
+    background_attribution_html: ''
+    base:
+      citations:
+        header: 'Citações:'
+      form_child_work_relationships:
+        actions:
+          remove: Remover deste trabalho
+        attach_new_work: Depositar novo trabalho como filho deste trabalho
+        caption: Este trabalho contém atualmente estes trabalhos infantis
+        confirm:
+          cancel: Cancelar
+          remove: Remover
+          text: Remover este trabalho filho não o removerá do repositório, apenas deste trabalho pai. Tem certeza de que deseja remover este trabalho deste trabalho principal?
+        header:
+          actions: Ação
+          title: Título do trabalho
+      form_files:
+        dropzone: Solte os arquivos aqui.
+        local_upload_browse_everything_html: "<p>Você pode adicionar um ou mais arquivos para associar a este trabalho. Adicione arquivos do seu sistema local ou de um provedor de nuvem.</p><p> Observe que, se você usar um provedor de nuvem para fazer upload de um grande número de arquivos em um curto período de tempo, o provedor pode não conseguir atender à sua solicitação. Se você tiver erros ao carregar da nuvem, informe-nos por meio do %{contact_href}.</p>"
+        local_upload_html: "<p>Você pode adicionar um ou mais arquivos para associar a este trabalho.</p>"
+      form_member_of_collections:
+        actions:
+          remove: Remover da coleção
+        caption: Este trabalho está atualmente nestas coleções
+        confirm:
+          cancel: Cancelar
+          remove: Remover
+          text: A remoção deste trabalho não o removerá do repositório, apenas desta coleção. Tem certeza de que deseja remover esta obra da coleção?
+        header:
+          actions: Ação
+          title: Título da coleção
+      form_permission_under_embargo:
+        help_html: "<strong>Este trabalho está sob embargo.</strong> Você pode alterar as configurações do embargo aqui ou pode visitar o %{edit_link} para desativá-lo."
+        legend_html: Visibilidade <small>Quem deve poder visualizar ou baixar este conteúdo?</small>
+        management_page: Página de gerenciamento de embargo
+      form_permission_under_lease:
+        help_html: "<strong>Esta obra está arrendada.</strong> Você pode alterar as configurações da concessão aqui ou pode visitar o %{edit_link} para desativá-lo."
+        legend_html: Visibilidade <small>Quem deve poder visualizar ou baixar este conteúdo?</small>
+        management_page: Página de gerenciamento de aluguel
+      form_progress:
+        required_agreement: Cheque contrato de depósito
+        required_descriptions: Descreva seu trabalho
+        required_files: Adicionar arquivos
+        requirements: Requisitos
+      form_rendering:
+        help_html: Selecione o(s) arquivo(s) a serem oferecidos como download para cada imagem no Universal Viewer, por exemplo, um PDF de todo o trabalho.
+        legend_html: Renderização
+      form_representative:
+        help_html: Selecione o arquivo com mídia que representa este trabalho.
+        legend_html: Mídia representativa
+      form_share:
+        add_sharing: Adicionar Compartilhamento
+        currently_sharing: Atualmente compartilhado com
+        directions: Independentemente das configurações de visibilidade para este trabalho, você também pode compartilhá-lo com outros usuários e grupos.
+      form_thumbnail:
+        help_html: Selecione o arquivo a ser usado como miniatura para este trabalho.
+        legend_html: Miniatura
+      items:
+        actions: Ações
+        date_uploaded: Data de upload
+        empty: Este %{type} não possui arquivos associados a ele. Clique em "editar" para adicionar mais arquivos.
+        header: Unid
+        thumbnail: Miniatura
+        title: Título
+        unauthorized: Não há itens disponíveis publicamente neste %{type}.
+        visibility: Visibilidade
+      relationships:
+        empty: Este %{type} não está atualmente em nenhuma coleção.
+        header: Relacionamentos
+      relationships_parent_row:
+        label: 'Em %{type}:'
+      show:
+        last_modified: Última modificação
+      social_media:
+        facebook: Facebook
+        google: Google+
+        tumblr: tumblr
+        twitter: Twitter
+    batch:
+      help:
+        resource_type: Você pode selecionar vários tipos para aplicar a todos os arquivos
+        title: O nome do arquivo será o título padrão. Forneça um título mais significativo e os nomes dos arquivos ainda serão preservados pelo sistema.
+    batch_edits:
+      delete_selected:
+        button_label: Excluir selecionado
+    batch_uploads:
+      disabled: Recurso desativado pelo administrador
+      files:
+        button_label: Adicionar novo trabalho
+        instructions: Cada arquivo será carregado em um novo trabalho separado, resultando em um trabalho por arquivo carregado.
+        upload_type_instructions: Para criar uma única obra para todos os arquivos, acesse
+      new:
+        header: Criar Novos Trabalhos em Lote
+        in_collections: Estas Obras em Coleções
+        in_other_works: Esta Obra em Outras Obras
+        in_this_work: Outros trabalhos nesta obra
+      progress:
+        header: Salvar Trabalhos
+    bread_crumb:
+      search_results: Voltar para os resultados da pesquisa
+    collection:
+      actions:
+        add_existing_works:
+          desc: Adicionar obras existentes a esta coleção
+          label: Adicionar trabalhos existentes a esta coleção
+        add_new_nested_collection:
+          desc: Adicionar nova coleção a esta coleção
+          label: Criar nova coleção como subcoleção
+        add_new_work:
+          desc: Deposite novos trabalhos através desta coleção
+          label: Deposite novos trabalhos através desta coleção
+        delete:
+          confirmation: Excluir esta coleção?
+          desc: Excluir esta coleção
+          label: Excluir coleção
+        edit:
+          desc: Editar esta coleção
+          label: Editar coleção
+        header: Ações
+        nest_collections:
+          button_label: Adicionar uma subcoleção
+          desc: Aninhar outras coleções dentro desta coleção
+          label: Adicionar coleções existentes a esta coleção
+          modal_title: Adicionar uma subcoleção à coleção
+          select_label: Selecionar subcoleção
+        nested_subcollection:
+          button_label: Adicionar a coleção
+          desc: Adicionar coleções existentes a esta coleção
+          modal_title: Adicionar esta coleção dentro de outra coleção
+          select_label: Selecione a coleção
+      browse_view: Modo de exibição de navegação
+      document_list:
+        edit: Editar
+        no_visible_works: A coleção está vazia ou não contém itens aos quais você tem acesso.
+      edit:
+        manage_items: Gerenciar itens nesta coleção
+      form:
+        additional_fields: Campos adicionais
+        description: Descrições
+      is_part_of: É parte de
+      select_form:
+        close: Fechar
+        create: Salvar
+        create_new: Adicionar à nova coleção
+        no_collections: Você não tem acesso a nenhuma coleção existente. Você pode criar uma nova coleção.
+        select_heading: 'Selecione a coleção para adicionar seus arquivos:'
+        title: Adicionar a coleção
+        update: Salvar alterações
+    collection_type:
+      admin_set_title: Configuração do administrador
+      default_title: Coleção do usuário
+    collection_types:
+      create_service:
+        admin_set_description: Uma agregação de trabalhos que se destina a ajudar no controle administrativo. Conjuntos de administração fornecem uma maneira de definir comportamentos e políticas em torno de um conjunto de trabalhos.
+        default_description: Uma User Collection pode ser criada por qualquer usuário para organizar seus trabalhos.
+    collections:
+      search_form:
+        button_label: Ir
+        label: Coleção de pesquisa %{title}
+        placeholder: Pesquise subcoleções e obras nesta coleção
+      show:
+        buttons:
+          remove_from_collection: Remover
+          remove_this_sub_collection: Remover
+        no_visible_parent_collections: Não há coleções pai visíveis.
+        no_visible_subcollections: Não há subcoleções visíveis.
+        parent_collection_header: Coleções principais
+        show_less_parent_collections: "...mostre menos"
+        show_more_parent_collections: mostre mais...
+        subcollection_count: Subcoleções
+        works_in_collection: Funciona
+    contact_form:
+      button_label: Enviar
+      email_label: Seu email
+      header: Formulário de Contato
+      issue_types:
+        browsing: Navegando e pesquisando
+        changing: Fazendo alterações no meu conteúdo
+        depositing: Depositando conteúdo
+        general: Consulta ou solicitação geral
+        reporting: Relatando um problema
+      message_label: Mensagem
+      name_label: Seu nome
+      notice: Por favor, use o formulário de contato para enviar perguntas sobre este sistema; para relatar um problema que você está enfrentando com o sistema; solicitar auxílio utilizando o sistema; ou para fornecer feedback geral. Consulte a página de Ajuda para obter informações adicionais sobre este sistema.
+      select_type: Selecione um tipo de problema
+      subject_label: Assunto
+      type_label: Tipo de problema
+    content_blocks:
+      cancel: Cancelar
+      instructions:
+        announcement_instructions: O texto do anúncio é exibido na página inicial. É para que mensagens importantes ou oportunas sejam destacadas e visíveis para todos os visitantes da página inicial. Seria apropriado inserir um anúncio aqui, por exemplo, para notificar os usuários sobre uma futura interrupção de manutenção planejada do sistema.
+        featured_researcher_instructions: Pesquisador Destaque é um espaço para inserir informações e na página inicial reservada para destacar os usuários do repositório.
+        home_text_instructions: O Texto da página inicial refere-se à mensagem personalizada que é exibida na página inicial, no bloco principal ou em outra seção da página inicial. Este texto aparece ao selecionar um tema que requer ou permite o texto da página inicial. Recomendamos não mais do que 3 frases nesta área.
+        marketing_instructions: O texto do banner refere-se ao texto exibido sobre a imagem do banner na página inicial. Recomendamos não mais do que aproximadamente 30 caracteres ou espaços nesta área de texto.
+      tabs:
+        announcement_text: Texto de anúncio
+        featured_researcher: Pesquisador em Destaque
+        home_text: Texto da página inicial
+        marketing_text: Texto de marketing
+      updated: Blocos de conteúdo atualizados.
+    controls:
+      about: Sobre
+      contact: Contato
+      help: Ajuda
+      home: Lar
+    dashboard:
+      additional_notifications: Ver todas as notificações
+      admin_sets:
+        admin_set: Conjunto Administrativo
+        files: arquivos
+        subtitle: Atividade recente
+        title: Conjuntos administrativos
+        works: Funciona
+      all:
+        collections: Todas as coleções
+        works: Todos os Trabalhos
+      authorize_proxies: Autorizar Proxies
+      breadcrumbs:
+        admin: Painel
+      collection_type_actions:
+        close: Fechar
+        create_collection: Criar coleção
+        select_type_of_collection: Selecione o tipo de coleção
+      collections:
+        edit:
+          header: 'Editar %{type_title}: %{title}'
+        form:
+          permission_update_errors:
+            error: Opção de atualização inválida para modelo de permissão.
+          permission_update_notices:
+            participants: As opções de compartilhamento da coleção foram atualizadas.
+            sharing: As opções de compartilhamento da coleção foram atualizadas.
+          tabs:
+            branding: Marca
+            description: Descrição
+            discovery: Descoberta
+            relationships: Relacionamentos
+            sharing: Compartilhamento
+        form_branding:
+          banner:
+            description: Uma imagem a ser exibida na parte superior da página da coleção. Para obter melhores resultados, carregue uma imagem (JPG, GIF ou PNG) com pelo menos 120 pixels de altura e 1200 pixels de largura.
+            label: Bandeira
+          branding:
+            description: Opcionalmente, você pode carregar uma imagem de banner e/ou imagens de logotipo para associar a esta coleção. Se carregadas, essas imagens serão exibidas na parte superior da página da coleção para fornecer uma marca exclusiva para a coleção.
+            label: Marca
+          logo:
+            description: Uma ou mais imagens a serem exibidas na parte superior da página da coleção. Para melhores resultados, carregue uma imagem (JPG, GIF ou PNG) com 40 pixels de altura. Imagens maiores serão redimensionadas para 40 pixels de altura.
+            label: Logotipo
+          thumbnail:
+            description: Uma imagem a ser exibida nos resultados da pesquisa e na página inicial, caso você decida apresentar esta coleção. A imagem será cortada e redimensionada de várias maneiras em todo o aplicativo, mas para obter melhores resultados, use uma imagem (JPG, GIF ou PNG) com orientação de paisagem.
+            label: Miniatura
+        form_discovery:
+          para1: Essas configurações determinam quem pode descobrir e visualizar a página inicial dessa coleção; eles não afetam a visibilidade dos itens na coleção.
+          para2: Se você optar por não tornar esta coleção de acesso aberto, ainda poderá compartilhar a coleção com usuários e grupos específicos usando a guia Compartilhamento.
+        form_relationships:
+          add_other_collections_as_sub_collections_description: Você pode gerenciar as subcoleções desta coleção.
+          buttons:
+            remove_from_collection: Remover
+            remove_this_sub_collection: Remover
+          collection_is_subcollection_description: Esta coleção é atualmente uma subcoleção dessas coleções
+          headlines:
+            other_collections_in_this_collection: Outras coleções nesta coleção
+            this_collection_in_other_collections: Esta coleção em outras coleções
+          modals:
+            remove_from_collection_description: A remoção desta coleção não a removerá do repositório, apenas como pai desta coleção. Tem certeza de que deseja remover esta coleção?
+            remove_parent_collection_deny: Você não tem privilégios suficientes para que a coleção pai possa removê-la.
+            remove_this_sub_collection_description: A remoção desta subcoleção não a removerá do repositório, apenas desta coleção pai. Tem certeza de que deseja remover esta subcoleção?
+          sub_collections_of_collection_description: Estas coleções são atualmente subcoleções desta coleção
+          table:
+            action: Ação
+            collection_title: Título da coleção
+          this_collection_in_other_collections_description: Você pode adicionar esta coleção a outras coleções como uma subcoleção.
+        form_share:
+          access_options:
+            creator: O Criador
+            depositor: Depositante
+            manager: Gerente
+            viewer: Visualizador
+          add_group: Adicionar grupo
+          add_sharing: Adicionar Compartilhamento
+          add_user: Adicionar usuário
+          current_shared: Atualmente compartilhado com
+          note: Independentemente das configurações de visibilidade desta coleção, você pode compartilhar esta coleção com grupos e usuários específicos.
+        form_share_table:
+          allow_all_registered: Permitir todos os registrados
+          depositors:
+            action: Ação
+            agent_name: Grupo de usuários
+            empty: Nenhum depositante foi adicionado a esta coleção.
+            help: Os depositantes desta coleção podem visualizar a coleção e adicionar obras a ela, mesmo que as permissões de visibilidade da coleção não permitam que eles a visualizem.
+            remove: Remover
+            title: Depositantes
+            type: Tipo
+          managers:
+            action: Ação
+            agent_name: Grupo de usuários
+            empty: Nenhum administrador foi adicionado a esta coleção.
+            help: Os gerentes desta coleção podem adicionar e remover obras da coleção, modificar os metadados da coleção e excluir a coleção.
+            help_with_works: Para coleções do tipo %{type_title}, quando as obras são criadas diretamente nesta coleção, os gerentes recebem acesso de edição à nova obra.
+            remove: Remover
+            title: Gerentes
+            type: Tipo
+          viewers:
+            action: Ação
+            agent_name: Grupo de usuários
+            empty: Nenhum visualizador foi adicionado a esta coleção.
+            help: Os visualizadores desta coleção podem visualizá-la mesmo se as permissões de visibilidade da coleção não permitirem que eles a visualizem.
+            help_with_works: Para coleções do tipo %{type_title}, quando as obras são criadas diretamente nesta coleção, os visualizadores recebem acesso de leitura à nova obra.
+            remove: Remover
+            title: visualizadores
+            type: Tipo
+        new:
+          header: Novo %{type_title}
+        show:
+          header: Coleção
+          item_count: Funciona
+          parent_collection_header: Coleções pai
+          public_view_label: Visualização pública da coleção
+          search_results: Resultados da pesquisa nesta coleção
+          show_less_parent_collections: "...mostre menos"
+          show_more_parent_collections: mostre mais...
+          subcollection_count: Subcoleções
+      create_work: Criar trabalho
+      current_proxies: Proxies Atuais
+      delete_notification: Excluir notificação
+      heading_actions:
+        close: Fechar
+        create_work: Criar trabalho
+        select_type_of_work: Selecione o tipo de trabalho
+      manage_proxies: Gerenciar proxies
+      managed:
+        collections: Coleções gerenciadas
+        works: Trabalhos Gerenciados
+      my:
+        action:
+          add_to_collection: Adicionar a coleção
+          add_to_collection_only: As ações permitidas são limitadas a adicionar membros
+          admin_set_confirmation: A exclusão de um conjunto administrativo de %{application_name} é permanente. Clique em OK para excluir este conjunto de administração de %{application_name} ou Cancelar para cancelar esta operação
+          collection_create_success: A coleção foi criada com sucesso.
+          collection_delete_fail: Não foi possível excluir a coleção
+          collection_delete_success: A coleção foi excluída com sucesso
+          collection_deny_add_members: Você não tem privilégios suficientes para adicionar membros à coleção
+          collection_update_success: A coleção foi atualizada com sucesso.
+          collections_confirmation_html: Excluir <span class='pluralized'>esta coleção</span> removerá permanentemente <span class='pluralized'>esta coleção</span> do repositório. Os itens <span class='pluralized'>desta coleção</span> permanecerão no repositório. Tem certeza de que deseja excluir <span class='pluralized'>esta coleção</span> ?
+          collections_confirmation_no_items_html: Tem certeza de que deseja excluir esta coleção? Essa ação não pode ser desfeita.
+          delete_admin_set: Excluir coleção
+          delete_admin_set_deny: Esta coleção é definida como Admin Set e não está vazia. Para deletar este Admin Set, você deve primeiro remover (excluir ou mover para outra coleção de Admin Set) todos os itens do Admin Set.
+          delete_collection: Excluir coleção
+          delete_collection_deny: Você não tem privilégios suficientes para excluir esta coleção.
+          delete_collections: Excluir coleções
+          delete_collections_deny: Você não tem privilégios suficientes para excluir uma ou mais coleções.
+          delete_work: Excluir trabalho
+          edit_admin_set: Editar coleção
+          edit_collection: Editar coleção
+          edit_collection_deny: Você não tem privilégios suficientes para editar esta coleção.
+          edit_selected: Editar selecionado
+          edit_work: Editar trabalho
+          highlight: Destacar trabalho no perfil
+          members_no_access: Você não tem privilégios suficientes para nenhum dos membros selecionados
+          nesting_not_allowed: Coleções desse tipo não oferecem suporte a aninhamento.
+          nesting_permission_denied: Você não tem privilégios suficientes para adicionar esta coleção a outra coleção.
+          select: Selecione
+          select_all: Selecione a página atual
+          select_none: Selecione nenhum
+          transfer: Transferir propriedade do trabalho
+          unhighlight: Desmarcar trabalho
+          view_admin_set: Ver coleção
+          view_collection: Ver coleção
+          work_confirmation: Excluir um trabalho de %{application_name} é permanente. Clique em OK para excluir este trabalho de %{application_name} ou Cancelar para cancelar esta operação
+        collection_list:
+          description: 'Descrição:'
+          edit_access: 'Editar Acesso:'
+          groups: 'Grupos:'
+          managed_access:
+            deposit: Depósito
+            edit: Editar
+            manage: Gerenciar
+            view: Visualizar
+          users: 'Usuários:'
+        collections: Coleções
+        facet_label:
+          collections: 'Filtrar coleções:'
+          highlighted: 'Destaques do filtro:'
+          shared: 'Filtrar compartilhamentos:'
+          works: 'Filtro funciona:'
+        heading:
+          access: Acesso
+          action: Ações
+          collection_type: Tipo de coleção
+          date_modified: Última modificação
+          date_uploaded: data adicionada
+          highlighted: Destacado
+          items: Unid
+          last_modified: Última modificação
+          title: Título
+          type: Tipo
+          visibility: Visibilidade
+        highlighted: Meus Destaques
+        shared: Trabalhos Compartilhados Comigo
+        sr:
+          batch_checkbox: Marque para adicionar a uma coleção ou lista de edição
+          check_all_label: Selecione todos os arquivos a serem adicionados a uma coleção ou editados
+          detail_label: Exibir detalhes resumidos de
+          listing: Lista de itens em que você depositou
+          press_to: Pressione para
+          results_per_page: Número de resultados a serem exibidos por página
+          show_label: Exibir todos os detalhes de
+        works: Funciona
+        your_collections: Suas coleções
+        your_works: suas obras
+      nest_collections_form:
+        create_under: "'%{child_title}' foi adicionado a '%{parent_title}'"
+        create_within: "'%{child_title}' foi adicionado a '%{parent_title}'"
+        removed_relationship: "'%{child_title}' foi removido de '%{parent_title}'"
+      no_activity: O usuário não tem atividade recente
+      no_notifications: O usuário não tem notificações
+      no_proxies: Não há proxies atribuídos
+      no_transfer_requests: Você não recebeu nenhuma solicitação de transferência de trabalho
+      no_transfers: Você não transferiu nenhum trabalho
+      proxy_activity: Atividade de proxy
+      proxy_delete: Excluir proxy
+      proxy_help: Selecione um usuário que possa depositar trabalhos em seu nome. Você e seu procurador poderão fazer alterações nesses trabalhos. Você pode revogar um proxy clicando no botão Excluir proxy. Para revogar a capacidade de editar um trabalho enviado anteriormente, remova-os da guia Compartilhamento em cada trabalho.
+      proxy_user: Usuário Proxy
+      show_admin:
+        new_visitors: Novos visitantes
+        registered_users: Usuários registrados
+        repository_growth:
+          subtitle: últimos 90 dias
+          title: Crescimento do repositório
+        repository_objects:
+          subtitle: Status atual
+          title: Objetos do Repositório
+        returning_visitors: Visitantes recorrentes
+        total_visitors: Total de visitantes
+        user_activity:
+          subtitle: Novas inscrições de usuários
+          title: Atividade do usuário
+      stats:
+        collections: Coleções criadas
+        file_downloads: Download
+        file_views: Visualizar
+        files: Arquivos depositados
+        heading: Suas estatísticas
+        works: Trabalhos criados
+      title: Painel
+      transfer_of_ownership: Transferências de propriedade
+      transfer_works_link: Selecione obras para transferir
+      transfers_received: Transferências recebidas
+      transfers_sent: transferências enviadas
+      user_activity:
+        subtitle: Novas inscrições de usuários
+        title: Atividade do usuário
+      user_notifications: Notificações do usuário
+      view_files: Ver arquivos
+    directory:
+      suffix: "@hydrainabox.org"
+    document_language: pt
+    edit_profile: Editar Perfil
+    embargoes:
+      edit:
+        embargo_apply: Aplicar embargo
+        embargo_cancel: Cancele e gerencie todos os embargos
+        embargo_deactivate: Desativar Embargo
+        embargo_false_html: "<strong>Este %{cc} não está atualmente sob embargo.</strong> Se você gostaria de aplicar um embargo, forneça as informações aqui."
+        embargo_return: Voltar a editar este %{cc}
+        embargo_true_html: "<strong>Este %{cc} está sob embargo.</strong>"
+        embargo_update: Atualizar embargo
+        header:
+          current: Embargo atual
+          past: Embargos anteriores
+        history_empty: Este %{cc} não possui embargos anteriores aplicados a ele.
+        manage_embargoes_html: Gerenciar Embargos para %{cc} <span class='human_readable_type'>(%{cc_type})</span>
+      index:
+        active: Todos os embargos ativos
+        deactivated: Embargos Desativados
+        expired: Embargos ativos expirados
+        manage_embargoes: Gerenciar embargos
+      list_expired_active_embargoes:
+        change_all: Altere todos os arquivos dentro de %{cc} para
+        deactivate: Desativar Embargo
+        deactivate_selected: Desativar Embargos para Selecionados
+        missing: Não há embargos expirados em vigor neste momento.
+      table_headers:
+        release_date: Data de lançamento do embargo
+        title: Título
+        type: Tipo de Item
+        viz_after: A visibilidade mudará para
+        viz_current: Visibilidade Atual
+    featured_researchers: Pesquisadores em destaque
+    file_manager:
+      link_text: Gerenciador de arquivos
+    file_set:
+      browse_view: Modo de exibição de navegação
+      show:
+        download: Baixe o arquivo
+        downloadable_content:
+          audio_link: Baixar áudio
+          default_link: "⇬ Fazer download do arquivo"
+          heading: Conteúdo disponível para download
+          image_link: Baixar imagem
+          office_link: "⇬ Fazer download do arquivo"
+          pdf_link: baixar PDF
+          video_link: Baixar video
+    file_sets:
+      actions:
+        delete: Excluir
+        delete_confirm: A exclusão de %{file_set} de %{application_name} é permanente. Clique em OK para excluir isso de %{application_name} ou Cancelar para cancelar esta operação
+        delete_title: Excluir %{file_set}
+        download: Download
+        download_title: Baixar %{file_set}
+        edit: Editar
+        edit_title: Editar %{file_set}
+        header: Selecione uma ação
+        versions: Versões
+        versions_title: Exibir versões anteriores
+      groups_description:
+        description_html: A lista de grupos no menu suspenso marcada como "Selecionar um grupo" é uma lista de grupos gerenciados por usuários dos quais você é membro. Você pode selecionar um grupo específico e atribuir um nível de acesso para um arquivo dentro de %{application_name}, da mesma forma que adiciona níveis de acesso de usuário.
+    footer:
+      copyright_html: "<strong>Copyright © 2019 Samvera</strong> Licenciado sob a licença Apache, versão 2.0"
+      service_html: Um serviço de <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a> .
+    help:
+      header: Suporte ao usuário
+      override_text: Use app/views/static/help.html.erb para substituir este arquivo.
+    homepage:
+      admin_sets:
+        link: Ver todas as coleções
+        tab_label: Explorar coleções
+        thumbnail: Miniatura
+        title: Explorar coleções
+      featured_collections:
+        document:
+          title_label: Título
+        no_collections: Nenhuma coleção foi apresentada.
+        title: Coleções em destaque
+      featured_researcher:
+        missing: Nenhum pesquisador foi apresentado.
+        tab_label: Pesquisador em Destaque
+        title: Pesquisador em Destaque
+      featured_works:
+        document:
+          depositor_label: Depositante
+          depositor_missing: sem valor de depositante
+          keyword_label: Palavras-chave
+          keyword_missing: nenhuma palavra-chave especificada
+          title_label: Título
+        drag: Arrastar
+        no_works: Nenhum trabalho foi apresentado
+        tab_label: Trabalhos em destaque
+        title: Trabalhos em destaque
+      recently_uploaded:
+        depositor: Depositante
+        details: Detalhes
+        document:
+          depositor_label: Depositante
+          depositor_missing: sem valor de depositante
+          keyword_label: Palavras-chave
+          keyword_missing: nenhuma palavra-chave especificada
+          title_label: Título
+        no_public: Nenhum trabalho público foi contribuído.
+        tab_label: Carregado recentemente
+        title: Carregado recentemente
+    icons:
+      collection: fa fa-cubos
+      default: fa fa-cubo
+    institution_name: Instituição
+    institution_name_full: Instituição
+    leases:
+      edit:
+        header:
+          current: Arrendamento Atual
+          past: Locações anteriores
+        history_empty: Este %{cc} não possui concessões anteriores aplicadas a ele.
+        lease_apply: Aplicar locação
+        lease_cancel: Cancele e gerencie todos os aluguéis
+        lease_deactivate: Desativar locação
+        lease_false_html: "<strong>Este %{cc} não está atualmente sob arrendamento.</strong> Se você gostaria de aplicar um contrato de arrendamento, forneça as informações aqui."
+        lease_return: Voltar a editar este %{cc}
+        lease_true_html: "<strong>Este %{cc} está alugado.</strong>"
+        lease_update: Atualizar Aluguel
+        manage_leases_html: Gerenciar arrendamentos para %{cc} <span class='human_readable_type'>(%{cc_type})</span>
+      index:
+        active: Todos os arrendamentos ativos
+        deactivated: Arrendamentos desativados
+        expired: Locações ativas expiradas
+        manage_leases: Gerenciar arrendamentos
+      list_expired_active_leases:
+        change_all: Altere todos os arquivos dentro de %{cc} para
+        deactivate: Desativar locação
+        deactivate_selected: Desativar locações para selecionados
+        missing: Não há aluguéis vencidos em vigor no momento.
+      table_headers:
+        release_date: Data de Liberação do Arrendamento
+        title: Título
+        type: Tipo de item
+        viz_after: A visibilidade mudará para
+        viz_current: Visibilidade Atual
+    mailbox:
+      date: Data
+      delete: Apagar mensagem
+      empty: Nenhuma notificação encontrada
+      message: Mensagem
+      notifications_deleted: As notificações foram excluídas
+      subject: Assunto
+    manifest:
+      download_text: Baixe todo o recurso
+      unknown_mime_text: tipo de mímica desconhecido
+    messages:
+      failure:
+        multiple:
+          keyword: não pôde ser atualizado. Você não tem privilégios suficientes para editá-los.
+          link: Esses arquivos
+        single: não pôde ser atualizado. Você não tem privilégios suficientes para editá-lo.
+        subject: Permissão de upload em lote negada
+        title: Falha nos arquivos
+      success:
+        multiple:
+          keyword: foram salvos.
+          link: Esses arquivos
+        single: Foi salvo.
+        subject: Carregamento em lote concluído
+        title: Arquivos enviados com sucesso
+    my:
+      count:
+        collections:
+          in_repo: "<strong>%{total_count} coleções</strong> no repositório"
+          you_manage: "<strong>%{total_count} coleções</strong> que você pode gerenciar no repositório"
+          you_own: "<strong>%{total_count} coleções</strong> que você possui no repositório"
+        works:
+          in_repo: "<strong>%{total_count} funciona</strong> no repositório"
+          you_manage: "<strong>%{total_count} funciona</strong> você pode gerenciar no repositório"
+          you_own: "<strong>%{total_count} obras</strong> que você possui no repositório"
+    nav_safety:
+      change_tab_message: Tem certeza de que deseja sair desta guia? Todos os dados não salvos serão perdidos.
+    pages:
+      cancel: Cancelar
+      tabs:
+        about_page: Sobre a página
+        agreement_page: Contrato de Depósito
+        help_page: página de ajuda
+        terms_page: Termos de uso
+      updated: Páginas atualizadas.
+    passive_consent_to_agreement: Ao salvar este trabalho, concordo com os
+    product_name: Hyku
+    product_twitter_handle: "@HydraInABox"
+    search:
+      button:
+        html: <span class="glyphicon glyphicon-search"></span>Ir
+        text: Procurar
+      form:
+        option:
+          all:
+            label_long: Todos os %{application_name}
+            label_short: Todos
+          my_collections:
+            label_long: Minhas coleções
+            label_short: Minhas coleções
+          my_shares:
+            label_long: Minhas Ações
+            label_short: Minhas Ações
+          my_works:
+            label_long: Meus trabalhos
+            label_short: Meus trabalhos
+        q:
+          label: Pesquisar %{application_name}
+          placeholder: Digite os termos de pesquisa
+    select_type:
+      description: Tipo de trabalho de uso geral
+      name: Trabalhar
+    share_button: Compartilhe seu trabalho
+    single_use_links:
+      button: Link de uso único para arquivo
+      copy:
+        button: cópia de
+        tooltip: Copiado!
+      delete: Excluir
+      download:
+        type: Download
+      expiration:
+        lesser_time: em menos de uma hora
+        time: em %{value} horas
+      expiration_message: O link %{link} expira em %{time}
+      show:
+        type: Mostrar
+      table:
+        actions: Ações
+        expires: Expira
+        key: Chave
+        link: Link
+        no_links: Nenhum link foi gerado
+      title: Links de uso único
+    sort_label: Classifique a listagem de itens
+    toolbar:
+      dashboard:
+        menu: Painel
+      language_switch: Mudar idioma
+      notifications:
+        many: Você tem %{count} notificações não lidas
+        one: Você tem uma notificação não lida
+        zero: Você não tem notificações não lidas
+      profile:
+        login: Conecte-se
+        logout: Sair
+        sr_action: Visualizar
+        sr_target: perfil
+    transfers:
+      new:
+        confirm: Tem certeza de que deseja transferir a propriedade desta obra para outro usuário? Clique Ok para transferir ou Cancelar para retornar à tela de transferência
+        header: Transferir propriedade
+        placeholder: Procurar um usuário
+        sr_only_description: Selecione um usuário para transferir "%{work_title}", adicione comentários opcionais e pressione transferir.
+        title: Transferir propriedade de "%{work_title}"
+    upload:
+      alert:
+        contact_href_text: Formulário de Contato
+        fail_html: Ocorreu um problema durante o upload, nenhum dos seus arquivos foi carregado corretamente. Por favor %{reload_href}. Use o %{contact_href} para relatar o erro se ele persistir.
+        fail_restart_href_text: recomeçar
+        partial_fail_html: Um ou mais arquivos não foram carregados com sucesso. Para continuar usando os arquivos que carregaram %{metadata_href}.<br /> Use o %{contact_href} para relatar o erro se ele persistir.
+        partial_fail_metadata_href_text: editar seus metadados
+      browse_everything:
+        browse_files_button: Adicionar arquivos na nuvem...
+        files_selected: arquivos selecionados
+        sr_tab_label: Acessar arquivos de
+        tab_label: provedores de nuvem
+      change_access_flash_message: Atualizando níveis de acesso a arquivos. Isso pode levar alguns minutos. Você pode querer atualizar seu navegador ou retornar a este registro mais tarde para ver os níveis de acesso de arquivo atualizados.
+      change_access_message_html: "<p>Você alterou o nível de acesso no trabalho <i>%{curation_concern}</i> , tornando-o acessível a outros usuários ou grupos para visualização ou edição.</p><p> Você gostaria de alterar todos os arquivos dentro do trabalho para ter os mesmos usuários de acesso, grupos e visibilidade também?</p>"
+      change_access_no_message: Não. Vou atualizá-lo manualmente.
+      change_access_yes_message: Sim por favor.
+      change_permissions_message_html: "<p>Você alterou as permissões neste %{curation_concern_human_readable_type}, <i>%{curation_concern}</i> , tornando-o visível para <b>%{visibility_badge}</b> .</p><p> Você gostaria de alterar todos os arquivos dentro de %{curation_concern_human_readable_type} para <b>%{visibility_badge}</b> também?</p>"
+      local_ingest:
+        tab_label: Localização da rede/servidor
+      my_computer:
+        sr_instructions: Concorde com o contrato de depósito e selecione os arquivos. Pressione o botão Iniciar upload assim que todos os arquivos forem selecionados.
+        sr_tab_label: Acessar arquivos de
+        tab_label: meu computador
+      permissions_message: Atualizando permissões de arquivo. Isso pode levar alguns minutos. Você pode querer atualizar seu navegador ou retornar a este registro mais tarde para ver as permissões de arquivo atualizadas.
+      processing: O arquivo está sendo processado; você pode editar quando o processamento for concluído
+    user_profile:
+      orcid:
+        alt: ícone ORCID
+        label: Perfil ORCID
+      tab_activity: Atividade
+      tab_highlighted: Destacado
+      tab_profile: Perfil
+      zotero:
+        alt: Zotero ícone
+        connected: Conectado!
+        label: Perfil Zotero
+        unlinked: Link com Zotero
+    visibility:
+      authenticated:
+        note_html: Restrinja o acesso a %{institution}.
+        text: "%{institution}"
+      embargo:
+        note_html: Definir data para lançamento futuro.
+        text: Embargo
+      lease:
+        note_html: Definir data para acesso reduzido futuro.
+        text: Alugar
+      open:
+        note_html: Disponibilizar a todos.
+        text: Público
+        warning_html: <p><strong>Observe que</strong> tornar algo visível para o mundo (ou seja, marcar isso como %{label}) pode ser visto como publicação, o que pode afetar sua capacidade de:</p><ul><li> Patenteie seu trabalho</li><li> Publique seu trabalho em um jornal</li></ul><p> Confira <a href="http://www.sherpa.ac.uk/romeo/">SHERPA/RoMEO</a> para obter mais informações sobre as políticas de direitos autorais do editor.</p>
+      open_title_attr: Alterar a visibilidade deste recurso
+      restricted:
+        note_html: Guardar para mim mesmo com a opção de compartilhar.
+        text: Privado
+      restricted_title_attr: Alterar a visibilidade deste recurso
+    workflow:
+      default:
+        deposit: Depósito
+      load:
+        state_error: 'O fluxo de trabalho: %{workflow_name} não foi atualizado. Você está removendo um estado: %{state_name} com entidade(s) %{entity_count}. Um estado não pode ser removido enquanto tiver entidades ativas!'
+      unauthorized: A obra não está disponível no momento porque ainda não concluiu o processo de aprovação
+    works:
+      create:
+        after_create_html: Seus arquivos estão sendo processados por %{application_name} em segundo plano. Os metadados e controles de acesso que você especificou estão sendo aplicados. Pode ser necessário atualizar esta página para ver essas atualizações.
+        breadcrumb: Adicionar novo trabalho
+        header: Adicionar Novo %{type}
+      edit:
+        breadcrumb: Editar
+      form:
+        additional_fields: Campos adicionais
+        in_collections: Coleções
+        in_other_works: Esta Obra em Outras Obras
+        in_this_work: Outros trabalhos nesta obra
+        tab:
+          files: arquivos
+          metadata: Descrições
+          relationships: Relacionamentos
+          share: Compartilhamento
+        visibility_until: até
+      progress:
+        header: Salvar trabalho
+      show:
+        no_preview: Nenhuma visualização disponível
+      update:
+        header: Editar trabalho
+  simple_form:
+    hints:
+      admin_set:
+        description: Uma breve descrição abrangente que se aplica a todas as obras coletadas neste conjunto. Por exemplo, "Teses e arquivos suplementares criados pelos alunos de pós-graduação da Escola de Ciências da Terra".
+        title: Um nome para auxiliar na identificação do Conjunto Administrativo e para distingui-lo de outros Conjuntos Administrativos no repositório.
+      collection:
+        based_near: Um nome de local relacionado à coleção, como seu site de publicação ou a cidade, estado ou país sobre o qual o conteúdo da coleção se refere. Solicita o <a href='http://www.geonames.org'>serviço web GeoNames</a>.
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação da coleção, mas não o papel principal.
+        creator: A pessoa ou grupo responsável pela coleta. Geralmente este é o autor do conteúdo. Nomes pessoais devem ser inseridos com o sobrenome primeiro, por exemplo "Smith, John".
+        date_created: A data em que a coleção foi criada.
+        description: Notas de texto livre sobre a coleção. Os exemplos incluem resumos de um artigo ou informações de citação para um artigo de jornal.
+        identifier: Um identificador exclusivo que identifica a coleção. Um exemplo seria um DOI para um artigo de periódico ou um número ISBN ou OCLC para um livro.
+        keyword: Palavras ou frases que você seleciona para descrever sobre o que é o trabalho. Estes não precisam ser um vocabulário controlado.
+        language: O idioma do conteúdo da coleção.
+        license: Informações de licenciamento e distribuição que regem o acesso à coleção. Selecione na lista suspensa fornecida.
+        publisher: A pessoa ou grupo que disponibiliza a coleção. Geralmente esta é a instituição.
+        related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado à coleção. Um exemplo é a URL de um projeto de pesquisa do qual a coleção foi derivada.
+        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "conjunto de dados" Mais de um tipo pode ser selecionado.
+        subject: Títulos ou termos de índice que descrevem sobre o que é a coleção; estes precisam estar em conformidade com um vocabulário existente.
+        title: Um nome para ajudar na identificação de uma coleção.
+      collection_type:
+        allow_multiple_membership: Permitir que as obras pertençam a várias coleções deste tipo
+        assigns_visibility: Permitir que coleções deste tipo atribuam configurações iniciais de visibilidade a um novo trabalho
+        assigns_workflow: Permitir que coleções deste tipo atribuam fluxo de trabalho a um novo trabalho
+        brandable: Permitir que coleções desse tipo sejam marcadas
+        description: Uma breve declaração do objetivo geral desse tipo de coleção. Os usuários verão isso se tiverem mais de um tipo de coleção para escolher ao criar uma nova coleção.
+        discoverable: Permitir que coleções desse tipo sejam detectáveis
+        nestable: Permitir que coleções deste tipo sejam aninhadas (uma coleção pode conter outras coleções)
+        require_membership: Uma obra deve pertencer a pelo menos uma coleção deste tipo
+        sharable: Permitir que os usuários atribuam gerentes de cobrança, depositantes e visualizadores para coleções que eles gerenciam
+        share_applies_to_new_works: Quando novos trabalhos são criados diretamente na coleção, conceda aos usuários e grupos de compartilhamento permissões para o novo trabalho de acordo com suas funções de coleção.
+        title: ''
+      defaults:
+        access_right: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
+        additional_rights_info: Se os direitos estiverem sujeitos a um acordo contratual ou de doação ou de outra forma definido por um acordo vinculativo que seja um complemento ou um substituto das leis de propriedade intelectual ou licenciamento aberto, detalhe aqui.
+        based_near: Um nome de local relacionado à obra, como seu site de publicação ou a cidade, estado ou país sobre o qual o conteúdo da obra se refere. Solicita o <a href='http://www.geonames.org'>serviço web GeoNames</a>.
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
+        creator: A pessoa ou grupo responsável pelo trabalho. Geralmente este é o autor do conteúdo. Nomes pessoais devem ser inseridos com o sobrenome primeiro, por exemplo "Smith, John".
+        date_created: A data em que a obra foi criada.
+        description: Uma conta de texto livre do recurso.
+        extent: A extensão (tamanho, duração, número, etc.) da obra.
+        format: O formato de arquivo do recurso digital.
+        identifier: Um identificador exclusivo identificando o trabalho. Um exemplo seria um DOI para um artigo de periódico ou um número ISBN ou OCLC para um livro.
+        institution: Instituição participante para a qual o trabalho está sendo carregado.
+        keyword: Palavras ou frases que você seleciona para descrever sobre o que é o trabalho. Estes não precisam ser um vocabulário controlado.
+        language: A linguagem do conteúdo da obra. Soletre o idioma e coloque a primeira letra em maiúscula.
+        license: Informações sobre licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.
+        publisher: A pessoa ou grupo responsável por disponibilizar o recurso original.
+        related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado ao trabalho. Um exemplo é a URL de um projeto de pesquisa do qual o trabalho foi derivado.
+        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "fotografia". Mais de um tipo de recurso pode ser selecionado.
+        rights_notes: Qualquer explicação adicional de direitos ou licenciamento pode ser incluída aqui.
+        rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte <a href='https://rightsstatements.org'>https://rightsstatements.org</a> para obter mais informações.
+        title: Um nome para ajudar na identificação de uma obra.
+        types: Categorias predefinidas para descrever a natureza ou gênero do recurso. Mais de um tipo pode ser selecionado.
+        video_embed: Código de incorporação do iframe do Youtube ou Vimeo para mostrar o vídeo incorporado na página de trabalho. Se você inserir um link de incorporação para um vídeo, ele deve ser um URL formatado corretamente começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que pode aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
+    labels:
+      collection:
+        size: Tamanho
+        total_items: Total de Itens
+      collection_type:
+        allow_multiple_membership: ASSOCIAÇÃO MÚLTIPLA
+        assigns_visibility: VISIBILIDADE
+        assigns_workflow: FLUXO DE TRABALHO
+        badge_color: Cor do distintivo
+        brandable: MARCA
+        description: Descrição do tipo
+        discoverable: DESCOBERTA
+        nestable: Aninhamento
+        require_membership: REQUER ASSOCIAÇÃO
+        sharable: COMPARTILHAMENTO
+        share_applies_to_new_works: APLICAR A NOVOS TRABALHOS
+        title: Digite o nome
+      defaults:
+        additional_rights_info: Informações adicionais sobre direitos
+        admin_set_id: Conjunto Administrativo
+        advisor: Orientador
+        based_near: Localização
+        committee_member: membro do Comitê
+        contributor: Contribuinte
+        creator: O Criador
+        date_created: Data Criada
+        degree: Grau
+        degree_granting_institution: Instituição que concede diploma
+        department: Departamento
+        description: Descrição
+        discipline: Disciplina
+        embargo_release_date: até
+        files: Enviar um arquivo
+        format: Formatar
+        institution: Instituição
+        keyword: Palavra-chave
+        language: Linguagem
+        lease_expiration_date: até
+        level: Nível
+        license: Licença
+        member_of_collection_ids: Adicionar a coleção
+        publisher: Editor
+        related_url: URL relacionada
+        resource_type: Tipo de recurso
+        rights_statement: declaração de direitos
+        source: Fonte
+        subject: Assunto
+        title: Título
+        types: Tipo
+        video_embed: vídeo incorporado
+        visibility_after_embargo: em seguida, abra-o para
+        visibility_after_lease: então restrinja-o a
+        visibility_during_embargo: Restrito a
+        visibility_during_lease: está disponível para
+        year: Ano
+      proxy_deposit_request:
+        sender_comment: Comentários
+        transfer_to: Do utilizador
+    placeholders:
+      defaults:
+        find_child_work: Procurar um trabalho…
+        member_of_collection_ids: Selecione uma coleção…
+    required:
+      html: <span class="label label-info required-tag">obrigatório</span>

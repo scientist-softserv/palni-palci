@@ -4,18 +4,33 @@ fr:
     search:
       fields:
         show:
+          abstract: Abstrait
+          access_right: Des droits d'accès
           additional_rights_info: Informations supplémentaires sur les droits
+          advisor: Conseiller
+          alternative_title: Titre alternatif
+          bibliographic_citation: Citation bibliographique
+          committee_member: membre du comité
           creator: Créateur
           date_created: date créée
+          degree: Degré
+          degree_granting_institution: Institution délivrant des diplômes
+          department: Département
+          discipline: Discipline
           format: Format
+          identifier: Identifiant
           institution: Institution
           language: Langue
+          level: Niveau
+          license: Licence
           publisher: Éditeur
           resource_type: Type de ressource
+          rights_notes: Remarques sur les droits
           rights_statement: Déclaration des droits
           source: Source
           subject: Sujet
           types: Taper
+          year: Année
   hyrax:
     account_label: Utilisateur
     account_name: Identifiant de compte
@@ -1183,11 +1198,17 @@ fr:
       defaults:
         additional_rights_info: Informations supplémentaires sur les droits
         admin_set_id: Ensemble administratif
+        advisor: Conseiller
         based_near: Emplacement
+        committee_member: membre du comité
         contributor: Donateur
         creator: Créateur
         date_created: date créée
+        degree: Degré
+        degree_granting_institution: Institution délivrant des diplômes
+        department: Département
         description: Descripción
+        discipline: Discipline
         embargo_release_date: jusqu'à ce que
         files: Télécharger un fichier
         format: Format
@@ -1195,6 +1216,7 @@ fr:
         keyword: Mot-clé
         language: Langue
         lease_expiration_date: jusqu'à ce que
+        level: Niveau
         license: Licence
         member_of_collection_ids: Ajouter à la collection
         publisher: Éditeur
@@ -1210,6 +1232,7 @@ fr:
         visibility_after_lease: puis limitez-le à
         visibility_during_embargo: Limité à
         visibility_during_lease: Est disponible pour
+        year: Année
       proxy_deposit_request:
         sender_comment: commentaires
         transfer_to: Utilisateur

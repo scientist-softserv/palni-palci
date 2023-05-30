@@ -11,20 +11,31 @@ de:
           alternative_title: Alternativer Titel
           bibliographic_citation: Bibliografische Angabe
           committee_member: Ausschussmitglied
+          contributor_institutional_relationship: Institutionelle Beziehung des Mitwirkenden
+          contributor_role: Rolle des Mitwirkenden
           creator: Schöpfer
+          creator_institutional_relationship: Institutionelle Beziehung zum Crontributor
           date_created: Datum erstellt
           degree: Grad
           degree_granting_institution: Institution, die einen Abschluss verleiht
           department: Abteilung
           discipline: Disziplin
+          event_date: Veranstaltungsdatum
+          event_location: Veranstaltungsort
+          event_title: Veranstaltungstitel
           format: Format
+          funder_awards: Förderpreis
+          funder_name: Name des Geldgebers
           identifier: Kennung
           institution: Institution
           language: Sprache
           level: Eben
           license: Lizenz
+          official_link: Offizielle URL
+          project_name: Projektname
           publisher: Herausgeber
           resource_type: Ressourcentyp
+          rights_holder: Rechteinhaber
           rights_notes: Rechtehinweise
           rights_statement: Rechteerklärung
           source: Quelle
@@ -1203,7 +1214,10 @@ de:
         based_near: Ort
         committee_member: Ausschussmitglied
         contributor: Mitwirkender
+        contributor_institutional_relationship: Institutionelle Beziehung des Mitwirkenden
+        contributor_role: Rolle des Mitwirkenden
         creator: Schöpfer
+        creator_institutional_relationship: Institutionelle Beziehung des Schöpfers
         date_created: Datum erstellt
         degree: Grad
         degree_granting_institution: Institution, die einen Abschluss verleiht
@@ -1211,8 +1225,13 @@ de:
         description: Beschreibung
         discipline: Disziplin
         embargo_release_date: bis um
+        event_date: Veranstaltungsdatum
+        event_location: Veranstaltungsort
+        event_title: Veranstaltungstitel
         files: Eine Datei hochladen
         format: Format
+        funder_awards: Förderpreis
+        funder_name: Name des Geldgebers
         institution: Institution
         keyword: Stichwort
         language: Sprache
@@ -1220,9 +1239,11 @@ de:
         level: Eben
         license: Lizenz
         member_of_collection_ids: Zur Sammlung hinzufügen
+        project_name: Projektname
         publisher: Herausgeber
         related_url: Verwandte URL
         resource_type: Ressourcentyp
+        rights_holder: Rechteinhaber
         rights_statement: Rechteerklärung
         source: Quelle
         subject: Thema

@@ -11,20 +11,31 @@ en:
           alternative_title: "Alternative Title"
           bibliographic_citation: "Bibliographic citation"
           committee_member: "Committee member"
+          contributor_institutional_relationship: "Contributor institutional relationship"
+          contributor_role: "Contributor Role"
           creator: "Creator"
+          creator_institutional_relationship: "Crontributor institutional relationship"
           date_created: "Date Created"
           degree: "Degree"
           degree_granting_institution: "Degree Granting Institution"
           department: "Department"
           discipline: "Discipline"
+          event_date: "Event date"
+          event_location: "Event location"
+          event_title: "Event title"
+          funder_awards: "Funder Awards"
           format: "Format"
+          funder_name: "Funder Name"
           identifier: "Identifier"
           institution: "Institution"
           language: "Language"
           level: "Level"
           license: "License"
+          official_link: "Official URL"
+          project_name: "Project name"
           publisher: "Publisher"
           resource_type: "Resource Type"
+          rights_holder: "Rights Holder"
           rights_notes: "Rights notes"
           rights_statement: "Rights Statement"
           source: "Source"
@@ -1208,7 +1219,10 @@ en:
         based_near: Location
         committee_member: Committee member
         contributor: Contributor
+        contributor_institutional_relationship: Contributor institutional relationship
+        contributor_role: Contributor Role
         creator: Creator
+        creator_institutional_relationship: Creator institutional relationship
         date_created: Date Created
         discipline: Discipline
         degree: Degree
@@ -1216,18 +1230,25 @@ en:
         department: Department
         description: Description
         embargo_release_date: until
+        event_date: Event date
+        event_location: Event location
+        event_title: Event title
         files: Upload a file
         format: Format
+        funder_awards: Funder Awards
+        funder_name: Funder Name
         institution: Institution
         keyword: Keyword
         language: Language
         lease_expiration_date: until
         level: Level
         license: License
-        member_of_collection_ids: Add to collection
+        member_of_collection_ids: Add to collectio
+        project_name: Project name
         publisher: Publisher
         related_url: Related URL
         resource_type: Resource Type
+        rights_holder: Rights holder
         rights_statement: Rights statement
         source: Source
         subject: Subject

@@ -11,20 +11,31 @@ fr:
           alternative_title: Titre alternatif
           bibliographic_citation: Citation bibliographique
           committee_member: membre du comité
+          contributor_institutional_relationship: Relation institutionnelle contributeur
+          contributor_role: Rôle de contributeur
           creator: Créateur
+          creator_institutional_relationship: Relation institutionnelle co-contributrice
           date_created: date créée
           degree: Degré
           degree_granting_institution: Institution délivrant des diplômes
           department: Département
           discipline: Discipline
+          event_date: Date de l'événement
+          event_location: Lieu de l'événement
+          event_title: Titre de l'événement
           format: Format
+          funder_awards: Prix des bailleurs de fonds
+          funder_name: Nom du bailleur de fonds
           identifier: Identifiant
           institution: Institution
           language: Langue
           level: Niveau
           license: Licence
+          official_link: URL officielle
+          project_name: Nom du projet
           publisher: Éditeur
           resource_type: Type de ressource
+          rights_holder: Titulaire des droits
           rights_notes: Remarques sur les droits
           rights_statement: Déclaration des droits
           source: Source
@@ -1202,7 +1213,10 @@ fr:
         based_near: Emplacement
         committee_member: membre du comité
         contributor: Donateur
+        contributor_institutional_relationship: Relation institutionnelle contributeur
+        contributor_role: Rôle de contributeur
         creator: Créateur
+        creator_institutional_relationship: Relation institutionnelle créateur
         date_created: date créée
         degree: Degré
         degree_granting_institution: Institution délivrant des diplômes
@@ -1210,8 +1224,13 @@ fr:
         description: Descripción
         discipline: Discipline
         embargo_release_date: jusqu'à ce que
+        event_date: Date de l'événement
+        event_location: Lieu de l'événement
+        event_title: Titre de l'événement
         files: Télécharger un fichier
         format: Format
+        funder_awards: Prix des bailleurs de fonds
+        funder_name: Nom du bailleur de fonds
         institution: Institution
         keyword: Mot-clé
         language: Langue
@@ -1219,9 +1238,11 @@ fr:
         level: Niveau
         license: Licence
         member_of_collection_ids: Ajouter à la collection
+        project_name: Nom du projet
         publisher: Éditeur
         related_url: URL associée
         resource_type: Type de ressource
+        rights_holder: Titulaire des droits
         rights_statement: Déclaration des droits
         source: Source
         subject: Sujet

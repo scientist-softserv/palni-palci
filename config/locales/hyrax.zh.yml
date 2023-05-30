@@ -12,21 +12,32 @@ zh:
           alternative_title: 替代标题
           bibliographic_citation: 书目引文
           committee_member: 委员会成员
+          contributor_institutional_relationship: 贡献者机构关系
+          contributor_role: 贡献者角色
           creator: 造物主
+          creator_institutional_relationship: 贡献者机构关系
           date_created: 创建日期
           degree: 程度
           degree_granting_institution: 学位授予机构
           department: 部门
           discipline: 纪律
+          event_date: 活动日期
+          event_location: 活动地点
+          event_title: 活动名称
           format: 格式
+          funder_awards: 资助者奖
+          funder_name: 资助者名称
           identifier: 标识符
           institution: 机构
           language: 语言
           level: 等级
           license: 执照
           livense: 执照
+          official_link: 官方网址
+          project_name: 项目名
           publisher: 出版商
           resource_type: 资源类型
+          rights_holder: 权利人
           rights_notes: 维权说明
           rights_statement: 权利声明
           source: 来源
@@ -1206,7 +1217,10 @@ zh:
         based_near: 位置
         committee_member: 委员会成员
         contributor: 贡献者
+        contributor_institutional_relationship: 贡献者机构关系
+        contributor_role: 贡献者角色
         creator: 创作者
+        creator_institutional_relationship: 创作者机构关系
         date_created: 创建日期
         degree: 程度
         degree_granting_institution: 学位授予机构
@@ -1214,8 +1228,13 @@ zh:
         description: 描述
         discipline: 纪律
         embargo_release_date: 直到
+        event_date: 活动日期
+        event_location: 活动地点
+        event_title: 活动名称
         files: 上传一个文件
         format: 格式
+        funder_awards: 资助者奖
+        funder_name: 资助者名称
         institution: 机构
         keyword: 关键词
         language: 语言
@@ -1223,9 +1242,11 @@ zh:
         level: 等级
         license: 执照
         member_of_collection_ids: 添加到收藏
+        project_name: 项目名
         publisher: 出版商
         related_url: 相关网址
         resource_type: 资源类型
+        rights_holder: 权利人
         rights_statement: 权利声明
         source: 来源
         subject: 主题

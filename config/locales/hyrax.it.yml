@@ -11,20 +11,31 @@ it:
           alternative_title: Titolo alternativo
           bibliographic_citation: Citazione bibliografica
           committee_member: membro del Comitato
+          contributor_institutional_relationship: Rapporto istituzionale contribuente
+          contributor_role: Ruolo collaboratore
           creator: Creatore
+          creator_institutional_relationship: Rapporto istituzionale di Ccontributor
           date_created: data di creazione
           degree: Grado
           degree_granting_institution: Ente per il rilascio dei titoli di studio
           department: Dipartimento
           discipline: Disciplina
+          event_date: Data dell'evento
+          event_location: Luogo dell'evento
+          event_title: Titolo dell'evento
           format: Formato
+          funder_awards: Premi finanziatori
+          funder_name: Nome del finanziatore
           identifier: Identificatore
           institution: Istituzione
           language: Lingua
           level: Livello
           license: Licenza
+          official_link: URL ufficiale
+          project_name: Nome del progetto
           publisher: Editore
           resource_type: Tipo di risorsa
+          rights_holder: Titolare dei diritti
           rights_notes: Note sui diritti
           rights_statement: Dichiarazione dei diritti
           source: Fonte
@@ -1204,7 +1215,10 @@ it:
         based_near: Posizione
         committee_member: membro del Comitato
         contributor: Collaboratore
+        contributor_institutional_relationship: Rapporto istituzionale contribuente
+        contributor_role: Ruolo collaboratore
         creator: Creatore
+        creator_institutional_relationship: Creatore rapporto istituzionale
         date_created: data di creazione
         degree: Grado
         degree_granting_institution: Ente per il rilascio dei titoli di studio
@@ -1212,8 +1226,13 @@ it:
         description: Descrizione
         discipline: Disciplina
         embargo_release_date: fino a
+        event_date: Data dell'evento
+        event_location: Luogo dell'evento
+        event_title: Titolo dell'evento
         files: Caricare un file
         format: Formato
+        funder_awards: Premi finanziatori
+        funder_name: Nome del finanziatore
         institution: Istituzione
         keyword: Parola chiave
         language: Lingua
@@ -1221,9 +1240,11 @@ it:
         level: Livello
         license: Licenza
         member_of_collection_ids: Aggiungere alla collezione
+        project_name: Nome del progetto
         publisher: Editore
         related_url: URL correlato
         resource_type: Tipo di risorsa
+        rights_holder: Titolare dei diritti
         rights_statement: Dichiarazione dei diritti
         source: Fonte
         subject: Soggetto

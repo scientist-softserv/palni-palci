@@ -14,8 +14,8 @@ en:
           contributor_institutional_relationship: "Contributor institutional relationship"
           contributor_role: "Contributor Role"
           creator: "Creator"
-          creator_institutional_relationship: "Crontributor institutional relationship"
-          date_created: "Date Created"
+          creator_institutional_relationship: "Creator institutional relationship"
+          date_created: "Date created"
           degree: "Degree"
           degree_granting_institution: "Degree Granting Institution"
           department: "Department"
@@ -1223,7 +1223,7 @@ en:
         contributor_role: Contributor Role
         creator: Creator
         creator_institutional_relationship: Creator institutional relationship
-        date_created: Date Created
+        date_created: Date created
         discipline: Discipline
         degree: Degree
         degree_granting_institution: Degree Granting Institution
@@ -1243,13 +1243,13 @@ en:
         lease_expiration_date: until
         level: Level
         license: License
-        member_of_collection_ids: Add to collectio
+        member_of_collection_ids: Add to collection
         project_name: Project name
         publisher: Publisher
         related_url: Related URL
         resource_type: Resource Type
         rights_holder: Rights holder
-        rights_statement: Rights statement
+        rights_statement: Rights Statement
         source: Source
         subject: Subject
         title: Title

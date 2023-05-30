@@ -12,11 +12,22 @@
         </div>
       <% end %>
       <%= f.hidden_field :account_id, value: @current_account.id %>
-      <%# TODO: add localizations %>
-      <%= f.input :provider, label: t('hyku.auth_provider.label.provider'), required: true %>
-      <%= f.input :client_id, label: t('hyku.auth_provider.label.client_id'), required: true %>
-      <%= f.input :client_secret, label: t('hyku.auth_provider.label.client_secret'), required: true %>
-      <%= f.input :idp_sso_service_url, label: t('hyku.auth_provider.label.idp_sso_service_url') %>
+      <%= f.input :provider, 
+                  collection: [["saml", "SAML"], ["oidc", "OIDC"]],
+                  label_method: :second,
+                  value_method: :first,
+                  label: t('hyku.auth_provider.label.provider'),
+                  required: true %>
+      
+      <div class="provider-fields">
+        <p>Specific fields for provider are available only when the provider is selected</p>
+        <div id="saml-fields">
+          <%= render partial: 'saml', locals: {f: f} %>
+        </div>
+        <div id="oidc-fields">
+          <%= render partial: 'oidc', locals: {f: f} %>
+        </div>
+      </div>
     </div>
 
     <div class="panel-footer text-right">

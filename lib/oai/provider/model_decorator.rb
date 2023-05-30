@@ -55,7 +55,7 @@ module OAI
           source: :source,
           subject: :subject,
           table_of_contents: :table_of_contents,
-          title: :title,
+          title: :title
         }
       end
       # rubocop:enable Metrics/MethodLength

@@ -98,6 +98,5 @@ module Hyku
         end
         ref
       end
-
   end
 end

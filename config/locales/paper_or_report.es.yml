@@ -1,10 +1,30 @@
+---
 es:
   hyrax:
     icons:
-      paper_or_report:     'fa fa-file-text-o'
+      paper_or_report: fa fa-file-text-o
     select_type:
       paper_or_report:
-        # TODO: translate `human_name` into Spanish
-        description:        "Informes técnicos, documentos de conferencias, subvenciones u otros informes de proyectos y trabajos similares."
-        name:               "Paper or Report"
-        # TODO: translate `human_name` into Spanish
+        description: Informes técnicos, documentos de conferencias, subvenciones u otros informes de proyectos y trabajos similares.
+        name: Paper or Report
+  simple_form:
+    hints:
+      defaults:
+        contributor_institutional_relationship: Relación entre el colaborador y la institución que acoge la obra.
+        contributor_orcid: Identificador ORCID de 16 caracteres del colaborador.
+        contributor_role: Relación entre el contribuyente y el recurso.
+        creator_institutional_relationship: Relación entre el colaborador y la institución que acoge la obra.
+        creator_orcid: Identificador ORCID de 16 caracteres del creador.
+        event_date: Fecha del evento asociado con el recurso.
+        event_location: Ubicación del evento asociado con el recurso.
+        event_title: Título del evento asociado al recurso.
+        funder_awards: Nombre del programa de subvenciones o programa de premios que financió el recurso.
+        funder_name: Nombre del financiador del recurso si se crea con fondos adjudicados.
+        official_link: URL asociada al proyecto, si corresponde.
+        project_name: Nombre completo del proyecto si es diferente del título del recurso.
+        rights_holder: Persona u organización que posee o administra los derechos sobre el recurso.
+    labels:
+      defaults:
+        contributor_orcid: Colaborador ORCID
+        creator_orcid: Creador ORCID
+        official_link: URL oficial

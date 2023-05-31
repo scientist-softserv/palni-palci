@@ -1,12 +1,12 @@
 ---
-pt-BR:
+pt-:
   hyrax:
     icons:
-      paper_or_report: fa fa-file-text-o
+      paper_or_report: fa fa-arquivo-texto-o
     select_type:
       paper_or_report:
-        description: Relatórios técnicos, documentos de conferências, relatórios de doações ou outros projetos e trabalhos similares.
-        name: Paper or Report
+        description: Relatórios técnicos, documentos de conferências, subvenções ou outros relatórios de projetos e trabalhos semelhantes.
+        name: Papel ou Relatório
   simple_form:
     hints:
       defaults:
@@ -19,7 +19,7 @@ pt-BR:
         event_location: Localização do evento associado ao recurso.
         event_title: Título do evento associado ao recurso.
         funder_awards: Nome do programa de concessão ou programa de premiação que financiou o recurso.
-        funder_name: Nome do financiador do recurso, se criado com fundos concedidos.
+        funder_name: Nome do financiador do recurso, se criado com fundos premiados.
         official_link: URL associado ao projeto, se aplicável.
         project_name: Nome completo do projeto, se diferente do título do recurso.
         rights_holder: Uma pessoa ou organização que possui ou gerencia direitos sobre o recurso.

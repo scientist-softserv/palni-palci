@@ -1,5 +1,47 @@
 ---
 it:
+  blacklight:
+    search:
+      fields:
+        show:
+          abstract: Astratto
+          access_right: Diritti di accesso
+          additional_rights_info: Ulteriori informazioni sui diritti
+          advisor: Consulente
+          alternative_title: Titolo alternativo
+          bibliographic_citation: Citazione bibliografica
+          committee_member: membro del Comitato
+          contributor_institutional_relationship: Rapporto istituzionale contribuente
+          contributor_role: Ruolo collaboratore
+          creator: Creatore
+          creator_institutional_relationship: Rapporto istituzionale di Ccontributor
+          date_created: data di creazione
+          degree: Grado
+          degree_granting_institution: Ente per il rilascio dei titoli di studio
+          department: Dipartimento
+          discipline: Disciplina
+          event_date: Data dell'evento
+          event_location: Luogo dell'evento
+          event_title: Titolo dell'evento
+          format: Formato
+          funder_awards: Premi finanziatori
+          funder_name: Nome del finanziatore
+          identifier: Identificatore
+          institution: Istituzione
+          language: Lingua
+          level: Livello
+          license: Licenza
+          official_link: URL ufficiale
+          project_name: Nome del progetto
+          publisher: Editore
+          resource_type: Tipo di risorsa
+          rights_holder: Titolare dei diritti
+          rights_notes: Note sui diritti
+          rights_statement: Dichiarazione dei diritti
+          source: Fonte
+          subject: Soggetto
+          types: Tipo
+          year: Anno
   hyrax:
     account_label: Utente
     account_name: Account ID
@@ -1123,6 +1165,7 @@ it:
         title: ''
       defaults:
         access_right: Se l'accesso è limitato a un determinato gruppo di utenti o se il contenuto è soggetto a embargo, includi tali informazioni qui.
+        additional_rights_info: Se i diritti sono soggetti a un accordo contrattuale o di donazione o altrimenti definiti da un accordo vincolante che si aggiunge o sostituisce le leggi sulla proprietà intellettuale o le licenze aperte, si prega di dettagliare qui.
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John."
@@ -1142,6 +1185,10 @@ it:
         rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
         subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
         title: Un nome per aiutare a identificare un'opera.
+        types: Categorie predefinite per descrivere la natura o il genere della risorsa. È possibile selezionare più di un tipo.
+        video_embed: Codice di incorporamento iframe Youtube o Vimeo per mostrare il video incorporato nella pagina di lavoro. Se inserisci un link di incorporamento per un video, deve essere un URL formattato correttamente che inizia con "http://" o "https://". Deve inoltre contenere un collegamento valido a un video ospitato che può essere visualizzato in un iframe. <br /><br /><i>Esempi:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Intestazioni o termini di indice che descrivono l'argomento del lavoro. Usa un vocabolario controllato.
       labels:
         extent: Estensione
     labels:
@@ -1162,24 +1209,53 @@ it:
         share_applies_to_new_works: CANDIDATI A NUOVI LAVORI
         title: Digita il nome
       defaults:
+        additional_rights_info: Ulteriori informazioni sui diritti
         admin_set_id: Set amministrativo
+        advisor: Consulente
         based_near: Posizione
+        committee_member: membro del Comitato
+        contributor: Collaboratore
+        contributor_institutional_relationship: Rapporto istituzionale contribuente
+        contributor_role: Ruolo collaboratore
         creator: Creatore
+        creator_institutional_relationship: Creatore rapporto istituzionale
         date_created: data di creazione
+        degree: Grado
+        degree_granting_institution: Ente per il rilascio dei titoli di studio
+        department: Dipartimento
         description: Descrizione
+        discipline: Disciplina
         embargo_release_date: fino a
+        event_date: Data dell'evento
+        event_location: Luogo dell'evento
+        event_title: Titolo dell'evento
         files: Caricare un file
+        format: Formato
+        funder_awards: Premi finanziatori
+        funder_name: Nome del finanziatore
+        institution: Istituzione
         keyword: Parola chiave
+        language: Lingua
         lease_expiration_date: fino a
+        level: Livello
         license: Licenza
         member_of_collection_ids: Aggiungere alla collezione
+        project_name: Nome del progetto
+        publisher: Editore
         related_url: URL correlato
+        resource_type: Tipo di risorsa
+        rights_holder: Titolare dei diritti
         rights_statement: Dichiarazione dei diritti
+        source: Fonte
+        subject: Soggetto
         title: Titolo
+        types: Tipo
+        video_embed: Video incorporato
         visibility_after_embargo: quindi aprilo fino a
         visibility_after_lease: quindi limitalo a
         visibility_during_embargo: Limitato a
         visibility_during_lease: È disponibile per
+        year: Anno
       proxy_deposit_request:
         sender_comment: Commenti
         transfer_to: Utente

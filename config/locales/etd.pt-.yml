@@ -1,11 +1,11 @@
 ---
-pt-BR:
+pt-:
   hyrax:
     icons:
-      etd: fa fa-file-text-o
+      etd: fa fa-arquivo-texto-o
     select_type:
       etd:
-        description: ETD obras
+        description: Teses e Dissertações Eletrônicas
         name: ETD
   simple_form:
     hints:

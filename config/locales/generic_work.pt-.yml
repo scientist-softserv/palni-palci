@@ -1,0 +1,9 @@
+---
+pt-:
+  hyrax:
+    icons:
+      generic_work: fa fa-arquivo-texto-o
+    select_type:
+      generic_work:
+        description: Tipo de trabalho de uso geral. Selecione esta opção se os tipos de trabalho mais específicos abaixo não forem adequados para o trabalho que você deseja adicionar.
+        name: Trabalho Genérico

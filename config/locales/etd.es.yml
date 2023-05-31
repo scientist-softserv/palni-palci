@@ -1,10 +1,26 @@
+---
 es:
   hyrax:
     icons:
-      etd:     'fa fa-file-text-o'
+      etd: fa fa-file-text-o
     select_type:
       etd:
-        # TODO: translate `human_name` into Spanish
-        description:        "ETD trabajos"
-        name:               "ETD"
-        # TODO: translate `human_name` into Spanish
+        description: ETD trabajos
+        name: ETD
+  simple_form:
+    hints:
+      defaults:
+        advisor: Nombre del asesor de tesis/disertación o presidente del comité.
+        committee_member: Nombre del miembro/s del comité.
+        degree: Nombre del título asociado con el trabajo tal como aparece dentro del trabajo.
+        degree_granting_institution: Institución que otorga el título asociado al trabajo.
+        department: Nombre del departamento o unidad dentro de la institución que otorga el título.
+        discipline: Área de estudio del contenido intelectual del documento. Por lo general, este será el nombre de un programa o departamento.
+        level: Nivel de estudios asociado al documento.
+        year: El año en que se creó la obra. Debe ser un año de 4 dígitos y comenzar con 19 o 20
+      etd:
+        subject: Elija encabezados o términos de índice que describan de qué trata el trabajo de nuestra lista de <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>tema</a>. Si sus términos no aparecen en la lista, use <a href='https://fast.oclc.org/searchfast/'>encabezados de asunto FAST</a>. Para términos adicionales de religión y teología que deben agregarse a nuestra lista, use <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>este formulario.</a>
+    labels:
+      defaults:
+        bibliographic_citation: cita bibliografica
+        date: Año

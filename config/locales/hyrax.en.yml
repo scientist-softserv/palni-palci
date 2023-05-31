@@ -1,5 +1,48 @@
 ---
 en:
+  blacklight:
+    search:
+      fields:
+        show:
+          abstract: "Abstract"
+          additional_rights_info: "Additional rights info"
+          access_right: "Access Rights"
+          advisor: "Advisor"
+          alternative_title: "Alternative Title"
+          bibliographic_citation: "Bibliographic citation"
+          committee_member: "Committee member"
+          contributor_institutional_relationship: "Contributor institutional relationship"
+          contributor_role: "Contributor Role"
+          creator: "Creator"
+          creator_institutional_relationship: "Creator institutional relationship"
+          date_created: "Date created"
+          degree: "Degree"
+          degree_granting_institution: "Degree Granting Institution"
+          department: "Department"
+          discipline: "Discipline"
+          event_date: "Event date"
+          event_location: "Event location"
+          event_title: "Event title"
+          funder_awards: "Funder Awards"
+          format: "Format"
+          funder_name: "Funder Name"
+          identifier: "Identifier"
+          institution: "Institution"
+          language: "Language"
+          level: "Level"
+          license: "License"
+          official_link: "Official URL"
+          project_name: "Project name"
+          publisher: "Publisher"
+          resource_type: "Resource Type"
+          rights_holder: "Rights Holder"
+          rights_notes: "Rights notes"
+          rights_statement: "Rights Statement"
+          source: "Source"
+          subject: "Subject"
+          types: "Type"
+          year: "Year"
+
   hyrax:
     product_name: "Hyku"
     product_twitter_handle: "@HydraInABox"
@@ -1170,25 +1213,53 @@ en:
         share_applies_to_new_works: APPLY TO NEW WORKS
         title: Type name
       defaults:
+        additional_rights_info: Additional rights info
         admin_set_id: Administrative Set
+        advisor: Advisor
         based_near: Location
+        committee_member: Committee member
+        contributor: Contributor
+        contributor_institutional_relationship: Contributor institutional relationship
+        contributor_role: Contributor Role
         creator: Creator
-        date_created: Date Created
+        creator_institutional_relationship: Creator institutional relationship
+        date_created: Date created
+        discipline: Discipline
+        degree: Degree
+        degree_granting_institution: Degree Granting Institution
+        department: Department
         description: Description
         embargo_release_date: until
+        event_date: Event date
+        event_location: Event location
+        event_title: Event title
         files: Upload a file
+        format: Format
+        funder_awards: Funder Awards
+        funder_name: Funder Name
+        institution: Institution
         keyword: Keyword
+        language: Language
         lease_expiration_date: until
+        level: Level
         license: License
         member_of_collection_ids: Add to collection
+        project_name: Project name
+        publisher: Publisher
         related_url: Related URL
-        rights_statement: Rights statement
+        resource_type: Resource Type
+        rights_holder: Rights holder
+        rights_statement: Rights Statement
+        source: Source
+        subject: Subject
         title: Title
         types: Type
+        video_embed: Embedded video 
         visibility_after_embargo: then open it up to
         visibility_after_lease: then restrict it to
         visibility_during_embargo: Restricted to
         visibility_during_lease: Is available to
+        year: Year
       proxy_deposit_request:
         sender_comment: Comments
         transfer_to: User

@@ -1,8 +1,30 @@
+---
 it:
   hyrax:
     icons:
-      paper_or_report:     'fa fa-file-text-o'
+      paper_or_report: fa fa-file-text-o
     select_type:
       paper_or_report:
-        description:        "Rapporti tecnici, documenti di conferenze, sovvenzioni o altri rapporti di progetto e lavori simili."
-        name:               "Paper or Report"
+        description: Rapporti tecnici, documenti di conferenze, sovvenzioni o altri rapporti di progetto e lavori simili.
+        name: Paper or Report
+  simple_form:
+    hints:
+      defaults:
+        contributor_institutional_relationship: Rapporto tra il contributore e l'istituzione che ospita l'opera.
+        contributor_orcid: Identificatore ORCID di 16 caratteri del contributore.
+        contributor_role: Relazione tra il contributore e la risorsa.
+        creator_institutional_relationship: Rapporto tra il contributore e l'istituzione che ospita l'opera.
+        creator_orcid: Identificatore ORCID di 16 caratteri del creatore.
+        event_date: Data dell'evento associato alla risorsa.
+        event_location: Posizione dell'evento associato alla risorsa.
+        event_title: Titolo dell'evento associato alla risorsa.
+        funder_awards: Nome del programma di sovvenzione o del programma di premi che ha finanziato la risorsa.
+        funder_name: Nome del finanziatore della risorsa se realizzata con fondi assegnati.
+        official_link: URL associato al progetto, se applicabile.
+        project_name: Nome completo del progetto se diverso dal titolo della risorsa.
+        rights_holder: Una persona o un'organizzazione che possiede o gestisce i diritti sulla risorsa.
+    labels:
+      defaults:
+        contributor_orcid: Collaboratore ORCID
+        creator_orcid: Creatore ORCID
+        official_link: URL ufficiale

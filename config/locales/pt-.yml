@@ -1,0 +1,259 @@
+---
+pt-:
+  activerecord:
+    attributes:
+      site:
+        institution_name_full: Nome completo da instituição
+  application:
+    tagline: A solução de repositório de última geração
+  helpers:
+    submit:
+      add_role_to_group:
+        submit: Adicionar
+      add_user_to_group:
+        submit: Adicionar
+      group_search:
+        submit: Ir
+      page_size:
+        submit: Atualizar
+      remove_role_from_group:
+        submit: Remover
+      revoke_membership:
+        submit: Remover
+      user_search:
+        submit: Ir
+  hyku:
+    account:
+      signup_disabled: O registro da conta está desativado
+    admin:
+      flash:
+        access_denied: Você não está autorizado a visualizar esta página
+      groups:
+        action:
+          create: Criar novo grupo
+          edit: Editar grupo e usuários
+          members:
+            description: Os membros do grupo assumem todos os privilégios atribuídos a este grupo.
+          per_page: Atualizar
+          remove:
+            confirmation: Tem certeza de que deseja remover este grupo?
+            description: Esta ação é irreversível. Ele removerá todos os privilégios atribuídos aos membros do grupo por meio deste grupo.
+            submit: Remover
+          search:
+            clear: Reiniciar
+        describe_quantity_html: Existem <b>grupos %{number}</b> neste repositório.
+        describe_singular_quantity_html: Há <b>1 grupo</b> neste repositório.
+        description:
+          admin: Os usuários desse grupo são considerados administradores desse locatário e têm acesso irrestrito.
+          depositors: Os usuários neste grupo têm permissão para depositar trabalhos em qualquer conjunto administrativo neste inquilino.
+          editors: 'Os usuários neste grupo têm permissão para ler e editar todas as Coleções e Trabalhos neste inquilino. Podem ainda: criar Cobranças, depositar e aprovar Obras, gerir Embargos e Arrendamentos, gerir importadores e exportadores Bulkrax.'
+          registered: Contém todos os usuários que se inscreveram neste locatário.
+        flash:
+          create:
+            failure: Não foi possível criar o grupo
+            invalid: Os grupos devem ter um nome
+            success: "%{group} criado"
+          destroy:
+            failure: "%{group} não pôde ser destruído"
+            success: "%{group} destruído"
+          remove:
+            cannot_destroy_default_group: Grupos padrão não podem ser destruídos
+          update:
+            failure: "%{group} não pôde ser atualizado"
+            success: "%{group} atualizado"
+        humanized_name:
+          admin: Administradores de repositório
+          registered: Usuários registrados
+        label:
+          actions: Ações
+          created_at: Data Criada
+          description: Descrição
+          humanized_name: Nome
+          members: Usuários
+          name: Nome
+          per_page: por página
+          roles: Funções
+        nav:
+          attributes: Descrição
+          delete: Remover
+          index: voltar para Gerenciar Grupos
+          members: Usuários
+          roles: Funções
+        roles:
+          add: Adicionar
+          label:
+            action: Ação
+            description: Descrição
+            name: Papel
+          remove: Remover
+          title:
+            add_group_roles: Adicionar funções ao grupo
+            current_group_roles: Funções atuais do grupo
+        title:
+          add_user: Adicionar usuário ao grupo
+          delete: Remover Grupo “%{group}”
+          edit: Editar grupo
+          index: Gerenciar grupos
+          list_members: Membros Atuais do Grupo
+          members: Membros do grupo
+          new: Novo grupo
+          reader_index: Ver grupos
+          remove: Remover grupo
+          roles: Funções do grupo
+      roles:
+        description:
+          admin: Concede acesso irrestrito a este inquilino
+          collection_editor: Pode criar, ler e editar qualquer Coleção neste inquilino
+          collection_manager: Pode criar, ler, editar e destruir qualquer Coleção neste inquilino
+          collection_reader: Pode ler qualquer coleção neste inquilino
+          user_manager: Pode ler, editar, convidar e remover qualquer usuário neste locatário
+          user_reader: Pode ler qualquer usuário neste locatário
+          work_depositor: Pode depositar Works em qualquer Admin Set neste inquilino. Pode ler, editar e gerir Embargos/Arrendamentos de Obras que lhes pertençam
+          work_editor: Pode criar, ler, editar e aprovar qualquer Trabalho neste locatário, bem como mover Trabalhos entre Conjuntos Administrativos e gerenciar Embargos e Locações
+      title: Administração
+      work_types: Tipos de trabalho disponíveis
+    footer:
+      admin_login: Login do administrador
+    proprietor:
+      accounts:
+        nav: contas
+      users:
+        edit:
+          header: Editando usuário
+        index:
+          confirm_delete: Tem certeza de que deseja excluir este usuário? Essa ação não pode ser desfeita.
+          header: Gerenciar usuários
+          manage: Gerenciar
+        nav: Usuários
+        show:
+          header: Gerenciar usuário
+          update: Atualizar
+    splash:
+      account_denied: Você não está autorizado a criar inquilinos
+      account_login: Faça login para começar
+      account_signup: Iniciar
+      center_heading: Rico em recursos
+      center_text: Todos os recursos que você esperaria de um sistema de repositório maduro. Suporta uma variedade de tipos de conteúdo e casos de uso.
+      left_heading: Fácil
+      left_text: Trabalha para instituições grandes e pequenas, de museus a bibliotecas universitárias. Comece em minutos.
+      right_heading: Flexível
+      right_text: Personalize a interface do usuário para corresponder à identidade da marca da sua instituição. Adapte os fluxos de trabalho para corresponder à maneira como sua equipe gosta de trabalhar.
+    toolbar:
+      profile:
+        edit_registration: Alterar a senha
+    users:
+      label:
+        date_joined: Ingressou
+        last_login: Último acesso
+        name: Nome
+        user_key: Nome de usuário
+  hyrax:
+    admin:
+      appearances:
+        show:
+          forms:
+            banner_image:
+              hint: Para usar uma imagem como plano de fundo do masthead, você deve usar uma imagem (JPG, GIF ou PNG) com pelo menos 120 pixels de altura e 1200 pixels de largura. Para obter melhores resultados, use uma imagem com pelo menos 1800 pixels de largura.
+            custom_css:
+              confirm: O CSS personalizado sempre substituirá outras seleções de temas. Continuar?
+              warning: Se suas personalizações de temas não parecem estar sendo aplicadas corretamente, verifique se elas não estão sendo substituídas pelo CSS personalizado.
+            default_images:
+              alert: Carregue pelo menos um arquivo antes de enviar.
+              hint: Para imagens padrão, você deve usar uma imagem (JPG, GIF ou PNG) com dimensões iguais de altura e largura (100 pixels de largura e 100 pixels de altura)
+            directory_image:
+              hint: Para usar uma imagem como imagem do diretório, você deve usar uma imagem (JPG, GIF ou PNG) que não seja mais alta que o cabeçalho e não tenha mais de 400 pixels de largura.
+            favicon:
+              hint: Os favicons precisam ser arquivos png e devem ser quadrados. O tamanho máximo usado é 228px x 228px.
+            logo_image:
+              hint: Para usar uma imagem como logotipo, você deve usar uma imagem (JPG, GIF ou PNG) que não seja mais alta que o cabeçalho e não tenha mais de 400 pixels de largura.
+            themes:
+              confirm: Se o seu tema não estiver sendo aplicado corretamente, verifique se ele não está sendo substituído pelo CSS personalizado.
+          tabs:
+            banner_image: Imagem do banner
+            colors: cores
+            custom_css: CSS customizado
+            default_images: Imagens padrão
+            directory_image: Imagem do diretório
+            favicon: Favicon
+            fonts: Fontes
+            themes: Temas
+      sidebar:
+        accounts: contas
+        activity_summary: Resumo da atividade
+        labels: Etiquetas
+        manage_groups: Gerenciar grupos
+        system_status: Status do sistema
+      users:
+        destroy:
+          confirmation: Tem certeza de que deseja excluir o usuário "%{user}"? Esta ação é irreversível.
+          failure: O usuário "%{user}" não pôde ser excluído.
+          success: O usuário "%{user}" foi excluído com sucesso.
+        index:
+          action_label: Ação
+          add: Convidar Usuário
+          delete: Excluir
+          invite_users: Adicionar ou convidar usuário por e-mail
+          status:
+            active: Ativo
+            pending: Pendente
+          status_label: Status
+  permissions:
+    collections:
+      cannot:
+        manage_discovery: Você não tem permissão para alterar a configuração de descoberta desta coleção
+  proprietor:
+    accounts:
+      edit:
+        account_settings: Configurações de conta
+        data_cite_endpoint: Terminal DataCite
+        fcrepo_endpoint: Terminal do Fedora
+        header: Editando conta
+        solr_endpoint: Terminal Solr
+      index:
+        cname: CNAME
+        confirm_delete: Tem certeza de que deseja excluir este repositório? TODAS AS COLEÇÕES E OBRAS dentro deste repositório serão EXCLUÍDAS PERMANENTEMENTE
+        create_new: Criar nova conta
+        header: contas
+        manage: Gerenciar
+        tenant: Locatário (UUID)
+      new:
+        header: Criar um novo repositório
+      show:
+        add: Adicionar
+        current_admins:
+          actions: Ação
+          all_users: Todos os usuários
+          email: Endereço de email
+          header: Administradores de contas atuais
+          no_admins: Não existem administradores
+        edit: Editar conta
+        header: Gerenciar conta
+        remove: Remover
+        update: Atualizar
+    users:
+      edit:
+        header: Editar usuário
+      index:
+        actions: Ações
+        affiliation: Afiliação
+        confirm_delete: Tem certeza de que deseja excluir este usuário?
+        create_new: Crie um novo
+        department: Departamento
+        display_name: Nome de exibição
+        email: E-mail
+        header: Gerenciar usuários
+        manage: Gerenciar
+        title: Título
+      new:
+        header: Criar um novo usuário
+      show:
+        add: Adicionar
+        edit: Editar
+        header: Gerenciar usuário
+        update: Atualizar
+  status:
+    index:
+      services: Serviços
+    service:
+      down: Abaixo
+      ok: OK

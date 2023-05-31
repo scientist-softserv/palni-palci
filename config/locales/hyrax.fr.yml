@@ -1,5 +1,47 @@
 ---
 fr:
+  blacklight:
+    search:
+      fields:
+        show:
+          abstract: Abstrait
+          access_right: Des droits d'accès
+          additional_rights_info: Informations supplémentaires sur les droits
+          advisor: Conseiller
+          alternative_title: Titre alternatif
+          bibliographic_citation: Citation bibliographique
+          committee_member: membre du comité
+          contributor_institutional_relationship: Relation institutionnelle contributeur
+          contributor_role: Rôle de contributeur
+          creator: Créateur
+          creator_institutional_relationship: Relation institutionnelle co-contributrice
+          date_created: date créée
+          degree: Degré
+          degree_granting_institution: Institution délivrant des diplômes
+          department: Département
+          discipline: Discipline
+          event_date: Date de l'événement
+          event_location: Lieu de l'événement
+          event_title: Titre de l'événement
+          format: Format
+          funder_awards: Prix des bailleurs de fonds
+          funder_name: Nom du bailleur de fonds
+          identifier: Identifiant
+          institution: Institution
+          language: Langue
+          level: Niveau
+          license: Licence
+          official_link: URL officielle
+          project_name: Nom du projet
+          publisher: Éditeur
+          resource_type: Type de ressource
+          rights_holder: Titulaire des droits
+          rights_notes: Remarques sur les droits
+          rights_statement: Déclaration des droits
+          source: Source
+          subject: Sujet
+          types: Taper
+          year: Année
   hyrax:
     account_label: Utilisateur
     account_name: Identifiant de compte
@@ -1121,6 +1163,7 @@ fr:
         title: ''
       defaults:
         access_right: Si l'accès est limité à un certain groupe d'utilisateurs ou si le contenu est soumis à un embargo, incluez cette information ici.
+        additional_rights_info: Si les droits sont soumis à un accord contractuel ou à un cadeau ou autrement définis par un accord contraignant qui s'ajoute ou remplace les lois sur la propriété intellectuelle ou les licences ouvertes, veuillez les détailler ici.
         based_near: Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de l'œuvre, mais pas le rôle principal.
         creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
@@ -1140,6 +1183,10 @@ fr:
         rights_statement: Sélectionnez la déclaration de droits appropriée dans la liste déroulante. Consultez https://rightsstatements.org pour plus d'informations.
         subject: Titres ou termes d'index décrivant le sujet de l'ouvrage. Utilisez un vocabulaire contrôlé.
         title: Un nom pour aider à identifier une œuvre.
+        types: Catégories prédéfinies pour décrire la nature ou le genre de la ressource. Plusieurs types peuvent être sélectionnés.
+        video_embed: Code d'intégration Youtube ou Vimeo iframe pour afficher la vidéo intégrée dans la page de travail. Si vous saisissez un lien d'intégration pour une vidéo, il doit s'agir d'une URL correctement formatée commençant par « http:// » ou « https:// ». Il doit également contenir un lien valide vers une vidéo hébergée pouvant apparaître dans une iframe. <br /><br /><i>Exemples :<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: Titres ou termes d'index décrivant le sujet de l'œuvre. Utilisez un vocabulaire contrôlé.
       labels:
         extent: Ampleur
     labels:
@@ -1160,24 +1207,53 @@ fr:
         share_applies_to_new_works: APPLIQUER AUX NOUVEAUX OEUVRES
         title: Saisissez le nom
       defaults:
+        additional_rights_info: Informations supplémentaires sur les droits
         admin_set_id: Ensemble administratif
+        advisor: Conseiller
         based_near: Emplacement
+        committee_member: membre du comité
+        contributor: Donateur
+        contributor_institutional_relationship: Relation institutionnelle contributeur
+        contributor_role: Rôle de contributeur
         creator: Créateur
+        creator_institutional_relationship: Relation institutionnelle créateur
         date_created: date créée
+        degree: Degré
+        degree_granting_institution: Institution délivrant des diplômes
+        department: Département
         description: Descripción
+        discipline: Discipline
         embargo_release_date: jusqu'à ce que
+        event_date: Date de l'événement
+        event_location: Lieu de l'événement
+        event_title: Titre de l'événement
         files: Télécharger un fichier
+        format: Format
+        funder_awards: Prix des bailleurs de fonds
+        funder_name: Nom du bailleur de fonds
+        institution: Institution
         keyword: Mot-clé
+        language: Langue
         lease_expiration_date: jusqu'à ce que
+        level: Niveau
         license: Licence
         member_of_collection_ids: Ajouter à la collection
+        project_name: Nom du projet
+        publisher: Éditeur
         related_url: URL associée
+        resource_type: Type de ressource
+        rights_holder: Titulaire des droits
         rights_statement: Déclaration des droits
+        source: Source
+        subject: Sujet
         title: Titre
+        types: Taper
+        video_embed: Vidéo intégrée
         visibility_after_embargo: puis ouvrez-le pour
         visibility_after_lease: puis limitez-le à
         visibility_during_embargo: Limité à
         visibility_during_lease: Est disponible pour
+        year: Année
       proxy_deposit_request:
         sender_comment: commentaires
         transfer_to: Utilisateur

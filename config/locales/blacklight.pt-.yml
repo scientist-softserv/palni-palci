@@ -1,5 +1,5 @@
 ---
-pt-BR:
+pt-:
   blacklight:
     application_name: Hyku
     search:
@@ -8,28 +8,28 @@ pt-BR:
           based_near_label_sim: Localização
           creator_sim: O Criador
           depositor_ssim: Depositante
-          file_format_sim: Formato
+          file_format_sim: Formatar
           generic_type_sim: Tipo
           keyword_sim: Palavra-chave
-          language_sim: Língua
+          language_sim: Linguagem
           publisher_sim: Editor
-          subject_sim: Sujeito
+          subject_sim: Assunto
         index:
           based_near_label_tesim: Localização
           contributor_tesim: Contribuinte
           creator_tesim: O Criador
           date_created_tesim: Data Criada
           date_modified_dtsi: Data modificada
-          date_uploaded_dtsi: Data carregada
+          date_uploaded_dtsi: Data de upload
           description_tesim: Descrição
           extent_tesim: Extensão
           file_format_tesim: Formato de arquivo
-          identifier_tesim: Identificador
+          identifier_tesim: identificador
           keyword_tesim: Palavra-chave
-          language_tesim: Língua
+          language_tesim: Linguagem
           publisher_tesim: Editor
           rights_tesim: Direitos
-          subject_tesim: Sujeito
+          subject_tesim: Assunto
         show:
           access_right_tesim: Direitos de acesso
           based_near_label_tesim: Localização
@@ -39,15 +39,15 @@ pt-BR:
           creator_tesim: O Criador
           date_created_tesim: Data Criada
           date_modified_dtsi: Data modificada
-          date_uploaded_dtsi: Data carregada
+          date_uploaded_dtsi: Data de upload
           description_tesim: Descrição
           extent_tesim: Extensão
           file_format_tesim: Formato de arquivo
-          identifier_tesim: Identificador
+          identifier_tesim: identificador
           keyword_tesim: Palavra-chave
-          language_tesim: Língua
+          language_tesim: Linguagem
           publisher_tesim: Editor
           related_url: URL relacionada
           rights_tesim: Direitos
-          subject_tesim: Sujeito
+          subject_tesim: Assunto
           title_tesim: Título

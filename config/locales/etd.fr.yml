@@ -1,8 +1,26 @@
+---
 fr:
   hyrax:
     icons:
-      etd:     'fa fa-file-text-o'
+      etd: fa fa-file-text-o
     select_type:
       etd:
-        description:        "ETD œuvres"
-        name:               "ETD"
+        description: ETD œuvres
+        name: ETD
+  simple_form:
+    hints:
+      defaults:
+        advisor: Nom du directeur de thèse/mémoire ou du président du comité.
+        committee_member: Nom du/des membre(s) du comité.
+        degree: Nom du diplôme associé au travail tel qu'il apparaît dans le travail.
+        degree_granting_institution: Institution délivrant le diplôme associé au travail.
+        department: Nom du département ou de l'unité au sein de l'établissement délivrant le diplôme.
+        discipline: Domaine d'étude du contenu intellectuel du document. Habituellement, ce sera le nom d'un programme ou d'un département.
+        level: Niveau d'études associé au document.
+        year: L'année de création de l'œuvre. Il doit s'agir d'une année à 4 chiffres et commencer par 19 ou 20
+      etd:
+        subject: Choisissez des titres ou des termes d'index décrivant le sujet du travail dans notre liste de <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>sujet</a>. Si vos termes ne figurent pas dans la liste, utilisez les <a href='https://fast.oclc.org/searchfast/'>titres de sujet FAST</a>. Pour des termes religieux et théologiques supplémentaires qui devraient être ajoutés à notre liste, utilisez <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>ce formulaire.</a>
+    labels:
+      defaults:
+        bibliographic_citation: Citation bibliographique
+        date: Année

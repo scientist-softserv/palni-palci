@@ -1,5 +1,49 @@
 ---
 zh:
+  blacklight:
+    search:
+      fields:
+        show:
+          abstract: 抽象的
+          access_right: 访问权
+          access_rights: 访问权
+          additional_rights_info: 附加权利信息
+          advisor: 顾问
+          alternative_title: 替代标题
+          bibliographic_citation: 书目引文
+          committee_member: 委员会成员
+          contributor_institutional_relationship: 贡献者机构关系
+          contributor_role: 贡献者角色
+          creator: 造物主
+          creator_institutional_relationship: 贡献者机构关系
+          date_created: 创建日期
+          degree: 程度
+          degree_granting_institution: 学位授予机构
+          department: 部门
+          discipline: 纪律
+          event_date: 活动日期
+          event_location: 活动地点
+          event_title: 活动名称
+          format: 格式
+          funder_awards: 资助者奖
+          funder_name: 资助者名称
+          identifier: 标识符
+          institution: 机构
+          language: 语言
+          level: 等级
+          license: 执照
+          livense: 执照
+          official_link: 官方网址
+          project_name: 项目名
+          publisher: 出版商
+          resource_type: 资源类型
+          rights_holder: 权利人
+          rights_notes: 维权说明
+          rights_statement: 权利声明
+          source: 来源
+          subject: 主题
+          types: 类型
+          year: 年
   hyrax:
     account_label: 用户
     account_name: 我的机构帐户标识符
@@ -1123,6 +1167,7 @@ zh:
         title: ''
       defaults:
         access_right: 如果访问仅限于特定用户组或内容受到禁运，请在此处包含该信息
+        additional_rights_info: 如果权利受合同或赠与协议的约束，或者由附加或代替知识产权法或开放许可的具有约束力的协议定义，请在此处详细说明。
         based_near: 与该作品相关的地名，例如其出版地或该作品所涉及的城市，州或国家。调用<a href='http://www.geonames.org'> GeoNames Web服务</a>。
         contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
@@ -1142,6 +1187,10 @@ zh:
         rights_statement: 從下拉列表中選擇適當的權利聲明。有關詳細信息，請參閱 https://rightsstatements.org。
         subject: 描述作品內容的標題或索引詞。使用受控詞彙。
         title: 有助于识别作品的名称。
+        types: 用于描述资源的性质或类型的预定义类别。可以选择不止一种类型。
+        video_embed: Youtube 或 Vimeo iframe 嵌入代码以显示嵌入在工作页面中的视频。如果您输入视频的嵌入链接，它必须是以“http://”或“https://”开头的格式正确的 url。它还需要包含指向可以出现在 iframe 中的托管视频的有效链接。 <br /><br /><i>示例：<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
+      generic_work:
+        subject: 描述作品内容的标题或索引术语。使用受控词汇。
       labels:
         extent: 程度
     labels:
@@ -1162,24 +1211,53 @@ zh:
         share_applies_to_new_works: 申请新作品
         title: 类型名称
       defaults:
+        additional_rights_info: 附加权利信息
         admin_set_id: 行政套装
+        advisor: 顾问
         based_near: 位置
+        committee_member: 委员会成员
+        contributor: 贡献者
+        contributor_institutional_relationship: 贡献者机构关系
+        contributor_role: 贡献者角色
         creator: 创作者
+        creator_institutional_relationship: 创作者机构关系
         date_created: 创建日期
+        degree: 程度
+        degree_granting_institution: 学位授予机构
+        department: 部门
         description: 描述
+        discipline: 纪律
         embargo_release_date: 直到
+        event_date: 活动日期
+        event_location: 活动地点
+        event_title: 活动名称
         files: 上传一个文件
+        format: 格式
+        funder_awards: 资助者奖
+        funder_name: 资助者名称
+        institution: 机构
         keyword: 关键词
+        language: 语言
         lease_expiration_date: 直到
+        level: 等级
         license: 执照
         member_of_collection_ids: 添加到收藏
+        project_name: 项目名
+        publisher: 出版商
         related_url: 相关网址
+        resource_type: 资源类型
+        rights_holder: 权利人
         rights_statement: 权利声明
+        source: 来源
+        subject: 主题
         title: 标题
+        types: 类型
+        video_embed: 嵌入式视频
         visibility_after_embargo: 然后打开它
         visibility_after_lease: 然后将其限制为
         visibility_during_embargo: 受限于
         visibility_during_lease: 可用于
+        year: 年
       proxy_deposit_request:
         sender_comment: 注释
         transfer_to: 用户

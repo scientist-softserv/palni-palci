@@ -3,6 +3,9 @@ de:
   hyrax:
     icons:
       image: fa fa-picture-o
+    image:
+      labels:
+        admin_note: Verwaltungshinweise
     select_type:
       image:
         description: Einzel- oder mehrseitiges Bild funktioniert.

@@ -3,6 +3,7 @@ pt-BR:
   hyrax:
     etd:
       labels:
+        admin_note: Notas Administrativas
         committee_member: membro do Comitê
         creator: Autor
         date_created: Encontro

@@ -237,6 +237,7 @@ config.default_active_workflow_name = 'new_workflow_name'
 
 After setting the new name, run the 'workflow_setup' rake task. This task will add the new workflow to admin sets in each tenant.
 
+
 Multi-tenant mode:
 
 ```bash

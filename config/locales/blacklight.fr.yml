@@ -31,6 +31,7 @@ fr:
           rights_tesim: Droits
           subject_tesim: Assujettir
         show:
+          admin_note: Note administrative
           based_near_label_tesim: Emplacement
           contributor_tesim: Donateur
           creator_tesim: Créateur

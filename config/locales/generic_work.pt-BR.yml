@@ -1,6 +1,9 @@
 ---
 pt-BR:
   hyrax:
+    generic_work:
+      labels:
+        admin_note: Notas Administrativas
     icons:
       generic_work: fa fa-file-text-o
     select_type:

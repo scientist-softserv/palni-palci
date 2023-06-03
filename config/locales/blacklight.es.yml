@@ -31,6 +31,7 @@ es:
           rights_tesim: Derechos
           subject_tesim: Tema
         show:
+          admin_note: Nota Administrativa
           based_near_label_tesim: Ubicación
           contributor_tesim: Contribuidor
           creator_tesim: Creador

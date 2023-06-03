@@ -9,6 +9,7 @@ pt-BR:
         resource_type: Categorias pré-definidas para descrever o tipo de conteúdo que está sendo carregado. Mais de um tipo pode ser selecionado.
         table_of_contents: Sumário de um trabalho.
       labels:
+        admin_note: Notas Administrativas
         description: Descrição
         resource_type: Tipo
       show:
@@ -25,7 +26,7 @@ pt-BR:
         confirm:
           actions: Açao
           cancel: Cancelar
-          header: 
+          header:
           remove: Retirar
           text: A remoção desta versão alternativa não a removerá do repositório, apenas deste trabalho. Tem certeza de que deseja remover esta versão alternativa?
           title: Título do trabalho

@@ -576,3 +576,9 @@ span.constraint-value p, .facet-values p {
   display: inline-block;
   margin-bottom: 0;
 }
+
+// make the facet counts appear at the end of the facet panel
+.facet-content .panel-body .facet-values p {
+  display: flex;
+  justify-content: space-between;
+}

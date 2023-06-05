@@ -1,0 +1,10 @@
+<%# OVERRIDE: Hyrax 3.5 to use render_thumbnail_tag for gallery view partial %>
+<div class="document col-6 col-md-3">
+  <div class="thumbnail">
+  <h1>index_gallery_collection_wrapper</h1>
+    <%= render_thumbnail_tag document, {}, { full_url: true } %>
+    <div class="caption">
+      <%= render_document_partials document, blacklight_config.view_config(:gallery).partials, :document_counter => document_counter %>
+    </div>
+  </div>
+</div>

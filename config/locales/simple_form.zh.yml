@@ -22,6 +22,13 @@ zh:
         file_acl: 如果使用不支持设置访问控制列表的文件系统（如 samba 或 nfs），请关闭
         file_size_limit: 这应该至少设置为 536870912000
         geonames_username: 在 http://www.geonames.org/manageaccount 注册
+        google_analytics_id: 您的 Google Analytics 帐户的 ID
+        google_oauth_app_name: Google API 控制台中 Google 应用程序的名称
+        google_oauth_app_version: Google API 控制台中的 Google 应用程序版本
+        google_oauth_client_email: OAuth 客户端电子邮件地址
+        google_oauth_private_key_path: p12 密钥文件的完整路径。 （您可以使用私钥值或路径；值优先）
+        google_oauth_private_key_secret: 创建 p12 密钥时提供的秘密
+        google_oauth_private_key_value: base64加密的p12文件的值。 （您可以使用私钥值或路径；值优先）
         gtm_id: 您的 Google 跟踪代码管理器帐户的 ID
         is_public: 用户是否可以在主页上发现您的站点或在没有特殊用户名/密码的情况下访问您的页面？
         locale_name: '添加到其 locale.yml 文件的租户特定区域设置后缀的名称。只能添加字母字符，不能添加符号或数字，这些将被大写。
@@ -52,6 +59,8 @@ zh:
         tenant: 承租人 UUID
       add_user_to_group:
         user_ids: 用户名
+      defaults:
+        admin_note: 行政笔记
       domain_names:
         cname: 域名
       group_search:

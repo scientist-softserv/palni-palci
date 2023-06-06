@@ -9,6 +9,7 @@ es:
         resource_type: Categorías predefinidas que describen el tipo de contenido que se ha subido. Se puede seleccionar más de un tipo.
         table_of_contents: Tabla de contenidos de una obra.
       labels:
+        admin_note: Notas administrativas
         description: Descripción
         resource_type: Tipo
       show:
@@ -25,7 +26,7 @@ es:
         confirm:
           actions: Acción
           cancel: Cancelar
-          header: 
+          header:
           remove: Eliminar
           text: Eliminar esta versión alternativa no la eliminará del repositorio, solo de este trabajo. ¿Seguro que quieres eliminar esta versión alternativa?
           title: Título de trabajo

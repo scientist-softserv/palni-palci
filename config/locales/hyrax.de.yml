@@ -6,8 +6,10 @@ de:
     active_consent_to_agreement: Ich habe die ... gelesen und stimme ihnen zu
     activefedora:
       models:
+        etd: ETD
         generic_work: Arbeit
         image: Bild
+        oer: OER
     admin:
       admin_sets:
         delete:
@@ -1161,14 +1163,30 @@ de:
         contributor: Mitwirkender
         creator: Schöpfer
         date_created: Datum erstellt
+        default_button_background_color: Standardhintergrundfarbe der Schaltfläche
+        default_button_border_color: Standardfarbe des Schaltflächenrahmens
+        default_button_text_color: Standardfarbe für den Schaltflächentext
         description: Zusammenfassung oder Zusammenfassung
         embargo_release_date: bis um
+        facet_panel_background_color: Hintergrundfarbe des Facettenfelds
+        facet_panel_text_color: Textfarbe des Facettenbereichs
         files: Eine Datei hochladen
+        footer_link_color: Farbe des Fußzeilenlinks
+        footer_link_hover_color: Hover-Farbe des Fußzeilen-Links
+        header_and_footer_background_color: Hintergrundfarbe für Kopf- und Fußzeile
+        header_and_footer_text_color: Textfarbe für Kopf- und Fußzeile
         identifier: Kennung
         keyword: Stichwort
         lease_expiration_date: bis um
         license: Lizenz
+        link_color: Verknüpfungsfarbe
+        link_hover_color: Link-Hover-Farbe
         member_of_collection_ids: Zur Sammlung hinzufügen
+        navbar_background_color: Hintergrundfarbe der Navigationsleiste
+        navbar_link_background_hover_color: Hintergrundfarbe des Navigationsleisten-Links
+        navbar_link_text_color: Textfarbe für Navigationsleisten-Links
+        navbar_link_text_hover_color: Hover-Farbe des Navigationsleisten-Linktextes
+        primary_button_hover_color: Hover-Farbe der primären Schaltfläche
         publisher: Verleger
         related_url: Verwandte URL
         rights_statement: Rechteerklärung

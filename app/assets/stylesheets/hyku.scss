@@ -590,6 +590,8 @@ span.constraint-value p, .facet-values p {
 
 // style the analytics button to match citations button
 #stats {
-  width: 100%;
   margin-top: 10px;
+  @media (min-width: 576px) {
+    max-width: 300px;
+  }
 }

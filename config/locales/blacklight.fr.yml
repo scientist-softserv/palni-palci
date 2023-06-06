@@ -48,3 +48,5 @@ fr:
           rights_tesim: Droits
           subject_tesim: Assujettir
           title_tesim: Titre
+    search:
+      start_over: Nouvelle recherche

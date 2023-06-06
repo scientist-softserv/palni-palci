@@ -295,7 +295,7 @@ fr:
     background_attribution_html: ''
     base:
       citations:
-        header: 'Citation:'
+        header: 'Citation'
       form_child_work_relationships:
         actions:
           remove: Supprimer de ce travail

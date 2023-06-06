@@ -297,7 +297,7 @@ zh:
     background_attribution_html: ''
     base:
       citations:
-        header: 引文：
+        header: 引文
       form_child_work_relationships:
         actions:
           remove: 从这项工作中删除

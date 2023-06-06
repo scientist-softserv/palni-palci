@@ -297,7 +297,7 @@ pt-BR:
     background_attribution_html: ''
     base:
       citations:
-        header: 'Citações:'
+        header: 'Citaçõ:'
       form_child_work_relationships:
         actions:
           remove: Remover deste trabalho

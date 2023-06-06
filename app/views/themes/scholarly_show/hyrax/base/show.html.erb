@@ -24,7 +24,7 @@
               <div class="image-show-description">
                 <%= render 'work_description', presenter: @presenter %>
               </div>
-            </div> 
+            </div>
           <% else %>
             <div class="col-sm-3 mb-1">
               <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
@@ -35,11 +35,12 @@
           <% end %>
         </div>
         <div class="row">
-          <div class="col-sm-9 image-show-metadata">  
+          <div class="col-sm-9 image-show-metadata">
             <%= render 'metadata', presenter: @presenter %>
           </div>
           <div class="col-sm-3">
             <%= render 'citations', presenter: @presenter %>
+            <%= render 'analytics_button', presenter: @presenter %>
           </div>
         </div>
         <div class="row">

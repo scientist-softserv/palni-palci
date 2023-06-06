@@ -576,3 +576,27 @@ span.constraint-value p, .facet-values p {
   display: inline-block;
   margin-bottom: 0;
 }
+
+// make the facet counts appear at the end of the facet panel
+.facet-content .panel-body .facet-values p {
+  display: flex;
+  justify-content: space-between;
+}
+
+// button to remove a filter should be red instead of white
+.remove.dropdown-toggle .glyphicon.glyphicon-remove {
+  color: #c4302b;
+}
+
+// style the analytics button to match citations button
+#stats {
+  margin-top: 10px;
+  @media (min-width: 576px) {
+    max-width: 300px;
+  }
+}
+
+.catalog_startOverLink {
+  font-size: 1.15em;
+  font-weight: bold;
+}

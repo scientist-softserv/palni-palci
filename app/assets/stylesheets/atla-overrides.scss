@@ -1,0 +1,33 @@
+html, body {
+     font-family: 'Muli', Helvetica, sans-serif;
+     font-size:1em;
+}
+
+img {max-width:100%;}
+
+
+/* Work show metadata layout */
+.works-show p.work_description {margin-top:1em;}
+.works-show dl.work-show {margin-top: 1em;}
+.work-show ul.tabular, .scholarly_show .work-show ul.tabular{padding-inline-start: 0px;}
+.work-show dt {padding-bottom:0;}
+
+/* hide work type on work show pages */
+.works-show .work-type-tag {display:none;}
+
+/* Collection show layout */
+.hyc-banner .hyc-title h1, .hyc-banner .hyc-bugs div{
+     color:rgb(51, 51, 51);
+     text-shadow:none;
+}
+
+.hyc-banner .hyc-title .label {
+     -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.hyc-banner {min-height:95px;}
+
+/* admin dashboard available works ETD all caps*/
+.dashboard label[for="input-Etd"] {text-transform: uppercase;}

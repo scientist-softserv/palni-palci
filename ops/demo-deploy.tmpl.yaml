@@ -6,10 +6,10 @@ imagePullSecrets:
 resources:
   limits:
       memory: "4Gi"
-      cpu: "6000m"
+      cpu: "600m"
     requests:
       memory: "2Gi"
-      cpu: "3000m"
+      cpu: "300m"
 
 livenessProbe:
   enabled: false
@@ -186,10 +186,10 @@ worker:
   resources:
     limits:
       memory: "4Gi"
-      cpu: "3000m"
+      cpu: "300m"
     requests:
       memory: "2Gi"
-      cpu: "1500m"
+      cpu: "150m"
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars
   podSecurityContext:

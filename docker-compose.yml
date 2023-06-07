@@ -219,16 +219,27 @@ services:
       internal:
 
   chrome:
-    # password is 'secret'
-    image: selenium/standalone-chrome-debug:3.141.59-20201010
-    logging:
-      driver: none
+    image: seleniarm/node-chromium:4.0.0-beta-1-20210215
     volumes:
       - /dev/shm:/dev/shm
-    shm_size: 3G
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "6900:5900"
     networks:
       internal:
-    environment:
-      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
-      - VIRTUAL_PORT=7900
-      - VIRTUAL_HOST=chrome.hyku.test
+
+  seleniarm-hub:
+    image: seleniarm/hub:4.0.0-beta-1-20210215
+    container_name: seleniarm-hub-4.0.0-beta-1-20210215
+
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks:
+      internal:

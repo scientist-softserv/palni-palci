@@ -16,7 +16,7 @@ de:
         degree_granting_institution: Institution, die den mit der Arbeit verbundenen Abschluss verleiht.
         department: Name der Abteilung oder Einheit innerhalb der Institution, die den Abschluss verleiht.
         discipline: Untersuchungsbereich des intellektuellen Inhalts des Dokuments. Normalerweise ist dies der Name eines Programms oder einer Abteilung.
-        level: Mit dem Dokument verbundener Bildungsstand.
+        #level: Mit dem Dokument verbundener Bildungsstand.
         year: Das Jahr, in dem das Werk erstellt wurde. Dies muss eine vierstellige Jahreszahl sein und mit 19 oder 20 beginnen
       etd:
         subject: Wählen Sie Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht, aus unserer <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>Themenliste</a> aus. Wenn Ihre Begriffe in der Liste fehlen, verwenden Sie <a href='https://fast.oclc.org/searchfast/'>FAST-Betreffüberschriften</a>. Für weitere Religions- und Theologiebegriffe, die unserer Liste hinzugefügt werden sollten, verwenden Sie <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>dieses Formular.</a>

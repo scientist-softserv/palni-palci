@@ -18,7 +18,7 @@ RSpec.describe Etd do
     subject.subject = ['My Subject']
     subject.resource_type = ['Ceremony']
     subject.degree = ['Degree']
-    subject.level = ['Level']
+    #subject.level = ['Level']
     subject.discipline = ['Discipline']
     subject.degree_granting_institution = ['Degree Granting Inst']
 
@@ -29,7 +29,7 @@ RSpec.describe Etd do
     expect(subject.subject).to eq ['My Subject']
     expect(subject.resource_type).to eq ['Ceremony']
     expect(subject.degree).to eq ['Degree']
-    expect(subject.level).to eq ['Level']
+    #expect(subject.level).to eq ['Level']
     expect(subject.discipline).to eq ['Discipline']
     expect(subject.degree_granting_institution).to eq ['Degree Granting Inst']
   end

@@ -14,7 +14,7 @@ class Etd < ActiveFedora::Base
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :creator, presence: { message: 'Your work must have a creator.' }
   validates :degree, presence: { message: 'Your work must have a degree.' }
-  validates :level, presence: { message: 'Your work must have a level.' }
+  #validates :level, presence: { message: 'Your work must have a level.' }
   validates :discipline, presence: { message: 'Your work must have a discipline.' }
   validates :degree_granting_institution, presence: { message: 'Your work must have a degree granting institution.' }
   # rubocop:disable Style/RegexpLiteral
@@ -58,9 +58,9 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :level, predicate: ::RDF::URI('https://atla.com/terms/level') do |index|
-    index.as :stored_searchable
-  end
+ # property :level, predicate: ::RDF::URI('https://atla.com/terms/level') do |index|
+  #  index.as :stored_searchable
+ # end
 
   property :discipline, predicate: ::RDF::URI('https://atla.com/terms/discipline') do |index|
     index.as :stored_searchable, :facetable

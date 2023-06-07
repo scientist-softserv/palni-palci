@@ -147,7 +147,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'event_date_tesim', label: 'Event date'
     config.add_show_field 'official_link_tesim', label: 'Official URL'
     config.add_show_field 'degree_tesim', label: 'Degree'
-    config.add_show_field 'level_tesim', label: 'Level'
+    #config.add_show_field 'level_tesim', label: 'Level'
     config.add_show_field 'discipline_tesim', label: 'Discipline'
     config.add_show_field 'degree_graning_institution_tesim', label: 'Degree Granting Institution'
     config.add_show_field 'advisor_tesim', label: 'Advisor'

@@ -29,7 +29,7 @@ fr:
           identifier: Identifiant
           institution: Institution
           language: Langue
-          level: Niveau
+          #level: Niveau
           license: Licence
           official_link: URL officielle
           project_name: Nom du projet

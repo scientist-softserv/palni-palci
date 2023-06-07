@@ -5,11 +5,11 @@ imagePullSecrets:
 
 resources:
   limits:
-    memory: "4Gi"
-    cpu: "2"
+    memory: "4GB"
+    cpu: "0.6"
   requests:
-    memory: "4Gi"
-    cpu: "2"
+    memory: "2GB"
+    cpu: "0.3"
 
 livenessProbe:
   enabled: false
@@ -87,7 +87,7 @@ extraEnvVars: &envVars
   - name: GOOGLE_ANALYTICS_ID
     value: $GOOGLE_ANALYTICS_ID
   - name: GOOGLE_OAUTH_APP_NAME
-    value: palni-palci-production 
+    value: palni-palci-production
   - name: GOOGLE_OAUTH_APP_VERSION
     value: '1.0'
   - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
@@ -185,11 +185,11 @@ worker:
   replicaCount: 1
   resources:
     limits:
-      memory: "4Gi"
-      cpu: "2"
+      memory: "4GB"
+      cpu: "0.3"
     requests:
-      memory: "2Gi"
-      cpu: "1"
+      memory: "2GB"
+      cpu: "0.15"
 
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars

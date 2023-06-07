@@ -587,3 +587,16 @@ span.constraint-value p, .facet-values p {
 .remove.dropdown-toggle .glyphicon.glyphicon-remove {
   color: #c4302b;
 }
+
+// style the analytics button to match citations button
+#stats {
+  margin-top: 10px;
+  @media (min-width: 576px) {
+    max-width: 300px;
+  }
+}
+
+.catalog_startOverLink {
+  font-size: 1.15em;
+  font-weight: bold;
+}

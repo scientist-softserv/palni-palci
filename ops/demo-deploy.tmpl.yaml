@@ -5,11 +5,11 @@ imagePullSecrets:
 
 resources:
   limits:
-      memory: "4Gi"
-      cpu: "600m"
-    requests:
-      memory: "2Gi"
-      cpu: "300m"
+    memory: "4Gi"
+    cpu: "600m"
+  requests:
+    memory: "2Gi"
+    cpu: "300m"
 
 livenessProbe:
   enabled: false

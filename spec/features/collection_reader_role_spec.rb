@@ -257,11 +257,9 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
 
   # check table row has appropriate data attributes added
   def check_tr_data_attributes(id, type)
-    expect(page).to have_selector("tr[id='document_#{id}']")
-    # TODO: comment in and fix these 2. The collection is clearly showing up and being able to be deleted
-    # url_fragment = get_url_fragment(type)
-    # expect(page).to have_selector("tr[data-post-url='/dashboard/collections/#{id}/within?locale=en']")
-    # expect(page).to have_selector("tr[data-post-delete-url='/#{url_fragment}/#{id}?locale=en']")
+    url_fragment = get_url_fragment(type)
+    expect(page).to have_selector("tr[data-post-url='/dashboard/collections/#{id}/within?locale=en']")
+    expect(page).to have_selector("tr[data-post-delete-url='/#{url_fragment}/#{id}?locale=en']")
   end
 
   # check data attributes have been transferred from table row to the modal

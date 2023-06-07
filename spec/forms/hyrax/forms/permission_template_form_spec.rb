@@ -67,7 +67,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
           count_template_accesses_for(user, access_level)
         }.from(0).to(1).and change {
           count_workflow_responsibilities_for(user)
-        }.from(0).to(9)
+        }.from(0).to(6)
       end
 
       it 'removes workflow responsibilities' do
@@ -79,7 +79,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
             permission_template.access_grants.find_by(agent_id: user.user_key, access: access_level)
           )
         end.to change { count_workflow_responsibilities_for(user) }
-          .from(9).to(0)
+          .from(6).to(0)
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
           count_template_accesses_for(user, access_level)
         }.from(0).to(1).and change {
           count_workflow_responsibilities_for(user)
-        }.from(0).to(3)
+        }.from(0).to(2)
       end
 
       it 'removes workflow responsibilities' do
@@ -102,7 +102,7 @@ RSpec.describe Hyrax::Forms::PermissionTemplateForm do
             permission_template.access_grants.find_by(agent_id: user.user_key, access: access_level)
           )
         end.to change { count_workflow_responsibilities_for(user) }
-          .from(3).to(0)
+          .from(2).to(0)
       end
     end
 

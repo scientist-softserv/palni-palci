@@ -43,8 +43,13 @@ RSpec.describe 'Admin Dashboard', type: :feature, js: true, clean: true do
         expect(page).to have_link('Content Blocks')
         expect(page).to have_link('Features')
         expect(page).to have_link('Available Work Types')
-        expect(page).to have_link('Workflow Roles')
+        click_link "Features"
+        # this is only ever shown if the setting is turned on.
       end
+      within("form[action='/admin/features/show_workflow_roles_menu_item_in_admin_dashboard_sidebar/strategies/e12067c3ac367d4bb2798ab71fbb8660?locale=en']") do
+        find("input[value='on']").click
+      end
+      expect(page).to have_link('Workflow Roles')
     end
 
     it 'shows the status page' do

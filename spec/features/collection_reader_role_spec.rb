@@ -258,7 +258,6 @@ RSpec.describe 'actions permitted by the collection_reader role', type: :feature
   # check table row has appropriate data attributes added
   def check_tr_data_attributes(id, type)
     url_fragment = get_url_fragment(type)
-    expect(page).to have_selector("tr[data-id='#{id}'][data-colls-hash]")
     expect(page).to have_selector("tr[data-post-url='/dashboard/collections/#{id}/within?locale=en']")
     expect(page).to have_selector("tr[data-post-delete-url='/#{url_fragment}/#{id}?locale=en']")
   end

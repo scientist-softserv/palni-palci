@@ -71,8 +71,8 @@ if ENV['CHROME_HOSTNAME'].present?
   )
 
   Capybara.register_driver :chrome do |app|
-    # Comment this in to run selenium tests with M1 Machines
-    WebMock.allow_net_connect!
+    # Uncomment this to run selenium tests with M1 Machines
+   # WebMock.allow_net_connect!
     d = Capybara::Selenium::Driver.new(app,
                                        browser: :remote,
                                        desired_capabilities: capabilities,

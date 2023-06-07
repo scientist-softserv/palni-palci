@@ -5,11 +5,11 @@ imagePullSecrets:
 
 resources:
   limits:
-    memory: "4GB"
-    cpu: "0.6"
-  requests:
-    memory: "2GB"
-    cpu: "0.3"
+      memory: "4Gi"
+      cpu: "6000m"
+    requests:
+      memory: "2Gi"
+      cpu: "3000m"
 
 livenessProbe:
   enabled: false
@@ -185,11 +185,11 @@ worker:
   replicaCount: 1
   resources:
     limits:
-      memory: "4GB"
-      cpu: "0.3"
+      memory: "4Gi"
+      cpu: "3000m"
     requests:
-      memory: "2GB"
-      cpu: "0.15"
+      memory: "2Gi"
+      cpu: "1500m"
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars
   podSecurityContext:

@@ -30,10 +30,9 @@
            </div>
          <% end %>
          <div class = 'col-xs-4 col-md-3 footer-link'>
-           <%= link_to t(:'hyrax.controls.about'), "//#{host_for('search')}#{hyrax.about_path}", aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
-         </div>
-         <div class = 'col-xs-4 col-md-3 footer-link'>
-           <%= link_to t(:'hyrax.controls.contact'), "//#{host_for('search')}#{hyrax.contact_path}", aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %>
+              <%= link_to "https://www.atla.com/about/contact-us/" do %>
+                  Contact
+             <% end %>
          </div>
        <% end %>
        <%# END LINKS ONLY VISIBLE IN SPLASH CONTROLLER %>
@@ -41,7 +40,6 @@
     </div>
     <div class="navbar-right">
       <div class="navbar-text text-right">
-        <p>Hyku v<%= Hyku::VERSION %></p>
       </div>
     </div>
   </div>

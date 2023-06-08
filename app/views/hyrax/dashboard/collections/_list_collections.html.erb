@@ -1,7 +1,11 @@
 <%# OVERRIDE Hyrax 3.4.1 added custom thumbnails, enable markdown for collection titles %>
 
 <% id = collection_presenter.id %>
-<tr id="document_<%= id %>">
+<tr id="document_<%= id %>"
+  data-id="<%= id %>"
+  data-colls-hash="<%= collection_presenter.available_parent_collections(scope: controller) %>"
+  data-post-url="<%= hyrax.dashboard_create_nest_collection_within_path(id) %>"
+  data-post-delete-url="<%= is_admin_set ? hyrax.admin_admin_set_path(id) : hyrax.dashboard_collection_path(id) %>">>
   <td>
     <% if collection_presenter.allow_batch? %>
     <input type="checkbox" name="batch_document_ids[]" id="batch_document_<%= id %>" value="<%= id %>" class="batch_document_selector"

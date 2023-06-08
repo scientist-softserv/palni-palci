@@ -98,6 +98,7 @@ RSpec.describe 'Work Editor role', type: :feature, js: true, clean: true, ci: 's
       click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
+      select('Article', from: 'Resource Type')
 
       page.choose('generic_work_visibility_open')
       # rubocop:disable Metrics/LineLength

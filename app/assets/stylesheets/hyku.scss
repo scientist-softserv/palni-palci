@@ -587,3 +587,46 @@ span.constraint-value p, .facet-values p {
 .remove.dropdown-toggle .glyphicon.glyphicon-remove {
   color: #c4302b;
 }
+
+// style the analytics button to match citations button
+#stats {
+  margin-top: 10px;
+  @media (min-width: 576px) {
+    max-width: 300px;
+  }
+}
+
+.catalog_startOverLink {
+  font-size: 1.15em;
+  font-weight: bold;
+}
+
+// collection show page styles
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mt-5 {
+  margin-top: 3em;
+}
+
+.hyc-banner {
+  padding: 15px;
+  .hyc-bugs .hyc-created-by, .hyc-bugs .hyc-last-updated, .hyc-title {
+    padding: 0;
+  }
+
+  .hyc-item-count {
+    margin: 0;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 10px;
+    border-radius: 0.5em;
+    color: #333;
+  }
+
+  .hyc-bugs div, div {
+    position: relative;
+  }
+}

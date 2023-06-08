@@ -48,3 +48,5 @@ it:
           rights_tesim: Diritti
           subject_tesim: Soggetto
           title_tesim: Titolo
+    search:
+      start_over: Nuova ricerca

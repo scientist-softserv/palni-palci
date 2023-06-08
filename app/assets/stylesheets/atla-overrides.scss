@@ -1,0 +1,78 @@
+html, body {
+     font-family: 'Muli', Helvetica, sans-serif;
+     font-size:1em;
+}
+
+img {max-width:100%;}
+
+
+/* landing page for app */
+
+/*top nav bar*/
+body.splash-index.public-facing .navbar-inverse {
+    background-color: #258FCE;
+    border-color: #258FCE;
+}
+body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {color:white;}
+
+body.splash-index span.institution_name {
+    display: none;
+}
+
+/* in page content */
+
+body.splash-index .home-logo {
+     margin-bottom:2em;
+}
+
+body.splash-index.public-facing h2{
+     font-family: 'PT Serif';
+     margin:1.55em 0 1em 0;
+     color:#4d4e4e;/*313133*/
+     font-size:1.5em;
+}
+
+/* home search bar */
+body.splash-index #search-form-header{margin-top:2em;}
+
+body.splash-index .form-horizontal .control-label, body.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
+
+body.splash-index.public-facing #search-field-header {
+    padding: 25px 12px 20px 12px;
+    border-top: 2px solid #E3E3E3 !important;
+    border-bottom: 2px solid #E3E3E3 !important;
+    border-left: 2px solid #E3E3E3 !important;
+    border-right: 0px solid transparent !important;
+}
+
+body.splash-index.public-facing button#search-submit-header {
+    color: #575757;
+    background-color: #fff !important;
+    padding: 13px 12px 12px 12px;
+    border-top: 2px solid #E3E3E3 !important;
+    border-bottom: 2px solid #E3E3E3 !important;
+    border-right: 2px solid #E3E3E3 !important;
+    border-left: 0px solid transparent !important;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius:5px;
+}
+
+body.splash-index.public-facing input::placeholder{font-size:1.5em;}
+
+.proprietor-accounts .btn-primary a:visited {color:white!important;}
+body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
+
+
+@media (min-width: 768px){
+     body.splash-index .left-side {
+         padding-left: 0px;
+         padding-right: 50px;
+     }
+     body.splash-index .right-side {
+         padding-left: 50px;
+         padding-right: 10px;
+     }
+
+     body.splash-index #search-form-header{margin-top:4em;}
+
+}

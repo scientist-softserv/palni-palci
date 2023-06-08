@@ -1,42 +1,34 @@
 <% content_for :page_title, application_name %>
 <% content_for(:container_class) { 'row' } %>
-<section id="banner" class="jumbotron">
-  <div class="container">
-    <h1><%= application_name %></h1>
-    <p><%= t('application.tagline') %></p>
-    <p>
-      <% if !admin_only_tenant_creation? || can?(:manage, Account) %>
-        <%= link_to t('hyku.splash.account_signup'), account_sign_up_path, class: 'btn btn-lg btn-sign-up' %>
-      <% elsif !user_signed_in? %>
-        <%= link_to t('hyku.splash.account_login'), main_app.new_user_session_path, class: 'btn btn-lg btn-sign-up' %>
-      <% else %>
-        <%= t('hyku.splash.account_denied') %>
-      <% end %>
-    </p>
-  </div>
-</section>
 
-<section class="product-features">
+<section class="home-splash">
   <div class="row grid-row">
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.left_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.left_text') %>
-      </p>
+    <div class="col-sm-6 left-side">
+         <%= image_tag("atla-ir.png", class: "home-logo", alt: "Atla IR Shared Repository") %>
+         <p>The Atla Institutional Repository is a collaborative resource featuring the output of Atla Member Libraries and other partners, including faculty and student scholarly research in religion and theology, institutional records such as yearbooks and course catalogs, recordings of sermons and other lectures, and much more.</p>
+         <p>Visit one repository at a time or use the search box to find content from across all participating libraries’ repositories.</p>
     </div>
 
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.center_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.center_text') %>
-      </p>
-    </div>
-
-    <div class="col-xs-12 col-sm-4 grid-item">
-      <h2 class="heading"><%= t('hyku.splash.right_heading') %></h2>
-      <p>
-          <%= t('hyku.splash.right_text') %>
-      </p>
+    <div class="col-sm-6 right-side">
+         <%= render partial: 'catalog/search_form', locals: { search_form_action: full_search_url } %>
+         <h2>Browse our partner repositories:</h2>
+         <div class="row home-logo-grid">
+             <div class="col-xs-6 col-sm-4">
+                  <%= link_to "//#{host_for('rim')}" do %>
+                         <%= image_tag("home-logos/rim_atla.png", class: "tenant-logo", alt: "RIM") %>
+                  <% end %>
+             </div>
+             <div class="col-xs-6 col-sm-4">
+                  <%= link_to "//#{host_for('ctschicago')}" do %>
+                    <%= image_tag("home-logos/ctschicago.png", class: "tenant-logo", alt: "CTS") %>
+                   <% end %>
+             </div>
+             <div class="col-xs-6 col-sm-4">
+                  <%= link_to "//#{host_for('ost')}" do %>
+                    <%= image_tag("home-logos/ost.png", class: "tenant-logo", alt: "OST") %>
+                  <% end %>
+             </div>
+          </div>
     </div>
   </div>
 </section>

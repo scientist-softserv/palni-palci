@@ -5,11 +5,11 @@ imagePullSecrets:
 
 resources:
   limits:
-    memory: "4GB"
-    cpu: "0.6"
+    memory: "4Gi"
+    cpu: "600m"
   requests:
-    memory: "2GB"
-    cpu: "0.3"
+    memory: "2Gi"
+    cpu: "300m"
 
 livenessProbe:
   enabled: false
@@ -185,11 +185,11 @@ worker:
   replicaCount: 1
   resources:
     limits:
-      memory: "4GB"
-      cpu: "0.3"
+      memory: "4Gi"
+      cpu: "300m"
     requests:
-      memory: "2GB"
-      cpu: "0.15"
+      memory: "2Gi"
+      cpu: "150m"
 
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars

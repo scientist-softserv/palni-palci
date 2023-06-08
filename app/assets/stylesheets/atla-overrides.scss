@@ -64,33 +64,6 @@ body.splash-index button.shared-search:hover{
 
 body.splash-index .text-right p{color:#258FCE;}
 
-/* home search bar
-body.splash-index #search-form-header{margin-top:2em;}
-
-body.splash-index .form-horizontal .control-label, body.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
-
-body.splash-index.public-facing #search-field-header {
-    padding: 25px 12px 20px 12px;
-    border-top: 2px solid #E3E3E3 !important;
-    border-bottom: 2px solid #E3E3E3 !important;
-    border-left: 2px solid #E3E3E3 !important;
-    border-right: 0px solid transparent !important;
-}
-
-body.splash-index.public-facing button#search-submit-header {
-    color: #575757;
-    background-color: #fff !important;
-    padding: 13px 12px 12px 12px;
-    border-top: 2px solid #E3E3E3 !important;
-    border-bottom: 2px solid #E3E3E3 !important;
-    border-right: 2px solid #E3E3E3 !important;
-    border-left: 0px solid transparent !important;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius:5px;
-}
-
-body.splash-index.public-facing input::placeholder{font-size:1.5em;}*/
-
 .proprietor-accounts .btn-primary a:visited {color:white!important;}
 body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
 
@@ -105,6 +78,5 @@ body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffff
          padding-right: 10px;
      }
      body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
-     /*body.splash-index #search-form-header{margin-top:4em;}*/
 
 }

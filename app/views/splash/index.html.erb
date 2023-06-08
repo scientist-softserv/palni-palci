@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-sm-6 right-side">
-         <%= render partial: 'catalog/search_form', locals: { search_form_action: full_search_url } %>
+
          <h2>Browse our partner repositories:</h2>
          <div class="row home-logo-grid">
              <div class="col-xs-6 col-sm-4">
@@ -29,6 +29,9 @@
                   <% end %>
              </div>
           </div>
+          <%= link_to "//#{host_for('shared-search')}" do %>
+               <button class="shared-search">Search All Repositories</button>
+          <% end %>
     </div>
   </div>
 </section>

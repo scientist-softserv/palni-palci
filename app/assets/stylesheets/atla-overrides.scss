@@ -13,7 +13,10 @@ body.splash-index.public-facing .navbar-inverse {
     background-color: #258FCE;
     border-color: #258FCE;
 }
-body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {color:white;}
+body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
+     color:white;
+     padding:1em;
+}
 
 body.splash-index span.institution_name {
     display: none;
@@ -25,14 +28,41 @@ body.splash-index .home-logo {
      margin-bottom:2em;
 }
 
+body.splash-index .right-side{
+     text-align:center;
+}
+
 body.splash-index.public-facing h2{
      font-family: 'PT Serif';
      margin:1.55em 0 1em 0;
      color:#4d4e4e;/*313133*/
      font-size:1.5em;
+     text-align:left;
 }
 
-/* home search bar */
+body.splash-index button.shared-search {
+     border: none;
+     color: white;
+     padding: 1em;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 1em;
+     /*font-weight:700;*/
+     margin: 0 2px 1.25em 2px;
+     transition-duration: 0.4s;
+     cursor: pointer;
+     background-color:#E05C3F;/*#D43D1C*/
+     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
+     border-radius:3px;
+}
+
+body.splash-index button.shared-search:hover{
+     background-color:#D43D1C;
+     border: 1px solid #E05C3F;
+}
+
+/* home search bar
 body.splash-index #search-form-header{margin-top:2em;}
 
 body.splash-index .form-horizontal .control-label, body.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
@@ -57,7 +87,7 @@ body.splash-index.public-facing button#search-submit-header {
     border-bottom-right-radius:5px;
 }
 
-body.splash-index.public-facing input::placeholder{font-size:1.5em;}
+body.splash-index.public-facing input::placeholder{font-size:1.5em;}*/
 
 .proprietor-accounts .btn-primary a:visited {color:white!important;}
 body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
@@ -72,7 +102,7 @@ body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffff
          padding-left: 50px;
          padding-right: 10px;
      }
-
-     body.splash-index #search-form-header{margin-top:4em;}
+     body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
+     /*body.splash-index #search-form-header{margin-top:4em;}*/
 
 }

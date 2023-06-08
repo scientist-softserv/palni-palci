@@ -17,7 +17,7 @@ RSpec.describe "The splash page", type: :feature, clean: true, multitenant: true
     expect(page).to have_link 'Login to get started', href: main_app.new_user_session_path(locale: 'en')
 
     within 'footer' do
-      expect(page).to have_link 'Administrator login'
+      expect(page).to have_link 'Admin'
     end
 
     expect(page).to have_content("Hyku v#{Hyku::VERSION}")

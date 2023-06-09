@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # For work approval permissions, see spec/requests/work_approval_permissions_spec.rb
-RSpec.describe 'Work Depositor role', type: :request, singletenant: true, do
+RSpec.describe 'Work Depositor role', type: :request, singletenant: true do
   let(:work_depositor) { FactoryBot.create(:user, roles: [:work_depositor]) }
   let(:work) { create(:work) }
 

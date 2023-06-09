@@ -4,13 +4,14 @@ content_block:
   <<: *default
   menubar: false
   image_uploadtab: true
-  toolbar1: styleselect | bold italic underline | link hr | undo redo | image
-  toolbar2: indent outdent | alignleft aligncenter alignright | table | fullscreen 
+  toolbar1: styleselect | bold italic underline | link hr | undo redo | image | code
+  toolbar2: indent outdent | alignleft aligncenter alignright | table | fullscreen
   plugins:
     - table
     - fullscreen
     - link
     - autolink
     - image
+    - code
 custom:
   <<: *default

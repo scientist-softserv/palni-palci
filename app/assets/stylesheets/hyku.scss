@@ -103,7 +103,6 @@
 
   .consortia-logos {
     display: flex;
-    max-width: 20%;
     justify-content: flex-start;
     align-items: center;
     .img-responsive {
@@ -156,9 +155,8 @@
       max-width:80%;
     }
     .consortia-logos {
-      display: block;
+      flex-direction: column;
       max-width: 80%;
-      text-align: center;
       .img-responsive {
         padding: 20px;
       }

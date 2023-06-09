@@ -18,6 +18,7 @@
 require 'webmock/rspec'
 require 'i18n/debug' if ENV['I18N_DEBUG']
 require 'rspec/its'
+require 'support/capybara_patch'
 
 RSpec.configure do |config|
   config.before(:suite) do

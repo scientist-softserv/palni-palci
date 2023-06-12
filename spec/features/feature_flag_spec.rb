@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # OVERRIDE Hyku to use "find" instead of assertions immediately after navigating with "visit".
 # This forces the page to load before continuing the test & fixes flappiness in CI. .
 

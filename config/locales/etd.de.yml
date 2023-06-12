@@ -3,6 +3,7 @@ de:
   hyrax:
     etd:
       labels:
+        admin_note: Verwaltungshinweise
         committee_member: Ausschussmitglied
         creator: Autor
         date_created: Datum

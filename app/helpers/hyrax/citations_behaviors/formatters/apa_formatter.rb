@@ -38,12 +38,12 @@ module Hyrax
           return '' if authors_list.blank?
           authors_list = Array.wrap(authors_list).collect { |name| name.strip }
           text = ''
-          text += authors_list.first if authors_list.first
+          text += convert_to_initials(authors_list.first) if authors_list.first
           authors_list[1..-1].each do |author|
             text += if author == authors_list.last
-                      ", &amp; #{author}"
+                      ", &amp; #{convert_to_initials(author)}"
                     else
-                      ", #{author}"
+                      ", #{convert_to_initials(author)}"
                     end
           end
           text += "." unless text.end_with?(".")
@@ -72,6 +72,11 @@ module Hyrax
             else
               pub_info + "."
             end
+          end
+
+          def convert_to_initials(name)
+            name = name.split(" ")
+            name.map { |n| n.equal?(name.last) ? n.capitalize : n[0].capitalize }.join(". ")
           end
 
         public

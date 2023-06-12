@@ -31,6 +31,7 @@ de:
           rights_tesim: Rechte
           subject_tesim: Fach
         show:
+          admin_note: Verwaltungshinweis
           based_near_label_tesim: Ort
           contributor_tesim: Mitwirkender
           creator_tesim: Schöpfer
@@ -47,3 +48,5 @@ de:
           rights_tesim: Rechte
           subject_tesim: Fach
           title_tesim: Titel
+    search:
+      start_over: Neue Suche

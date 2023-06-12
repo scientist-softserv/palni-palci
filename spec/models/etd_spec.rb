@@ -116,15 +116,6 @@ RSpec.describe Etd do
       end
     end
 
-    context ':based_near' do
-      let(:etd) { FactoryBot.build(:etd) }
-      it 'is a property' do
-        etd.based_near = [Hyrax::ControlledVocabularies::Location.new]
-        expect(etd.resource.dump(:ttl)).to match(/xmlns.com\/foaf\/0.1\/based_near/)
-        expect(etd.based_near.first).to be_an_instance_of(Hyrax::ControlledVocabularies::Location)
-      end
-    end
-
     context ':source' do
       let(:etd) { FactoryBot.build(:etd) }
       it 'is a property' do

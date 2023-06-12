@@ -3,6 +3,9 @@ it:
   hyrax:
     icons:
       image: fa fa-picture-o
+    image:
+      labels:
+        admin_note: Note Amministrative
     select_type:
       image:
         description: L'immagine singola o multi-pagina funziona.

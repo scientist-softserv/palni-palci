@@ -86,20 +86,6 @@ extraEnvVars: &envVars
     value: http://fcrepo.staging-fcrepo.svc.cluster.local:8080/rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
-  # - name: ANALYTICS_ID
-  #   value: $ANALYTICS_ID # Refer to the README
-  # - name: ANALYTICS_OAUTH_APP_NAME
-  #   value: palni-palci-demo
-  # - name: ANALYTICS_OAUTH_APP_VERSION
-  #   value: '1.0'
-  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_SECRET
-  #   value: $ANALYTICS_OAUTH_PRIVATE_KEY_SECRET # Refer to the README
-  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_PATH
-  #   value: prod-cred.p12
-  # - name: ANALYTICS_OAUTH_PRIVATE_KEY_VALUE
-  #   value: $ANALYTICS_OAUTH_PRIVATE_KEY_VALUE # Refer to the README
-  # - name: ANALYTICS_OAUTH_CLIENT_EMAIL
-  #   value: palni-palci-demo@palni-palci-demo.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST
@@ -122,8 +108,6 @@ extraEnvVars: &envVars
     value: palni-palci-staging.notch8.cloud
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
-  # - name: HYRAX_ANALYTICS
-  #   value: 'true'
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: INITIAL_ADMIN_EMAIL

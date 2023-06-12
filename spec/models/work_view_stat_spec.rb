@@ -113,4 +113,3 @@ RSpec.describe WorkViewStat, type: :model do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

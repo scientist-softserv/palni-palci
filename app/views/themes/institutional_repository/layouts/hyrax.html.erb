@@ -1,6 +1,6 @@
 <% # OVERRIDE: Hyrax 2.9 template to add themeing body_classes %>
 <!DOCTYPE html>
-<html lang="<%= I18n.locale.to_s %>" prefix="og:http://ogp.me/ns#">
+<html lang="<%= I18n.locale.to_s || :en %>" prefix="og:http://ogp.me/ns#">
   <head>
     <%= render partial: 'layouts/head_tag_content' %>
     <%= content_for(:head) %>

@@ -43,7 +43,7 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true do
     end
 
     context 'with restricted visibility' do
-      let(:work) { create(:work, visibility: 'restricted', admin_set_id: admin_set_id) }
+      let(:work) { create(:work, title: ['Restricted Visibility Work'], visibility: 'restricted', admin_set_id: admin_set_id) }
 
       it "cannot see the work's show page" do
         get hyrax_generic_work_path(work)

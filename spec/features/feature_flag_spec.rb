@@ -55,7 +55,7 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       find("tr[data-feature='show-recently-uploaded']").find_button('off').click
       visit '/'
       # OVERRIDE here to fix flappiness & wait until the page loads
-      find('p', text: 'Pandas')
+      find('h3', text: 'Pandas')
       expect(page).not_to have_content 'Recently Uploaded'
       expect(page).to have_content 'Featured Works'
       visit 'admin/features'

@@ -1,5 +1,5 @@
-name: "Build Test Lint"
-run-name: Build Test Lint of ${{ github.ref_name }} by @${{ github.actor }}
+name: "Build Lint Test"
+run-name: Build Lint & Test of ${{ github.ref_name }} by @${{ github.actor }}
 on:
   push:
     branches:
@@ -21,16 +21,12 @@ jobs:
     secrets: inherit
     with:
       platforms: "linux/amd64"
-      target: hyku-base
+      target: hyku-web
       worker: true
       workerTarget: hyku-worker
   test:
     needs: build
     uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.13
-    with:
-      worker: true
   lint:
     needs: build
     uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.13
-    with:
-      worker: true

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# OVERRIDE Hyku to use "find" instead of assertions immediately navigating with "visit". This forces the page to load before continuing the test & fixes flappiness in CI. .
 
 require 'rails_helper'
 
@@ -33,13 +34,15 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Show featured works'
       find("tr[data-feature='show-featured-works']").find_button('off').click
       visit '/'
-      expect(page).to have_content 'Recently Uploaded'
+      # OVERRIDE here to fix flappiness & wait until the page loads
+      find('#recentTab', text: 'Recently Uploaded')
       expect(page).to have_content 'Pandas'
       expect(page).not_to have_content 'Featured Works'
       visit 'admin/features'
       find("tr[data-feature='show-featured-works']").find_button('on').click
       visit '/'
-      expect(page).to have_content 'Featured Works'
+      # OVERRIDE here to fix flappiness & wait until the page loads
+      find('#featureTab', text: 'Featured Works')
       expect(page).to have_content 'Pandas'
     end
 
@@ -49,13 +52,15 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       expect(page).to have_content 'Show recently uploaded'
       find("tr[data-feature='show-recently-uploaded']").find_button('off').click
       visit '/'
+      # OVERRIDE here to fix flappiness & wait until the page loads
+      find('p', text: 'Pandas')
       expect(page).not_to have_content 'Recently Uploaded'
-      expect(page).to have_content 'Pandas'
       expect(page).to have_content 'Featured Works'
       visit 'admin/features'
       find("tr[data-feature='show-recently-uploaded']").find_button('on').click
       visit '/'
-      expect(page).to have_content 'Recently Uploaded'
+      # OVERRIDE here to fix flappiness & wait until the page loads
+      find('#recentTab', text: 'Recently Uploaded')
       expect(page).to have_content 'Pandas'
       click_link 'Recently Uploaded'
       expect(page).to have_css('div#recently_uploaded')

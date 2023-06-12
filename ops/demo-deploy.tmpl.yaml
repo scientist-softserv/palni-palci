@@ -4,12 +4,12 @@ imagePullSecrets:
   - name: github
 
 resources:
-  requests:
-    memory: "1Gi"
-    cpu: "250m"
   limits:
+    memory: "4Gi"
+    cpu: "600m"
+  requests:
     memory: "2Gi"
-    cpu: "1000m"
+    cpu: "300m"
 
 livenessProbe:
   enabled: false
@@ -184,12 +184,12 @@ extraEnvVars: &envVars
 worker:
   replicaCount: 1
   resources:
-    requests:
-      memory: "1Gi"
-      cpu: "250m"
     limits:
+      memory: "4Gi"
+      cpu: "300m"
+    requests:
       memory: "2Gi"
-      cpu: "1000m"
+      cpu: "150m"
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars
   podSecurityContext:

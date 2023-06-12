@@ -1,6 +1,9 @@
 ---
 it:
   hyrax:
+    generic_work:
+      labels:
+        admin_note: Note Amministrative
     icons:
       generic_work: fa fa-file-text-o
     select_type:

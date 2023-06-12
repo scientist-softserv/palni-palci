@@ -6,8 +6,10 @@ zh:
     active_consent_to_agreement: 我已经阅读并且同意
     activefedora:
       models:
+        etd: 预计到达时间
         generic_work: 工作
         image: 图片
+        oer: 开放教育资源
     admin:
       admin_sets:
         delete:
@@ -295,7 +297,7 @@ zh:
     background_attribution_html: ''
     base:
       citations:
-        header: 引文：
+        header: 引文
       form_child_work_relationships:
         actions:
           remove: 从这项工作中删除
@@ -810,7 +812,7 @@ zh:
       groups_description:
         description_html: 标记为“选择组”的下拉列表中的组列表是您所属的用户管理组的列表。您可以选择特定的组并为%{application_name}中的文件分配访问级别，类似于添加用户访问级别。
     footer:
-      copyright_html: "<strong>版权所有 &copy; 2017 Samvera</strong> 根据Apache许可证2.0版许可"
+      copyright_html: "<strong>版权所有 &copy; 2019 - %{current_year} Samvera</strong> 根据Apache许可证2.0版许可"
       service_html: 的服务<a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     help:
       header: 用户支援
@@ -1162,14 +1164,30 @@ zh:
         contributor: 贡献者
         creator: 创作者
         date_created: 创建日期
+        default_button_background_color: 默认按钮背景颜色
+        default_button_border_color: 默认按钮边框颜色
+        default_button_text_color: 默认按钮文字颜色
         description: 摘要或摘要
         embargo_release_date: 直到
+        facet_panel_background_color: 分面面板背景色
+        facet_panel_text_color: 构面面板文本颜色
         files: 上传一个文件
+        footer_link_color: 页脚链接颜色
+        footer_link_hover_color: 页脚链接悬停颜色
+        header_and_footer_background_color: 页眉和页脚背景颜色
+        header_and_footer_text_color: 页眉和页脚文本颜色
         identifier: 识别码
         keyword: 关键词
         lease_expiration_date: 直到
         license: 执照
+        link_color: 链接颜色
+        link_hover_color: 链接悬停颜色
         member_of_collection_ids: 添加到收藏
+        navbar_background_color: 导航栏背景颜色
+        navbar_link_background_hover_color: 导航栏链接背景悬停颜色
+        navbar_link_text_color: 导航栏链接文字颜色
+        navbar_link_text_hover_color: 导航栏链接文本悬停颜色
+        primary_button_hover_color: 主按钮悬停颜色
         publisher: 发行人
         related_url: 相关网址
         rights_statement: 权利声明

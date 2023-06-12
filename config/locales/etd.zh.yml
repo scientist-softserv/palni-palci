@@ -3,6 +3,7 @@ zh:
   hyrax:
     etd:
       labels:
+        admin_note: 行政笔记
         committee_member: 委员会成员
         creator: 作者
         date_created: 日期

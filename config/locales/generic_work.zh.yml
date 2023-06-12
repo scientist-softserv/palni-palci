@@ -1,6 +1,9 @@
 ---
 zh:
   hyrax:
+    generic_work:
+      labels:
+        admin_note: 行政笔记
     icons:
       generic_work: fa fa-file-text-o
     select_type:

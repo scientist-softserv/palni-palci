@@ -50,7 +50,7 @@ RSpec.describe 'hyrax/oers/_attributes.html.erb' do
   before do
     allow(presenter).to receive(:member_of_collection_presenters).and_return([])
     allow(view).to receive(:dom_class).and_return('')
-
+    allow(presenter).to receive(:editor?).and_return(true)
     render 'hyrax/oers/attribute_rows', presenter: presenter
   end
 

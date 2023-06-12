@@ -22,6 +22,13 @@ fr:
         file_acl: Désactiver si vous utilisez un système de fichiers comme samba ou nfs qui ne prend pas en charge la définition de listes de contrôle d'accès
         file_size_limit: Il doit être défini sur au moins 536870912000
         geonames_username: Inscrivez-vous sur http://www.geonames.org/manageaccount
+        google_analytics_id: L'identifiant de votre compte Google Analytics
+        google_oauth_app_name: Le nom de l'application Google dans la console de l'API Google
+        google_oauth_app_version: La version de l'application Google dans la console de l'API Google
+        google_oauth_client_email: Adresse e-mail du client OAuth
+        google_oauth_private_key_path: Le chemin complet vers votre p12, fichier clé. (Vous pouvez utiliser la valeur de la clé privée OU le chemin ; la valeur est prioritaire)
+        google_oauth_private_key_secret: Le secret fourni lors de la création de la clé p12
+        google_oauth_private_key_value: La valeur du fichier p12 avec le cryptage base64. (Vous pouvez utiliser la valeur de la clé privée OU le chemin ; la valeur est prioritaire)
         gtm_id: L'identifiant de votre compte Google Tag Manager
         is_public: Les utilisateurs peuvent-ils découvrir votre site sur la page d'accueil ou accéder à vos pages sans nom d'utilisateur/mot de passe particulier ?
         locale_name: 'Le nom du suffixe de paramètres régionaux spécifiques au locataire ajouté à leurs fichiers locale.yml. Seuls les caractères alphabétiques doivent être ajoutés, pas de symboles ni de chiffres, ceux-ci seront alors en majuscules.
@@ -52,6 +59,8 @@ fr:
         tenant: UUID du locataire
       add_user_to_group:
         user_ids: Identifiant d'utilisateur
+      defaults:
+        admin_note: Remarques administratives
       domain_names:
         cname: Nom de domaine
       group_search:

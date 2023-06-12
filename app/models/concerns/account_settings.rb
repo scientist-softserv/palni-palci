@@ -192,6 +192,7 @@ module AccountSettings
     end
 
     def reload_analytics
+      # rubocop:disable Style/RedundantSelf
       # require the analytics to be set per tenant
       Hyrax::Analytics.config.analytics_id = self.google_analytics_id
       Hyrax::Analytics.config.app_name = self.google_oauth_app_name

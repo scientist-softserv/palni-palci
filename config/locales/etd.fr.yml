@@ -3,6 +3,7 @@ fr:
   hyrax:
     etd:
       labels:
+        admin_note: Remarques administratives
         committee_member: membre du comité
         creator: Auteur
         date_created: Date

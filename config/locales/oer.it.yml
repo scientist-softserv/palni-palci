@@ -9,6 +9,7 @@ it:
         resource_type: Categorie predefinite per descrivere il tipo di contenuto che viene caricato. Possono essere selezionati più di un tipo.
         table_of_contents: Indice di un'opera.
       labels:
+        admin_note: Note Amministrative
         description: Descrizione
         resource_type: genere
       show:
@@ -25,7 +26,7 @@ it:
         confirm:
           actions: Azione
           cancel: Annulla
-          header: 
+          header:
           remove: Rimuovere
           text: La rimozione di questa versione alternativa non la rimuoverà dal repository, ma solo da questo lavoro. Sei sicuro di voler rimuovere questa versione alternativa?
           title: Titolo dell'opera

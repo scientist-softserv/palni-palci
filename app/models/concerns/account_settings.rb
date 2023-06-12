@@ -15,13 +15,6 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
-    setting :analytics_id, type: 'string'
-    setting :analytics_oauth_app_name, type: 'string'
-    setting :analytics_oauth_app_version, type: 'string'
-    setting :analytics_oauth_private_key_secret, type: 'string'
-    setting :analytics_oauth_private_key_path, type: 'string'
-    setting :analytics_oauth_private_key_value, type: 'string'
-    setting :analytics_oauth_client_email, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'
@@ -36,6 +29,13 @@ module AccountSettings
     setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :geonames_username, type: 'string', default: ''
     setting :gtm_id, type: 'string'
+    setting :google_analytics_id, type: 'string'
+    setting :google_oauth_app_name, type: 'string'
+    setting :google_oauth_app_version, type: 'string'
+    setting :google_oauth_private_key_value, type: 'string'
+    setting :google_oauth_private_key_path, type: 'string'
+    setting :google_oauth_private_key_secret, type: 'string'
+    setting :google_oauth_client_email, type: 'string'
     setting :locale_name, type: 'string', disabled: true
     setting :monthly_email_list, type: 'array', disabled: true
     setting :oai_admin_email, type: 'string', default: 'changeme@example.com'
@@ -193,15 +193,16 @@ module AccountSettings
 
     def reload_analytics
       # require the analytics to be set per tenant
-      Hyrax::Analytics.config.analytics_id = analytics_id
-      Hyrax::Analytics.config.app_name = analytics_oauth_app_name
-      Hyrax::Analytics.config.app_version = analytics_oauth_app_version
-      Hyrax::Analytics.config.privkey_secret = analytics_oauth_private_key_secret
-      Hyrax::Analytics.config.privkey_path = analytics_oauth_private_key_path
-      Hyrax::Analytics.config.privkey_value = analytics_oauth_private_key_value
-      Hyrax::Analytics.config.client_email = analytics_oauth_client_email
+      Hyrax::Analytics.config.analytics_id = self.google_analytics_id
+      Hyrax::Analytics.config.app_name = self.google_oauth_app_name
+      Hyrax::Analytics.config.app_version = self.google_oauth_app_version
+      Hyrax::Analytics.config.privkey_value = self.google_oauth_private_key_value
+      Hyrax::Analytics.config.privkey_path = self.google_oauth_private_key_path
+      Hyrax::Analytics.config.privkey_secret = self.google_oauth_private_key_secret
+      Hyrax::Analytics.config.client_email = self.google_oauth_client_email
 
       # only show analytics partials if analytics are set on the tenant
       Hyrax.config.analytics = Hyrax::Analytics.config.valid?
+      # rubocop:enable Style/RedundantSelf
     end
 end

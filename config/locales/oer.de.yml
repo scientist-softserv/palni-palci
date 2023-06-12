@@ -9,6 +9,7 @@ de:
         resource_type: Vordefinierte Kategorien, um die Art des hochgeladenen Inhalts zu beschreiben. Es können mehr als ein Typ ausgewählt werden.
         table_of_contents: Inhaltsverzeichnis einer Arbeit.
       labels:
+        admin_note: Verwaltungshinweise
         description: Beschreibung
         resource_type: Art
       show:
@@ -26,7 +27,7 @@ de:
         confirm:
           actions: Aktion
           cancel: Stornieren
-          header: 
+          header:
           remove: Entfernen
           text: Durch das Entfernen dieser alternativen Version wird sie nicht aus dem Repository entfernt, sondern nur aus dieser Arbeit. Möchten Sie diese alternative Version wirklich entfernen?
           title: Arbeitstitel

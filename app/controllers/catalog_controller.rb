@@ -66,7 +66,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
-    # config.add_facet_field 'date_created_tesim', label: 'Date Created'
     config.add_facet_field 'date_ssi', label: 'Date Created', range: { num_segments: 10, assumed_boundaries: [1100, Time.zone.now.year + 2], segments: false, slider_js: false, maxlength: 4 }
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 

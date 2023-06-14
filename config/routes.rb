@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   resources :auth_providers
   concern :iiif_search, BlacklightIiifSearch::Routes.new
+  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
   concern :oai_provider, BlacklightOaiProvider::Routes.new
-  
+
   mount Hyrax::IiifAv::Engine, at: '/'
   mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
 
@@ -64,6 +65,8 @@ Rails.application.routes.draw do
     concerns :oai_provider
 
     concerns :searchable
+    concerns :range_searchable
+
   end
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do

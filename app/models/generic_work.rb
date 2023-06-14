@@ -26,6 +26,10 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :date, predicate: ::RDF::URI("https://hykucommons.org/terms/date"), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   include ::Hyrax::BasicMetadata
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must

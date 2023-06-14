@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CatalogController < ApplicationController
+  include BlacklightRangeLimit::ControllerOverride
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
   include BlacklightOaiProvider::Controller
@@ -84,6 +85,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
     config.add_facet_field 'contributing_library_sim', limit: 5
+    config.add_facet_field 'date_ssi', label: 'Date Created', range: { num_segments: 10, assumed_boundaries: [1100, Time.zone.now.year + 2], segments: false, slider_js: false, maxlength: 4 }
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -391,6 +393,8 @@ class CatalogController < ApplicationController
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
     config.add_sort_field "title_ssi asc", label: "title (A-Z)"
     config.add_sort_field "title_ssi desc", label: "title (Z-A)"
+    config.add_sort_field "date_ssi desc", label: "date created \u25BC"
+    config.add_sort_field "date_ssi asc", label: "date created \u25B2"
     config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
     config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
     config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"

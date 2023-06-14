@@ -23,7 +23,7 @@ class AppIndexer < Hyrax::WorkIndexer
     # The allowed date formats are either YYYY, YYYY-MM, or YYYY-MM-DD
     # the date must be formatted as a 4 digit year in order to be sorted.
     valid_date_formats = /\A(\d{4})(?:-\d{2}(?:-\d{2})?)?\z/
-    date_string = solr_doc['date_created_tesim'].first
+    date_string = solr_doc['date_created_tesim']&.first
     year = date_string.match(valid_date_formats)&.captures&.first
     solr_doc['date_tesi'] = year if year
     solr_doc['date_ssi'] = year if year

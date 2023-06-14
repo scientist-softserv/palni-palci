@@ -113,7 +113,7 @@ it:
       title: Amministrazione
       work_types: Tipi di lavoro disponibili
     footer:
-      admin_login: Accesso amministratore
+      admin_login: Ammin
     proprietor:
       accounts:
         nav: conti

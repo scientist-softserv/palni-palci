@@ -113,7 +113,7 @@ pt-:
       title: Administração
       work_types: Tipos de trabalho disponíveis
     footer:
-      admin_login: Login do administrador
+      admin_login: Admin
     proprietor:
       accounts:
         nav: contas

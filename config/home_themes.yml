@@ -31,3 +31,10 @@ neutral_repository:
   marketing_text: true
   name: Neutral Repository
   notes: This theme is neutral and is recommended for all types of repositories
+shared_repository:
+  banner_image: false
+  featured_researcher: false
+  home_page_text: false
+  marketing_text: false
+  name: Atla IR Shared Homepage
+  notes: This theme is only to be used for the Atla IR shared search repository

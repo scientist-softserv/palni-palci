@@ -515,7 +515,7 @@ fr:
         reporting: Signaler un problème
       message_label: Message
       name_label: votre nom
-      notice: Veuillez utiliser le formulaire de contact pour soumettre des demandes de renseignements sur ce système; pour signaler un problème que vous rencontrez avec le système; demander de l'aide pour utiliser le système; ou pour fournir une rétroaction générale. Consultez la page d'aide pour plus d'informations sur ce système.
+      notice: Veuillez utiliser ce formulaire pour contacter notre référentiel pour toute question ou commentaire.
       select_type: Sélectionnez un type de problème
       subject_label: Matière
       type_label: type de probleme

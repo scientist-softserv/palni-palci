@@ -1,31 +1,53 @@
 .shared_repository {
      &.public-facing {font-family: Muli, Helvetica, Arial, sans-serif;}
      &.public-facing h1, h2, h3, h4, h5, h6 {font-family: 'PT Serif', serif;}
+
      img {max-width:100%;}
 
+/*top admin nav bar*/
      &.public-facing .navbar-inverse {
-          background-color: #258FCE;
+          background-color: #fff;
           border-color: #258FCE;
           }
-     &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {
-          color:white;
-     }
-     &.public-facing .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a, &.public-facing .dropdown-header {color:white;}
+
+     &.public-facing .navbar-static-top {border-width: 3px 0 0px}
+
+     &.public-facing nav.navbar.navbar-default.navbar-static-top{border-width:0px}
+
+     &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {color:#258FCE;}
+
+     &.public-facing .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a, &.public-facing .dropdown-header {color:#258FCE;}
+
+     .navbar-inverse .navbar-collapse, .navbar-inverse #facet-panel-collapse, .navbar-inverse .navbar-form{border-color: #175E87;}
 
      &.public-facing .navbar-header #logo {visibility: hidden;}
+
      .image-masthead .glyphicon {display:none;}
+
      &.public-facing .navbar{margin-bottom:0}
+
      &.public-facing .navbar + .navbar, .navbar + .image-masthead {margin-top:0;}
+
+     &.public-facing button.navbar-toggle.collapsed,&.public-facing .navbar-inverse .navbar-toggle, &.public-facing .navbar-inverse .facets-toggle {background-color:#258FCE;}
+
+     &.public-facing button.navbar-toggle.collapsed:hover{background-color:#175E87;}
+
+     &.public-facing .navbar-inverse .navbar-toggle {border-color: #175E87;}
+
+     &.public-facing .navbar-inverse .navbar-nav > .open > a, &.public-facing .navbar-inverse .navbar-nav > .open > a:hover, &.public-facing .navbar-inverse .navbar-nav > .open > a:focus{background-color: #258FCE;color:white;}
+
+     .navbar-inverse .navbar-nav .open .dropdown-menu .divider, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu .divider, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu .divider{background-color: #175E87;}
+
 
      /* banner area below top nav bar*/
      .banner-section-wrapper{margin-bottom:1em;}
-     .image-masthead .logo-section{padding:1em 0 1em 3em;}
+     .image-masthead .logo-section{padding:0 0 1em 3em;}
      .image-masthead{display:flex;align-items: flex-end;}
      .image-masthead .navbar-nav{padding-left:2.2em;}
      /* site nav bar */
      .image-masthead ul.nav.navbar-nav li  {background-color:#258FCE;}
      &.public-facing .image-masthead .navbar .active > a, &.public-facing .image-masthead .navbar .active > a:hover, &.public-facing .image-masthead .navbar .active > a:focus {background-color:#175E87;}
-     &.public-facing .image-masthead .navbar {    background-color: rgba(0, 0, 0, 0);}
+     &.public-facing .image-masthead .navbar {background-color: rgba(0, 0, 0, 0);}
 
      .container.homepage-container h2{
           font-family: 'PT Serif';
@@ -36,7 +58,7 @@
      }
 
      .container.homepage-container .row {margin:0;}
-
+     /* search bar */
      #search-form-header{
           max-width:600px;
           margin: 2em auto 0 auto;
@@ -44,7 +66,7 @@
 
      button.btn.btn-default.dropdown-toggle {display:none;}
 
-      .form-horizontal .control-label, body.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
+      .form-horizontal .control-label, &.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
 
       #search-field-header {
          padding: 25px 12px 20px 12px;
@@ -70,11 +92,35 @@
 
       .row.home-content {display:none;}
 
-      &.public-facing.hyrax-pages #content-wrapper {max-width:800px;}
+      /* limit width for text in pages for better usability */
+      &.public-facing.hyrax-pages #content-wrapper, &.public-facing.hyrax-contact_form #content-wrapper {max-width:800px;}
+
       &.public-facing.hyrax-pages div#content_block_page.row {margin-left:1em;margin-right:1em;}
+      /* footer */
+      &.public-facing .footer-link a, &.public-facing .site-footer a {padding:1em;}
+      &.public-facing footer.navbar.navbar-inverse.site-footer{border:0;border-bottom:3px solid #258FCE}
 
-      &.public-facing .footer-link a, &.public-facing .site-footer a {color:white;padding:1em;}
+      /*contact page*/
+      &.public-facing .alert-info{
+           background-color:rgba(37,143,206, .3);
+           color:#333;
+           border-color:#258FCE;
+      }
+      &.public-facing .alert{margin-left:0;}
 
+      &.public-facing .btn.btn-primary, &.public-facing .btn-primary.facets-toggle, &.public-facing .field-controls .facets-toggle.add, .field-controls &.public-facing .facets-toggle.add, &.public-facing .field-controls .btn.add, .field-controls &.public-facing .btn.add, &.public-facing .field-controls td.toggle input.add[type=submit], .field-controls td.toggle &.public-facing input.add[type=submit], &.public-facing td.toggle .field-controls input.add[type=submit], td.toggle .field-controls &.public-facing input.add[type=submit], &.public-facing td.toggle input.btn-primary[type=submit], td.toggle &.public-facing input.btn-primary[type=submit], &.public-facing td.toggle input[type=submit].active, td.toggle &.public-facing input[type=submit].active{
+           background-color:#E05C3F;
+           border-color: #E05C3F;
+      }
 
+       &.hyrax-contact_form .btn.btn-primary{box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);}
+
+@media screen and (min-width:768px){
+
+      .dropdown-menu .divider, .twitter-typeahead .tt-menu .divider{
+           background-color: #e5e5e5;}
+
+     &.public-facing .alert{width:83%;}
+}
 
 }

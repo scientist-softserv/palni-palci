@@ -517,7 +517,7 @@ it:
         reporting: Segnala un problema
       message_label: Messaggio
       name_label: Il tuo nome
-      notice: Si prega di utilizzare il modulo di contatto per inviare richieste su questo sistema; per segnalare un problema riscontrato con il sistema; richiedere assistenza utilizzando il sistema; o per fornire un feedback generale. Vedere la pagina di aiuto per ulteriori informazioni su questo sistema.
+      notice: Si prega di utilizzare questo modulo per contattare il nostro repository con qualsiasi domanda o feedback.
       select_type: Seleziona un tipo di problema
       subject_label: Soggetto
       type_label: tipo di problema

@@ -517,7 +517,7 @@ es:
         reporting: Informar un problema
       message_label: Mensaje
       name_label: Tu nombre
-      notice: Utilice el formulario de contacto para enviar consultas sobre este sistema; para informar un problema que tenga con el sistema; para solicitar asistencia con el sistema; o para proporcionar comentarios generales. Consulte la página de Ayuda para obtener información adicional sobre este sistema.
+      notice: Utilice este formulario para ponerse en contacto con nuestro repositorio con cualquier pregunta o comentario.
       select_type: Seleccione un tipo de problema
       subject_label: Tema
       type_label: Tipo de problema

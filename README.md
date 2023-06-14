@@ -67,6 +67,15 @@ The full spec suite can be run in docker locally. There are several ways to do t
 docker-compose exec web rake
 ```
 
+#### Docker with an M1 chip
+- You may run into issues with Selenium with an M1 chip. If so, use the override file provided called `docker-compose-override.yml`
+- To see selenium grid running in the browser and check that selenium is connected properly, visit `localhost:4444`
+- To see selenium tests running in the browser, you will need a VNC. Macs have a built in VNC app called Screen Sharing.
+  - Spotlight search: open Screen Sharing app
+  - enter the following address to watch your tests: vnc://localhost:6900
+  - if prompted for a password, the default is "secret"
+  - you should now be able to see selenium tests run in the browser.
+
 ### With out Docker
 
 Please note that this is unused by most contributors at this point and will likely become unsupported in a future release of Hyku unless someone in the community steps up to maintain it.

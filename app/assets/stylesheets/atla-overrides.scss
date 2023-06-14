@@ -5,17 +5,23 @@ html, body {
 
 img {max-width:100%;}
 
-
 /* landing page for app */
 
 /*top nav bar*/
 body.splash-index.public-facing .navbar-inverse {
-    background-color: #258FCE;
+    background-color: #fff;
     border-color: #258FCE;
 }
+.navbar-static-top {border-width: 3px 0 0;}
 body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
-     color:white;
+     color:#258FCE;
      padding:1em;
+}
+a#skip-to-content{padding:0;}
+
+footer.navbar.navbar-inverse.site-footer {
+     border:0;
+     border-bottom:3px solid #258FCE;
 }
 
 body.splash-index span.institution_name {
@@ -34,10 +40,9 @@ body.splash-index .right-side{
 
 body.splash-index.public-facing h2{
      font-family: 'PT Serif';
-     margin:1.55em 0 1em 0;
-     color:#4d4e4e;/*313133*/
+     margin:4.5em 0 1em 0;
+     color:#4d4e4e;
      font-size:1.5em;
-     text-align:left;
 }
 
 body.splash-index button.shared-search {

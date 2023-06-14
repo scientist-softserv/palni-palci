@@ -48,3 +48,5 @@ en:
           subject_tesim: Subject
           title_tesim: Title
       start_over: New Search
+    range_limit:
+      submit_limit: Update

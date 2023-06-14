@@ -610,6 +610,14 @@ span.constraint-value p, .facet-values p {
   margin-top: 3em;
 }
 
+.mt-2 {
+  margin-top: 0.5em;
+}
+
+.mb-2 {
+  margin-bottom: .5em;
+}
+
 .hyc-banner {
   padding: 15px;
   .hyc-bugs .hyc-created-by, .hyc-bugs .hyc-last-updated, .hyc-title {
@@ -626,5 +634,13 @@ span.constraint-value p, .facet-values p {
 
   .hyc-bugs div, div {
     position: relative;
+  }
+}
+
+// date range limit - blacklight_range_limit gem
+form.range_limit.range_date_ssi {
+  line-height: 1.4;
+  input.range_begin, input.range_end {
+    width: auto;
   }
 }

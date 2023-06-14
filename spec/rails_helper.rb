@@ -23,6 +23,7 @@ require 'capybara/rails'
 require 'database_cleaner-active_record'
 require 'active_fedora/cleaner'
 require 'webdrivers'
+require 'rspec/retry'
 require 'shoulda/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -54,6 +55,7 @@ Hyrax::Admin
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+DatabaseCleaner.allow_remote_database_url = true
 
 # Uses faster rack_test driver when JavaScript support not needed
 Capybara.default_max_wait_time = 8
@@ -64,11 +66,13 @@ ENV['WEB_HOST'] ||= `hostname -s`.strip
 if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
-      args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
     }
   )
 
   Capybara.register_driver :chrome do |app|
+    # Uncomment this to run selenium tests with M1 Machines
+    # WebMock.allow_net_connect!
     d = Capybara::Selenium::Driver.new(app,
                                        browser: :remote,
                                        desired_capabilities: capabilities,
@@ -81,7 +85,9 @@ if ENV['CHROME_HOSTNAME'].present?
     d
   end
   Capybara.server_host = '0.0.0.0'
+  Capybara.always_include_port = true
   Capybara.server_port = 3001
+  ENV['WEB_HOST'] ||= `hostname -s`.strip
   Capybara.app_host = "http://#{ENV['WEB_HOST']}:#{Capybara.server_port}"
 else
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
@@ -101,6 +107,11 @@ end
 
 Capybara.javascript_driver = :chrome
 
+# This will ensure that a field named email will not be referred to by a
+# hash but by test-email instead. A tool like capybara can now bypass
+# this security while still going through the captcha workflow.
+NegativeCaptcha.test_mode = true
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -109,6 +120,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
+  config.include Capybara::DSL
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -129,6 +141,13 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # show retry status in spec process
+  config.verbose_retry = true
+  # Try twice (retry once)
+  config.default_retry_count = 2
+  # Only retry when Selenium raises Net::ReadTimeout
+  config.exceptions_to_retry = [Net::ReadTimeout]
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Fixtures::FixtureFileUpload
@@ -167,7 +186,6 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.start
     end
-    AdminSet.create id: AdminSet::DEFAULT_ID, title: Array.wrap(AdminSet::DEFAULT_TITLE) if example.metadata[:clean]
   end
 
   config.after(:each, type: :feature) do |example|
@@ -179,9 +197,9 @@ RSpec.configure do |config|
     page.driver.reset!
   end
 
-  config.after do
+  config.after(:each) do
     begin
-      DatabaseCleaner.clean
+      DatabaseCleaner.clean unless @remote_feature
     rescue NoMethodError
       'This can happen which the database is gone, which depends on load order of tests'
     end

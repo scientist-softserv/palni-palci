@@ -5,6 +5,11 @@
 
      img {max-width:100%;}
 
+     &.public-facing a {color:#E05C3F;}
+     &.public-facing a:hover, &.public-facing a:focus{color:#D43D1C;}
+     h3.panel-title.facet-field-heading a {color:#333333;}
+     div.facets h3 {font-size:1em;}
+
      /*top admin nav bar*/
      &.public-facing .navbar-inverse {
           background-color: #fff;

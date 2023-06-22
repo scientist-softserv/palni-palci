@@ -39,7 +39,6 @@ class CatalogController < ApplicationController
     # Use locally customized AdvSearchBuilder so we can enable blacklight_advanced_search
     config.search_builder_class = AdvSearchBuilder
 
-
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
 

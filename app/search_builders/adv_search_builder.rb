@@ -19,8 +19,6 @@ class AdvSearchBuilder < Hyrax::CatalogSearchBuilder
     solr_p["rows"]         = "0"
 
     # Anything set in config as a literal
-    if blacklight_config.advanced_search[:form_solr_parameters]
-      solr_p.merge!(blacklight_config.advanced_search[:form_solr_parameters])
-    end
+    solr_p.merge!(blacklight_config.advanced_search[:form_solr_parameters]) if blacklight_config.advanced_search[:form_solr_parameters]
   end
 end

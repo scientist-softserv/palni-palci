@@ -1,29 +1,48 @@
-<%= form_tag search_action_url, method: :get, class: 'search-query-form clearfix navbar-form', role: 'search', 'aria-label' => t('blacklight.search.form.submit') do %>
+<%# OVERRIDE Hyrax 3.5.0 to include the advanced search button in the search bar %>
+
+<%= form_tag search_form_action, method: :get, class: "form-horizontal search-form", id: "search-form-header", role: "search" do %>
   <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
-  <div class="input-group">
-    <% if search_fields.length > 1 %>
-      <span class="input-group-addon for-search-field">
-        <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
-        <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), title: t('blacklight.search.form.search_field.title'), id: "search_field", class: "search_field") %>
-      </span>
-    <% elsif search_fields.length == 1 %>
-      <%= hidden_field_tag :search_field, search_fields.first.last %>
-    <% end %>
+  <%= hidden_field_tag :search_field, 'all_fields' %>
+  <div class="form-group">
 
-    <label for="q" class="sr-only"><%= t('blacklight.search.form.search.label') %></label>
-    <%= text_field_tag :q, params[:q], placeholder: t('blacklight.search.form.search.placeholder'), class: "search_q q form-control", id: "q", autofocus: should_autofocus_on_search_box?, data: { autocomplete_enabled: autocomplete_enabled?, autocomplete_path: blacklight.suggest_index_path }  %>
+    <label class="control-label col-sm-3" for="search-field-header">
+      <%= t("hyrax.search.form.q.label", application_name: application_name) %>
+    </label>
 
-    <span class="input-group-btn">
-      <button type="submit" class="btn btn-primary search-btn" id="search">
-        <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
-        <span class="glyphicon glyphicon-search"></span>
-      </button>
-    </span>
-  </div>
+    <div class="input-group">
+      <%= text_field_tag :q, current_search_parameters , class: "q form-control", id: "search-field-header", placeholder: t("hyrax.search.form.q.placeholder") %>
+
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-primary" id="search-submit-header">
+          <%= t('hyrax.search.button.html') %>
+        </button>
+        <% if current_user %>
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+
+            <span class="sr-only" data-search-element="label"><%= t("hyrax.search.form.option.all.label_long", application_name: application_name) %></span>
+            <span aria-hidden="true"><%= t("hyrax.search.form.option.all.label_short") %></span>
+            <span class="caret"></span>
+          </button>
+          <%# OVERRIDE here to include the advanced search button in the search bar %>
+          <%= link_to "Advanced", "/advanced", class: 'btn masthead-search-button', id: 'advanced-top-button' %>
+          <ul class="dropdown-menu pull-right">
+            <li>
+              <%= link_to t("hyrax.search.form.option.all.label_long", application_name: application_name), "#",
+                  data: { "search-option" => main_app.search_catalog_path, "search-label" => t("hyrax.search.form.option.all.label_short") } %>
+            </li>
+            <li>
+              <%= link_to t("hyrax.search.form.option.my_works.label_long"), "#",
+                  data: { "search-option" => hyrax.my_works_path, "search-label" => t("hyrax.search.form.option.my_works.label_short") } %>
+            </li>
+            <li>
+              <%= link_to t("hyrax.search.form.option.my_collections.label_long"), "#",
+                  data: { "search-option" => hyrax.my_collections_path, "search-label" => t("hyrax.search.form.option.my_collections.label_short") } %>
+            </li>
+          <% end %>
+
+        </ul>
+      </div><!-- /.input-group-btn -->
+    </div><!-- /.input-group -->
+
+  </div><!-- /.form-group -->
 <% end %>
-
-
-
-<div class="navbar-form">
-  <%= link_to 'More options', blacklight_advanced_search_engine.advanced_search_path(search_state.to_h), class: 'advanced_search btn btn-default'%>
-</div>

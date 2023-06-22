@@ -36,8 +36,6 @@ RSpec.describe AdvSearchBuilder do
         add_group_config_to_solr
         add_facet_paging_to_solr
         add_range_limit_params
-        add_advanced_parse_q_to_solr
-        add_advanced_search_to_solr
         add_access_controls_to_solr_params
         filter_models
         only_active_works
@@ -45,9 +43,8 @@ RSpec.describe AdvSearchBuilder do
         show_works_or_works_that_contain_files
         show_only_active_records
         filter_collection_facet_for_access
-        exclude_models
-        highlight_search_params
-        show_parents_only
+        add_advanced_parse_q_to_solr
+        add_advanced_search_to_solr
       ]
     end
 

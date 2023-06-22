@@ -196,11 +196,11 @@ module AccountSettings
       if Rails.env.production?
         # fall back to the default values if they aren't set in the tenant
         unless self.google_analytics_id.present? &&
-          self.google_oauth_app_name.present? &&
-          self.google_oauth_app_version.present? &&
-          (self.google_oauth_private_key_value.present? || self.google_oauth_private_key_path.present?) &&
-          self.google_oauth_private_key_secret.present? &&
-          self.google_oauth_client_email.present?
+               self.google_oauth_app_name.present? &&
+               self.google_oauth_app_version.present? &&
+               (self.google_oauth_private_key_value.present? || self.google_oauth_private_key_path.present?) &&
+               self.google_oauth_private_key_secret.present? &&
+               self.google_oauth_client_email.present?
 
           config = Hyrax::Analytics::Config.load_from_yaml
           self.google_analytics_id = self.google_analytics_id.presence || config.analytics_id

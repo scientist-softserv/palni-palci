@@ -154,3 +154,4 @@ gem 'pronto-rubocop', require: false
 gem "order_already", "~> 0.3.1"
 gem "redcarpet"
 gem 'blacklight_range_limit'
+gem "blacklight_advanced_search"

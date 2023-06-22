@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class SearchHistoryController < ApplicationController
-  include Blacklight::SearchHistory
+class SavedSearchesController < ApplicationController
+  include Blacklight::SavedSearches
 
   helper BlacklightAdvancedSearch::RenderConstraintsOverride
 end

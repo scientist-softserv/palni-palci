@@ -84,20 +84,6 @@ extraEnvVars: &envVars
     value: http://palsfcrepo:8080/rest
   - name: GOOGLE_FONTS_KEY
     value: $GOOGLE_FONTS_KEY
-  - name: GOOGLE_ANALYTICS_ID
-    value: $GOOGLE_ANALYTICS_ID
-  - name: GOOGLE_OAUTH_APP_NAME
-    value: palni-palci-production
-  - name: GOOGLE_OAUTH_APP_VERSION
-    value: '1.0'
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_SECRET
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_PATH
-    value: prod-cred.p12
-  - name: GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-    value: $GOOGLE_OAUTH_PRIVATE_KEY_VALUE
-  - name: GOOGLE_OAUTH_CLIENT_EMAIL
-    value: hyku-analytics@hyku-analytics-362617.iam.gserviceaccount.com
   - name: HYKU_ACTIVE_JOB_QUEUE_URL
     value: sidekiq
   - name: HYKU_ADMIN_HOST
@@ -120,8 +106,6 @@ extraEnvVars: &envVars
     value: hykucommons.org
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
-  - name: HYRAX_ANALYTICS
-    value: 'true'
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: INITIAL_ADMIN_EMAIL

@@ -606,10 +606,6 @@ span.constraint-value p, .facet-values p {
   align-items: center;
 }
 
-.mt-5 {
-  margin-top: 3em;
-}
-
 .hyc-banner {
   padding: 15px;
   .hyc-bugs .hyc-created-by, .hyc-bugs .hyc-last-updated, .hyc-title {
@@ -627,4 +623,31 @@ span.constraint-value p, .facet-values p {
   .hyc-bugs div, div {
     position: relative;
   }
+}
+
+// date range limit - blacklight_range_limit gem
+form.range_limit.range_date_ssi {
+  line-height: 1.4;
+  input.range_begin, input.range_end {
+    width: auto;
+  }
+}
+
+// these margin classes can be removed when Hyku is eventually updated to Bootstrap 4 upon upgrading to Hyrax 4.
+// These correspond directly to bootstrap 4 classes.
+.mt-5 {
+  margin-top: 3em;
+}
+
+.mt-2 {
+  margin-top: 0.5em;
+}
+
+.mb-2 {
+  margin-bottom: .5em;
+}
+
+.mx-3 {
+  margin-right: 1em;
+  margin-left: 1em;
 }

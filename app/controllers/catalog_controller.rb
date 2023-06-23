@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CatalogController < ApplicationController
+  include BlacklightAdvancedSearch::Controller
   include BlacklightRangeLimit::ControllerOverride
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
@@ -33,7 +34,10 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
-    config.search_builder_class = Hyrax::CatalogSearchBuilder
+    config.advanced_search[:form_facet_partial] ||= "advanced_search_facets_as_select"
+
+    # Use locally customized AdvSearchBuilder so we can enable blacklight_advanced_search
+    config.search_builder_class = AdvSearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
@@ -168,7 +172,7 @@ class CatalogController < ApplicationController
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
-    config.add_search_field('all_fields', label: 'All Fields', include_in_advanced_search: false) do |field|
+    config.add_search_field('all_fields', label: 'All Fields', include_in_advanced_search: false, advanced_parse: false) do |field|
       all_names = config.show_fields.values.map(&:field).join(" ")
       title_name = 'title_tesim'
       field.solr_parameters = {
@@ -357,6 +361,15 @@ class CatalogController < ApplicationController
 
     config.add_search_field('extent') do |field|
       solr_name = 'extent_tesim'
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field('date') do |field|
+      solr_name = 'date_ssi'
+      field.include_in_advanced_search = false
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

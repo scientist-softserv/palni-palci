@@ -185,24 +185,42 @@ class CatalogController < ApplicationController
     search_fields_without_customization = [
       {name: 'description', label: 'Abstract or Summary'},
       {name: 'advisor', label: 'Advisor'},
+      {name: 'accessibility_feature', label: 'Accessibility Feature'},
+      {name: 'accessibility_hazard', label: 'Accessibility Hazard'},
+      {name: 'accessibility_summary', label: 'Accessibility Summary'},
+      {name: 'additional_information', label: 'Additional Rights Information or Access Rights'},
+      {name: 'alternative_title', label: 'Alternative Title'},
+      {name: 'audience', label: 'Audience'},
+      {name: 'bibliographic_citation', label: 'Bibliographic Citation'},
       {name: 'committee_member', label: 'Committee Member'},
       {name: 'contributor', label: 'Contributor'},
       {name: 'creator', label: 'Creator'},
-      {name: 'date_created', label: 'Date Created'},
+      {name: 'date_created', label: 'Date or Date Created'},
+      {name: 'department', label: 'Department'},
       {name: 'depositor', label: 'Depositor'},
       {name: 'degree_discipline', label: 'Discipline'},
+      {name: 'education_level', label: 'Education Level'},
       {name: 'extent', label: 'Extent'},
+      {name: 'format', label: 'Format'},
       {name: 'degree_grantor', label: 'Grantor'},
+      {name: 'identifier', label: 'Identifier'},
       {name: 'keyword', label: 'Keyword'},
       {name: 'language', label: 'Language'},
+      {name: 'learning_resource_type', label: 'Learning Resource Type'},
       {name: 'degree_level', label: 'Level'},
       {name: 'license', label: 'License'},
       {name: 'based_near_label', label: 'Location'},
       {name: 'publisher', label: 'Publisher'},
-      {name: 'rights_statement', label: 'Rights Statement'},
+      {name: 'related_url', label: 'Related URL'},
+      {name: 'rights_holder', label: 'Rights Holder'},
+      {name: 'rights_notes', label: 'Rights Notes'},
+      {name: 'rights_statement', label: 'Rights or Rights Statement'},
+      {name: 'size', label: 'Size'},
+      {name: 'source', label: 'Source'},
       {name: 'subject', label: 'Subject'},
+      {name: 'table_of_contents', label: 'Table of Contents'},
       {name: 'title', label: 'Title'},
-      {name: 'resource_type', label: 'Type'},
+      {name: 'resource_type', label: 'Type or Resource Type'},
     ]
 
     search_fields_without_customization.each do |search_field|
@@ -217,30 +235,6 @@ class CatalogController < ApplicationController
       end
     end
     # If there is something additional about a search field that needs to be customized i.e. whether to include in advanced search, or a different solr name, add it below
-
-    config.add_search_field('format') do |field|
-      field.include_in_advanced_search = false
-      field.solr_parameters = {
-        "spellcheck.dictionary": "format"
-      }
-      solr_name = 'format_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('identifier') do |field|
-      field.include_in_advanced_search = false
-      field.solr_parameters = {
-        "spellcheck.dictionary": "identifier"
-      }
-      solr_name = 'id_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
 
     config.add_search_field('date') do |field|
       solr_name = 'date_ssi'

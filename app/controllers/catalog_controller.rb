@@ -210,7 +210,6 @@ class CatalogController < ApplicationController
       {name: 'learning_resource_type', label: 'Learning Resource Type'},
       {name: 'degree_level', label: 'Level'},
       {name: 'license', label: 'License'},
-      {name: 'based_near_label', label: 'Location'},
       {name: 'publisher', label: 'Publisher'},
       {name: 'related_url', label: 'Related URL'},
       {name: 'rights_holder', label: 'Rights Holder'},
@@ -240,6 +239,16 @@ class CatalogController < ApplicationController
     config.add_search_field('date') do |field|
       solr_name = 'date_ssi'
       field.include_in_advanced_search = false
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field('based_near_label') do |field|
+      solr_name = 'based_near_label_tesim'
+      field.include_in_advanced_search = false
+      field.label = 'Location'
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

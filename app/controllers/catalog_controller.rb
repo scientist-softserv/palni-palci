@@ -183,7 +183,7 @@ class CatalogController < ApplicationController
 
     # list of all the search_fields that will use the default configuration below.
     search_fields_without_customization = [
-      {name: 'description', label: 'Abstract or Summary'},
+      {name: 'abstract', label: 'Abstract'},
       {name: 'advisor', label: 'Advisor'},
       {name: 'accessibility_feature', label: 'Accessibility Feature'},
       {name: 'accessibility_hazard', label: 'Accessibility Hazard'},
@@ -198,6 +198,7 @@ class CatalogController < ApplicationController
       {name: 'date_created', label: 'Date or Date Created'},
       {name: 'department', label: 'Department'},
       {name: 'depositor', label: 'Depositor'},
+      {name: 'description', label: 'Description'},
       {name: 'degree_discipline', label: 'Discipline'},
       {name: 'education_level', label: 'Education Level'},
       {name: 'extent', label: 'Extent'},

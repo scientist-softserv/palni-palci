@@ -181,131 +181,63 @@ class CatalogController < ApplicationController
       }
     end
 
-    # Now we see how to over-ride Solr request handler defaults, in this
-    # case for a BL "search field", which is really a dismax aggregate
-    # of Solr search fields.
-    # creator, title, description, publisher, date_created,
-    # subject, language, resource_type, format, identifier, based_near,
-    config.add_search_field('contributor') do |field|
-      # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = { "spellcheck.dictionary": "contributor" }
+    # list of all the search_fields that will use the default configuration below.
+    search_fields_without_customization = [
+      { name: 'abstract', label: 'Abstract' },
+      { name: 'advisor', label: 'Advisor' },
+      { name: 'accessibility_feature', label: 'Accessibility Feature' },
+      { name: 'accessibility_hazard', label: 'Accessibility Hazard' },
+      { name: 'accessibility_summary', label: 'Accessibility Summary' },
+      { name: 'additional_information', label: 'Additional Rights Information or Access Rights' },
+      { name: 'alternative_title', label: 'Alternative Title' },
+      { name: 'audience', label: 'Audience' },
+      { name: 'bibliographic_citation', label: 'Bibliographic Citation' },
+      { name: 'committee_member', label: 'Committee Member' },
+      { name: 'contributor', label: 'Contributor' },
+      { name: 'creator', label: 'Creator' },
+      { name: 'date_created', label: 'Date or Date Created' },
+      { name: 'department', label: 'Department' },
+      { name: 'depositor', label: 'Depositor' },
+      { name: 'description', label: 'Description' },
+      { name: 'degree_discipline', label: 'Discipline' },
+      { name: 'education_level', label: 'Education Level' },
+      { name: 'extent', label: 'Extent' },
+      { name: 'degree_grantor', label: 'Grantor' },
+      { name: 'identifier', label: 'Identifier' },
+      { name: 'keyword', label: 'Keyword' },
+      { name: 'language', label: 'Language' },
+      { name: 'learning_resource_type', label: 'Learning Resource Type' },
+      { name: 'degree_level', label: 'Level' },
+      { name: 'license', label: 'License' },
+      { name: 'publisher', label: 'Publisher' },
+      { name: 'related_url', label: 'Related URL' },
+      { name: 'rights_holder', label: 'Rights Holder' },
+      { name: 'rights_notes', label: 'Rights Notes' },
+      { name: 'rights_statement', label: 'Rights or Rights Statement' },
+      { name: 'size', label: 'Size' },
+      { name: 'source', label: 'Source' },
+      { name: 'subject', label: 'Subject' },
+      { name: 'table_of_contents', label: 'Table of Contents' },
+      { name: 'title', label: 'Title' },
+      { name: 'resource_type', label: 'Type or Resource Type' }
+    ]
 
-      # :solr_local_parameters will be sent using Solr LocalParams
-      # syntax, as eg {! qf=$title_qf }. This is neccesary to use
-      # Solr parameter de-referencing like $title_qf.
-      # See: http://wiki.apache.org/solr/LocalParams
-      solr_name = 'contributor_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
+    search_fields_without_customization.each do |search_field|
+      config.add_search_field(search_field[:name]) do |field|
+        field.label = search_field[:label]
+        field.solr_parameters = { "spellcheck.dictionary": search_field[:name] }
+        solr_name = "#{search_field[:name]}_tesim"
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
     end
 
-    config.add_search_field('creator') do |field|
-      field.solr_parameters = { "spellcheck.dictionary": "creator" }
-      solr_name = 'creator_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('title') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "title"
-      }
-      solr_name = 'title_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('description') do |field|
-      field.label = "Abstract or Summary"
-      field.solr_parameters = {
-        "spellcheck.dictionary": "description"
-      }
-      solr_name = 'description_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('publisher') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "publisher"
-      }
-      solr_name = 'publisher_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('date_created') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "date_created"
-      }
-      solr_name = 'created_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('subject') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "subject"
-      }
-      solr_name = 'subject_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('language') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "language"
-      }
-      solr_name = 'language_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('resource_type') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "resource_type"
-      }
-      solr_name = 'resource_type_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('format') do |field|
+    # If there is something additional about a search field that needs to be customized i.e. whether to include in advanced search, or if it needs a different solr name, add it below
+    config.add_search_field('date') do |field|
+      solr_name = 'date_ssi'
       field.include_in_advanced_search = false
-      field.solr_parameters = {
-        "spellcheck.dictionary": "format"
-      }
-      solr_name = 'format_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('identifier') do |field|
-      field.include_in_advanced_search = false
-      field.solr_parameters = {
-        "spellcheck.dictionary": "identifier"
-      }
-      solr_name = 'id_tesim'
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
@@ -313,63 +245,24 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('based_near_label') do |field|
-      field.label = "Location"
-      field.solr_parameters = {
-        "spellcheck.dictionary": "based_near_label"
-      }
       solr_name = 'based_near_label_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('keyword') do |field|
-      field.solr_parameters = {
-        "spellcheck.dictionary": "keyword"
-      }
-      solr_name = 'keyword_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('depositor') do |field|
-      solr_name = 'depositor_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('rights_statement') do |field|
-      solr_name = 'rights_statement_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('license') do |field|
-      solr_name = 'license_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('extent') do |field|
-      solr_name = 'extent_tesim'
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('date') do |field|
-      solr_name = 'date_ssi'
       field.include_in_advanced_search = false
+      field.label = 'Location'
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    # format cannot be included in advanced search because an error is thrown in Blacklight when formats do not match specific mime types
+    # see https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L167
+    # and the error on https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L206
+    config.add_search_field('format') do |field|
+      field.include_in_advanced_search = false
+      field.solr_parameters = {
+        "spellcheck.dictionary": "format"
+      }
+      solr_name = 'format_tesim'
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

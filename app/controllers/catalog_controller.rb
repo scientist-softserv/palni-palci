@@ -182,9 +182,6 @@ class CatalogController < ApplicationController
     end
 
     # list of all the search_fields that will use the default configuration below.
-    # note: cannot search by format because an error is thrown in Blacklight when formats do not match specific mime types
-    # see https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L167
-    # and the error on https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L206
     search_fields_without_customization = [
       { name: 'abstract', label: 'Abstract' },
       { name: 'advisor', label: 'Advisor' },
@@ -236,8 +233,8 @@ class CatalogController < ApplicationController
         }
       end
     end
-    # If there is something additional about a search field that needs to be customized i.e. whether to include in advanced search, or a different solr name, add it below
 
+    # If there is something additional about a search field that needs to be customized i.e. whether to include in advanced search, or if it needs a different solr name, add it below
     config.add_search_field('date') do |field|
       solr_name = 'date_ssi'
       field.include_in_advanced_search = false
@@ -251,6 +248,21 @@ class CatalogController < ApplicationController
       solr_name = 'based_near_label_tesim'
       field.include_in_advanced_search = false
       field.label = 'Location'
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    # format cannot be included in advanced search because an error is thrown in Blacklight when formats do not match specific mime types
+    # see https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L167
+    # and the error on https://github.com/projectblacklight/blacklight/blob/13a8122fc6495e52acabc33875b80b51613d8351/app/controllers/concerns/blacklight/catalog.rb#L206
+    config.add_search_field('format') do |field|
+      field.include_in_advanced_search = false
+      field.solr_parameters = {
+        "spellcheck.dictionary": "format"
+      }
+      solr_name = 'format_tesim'
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

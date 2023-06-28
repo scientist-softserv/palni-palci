@@ -16,7 +16,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :invitable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: %i[dynamic]
+         :omniauthable, omniauth_providers: %i[saml] #%i[dynamic]
 
   after_create :add_default_group_membership!
 

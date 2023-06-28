@@ -290,20 +290,44 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  require 'omniauth/strategies/dynamic'
-  config.omniauth :dynamic, :strategy_class => OmniAuth::Strategies::Dynamic,
-                  provider: lambda {
-  #                 lambda { |env|
-  #   #request = Rack::Request.new(env)
-                                                                                            #
-    provider = AuthProvider.first #nd_by(name: request.params['provider'])
+  # require 'omniauth/strategies/dynamic'
+  # config.omniauth :dynamic, :strategy_class => OmniAuth::Strategies::Dynamic,
+  #                 provider: lambda {
+  # #                 lambda { |env|
+  # #   #request = Rack::Request.new(env)
+  #                                                                                           #
+  #   provider = AuthProvider.first #nd_by(name: request.params['provider'])
 
-    if provider
-      provider
-    else
-      nil
-    end
+  #   if provider
+  #     provider
+  #   else
+  #     nil
+  #   end
+  # }
+  idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
+  idp_metadata = idp_metadata_parser.parse_remote_to_hash("https://passport.pitt.edu/idp/shibboleth")
+  config.omniauth :saml, {
+    :idp_entity_id=>"https://passport.pitt.edu/idp/shibboleth",
+    :name_identifier_format=>"urn:oasis:tc:SAML:2.0:nameid-format:transient",
+    :idp_sso_service_url=>"https://passport.pitt.edu/idp/profile/SAML2/Redirect/SSO",
+    :idp_sso_service_binding=>"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+    :idp_slo_service_url=>nil,
+    :idp_cert=>'MIIDLzCCAhegAwIBAgIUZiByS7B062+ol+pZKrqkwBxrqLUwDQYJKoZIhvcNAQEL BQAwHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUwHhcNMTUxMTEzMTczMDQ3 WhcNMzUxMTEzMTczMDQ3WjAcMRowGAYDVQQDDBFwYXNzcG9ydC5waXR0LmVkdTCC ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIXgP4IOEjINaJ9dePEzc5Wp J8+Ytw0Ojc/JlImfMlUf9yiwiQZQhYIv7C7KmSIgBBvzj/4e6x+tGioE3vIPq9Yz 47zLOUjzsPgSXnmqSujVCF1zce5aXsjwNcZ5JFN037pgoNLpwtuzfLg9sPbTdQV4 dRGE07eIXiil6+ER1diFrmGQYSrlfY8DX4sZzl7er6eNEkN5bb3sYK4W13g54Vwf BT9/nZe8dsVq7HSZeGdqtyU9Vm49BxpRJLi/X1xsoTCsa8jSRGhpfktR/UygnMWc oKfayjUC/3fjyBBEvb2EbIiAByYZeApM8zCynHpoHbNTCECIfmkQ6YYohEVave8C AwEAAaNpMGcwHQYDVR0OBBYEFAguZrxqsqNCg5KQhdAnsGrSFZEgMEYGA1UdEQQ/ MD2CEXBhc3Nwb3J0LnBpdHQuZWR1hihodHRwczovL3Bhc3Nwb3J0LnBpdHQuZWR1 L2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBdX30sZVe9QfYYJydn x+nWdKeGT0FxqPHaLaa/NHREOetOG1DHYCi617zy0bXq9Vnm+bZpqIheBHwzGzpk U5MJrPjwnmy1YyjoFNKy9N5KTQ+nCv7fKfLv55LSNE685T144B2KcRcFg3cDd2jt keVXfOYIBWnyEPnFeTlVA5Y16kbly78ixjTRGXaSLtrwCOJ25kM2+RAyZwp6/lHC S6tSx6TluEVAaA9y/ByyF41xdJk6iqgtqR6NmUIZLZlJ5dAOoyddHFgzWnKCqvtF RtrlnjGNwrHyXGWJbgY7wixreqLbBKAQ+nbaesqlCii8lR/5LawpnSAZmGD2diwl 133k',
+    :issuer=>"https://dev.hyku.test",
   }
+ 
+  # <samlp:AuthnRequest 
+  #   AssertionConsumerServiceURL='https://dev.hyku.test/users/auth/saml/callback?locale=en' 
+  #   Destination='https://passport.pitt.edu/idp/profile/Shibboleth/SSO' 
+  #   ID='_71f41f3e-b5b6-4777-8bbe-53be0efc5624' 
+  #   IssueInstant='2023-06-27T23:10:58Z' 
+  #   Version='2.0' 
+  #   xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion' 
+  #   xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'>
+  #     <samlp:NameIDPolicy AllowCreate='true' 
+  #         Format='urn:mace:shibboleth:1.0:nameIdentifier'/>
+  # </samlp:AuthnRequest>
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -328,3 +352,19 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+
+# urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+# https://passport.pitt.edu/idp/profile/SAML2/Redirect/SSO
+# urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+# MIIDLzCCAhegAwIBAgIUZiByS7B062+ol+pZKrqkwBxrqLUwDQYJKoZIhvcNAQEL BQAwHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUwHhcNMTUxMTEzMTczMDQ3 WhcNMzUxMTEzMTczMDQ3WjAcMRowGAYDVQQDDBFwYXNzcG9ydC5waXR0LmVkdTCC ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIXgP4IOEjINaJ9dePEzc5Wp J8+Ytw0Ojc/JlImfMlUf9yiwiQZQhYIv7C7KmSIgBBvzj/4e6x+tGioE3vIPq9Yz 47zLOUjzsPgSXnmqSujVCF1zce5aXsjwNcZ5JFN037pgoNLpwtuzfLg9sPbTdQV4 dRGE07eIXiil6+ER1diFrmGQYSrlfY8DX4sZzl7er6eNEkN5bb3sYK4W13g54Vwf BT9/nZe8dsVq7HSZeGdqtyU9Vm49BxpRJLi/X1xsoTCsa8jSRGhpfktR/UygnMWc oKfayjUC/3fjyBBEvb2EbIiAByYZeApM8zCynHpoHbNTCECIfmkQ6YYohEVave8C AwEAAaNpMGcwHQYDVR0OBBYEFAguZrxqsqNCg5KQhdAnsGrSFZEgMEYGA1UdEQQ/ MD2CEXBhc3Nwb3J0LnBpdHQuZWR1hihodHRwczovL3Bhc3Nwb3J0LnBpdHQuZWR1 L2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBdX30sZVe9QfYYJydn x+nWdKeGT0FxqPHaLaa/NHREOetOG1DHYCi617zy0bXq9Vnm+bZpqIheBHwzGzpk U5MJrPjwnmy1YyjoFNKy9N5KTQ+nCv7fKfLv55LSNE685T144B2KcRcFg3cDd2jt keVXfOYIBWnyEPnFeTlVA5Y16kbly78ixjTRGXaSLtrwCOJ25kM2+RAyZwp6/lHC S6tSx6TluEVAaA9y/ByyF41xdJk6iqgtqR6NmUIZLZlJ5dAOoyddHFgzWnKCqvtF RtrlnjGNwrHyXGWJbgY7wixreqLbBKAQ+nbaesqlCii8lR/5LawpnSAZmGD2diwl 133k
+
+#  {:idp_entity_id=>"https://passport.pitt.edu/idp/shibboleth", 
+#   :name_identifier_format=>"urn:mace:shibboleth:1.0:nameIdentifier", 
+#   :idp_sso_service_url=>"https://passport.pitt.edu/idp/profile/Shibboleth/SSO", 
+#   :idp_sso_service_binding=>"urn:mace:shibboleth:1.0:profiles:AuthnRequest", 
+#   :idp_slo_service_url=>nil, :idp_slo_service_binding=>nil, :idp_slo_response_service_url=>nil, 
+#   :idp_attribute_names=>[], :idp_cert=>nil, :idp_cert_fingerprint=>nil, 
+#   :idp_cert_multi=>{:signing=>["\nMIIDLzCCAhegAwIBAgIUZiByS7B062+ol+pZKrqkwBxrqLUwDQYJKoZIhvcNAQEL\nBQAwHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUwHhcNMTUxMTEzMTczMDQ3\nWhcNMzUxMTEzMTczMDQ3WjAcMRowGAYDVQQDDBFwYXNzcG9ydC5waXR0LmVkdTCC\nASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIXgP4IOEjINaJ9dePEzc5Wp\nJ8+Ytw0Ojc/JlImfMlUf9yiwiQZQhYIv7C7KmSIgBBvzj/4e6x+tGioE3vIPq9Yz\n47zLOUjzsPgSXnmqSujVCF1zce5aXsjwNcZ5JFN037pgoNLpwtuzfLg9sPbTdQV4\ndRGE07eIXiil6+ER1diFrmGQYSrlfY8DX4sZzl7er6eNEkN5bb3sYK4W13g54Vwf\nBT9/nZe8dsVq7HSZeGdqtyU9Vm49BxpRJLi/X1xsoTCsa8jSRGhpfktR/UygnMWc\noKfayjUC/3fjyBBEvb2EbIiAByYZeApM8zCynHpoHbNTCECIfmkQ6YYohEVave8C\nAwEAAaNpMGcwHQYDVR0OBBYEFAguZrxqsqNCg5KQhdAnsGrSFZEgMEYGA1UdEQQ/\nMD2CEXBhc3Nwb3J0LnBpdHQuZWR1hihodHRwczovL3Bhc3Nwb3J0LnBpdHQuZWR1\nL2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBdX30sZVe9QfYYJydn\nx+nWdKeGT0FxqPHaLaa/NHREOetOG1DHYCi617zy0bXq9Vnm+bZpqIheBHwzGzpk\nU5MJrPjwnmy1YyjoFNKy9N5KTQ+nCv7fKfLv55LSNE685T144B2KcRcFg3cDd2jt\nkeVXfOYIBWnyEPnFeTlVA5Y16kbly78ixjTRGXaSLtrwCOJ25kM2+RAyZwp6/lHC\nS6tSx6TluEVAaA9y/ByyF41xdJk6iqgtqR6NmUIZLZlJ5dAOoyddHFgzWnKCqvtF\nRtrlnjGNwrHyXGWJbgY7wixreqLbBKAQ+nbaesqlCii8lR/5LawpnSAZmGD2diwl\n133k\n                        ", "\nMIIDLzCCAhegAwIBAgIUZiByS7B062+ol+pZKrqkwBxrqLUwDQYJKoZIhvcNAQEL\nBQAwHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUwHhcNMTUxMTEzMTczMDQ3\nWhcNMzUxMTEzMTczMDQ3WjAcMRowGAYDVQQDDBFwYXNzcG9ydC5waXR0LmVkdTCC\nASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIXgP4IOEjINaJ9dePEzc5Wp\nJ8+Ytw0Ojc/JlImfMlUf9yiwiQZQhYIv7C7KmSIgBBvzj/4e6x+tGioE3vIPq9Yz\n47zLOUjzsPgSXnmqSujVCF1zce5aXsjwNcZ5JFN037pgoNLpwtuzfLg9sPbTdQV4\ndRGE07eIXiil6+ER1diFrmGQYSrlfY8DX4sZzl7er6eNEkN5bb3sYK4W13g54Vwf\nBT9/nZe8dsVq7HSZeGdqtyU9Vm49BxpRJLi/X1xsoTCsa8jSRGhpfktR/UygnMWc\noKfayjUC/3fjyBBEvb2EbIiAByYZeApM8zCynHpoHbNTCECIfmkQ6YYohEVave8C\nAwEAAaNpMGcwHQYDVR0OBBYEFAguZrxqsqNCg5KQhdAnsGrSFZEgMEYGA1UdEQQ/\nMD2CEXBhc3Nwb3J0LnBpdHQuZWR1hihodHRwczovL3Bhc3Nwb3J0LnBpdHQuZWR1\nL2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBdX30sZVe9QfYYJydn\nx+nWdKeGT0FxqPHaLaa/NHREOetOG1DHYCi617zy0bXq9Vnm+bZpqIheBHwzGzpk\nU5MJrPjwnmy1YyjoFNKy9N5KTQ+nCv7fKfLv55LSNE685T144B2KcRcFg3cDd2jt\nkeVXfOYIBWnyEPnFeTlVA5Y16kbly78ixjTRGXaSLtrwCOJ25kM2+RAyZwp6/lHC\nS6tSx6TluEVAaA9y/ByyF41xdJk6iqgtqR6NmUIZLZlJ5dAOoyddHFgzWnKCqvtF\nRtrlnjGNwrHyXGWJbgY7wixreqLbBKAQ+nbaesqlCii8lR/5LawpnSAZmGD2diwl\n133k\n                        "], :encryption=>["\nMIIDMDCCAhigAwIBAgIVANJ07z1fNkIV0lD9Ve89KN3gzBKSMA0GCSqGSIb3DQEB\nCwUAMBwxGjAYBgNVBAMMEXBhc3Nwb3J0LnBpdHQuZWR1MB4XDTE1MTExMzE3MzA0\nOFoXDTM1MTExMzE3MzA0OFowHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCAadDai5NaRQW9XOuD0KHw\nGCeYzsUyKvGwi4AhcQBB2D5ZwVEZhg08NCvlD8s2kmlQIL58BDhe8/UKF+cFV9jR\nksiUDuIYY1L8ypm/9A0jKjq4J5dbY+zlkfpze8C34/qTIA5owBNmvlL4b6llOBV2\nsrDCbv2mho3j7fJICv+fm/SovPFQJBO8zVeNomXjm97aY9TRfrhzlZ0wVwAy700u\nuXRAar7qP+gC23gwAR4fL5WvI/kNABgcGPnBSnUOra1hxNtcK1MLgyqJbBkYosSR\njwlvHTyFICaR+KGqiuLJLPVn6SMlzs2ND20CHxOaz2oz3746ZTJDoHoQc/dvuOA3\nAgMBAAGjaTBnMB0GA1UdDgQWBBTyBzAX8brmshdB0o8aSTWVOg6MFTBGBgNVHREE\nPzA9ghFwYXNzcG9ydC5waXR0LmVkdYYoaHR0cHM6Ly9wYXNzcG9ydC5waXR0LmVk\ndS9pZHAvc2hpYmJvbGV0aDANBgkqhkiG9w0BAQsFAAOCAQEAG2Ou9h7e4oED7Vou\nCeMh58qC9pt4H3gleMexTaZ2VovE7i/orVkbB36Ik6lplEjlo8o54PXurGIUOpm9\nbTGNuGODTMjjq6ojUNSawpz7W7DRqxJJvLTh2gGJSNCX3AOhfmDJvxCpHaOlEZ3R\nAlpGnV7EpG3uTaE4YCvep16gCpAyjJhmqV5ouMswH6SxXzUG4UqJAm+obblgoqcC\nXajmdjCN8hayTFsVy1H3a82M+zhcdpFo+QraqVan3Z29Lf9LIbGqngxWxGE4mchi\njdaqsVSwq38Xr96uO/Apms/9CPL/CayrvlbPpvcv0u9z5uEmmssPdW4DhaILLsRo\nzdvadQ==\n                        "]}, 
+#   :valid_until=>nil, 
+#   :cache_duration=>nil
+# }

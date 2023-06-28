@@ -308,7 +308,7 @@ Devise.setup do |config|
   idp_metadata = idp_metadata_parser.parse_remote_to_hash("https://passport.pitt.edu/idp/shibboleth")
   config.omniauth :saml, {
     :idp_entity_id=>"https://passport.pitt.edu/idp/shibboleth",
-    :name_identifier_format=>"urn:oasis:tc:SAML:2.0:nameid-format:transient",
+    :name_identifier_format=>"urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
     :idp_sso_service_url=>"https://passport.pitt.edu/idp/profile/SAML2/Redirect/SSO",
     :idp_sso_service_binding=>"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
     :idp_slo_service_url=>nil,

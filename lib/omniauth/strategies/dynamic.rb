@@ -2,7 +2,7 @@ module OmniAuth
   module Strategies
     class Dynamic
       include OmniAuth::Strategy
-      #option :provider, :saml
+      # option :provider, :saml
       #
       def initialize(app, *args, &block)
         super
@@ -11,7 +11,7 @@ module OmniAuth
       end
 
       # require 'omniauth/strategies/saml' if @options.provider == :saml
-      #require 'omniauth/strategies/openid' if self.option(:provider) == 'openid'
+      # require 'omniauth/strategies/openid' if self.option(:provider) == 'openid'
 
       # Implement the necessary methods for your strategy
       # For example, override the `authorize_params` method if needed

@@ -62,6 +62,7 @@ RSpec.describe 'Create a Image', type: :feature, js: true, clean: true do
       click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
+      select('Article', from: 'Resource Type')
 
       page.choose('image_visibility_open')
       # rubocop:disable Metrics/LineLength

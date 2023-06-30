@@ -62,6 +62,8 @@ RSpec.describe 'Create a GenericWork', type: :feature, js: true, clean: true do
       click_on('Additional fields')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights Statement')
+      select('Article', from: 'Resource Type')
+      select('Creative Commons BY Attribution 4.0 International', from: 'License')
 
       page.choose('generic_work_visibility_open')
       # rubocop:disable Metrics/LineLength

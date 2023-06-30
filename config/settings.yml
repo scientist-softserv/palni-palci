@@ -69,7 +69,7 @@ devise:
 oai:
   name: Hyku Commons
   url: http://example.org/catalog/oai
-  prefix: oai:commons-archive
+  prefix: oai:hyku
   email: hello@commons-archive.org
   sample_id: 806bbc5e-8ebe-468c-a188-b7c14fbe34df
 

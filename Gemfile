@@ -52,7 +52,8 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.50', '<= 0.52.1', require: false
   gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', require: false
-  gem 'xray-rails'
+  # sidkiq does not work in development with xray rails. comment it in if you need it
+  # gem 'xray-rails'
 end
 
 group :test do
@@ -152,3 +153,5 @@ gem 'pronto-rubocop', require: false
 
 gem "order_already", "~> 0.3.1"
 gem "redcarpet"
+gem 'blacklight_range_limit'
+gem "blacklight_advanced_search"

@@ -168,9 +168,17 @@ GEM
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
+    blacklight_advanced_search (6.4.1)
+      blacklight (~> 6.0, >= 6.0.1)
+      parslet
     blacklight_oai_provider (6.1.1)
       blacklight (~> 6.0)
       oai (~> 1.0)
+    blacklight_range_limit (7.0.1)
+      blacklight
+      jquery-rails
+      rails (>= 3.0)
+      tether-rails
     bolognese (1.9.17)
       activesupport (>= 4.2.5)
       benchmark_methods (~> 0.7)
@@ -1239,8 +1247,6 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    xray-rails (0.3.2)
-      rails (>= 3.1.0)
 
 PLATFORMS
   aarch64-linux-musl
@@ -1254,7 +1260,9 @@ DEPENDENCIES
   apartment
   aws-sdk-sqs
   blacklight (~> 6.7)
+  blacklight_advanced_search
   blacklight_oai_provider (~> 6.1, >= 6.1.1)
+  blacklight_range_limit
   bolognese (>= 1.9.10)
   bootstrap-datepicker-rails
   bulkrax (~> 4.3.0)
@@ -1339,7 +1347,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers (~> 4.0)
   webmock
-  xray-rails
 
 BUNDLED WITH
    2.2.24

@@ -296,7 +296,7 @@ de:
     background_attribution_html: ''
     base:
       citations:
-        header: 'Zitate:'
+        header: 'Zitate'
       form_child_work_relationships:
         actions:
           remove: Aus dieser Arbeit entfernen
@@ -811,7 +811,7 @@ de:
       groups_description:
         description_html: Die Liste der Gruppen in der Dropdown-Liste mit der Bezeichnung "Gruppe auswählen" ist eine Liste der vom Benutzer verwalteten Gruppen, in denen Sie Mitglied sind. Sie können eine bestimmte Gruppe auswählen und eine Zugriffsebene für eine Datei in %{application_name} zuweisen, ähnlich wie beim Hinzufügen von Benutzerzugriffsebenen.
     footer:
-      copyright_html: "<strong>Copyright © 2017 Samvera lizenziert</strong> unter der Apache Lizenz, Version 2.0"
+      copyright_html: "<strong>Copyright © 2019 - %{current_year} Samvera lizenziert</strong> unter der Apache Lizenz, Version 2.0"
       service_html: Ein Dienst von <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a> .
     help:
       header: Benutzer-Support
@@ -1096,7 +1096,8 @@ de:
         description: Eine kurze übergreifende Beschreibung, die für alle in diesem Set gesammelten Werke gilt. Zum Beispiel "Thesen und ergänzende Dateien, die von Absolventen der School of Earth Sciences erstellt wurden."
         title: Ein Name, der die Identifizierung des Verwaltungssatzes erleichtert und ihn von anderen Verwaltungssätzen im Repository unterscheidet.
       collection:
-        based_near: Ein Ortsname, der sich auf die Sammlung bezieht, z. B. der Veröffentlichungsort oder die Stadt, das Bundesland oder das Land, um das es in der Sammlung geht. Ruft den <a href='http://www.geonames.org'> GeoNames-Webdienst </a> auf.
+        based_near: "Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br>
+        </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können."
         contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Sammlung erkennen möchten, jedoch nicht als primäre Rolle.
         creator: Die Person oder Gruppe, die für die Sammlung verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
         date_created: Das Datum, an dem die Sammlung erstellt wurde.
@@ -1123,7 +1124,8 @@ de:
         share_applies_to_new_works: Wenn neue Werke direkt in der Sammlung erstellt werden, erteilen Sie Benutzern und Gruppen Berechtigungen für das neue Werk entsprechend ihrer Sammlungsrollen.
         title: ''
       defaults:
-        based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Veröffentlichungsort oder die Stadt, das Bundesland oder das Land, um das es in dem Arbeitsinhalt geht. Ruft den <a href='http://www.geonames.org'> GeoNames-Webdienst </a> auf.
+        based_near: "Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br>
+        </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können."
         contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Arbeit erkennen möchten, jedoch nicht die primäre Rolle.
         creator: Die Person oder Gruppe, die für die Arbeit verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
         date_created: Das Datum, an dem die Arbeit erstellt wurde.

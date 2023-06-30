@@ -67,10 +67,13 @@ if ENV['CHROME_HOSTNAME'].present?
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
       args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
-    }
+    },
+    hostname: 'seleniarm'
   )
 
   Capybara.register_driver :chrome do |app|
+    # Uncomment this to run selenium tests with M1 Machines
+    WebMock.allow_net_connect!
     d = Capybara::Selenium::Driver.new(app,
                                        browser: :remote,
                                        desired_capabilities: capabilities,
@@ -86,7 +89,7 @@ if ENV['CHROME_HOSTNAME'].present?
   Capybara.always_include_port = true
   Capybara.server_port = 3001
   ENV['WEB_HOST'] ||= `hostname -s`.strip
-  Capybara.app_host = "http://#{ENV['WEB_HOST']}:#{Capybara.server_port}"
+  Capybara.app_host = "http://#{ENV['WEB_HOST']}"
 else
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
@@ -105,8 +108,8 @@ end
 
 Capybara.javascript_driver = :chrome
 
-# This will ensure that a field named email will not be referred to by a 
-# hash but by test-email instead. A tool like capybara can now bypass 
+# This will ensure that a field named email will not be referred to by a
+# hash but by test-email instead. A tool like capybara can now bypass
 # this security while still going through the captcha workflow.
 NegativeCaptcha.test_mode = true
 

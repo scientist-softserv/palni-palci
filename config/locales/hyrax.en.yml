@@ -1165,7 +1165,7 @@ en:
         title: Type name
       defaults:
         admin_set_id: Administrative Set
-        based_near: Based Near
+        based_near: Location
         contributor: Contributor
         creator: Creator
         date_created: Date Created

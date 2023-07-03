@@ -15,27 +15,28 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
+    setting :analytics_provider, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'
     setting :contact_email_to, type: 'string', default: 'consortial-ir@palci.org'
     setting :doi_reader, type: 'boolean', default: false
     setting :doi_writer, type: 'boolean', default: false
-    setting :file_acl, type: 'boolean', default: true, private: true
     setting :email_format, type: 'array'
     setting :email_subject_prefix, type: 'string'
     setting :enable_oai_metadata, type: 'string', disabled: true
+    setting :file_acl, type: 'boolean', default: true, private: true
     setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
-    setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :geonames_username, type: 'string', default: ''
-    setting :gtm_id, type: 'string'
     setting :google_analytics_id, type: 'string'
     setting :google_oauth_app_name, type: 'string'
     setting :google_oauth_app_version, type: 'string'
-    setting :google_oauth_private_key_value, type: 'string'
+    setting :google_oauth_client_email, type: 'string'
     setting :google_oauth_private_key_path, type: 'string'
     setting :google_oauth_private_key_secret, type: 'string'
-    setting :google_oauth_client_email, type: 'string'
+    setting :google_oauth_private_key_value, type: 'string'
+    setting :google_scholarly_work_types, type: 'array', disabled: true
+    setting :gtm_id, type: 'string'
     setting :locale_name, type: 'string', disabled: true
     setting :monthly_email_list, type: 'array', disabled: true
     setting :oai_admin_email, type: 'string', default: 'changeme@example.com'
@@ -161,6 +162,7 @@ module AccountSettings
         config.contact_email = contact_email
         config.geonames_username = geonames_username
         config.uploader[:maxFileSize] = file_size_limit
+        config.analytics_provider = analytics_provider if analytics_provider.present?
       end
 
       reload_analytics

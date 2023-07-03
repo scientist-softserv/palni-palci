@@ -95,7 +95,7 @@ gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 
 gem 'hyrax', '~> 3.6.0'
-
+gem 'addressable', '2.8.1'
 gem 'bolognese', '>= 1.9.10'
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi.git'#, branch: 'hyrax_upgrade'
 gem 'postrank-uri', '>= 1.0.24'

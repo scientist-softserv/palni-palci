@@ -159,6 +159,6 @@ gem "blacklight_advanced_search"
 # This version threw the following error:
 # NameError: uninitialized constant Dry::Monads::Result::Transformer
 # Locking it to v1.4.x does not throw an error.
-gem 'dry-monads', '~> 1.4.0'
+# gem 'dry-monads', '~> 1.4.0'
 gem 'omniauth-saml'
 gem 'omniauth-rails_csrf_protection'

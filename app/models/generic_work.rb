@@ -27,4 +27,9 @@ class GenericWork < ActiveFedora::Base
 
   include ::Hyrax::BasicMetadata
   self.indexer = GenericWorkIndexer
+
+  id_blank = proc { |attributes| attributes[:id].blank? }
+  class_attribute :controlled_properties
+  self.controlled_properties = [:based_near]
+  accepts_nested_attributes_for :based_near, reject_if: id_blank, allow_destroy: true
 end

@@ -60,6 +60,7 @@ class SolrDocument
   attribute :contributing_library, Solr::String, 'contributing_library_tesim'
   attribute :library_catalog_identifier, Solr::String, 'library_catalog_identifier_tesim'
   attribute :chronology_note, Solr::String, 'chronology_note_tesim'
+  attribute :based_near, Solr::Array, 'based_near_tesim'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',

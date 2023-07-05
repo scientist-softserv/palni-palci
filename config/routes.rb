@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   mount Qa::Engine => '/authorities'
 
   mount Blacklight::Engine => '/'
+  mount BlacklightAdvancedSearch::Engine => '/'
+
   mount Hyrax::Engine, at: '/'
   if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     mount Bulkrax::Engine, at: '/'

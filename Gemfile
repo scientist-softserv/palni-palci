@@ -142,3 +142,4 @@ gem "redcarpet"
 # Locking it to v1.4.x does not throw an error.
 gem 'dry-monads', '~> 1.4.0'
 gem 'blacklight_range_limit'
+gem "blacklight_advanced_search"

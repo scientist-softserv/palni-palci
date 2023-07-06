@@ -16,7 +16,7 @@ zh:
         degree_granting_institution: 授予与工作相关的学位的机构。
         department: 授予学位的机构内的部门或单位的名称。
         discipline: 文档知识内容的研究领域。通常这将是程序或部门的名称。
-        level: 与文件相关的教育水平。
+        #level: 与文件相关的教育水平。
         year: 创作作品的年份。这必须是一个 4 位数的年份，并且以 19 或 20 开头
       etd:
         subject: 从我们的<a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>主题</a>列表中选择描述作品内容的标题或索引词。如果列表中缺少您的术语，请使用 <a href='https://fast.oclc.org/searchfast/'>FAST 主题词</a>。对于应添加到我们列表中的其他宗教和神学术语，请使用<a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>此表格。</a>

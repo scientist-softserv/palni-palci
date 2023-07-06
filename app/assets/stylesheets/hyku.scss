@@ -635,6 +635,11 @@ form.range_limit.range_date_ssi {
 
 // these margin classes can be removed when Hyku is eventually updated to Bootstrap 4 upon upgrading to Hyrax 4.
 // These correspond directly to bootstrap 4 classes.
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
 .mt-5 {
   margin-top: 3em;
 }
@@ -647,7 +652,29 @@ form.range_limit.range_date_ssi {
   margin-bottom: .5em;
 }
 
+.mb-5 {
+  margin-bottom: 3em;
+}
+
 .mx-3 {
   margin-right: 1em;
   margin-left: 1em;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.py-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.py-4 {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.d-block {
+  display: block;
 }

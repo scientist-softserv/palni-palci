@@ -54,7 +54,7 @@ class SolrDocument
   attribute :institution, Solr::String, 'institution_tesim'
   attribute :keyword, Solr::Array, 'keyword_tesim'
   attribute :language, Solr::Array, 'language_tesim'
-  #attribute :level, Solr::Array, 'level_tesim'
+  # attribute :level, Solr::Array, 'level_tesim'
   attribute :license, Solr::Array, 'license_tesim'
   attribute :official_link, Solr::Array, 'official_link_tesim'
   attribute :project_name, Solr::Array, 'project_name_tesim'

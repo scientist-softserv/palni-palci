@@ -22,7 +22,7 @@ RSpec.describe Hyrax::EtdForm do
         subject: ['My Subject'],
         resource_type: ['Ceremony'],
         degree: ['Degree'],
-        #level: ['Level'],
+        # level: ['Level'],
         discipline: ['Discipline'],
         degree_granting_institution: ['Degree Granting Inst']
       }
@@ -36,7 +36,7 @@ RSpec.describe Hyrax::EtdForm do
       expect(subject['subject']).to eq ['My Subject']
       expect(subject['resource_type']).to eq ['Ceremony']
       expect(subject['degree']).to eq ['Degree']
-      #expect(subject['level']).to eq ['Level']
+      # expect(subject['level']).to eq ['Level']
       expect(subject['discipline']).to eq ['Discipline']
       expect(subject['degree_granting_institution']).to eq ['Degree Granting Inst']
     end

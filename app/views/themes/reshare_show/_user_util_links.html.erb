@@ -1,6 +1,6 @@
 <ul id="user_utility_links" class="nav navbar-nav navbar-right">
   <%= render 'shared/locale_picker' if available_translations.size > 1 %>
-  <% if user_signed_in? %>
+  <% if current_ability.user_groups.include?('admin') %>
     <li>
       <%= render_notifications(user: current_user) %>
     </li>

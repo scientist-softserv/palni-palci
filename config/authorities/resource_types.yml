@@ -71,3 +71,5 @@ terms:
     term: Technical report
   - id: Website
     term: Website
+  - id: Unknown
+    term: Unknown

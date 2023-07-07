@@ -38,3 +38,14 @@
   <%= "\u25C2" %> Back to ReShare Search
 </button>
 
+<script>
+// This script hides the share & download icons from the Universal Viewer.
+  $(document).ready(function(){
+    $('#uv-iframe').load(function(){
+      $('#uv-iframe')
+        .contents().find("head")
+        .append($('<style>.uv i.uv-icon.uv-icon-share, .uv i.uv-icon.uv-icon-download {display: none;}</style>')
+      );
+    });
+  });
+</script>

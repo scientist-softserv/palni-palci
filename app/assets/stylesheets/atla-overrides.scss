@@ -1,7 +1,9 @@
-html, body {
+html, body.public-facing {
      font-family: 'Muli', Helvetica, sans-serif;
      font-size:1em;
 }
+
+body {font-size:0.875em;}
 
 img {max-width:100%;}
 
@@ -15,6 +17,8 @@ img {max-width:100%;}
 
 /* hide work type on work show pages */
 .works-show .work-type-tag {display:none;}
+
+.social-media{display:none;}
 
 /* Collection show layout */
 
@@ -31,7 +35,28 @@ img {max-width:100%;}
 
 .hyc-banner {min-height:95px;}
 
+.hyc-bugs {
+    padding: 0 1em 0 2em;
+    text-align:right;
+}
+
+.hyc-header {margin-bottom:0;}
+.hyc-banner .hyc-title h1 {margin-bottom: 0.25em;}
+.hyc-description h2 {font-size: 1.5em;}
+
+.hyc-bl-results {margin:0 0 1em 0;}
+.hyc-blacklight.hyc-bl-title {padding: 0;}
+.hyc-blacklight.hyc-bl-results {padding-left: 0;}
+body.hyrax-collections .hyc-bl-search .col-sm-8 {float: right;}
+
+/* search resulsts */
+div.facets h3 {font-size: 1em;}
+
 
 /* admin dashboard available works ETD all caps*/
 .dashboard label[for="input-Etd"] {text-transform: uppercase;}
 
+
+@media only screen and (min-width: 768px) {
+     .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
+}

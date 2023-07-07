@@ -64,7 +64,7 @@ RSpec.describe 'Create a Etd', js: true do
       select('Ceremony', from: 'Resource type')
       select('Oblate School of Theology', from: 'Institution')
       fill_in('etd_degree', with: 'degree')
-      fill_in('Level', with: 'level')
+      # fill_in('Level', with: 'level')
       fill_in('Discipline', with: 'discipline')
       fill_in('etd_degree_granting_institution', with: 'degree granting institution')
       select('Text', from: 'Types')

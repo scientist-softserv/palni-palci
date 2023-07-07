@@ -30,7 +30,7 @@ zh:
           identifier: 标识符
           institution: 机构
           language: 语言
-          level: 等级
+          #level: 等级
           license: 执照
           livense: 执照
           official_link: 官方网址

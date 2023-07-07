@@ -29,7 +29,7 @@ en:
           identifier: "Identifier"
           institution: "Institution"
           language: "Language"
-          level: "Level"
+          #level: "Level"
           license: "License"
           official_link: "Official URL"
           project_name: "Project name"

@@ -9,7 +9,7 @@ module Hyrax
              :institution,
              :format,
              :degree,
-             :level,
+             #:level,
              :discipline,
              :degree_granting_institution,
              :advisor,

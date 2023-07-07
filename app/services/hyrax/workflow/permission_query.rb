@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax v3.4.2 Expand functionality for Groups with Roles Feature
+# OVERRIDE Hyrax v3.6.0 Expand functionality for Groups with Roles Feature
 # @see https://github.com/samvera/hyku/wiki/Groups-with-Roles-Feature
 # rubocop:disable Metrics/ModuleLength
 module Hyrax
@@ -73,7 +73,8 @@ module Hyrax
       # @param role [Object] that can be converted into a Sipity::Role
       # @return [ActiveRecord::Relation<Sipity::Agent>] augmented with
       #
-      def scope_agents_associated_with_entity_and_role(entity:, role:) # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/MethodLength
+      def scope_agents_associated_with_entity_and_role(entity:, role:)
         entity = Sipity::Entity(entity)
         role = Sipity::Role(role)
 
@@ -196,7 +197,8 @@ module Hyrax
       #
       # @return [ActiveRecord::Relation<Sipity::Entity>]
       #
-      def scope_entities_for_the_user(user:) # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def scope_entities_for_the_user(user:, page: 1, per_page: nil, workflow_state_filter: nil)
         entities = Sipity::Entity.arel_table
         workflow_state_actions = Sipity::WorkflowStateAction.arel_table
         workflow_states = Sipity::WorkflowState.arel_table
@@ -229,13 +231,34 @@ module Hyrax
         entity_specific_where = where_builder.call(entity_responsibilities).and(
           entities[:id].eq(entity_responsibilities[:entity_id])
         )
+        entity_specific_where = filter_by_workflow_state(entity_specific_where, workflow_states, workflow_state_filter) if workflow_state_filter
         workflow_specific_where = where_builder.call(workflow_responsibilities)
+        workflow_specific_where = filter_by_workflow_state(workflow_specific_where, workflow_states, workflow_state_filter) if workflow_state_filter
 
-        Sipity::Entity.where(
+        result = Sipity::Entity.where(
           entities[:id].in(entity_specific_joins.where(entity_specific_where))
           .or(entities[:id].in(workflow_specific_joins.where(workflow_specific_where)))
         )
+        # Apply paging if provided
+        if per_page.nil?
+          result
+        else
+          result.page(page).per(per_page)
+        end
       end
+
+      # @api private
+      #
+      # Append a filter by workflow state name to the provided where builder.
+      # If the filter begins with a !, it will filter to states not equal to the filter.
+      def filter_by_workflow_state(where_builder, workflow_states, filter)
+        if filter.start_with?('!')
+          where_builder.and(workflow_states[:name].not_eq(filter[1..-1]))
+        else
+          where_builder.and(workflow_states[:name].eq(filter))
+        end
+      end
+
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       # @api public
@@ -251,7 +274,8 @@ module Hyrax
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<User>]
       #
-      def scope_users_for_entity_and_roles(entity:, roles:) # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def scope_users_for_entity_and_roles(entity:, roles:)
         entity = Sipity::Entity(entity)
         role_ids = Array.wrap(roles).map { |role| Sipity::Role(role).id }
         user_polymorphic_type = ::User.base_class
@@ -347,7 +371,7 @@ module Hyrax
       # @param user [User]
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<Sipity::WorkflowRole>]
-      def scope_processing_workflow_roles_for_user_and_entity_specific(user:, entity:)
+      def scope_processing_workflow_roles_for_user_and_entity_specific(user:, entity:) # rubocop:disable Metrics/MethodLength
         entity = Sipity::Entity(entity)
         agent_scope = scope_processing_agents_for(user: user)
 
@@ -386,7 +410,7 @@ module Hyrax
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<Sipity::WorkflowStateAction>]
       #
-      def scope_permitted_entity_workflow_state_actions(user:, entity:)
+      def scope_permitted_entity_workflow_state_actions(user:, entity:) # rubocop:disable Metrics/MethodLength
         entity = Sipity::Entity(entity)
         workflow_state_actions = Sipity::WorkflowStateAction
         permissions = Sipity::WorkflowStateActionPermission
@@ -447,4 +471,3 @@ module Hyrax
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

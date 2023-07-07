@@ -6,9 +6,13 @@
         "shareEnabled": false
       }
     },
-    "contentLeftPanel": {
+    "pagingHeaderPanel": {
       "options": {
-        "pageModeEnabled": true
+        "autoCompleteBoxEnabled": false,
+        "galleryButtonEnabled": true,
+        "imageSelectionBoxEnabled": true,
+        "pageModeEnabled": false,
+        "pagingToggleEnabled": true
       }
     }
   }

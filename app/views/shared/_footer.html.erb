@@ -17,7 +17,7 @@
          <div class = 'col-xs-6 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.help_path) %>>
            <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %>
          </div>
-         <div class = 'col-xs-12 col-md-2 footer-link'>
+         <div class = 'col-xs-12 col-md-4 footer-link'>
          <%= link_to t(:'hyrax.pages.tabs.terms_page'), hyrax.terms_path %>
          </div>
        <% end %>

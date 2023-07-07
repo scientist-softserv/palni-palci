@@ -4,11 +4,11 @@
       "options": {
         "downloadEnabled": false,
         "shareEnabled": false
-      },
-      "contentLeftPanel": {
-        "options": {
-          "pageModeEnabled": true
-        }
+      }
+    },
+    "contentLeftPanel": {
+      "options": {
+        "pageModeEnabled": true
       }
     }
   }

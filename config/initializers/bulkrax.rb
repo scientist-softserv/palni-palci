@@ -83,7 +83,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
       'keyword' => { from: ['keyword'] },
       'label' => { from: ['label'] },
       'language' => { from: ['language'] },
-      'level' => { from: ['level'] },
+      #'level' => { from: ['level'] },
       'license' => { from: ['license'] },
       'official_link' => { from: ['official_link'] },
       'parents' => { from: ['parents'], related_parents_field_mapping: true },

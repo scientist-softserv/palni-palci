@@ -6,4 +6,4 @@ pt-BR:
     select_type:
       generic_work:
         description: Tipo de trabalho de propósito geral. Selecione isso se os tipos de trabalho mais específicos abaixo não forem adequados ao trabalho que deseja adicionar.
-        name: Trabalho Genérico
+        name: Trabalho geral

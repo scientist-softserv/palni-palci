@@ -21,7 +21,7 @@ pt-:
           identifier: identificador
           institution: Instituição
           language: Linguagem
-          level: Nível
+          #level: Nível
           license: Licença
           publisher: Editor
           resource_type: Tipo de recurso

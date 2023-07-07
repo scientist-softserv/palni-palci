@@ -29,7 +29,7 @@ pt-BR:
           identifier: identificador
           institution: Instituição
           language: Linguagem
-          level: Nível
+          #level: Nível
           license: Licença
           official_link: URL oficial
           project_name: Nome do Projeto

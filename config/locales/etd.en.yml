@@ -11,7 +11,7 @@ en:
       defaults:
         year: 'The year in which the work was created. This must be a 4-digit year, and begin with 19 or 20'
         degree: 'Name of the degree associated with the work as it appears within the work.'
-        level: 'Level of education associated with the document.'
+        #level: 'Level of education associated with the document.'
         discipline: 'Area of study of the intellectual content of the document. Usually this will be the name of a program or department.'
         degree_granting_institution: 'Institution granting the degree associated with the work.'
         advisor: 'Name of thesis/dissertation advisor or committee chair.'

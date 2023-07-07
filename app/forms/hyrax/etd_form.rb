@@ -12,7 +12,6 @@ module Hyrax
       resource_type
       institution
       degree
-      level
       discipline
       degree_granting_institution
       types
@@ -26,7 +25,6 @@ module Hyrax
       bibliographic_citation
       format
       degree
-      level
       discipline
       degree_granting_institution
       advisor

@@ -471,3 +471,4 @@ module Hyrax
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

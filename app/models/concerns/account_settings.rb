@@ -225,7 +225,8 @@ module AccountSettings
       Hyrax::Analytics.config.client_email = self.google_oauth_client_email
 
       # only show analytics partials if analytics are set on the tenant
-      Hyrax.config.analytics = Hyrax::Analytics.config.valid?
+      Hyrax.config.analytics = self.google_analytics_id.present?
+      Hyrax.config.analytics_reports = Hyrax::Analytics.config.valid?
       # rubocop:enable Style/RedundantSelf
     end
 end

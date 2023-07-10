@@ -1,3 +1,4 @@
+<% #OVERRIDE Hyrax 5.0.1 for Atla shared search theme  %>
 <footer class="navbar navbar-inverse site-footer">
   <div class="container-fluid">
     <div class="navbar-text">
@@ -12,21 +13,16 @@
             <%= link_to t(:'hyrax.controls.home'), "//#{Account.admin_host}", aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %>
           </div>
         <% end %>
-        <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.about_path) %>>
-          <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
-        </div>
-        <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.contact_path) %>>
-          <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %>
+          <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.about_path) %>>
+               <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
+          </div>
+          <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.contact_path) %>>
+             <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %>
           </div>
           <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.help_path) %>>
            <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %>
          </div>
-        </div>
-      </div><!-- /.nav -->
-    </div>
-    <div class="navbar-right">
-
-      </div>
-    </div>
-  </div>
+      </div><!-- /.row -->
+    </div><!-- /.navbar-text -->
+  </div><!-- /.container-fluid -->
 </footer>

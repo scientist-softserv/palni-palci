@@ -21,9 +21,8 @@
      &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {color:#258FCE;}
      &.public-facing .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a, &.public-facing .dropdown-header {color:#258FCE;}
      .navbar-inverse .navbar-collapse, .navbar-inverse #facet-panel-collapse, .navbar-inverse .navbar-form{border-color: #175E87;}
-     /* hide site name in top nav and hide globe icon on linked logo*/
-     &.public-facing .navbar-header #logo {visibility: hidden;}
-     .image-masthead .glyphicon {display:none;}
+     /* hide globe icon on linked logo*/
+     .image-masthead .glyphicon {display:none;}≈
 
      &.public-facing .navbar{margin-bottom:0}
      &.public-facing .navbar + .navbar, .navbar + .image-masthead {margin-top:0;}

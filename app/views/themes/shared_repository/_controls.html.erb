@@ -1,8 +1,8 @@
-<% # OVERRIDE:  %>
+<% # OVERRIDE Hyrax v3.5.0 to change the layout of the main nav links  %>
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container-fluid">
     <div class="row">
-      <ul class="nav navbar-nav ">
+      <ul class="nav navbar-nav">
           <li <%= 'class=active' if current_page?(hyrax.root_path) %>>
           <%= link_to t(:'hyrax.controls.home'), main_app.search_catalog_path, aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %>
         </li>
@@ -13,7 +13,7 @@
           <li <%= 'class=active' if current_page?(hyrax.help_path) %>>
            <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %></li>
       </ul><!-- /.nav -->
-
+      <!-- OVERRIDE to remove the search bar  -->
     </div>
   </div>
 </nav><!-- /.navbar -->

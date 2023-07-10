@@ -1,8 +1,58 @@
-
+<% # OVERRIDE Hyku 5.0.1 for Atla shared search theme %>
 <% content_for(:navbar) do %>
 
-<%= render "hyrax/homepage/banner_section" if controller_name == 'pages'|| controller_name == 'contact_form' || controller_name == 'homepage' || controller_name == 'catalog' %>
+<% if controller_name == 'homepage' ||
+      controller_name == 'pages' ||
+      controller_name == 'contact_form'
+      %>
+     <div class="banner-section-wrapper">
+          <div class="image-masthead row">
+               <div class="col-xs-12 col-md-2">
+                    <div class="col-xs-12 logo-section">
+                         <%= render '/logo' %>
+                    </div>
+               </div>
+               <div class= "col-xs-12 col-md-10 section-contrast">
+                    <div class="row banner-section">
+                         <div class="col-xs-12 controls-section">
+                              <%= render '/controls' %>
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <% if controller_name == 'homepage' %>
+          <div class="container homepage-container">
+               <h2>Search across all repositories</h2>
+               <div class= "row">
+                    <%= render partial: 'catalog/search_form'%>
+               </div>
+          </div>
+          <%end%>
+    </div>
+<%end%>
 
-<% end %>
+<% if controller_name == 'catalog' %>
+     <div class="banner-section-wrapper">
+          <div class="image-masthead row">
+               <div class="col-xs-12 col-md-2">
+                    <div class="col-xs-12 logo-section">
+                         <%= render '/logo' %>
+                    </div>
+               </div>
+               <div class= "col-xs-12 col-md-10 section-contrast">
+                    <div class="row banner-section">
+                         <div class="col-xs-12 controls-section">
+                              <%= render '/controls' %>
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div class="catalog-page-search catalog-only pb-40 mx-auto">
+               <%= render partial: 'catalog/search_form' %>
+          </div>
+     </div>
+<%end%>
+
+<%end%>
 
 <%= render template: 'layouts/hyrax' %>

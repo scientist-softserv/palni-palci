@@ -56,6 +56,24 @@ div.facets h3 {font-size: 1em;}
 /* admin dashboard available works ETD all caps*/
 .dashboard label[for="input-Etd"] {text-transform: uppercase;}
 
+/* citations style */
+button.btn.btn-default.btn-block.citations-button.center-block {margin-top: 1em;}
+.mla-citation, .apa-citation, .chicago-citation {
+    line-height: 1.25em;
+    display: inline-block;
+    width: 100%;
+    font-size:0.875em;
+}
+div#collapse-citations{text-align:left;overflow-wrap: break-word;}
+div#collapse-citations h4 {font-size:1em;}
+div#collapse-citations p {font-size:0.85em;}
+button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn.btn-default.btn-block.citations-button.center-block:focus{
+     background-color:#337ab7;
+     border-color: #204d75;
+     color:white;
+}
+
+
 
 @media only screen and (min-width: 768px) {
      .hyc-banner .hyc-title h1 {margin-bottom: 0em;}

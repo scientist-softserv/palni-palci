@@ -105,13 +105,6 @@ class Oer < ActiveFedora::Base
   # be declared before their values can be ordered.
   include OrderMetadataValues
 
-  # These needed to be added again in order to enable destroy for based_near, even though they are in Hyrax::BasicMetadata.
-  # the OrderAlready OrderMetadataValues above somehow prevents them from running
-  id_blank = proc { |attributes| attributes[:id].blank? }
-  class_attribute :controlled_properties
-  self.controlled_properties = [:based_near]
-  accepts_nested_attributes_for :based_near, reject_if: id_blank, allow_destroy: true
-
   def previous_version
     @previous_version ||= Oer.where(id: previous_version_id) if previous_version_id
   end

@@ -1,11 +1,11 @@
 <% # OVERRIDE Hyku 5.0.1 for Atla shared search theme %>
   <% if logo_image %>
-    <a id="logo" href="<%= main_app.search_catalog_path %>" data-no-turbolink="true">
+    <a id="logo" href="<%= ("//#{Account.admin_host}") %>" data-no-turbolink="true">
       <span class="glyphicon glyphicon-globe" role="img" aria-label="<%= application_name %>" aria-hidden="true"></span>
       <%= image_tag logo_image, alt_text: block_for(name: 'logo_image_text') %>
     </a>
   <% else %>
-    <a id="logo" class="navbar-brand" href="<%= main_app.search_catalog_path %>" data-no-turbolink="true">
+    <a id="logo" class="navbar-brand" href="<%= ("//#{Account.admin_host}") %>" data-no-turbolink="true">
       <span class="institution_name"><%= application_name %></span>
     </a>
   <% end %>

@@ -2,17 +2,11 @@
 <footer class="navbar navbar-inverse site-footer">
   <div class="container-fluid">
     <div class="navbar-text">
-      <!-- /begin nav links: OVERRIDE here to include nav links on bottom bar -->
+      <!-- /begin nav links: OVERRIDE here to include nav links on bottom bar and have home linked to catalog for shared search -->
       <div class="row">
-        <% if current_page?('/')%>
-          <div class = 'col-xs-3 col-md-2 footer-link'>
-            <%= link_to t('hyku.footer.admin_login'), "//#{Account.admin_host}/users/sign_in?locale=en", aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %>
+          <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(main_app.search_catalog_path) %>>
+            <%= link_to t(:'hyrax.controls.home'), main_app.search_catalog_path, aria: current_page?(main_app.search_catalog_path) ? {current: 'page'} : nil %>
           </div>
-        <% else %>
-          <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?("//#{Account.admin_host}") %>>
-            <%= link_to t(:'hyrax.controls.home'), "//#{Account.admin_host}", aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %>
-          </div>
-        <% end %>
           <div class = 'col-xs-3 col-md-2 footer-link' <%= 'class=active' if current_page?(hyrax.about_path) %>>
                <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %>
           </div>

@@ -1,6 +1,6 @@
 .shared_repository {
 
-     &.public-facing {font-family: Muli, Helvetica, Arial, sans-serif;}
+     &.public-facing, &.public-facing p {font-family: Muli, Helvetica, Arial, sans-serif!important;}
      &.public-facing h1, h2, h3, h4, h5, h6 {font-family: 'PT Serif', serif;}
 
      img {max-width:100%;}
@@ -8,6 +8,7 @@
      &.public-facing a {color:#E05C3F;}
      &.public-facing a:hover, &.public-facing a:focus{color:#D43D1C;}
      h3.panel-title.facet-field-heading a {color:#333333;}
+
      div.facets h3 {font-size:1em;}
 
      /*top admin nav bar*/
@@ -17,33 +18,79 @@
           }
 
      &.public-facing .navbar-static-top {border-width: 3px 0 0px}
-     &.public-facing nav.navbar.navbar-default.navbar-static-top{border-width:0px}
-     &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {color:#258FCE;}
-     &.public-facing .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a, &.public-facing .dropdown-header {color:#258FCE;}
-     .navbar-inverse .navbar-collapse, .navbar-inverse #facet-panel-collapse, .navbar-inverse .navbar-form{border-color: #175E87;}
-     /* hide globe icon on linked logo*/
-     .image-masthead .glyphicon {display:none;}≈
 
-     &.public-facing .navbar{margin-bottom:0}
+     &.public-facing nav.navbar.navbar-default.navbar-static-top{
+          border-width:0px;
+          margin-top:2em;
+     }
+
+     &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {color:#258FCE;}
+
+     &.public-facing .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a, &.public-facing .dropdown-header {color:#258FCE;}
+
+     .navbar-inverse .navbar-collapse, .navbar-inverse #facet-panel-collapse, .navbar-inverse .navbar-form{border-color: #175E87;}
+
+     ul#user_utility_links.nav.navbar-nav li  {background-color:transparent;}
+
+     /* hide globe icon on linked logo*/
+     .image-masthead .glyphicon {display:none;}
+
+     &.public-facing #masthead #logo img {
+          max-height:125px;
+          padding-top:.5em;
+          padding-left:.3em;
+     }
+
+     &.public-facing .navbar{margin-bottom:0;}
+
      &.public-facing .navbar + .navbar, .navbar + .image-masthead {margin-top:0;}
+
+     /* removing background banner image */
+     .image-masthead .background-container, .container.site-title-container {display:none;}
+     .image-masthead .background-container-gradient {background:none;}
 
      /*hamburger menu*/
      &.public-facing button.navbar-toggle.collapsed,&.public-facing .navbar-inverse .navbar-toggle, &.public-facing .navbar-inverse .facets-toggle {background-color:#258FCE;}
+
      &.public-facing button.navbar-toggle.collapsed:hover{background-color:#175E87;}
+
      &.public-facing .navbar-inverse .navbar-toggle {border-color: #175E87;}
+
      &.public-facing .navbar-inverse .navbar-nav > .open > a, &.public-facing .navbar-inverse .navbar-nav > .open > a:hover, &.public-facing .navbar-inverse .navbar-nav > .open > a:focus{background-color: #258FCE;color:white;}
+
      .navbar-inverse .navbar-nav .open .dropdown-menu .divider, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu .divider, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu .divider{background-color: #175E87;}
 
-     /* banner area below top nav bar*/
-     .banner-section-wrapper{margin-bottom:1em;}
-     .image-masthead .logo-section{padding:0 0 1em 3em;}
-     .image-masthead{display:flex;align-items: flex-end;}
-     .image-masthead .navbar-nav{padding-left:2.2em;}
+     /* mobile stacked menu */
+     .navbar-nav {margin:0}
 
-     /* site nav bar */
-     .image-masthead ul.nav.navbar-nav li  {background-color:#258FCE;}
+     .image-masthead.row {margin-right:0;margin-left:0;}
+
+     .image-masthead .navbar .navbar-nav {margin-left:0;}
+
+     /* site nav bar on pages not catalog or login*/
+     ul.nav.navbar-nav li  {background-color:#258FCE;}
+
      &.public-facing .image-masthead .navbar .active > a, &.public-facing .image-masthead .navbar .active > a:hover, &.public-facing .image-masthead .navbar .active > a:focus {background-color:#175E87;}
      &.public-facing .image-masthead .navbar {background-color: rgba(0, 0, 0, 0);}
+
+     /**/
+
+
+     /* catalog/login nav bar */
+     .navbar-default .navbar-nav li a {color:#eeeeee;text-transform: uppercase;}
+     .navbar-default {background-color:transparent;}
+
+     &.catalog nav.navbar.navbar-default.navbar-static-top, &.devise-sessions nav.navbar.navbar-default.navbar-static-top{
+          margin-bottom:2em;
+          border-bottom: 1px solid #e7e7e7;
+     }
+
+     &.catalog .navbar-nav, &.devise-sessions .navbar-nav {
+          padding-left:1em;
+          margin-block-end: 0;
+     }
+
+     &.devise-sessions .navbar-nav#user_utility_links {padding:0;}
 
      /* homepage page content */
      .container.homepage-container h2{
@@ -61,8 +108,17 @@
           max-width:600px;
           margin: 2em auto 0 auto;
      }
+
+     &.catalog .searchbar-right.navbar-right.col-sm-7 {
+          max-width: 600px;
+     }
+
+     /*&.catalog #search-form-header .input-group {margin-bottom:0;}*/
+
      button.btn.btn-default.dropdown-toggle {display:none;}
+
      .form-horizontal .control-label, &.splash-index button.btn.btn-default.dropdown-toggle{display:none;}
+
       #search-field-header {
          padding: 25px 12px 20px 12px;
          border-top: 2px solid #E3E3E3 !important;
@@ -114,6 +170,22 @@
 
       .dropdown-menu .divider, .twitter-typeahead .tt-menu .divider{
            background-color: #e5e5e5;}
+
+           /* site nav bar on pages not catalog or login*/
+           .image-masthead .navbar-nav{
+                padding-left:1em;
+                padding-top: 2em;
+           }
+           .image-masthead.row {margin-right:-15px;margin-left:-15px;}
+           /* catalog/login nav bar */
+           &.catalog .navbar-nav, &.devise-sessions .navbar-nav {
+                padding-top:2em;
+           }
+           &.devise-sessions .navbar-nav#user_utility_links,&.catalog .navbar-nav#user_utility_links {padding:0;}
+
+           &.catalog #search-form-header{
+                margin:0;
+           }
 
      /* removing extra space to text area for larger view on pages */
      &.public-facing.hyrax-pages div#content_block_page.row {margin-left:0em;margin-right:0em;}

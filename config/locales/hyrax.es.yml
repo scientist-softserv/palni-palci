@@ -998,7 +998,7 @@ es:
             label_short: Mis trabajos
         q:
           label: Buscar %{application_name}
-          placeholder: Ingrese los términos de búsqueda
+          placeholder: Introduce términos de búsqueda
     select_type:
       description: Tipo de trabajo de uso general
       name: Trabajo

@@ -1,9 +1,79 @@
-html, body {
+html, body.public-facing {
      font-family: 'Muli', Helvetica, sans-serif;
      font-size:1em;
 }
 
+body {font-size:0.875em;}
+
 img {max-width:100%;}
+
+
+/* landing page for app */
+
+/*top nav bar*/
+body.splash-index.public-facing .navbar-inverse {
+    background-color: #fff;
+    border-color: #258FCE;
+}
+.navbar-static-top {border-width: 3px 0 0;}
+body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
+     color:#258FCE;
+     padding:1em;
+}
+a#skip-to-content{padding:0;}
+
+footer.navbar.navbar-inverse.site-footer {
+     border:0;
+     border-bottom:3px solid #258FCE;
+}
+
+body.splash-index span.institution_name {
+    display: none;
+}
+
+/* in page content */
+
+body.splash-index .home-logo {
+     margin-bottom:2em;
+}
+
+body.splash-index .right-side{
+     text-align:center;
+}
+
+body.splash-index.public-facing h2{
+     font-family: 'PT Serif';
+     margin:4.5em 0 1em 0;
+     color:#4d4e4e;
+     font-size:1.5em;
+}
+
+body.splash-index button.shared-search {
+     border: none;
+     color: white;
+     padding: 1em;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 1em;
+     /*font-weight:700;*/
+     margin: 0 2px 1.25em 2px;
+     transition-duration: 0.4s;
+     cursor: pointer;
+     background-color:#E05C3F;/*#D43D1C*/
+     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
+     border-radius:3px;
+}
+
+body.splash-index button.shared-search:hover{
+     background-color:#D43D1C;
+     border: 1px solid #E05C3F;
+}
+
+body.splash-index .text-right p{color:#258FCE;}
+
+.proprietor-accounts .btn-primary a:visited {color:white!important;}
+body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
 
 
 /* Work show metadata layout */
@@ -15,6 +85,8 @@ img {max-width:100%;}
 
 /* hide work type on work show pages */
 .works-show .work-type-tag {display:none;}
+
+.social-media{display:none;}
 
 /* Collection show layout */
 
@@ -31,6 +103,39 @@ img {max-width:100%;}
 
 .hyc-banner {min-height:95px;}
 
+.hyc-bugs {
+    padding: 0 1em 0 2em;
+    text-align:right;
+}
+
+.hyc-header {margin-bottom:0;}
+.hyc-banner .hyc-title h1 {margin-bottom: 0.25em;}
+.hyc-description h2 {font-size: 1.5em;}
+
+.hyc-bl-results {margin:0 0 1em 0;}
+.hyc-blacklight.hyc-bl-title {padding: 0;}
+.hyc-blacklight.hyc-bl-results {padding-left: 0;}
+body.hyrax-collections .hyc-bl-search .col-sm-8 {float: right;}
+
+/* search resulsts */
+div.facets h3 {font-size: 1em;}
+
 
 /* admin dashboard available works ETD all caps*/
 .dashboard label[for="input-Etd"] {text-transform: uppercase;}
+
+
+@media only screen and (min-width: 768px) {
+     .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
+
+    body.splash-index .left-side {
+         padding-left: 0px;
+         padding-right: 50px;
+     }
+     body.splash-index .right-side {
+         padding-left: 50px;
+         padding-right: 10px;
+     }
+     body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
+
+}

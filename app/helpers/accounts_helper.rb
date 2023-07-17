@@ -11,5 +11,4 @@ module AccountsHelper
   def full_search_url
     main_app.search_catalog_path
   end
-
 end

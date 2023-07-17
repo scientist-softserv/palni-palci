@@ -1,26 +1,11 @@
 <% # OVERRIDE Hyku 5.0.1 for Atla shared search theme %>
 <% content_for(:navbar) do %>
 
-<% if controller_name == 'homepage' ||
-      controller_name == 'pages' ||
-      controller_name == 'contact_form' ||
-      controller_name == 'catalog'
-      %>
-     <div class="banner-section-wrapper">
-          <div class="image-masthead row">
-               <div class= "col-xs-12 col-md-10 section-contrast">
-                    <div class="row banner-section">
-                         <div class="col-xs-12 controls-section">
-                              <%= render '/controls' %>
-                         </div>
-                    </div>
-               </div>
-          </div>
-          <% if controller_name == 'homepage' %>
-               <%= render 'splash/index' %>
-          <%end%>
-    </div>
-<%end%>
+<%= render "hyrax/homepage/banner_section" if controller_name == 'pages'|| controller_name == 'contact_form' || controller_name == 'catalog' %>
+
+<% if controller_name == 'homepage' %>
+    <%= render 'splash/index' %>
+  <% end %>
 
 
 <%end%>

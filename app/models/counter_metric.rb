@@ -1,0 +1,2 @@
+class CounterMetric < ApplicationRecord
+end

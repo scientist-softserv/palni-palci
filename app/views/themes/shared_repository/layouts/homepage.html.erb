@@ -17,12 +17,7 @@
                </div>
           </div>
           <% if controller_name == 'homepage' %>
-          <div class="container homepage-container">
-               <h2>Search across all repositories</h2>
-               <div class= "row">
-                    <%= render partial: 'catalog/search_form'%>
-               </div>
-          </div>
+               <%= render 'splash/index' %>
           <%end%>
     </div>
 <%end%>

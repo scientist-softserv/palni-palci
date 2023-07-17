@@ -101,16 +101,14 @@
      .container.homepage-container .row {margin:0;}
 
      /* search bar */
-     #search-form-header{
+     &.hyrax-homepage #search-form-header{
           max-width:600px;
           margin: 2em auto 0 auto;
      }
-
-     &.catalog .searchbar-right.navbar-right.col-sm-7 {
+     /* search bar on other pages */
+     .searchbar-right.navbar-right.col-sm-7 {
           max-width: 600px;
      }
-
-     /*&.catalog #search-form-header .input-group {margin-bottom:0;}*/
 
      button.btn.btn-default.dropdown-toggle {display:none;}
 
@@ -145,7 +143,6 @@
       &.public-facing.hyrax-pages div#content_block_page.row {margin-left:1em;margin-right:1em;}
 
       /* footer */
-      &.public-facing .footer-link a, &.public-facing .site-footer a {padding:1em;}
       &.public-facing footer.navbar.navbar-inverse.site-footer{border:0;border-bottom:3px solid #258FCE}
 
       /*contact page*/
@@ -163,59 +160,67 @@
 
        &.hyrax-contact_form .btn.btn-primary{box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);}
 
-       /* splash */
-       &.hyrax-homepage .home-logo {
-            margin-bottom:2em;
-       }
+     /* splash */
+     &.public-facing.hyrax-homepage #masthead.navbar {margin-bottom:20px;}
+     &.hyrax-homepage .navbar-header{display:none;}
 
-       &.hyrax-homepage .right-side{
-            text-align:center;
-       }
-       &.hyrax-homepage h2{
+     &.hyrax-homepage .home-logo {
+          margin-bottom:2em;
+     }
+
+     &.hyrax-homepage .right-side{
+          text-align:center;
+     }
+     &.hyrax-homepage h2{
           font-family: 'PT Serif';
-          margin:4.5em 0 1em 0;
+          margin:3.5em 0 .5em 0;
           color:#4d4e4e;
           font-size:1.5em;
+     }
+     &.hyrax-homepage .splash-browse h2 {margin:2em 0 1em 0;}
+     &.hyrax-homepage #search-form-header {margin-top:1em;}
+     &.hyrax-homepage .text-right p{color:#258FCE;}
+
+     @media screen and (min-width:768px){
+
+          .dropdown-menu .divider, .twitter-typeahead .tt-menu .divider{
+          background-color: #e5e5e5;}
+
+          /* site nav bar on pages not catalog or login*/
+          .image-masthead .navbar-nav{
+               padding-left:1em;
+               padding-top: 2em;
           }
-      &.hyrax-homepage .text-right p{color:#258FCE;}
 
-@media screen and (min-width:768px){
+          .image-masthead.row {margin-right:-15px;margin-left:-15px;}
 
-      .dropdown-menu .divider, .twitter-typeahead .tt-menu .divider{
-           background-color: #e5e5e5;}
+          /* catalog/login nav bar */
+          &.catalog .navbar-nav, &.devise-sessions .navbar-nav {
+               padding-top:2em;
+          }
+          &.devise-sessions .navbar-nav#user_utility_links,&.catalog .navbar-nav#user_utility_links {padding:0;}
 
-           /* site nav bar on pages not catalog or login*/
-           .image-masthead .navbar-nav{
-                padding-left:1em;
-                padding-top: 2em;
-           }
-           .image-masthead.row {margin-right:-15px;margin-left:-15px;}
-           /* catalog/login nav bar */
-           &.catalog .navbar-nav, &.devise-sessions .navbar-nav {
-                padding-top:2em;
-           }
-           &.devise-sessions .navbar-nav#user_utility_links,&.catalog .navbar-nav#user_utility_links {padding:0;}
+          #search-form-header{
+               margin:0;
+          }
 
-           &.catalog #search-form-header{
-                margin:0;
-           }
+          /* removing extra space to text area for larger view on pages */
+          &.public-facing.hyrax-pages div#content_block_page.row {margin-left:0em;margin-right:0em;}
 
-     /* removing extra space to text area for larger view on pages */
-     &.public-facing.hyrax-pages div#content_block_page.row {margin-left:0em;margin-right:0em;}
+          &.public-facing .alert{width:83%;}
 
-     &.public-facing .alert{width:83%;}
+          /* splash */
+          &.hyrax-homepage .left-side {
+               padding-left: 0px;
+               padding-right: 50px;
+          }
+          &.hyrax-homepage .right-side {
+               padding-left: 50px;
+               padding-right: 10px;
+          }
 
-     /* splash */
-     &.hyrax-homepage .left-side {
-        padding-left: 0px;
-        padding-right: 50px;
-    }
-    &.hyrax-homepage .right-side {
-        padding-left: 50px;
-        padding-right: 10px;
-    }
+          &.hyrax-homepage .splash-browse {padding-top:1em;}
 
-
-}
+     }
 
 }

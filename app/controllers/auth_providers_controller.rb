@@ -6,11 +6,21 @@ class AuthProvidersController < ApplicationController
 
   # GET /auth_providers/new
   def new
-    @auth_provider = AuthProvider.new
+    add_breadcrumbs
+    existing_auth_provider = AuthProvider&.first
+
+    # users should not be able to reach the new auth provider page unless it is the first time they are setting up an auth provider.
+    if existing_auth_provider
+      redirect_to edit_auth_provider_url(existing_auth_provider)
+    else
+      @auth_provider = AuthProvider.new
+    end
   end
 
   # GET /auth_providers/1/edit
-  def edit; end
+  def edit
+    add_breadcrumbs
+  end
 
   # POST /auth_providers or /auth_providers.json
   def create
@@ -50,6 +60,13 @@ class AuthProvidersController < ApplicationController
     end
   end
 
+  def add_breadcrumbs
+    add_breadcrumb t(:'hyrax.controls.home'), root_path
+    add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
+    add_breadcrumb t(:'hyrax.admin.sidebar.configuration'), '#'
+    add_breadcrumb t(:'hyrax.admin.sidebar.auth_provider'), request.path
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -63,6 +80,15 @@ class AuthProvidersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def auth_provider_params
-      params.require(:auth_provider).permit(:provider, :idp_sso_service_url, :client_id, :client_secret, :account_id)
+      params.require(:auth_provider).permit(
+        :provider,
+        :account_id,
+        :saml_client_id,
+        :saml_client_secret,
+        :saml_idp_sso_service_url,
+        :oidc_client_id,
+        :oidc_client_secret,
+        :oidc_idp_sso_service_url
+      )
     end
 end

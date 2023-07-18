@@ -63,6 +63,15 @@ class AuthProvidersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def auth_provider_params
-      params.require(:auth_provider).permit(:provider, :idp_sso_service_url, :client_id, :client_secret, :account_id)
+      params.require(:auth_provider).permit(
+        :provider,
+        :account_id,
+        :saml_client_id,
+        :saml_client_secret,
+        :saml_idp_sso_service_url,
+        :oidc_client_id,
+        :oidc_client_secret,
+        :oidc_idp_sso_service_url
+      )
     end
 end

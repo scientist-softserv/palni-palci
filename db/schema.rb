@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_23_175836) do
+ActiveRecord::Schema.define(version: 2023_07_18_191802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,9 +48,12 @@ ActiveRecord::Schema.define(version: 2023_05_23_175836) do
 
   create_table "auth_providers", force: :cascade do |t|
     t.string "provider"
-    t.string "client_id"
-    t.string "client_secret"
-    t.string "idp_sso_service_url"
+    t.string "oidc_client_id"
+    t.string "saml_client_id"
+    t.string "oidc_client_secret"
+    t.string "saml_client_secret"
+    t.string "oidc_idp_sso_service_url"
+    t.string "saml_idp_sso_service_url"
     t.integer "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

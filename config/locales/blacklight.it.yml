@@ -31,6 +31,7 @@ it:
           rights_tesim: Diritti
           subject_tesim: Soggetto
         show:
+          admin_note: Nota amministrativa
           based_near_label_tesim: luogo
           contributor_tesim: Collaboratore
           creator_tesim: Creatore
@@ -47,3 +48,4 @@ it:
           rights_tesim: Diritti
           subject_tesim: Soggetto
           title_tesim: Titolo
+      start_over: Nuova ricerca

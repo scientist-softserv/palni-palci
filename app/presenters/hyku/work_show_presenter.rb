@@ -10,7 +10,7 @@ module Hyku
     include Hyrax::IiifAv::DisplaysIiifAv
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
-    delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, to: :solr_document
+    delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, :date, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
     delegate :collection_presenters, to: :member_presenter_factory
@@ -31,19 +31,14 @@ module Hyku
     end
 
     # OVERRIDE FILE from Hyrax v2.9.0
-    # @return [Array] list to display with Kaminari pagination
-    # paginating on members so we can filter out derived status
+    # @return [String] title update for GenericWork
     Hyrax::WorkShowPresenter.class_eval do
-      def list_of_item_ids_to_display
-        paginated_item_list(page_array: members)
-      end
-
       def page_title
         if human_readable_type == "Generic Work"
           "#{title.first} | ID: #{id} | #{I18n.t('hyrax.product_name')}"
         else
           "#{human_readable_type} | #{title.first} | ID: #{id} | #{I18n.t('hyrax.product_name')}"
-        end 
+        end
       end
     end
 
@@ -102,21 +97,6 @@ module Hyku
           end
         end
         ref
-      end
-
-      # OVERRIDE FILE from Hyrax v2.9.0
-      # Gets the member id's for pagination, filter out derived files
-      Hyrax::WorkShowPresenter.class_eval do
-        def members
-          members = member_presenters_for(authorized_item_ids)
-          filtered_members =
-            if current_ability.admin?
-              members
-            else
-              members.reject { |m| m.solr_document['is_derived_ssi'] == 'true' }
-            end
-          filtered_members.collect(&:id)
-        end
       end
   end
 end

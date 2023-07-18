@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe CatalogController, type: :request, clean: true, multitenant: true do
+RSpec.describe CatalogController, type: :request, multitenant: true do
   let(:user) { create(:user, email: 'test_user@repo-sample.edu') }
   let(:work) { build(:work, title: ['welcome test'], id: SecureRandom.uuid, user: user) }
   let(:hyku_sample_work) { build(:work, title: ['sample test'], id: SecureRandom.uuid, user: user) }
@@ -63,10 +63,9 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
         connection = RSolr.connect(url: "#{ENV['SOLR_URL']}hydra-cross-search-tenant")
         allow_any_instance_of(Blacklight::Solr::Repository).to receive(:build_connection).and_return(connection)
         allow(CatalogController).to receive(:blacklight_config).and_return(black_light_config)
-
-        # get '/catalog', params: { q: '*' }
-        # get search_catalog_url, params: { locale: 'en', q: 'test' }
-        get "http://#{cross_search_tenant_account.cname}/catalog?q=test" # , params: { q: 'test' }
+        # make sure the blacklight config knows the app uses advanced search
+        black_light_config.advanced_search = {}
+        get "http://#{cross_search_tenant_account&.cname}/catalog?q=test"
         expect(response.status).to eq(200)
       end
     end

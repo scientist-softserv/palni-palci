@@ -73,7 +73,9 @@
                           <%= link_to document, [main_app, document] %>
                         </td>
                         <td>
-                        <%= safe_join(document.creator, tag(:br)) %>
+                          <%# OVERRIDE: show the user/depositor's display_name if available %>
+                          <% user = User.find_by(email: document.depositor) %>
+                          <%= user&.display_name.presence %>
                         <td>
                           <%= document.date_modified %>
                         </td>

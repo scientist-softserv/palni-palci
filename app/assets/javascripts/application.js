@@ -34,6 +34,7 @@
 //= require hyku/admin/appearance/themes
 //= require hyku/groups/per_page
 //= require hyku/groups/add_member
+//= require hyku/auth_provider
 //= require proprietor
 //= require bootstrap_carousel
 //= require bootstrap-datepicker
@@ -47,3 +48,11 @@
 //= require flot_graph
 //= require statistics_tab_manager
 //= require blacklight_gallery/default
+
+
+// For blacklight_range_limit built-in JS, if you don't want it you don't need
+// this:
+//= require 'blacklight_range_limit'
+
+//= require blacklight_advanced_search
+

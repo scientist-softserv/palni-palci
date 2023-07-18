@@ -9,7 +9,7 @@ en:
     directory:
       suffix: "@hydrainabox.org"
     footer:
-      copyright_html: "<strong>Copyright &copy; 2019 Samvera</strong> Licensed under the Apache License, Version 2.0"
+      copyright_html: "<strong>Copyright &copy; 2019 - %{current_year} Samvera</strong> Licensed under the Apache License, Version 2.0"
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     account_label: User
     activefedora:
@@ -306,7 +306,7 @@ en:
     background_attribution_html: ""
     base:
       citations:
-        header: "Citations:"
+        header: "Citation"
       form_child_work_relationships:
         actions:
           remove: Remove from this work
@@ -1103,7 +1103,8 @@ en:
         description: A brief overarching description that applies to all works collected in this set. For example, "Theses and supplementary files created by the School of Earth Sciences graduate students."
         title: A name to aid in identifying the Administrative Set and to distinguish it from other Administrative Sets in the repository.
       collection:
-        based_near: A place name related to the collection, such as its site of publication, or the city, state, or country the collection contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
+        based_near: "A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>. Please note, you must configure your geonames username in the account settings, or this field will have a loading error.</br>
+        </br><b>Steps to enable this field:</b><br/>1. Create a free account on the <a href='http://www.geonames.org'>Geonames web service page.</a></br>2. Go to your <a href='http://www.geonames.org/manageaccount'>geonames account settings</a> and select the option at the bottom to enable free services.</br>3. Go into your hyku account settings in the <a href='/admin/account/edit?locale=en'>dashboard.</a></br>4. Enter your geonames username in the hyrax account settings.<br/>5. You should now be able to see the list of locations in this dropdown."
         contributor: A person or group you want to recognize for playing a role in the creation of the collection, but not the primary role.
         creator: The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
         date_created: The date on which the collection was created.
@@ -1130,10 +1131,11 @@ en:
         share_applies_to_new_works: When new works are created directly in the collection, grant sharing users and groups permissions for the new work according to their collection roles.
         title: ""
       defaults:
-        based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
+        based_near: "A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>. Please note, you must configure your geonames username in the account settings, or this field will have a loading error.</br>
+        </br><b>Steps to enable this field:</b><br/>1. Create a free account on the <a href='http://www.geonames.org'>Geonames web service page.</a></br>2. Go to your <a href='http://www.geonames.org/manageaccount'>geonames account settings</a> and select the option at the bottom to enable free services.</br>3. Go into your hyku account settings in the <a href='/admin/account/edit?locale=en'>dashboard.</a></br>4. Enter your geonames username in the hyrax account settings.<br/>5. You should now be able to see the list of locations in this dropdown."
         contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role.
         creator: The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
-        date_created: The date on which the work was created.
+        date_created: The date on which the work was created. Must adhere to either the format YYYY, YYYY-MM, or YYYY-MM-DD in order to be filtered and sorted.
         description: Free-text notes about the work. Examples include abstracts of a paper or citation information for a journal article.
         extent: The extent (size, duration, number, etc.) of the work.
         identifier: A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
@@ -1164,18 +1166,34 @@ en:
         title: Type name
       defaults:
         admin_set_id: Administrative Set
-        based_near: Based Near
+        based_near: Location
         contributor: Contributor
         creator: Creator
         date_created: Date Created
+        default_button_background_color: Default button background color
+        default_button_border_color: Default button border color
+        default_button_text_color: Default button text color
         description: Description
         embargo_release_date: until
+        facet_panel_background_color: Facet panel background color
+        facet_panel_text_color: Facet panel text color
         files: Upload a file
+        footer_link_color: Footer link color
+        footer_link_hover_color: Footer link hover color
+        header_and_footer_background_color: Header and footer background color
+        header_and_footer_text_color: Header and footer text color
         identifier: Identifier
         keyword: Keyword
         lease_expiration_date: until
         license: License
+        link_color: Link color
+        link_hover_color: Link hover color
         member_of_collection_ids: Add to collection
+        navbar_background_color: Navbar background color
+        navbar_link_background_hover_color: Navbar link background hover color
+        navbar_link_text_color: Navbar link text color
+        navbar_link_text_hover_color: Navbar link text hover color
+        primary_button_hover_color: Primary button hover color
         publisher: Publisher
         related_url: Related URL
         rights_statement: Rights statement

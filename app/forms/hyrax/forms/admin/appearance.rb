@@ -40,7 +40,8 @@ module Hyrax
           'default_button_text_color'          => '#333333',
           # 'active_tabs_background_color'     => '#337ab7',
           'facet_panel_background_color'       => '#f5f5f5',
-          'facet_panel_text_color'             => '#333333'
+          'facet_panel_text_color'             => '#333333',
+          'collection_banner_text_color'       => '#000000'
         }.freeze
 
         DEFAULT_VALUES = DEFAULT_FONTS.merge(DEFAULT_COLORS).freeze
@@ -124,6 +125,11 @@ module Hyrax
         # The color for the text in the header bar
         def header_and_footer_text_color
           block_for('header_and_footer_text_color')
+        end
+
+        # the color for the text (title and last updated date) inside of the collection banner
+        def collection_banner_text_color
+          block_for('collection_banner_text_color')
         end
 
         # The color for the background of the search navbar
@@ -391,6 +397,7 @@ module Hyrax
             directory_image_alt_text
             default_collection_image_text
             default_work_image_text
+            collection_banner_text_color
           ]
         end
 

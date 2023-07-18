@@ -6,8 +6,10 @@ fr:
     active_consent_to_agreement: j'ai lu et accepté les
     activefedora:
       models:
+        etd: ETD
         generic_work: Travail
         image: Image
+        oer: REL
     admin:
       admin_sets:
         delete:
@@ -293,7 +295,7 @@ fr:
     background_attribution_html: ''
     base:
       citations:
-        header: 'Citations:'
+        header: 'Citation'
       form_child_work_relationships:
         actions:
           remove: Supprimer de ce travail
@@ -808,7 +810,7 @@ fr:
       groups_description:
         description_html: La liste des groupes dans la liste déroulante intitulée «Sélectionnez un groupe» est une liste des groupes gérés par l'utilisateur dont vous êtes membre. Vous pouvez sélectionner un groupe spécifique et attribuer un niveau d'accès à un fichier dans %{application_name}, de la même manière que l'ajout de niveaux d'accès utilisateur.
     footer:
-      copyright_html: "<strong>Copyright © 2017 Samvera</strong> Licence sous Licence Apache, Version 2.0"
+      copyright_html: "<strong>Copyright © 2019 - %{current_year} Samvera</strong> Licence sous Licence Apache, Version 2.0"
       service_html: Un service de <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a> .
     help:
       header: Support utilisateur
@@ -1093,7 +1095,8 @@ fr:
         description: Une brève description globale qui s'applique à toutes les œuvres collectées dans cet ensemble. Par exemple, «Thèses et fichiers supplémentaires créés par les étudiants diplômés de l'École des sciences de la Terre».
         title: Un nom pour aider à identifier l'ensemble administratif et à le distinguer des autres ensembles administratifs du référentiel.
       collection:
-        based_near: Un nom de lieu lié à la collection, comme son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de la collection. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
+        based_near : "Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Fait appel à <a href='http://www.geonames.org' >Service Web GeoNames</a>. Veuillez noter que vous devez configurer votre nom d'utilisateur geonames dans les paramètres du compte, sinon ce champ aura une erreur de chargement.</br>
+        </br><b>Étapes pour activer ce champ :</b><br/>1. Créez un compte gratuit sur la <a href='http://www.geonames.org'>page du service Web Geonames.</a></br>2. Accédez aux <a href='http://www.geonames.org/manageaccount'>paramètres de votre compte geonames</a> et sélectionnez l'option en bas pour activer les services gratuits.</br>3. Accédez aux paramètres de votre compte hyku dans le <a href='/admin/account/edit?locale=en'>tableau de bord.</a></br>4. Entrez votre nom d'utilisateur geonames dans les paramètres du compte hyrax.<br/>5. Vous devriez maintenant pouvoir voir la liste des emplacements dans cette liste déroulante"
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de la collection, mais pas le rôle principal.
         creator: La personne ou le groupe responsable de la collecte. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
         date_created: Date de création de la collection.
@@ -1120,7 +1123,8 @@ fr:
         share_applies_to_new_works: Lorsque de nouvelles œuvres sont créées directement dans la collection, accordez aux utilisateurs de partage et aux groupes des autorisations pour la nouvelle œuvre en fonction de leurs rôles de collection.
         title: ''
       defaults:
-        based_near: Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
+        based_near : "Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Fait appel à <a href='http://www.geonames.org' >Service Web GeoNames</a>. Veuillez noter que vous devez configurer votre nom d'utilisateur geonames dans les paramètres du compte, sinon ce champ aura une erreur de chargement.</br>
+        </br><b>Étapes pour activer ce champ :</b><br/>1. Créez un compte gratuit sur la <a href='http://www.geonames.org'>page du service Web Geonames.</a></br>2. Accédez aux <a href='http://www.geonames.org/manageaccount'>paramètres de votre compte geonames</a> et sélectionnez l'option en bas pour activer les services gratuits.</br>3. Accédez aux paramètres de votre compte hyku dans le <a href='/admin/account/edit?locale=en'>tableau de bord.</a></br>4. Entrez votre nom d'utilisateur geonames dans les paramètres du compte hyrax.<br/>5. Vous devriez maintenant pouvoir voir la liste des emplacements dans cette liste déroulante"
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de l'œuvre, mais pas le rôle principal.
         creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
         date_created: Date à laquelle l'œuvre a été créée.
@@ -1160,14 +1164,30 @@ fr:
         contributor: Donateur
         creator: Créateur
         date_created: date créée
+        default_button_background_color: Couleur d'arrière-plan du bouton par défaut
+        default_button_border_color: Couleur de bordure de bouton par défaut
+        default_button_text_color: Couleur du texte du bouton par défaut
         description: Résumé ou résumé
         embargo_release_date: jusqu'à ce que
+        facet_panel_background_color: Couleur d'arrière-plan du panneau de facettes
+        facet_panel_text_color: Couleur du texte du panneau des facettes
         files: Télécharger un fichier
+        footer_link_color: Couleur du lien de pied de page
+        footer_link_hover_color: Couleur de survol du lien de pied de page
+        header_and_footer_background_color: Couleur d'arrière-plan de l'en-tête et du pied de page
+        header_and_footer_text_color: Couleur du texte de l'en-tête et du pied de page
         identifier: Identifiant
         keyword: Mot-clé
         lease_expiration_date: jusqu'à ce que
         license: Licence
+        link_color: Couleur du lien
+        link_hover_color: Couleur de survol du lien
         member_of_collection_ids: Ajouter à la collection
+        navbar_background_color: Couleur d'arrière-plan de la barre de navigation
+        navbar_link_background_hover_color: Couleur de survol de l'arrière-plan du lien de la barre de navigation
+        navbar_link_text_color: Couleur du texte du lien de la barre de navigation
+        navbar_link_text_hover_color: Couleur de survol du texte du lien de la barre de navigation
+        primary_button_hover_color: Couleur de survol du bouton principal
         publisher: Éditeur
         related_url: URL associée
         rights_statement: Déclaration des droits

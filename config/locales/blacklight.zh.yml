@@ -31,6 +31,7 @@ zh:
           rights_tesim: 权
           subject_tesim: 学科
         show:
+          admin_note: 行政说明
           based_near_label_tesim: 位置
           contributor_tesim: 贡献者
           creator_tesim: 创造者
@@ -47,3 +48,4 @@ zh:
           rights_tesim: 权
           subject_tesim: 学科
           title_tesim: 标题
+      start_over: 新搜索

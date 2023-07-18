@@ -143,3 +143,5 @@ gem "redcarpet"
 gem 'dry-monads', '~> 1.4.0'
 gem 'omniauth-saml'
 gem 'omniauth-rails_csrf_protection'
+gem 'blacklight_range_limit'
+gem "blacklight_advanced_search"

@@ -409,11 +409,11 @@ en:
       items:
         actions: Actions
         date_uploaded: Date Uploaded
-        empty: This %{type} has no files associated with it. Click "edit" to add more files.
+        empty: This work has no files associated with it. Click "edit" to add more files.
         header: Items
         thumbnail: Thumbnail
         title: Title
-        unauthorized: There are no publicly available items in this %{type}.
+        unauthorized: There are no publicly available items in this work.
         visibility: Visibility
       relationships:
         empty: This %{type} is not currently in any collections.

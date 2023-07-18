@@ -517,7 +517,7 @@ pt-BR:
         reporting: Relatar um problema
       message_label: mensagem
       name_label: Seu nome
-      notice: Por favor, use o formulário de contato para enviar perguntas sobre este sistema; relatar um problema que está ocorrendo com o sistema; solicitar assistência usando o sistema; ou para fornecer feedback geral. Consulte a página de Ajuda para obter informações adicionais sobre este sistema.
+      notice: Por favor, use este formulário para entrar em contato com nosso repositório com qualquer dúvida ou feedback.
       select_type: Selecione um tipo de problema
       subject_label: Sujeito
       type_label: Tipo de problema

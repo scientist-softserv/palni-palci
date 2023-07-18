@@ -1,0 +1,36 @@
+
+<div id="content-wrapper" class="container">
+<section class="home-splash">
+  <div class="row grid-row">
+    <div class="col-sm-6 left-side">
+         <%= image_tag("atla-ir.png", class: "home-logo", alt: "Atla IR Shared Repository") %>
+         <p>The Atla Institutional Repository is a collaborative resource featuring the output of Atla Member Libraries and other partners, including faculty and student scholarly research in religion and theology, institutional records such as yearbooks and course catalogs, recordings of sermons and other lectures, and much more.</p>
+         <p>Visit one repository at a time or use the search box to find content from across all participating libraries’ repositories.</p>
+    </div>
+    <div class="col-sm-6 right-side">
+         <h2>Search all repositories</h2>
+          <%= render partial: 'catalog/search_form'%>
+          <div class="splash-browse">
+              <h2>Browse our partner repositories:</h2>
+              <div class="row home-logo-grid">
+                  <div class="col-xs-6 col-sm-4">
+                        <%= link_to "//#{host_for('rim')}" do %>
+                              <%= image_tag("home-logos/rim_atla.png", class: "tenant-logo", alt: "RIM") %>
+                         <% end %>
+                  </div>
+                  <div class="col-xs-6 col-sm-4">
+                       <%= link_to "//#{host_for('ctschicago')}" do %>
+                         <%= image_tag("home-logos/ctschicago.png", class: "tenant-logo", alt: "CTS") %>
+                         <% end %>
+                  </div>
+                  <div class="col-xs-6 col-sm-4">
+                       <%= link_to "//#{host_for('ost')}" do %>
+                         <%= image_tag("home-logos/ost.png", class: "tenant-logo", alt: "OST") %>
+                         <% end %>
+                  </div>
+             </div>
+          </div>
+    </div>
+  </div>
+</section>
+</div>

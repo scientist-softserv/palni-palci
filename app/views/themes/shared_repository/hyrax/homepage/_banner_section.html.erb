@@ -1,0 +1,20 @@
+<% if controller_name == 'pages' ||
+      controller_name == 'contact_form' ||
+      controller_name == 'catalog'
+      %>
+     <div class="banner-section-wrapper">
+          <div class="image-masthead row">
+               <div class= "col-xs-12 section-contrast">
+                    <div class="row banner-section">
+                         <div class="col-xs-12 controls-section">
+                              <%= render '/controls' %>
+                         </div>
+                    </div>
+               </div>
+          </div>
+    </div>
+<%end%>
+
+<% if controller_name == 'homepage' %>
+     <%= render 'splash/index' %>
+<%end%>

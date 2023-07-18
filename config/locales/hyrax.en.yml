@@ -532,7 +532,7 @@ en:
         reporting: Reporting a problem
       message_label: Message
       name_label: Your Name
-      notice: Please use the contact form to submit inquiries about this system; to report a problem you are experiencing with the system; to request assistance using the system; or to provide general feedback. See the Help page for additional information about this system.
+      notice: Please use this form to contact our repository with any questions or feedback.
       select_type: Select an Issue Type
       subject_label: Subject
       type_label: Issue Type

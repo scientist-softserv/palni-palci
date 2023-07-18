@@ -516,7 +516,7 @@ de:
         reporting: Ein Problem melden
       message_label: Botschaft
       name_label: Dein Name
-      notice: Bitte benutzen Sie das Kontaktformular, um Anfragen zu diesem System zu stellen. um ein Problem zu melden, das mit dem System auftritt; Unterstützung bei der Verwendung des Systems anzufordern; oder um allgemeines Feedback zu geben. Weitere Informationen zu diesem System finden Sie auf der Hilfeseite.
+      notice: Bitte verwenden Sie dieses Formular, um bei Fragen oder Feedback Kontakt zu unserem Repository aufzunehmen.
       select_type: Wählen Sie einen Problemtyp aus
       subject_label: Gegenstand
       type_label: Problemtyp

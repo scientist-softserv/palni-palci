@@ -113,7 +113,7 @@ de:
       title: Verwaltung
       work_types: Verfügbare Arbeitstypen
     footer:
-      admin_login: Administratorenlogin
+      admin_login: Admin
     proprietor:
       accounts:
         nav: Konten

@@ -7,22 +7,21 @@ body {font-size:0.875em;}
 
 img {max-width:100%;}
 
+a#skip-to-content{padding:0;}
 
-/* landing page for app */
-
+/* LANDING PAGE for app */
 /*top nav bar*/
 body.splash-index.public-facing .navbar-inverse {
     background-color: #fff;
     border-color: #258FCE;
 }
-.navbar-static-top {border-width: 3px 0 0;}
+body.splash-index.public-facing .navbar-static-top {border-width: 3px 0 0;}
 body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
      color:#258FCE;
      padding:1em;
 }
-a#skip-to-content{padding:0;}
 
-footer.navbar.navbar-inverse.site-footer {
+body.splash-index.public-facing footer.navbar.navbar-inverse.site-footer{
      border:0;
      border-bottom:3px solid #258FCE;
 }
@@ -32,7 +31,6 @@ body.splash-index span.institution_name {
 }
 
 /* in page content */
-
 body.splash-index .home-logo {
      margin-bottom:2em;
 }
@@ -72,9 +70,19 @@ body.splash-index button.shared-search:hover{
 
 body.splash-index .text-right p{color:#258FCE;}
 
-.proprietor-accounts .btn-primary a:visited {color:white!important;}
 body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
 
+/* across all tenants */
+.proprietor-accounts .btn-primary a:visited {color:white!important;}
+
+.public-facing .footer-link a, .public-facing .site-footer a {padding:1em;}
+.public-facing .footer-link {
+    padding: 1em;
+}
+
+footer.navbar.navbar-inverse.site-footer {
+     border:0;
+}
 
 /* Work show metadata layout */
 .works-show p.work_description {margin-top:1em;}
@@ -127,7 +135,7 @@ div.facets h3 {font-size: 1em;}
 
 @media only screen and (min-width: 768px) {
      .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
-  
+
     body.splash-index .left-side {
          padding-left: 0px;
          padding-right: 50px;
@@ -137,5 +145,11 @@ div.facets h3 {font-size: 1em;}
          padding-right: 10px;
      }
      body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
+
+     /* across all tenants * /
+
+     /* banner area search bar */
+     .navbar.navbar-static-top .input-group {margin-bottom:0;}
+
 
 }

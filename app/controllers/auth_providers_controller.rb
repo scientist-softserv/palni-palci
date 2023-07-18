@@ -7,7 +7,7 @@ class AuthProvidersController < ApplicationController
   # GET /auth_providers/new
   def new
     add_breadcrumbs
-    existing_auth_provider = AuthProvider.first
+    existing_auth_provider = AuthProvider&.first
 
     # users should not be able to reach the new auth provider page unless it is the first time they are setting up an auth provider.
     if existing_auth_provider

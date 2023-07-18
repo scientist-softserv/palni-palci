@@ -346,7 +346,7 @@ en:
     background_attribution_html: ""
     base:
       citations:
-        header: "Citations:"
+        header: "Cite this item"
       form_child_work_relationships:
         actions:
           remove: Remove from this work

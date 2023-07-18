@@ -132,11 +132,14 @@ Rails/HasManyOrHasOneDependent:
   Exclude:
     - 'app/models/endpoint.rb'
 
-# Offense count: 5
+# Offense count: 7
 Rails/OutputSafety:
   Exclude:
     - 'app/forms/hyrax/forms/admin/appearance.rb'
     - 'app/helpers/blacklight/catalog_helper_behavior.rb'
+    - 'app/helpers/hyrax/citations_behaviors/formatters/apa_formatter.rb'
+    - 'app/helpers/hyrax/citations_behaviors/formatters/chicago_formatter.rb'
+    - 'app/helpers/hyrax/citations_behaviors/formatters/mla_formatter.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

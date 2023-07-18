@@ -6,11 +6,21 @@ class AuthProvidersController < ApplicationController
 
   # GET /auth_providers/new
   def new
-    @auth_provider = AuthProvider.new
+    add_breadcrumbs
+    existing_auth_provider = AuthProvider.first
+
+    # users should not be able to reach the new auth provider page unless it is the first time they are setting up an auth provider.
+    if existing_auth_provider
+      redirect_to edit_auth_provider_url(existing_auth_provider)
+    else
+      @auth_provider = AuthProvider.new
+    end
   end
 
   # GET /auth_providers/1/edit
-  def edit; end
+  def edit
+    add_breadcrumbs
+  end
 
   # POST /auth_providers or /auth_providers.json
   def create
@@ -48,6 +58,13 @@ class AuthProvidersController < ApplicationController
       format.html { redirect_to new_auth_provider_url, notice: "Auth provider was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def add_breadcrumbs
+    add_breadcrumb t(:'hyrax.controls.home'), root_path
+    add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
+    add_breadcrumb t(:'hyrax.admin.sidebar.configuration'), '#'
+    add_breadcrumb t(:'hyrax.admin.sidebar.auth_provider'), request.path
   end
 
   private

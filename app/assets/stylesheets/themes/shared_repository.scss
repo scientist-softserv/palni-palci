@@ -8,8 +8,12 @@
      &.public-facing a {color:#E05C3F;}
      &.public-facing a:hover, &.public-facing a:focus{color:#D43D1C;}
      h3.panel-title.facet-field-heading a {color:#333333;}
+     &.public-facing footer a {color:white;}
+     &.public-facing footer a:hover, &.public-facing footer a:focus {color:white;}
 
      div.facets h3 {font-size:1em;}
+
+     .text-success, .facet-values li .selected {color:#E05C3F;}
 
      /*top admin nav bar*/
      &.public-facing .navbar-inverse {
@@ -21,7 +25,7 @@
 
      &.public-facing nav.navbar.navbar-default.navbar-static-top{
           border-width:0px;
-          margin-top:2em;
+          margin-top:1em;
      }
 
      &.public-facing .navbar-inverse .navbar-nav > li > a, &.public-facing .navbar-inverse .navbar-text, &.public-facing .navbar-inverse .navbar-brand {color:#258FCE;}
@@ -143,7 +147,11 @@
       &.public-facing.hyrax-pages div#content_block_page.row {margin-left:1em;margin-right:1em;}
 
       /* footer */
-      &.public-facing footer.navbar.navbar-inverse.site-footer{border:0;border-bottom:3px solid #258FCE}
+      &.public-facing footer.navbar.navbar-inverse.site-footer{
+           border:0;
+           border-bottom:3px solid #258FCE;
+           background-color:#258FCE;
+      }
 
       /*contact page*/
       &.public-facing .alert-info{

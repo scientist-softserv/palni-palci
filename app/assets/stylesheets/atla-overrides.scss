@@ -16,21 +16,31 @@ body.splash-index.public-facing .navbar-inverse {
     border-color: #258FCE;
 }
 body.splash-index.public-facing .navbar-static-top {border-width: 3px 0 0;}
+
 body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
      color:#258FCE;
      padding:1em;
 }
-
+body.splash-index.public-facing .home-logo-grid a {padding:0;}
+body.splash-index.public-facing footer a {color:white;}
 body.splash-index.public-facing footer.navbar.navbar-inverse.site-footer{
      border:0;
      border-bottom:3px solid #258FCE;
+     background-color:#258FCE;
 }
 
 body.splash-index span.institution_name {
     display: none;
 }
 
+body.splash-index .navbar-toggle {background-color:#258FCE;}
+body.splash-index .navbar-inverse .navbar-toggle:hover {background-color:#fff;}
+body.splash-index .navbar-inverse .navbar-toggle:hover .icon-bar {background-color:#258FCE;}
+
 /* in page content */
+body.splash-index .row {margin:0;}
+body.splash-index #content-wrapper.container {padding-right:0px;padding-left:0px;}
+
 body.splash-index .home-logo {
      margin-bottom:2em;
 }
@@ -154,6 +164,12 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
 @media only screen and (min-width: 768px) {
      .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
 
+     body.splash-index .row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+body.splash-index #content-wrapper.container {padding-right:15px;padding-left:15px;}
+
     body.splash-index .left-side {
          padding-left: 0px;
          padding-right: 50px;
@@ -163,6 +179,7 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
          padding-right: 10px;
      }
      body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
+     body.splash-index .col-xs-4.col-md-3.footer-link {width: 25%;}
 
      /* across all tenants * /
 

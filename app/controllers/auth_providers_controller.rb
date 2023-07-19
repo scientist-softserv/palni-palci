@@ -7,7 +7,7 @@ class AuthProvidersController < ApplicationController
   # GET /auth_providers/new
   def new
     add_breadcrumbs
-    existing_auth_provider = AuthProvider&.first
+    existing_auth_provider = AuthProvider.find(current_account.settings['auth_provider']) if current_account.settings['auth_provider']
 
     # users should not be able to reach the new auth provider page unless it is the first time they are setting up an auth provider.
     if existing_auth_provider
@@ -25,9 +25,10 @@ class AuthProvidersController < ApplicationController
   # POST /auth_providers or /auth_providers.json
   def create
     @auth_provider = AuthProvider.new(auth_provider_params)
-
     respond_to do |format|
       if @auth_provider.save
+        current_account.settings['auth_provider'] = @auth_provider.id
+        current_account.save
         format.html { redirect_to edit_auth_provider_url(@auth_provider), notice: "Auth provider was successfully created." }
         format.json { render :show, status: :created, location: @auth_provider }
       else
@@ -41,6 +42,8 @@ class AuthProvidersController < ApplicationController
   def update
     respond_to do |format|
       if @auth_provider.update(auth_provider_params)
+        current_account.settings['auth_provider'] = @auth_provider.id
+        current_account.save
         format.html { redirect_to edit_auth_provider_url(@auth_provider), notice: "Auth provider was successfully updated." }
         format.json { render :show, status: :ok, location: @auth_provider }
       else

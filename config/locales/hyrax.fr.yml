@@ -1146,7 +1146,7 @@ fr:
         license: Informations de licence et de distribution régissant l'accès à la collection. Sélectionnez dans la liste déroulante fournie.
         publisher: La personne ou le groupe qui met la collection à disposition. Il s'agit généralement de l'institution.
         related_url: Un lien vers un site Web ou tout autre contenu spécifique (audio, vidéo, document PDF) lié à la collection. Un exemple est l'URL d'un projet de recherche dont la collection est dérivée.
-        resource_type: Catégories prédéfinies pour décrire le type de contenu en cours de téléchargement, telles que & quot; article & quot; ou & quot; ensemble de données. & quot; Plusieurs types peuvent être sélectionnés.
+        resource_type: Catégories prédéfinies pour décrire la nature ou le genre de la ressource,, telles que & quot; article & quot; ou & quot; ensemble de données. & quot; Plusieurs types peuvent être sélectionnés.
         subject: En-têtes ou termes d'index décrivant l'objet de la collection; ceux-ci doivent se conformer à un vocabulaire existant.
         title: Un nom pour aider à identifier une collection.
       collection_type:
@@ -1178,12 +1178,12 @@ fr:
         license: Informations sur les licences et la distribution régissant l'accès à l'œuvre. Sélectionnez dans la liste déroulante fournie.
         publisher: La personne ou le groupe responsable de la mise à disposition de la ressource originale.
         related_url: Un lien vers un site Web ou tout autre contenu spécifique (audio, vidéo, document PDF) lié à l'œuvre. Un exemple est l'URL d'un projet de recherche dont le travail a été dérivé.
-        resource_type: Catégories prédéfinies pour décrire le type de contenu téléchargé, par exemple "article" ou "photo". Plusieurs types de ressources peuvent être sélectionnés.
+        resource_type: Catégories prédéfinies pour décrire la nature ou le genre de la ressource,, par exemple "article" ou "photo". Plusieurs types de ressources peuvent être sélectionnés.
         rights_notes: Toute explication supplémentaire des droits ou des licences peut être incluse ici.
         rights_statement: Sélectionnez la déclaration de droits appropriée dans la liste déroulante. Consultez https://rightsstatements.org pour plus d'informations.
         subject: Titres ou termes d'index décrivant le sujet de l'ouvrage. Utilisez un vocabulaire contrôlé.
         title: Un nom pour aider à identifier une œuvre.
-        types: Catégories prédéfinies pour décrire la nature ou le genre de la ressource. Plusieurs types peuvent être sélectionnés.
+        types: Catégories prédéfinies pour décrire globalement le type de contenu téléchargé. Plusieurs types peuvent être sélectionnés.
         video_embed: Code d'intégration Youtube ou Vimeo iframe pour afficher la vidéo intégrée dans la page de travail. Si vous saisissez un lien d'intégration pour une vidéo, il doit s'agir d'une URL correctement formatée commençant par « http:// » ou « https:// ». Il doit également contenir un lien valide vers une vidéo hébergée pouvant apparaître dans une iframe. <br /><br /><i>Exemples :<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       generic_work:
         subject: Titres ou termes d'index décrivant le sujet de l'œuvre. Utilisez un vocabulaire contrôlé.

@@ -16,6 +16,7 @@ module AccountSettings
 
     setting :allow_signup, type: 'boolean', default: true
     setting :allow_downloads, type: 'boolean', default: true
+    setting :auth_provider, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
     setting :contact_email, type: 'string', default: 'consortial-ir@palci.org'

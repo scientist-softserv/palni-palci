@@ -16,7 +16,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :invitable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: %i[dynamic]
+         :omniauthable, omniauth_providers: %i[saml]
 
   after_create :add_default_group_membership!
 
@@ -118,6 +118,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    byebug
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]

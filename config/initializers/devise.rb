@@ -290,20 +290,49 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  require 'omniauth/strategies/dynamic'
-  config.omniauth :dynamic, :strategy_class => OmniAuth::Strategies::Dynamic,
-                  provider: lambda {
-  #                 lambda { |env|
-  #   #request = Rack::Request.new(env)
-                                                                                            #
-    provider = AuthProvider.first #nd_by(name: request.params['provider'])
+  # require 'omniauth/strategies/dynamic'
+  # config.omniauth :dynamic, :strategy_class => OmniAuth::Strategies::Dynamic,
+  #                 provider: lambda {
+  # #                 lambda { |env|
+  # #   #request = Rack::Request.new(env)
+  #                                                                                           #
+  #   provider = AuthProvider.first #nd_by(name: request.params['provider'])
+  #
+  #   if provider
+  #     provider
+  #   else
+  #     nil
+  #   end
+  # }
 
-    if provider
-      provider
-    else
-      nil
-    end
-  }
+  idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
+  idp_metadata = idp_metadata_parser.parse_remote_to_hash("https://sso.notch8.cloud/auth/realms/master/protocol/saml/descriptor")
+
+  config.omniauth :saml,
+                  idp_metadata.merge(
+                    allowed_clock_drift: 60,
+                    assertion_consumer_service_url: "https://#{ENV.fetch('APP_HOST', 'omni.hyku.test')}/users/auth/saml/callback",
+                    # issuer: "https://#{ENV.fetch('APP_HOST', 'omni.hyku.test')}",
+                    sp_entity_id: "pals",
+                    # idp_sso_target_url: 'https://sso.notch8.cloud/auth/realms/master/broker/saml-local/endpoint',
+                    # idp_cert: File.read('config/saml_local_cert.pem'),
+                    # idp_cert_fingerprint: '0E:AE:65:D2:77:E2:63:B7:17:BE:07:1A:5D:85:25:75:21:29:DA:8D',
+                    # name_identifier_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
+                    # name_identifier_format: 'urn:oid:1.2.840.113549.1.9.1',
+                    # private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDA+6gWPltygdKv\nCz+puGMcbjs6yTp6nKjzLGDrktgMQu0kj+q5hPfVo3Jxmc51Ga7AMf/0bgQGPflu\nWKPuDLV1X9J923rSNJIzXEoe0bkX/UricR8OOTD299TyG0hdZZcUMVAYzwL8Eh8N\n/W/tkg7YbAuqj0vZMSBfYohZ79btsaJ691QtWJA5bxgNYnQN+qWWGhmQ8YJpkZtV\nzQUMIyJJOQg4G7nJVemA9DWUtzN1oEPNz1gmaPM/7deaSJGPW12koQF+WBH0qyi3\n4PYYtRuU6MdXpiLlyroNGkCLNarRJOWSdo9Ow16o3ovEYGJ86lKfsAHliDhd/TJ3\nJdmzlizLAgMBAAECggEAbwBRbnnvn62MwaJ2u+iTGYdOCkI0oNH7W+Pq25VbL7JP\nNPiSyqLw6rFY4n7VggWDvokD8FRXfD+peQ8DO6mTti+nozzbKI2UinZLK+71yBap\nPBZVBple0K88jQWkWhRVEghLSfnIfbTup91exAd/An0jOLezqPnY5QSH6TNLLOw/\n1OIfkQkdQHBU/1XACSyQcuYlN03Dwq24ugvYn7IQuJb+cxh+oHS46yMKu88zn79F\nvcZUNyA69DddEhW2IJE3u1oE73Dx4AK3RO32K8ixKe4FUJS5tP1vABsG0b1R2YEG\nRKU1i7SgxpgCAWpLdna/5JrtIdUc0mQAySEKVlYgAQKBgQDodarK7vgvw+Ih0Ca4\nyqbdUx8+4vfv8VNx27isJe2qsT+EklXoGGEmvnHQUjOSFvizuuKnQxtnroMbZWR+\nGhX8hGp+ZlrGidkKe5WITJZIG2nZllGWKHykmVwLngAom9bVNJTsLDtOKuJCLrMD\nuJlJ0nFP2LLlzh37N3Y5ENbOQQKBgQDUhpbv55ubgTGK/spLyVObtxdgWN/2UvZ6\ne8l2l+bncJZ6c6JGp+ooP36NeKrcKUiOykIxH1xq1ODWp7ltDxT4Sx8KM3CuZh4F\naM8oFLZRLMnMu4DQCrruyUxJDOjFa/DWFk5V30+xxi8U0jmreYtXSO8JbwupOIE0\nVZ9p7idQCwKBgDmEo/YCmzZ2aYWkU3B19EPfRWPyFRcxx0vs6gzudZg+s1DCRK9h\nGOjVRqQdMtV7CZ6vJ1XrrORCsf4dYHgzTC1nNlKAUQW/Jg0J9z36dVTyM4a7QwS8\nj9rKd5QITFG//bBTimXFrAbzZXiqxXCuRH+XqqHvJJToI1L9risAl6YBAoGAG0C3\nEkSM+7/xbnWF03oZspoj8UL0VU4GNWaySvbnsT4KzeEOKilWKZsay2Fx55GTsFvX\naR0waLKrslsHuCh68+wOKuy1wmdt6huqlOUzC+3GYu6YchUuK3i8w5FYOBjDZXCu\n0uwz+AQF/ZGHu6l2aNb9cCRBRo3sY52nN5pGiEkCgYEAjmyxuj37bQW8dPcUT82/\n/43ldHwTzqq3gwWMDD90zTCia2cfK6kuqGxmtcKWKCdy25anpDAyL+oXDeV3I05h\nQ7Y1yDBgTsC2tlW23ImMk2j+os9BYKQcRwkMC25wNcbXlrOnQ9YqHb3UMG1R9yqv\nR2umBTQRa6krgxTOxQeS0ro=\n-----END PRIVATE KEY-----",
+                    # private_cert: File.read('config/pals.crt'),
+                    # uid_field: 'emailAddress',
+                    request_type: :header,
+                    info_fields: {  email: 'email',
+                                    firstName: 'firstName',
+                                    surname: 'lastName',
+                                    uid: 'email' },
+                    request_attributes: [
+                        { name: 'email', name_format: 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri', friendly_name: 'Email address' },
+                        { name: 'firstName', name_format: 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic', friendly_name: 'GivenName' },
+                        { name: 'lastName', name_format: 'urn:oid:2.5.4.4', friendly_name: 'surname' }
+                    ]
+                  )
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

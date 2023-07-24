@@ -42,4 +42,5 @@ class GenericWork < ActiveFedora::Base
   class_attribute :controlled_properties
   self.controlled_properties = [:based_near]
   accepts_nested_attributes_for :based_near, reject_if: id_blank, allow_destroy: true
+  self.indexer = GenericWorkIndexer
 end

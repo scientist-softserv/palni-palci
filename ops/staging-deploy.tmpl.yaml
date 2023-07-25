@@ -108,6 +108,8 @@ extraEnvVars: &envVars
     value: palni-palci-staging.notch8.cloud
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
+  - name: HYRAX_ANALYTICS_PROVIDER
+    value: ga4
   - name: HYRAX_FITS_PATH
     value: /app/fits/fits.sh
   - name: INITIAL_ADMIN_EMAIL

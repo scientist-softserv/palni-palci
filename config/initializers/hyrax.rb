@@ -29,10 +29,7 @@ Hyrax.config do |config|
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
   # This is set by account settings
   # config.analytics = false
-
-  # Specify a Google Analytics tracking ID to gather usage statistics
-  # This is set by account settings
-  # config.google_analytics_id = 'UA-99999999-1'
+  config.analytics_provider = ENV.fetch('HYRAX_ANALYTICS_PROVIDER', 'ga4')
 
   # Specify a date you wish to start collecting Google Analytic statistics for.
   config.analytic_start_date = DateTime.new(2021,9,13)

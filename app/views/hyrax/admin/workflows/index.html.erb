@@ -1,6 +1,7 @@
-<%# OVERRIDE: Hyrax v3.5.0 to show the user/depositor's display_name if available %>
+<%# OVERRIDE: Hyrax v3.6.0 to show the user/depositor's display_name if available %>
+
 <% provide :page_header do %>
-  <h1><span class="fa fa-check-circle"></span> <%= t('.header') %></h1>
+  <h1><span class="glyphicon glyphicon-ok-circle"></span> <%= t('.header') %></h1>
 <% end %>
 
 <div class="row">
@@ -90,6 +91,38 @@
             </div>
           </div>
         </div>
+        <h2 class="sr-only"><%= t('.works_listing') %></h2>
+        <table class="table table-sm table-striped works-list">
+          <thead>
+            <tr>
+              <th width="40%"><%= t(".heading.work") %></th>
+              <th width="20%"><%= t(".heading.depositor") %></th>
+              <th width="20%"><%= t(".heading.submission_date") %></th>
+              <th width="20%"><%= t(".heading.status") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @response.docs.each do |document| %>
+              <tr>
+                <td>
+                  <%= link_to document, [main_app, document] %>
+                </td>
+                <td>
+                  <%# OVERRIDE: show the user/depositor's display_name if available %>
+                  <% user = User.find_by(email: document.depositor) %>
+                  <%= user&.display_name.presence %>
+                </td>
+                <td>
+                  <%= document.date_modified %>
+                </td>
+                <td>
+                  <span class="state state-pending"><%= document.workflow_state %></span>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= render 'hyrax/my/results_pagination' %>
       </div>
     </div>
   </div>

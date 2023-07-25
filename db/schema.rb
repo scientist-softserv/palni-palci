@@ -46,16 +46,6 @@ ActiveRecord::Schema.define(version: 2023_05_24_225525) do
     t.index ["solr_endpoint_id"], name: "index_accounts_on_solr_endpoint_id", unique: true
   end
 
-  create_table "auth_providers", force: :cascade do |t|
-    t.string "provider"
-    t.string "client_id"
-    t.string "client_secret"
-    t.string "idp_sso_service_url"
-    t.integer "account_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "bookmarks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "user_type"
@@ -359,32 +349,6 @@ ActiveRecord::Schema.define(version: 2023_05_24_225525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "humanized_name"
-  end
-
-  create_table "iiif_print_derivative_attachments", id: :serial, force: :cascade do |t|
-    t.string "fileset_id"
-    t.string "path"
-    t.string "destination_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fileset_id"], name: "index_iiif_print_derivative_attachments_on_fileset_id"
-  end
-
-  create_table "iiif_print_ingest_file_relations", id: :serial, force: :cascade do |t|
-    t.string "file_path"
-    t.string "derivative_path"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["file_path"], name: "index_iiif_print_ingest_file_relations_on_file_path"
-  end
-
-  create_table "iiif_print_pending_relationships", force: :cascade do |t|
-    t.string "child_title", null: false
-    t.string "parent_id", null: false
-    t.string "child_order", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_iiif_print_pending_relationships_on_parent_id"
   end
 
   create_table "job_io_wrappers", id: :serial, force: :cascade do |t|

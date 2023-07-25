@@ -313,8 +313,52 @@ Devise.setup do |config|
     :idp_sso_service_binding=>"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
     :idp_slo_service_url=>nil,
     :idp_cert=>'MIIDLzCCAhegAwIBAgIUZiByS7B062+ol+pZKrqkwBxrqLUwDQYJKoZIhvcNAQEL BQAwHDEaMBgGA1UEAwwRcGFzc3BvcnQucGl0dC5lZHUwHhcNMTUxMTEzMTczMDQ3 WhcNMzUxMTEzMTczMDQ3WjAcMRowGAYDVQQDDBFwYXNzcG9ydC5waXR0LmVkdTCC ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIXgP4IOEjINaJ9dePEzc5Wp J8+Ytw0Ojc/JlImfMlUf9yiwiQZQhYIv7C7KmSIgBBvzj/4e6x+tGioE3vIPq9Yz 47zLOUjzsPgSXnmqSujVCF1zce5aXsjwNcZ5JFN037pgoNLpwtuzfLg9sPbTdQV4 dRGE07eIXiil6+ER1diFrmGQYSrlfY8DX4sZzl7er6eNEkN5bb3sYK4W13g54Vwf BT9/nZe8dsVq7HSZeGdqtyU9Vm49BxpRJLi/X1xsoTCsa8jSRGhpfktR/UygnMWc oKfayjUC/3fjyBBEvb2EbIiAByYZeApM8zCynHpoHbNTCECIfmkQ6YYohEVave8C AwEAAaNpMGcwHQYDVR0OBBYEFAguZrxqsqNCg5KQhdAnsGrSFZEgMEYGA1UdEQQ/ MD2CEXBhc3Nwb3J0LnBpdHQuZWR1hihodHRwczovL3Bhc3Nwb3J0LnBpdHQuZWR1 L2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBdX30sZVe9QfYYJydn x+nWdKeGT0FxqPHaLaa/NHREOetOG1DHYCi617zy0bXq9Vnm+bZpqIheBHwzGzpk U5MJrPjwnmy1YyjoFNKy9N5KTQ+nCv7fKfLv55LSNE685T144B2KcRcFg3cDd2jt keVXfOYIBWnyEPnFeTlVA5Y16kbly78ixjTRGXaSLtrwCOJ25kM2+RAyZwp6/lHC S6tSx6TluEVAaA9y/ByyF41xdJk6iqgtqR6NmUIZLZlJ5dAOoyddHFgzWnKCqvtF RtrlnjGNwrHyXGWJbgY7wixreqLbBKAQ+nbaesqlCii8lR/5LawpnSAZmGD2diwl 133k',
-    :issuer=>"https://dev.hyku.test",
+    :issuer=>"https://pittir.commons-archive.org",
   }
+
+  # <?xml version='1.0' encoding='UTF-8'?>
+  # <md:EntityDescriptor 
+  #   ID='_1e188d66-49c4-4170-b597-56fac8f45867' 
+  #   entityID='https://pittir.commons-archive.org' 
+  #   xmlns:md='urn:oasis:names:tc:SAML:2.0:metadata' 
+  #   xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'
+  # >
+  # <md:SPSSODescriptor 
+  #   AuthnRequestsSigned='false' 
+  #   WantAssertionsSigned='false' 
+  #   protocolSupportEnumeration='urn:oasis:names:tc:SAML:2.0:protocol'
+  # >
+  # <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+  # <md:AssertionConsumerService 
+  #   Binding='urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST' 
+  #   Location='https://pittir.commons-archive.org/users/auth/saml/callback' 
+  #   index='0' 
+  #   isDefault='true'/>
+  # <md:AttributeConsumingService index='1' isDefault='true'>
+  # <md:ServiceName xml:lang='en'>Required attributes</md:ServiceName>
+  # <md:RequestedAttribute 
+  #   FriendlyName='Email address' 
+  #   Name='email' 
+  #   NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:basic' 
+  #   isRequired='false'/>
+  # <md:RequestedAttribute 
+  #   FriendlyName='Full name' 
+  #   Name='name' 
+  #   NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:basic' 
+  #   isRequired='false'/>
+  #   <md:RequestedAttribute 
+  #     FriendlyName='Given name' 
+  #     Name='first_name' 
+  #     NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:basic' 
+  #     isRequired='false'/>
+  #   <md:RequestedAttribute 
+  #     FriendlyName='Family name' 
+  #     Name='last_name' 
+  #     NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:basic' 
+  #     isRequired='false'/>
+  #   </md:AttributeConsumingService>
+  #   </md:SPSSODescriptor>
+  # </md:EntityDescriptor>
  
   # <samlp:AuthnRequest 
   #   AssertionConsumerServiceURL='https://dev.hyku.test/users/auth/saml/callback?locale=en' 

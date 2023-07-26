@@ -56,7 +56,8 @@ class AuthProvidersController < ApplicationController
   # DELETE /auth_providers/1 or /auth_providers/1.json
   def destroy
     @auth_provider.destroy
-
+    current_account.settings['auth_provider'] = nil
+    current_account.save
     respond_to do |format|
       format.html { redirect_to new_auth_provider_url, notice: "Auth provider was successfully destroyed." }
       format.json { head :no_content }

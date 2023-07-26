@@ -27,7 +27,7 @@ de:
           funder_awards: Förderpreis
           funder_name: Name des Geldgebers
           identifier: Kennung
-          institution: Institution
+          institution: Gastgeber Institution
           language: Sprache
           #level: Eben
           license: Lizenz
@@ -1173,7 +1173,7 @@ de:
         extent: Das Ausmaß (Größe, Dauer, Anzahl, etc.) der Arbeit.
         format: Das Dateiformat der digitalen Ressource.
         identifier: Ein einzigartiger Griff, der die Arbeit identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
-        institution: Teilnehmende Institution, zu der die Arbeit hochgeladen wird.
+        institution: Wählen Sie den Namen der Institution, die das Repository hostet, auf das Sie diese Arbeit hochladen.
         keyword: Wörter oder Sätze, die Sie auswählen, um zu beschreiben, worum es in der Arbeit geht. Dies muss kein kontrolliertes Vokabular sein.
         language: Die Sprache des Arbeitsinhalts.
         license: Lizenz- und Vertriebsinformationen für den Zugang zum Werk. Wählen Sie aus der bereitgestellten Dropdown-Liste.

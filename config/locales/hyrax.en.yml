@@ -1180,7 +1180,7 @@ en:
         extent: The extent (size, duration, number, etc.) of the work.
         format: The file format of the digital resource.
         identifier: A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
-        institution: Participating host institution to which the work is being uploaded to.
+        institution: Choose the name of the institution hosting the repository you are uploading this work to.
         keyword: Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary.
         language: The language of the work's content. Spell out the language and capitalize the first letter.
         license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.

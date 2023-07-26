@@ -79,7 +79,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
     config.add_facet_field 'types_sim', limit: 5, label: 'Type'
     config.add_facet_field 'year_sim', limit: 5, label: 'Year'
-    config.add_facet_field 'format_sim', limit: 5
+    config.add_facet_field 'format_sim', limit: 5, label: 'Format'
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
     config.add_facet_field 'degree_sim', limit: 5, label: 'Degree'
     config.add_facet_field 'discipline_sim', limit: 5, label: 'Discipline'

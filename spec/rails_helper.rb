@@ -113,57 +113,6 @@ Capybara.javascript_driver = :chrome
 # this security while still going through the captcha workflow.
 NegativeCaptcha.test_mode = true
 
-# Uses faster rack_test driver when JavaScript support not needed
-Capybara.default_max_wait_time = 8
-Capybara.default_driver = :rack_test
-
-ENV['WEB_HOST'] ||= `hostname -s`.strip
-
-if ENV['CHROME_HOSTNAME'].present?
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: {
-      args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
-    }
-  )
-
-  Capybara.register_driver :chrome do |app|
-    d = Capybara::Selenium::Driver.new(app,
-                                       browser: :remote,
-                                       desired_capabilities: capabilities,
-                                       url: "http://#{ENV['CHROME_HOSTNAME']}:4444/wd/hub")
-    # Fix for capybara vs remote files. Selenium handles this for us
-    d.browser.file_detector = lambda do |args|
-      str = args.first.to_s
-      str if File.exist?(str)
-    end
-    d
-  end
-  Capybara.server_host = '0.0.0.0'
-  Capybara.server_port = 3001
-  Capybara.app_host = "http://#{ENV['WEB_HOST']}:#{Capybara.server_port}"
-else
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: {
-      args: %w[headless disable-gpu]
-    }
-  )
-
-  Capybara.register_driver :chrome do |app|
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :chrome,
-      desired_capabilities: capabilities
-    )
-  end
-end
-
-Capybara.javascript_driver = :chrome
-
-# This will ensure that a field named email will not be referred to by a
-# hash but by test-email instead. A tool like capybara can now bypass
-# this security while still going through the captcha workflow.
-NegativeCaptcha.test_mode = true
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

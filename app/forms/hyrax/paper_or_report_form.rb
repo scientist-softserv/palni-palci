@@ -44,7 +44,7 @@ module Hyrax
     ]
 
     def primary_terms
-      super + %i[video_embed]
+      super - %i[video_embed]
     end
   end
 end

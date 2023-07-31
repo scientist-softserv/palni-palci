@@ -1137,7 +1137,7 @@ fr:
       collection:
         based_near: Un nom de lieu lié à la collection, comme son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de la collection. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de la collection, mais pas le rôle principal.
-        creator: La personne ou le groupe responsable de la collecte. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
+        creator: La personne ou le groupe responsable de la collecte. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. ``Smith, John''.
         date_created: Date de création de la collection.
         description: Notes en texte libre sur la collection. Les exemples incluent des résumés d'un article ou des informations de citation pour un article de revue.
         identifier: Une poignée unique identifiant la collection. Un exemple serait un DOI pour un article de journal, ou un numéro ISBN ou OCLC pour un livre.
@@ -1166,7 +1166,7 @@ fr:
         additional_rights_info: Si les droits sont soumis à un accord contractuel ou à un cadeau ou autrement définis par un accord contraignant qui s'ajoute ou remplace les lois sur la propriété intellectuelle ou les licences ouvertes, veuillez les détailler ici.
         based_near: Un nom de lieu lié à l'œuvre, tel que son site de publication, ou la ville, l'état ou le pays sur lequel porte le contenu de l'œuvre. Appelle le <a href='http://www.geonames.org'> service Web GeoNames </a>.
         contributor: Une personne ou un groupe que vous souhaitez reconnaître pour avoir joué un rôle dans la création de l'œuvre, mais pas le rôle principal.
-        creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. `` Smith, John. ''.
+        creator: La personne ou le groupe responsable du travail. Il s'agit généralement de l'auteur du contenu. Les noms personnels doivent être entrés en premier avec le nom de famille, par ex. ``Smith, John''.
         date_created: Date à laquelle l'œuvre a été créée.
         description: Un compte rendu en texte libre de la ressource.
         extent: L'étendue (taille, durée, nombre, etc.) du travail.

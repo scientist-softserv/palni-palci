@@ -14,8 +14,7 @@ RSpec.describe 'Advanced Search', type: :feature, js: true, clean: true do
       expect(page).to have_content('No results found for your search')
     end
 
-    # TODO: skip to get reshare feature branch merged to main
-    xit 'can perform advanced search' do
+    it 'can perform advanced search' do
       visit '/advanced'
       fill_in('Title', with: 'ambitious aardvark')
       search_btn = find('#advanced-search-submit')

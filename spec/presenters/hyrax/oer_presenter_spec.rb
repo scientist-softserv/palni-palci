@@ -62,7 +62,7 @@ RSpec.describe Hyrax::OerPresenter do
       let(:representative_presenter) { double('representative', present?: true) }
       let(:image_boolean) { false }
 
-    # TODO: skip to get reshare feature branch merged to main
+      # TODO: skip to get reshare feature branch merged to main
       xit { is_expected.to be false }
     end
 

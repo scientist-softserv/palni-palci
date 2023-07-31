@@ -1,5 +1,7 @@
 # Generated via
 #  `rails generate hyrax:work Oer`
+# NOTE: The majority of this spec is coming from the hyrax-iiif_av gem.
+# See this file for more info: https://github.com/samvera-labs/hyrax-iiif_av/blob/main/lib/hyrax/iiif_av/spec/shared_specs/displays_iiif_av.rb
 require 'rails_helper'
 
 RSpec.describe Hyrax::OerPresenter do
@@ -32,6 +34,9 @@ RSpec.describe Hyrax::OerPresenter do
     let(:id_present) { false }
     let(:representative_presenter) { double('representative', present?: false) }
     let(:image_boolean) { false }
+    let(:video_boolean) { false }
+    let(:audio_boolean) { false }
+    let(:pdf_boolean) { false }
     let(:iiif_enabled) { true }
     let(:file_set_presenter) { Hyrax::FileSetPresenter.new(solr_document, ability) }
     let(:file_set_presenters) { [file_set_presenter] }
@@ -44,6 +49,9 @@ RSpec.describe Hyrax::OerPresenter do
       allow(file_set_presenter).to receive(:image?).and_return(true)
       allow(ability).to receive(:can?).with(:read, solr_document.id).and_return(read_permission)
       allow(representative_presenter).to receive(:image?).and_return(image_boolean)
+      allow(representative_presenter).to receive(:video?).and_return(video_boolean)
+      allow(representative_presenter).to receive(:audio?).and_return(audio_boolean)
+      allow(representative_presenter).to receive(:pdf?).and_return(pdf_boolean)
       allow(Hyrax.config).to receive(:iiif_image_server?).and_return(iiif_enabled)
     end
 
@@ -60,10 +68,8 @@ RSpec.describe Hyrax::OerPresenter do
     context 'with non-image representative_presenter' do
       let(:id_present) { true }
       let(:representative_presenter) { double('representative', present?: true) }
-      let(:image_boolean) { false }
 
-      # TODO: skip to get reshare feature branch merged to main
-      xit { is_expected.to be false }
+      it { is_expected.to be false }
     end
 
     context 'with IIIF image server turned off' do
@@ -229,8 +235,19 @@ RSpec.describe Hyrax::OerPresenter do
   describe '#iiif_viewer' do
     subject { presenter.iiif_viewer }
 
-    # TODO: skip to get reshare feature branch merged to main
-    xit 'defaults to universal viewer' do
+    let(:representative_presenter) { instance_double('Hyrax::FileSetPresenter', present?: true) }
+    let(:image_boolean) { false }
+    let(:audio_boolean) { false }
+    let(:video_boolean) { false }
+
+    before do
+      allow(presenter).to receive(:representative_presenter).and_return(representative_presenter)
+      allow(representative_presenter).to receive(:image?).and_return(image_boolean)
+      allow(representative_presenter).to receive(:audio?).and_return(audio_boolean)
+      allow(representative_presenter).to receive(:video?).and_return(video_boolean)
+    end
+
+    it 'defaults to universal viewer' do
       expect(subject).to be :universal_viewer
     end
   end

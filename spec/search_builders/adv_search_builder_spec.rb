@@ -53,7 +53,6 @@ RSpec.describe AdvSearchBuilder do
       ]
     end
 
-    # TODO: skip to get reshare feature branch merged to main
     it { is_expected.to eq(expected_default_processor_chain) }
   end
 end

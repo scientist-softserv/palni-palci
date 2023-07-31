@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 8bc9944164fdf8446b22bd4be66e5478292ceaa8
+  revision: 5a29f010dd34a3cfe37677c0b99759825d6505a1
   branch: privkey_for_ga4_3.x
   specs:
     hyrax (3.6.0)

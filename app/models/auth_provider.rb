@@ -4,8 +4,8 @@ class AuthProvider < ApplicationRecord
   validates :provider, presence: true
 
   validates :oidc_client_id, :oidc_client_secret, :oidc_idp_sso_service_url,
-  presence: true, if: -> { provider == 'oidc' }
+            presence: true, if: -> { provider == 'oidc' }
 
   validates :saml_client_id, :saml_client_secret, :saml_idp_sso_service_url,
-  presence: true, if: -> { provider == 'saml' }
+            presence: true, if: -> { provider == 'saml' }
 end

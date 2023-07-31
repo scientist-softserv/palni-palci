@@ -4,9 +4,12 @@ RSpec.describe AuthProvider, type: :model do
   subject do
     described_class.new(
       provider: 'saml',
-      client_id: 'client_id',
-      client_secret: 'client_secret',
-      idp_sso_service_url: 'idp_sso_service_url',
+      oidc_client_id: 'client_id',
+      saml_client_id: 'client_id',
+      oidc_client_secret: 'client_secret',
+      saml_client_secret: 'client_secret',
+      oidc_idp_sso_service_url: 'oidc_idp_sso_service_url',
+      saml_idp_sso_service_url: 'saml_idp_sso_service_url',
       account_id: 1
     )
   end
@@ -22,12 +25,14 @@ RSpec.describe AuthProvider, type: :model do
     end
 
     it 'is not valid without a client_id' do
-      subject.client_id = nil
+      subject.oidc_client_id = nil
+      subject.saml_client_id = nil
       expect(subject).not_to be_valid
     end
 
     it 'is not valid without a client_secret' do
-      subject.client_secret = nil
+      subject.oidc_client_secret = nil
+      subject.saml_client_secret = nil
       expect(subject).not_to be_valid
     end
   end
@@ -39,9 +44,10 @@ RSpec.describe AuthProvider, type: :model do
 
     it 'has one after adding one' do
       AuthProvider.create(
-        provider: 'saml',
-        client_id: 'client_id',
-        client_secret: 'client_secret',
+        provider: 'oidc',
+        oidc_client_id: 'new oidc_client_id',
+        oidc_client_secret: 'new oidc_client_secret',
+        oidc_idp_sso_service_url: 'new oidc_idp_sso_service_url',
         account_id: 1
       )
       expect(described_class.count).to eq 1

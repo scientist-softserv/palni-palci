@@ -4,6 +4,15 @@
 #  `rails generate hyrax:work Image`
 class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: GenericWork
+  )
+
+  self.indexer = ImageIndexer
+
+  # Change this to restrict which works can be added as a child.
+  # self.valid_child_concerns = []
+  validates :title, presence: { message: 'Your work must have a title.' }
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable
@@ -37,7 +46,13 @@ class Image < ActiveFedora::Base
   # be declared before their values can be ordered.
   include OrderMetadataValues
 
-  self.indexer = ImageIndexer
+  # These needed to be added again in order to enable destroy for based_near, even though they are in Hyrax::BasicMetadata.
+  # the OrderAlready OrderMetadataValues above somehow prevents them from running
+  id_blank = proc { |attributes| attributes[:id].blank? }
+  class_attribute :controlled_properties
+  self.controlled_properties = [:based_near]
+  accepts_nested_attributes_for :based_near, reject_if: id_blank, allow_destroy: true
+
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }

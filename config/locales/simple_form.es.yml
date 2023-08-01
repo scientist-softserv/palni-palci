@@ -44,7 +44,7 @@ es:
       hyku_group:
         description: Un breve resumen de la función del grupo
       user:
-        email: Ingrese una dirección de correo electrónico a la vez. Si no se selecciona ningún rol, el nuevo usuario comenzará con solo permisos de usuario registrados. Los roles también se pueden otorgar a los usuarios a través de roles de flujo de trabajo o la inclusión en grupos. También puede reenviar una invitación a través de este formulario.
+        email: Introduzca una dirección de correo electrónico a la vez. También puede reenviar una invitación a través de este formulario.
     labels:
       account:
         admin_emails: Agregar o invitar al nuevo administrador (por correo electrónico)

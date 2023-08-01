@@ -13,6 +13,7 @@ RSpec.describe 'Advanced Search', type: :feature, js: true, clean: true do
       expect(page).to have_content('ambitious aardvark')
       expect(page).to have_content('No results found for your search')
     end
+
     it 'can perform advanced search' do
       visit '/advanced'
       fill_in('Title', with: 'ambitious aardvark')

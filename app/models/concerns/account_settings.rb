@@ -15,6 +15,8 @@ module AccountSettings
     end
 
     setting :allow_signup, type: 'boolean', default: true
+    setting :allow_downloads, type: 'boolean', default: true
+    setting :auth_provider, type: 'string'
     setting :analytics_provider, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
@@ -57,6 +59,9 @@ module AccountSettings
               format: { with: URI::MailTo::EMAIL_REGEXP },
               allow_blank: true
     validate :validate_email_format, :validate_contact_emails
+    validates :google_analytics_id,
+              format: { with: /((UA|YT|MO)-\d+-\d+|G-[A-Z0-9]{10})/i },
+              allow_blank: true
 
     after_initialize :initialize_settings
   end
@@ -160,6 +165,8 @@ module AccountSettings
     def reload_library_config
       Hyrax.config do |config|
         config.contact_email = contact_email
+        config.analytics = google_analytics_id.present?
+        config.google_analytics_id = google_analytics_id if google_analytics_id.present?
         config.geonames_username = geonames_username
         config.uploader[:maxFileSize] = file_size_limit
         config.analytics_provider = analytics_provider if analytics_provider.present?

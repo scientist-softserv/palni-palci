@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_22_001715) do
+ActiveRecord::Schema.define(version: 2023_07_18_202804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 2022_11_22_001715) do
     t.index ["redis_endpoint_id"], name: "index_accounts_on_redis_endpoint_id", unique: true
     t.index ["settings"], name: "index_accounts_on_settings", using: :gin
     t.index ["solr_endpoint_id"], name: "index_accounts_on_solr_endpoint_id", unique: true
+  end
+
+  create_table "auth_providers", force: :cascade do |t|
+    t.string "provider"
+    t.integer "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "oidc_client_id"
+    t.string "saml_client_id"
+    t.string "oidc_client_secret"
+    t.string "saml_client_secret"
+    t.string "oidc_idp_sso_service_url"
+    t.string "saml_idp_sso_service_url"
   end
 
   create_table "bookmarks", id: :serial, force: :cascade do |t|
@@ -349,6 +362,32 @@ ActiveRecord::Schema.define(version: 2022_11_22_001715) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "humanized_name"
+  end
+
+  create_table "iiif_print_derivative_attachments", id: :serial, force: :cascade do |t|
+    t.string "fileset_id"
+    t.string "path"
+    t.string "destination_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fileset_id"], name: "index_iiif_print_derivative_attachments_on_fileset_id"
+  end
+
+  create_table "iiif_print_ingest_file_relations", id: :serial, force: :cascade do |t|
+    t.string "file_path"
+    t.string "derivative_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["file_path"], name: "index_iiif_print_ingest_file_relations_on_file_path"
+  end
+
+  create_table "iiif_print_pending_relationships", force: :cascade do |t|
+    t.string "child_title", null: false
+    t.string "parent_id", null: false
+    t.string "child_order", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_iiif_print_pending_relationships_on_parent_id"
   end
 
   create_table "job_io_wrappers", id: :serial, force: :cascade do |t|

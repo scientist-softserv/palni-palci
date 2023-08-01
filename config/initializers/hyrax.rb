@@ -9,6 +9,8 @@ Hyrax.config do |config|
   config.register_curation_concern :oer
   # Injected via `rails g hyrax:work Etd`
   config.register_curation_concern :etd
+  # Injected via `rails g hyrax:work Cdl`
+  config.register_curation_concern :cdl
   # Email recipient of messages sent via the contact form
   # This is set by account settings
   # config.contact_email = 'changeme@example.com'
@@ -43,7 +45,7 @@ Hyrax.config do |config|
   # config.persistent_hostpath = 'http://localhost/files/'
 
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
-  config.enable_ffmpeg = false
+  config.enable_ffmpeg = true
 
   # Using the database noid minter was too slow when ingesting 1000s of objects (8s per transaction),
   # so switching to UUIDs for the MVP.
@@ -182,6 +184,7 @@ Hyrax.config do |config|
     # Issue with Hyrax v 2.9.0 where IIIF has mixed content error when running with SSL enabled
     # See Samvera Slack thread https://samvera.slack.com/archives/C0F9JQJDQ/p1596718417351200?thread_ts=1596717896.350700&cid=C0F9JQJDQ
     base_url = base_url.sub(/\Ahttp:/, 'https:')
+    Riiif::Engine.routes.url_helpers.image_url(file_id, host: base_url, size: size)
   end
 
   config.iiif_info_url_builder = lambda do |file_id, base_url|
@@ -204,6 +207,11 @@ Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::
 if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true' && Bulkrax.default_work_type.blank?
   Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s
 end
+
+Hyrax::IiifAv.config.iiif_av_viewer = :universal_viewer
+
+require 'hydra/derivatives'
+Hydra::Derivatives::Processors::Video::Processor.config.video_bitrate = '1500k'
 
 # Stop solr deprecation until ActiveFedora 13.2.8 comes out
 ActiveFedora::SolrService.class_eval do

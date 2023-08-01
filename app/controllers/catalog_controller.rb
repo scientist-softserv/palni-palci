@@ -22,9 +22,25 @@ class CatalogController < ApplicationController
     'system_modified_dtsi'
   end
 
+  # CatalogController-scope behavior and configuration for BlacklightIiifSearch
+  include BlacklightIiifSearch::Controller
+
   configure_blacklight do |config|
+    # IiifPrint index fields
+    config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
+
+    # configuration for Blacklight IIIF Content Search
+    config.iiif_search = {
+      full_text_field: 'all_text_tsimv',
+      object_relation_field: 'is_page_of_ssim',
+      supported_params: %w[q page],
+      autocomplete_handler: 'iiif_suggest',
+      suggester_name: 'iiifSuggester'
+    }
+
     config.view.gallery.partials = %i[index_header index]
-    # Removed the masonry and slideshow config partials for client themeing
+    config.view.masonry.partials = [:index]
+    config.view.slideshow.partials = [:index]
 
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     config.show.partials.insert(1, :openseadragon)
@@ -41,6 +57,7 @@ class CatalogController < ApplicationController
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
+    config.view.slideshow.partials = [:index]
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
@@ -70,6 +87,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'based_near_label_sim', limit: 5
     config.add_facet_field 'publisher_sim', limit: 5
     config.add_facet_field 'file_format_sim', limit: 5
+    config.add_facet_field 'contributing_library_sim', limit: 5
     config.add_facet_field 'date_ssi', label: 'Date Created', range: { num_segments: 10, assumed_boundaries: [1100, Time.zone.now.year + 2], segments: false, slider_js: false, maxlength: 4 }
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
@@ -154,6 +172,9 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('previous_version_id', :stored_searchable)
     config.add_show_field solr_name('newer_version_id', :stored_searchable)
     config.add_show_field solr_name('related_item_id', :stored_searchable)
+    config.add_show_field solr_name('contributing_library', :stored_searchable)
+    config.add_show_field solr_name('library_catalog_identifier', :stored_searchable)
+    config.add_show_field solr_name('chronology_note', :stored_searchable)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

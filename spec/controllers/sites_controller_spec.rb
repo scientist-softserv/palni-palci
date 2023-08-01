@@ -32,7 +32,7 @@ RSpec.describe SitesController, type: :controller, singletenant: true do
 
     context "site with existing banner image" do
       before do
-        expect(Hyrax::UploadedFileUploader)
+        expect(Hyrax::AvatarUploader)
           .to receive(:storage)
           .and_return(CarrierWave::Storage::File)
           .at_least(3).times
@@ -126,44 +126,6 @@ RSpec.describe SitesController, type: :controller, singletenant: true do
         expect(flash[:notice]).to include("The appearance was successfully updated")
         expect(Site.instance.logo_image?).to be false
         expect(ContentBlock.find_by(name: 'logo_image_text')).to be nil
-      end
-    end
-
-    context 'site with existing default collection image' do
-      before do
-        expect(Hyrax::UploadedFileUploader)
-          .to receive(:storage)
-          .and_return(CarrierWave::Storage::File)
-          .at_least(2).times
-        f = fixture_file_upload('/images/nypl-hydra-of-lerna.jpg', 'image/jpg')
-        Site.instance.update(default_collection_image: f)
-      end
-
-      it '#update with remove_default_collection_image deletes a default_collection image' do
-        expect(Site.instance.default_collection_image?).to be true
-        post :update, params: { id: Site.instance.id, remove_default_collection_image: 'Remove default_collection image' }
-        expect(response).to redirect_to('/admin/appearance?locale=en')
-        expect(flash[:notice]).to include('The appearance was successfully updated')
-        expect(Site.instance.default_collection_image?).to be false
-      end
-    end
-
-    context 'site with existing default work image' do
-      before do
-        expect(Hyrax::UploadedFileUploader)
-          .to receive(:storage)
-          .and_return(CarrierWave::Storage::File)
-          .at_least(2).times
-        f = fixture_file_upload('/images/nypl-hydra-of-lerna.jpg', 'image/jpg')
-        Site.instance.update(default_work_image: f)
-      end
-
-      it '#update with remove_default_work_image deletes a default_work image' do
-        expect(Site.instance.default_work_image?).to be true
-        post :update, params: { id: Site.instance.id, remove_default_work_image: 'Remove default_work image' }
-        expect(response).to redirect_to('/admin/appearance?locale=en')
-        expect(flash[:notice]).to include('The appearance was successfully updated')
-        expect(Site.instance.default_work_image?).to be false
       end
     end
   end

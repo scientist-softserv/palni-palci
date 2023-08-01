@@ -44,7 +44,7 @@ fr:
       hyku_group:
         description: Un bref résumé du rôle du groupe
       user:
-        email: Saisissez une adresse e-mail à la fois. Si aucun rôle n'est sélectionné, le nouvel utilisateur commencera avec uniquement les autorisations d'utilisateur enregistrées. Des rôles peuvent également être accordés aux utilisateurs via les rôles de workflow ou l'inclusion dans des groupes. Vous pouvez également renvoyer une invitation via ce formulaire.
+        email: Entrez une adresse e-mail à la fois. Vous pouvez également renvoyer une invitation via ce formulaire.
     labels:
       account:
         admin_emails: Ajouter ou inviter un nouvel administrateur (par courrier électronique)

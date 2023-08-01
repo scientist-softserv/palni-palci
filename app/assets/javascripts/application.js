@@ -18,6 +18,7 @@
 //= require jquery.fontselect
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require stat_slider
 //= require turbolinks
 //= require cocoon
 //= require tether
@@ -27,13 +28,13 @@
 // Moved the Hyku JS *above* the Hyrax JS to resolve #1187 (following
 // a pattern found in ScholarSphere)
 //
-//= require hyku/stat_slider
 //= require hyku/admin/appearance/colors
 //= require hyku/admin/appearance/default_images
 //= require hyku/admin/appearance/fonts
 //= require hyku/admin/appearance/themes
 //= require hyku/groups/per_page
 //= require hyku/groups/add_member
+//= require hyku/auth_provider
 //= require proprietor
 //= require bootstrap_carousel
 //= require bootstrap-datepicker
@@ -41,6 +42,8 @@
 //= require bulkrax/application
 
 //= require hyrax
+//= require iiif_print
+
 //= require jquery.flot.pie
 //= require flot_graph
 //= require statistics_tab_manager

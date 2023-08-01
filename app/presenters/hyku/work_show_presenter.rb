@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-# OVERRIDE: Hyrax 3.4.1 here to add featured collection methods and to delegate collection presenters to the member presenter factory
+# OVERRIDE here to add featured collection methods and to delegate collection presenters to the member presenter factory
+# OVERRIDE: Hyrax 3.4.0 to add Hyrax IIIF AV
 
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
-    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+    # Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::FileSetPresenter
+    # Adds behaviors for hyrax-iiif_av plugin.
+    include Hyrax::IiifAv::DisplaysIiifAv
+    Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
     delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, :date, to: :solr_document
 
@@ -27,13 +31,8 @@ module Hyku
     end
 
     # OVERRIDE FILE from Hyrax v2.9.0
-    # @return [Array] list to display with Kaminari pagination
-    # paginating on members so we can filter out derived status
+    # @return [String] title update for GenericWork
     Hyrax::WorkShowPresenter.class_eval do
-      def list_of_item_ids_to_display
-        paginated_item_list(page_array: members)
-      end
-
       def page_title
         if human_readable_type == "Generic Work"
           "#{title.first} | ID: #{id} | #{I18n.t('hyrax.product_name')}"
@@ -70,7 +69,26 @@ module Hyku
     end
     # End Featured Collections Methods
 
+    # @return [Boolean] render a IIIF viewer
+    def iiif_viewer?
+      Hyrax.config.iiif_image_server? &&
+        representative_id.present? &&
+        representative_presenter.present? &&
+        iiif_media? &&
+        members_include_viewable?
+    end
+
     private
+
+      def iiif_media?(presenter: representative_presenter)
+        presenter.image? || presenter.video? || presenter.audio? || presenter.pdf?
+      end
+
+      def members_include_viewable?
+        file_set_presenters.any? do |presenter|
+          iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
+        end
+      end
 
       def extract_from_identifier(rgx)
         if solr_document['identifier_tesim'].present?
@@ -79,21 +97,6 @@ module Hyku
           end
         end
         ref
-      end
-
-      # OVERRIDE FILE from Hyrax v2.9.0
-      # Gets the member id's for pagination, filter out derived files
-      Hyrax::WorkShowPresenter.class_eval do
-        def members
-          members = member_presenters_for(authorized_item_ids)
-          filtered_members =
-            if current_ability.admin?
-              members
-            else
-              members.reject { |m| m.solr_document['is_derived_ssi'] == 'true' }
-            end
-          filtered_members.collect(&:id)
-        end
       end
   end
 end

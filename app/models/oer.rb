@@ -2,6 +2,9 @@
 #  `rails generate hyrax:work Oer`
 class Oer < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  include IiifPrint.model_configuration(
+    pdf_split_child_model: GenericWork
+  )
 
   self.indexer = OerIndexer
   # Change this to restrict which works can be added as a child.
@@ -104,6 +107,13 @@ class Oer < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
+
+  # These needed to be added again in order to enable destroy for based_near, even though they are in Hyrax::BasicMetadata.
+  # the OrderAlready OrderMetadataValues above somehow prevents them from running
+  id_blank = proc { |attributes| attributes[:id].blank? }
+  class_attribute :controlled_properties
+  self.controlled_properties = [:based_near]
+  accepts_nested_attributes_for :based_near, reject_if: id_blank, allow_destroy: true
 
   def previous_version
     @previous_version ||= Oer.where(id: previous_version_id) if previous_version_id

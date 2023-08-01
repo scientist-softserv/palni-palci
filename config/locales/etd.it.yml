@@ -16,7 +16,7 @@ it:
         degree_granting_institution: Istituzione che rilascia il titolo associato al lavoro.
         department: Nome del dipartimento o dell'unità all'interno dell'istituto che rilascia il titolo.
         discipline: Area di studio del contenuto intellettuale del documento. Di solito questo sarà il nome di un programma o dipartimento.
-        level: Livello di istruzione associato al documento.
+        #level: Livello di istruzione associato al documento.
         year: L'anno in cui è stata creata l'opera. Deve essere un anno a 4 cifre e iniziare con 19 o 20
       etd:
         subject: Scegli i titoli o i termini dell'indice che descrivono l'argomento dell'opera dal nostro elenco <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>oggetto</a>. Se i tuoi termini non sono presenti nell'elenco, utilizza le <a href='https://fast.oclc.org/searchfast/'>intestazioni oggetto FAST</a>. Per ulteriori termini di religione e teologia che dovrebbero essere aggiunti al nostro elenco, utilizza <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>questo modulo.</a>

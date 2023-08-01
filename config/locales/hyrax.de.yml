@@ -29,7 +29,7 @@ de:
           identifier: Kennung
           institution: Institution
           language: Sprache
-          level: Eben
+          #level: Eben
           license: Lizenz
           official_link: Offizielle URL
           project_name: Projektname
@@ -516,7 +516,7 @@ de:
         reporting: Ein Problem melden
       message_label: Botschaft
       name_label: Dein Name
-      notice: Bitte benutzen Sie das Kontaktformular, um Anfragen zu diesem System zu stellen. um ein Problem zu melden, das mit dem System auftritt; Unterstützung bei der Verwendung des Systems anzufordern; oder um allgemeines Feedback zu geben. Weitere Informationen zu diesem System finden Sie auf der Hilfeseite.
+      notice: Bitte verwenden Sie dieses Formular, um bei Fragen oder Feedback Kontakt zu unserem Repository aufzunehmen.
       select_type: Wählen Sie einen Problemtyp aus
       subject_label: Gegenstand
       type_label: Problemtyp
@@ -1147,7 +1147,7 @@ de:
         license: Lizenz- und Vertriebsinformationen für den Zugriff auf die Sammlung. Wählen Sie aus der bereitgestellten Dropdown-Liste.
         publisher: Die Person oder Gruppe, die die Sammlung zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
         related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Sammlung bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Sammlung abgeleitet wurde.
-        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
+        resource_type: Vordefinierte Kategorien zur Beschreibung der Art oder des Genres der Ressource, z. B. B. „Artikel“. oder „Datensatz“. Es kann mehr als ein Typ ausgewählt werden.
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Sammlung geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
         title: Ein Name zur Identifizierung einer Sammlung.
       collection_type:
@@ -1179,12 +1179,12 @@ de:
         license: Lizenz- und Vertriebsinformationen für den Zugang zum Werk. Wählen Sie aus der bereitgestellten Dropdown-Liste.
         publisher: Die Person oder Gruppe, die für die Bereitstellung der ursprünglichen Ressource verantwortlich ist.
         related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Arbeit bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Arbeit abgeleitet wurde.
-        resource_type: Vordefinierte Kategorien zur Beschreibung des hochgeladenen Inhaltstyps, wie „Artikel“ oder „Foto.“ Es kann mehr als ein Ressourcentyp ausgewählt werden.
+        resource_type: Vordefinierte Kategorien zur Beschreibung der Art oder des Genres der Ressource, z. B. B. „Artikel“. oder „Datensatz“. Es kann mehr als ein Typ ausgewählt werden.
         rights_notes: Hier können zusätzliche Erläuterungen zu Rechten oder Lizenzen eingefügt werden.
         rights_statement: Wählen Sie die entsprechende Rechteerklärung aus der Dropdown-Liste aus. Weitere Informationen finden Sie unter https://rightsstatements.org.
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht Verwenden Sie ein kontrolliertes Vokabular.
         title: Ein Name, der bei der Identifizierung eines Werks hilft.
-        types: Vordefinierte Kategorien zur Beschreibung der Art oder des Genres der Ressource. Es können mehrere Typen ausgewählt werden.
+        types: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts. Es können mehrere Typen ausgewählt werden.
         video_embed: Youtube- oder Vimeo-Iframe-Einbettungscode zum Anzeigen des in die Arbeitsseite eingebetteten Videos. Wenn Sie einen Einbettungslink für ein Video eingeben, muss es sich um eine ordnungsgemäß formatierte URL handeln, die mit „http://“ oder „https://“ beginnt. Es muss außerdem einen gültigen Link zu einem gehosteten Video enthalten, das in einem Iframe angezeigt werden kann. <br /><br /><i>Beispiele:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       generic_work:
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht. Verwenden Sie einen kontrollierten Wortschatz.

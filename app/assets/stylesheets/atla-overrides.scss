@@ -1,0 +1,190 @@
+html, body.public-facing {
+     font-family: 'Muli', Helvetica, sans-serif;
+     font-size:1em;
+}
+
+body {font-size:0.875em;}
+
+img {max-width:100%;}
+
+a#skip-to-content{padding:0;}
+
+/* LANDING PAGE for app */
+/*top nav bar*/
+body.splash-index.public-facing .navbar-inverse {
+    background-color: #fff;
+    border-color: #258FCE;
+}
+body.splash-index.public-facing .navbar-static-top {border-width: 3px 0 0;}
+
+body.splash-index.public-facing a,body.splash-index.public-facing .navbar-inverse .navbar-nav > li > a, body.splash-index.public-facing .navbar-inverse .navbar-text, body.splash-index.public-facing .navbar-inverse .navbar-brand {
+     color:#258FCE;
+     padding:1em;
+}
+body.splash-index.public-facing .home-logo-grid a {padding:0;}
+body.splash-index.public-facing footer a {color:white;}
+body.splash-index.public-facing footer.navbar.navbar-inverse.site-footer{
+     border:0;
+     border-bottom:3px solid #258FCE;
+     background-color:#258FCE;
+}
+
+body.splash-index span.institution_name {
+    display: none;
+}
+
+body.splash-index .navbar-toggle {background-color:#258FCE;}
+body.splash-index .navbar-inverse .navbar-toggle:hover {background-color:#fff;}
+body.splash-index .navbar-inverse .navbar-toggle:hover .icon-bar {background-color:#258FCE;}
+
+/* in page content */
+body.splash-index .row {margin:0;}
+body.splash-index #content-wrapper.container {padding-right:0px;padding-left:0px;}
+
+body.splash-index .home-logo {
+     margin-bottom:2em;
+}
+
+body.splash-index .right-side{
+     text-align:center;
+}
+
+body.splash-index.public-facing h2{
+     font-family: 'PT Serif';
+     margin:4.5em 0 1em 0;
+     color:#4d4e4e;
+     font-size:1.5em;
+}
+
+body.splash-index button.shared-search {
+     border: none;
+     color: white;
+     padding: 1em;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 1em;
+     /*font-weight:700;*/
+     margin: 0 2px 1.25em 2px;
+     transition-duration: 0.4s;
+     cursor: pointer;
+     background-color:#E05C3F;/*#D43D1C*/
+     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
+     border-radius:3px;
+}
+
+body.splash-index button.shared-search:hover{
+     background-color:#D43D1C;
+     border: 1px solid #E05C3F;
+}
+
+body.splash-index .text-right p{color:#258FCE;}
+
+body.splash-index.public-facing a:hover, body.public-facing a:focus {color:#ffffff;text-decoration:underline;}
+
+/* across all tenants */
+.proprietor-accounts .btn-primary a:visited {color:white!important;}
+
+.public-facing .footer-link a, .public-facing .site-footer a {padding:1em;}
+.public-facing .footer-link {
+    padding: 1em;
+}
+
+footer.navbar.navbar-inverse.site-footer {
+     border:0;
+}
+
+/* Work show metadata layout */
+.works-show p.work_description {margin-top:1em;}
+.works-show dl.work-show {margin-top: 1em;}
+
+.work-show ul.tabular, .scholarly_show .work-show ul.tabular{padding-inline-start: 0px;}
+.work-show dt {padding-bottom:0;}
+
+/* hide work type on work show pages */
+.works-show .work-type-tag {display:none;}
+
+.social-media{display:none;}
+
+/* Collection show layout */
+
+.hyc-banner .hyc-title h1, .hyc-banner .hyc-bugs div{
+     color:rgb(51, 51, 51);
+     text-shadow:none;
+}
+
+.hyc-banner .hyc-title .label {
+     -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.hyc-banner {min-height:95px;}
+
+.hyc-bugs {
+    padding: 0 1em 0 2em;
+    text-align:right;
+}
+
+.hyc-header {margin-bottom:0;}
+.hyc-banner .hyc-title h1 {margin-bottom: 0.25em;}
+.hyc-description h2 {font-size: 1.5em;}
+
+.hyc-bl-results {margin:0 0 1em 0;}
+.hyc-blacklight.hyc-bl-title {padding: 0;}
+.hyc-blacklight.hyc-bl-results {padding-left: 0;}
+body.hyrax-collections .hyc-bl-search .col-sm-8 {float: right;}
+
+/* search resulsts */
+div.facets h3 {font-size: 1em;}
+
+
+/* admin dashboard available works ETD all caps*/
+.dashboard label[for="input-Etd"] {text-transform: uppercase;}
+
+/* citations style */
+button.btn.btn-default.btn-block.citations-button.center-block {margin-top: 1em;}
+.mla-citation, .apa-citation, .chicago-citation {
+    line-height: 1.25em;
+    display: inline-block;
+    width: 100%;
+    font-size:0.875em;
+}
+div#collapse-citations{text-align:left;overflow-wrap: break-word;}
+div#collapse-citations h4 {font-size:1em;}
+div#collapse-citations p {font-size:0.85em;}
+button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn.btn-default.btn-block.citations-button.center-block:focus{
+     background-color:#337ab7;
+     border-color: #204d75;
+     color:white;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+     .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
+
+     body.splash-index .row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+body.splash-index #content-wrapper.container {padding-right:15px;padding-left:15px;}
+
+    body.splash-index .left-side {
+         padding-left: 0px;
+         padding-right: 50px;
+     }
+     body.splash-index .right-side {
+         padding-left: 50px;
+         padding-right: 10px;
+     }
+     body.splash-index button.shared-search {margin: 2em 2px 4px 2px;}
+     body.splash-index .col-xs-4.col-md-3.footer-link {width: 25%;}
+
+     /* across all tenants * /
+
+     /* banner area search bar */
+     .navbar.navbar-static-top .input-group {margin-bottom:0;}
+
+
+}

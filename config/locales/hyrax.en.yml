@@ -29,7 +29,7 @@ en:
           identifier: "Identifier"
           institution: "Institution"
           language: "Language"
-          level: "Level"
+          #level: "Level"
           license: "License"
           official_link: "Official URL"
           project_name: "Project name"
@@ -44,7 +44,7 @@ en:
           year: "Year"
 
   hyrax:
-    product_name: "Hyku"
+    product_name: "Atla IR"
     product_twitter_handle: "@HydraInABox"
     institution_name: "Institution"
     institution_name_full: "Institution"
@@ -346,7 +346,7 @@ en:
     background_attribution_html: ""
     base:
       citations:
-        header: "Citations:"
+        header: "Cite this item"
       form_child_work_relationships:
         actions:
           remove: Remove from this work
@@ -409,11 +409,11 @@ en:
       items:
         actions: Actions
         date_uploaded: Date Uploaded
-        empty: This %{type} has no files associated with it. Click "edit" to add more files.
+        empty: This work has no files associated with it. Click "edit" to add more files.
         header: Items
         thumbnail: Thumbnail
         title: Title
-        unauthorized: There are no publicly available items in this %{type}.
+        unauthorized: There are no publicly available items in this work.
         visibility: Visibility
       relationships:
         empty: This %{type} is not currently in any collections.
@@ -532,7 +532,7 @@ en:
         reporting: Reporting a problem
       message_label: Message
       name_label: Your Name
-      notice: Please use the contact form to submit inquiries about this system; to report a problem you are experiencing with the system; to request assistance using the system; or to provide general feedback. See the Help page for additional information about this system.
+      notice: Please use this form to contact our repository with any questions or feedback.
       select_type: Select an Issue Type
       subject_label: Subject
       type_label: Issue Type
@@ -1154,7 +1154,7 @@ en:
         license: Licensing and distribution information governing access to the collection. Select from the provided drop-down list.
         publisher: The person or group making the collection available. Generally this is the institution.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the collection. An example is the URL of a research project from which the collection was derived.
-        resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
+        resource_type: Pre-defined categories to describe the nature or genre of the resource, such as "article" or "photograph." More than one resource type may be selected.
         subject: Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary.
         title: A name to aid in identifying a collection.
       collection_type:
@@ -1186,11 +1186,11 @@ en:
         license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.
         publisher: The person or group responsible for making the original resource available.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived.
-        resource_type: Pre-defined categories to describe the type of content being uploaded, such as "article" or "photograph." More than one resource type may be selected.
+        resource_type: Pre-defined categories to describe the nature or genre of the resource, such as "article" or "photograph." More than one resource type may be selected.
         rights_notes: Any additional explanation of rights or licensing may be included here.
         rights_statement: Select the appropriate rights statement from the dropdown list. See <a href='https://rightsstatements.org'>https://rightsstatements.org</a> for more information.
         title: A name to aid in identifying a work.
-        types: 'Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.'
+        types: 'Pre-defined categories to broadly describe the type of content being uploaded. More than one type may be selected.'
         video_embed: "Youtube or Vimeo iframe embed code to show video embedded in the work page. If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
       generic_work:
         subject: Headings or index terms describing what the work is about. Use a controlled vocabulary.
@@ -1254,7 +1254,7 @@ en:
         subject: Subject
         title: Title
         types: Type
-        video_embed: Embedded video 
+        video_embed: Embedded video
         visibility_after_embargo: then open it up to
         visibility_after_lease: then restrict it to
         visibility_during_embargo: Restricted to

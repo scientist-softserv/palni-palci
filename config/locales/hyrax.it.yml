@@ -29,7 +29,7 @@ it:
           identifier: Identificatore
           institution: Istituzione
           language: Lingua
-          level: Livello
+          #level: Livello
           license: Licenza
           official_link: URL ufficiale
           project_name: Nome del progetto
@@ -517,7 +517,7 @@ it:
         reporting: Segnala un problema
       message_label: Messaggio
       name_label: Il tuo nome
-      notice: Si prega di utilizzare il modulo di contatto per inviare richieste su questo sistema; per segnalare un problema riscontrato con il sistema; richiedere assistenza utilizzando il sistema; o per fornire un feedback generale. Vedere la pagina di aiuto per ulteriori informazioni su questo sistema.
+      notice: Si prega di utilizzare questo modulo per contattare il nostro repository con qualsiasi domanda o feedback.
       select_type: Seleziona un tipo di problema
       subject_label: Soggetto
       type_label: tipo di problema
@@ -1148,7 +1148,7 @@ it:
         license: Informazioni su licenza e distribuzione che regolano l'accesso alla raccolta. Selezionare dall'elenco a discesa fornito.
         publisher: La persona o il gruppo che rende disponibile la raccolta. Generalmente questa è l'istituzione.
         related_url: Un collegamento a un sito Web o ad altri contenuti specifici (audio, video, documento PDF) relativi alla raccolta. Un esempio è l'URL di un progetto di ricerca da cui è stata derivata la raccolta.
-        resource_type: Categorie predefinite per descrivere il tipo di contenuto da caricare, come "articolo" o & quot; set di dati. & quot; È possibile selezionare più di un tipo.
+        resource_type: Categorie predefinite per descrivere la natura o il genere della risorsa, come "articolo" o "set di dati." È possibile selezionare più di un tipo.
         subject: Intestazioni o termini indicativi che descrivono la raccolta; questi devono conformarsi a un vocabolario esistente.
         title: Un nome per aiutare a identificare una collezione.
       collection_type:
@@ -1180,12 +1180,12 @@ it:
         license: Informazioni su licenze e distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito.
         publisher: La persona o il gruppo responsabile della messa a disposizione della risorsa originale.
         related_url: Un collegamento a un sito Web o ad altri contenuti specifici (audio, video, documento PDF) relativi all'opera. Un esempio è l'URL di un progetto di ricerca da cui deriva il lavoro.
-        resource_type: Categorie predefinite per descrivere il tipo di contenuto caricato, ad esempio "articolo" o "fotografia". È possibile selezionare più di un tipo di risorsa.
+        resource_type: Categorie predefinite per descrivere la natura o il genere della risorsa, ad esempio "articolo" o "fotografia". È possibile selezionare più di un tipo di risorsa.
         rights_notes: Qualsiasi spiegazione aggiuntiva sui diritti o sulla licenza può essere inclusa qui.
         rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
         subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
         title: Un nome per aiutare a identificare un'opera.
-        types: Categorie predefinite per descrivere la natura o il genere della risorsa. È possibile selezionare più di un tipo.
+        types: Categorie predefinite per descrivere ampiamente il tipo di contenuto caricato. È possibile selezionare più di un tipo.
         video_embed: Codice di incorporamento iframe Youtube o Vimeo per mostrare il video incorporato nella pagina di lavoro. Se inserisci un link di incorporamento per un video, deve essere un URL formattato correttamente che inizia con "http://" o "https://". Deve inoltre contenere un collegamento valido a un video ospitato che può essere visualizzato in un iframe. <br /><br /><i>Esempi:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       generic_work:
         subject: Intestazioni o termini di indice che descrivono l'argomento del lavoro. Usa un vocabolario controllato.

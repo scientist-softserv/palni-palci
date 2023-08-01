@@ -6,4 +6,4 @@ it:
     select_type:
       generic_work:
         description: Tipo di opere di tipo generale. Selezionare questa opzione se i tipi di opere più specifici di seguito non sono adatti al opere che si desidera aggiungere.
-        name: Opere Generiche
+        name: Opere generale

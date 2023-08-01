@@ -1,0 +1,13 @@
+<% # OVERRIDE Hyku 5.0.1 for Atla shared search theme %>
+<% content_for(:navbar) do %>
+
+<%= render "hyrax/homepage/banner_section" if controller_name == 'pages'|| controller_name == 'contact_form' || controller_name == 'catalog' %>
+
+<% if controller_name == 'homepage' %>
+    <%= render 'splash/index' %>
+  <% end %>
+
+
+<%end%>
+
+<%= render template: 'layouts/hyrax' %>

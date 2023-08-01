@@ -21,7 +21,7 @@ pt-:
           identifier: identificador
           institution: Instituição
           language: Linguagem
-          level: Nível
+          #level: Nível
           license: Licença
           publisher: Editor
           resource_type: Tipo de recurso
@@ -505,7 +505,7 @@ pt-:
         reporting: Relatando um problema
       message_label: Mensagem
       name_label: Seu nome
-      notice: Por favor, use o formulário de contato para enviar perguntas sobre este sistema; para relatar um problema que você está enfrentando com o sistema; solicitar auxílio utilizando o sistema; ou para fornecer feedback geral. Consulte a página de Ajuda para obter informações adicionais sobre este sistema.
+      notice: Por favor, use este formulário para entrar em contato com nosso repositório com qualquer dúvida ou feedback.
       select_type: Selecione um tipo de problema
       subject_label: Assunto
       type_label: Tipo de problema
@@ -986,7 +986,7 @@ pt-:
             label_short: Meus trabalhos
         q:
           label: Pesquisar %{application_name}
-          placeholder: Digite os termos de pesquisa
+          placeholder: Entre os termos da pesquisas
     select_type:
       description: Tipo de trabalho de uso geral
       name: Trabalhar
@@ -1136,7 +1136,7 @@ pt-:
         license: Informações de licenciamento e distribuição que regem o acesso à coleção. Selecione na lista suspensa fornecida.
         publisher: A pessoa ou grupo que disponibiliza a coleção. Geralmente esta é a instituição.
         related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado à coleção. Um exemplo é a URL de um projeto de pesquisa do qual a coleção foi derivada.
-        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "conjunto de dados" Mais de um tipo pode ser selecionado.
+        resource_type: Categorias predefinidas para descrever a natureza ou gênero do recurso, como "artigo" ou "conjunto de dados" Mais de um tipo pode ser selecionado.
         subject: Títulos ou termos de índice que descrevem sobre o que é a coleção; estes precisam estar em conformidade com um vocabulário existente.
         title: Um nome para ajudar na identificação de uma coleção.
       collection_type:
@@ -1168,11 +1168,11 @@ pt-:
         license: Informações sobre licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.
         publisher: A pessoa ou grupo responsável por disponibilizar o recurso original.
         related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado ao trabalho. Um exemplo é a URL de um projeto de pesquisa do qual o trabalho foi derivado.
-        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "fotografia". Mais de um tipo de recurso pode ser selecionado.
+        resource_type: Categorias predefinidas para descrever a natureza ou gênero do recurso, como "artigo" ou "fotografia". Mais de um tipo de recurso pode ser selecionado.
         rights_notes: Qualquer explicação adicional de direitos ou licenciamento pode ser incluída aqui.
         rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte <a href='https://rightsstatements.org'>https://rightsstatements.org</a> para obter mais informações.
         title: Um nome para ajudar na identificação de uma obra.
-        types: Categorias predefinidas para descrever a natureza ou gênero do recurso. Mais de um tipo pode ser selecionado.
+        types: Categorias predefinidas para descrever amplamente o tipo de conteúdo que está sendo carregado. Mais de um tipo pode ser selecionado.
         video_embed: Código de incorporação do iframe do Youtube ou Vimeo para mostrar o vídeo incorporado na página de trabalho. Se você inserir um link de incorporação para um vídeo, ele deve ser um URL formatado corretamente começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que pode aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       generic_work:
         subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.

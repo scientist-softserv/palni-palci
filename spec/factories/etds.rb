@@ -11,7 +11,7 @@ FactoryBot.define do
     creator { ['creator'] }
     year { '2023' }
     degree { ['bachelor of arts'] }
-    level { ['level'] }
+    # level { ['level'] }
     discipline { ['discipline'] }
     degree_granting_institution { ['degree_granting_institution'] }
 

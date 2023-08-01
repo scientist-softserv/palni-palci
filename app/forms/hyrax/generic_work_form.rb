@@ -17,13 +17,17 @@ module Hyrax
       additional_rights_info
     ]
 
-    self.terms = [:title, :alternative_title, :creator, :contributor, :description, :abstract,
-                    :keyword, :subject, :rights_statement, :publisher, :date_created, :resource_type, :institution, :types, :license, :language, :format, :identifier, :based_near, :access_right, :rights_notes, :related_url, :video_embed, :bibliographic_citation, :additional_rights_info,
-                    :representative_id, :thumbnail_id, :rendering_ids, :files,
-                    :visibility_during_embargo, :embargo_release_date, :visibility_after_embargo,
-                    :visibility_during_lease, :lease_expiration_date, :visibility_after_lease,
-                    :visibility, :ordered_member_ids, :source, :in_works_ids,
-                    :member_of_collection_ids, :admin_set_id]
+    self.terms = %i[title alternative_title creator contributor description abstract
+                    keyword subject rights_statement publisher date_created
+                    resource_type institution types license language format
+                    identifier based_near access_right rights_notes related_url
+                    video_embed bibliographic_citation additional_rights_info
+                    representative_id thumbnail_id rendering_ids files
+                    visibility_during_embargo embargo_release_date
+                    visibility_after_embargo
+                    visibility_during_lease lease_expiration_date visibility_after_lease
+                    visibility ordered_member_ids source in_works_ids
+                    member_of_collection_ids admin_set_id]
 
     self.required_fields += %i[
       title

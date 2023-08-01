@@ -15,5 +15,5 @@ scholarly_show:
   notes: This text based show page is recommended for institutional repositories.
 reshare_show:
   name: ReShare Show Page
-  notes: Show page used for the ReShare tenant.
+  notes: For ReShare CDL Pilot use only, do not use unless instructed to do so.
 

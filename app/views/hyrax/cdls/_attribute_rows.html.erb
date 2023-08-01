@@ -18,6 +18,7 @@
 <%= presenter.attribute_to_html(:rights_notes, render_as: :linked, html_dl: true) %>
 <%= presenter.attribute_to_html(:extent, html_dl: true) %>
 <%= presenter.attribute_to_html(:bibliographic_citation, html_dl: true) %>
-<%= presenter.attribute_to_html(:contributing_library, html_dl: true) %>
-<%= presenter.attribute_to_html(:library_catalog_identifier, html_dl: true) %>
-<%= presenter.attribute_to_html(:chronology_note, html_dl: true) %>
+<%= raise 'hell' %>
+<%= presenter.attribute_to_html(:contributing_library, html_dl: true) if presenter.editor? %>
+<%= presenter.attribute_to_html(:library_catalog_identifier, html_dl: true) if presenter.editor? %>
+<%= presenter.attribute_to_html(:chronology_note, html_dl: true) if presenter.editor? %>

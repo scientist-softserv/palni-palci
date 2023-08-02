@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_18_202804) do
+ActiveRecord::Schema.define(version: 2023_08_02_183945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,6 +341,17 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.boolean "brandable", default: true, null: false
     t.string "badge_color", default: "#663333"
     t.index ["machine_id"], name: "index_hyrax_collection_types_on_machine_id", unique: true
+  end
+
+  create_table "hyrax_counter_metrics", force: :cascade do |t|
+    t.string "worktype"
+    t.string "resource_type"
+    t.integer "work_id"
+    t.date "date"
+    t.integer "total_item_investigations"
+    t.integer "total_item_requests"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hyrax_default_administrative_set", force: :cascade do |t|

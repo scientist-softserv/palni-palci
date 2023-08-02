@@ -19,7 +19,7 @@ pt-:
           discipline: Disciplina
           format: Formatar
           identifier: identificador
-          institution: Instituição
+          institution: Instituição anfitriã
           language: Linguagem
           #level: Nível
           license: Licença
@@ -1162,7 +1162,7 @@ pt-:
         extent: A extensão (tamanho, duração, número, etc.) da obra.
         format: O formato de arquivo do recurso digital.
         identifier: Um identificador exclusivo identificando o trabalho. Um exemplo seria um DOI para um artigo de periódico ou um número ISBN ou OCLC para um livro.
-        institution: Instituição participante para a qual o trabalho está sendo carregado.
+        institution: Escolha o nome da instituição que hospeda o repositório para o qual você está enviando este trabalho.
         keyword: Palavras ou frases que você seleciona para descrever sobre o que é o trabalho. Estes não precisam ser um vocabulário controlado.
         language: A linguagem do conteúdo da obra. Soletre o idioma e coloque a primeira letra em maiúscula.
         license: Informações sobre licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.

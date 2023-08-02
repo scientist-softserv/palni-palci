@@ -27,7 +27,7 @@ fr:
           funder_awards: Prix des bailleurs de fonds
           funder_name: Nom du bailleur de fonds
           identifier: Identifiant
-          institution: Institution
+          institution: Établissement d'accueil
           language: Langue
           #level: Niveau
           license: Licence
@@ -1172,7 +1172,7 @@ fr:
         extent: L'étendue (taille, durée, nombre, etc.) du travail.
         format: Format de fichier de la ressource numérique.
         identifier: Une poignée unique identifiant l'œuvre. Un exemple serait un DOI pour un article de journal, ou un numéro ISBN ou OCLC pour un livre.
-        institution: Institution participante vers laquelle le travail est téléchargé.
+        institution: Choisissez le nom de l'institution hébergeant le référentiel dans lequel vous téléchargez ce travail.
         keyword: Mots ou expressions que vous sélectionnez pour décrire le sujet de l'œuvre. Il n'est pas nécessaire qu'ils fassent partie d'un vocabulaire contrôlé.
         language: La langue du contenu de l'œuvre.
         license: Informations sur les licences et la distribution régissant l'accès à l'œuvre. Sélectionnez dans la liste déroulante fournie.

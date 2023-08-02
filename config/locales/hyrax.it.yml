@@ -27,7 +27,7 @@ it:
           funder_awards: Premi finanziatori
           funder_name: Nome del finanziatore
           identifier: Identificatore
-          institution: Istituzione
+          institution: Ente ospitante
           language: Lingua
           #level: Livello
           license: Licenza
@@ -1174,7 +1174,7 @@ it:
         extent: La dimensione (dimensione, durata, numero, ecc.) Del lavoro.
         format: il formato del file della risorsa digitale.
         identifier: Una maniglia unica che identifica il lavoro. Un esempio potrebbe essere un DOI per un articolo di giornale o un codice ISBN o OCLC per un libro.
-        institution: istituzione partecipante in cui viene caricato il lavoro.
+        institution: Scegli il nome dell'istituzione che ospita il repository in cui stai caricando questo lavoro.
         keyword: Parole o frasi selezionate per descrivere l'argomento del lavoro. Non è necessario che siano un vocabolario controllato.
         language: La lingua del contenuto dell'opera.
         license: Informazioni su licenze e distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito.

@@ -27,14 +27,15 @@
               </div>
             <% end %>
           <% end %>
-          <div class="<%= @presenter.universal_viewer? ? 'col-sm-6' : 'col-sm-6' %>">
+          <div class="<%= @presenter.universal_viewer? ? 'col-sm-8' : 'col-sm-8' %>">
             <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>
           </div>
-          <div class="col-xs-12 relationships-container">
+          <div class="col-sm-12 col-md-4 relationships-container">
             <div class='relationships-box'>
               <%= render 'relationships', presenter: @presenter %>
             </div>
+            <%= render 'citations', presenter: @presenter %>
           </div>
           <div class="col-sm-12 work-show-items">
             <%= render 'items', presenter: @presenter %>

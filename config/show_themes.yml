@@ -14,5 +14,5 @@ scholarly_show:
   name: Scholarly Show Page
   notes: This text based show page is recommended for institutional repositories.
 shared_show:
-  name: Atla IR Show Page
-  notes: This text based show page is for the Alta IR shared search.
+  name: Atla IR Shared Search Show Page
+  notes: This text based show page is for the Alta IR shared search only.

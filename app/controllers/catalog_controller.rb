@@ -69,7 +69,7 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field 'resource_type_sim', label: 'Resource Type', limit: 5
+    config.add_facet_field 'resource_type_sim', label: 'Resource Type', limit: 5, collapse: false
     config.add_facet_field 'creator_sim', limit: 5
     config.add_facet_field 'contributor_sim', label: 'Contributor', limit: 5
     config.add_facet_field 'keyword_sim', limit: 5, label: 'Keyword'
@@ -79,8 +79,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
     config.add_facet_field 'types_sim', limit: 5, label: 'Type'
     config.add_facet_field 'year_sim', limit: 5, label: 'Year'
-    config.add_facet_field 'institution_sim', limit: 5, label: 'Institution'
-    config.add_facet_field 'format_sim', limit: 5
+    config.add_facet_field 'format_sim', limit: 5, label: 'Format'
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
     config.add_facet_field 'degree_sim', limit: 5, label: 'Degree'
     config.add_facet_field 'discipline_sim', limit: 5, label: 'Discipline'
@@ -88,6 +87,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'funder_name_sim', limit: 5, label: 'Funder Name'
     config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
     config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
+    config.add_facet_field 'institution_sim', limit: 5, label: 'Host Institution'
     # config.add_facet_field 'based_near_label_sim', limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -98,10 +98,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'title_tesim', label: 'Title', itemprop: 'name', if: false
-    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :index_filter
     config.add_index_field 'creator_tesim', itemprop: 'creator', link_to_search: 'creator_sim'
+    config.add_index_field 'description_tesim', itemprop: 'description', helper_method: :index_filter
+    config.add_index_field 'date_created_tesim', label: 'Date created'
+    config.add_index_field 'year_tesim', label: 'Year'
     config.add_index_field 'resource_type_tesim', label: 'Resource Type', link_to_search: 'resource_type_sim'
-    config.add_index_field 'institution_tesim', label: 'Institution', link_to_search: 'institution_sim'
+    config.add_index_field 'institution_tesim', label: 'Host Institution', link_to_search: 'institution_sim'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -133,7 +135,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'bibliographic_citation_tesim', label: 'Bibliographic citation'
     config.add_show_field 'format_tesim', label: 'Format'
     config.add_show_field 'extent_tesim'
-    config.add_show_field 'institution_tesim'
+    config.add_show_field 'institution_tesim', label: 'Host Institution'
     config.add_show_field 'rights_holder_tesim', label: 'Rights holder'
     config.add_show_field 'creator_orcid_tesim', label: 'Creator ORCID'
     config.add_show_field 'creator_institutional_relationship_tesim', label: 'Creator institutional relationship'

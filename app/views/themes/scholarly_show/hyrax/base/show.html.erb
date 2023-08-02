@@ -20,7 +20,7 @@
             <%= render 'video_embed_viewer', presenter: @presenter %>
             <div class="col-sm-12">
               <div class="image-show-description">
-                <%= render 'work_description', presenter: @presenter %>
+                <%# render 'work_description', presenter: @presenter %>
               </div>
             </div>
           <% else %>
@@ -30,7 +30,7 @@
               </div>
               <div class="col-sm-12">
                 <div class="image-show-description">
-                  <%= render 'work_description', presenter: @presenter %>
+                  <%# render 'work_description', presenter: @presenter %>
                 </div>
               </div>
             <% else %>
@@ -38,14 +38,18 @@
                 <%= render 'representative_media', presenter: @presenter, viewer: false %>
               </div>
               <div class="col-sm-9">
-                <%= render 'work_description', presenter: @presenter %>
+                <%# render 'work_description', presenter: @presenter %>
               </div>
             <% end %>
           <% end %>
         </div>
         <div class="row">
-          <div class="col-sm-12 image-show-metadata">
+          <div class="col-sm-8 image-show-metadata">
+            <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>
+          </div>
+          <div class="col-sm-12 col-md-4">
+               <%= render 'citations', presenter: @presenter %>
           </div>
           <div class="col-sm-12">
             <%= render 'relationships', presenter: @presenter %>

@@ -159,7 +159,16 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
      color:white;
 }
 
+/*embargo management ui */
+.set-access-controls .form-inline .col-md-2, .set-access-controls .form-inline .col-md-10 {
+    width: 100%;
+    display:inline-block;
+}
 
+.set-access-controls .form-inline .control-label, .set-access-controls .form-inline label{
+     display: inline-block!important;
+     padding:.5em 0;
+}
 
 @media only screen and (min-width: 768px) {
      .hyc-banner .hyc-title h1 {margin-bottom: 0em;}
@@ -185,6 +194,8 @@ body.splash-index #content-wrapper.container {padding-right:15px;padding-left:15
 
      /* banner area search bar */
      .navbar.navbar-static-top .input-group {margin-bottom:0;}
-
-
+     /*embargo management ui*/
+     .set-access-controls .form-inline .col-md-2, .set-access-controls .form-inline .col-md-10  {
+         width: 50%;
+     }
 }

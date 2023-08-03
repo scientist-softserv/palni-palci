@@ -159,6 +159,22 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
      color:white;
 }
 
+/* hide custom field host institution */
+     /* hide the label in works list */
+   dt[data-solr-field-name="institution_tesim"] {
+       display: none;
+   }
+
+   /* hide the value in works list */
+   body.catalog-index div.metadata dl.dl-horizontal dd:last-child {
+       display: none;
+   }
+
+   /* hide from the facets */
+   .panel.panel-default.facet_limit.blacklight-institution_sim {
+       display: none;
+   }
+
 
 
 @media only screen and (min-width: 768px) {

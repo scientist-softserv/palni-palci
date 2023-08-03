@@ -16,7 +16,6 @@ module AccountSettings
 
     setting :allow_signup, type: 'boolean', default: true
     setting :allow_downloads, type: 'boolean', default: true
-    setting :auth_provider, type: 'string'
     setting :analytics_provider, type: 'string'
     setting :bulkrax_validations, type: 'boolean', disabled: true
     setting :cache_api, type: 'boolean', default: false
@@ -24,6 +23,7 @@ module AccountSettings
     setting :contact_email_to, type: 'string', default: 'consortial-ir@palci.org'
     setting :doi_reader, type: 'boolean', default: false
     setting :doi_writer, type: 'boolean', default: false
+    setting :email_domain, type: 'string', default: 'example.com'
     setting :email_format, type: 'array'
     setting :email_subject_prefix, type: 'string'
     setting :enable_oai_metadata, type: 'string', disabled: true

@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 95455095f5368f23e182566b523c3bdf444ce074
+  revision: 2e0f7b4b7be6fc6a5e688a536f7d84f8ea9bb6dc
   branch: privkey_for_ga4_3.x
   specs:
     hyrax (3.6.0)
@@ -199,7 +199,7 @@ GEM
     awesome_nested_set (3.5.0)
       activerecord (>= 4.0.0, < 7.1)
     aws-eventstream (1.2.0)
-    aws-partitions (1.796.0)
+    aws-partitions (1.797.0)
     aws-sdk-core (3.180.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -955,7 +955,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.1.1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -1322,7 +1322,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.10)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   aarch64-linux-musl

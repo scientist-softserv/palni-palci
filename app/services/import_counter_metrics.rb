@@ -15,7 +15,7 @@ class ImportCounterMetrics
       total_item_investigations = row['count']
       counter_investigation = Hyrax::CounterMetric.find_by(work_id: work_id, date: date)
       if counter_investigation.present?
-        counter_investiation.update(worktype: worktype, work_id: work_id, resource_type: resource_type, date: date, total_item_investigations: total_item_investigations)
+        counter_investigation.update(worktype: worktype, work_id: work_id, resource_type: resource_type, date: date, total_item_investigations: total_item_investigations)
       else
         Hyrax::CounterMetric.create!(worktype: worktype, work_id: work_id, resource_type: resource_type, date: date, total_item_investigations: total_item_investigations)
       end

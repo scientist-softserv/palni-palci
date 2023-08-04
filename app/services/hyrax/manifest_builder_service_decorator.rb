@@ -21,11 +21,13 @@ module Hyrax
         CGI.unescapeHTML(Loofah.fragment(text.to_s).scrub!(:prune).to_s)
       end
 
-      def sanitize_v3(input_hash:, presenter:, solr_doc_hits:)
-        hash = super(input_hash, presenter: presenter, solr_doc_hits: solr_doc_hits)
+      # rubocop:disable Lint/ShadowedArgument
+      def sanitize_v3(hash:, presenter:, solr_doc_hits:)
+        hash = super
         hash['viewingHint'] = 'paged'
         hash
       end
+    # rubocop:enable Lint/ShadowedArgument
   end
 end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_18_202804) do
+ActiveRecord::Schema.define(version: 2023_08_04_202804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,9 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.datetime "last_succeeded_at"
     t.string "importerexporter_type", default: "Bulkrax::Importer"
     t.integer "import_attempts", default: 0
+    t.index ["identifier"], name: "index_bulkrax_entries_on_identifier"
+    t.index ["importerexporter_id", "importerexporter_type"], name: "bulkrax_entries_importerexporter_idx"
+    t.index ["type"], name: "index_bulkrax_entries_on_type"
   end
 
   create_table "bulkrax_exporter_runs", force: :cascade do |t|
@@ -165,7 +168,9 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order", default: 0
+    t.index ["child_id"], name: "index_bulkrax_pending_relationships_on_child_id"
     t.index ["importer_run_id"], name: "index_bulkrax_pending_relationships_on_importer_run_id"
+    t.index ["parent_id"], name: "index_bulkrax_pending_relationships_on_parent_id"
   end
 
   create_table "bulkrax_statuses", force: :cascade do |t|
@@ -179,6 +184,9 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.string "runnable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["error_class"], name: "index_bulkrax_statuses_on_error_class"
+    t.index ["runnable_id", "runnable_type"], name: "bulkrax_statuses_runnable_idx"
+    t.index ["statusable_id", "statusable_type"], name: "bulkrax_statuses_statusable_idx"
   end
 
   create_table "checksum_audit_logs", id: :serial, force: :cascade do |t|
@@ -341,6 +349,17 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.boolean "brandable", default: true, null: false
     t.string "badge_color", default: "#663333"
     t.index ["machine_id"], name: "index_hyrax_collection_types_on_machine_id", unique: true
+  end
+
+  create_table "hyrax_counter_metrics", force: :cascade do |t|
+    t.string "worktype"
+    t.string "resource_type"
+    t.string "work_id"
+    t.date "date"
+    t.integer "total_item_investigations"
+    t.integer "total_item_requests"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hyrax_default_administrative_set", force: :cascade do |t|
@@ -855,6 +874,20 @@ ActiveRecord::Schema.define(version: 2023_07_18_202804) do
     t.string "committer_login"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "work_authorizations", force: :cascade do |t|
+    t.string "work_title"
+    t.bigint "user_id"
+    t.datetime "expires_at"
+    t.string "work_pid", null: false
+    t.string "scope"
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_work_authorizations_on_expires_at"
+    t.index ["user_id"], name: "index_work_authorizations_on_user_id"
+    t.index ["work_pid"], name: "index_work_authorizations_on_work_pid"
   end
 
   create_table "work_view_stats", id: :serial, force: :cascade do |t|

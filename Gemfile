@@ -12,7 +12,7 @@ gem "redcarpet"
 gem "sentry-raven" # April ToDo: Need to take out once the transfer is complete to Sentry.io
 gem 'active-fedora', '>= 11.1.4'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
-gem 'activejob-scheduler', github: 'notch8/activejob-scheduler.git'
+gem 'activejob-scheduler', github: 'notch8/activejob-scheduler'
 gem 'activerecord-nulldb-adapter'
 gem 'addressable', '2.8.1'
 gem 'apartment'
@@ -43,9 +43,9 @@ gem 'factory_bot_rails', group: %i[test]
 gem 'fcrepo_wrapper', '~> 0.4', group: %i[development test]
 gem 'flipflop', '~> 2.3'
 gem 'flutie'
-gem 'hyrax', github: 'samvera/hyrax.git', branch: 'privkey_for_ga4_3.x' #'~> 3.6.0'
-gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi.git', branch: 'main'
-gem 'hyrax-iiif_av', github: 'samvera-labs/hyrax-iiif_av.git', branch: 'main'
+gem 'hyrax', github: 'samvera/hyrax', branch: 'privkey_for_ga4_3.x' #'~> 3.6.0'
+gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi', branch: 'main'
+gem 'hyrax-iiif_av', github: 'samvera-labs/hyrax-iiif_av', branch: 'main'
 gem 'i18n-debug', require: false, group: %i[development test]
 gem 'i18n-tasks', group: %i[development test]
 gem 'iiif_print', github: 'scientist-softserv/iiif_print', branch: 'main'

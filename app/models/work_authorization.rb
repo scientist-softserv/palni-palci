@@ -54,7 +54,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   #
   # @see .revoke!
   # rubocop:disable Rails/FindBy
-  def self.authorize!(user:, work_pid:, expires_at: 1.day.from_now)
+  def self.authorize!(user:, work_pid:, expires_at: 1.days.from_now)
     work = ActiveFedora::Base.where(id: work_pid).first
     raise WorkNotFoundError.new(user: user, work_pid: work_pid) unless work
 

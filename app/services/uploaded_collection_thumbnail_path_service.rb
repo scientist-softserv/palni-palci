@@ -15,6 +15,6 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
     def upload_dir(collection)
       "#{Rails.root.to_s}/public/uploads/uploaded_collection_thumbnails/#{collection.id}"
     end
-    # rubocop:enable Metrics/LineLength, Rails/FilePath, Lint/StringConversionInInterpolation
+    # rubocop:enable Rails/FilePath, Lint/StringConversionInInterpolation
   end
 end

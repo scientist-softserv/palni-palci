@@ -44,7 +44,7 @@ de:
       hyku_group:
         description: Eine kurze Zusammenfassung der Rolle der Gruppe
       user:
-        email: Geben Sie jeweils eine E-Mail-Adresse ein. Wenn keine Rolle ausgewählt ist, beginnt der neue Benutzer nur mit registrierten Benutzerberechtigungen. Rollen können Benutzern auch über Workflow-Rollen oder die Aufnahme in Gruppen zugewiesen werden. Sie können eine Einladung auch über dieses Formular erneut senden.
+        email: Geben Sie jeweils eine E-Mail-Adresse ein. Sie können eine Einladung auch über dieses Formular erneut senden.
     labels:
       account:
         admin_emails: Neuen Administrator hinzufügen oder einladen (per E-Mail)

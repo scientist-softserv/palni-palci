@@ -20,6 +20,7 @@ module OAI
             education_level extent format has_model keyword language learning_resource_type license
             newer_version_id oer_size previous_version_id publisher related_item_id related_url
             resource_type rights_holder rights_notes rights_statement source subject table_of_contents
+            contributing_library library_catalog_identifier chronology_note
           ]
         end
 
@@ -54,7 +55,7 @@ module OAI
             "has_model_ssim:FileSet AND " \
             "visibility_ssi:#{Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC}",
             fl: ["id"],
-            method: :post, # higher request size limit than :get
+            method: :post,
             rows: 1024 # maximum
           )
           return if public_fs_ids.blank?

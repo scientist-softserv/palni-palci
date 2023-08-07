@@ -25,6 +25,7 @@ RSpec.describe AdvSearchBuilder do
       #
       # When we had those duplicates, the :add_advanced_parse_q_to_solr obliterated the join logic
       # for files.
+      # note:  :exclude_models, :highlight_search_params, :show_parents_only, :include_allinson_flex_fields are added for the hyrax-iiif_av gem
       %i[
         default_solr_parameters
         add_query_to_solr
@@ -43,6 +44,10 @@ RSpec.describe AdvSearchBuilder do
         show_works_or_works_that_contain_files
         show_only_active_records
         filter_collection_facet_for_access
+        exclude_models
+        highlight_search_params
+        show_parents_only
+        include_allinson_flex_fields
         add_advanced_parse_q_to_solr
         add_advanced_search_to_solr
       ]

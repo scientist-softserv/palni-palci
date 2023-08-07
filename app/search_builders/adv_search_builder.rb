@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class AdvSearchBuilder < Hyrax::CatalogSearchBuilder
+# this class must inherit from the IiifPrint builder so it can be set to the config.search_builder_class and
+# include all necessary methods
+class AdvSearchBuilder < IiifPrint::CatalogSearchBuilder
   self.default_processor_chain += [:add_advanced_parse_q_to_solr, :add_advanced_search_to_solr]
   include Blacklight::Solr::SearchBuilderBehavior
   include BlacklightAdvancedSearch::AdvancedSearchBuilder

@@ -5,11 +5,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
 
-gem "blacklight_advanced_search"
-gem "cocoon"
-gem "order_already", "~> 0.3.1"
-gem "redcarpet"
-gem "sentry-raven" # April ToDo: Need to take out once the transfer is complete to Sentry.io
+# rubocop:enable Metrics/LineLength
 gem 'active-fedora', '>= 11.1.4'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
 gem 'activejob-scheduler', github: 'notch8/activejob-scheduler'
@@ -18,6 +14,7 @@ gem 'addressable', '2.8.1'
 gem 'apartment'
 gem 'aws-sdk-sqs', group: %i[aws]
 gem 'blacklight', '~> 6.7'
+gem 'blacklight_advanced_search'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 gem 'blacklight_range_limit'
 gem 'bolognese', '>= 1.9.10'
@@ -62,6 +59,7 @@ gem 'omniauth-multi-provider'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-saml', '~> 2.1'
 gem 'omniauth_openid_connect'
+gem 'order_already', '~> 0.3.1'
 gem 'parser', '~> 2.5.3'
 gem 'pg'
 gem 'postrank-uri', '>= 1.0.24'
@@ -77,6 +75,7 @@ gem 'puma', '~> 4.3' # Use Puma as the app server
 gem 'rack-test', '0.7.0', group: %i[test] # rack-test >= 0.71 does not work with older Capybara versions (< 2.17). See #214 for more details
 gem 'rails-controller-testing', group: %i[test]
 gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
+gem 'redcarpet'
 gem 'redlock', '>= 0.1.2', '< 2.0' # lock redlock per https://github.com/samvera/hyrax/pull/5961
 gem 'riiif', '~> 1.1'
 gem 'rolify'
@@ -95,6 +94,7 @@ gem 'secure_headers'
 gem 'selenium-webdriver', '4.8.1', group: %i[test]
 gem 'semaphore_test_boosters', group: %i[test]
 gem 'sentry-rails'
+gem 'sentry-raven' # April ToDo: Need to take out once the transfer is complete to Sentry.io
 gem 'sentry-ruby'
 gem 'shoulda-matchers', '~> 4.0', group: %i[test]
 gem 'sidekiq'
@@ -108,4 +108,3 @@ gem 'turbolinks', '~> 5'
 gem 'web-console', '>= 3.3.0', group: %i[development] # <%= console %> in views
 gem 'webdrivers', '~> 4.7.0', group: %i[test]
 gem 'webmock', group: %i[test]
-# rubocop:enable Metrics/LineLength

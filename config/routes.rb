@@ -36,6 +36,24 @@ Rails.application.routes.draw do
     end
   end
 
+
+  # routes for the  api
+  namespace :api do
+    resource :sushi do
+      defaults format: :json do
+        collection do
+          get 'r51/status', to: 'sushi#get_status'
+          get 'r51/members', to: 'sushi#get_members'
+          get 'r51/reports', to: 'sushi#list_reports'
+          get 'r51/reports/:report_id', to: 'sushi#get_report', as: :report
+          get 'r51/reports/pr', to: 'sushi#get_platform_report'
+          get 'r51/reports/pr_p1', to: 'sushi#get_platform_usage_report'
+          get 'r51/reports/ir', to: 'sushi#get_item_report'
+        end
+      end
+    end
+  end
+
   get 'status', to: 'status#index'
 
   mount BrowseEverything::Engine => '/browse'
@@ -45,6 +63,7 @@ Rails.application.routes.draw do
   end
 
   root 'hyrax/homepage#index'
+
 
   devise_for :users, controllers: { invitations: 'hyku/invitations', registrations: 'hyku/registrations' }
   mount Qa::Engine => '/authorities'

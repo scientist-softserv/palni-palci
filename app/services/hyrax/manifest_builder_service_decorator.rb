@@ -21,10 +21,10 @@ module Hyrax
         CGI.unescapeHTML(Loofah.fragment(text.to_s).scrub!(:prune).to_s)
       end
 
-      def sanitize_v3(input_hash:, presenter:, solr_doc_hits:)
-        hash = super(input_hash, presenter: presenter, solr_doc_hits: solr_doc_hits)
-        hash['viewingHint'] = 'paged'
-        hash
+      def sanitize_v3(hash:, presenter:, solr_doc_hits:)
+        returning_hash = super
+        returning_hash['viewingHint'] = 'paged'
+        returning_hash
       end
   end
 end

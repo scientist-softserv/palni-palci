@@ -24,6 +24,27 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   validates :work_pid, presence: true
 
   ##
+  # @param user [User]
+  # @param authorize_until [Time] authorize the given work_pid(s) until this point in time.
+  # @param revoke_expirations_before [Time] expire all authorizations that have expires_at less than or equal to this parameter.
+  # @param work_pid [String, Array<String>]
+  def self.handle_signin_for!(user:, authorize_until: 1.day.from_now, work_pid: nil, revoke_expirations_before: Time.zone.now)
+    # Maybe we get multiple pids; let's handle that accordingly
+    Array.wrap(work_pid).each do |pid|
+      begin
+        authorize!(user: user, work_pid: pid, expires_at: authorize_until)
+      rescue WorkNotFoundError
+        Rails.logger.info("Unable to find work_pid of #{pid.inspect}.")
+      end
+    end
+
+    # We re-authorized the above work_pid, so it should not be in this query.
+    where("user_id = :user_id AND expires_at <= :expires_at", user_id: user.id, expires_at: revoke_expirations_before).pluck(:work_pid).each do |pid|
+      revoke!(user: user, work_pid: pid)
+    end
+  end
+
+  ##
   # Grant the given :user permission to read the work associated with the given :work_pid.
   #
   # @param user [User]
@@ -33,13 +54,14 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   #
   # @see .revoke!
   # rubocop:disable Rails/FindBy
-  def self.authorize!(user:, work_pid:)
+  def self.authorize!(user:, work_pid:, expires_at: 1.day.from_now)
     work = ActiveFedora::Base.where(id: work_pid).first
     raise WorkNotFoundError.new(user: user, work_pid: work_pid) unless work
 
     transaction do
       authorization = find_or_create_by!(user_id: user.id, work_pid: work.id)
-      authorization.update!(work_title: work.title)
+      authorization.update!(work_title: work.title, expires_at: expires_at)
+
       work.set_read_users([user.user_key], [user.user_key])
       work.save!
     end

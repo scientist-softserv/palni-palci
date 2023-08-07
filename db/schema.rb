@@ -351,6 +351,17 @@ ActiveRecord::Schema.define(version: 2023_08_04_202804) do
     t.index ["machine_id"], name: "index_hyrax_collection_types_on_machine_id", unique: true
   end
 
+  create_table "hyrax_counter_metrics", force: :cascade do |t|
+    t.string "worktype"
+    t.string "resource_type"
+    t.string "work_id"
+    t.date "date"
+    t.integer "total_item_investigations"
+    t.integer "total_item_requests"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "hyrax_default_administrative_set", force: :cascade do |t|
     t.string "default_admin_set_id", null: false
     t.datetime "created_at", null: false

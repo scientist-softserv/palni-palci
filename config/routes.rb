@@ -41,13 +41,12 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resource :sushi do
       collection do
-        get 'r51/status', to: 'sushi#get_status'
-        get 'r51/members', to: 'sushi#get_members'
+        get 'r51/status', to: 'sushi#status'
+        get 'r51/members', to: 'sushi#members'
         get 'r51/reports', to: 'sushi#list_reports'
-        get 'r51/reports/pr', to: 'sushi#get_platform_report'
-        get 'r51/reports/pr_p1', to: 'sushi#get_platform_usage_report'
-        get 'r51/reports/ir', to: 'sushi#get_item_report'
-        get 'r51/reports/ir/:id', to: 'sushi#get_item_report_for_single_item'
+        get 'r51/reports/pr', to: 'sushi#platform_report'
+        get 'r51/reports/pr_p1', to: 'sushi#platform_usage_report'
+        get 'r51/reports/ir', to: 'sushi#item_report'
       end
     end
   end

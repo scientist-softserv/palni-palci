@@ -3,9 +3,9 @@
 # Import counter views and downloads for a given tenant
 class ImportCounterMetrics
   def self.import_investigations
-    csv_text = File.read(Rails.root.join('spec', 'fixtures', 'csv', 'pittir-views.csv'))
+    csv_text = ENV['counter-investigations'] || File.read(Rails.root.join('spec', 'fixtures', 'csv', 'pittir-views.csv'))
     csv = CSV.parse(csv_text, headers: true)
-    csv.each do |row|
+    csv.foreach do |row|
       work = ActiveFedora::Base.where(bulkrax_identifier_tesim: row['eprintid']).first
       next if work.nil?
       worktype = work.class
@@ -23,9 +23,9 @@ class ImportCounterMetrics
   end
 
   def self.import_requests
-    csv_text = File.read(Rails.root.join('spec', 'fixtures', 'csv', 'pittir-downloads.csv'))
+    csv_text = ENV['counter-requests'] || File.read(Rails.root.join('spec', 'fixtures', 'csv', 'pittir-downloads.csv'))
     csv = CSV.parse(csv_text, headers: true)
-    csv.each do |row|
+    csv.foreach do |row|
       work = ActiveFedora::Base.where(bulkrax_identifier_tesim: row['eprintid']).first
       next if work.nil?
       worktype = work.class

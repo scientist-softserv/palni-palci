@@ -103,11 +103,18 @@ class ApplicationController < ActionController::Base
     end
 
     ##
+    # Provides the prepare_for_conditional_work_authorization! (see #authenticate_if_needed)
+    include WorkAuthorization::StoreUrlForScope
+
+    ##
     # Extra authentication for palni-palci during development phase
     def authenticate_if_needed
       # Disable this extra authentication in test mode
       return true if Rails.env.test?
       if (is_hidden || is_staging) && !is_api_or_pdf
+        # Why capture this?  In my review of the params and scope for authorization, I had a blank
+        # value in some of the OmniAuth instantiations.
+        prepare_for_conditional_work_authorization!(request.original_url)
         authenticate_or_request_with_http_basic do |username, password|
           username == "pals" && password == "pals"
         end

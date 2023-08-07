@@ -5,11 +5,22 @@ module Users
     skip_before_action :verify_authenticity_token
 
     def callback
-      logger.info("========== auth: #{request.env['omniauth.auth']}")
+      logger.info("=@=@=@=@  auth: #{request.env['omniauth.auth']}, params: #{params.inspect}")
 
       @user = User.from_omniauth(request.env['omniauth.auth'])
 
       if @user.persisted?
+        # https://github.com/scientist-softserv/palni-palci/issues/633
+        WorkAuthorization.handle_signin_for!(user: @user, scope: params[:scope])
+
+        # By default the sign_in_and_redirect method will look for a stored_location_for.  However,
+        # we're seeing that the stored location seems to get lost.  So we'll rely on the presence of
+        # the scope to handle this.
+        #
+        # Related to OmniAuth::Strategies::OpenIDConnectDecorator
+        url = WorkAuthorization.url_from(scope: params[:scope], request: request)
+        store_location_for(:user, url) if url
+
         # We need to render a loading page here just to set the sesion properly
         # otherwise the logged in session gets lost during the redirect
         if params[:action] == 'saml'

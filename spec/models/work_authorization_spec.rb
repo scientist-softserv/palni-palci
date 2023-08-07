@@ -8,7 +8,55 @@ RSpec.describe WorkAuthorization, type: :model do
   let(:borrowing_user) { FactoryBot.create(:user) }
   let(:ability) { ::Ability.new(borrowing_user) }
 
+  describe '.extract_pids_from' do
+    subject { described_class.extract_pids_from(scope: given_test_scope) }
+
+    [
+      ["http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", ["f2af2a68-7c79-481b-815e-a91517e23761"]],
+      ["openid", []],
+      ["http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en", ["f2af2a68-7c79-481b-815e-a91517e23761"]],
+      ["http://pals.hyku.test/collection/f2af2a68-7c79-481b-815e-a91517e23761?locale=en", []],
+      [nil, []]
+    ].each do |given_scope, expected_value|
+      context "with #{given_scope.inspect}" do
+        let(:given_test_scope) { given_scope }
+
+        it { is_expected.to match_array(expected_value) }
+      end
+    end
+  end
+
+  describe '.url_from' do
+
+    subject { described_class.url_from(scope: given_test_scope, request: request) }
+    let(:request) { double(ActionDispatch::Request, env: { 'rack.url_scheme' => "http" }, host_with_port: "pals.hyku.test") }
+
+    [
+      ["http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en"],
+      ["/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en"],
+      ["/help/me/123 openid", nil],
+      [nil, nil]
+    ].each do |given_scope, expected_value|
+      context "with #{given_scope.inspect}" do
+        let(:given_test_scope) { given_scope }
+        it { is_expected.to eq(expected_value) }
+      end
+    end
+  end
+
   describe '.handle_signin_for!' do
+    context 'when given a work_pid and a scope' do
+      it 'will authorize the given work_pid and scope’s work' do
+        given_scope = "http://pals.hyku.test/concern/generic_works/#{other_work.id}?locale=en openid"
+
+        expect do
+          expect do
+            described_class.handle_signin_for!(user: borrowing_user, work_pid: work.id, scope: given_scope, authorize_until: 1.day.from_now)
+          end.to change { ::Ability.new(borrowing_user).can?(:read, work.id) }.from(false).to(true)
+        end.to change { ::Ability.new(borrowing_user).can?(:read, other_work.id) }.from(false).to(true)
+      end
+    end
+
     context 'when given a work_pid' do
       it 'will re-authorize the given work_pid and expire non-specified work_ids' do
         described_class.authorize!(user: borrowing_user, work_pid: work.id, expires_at: 1.day.ago)

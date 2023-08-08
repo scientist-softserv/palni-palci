@@ -5,7 +5,8 @@
 class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
-    pdf_split_child_model: GenericWork
+    pdf_split_child_model: GenericWork,
+    pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
 
   self.indexer = ImageIndexer

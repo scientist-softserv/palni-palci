@@ -372,6 +372,7 @@ GEM
     carrierwave-aws (1.4.0)
       aws-sdk-s3 (~> 1.0)
       carrierwave (>= 0.7, < 2.1)
+    childprocess (3.0.0)
     citeproc (1.0.10)
       namae (~> 1.0)
     citeproc-ruby (1.1.14)
@@ -1219,10 +1220,9 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     secure_headers (6.4.0)
     select2-rails (3.5.11)
-    selenium-webdriver (4.8.1)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     semaphore_cucumber_booster_config (1.4.2)
       thor (>= 0.19.1, < 2.0)
     semaphore_test_boosters (2.7.1)
@@ -1391,7 +1391,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
-    websocket (1.2.9)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -1490,7 +1489,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   scss_lint
   secure_headers
-  selenium-webdriver (= 4.8.1)
+  selenium-webdriver (= 3.142.7)
   semaphore_test_boosters
   sentry-rails
   sentry-raven

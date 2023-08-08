@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.5'
 
-# rubocop:enable Metrics/LineLength
 gem 'active-fedora', '>= 11.1.4'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
 gem 'activejob-scheduler', github: 'notch8/activejob-scheduler'
@@ -91,7 +89,7 @@ gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', group: %i[development test]
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'scss_lint', require: false, group: %i[development]
 gem 'secure_headers'
-gem 'selenium-webdriver', '4.8.1', group: %i[test]
+gem 'selenium-webdriver', '3.142.7', group: %i[test]
 gem 'semaphore_test_boosters', group: %i[test]
 gem 'sentry-rails'
 gem 'sentry-raven' # April ToDo: Need to take out once the transfer is complete to Sentry.io

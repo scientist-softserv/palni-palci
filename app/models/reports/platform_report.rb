@@ -44,7 +44,32 @@ class Reports::PlatformReport
           "End_Date" => end_date.iso8601,
           "Data_Type" => data_types
         }
+      },
+      "Report_Items" => {
+        "Attribute_Performance" => attribute_performance
       }
     }
+  end
+
+  def attribute_performance
+    # return an array of hashes that have properties
+    returning_value = []
+    previous_node = {}
+    data.each do |datum|
+      if previous_node["Data_Type"] != datum.resource_type
+        returning_value << previous_node if previous_node.present?
+        previous_node = {}
+      end
+    end
+  end
+
+  def data
+    relation = Hyrax::CounterMetric
+    relation = relation.where(resource_type: data_types) if data_types.present?
+    relation = relation.where("date >= ? AND date <= ?", begin_date, end_date)
+    relation = relation.order(:resource_type, :date)
+    relation = relation.group(:resource_type, :date)
+    # relation = relation.calculate(:sum, :total_item_investigations).calculate(:sum, :total_item_requests)
+    relation = relation.select(:resource_type, :date, "SUM(total_item_investigations) as total_item_investigations", "SUM(total_item_requests) as total_item_requests")
   end
 end

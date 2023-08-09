@@ -22,7 +22,8 @@ class Reports::PlatformReport
     begin_date = params.fetch(:begin_date)
     end_date = params.fetch(:end_date)
     # data_type: a list of Data_Types separated by the | character (URL encoded as %7C) to return usage for. when omitted, includes all Data_Types.
-    data_types = params.fetch(:data_type, '')
+    # ex. 'book|article|audio'
+    data_types = params[:data_type]&.split('|')
     new(begin_date: begin_date, end_date: end_date, data_types: data_types, account: account)
   end
 
@@ -37,10 +38,10 @@ class Reports::PlatformReport
     @created = created
     @account = account
     @attributes_to_show = attributes_to_show & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
-    @begin_date = begin_date.to_date
-    @end_date = end_date.to_date
+    @begin_date = self.class.coerce_to_date(begin_date)
+    @end_date = self.class.coerce_to_date(end_date)
     # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
-    @data_types = Array.wrap(data_types)
+    @data_types = Array.wrap(data_types).map(&:downcase)
     # TODO: handle earliest minimum begin date depending on when we find out is the earliest date
   end
 
@@ -73,7 +74,7 @@ class Reports::PlatformReport
 
   def attribute_performance
     data.group_by(&:resource_type).map do |resource_type, records|
-      { "Data_Type" => resource_type,
+      { "Data_Type" => resource_type || "",
         "Access_Method" => "Regular",
         "Performance" => {
           "Total_Item_Investigations" =>
@@ -93,7 +94,7 @@ class Reports::PlatformReport
 
   def data
     relation = Hyrax::CounterMetric
-    relation = relation.where(resource_type: data_types) if data_types.present?
+    relation = relation.where("LOWER(resource_type) IN (?)", data_types) if data_types.present?
     relation = relation.where("date >= ? AND date < ?", begin_date, end_date)
     relation = relation.order(:resource_type, "year_month")
     relation = relation.group(:resource_type, "date_trunc('month', date)")

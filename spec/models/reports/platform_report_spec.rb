@@ -66,18 +66,5 @@ RSpec.describe Reports::PlatformReport do
         expect{ subject }.to raise_exception
       end
     end
-    context 'with expected params' do
-      let(:params){ {
-        begin_date: '2022-01',
-        end_date: '2022-02',
-        data_types: ['Book']
-      } }
-      it 'will raise an error' do
-        expect{ subject }.to raise_exception
-      end
-    end
-    context 'with unexpected params' do
-
-    end
   end
 end

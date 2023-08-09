@@ -48,6 +48,13 @@ module Hyku
       end
     end
 
+    config.to_prepare do
+      # Allows us to use decorator files in the app directory
+      Dir.glob(File.join(File.dirname(__FILE__), "../lib/**/*_decorator*.rb")).sort.each do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+    end
+
     # OAI additions
     Dir.glob(File.join(File.dirname(__FILE__), "../lib/oai/**/*.rb")).sort.each do |c|
       Rails.configuration.cache_classes ? require(c) : load(c)
@@ -77,5 +84,7 @@ module Hyku
         config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), User, Time]
       end
     end
+
+    config.autoload_paths << "#{Rails.root}/app/controllers/api"
   end
 end

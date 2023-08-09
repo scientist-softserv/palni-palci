@@ -37,8 +37,8 @@ module API
     end
 
     def list_reports
-      render json: { "reports" => 'all the reports' }
-      # render json: Reports::ReportsReport.new.reports_array
+      @report = Reports::ReportsReport.new.reports_array
+      render json: @report
     end
 
     private

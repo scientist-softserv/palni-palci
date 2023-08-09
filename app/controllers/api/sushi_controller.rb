@@ -19,8 +19,9 @@ module API
     end
 
     def platform_report
-      # Logic to retrieve platform report
-      render json: { "platform_report" => 'hi' }
+      @report = Reports::PlatformReport.build_from(params, account: current_account)
+      # we may need to explicitly call @report.to_hash
+      render json: @report
     end
 
     def platform_usage_report
@@ -44,8 +45,6 @@ module API
 
     private
 
-      def sushi_params
-        params.permit(:item_id, :report_id)
-      end
+
   end
 end

@@ -1,6 +1,9 @@
 # frozen_string_literal:true
 
 # counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
+#
+# dates will be filtered by including the begin_date, and excluding the end_date
+# e.g. if you want to full month, begin_date should be the first day of that month, and end_date should be the first day of the following month.
 class Reports::PlatformReport
   attr_reader :created, :account, :attributes_to_show, :begin_date, :end_date, :data_types
   ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
@@ -15,12 +18,28 @@ class Reports::PlatformReport
     # "Attributed"
   ]
 
+  def self.build_from(params = {}, account:)
+    begin_date = params.fetch(:begin_date)
+    end_date = params.fetch(:end_date)
+    # data_type: a list of Data_Types separated by the | character (URL encoded as %7C) to return usage for. when omitted, includes all Data_Types.
+    data_types = params.fetch(:data_type, '')
+    new(begin_date: begin_date, end_date: end_date, data_types: data_types, account: account)
+  end
+
+  def self.coerce_to_date(value)
+    value.to_date
+  rescue
+    year, month, rest = value.split('-')
+    Date.new(year.to_i, month.to_i, 1)
+  end
+
   def initialize(created: Time.zone.now, account:, attributes_to_show: [], begin_date:, end_date:, data_types: [])
     @created = created
     @account = account
     @attributes_to_show = attributes_to_show & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
     @begin_date = begin_date.to_date
     @end_date = end_date.to_date
+    # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
     @data_types = Array.wrap(data_types)
     # TODO: handle earliest minimum begin date depending on when we find out is the earliest date
   end
@@ -75,7 +94,7 @@ class Reports::PlatformReport
   def data
     relation = Hyrax::CounterMetric
     relation = relation.where(resource_type: data_types) if data_types.present?
-    relation = relation.where("date >= ? AND date <= ?", begin_date, end_date)
+    relation = relation.where("date >= ? AND date < ?", begin_date, end_date)
     relation = relation.order(:resource_type, "year_month")
     relation = relation.group(:resource_type, "date_trunc('month', date)")
     relation = relation.select(:resource_type, "date_trunc('month', date) AS year_month", "SUM(total_item_investigations) as total_item_investigations", "SUM(total_item_requests) as total_item_requests")

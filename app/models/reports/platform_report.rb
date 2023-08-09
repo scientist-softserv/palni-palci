@@ -53,13 +53,22 @@ class Reports::PlatformReport
 
   def attribute_performance
     # return an array of hashes that have properties
-    returning_value = []
-    previous_node = {}
-    data.each do |datum|
-      if previous_node["Data_Type"] != datum.resource_type
-        returning_value << previous_node if previous_node.present?
-        previous_node = {}
-      end
+    data.group_by(&:resource_type).map do |resource_type, records|
+      { "Data_Type" => resource_type,
+        "Access_Method" => "Regular",
+        "Performance" => {
+          "Total_Item_Investigations" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.date.iso8601] = record.total_item_investigations
+              hash
+            end,
+          "Total_Item_Requests" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.date.iso8601] = record.total_item_requests
+              hash
+            end
+        }
+      }
     end
   end
 

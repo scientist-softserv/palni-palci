@@ -5,8 +5,8 @@ module Users
     skip_before_action :verify_authenticity_token
 
     def callback
-      # Here you will need to implement your logic for processing the callback
-      # for example, finding or creating a user
+      logger.info("========== auth: #{request.env['omniauth.auth']}")
+
       @user = User.from_omniauth(request.env['omniauth.auth'])
 
       if @user.persisted?

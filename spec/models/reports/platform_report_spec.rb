@@ -21,14 +21,16 @@ RSpec.describe Reports::PlatformReport do
         total_item_requests: 5)
     end
 
+    let(:params) do
+      {
+        attributes_to_show: ['Access_Method', 'Fake_Value'],
+        begin_date: '2022-01-03',
+        end_date: '2022-02-05'
+      }
+    end
+
     let(:created) { Time.zone.now }
-    subject { described_class.new(
-      created: created,
-      account: account,
-      attributes_to_show: ['Access_Method', 'Fake_Value'],
-      begin_date: '2022-01-03',
-      end_date: '2022-02-05'
-    ).to_hash }
+    subject { described_class.new(params, created: created, account: account).to_hash }
 
     it 'has the expected keys' do
       expect(subject.key?('Report_Header'))
@@ -44,24 +46,14 @@ RSpec.describe Reports::PlatformReport do
     subject { described_class.coerce_to_date(given_date) }
     context 'with 2023-02-01' do
       let(:given_date){ '2023-02-01' }
-      it{ is_expected.to be_a Date }
+      it{ is_expected.to eq(Date.new(2023, 2, 1)) }
     end
     context 'with 2023-05' do
       let(:given_date){ '2023-05' }
-      it{ is_expected.to be_a Date }
+      it{ is_expected.to eq(Date.new(2023, 5, 1)) }
     end
     context 'with 2023' do
       let(:given_date){ '2023' }
-      it 'will raise an error' do
-        expect{ subject }.to raise_exception
-      end
-    end
-  end
-
-  describe '.build_from' do
-    subject { described_class.build_from(params, account: account) }
-    context 'with empty params' do
-      let(:params){ {} }
       it 'will raise an error' do
         expect{ subject }.to raise_exception
       end

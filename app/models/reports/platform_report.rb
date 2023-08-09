@@ -18,30 +18,31 @@ class Reports::PlatformReport
     # "Attributed"
   ]
 
-  def self.build_from(params = {}, account:)
-    begin_date = params.fetch(:begin_date)
-    end_date = params.fetch(:end_date)
-    # data_type: a list of Data_Types separated by the | character (URL encoded as %7C) to return usage for. when omitted, includes all Data_Types.
-    # ex. 'book|article|audio'
-    data_types = params[:data_type]&.split('|')
-    new(begin_date: begin_date, end_date: end_date, data_types: data_types, account: account)
-  end
-
   def self.coerce_to_date(value)
     value.to_date
   rescue
-    year, month, rest = value.split('-')
+    # We can't parse the original date, so lets attempt to coerce a "YYYY-MM" string (year-month).
+    # If it fails, we'll raise an exception on garbage input.
+    year, month, _ = value.split('-')
+
+    # We want to set the date to the 1st of the month.
     Date.new(year.to_i, month.to_i, 1)
   end
 
-  def initialize(created: Time.zone.now, account:, attributes_to_show: [], begin_date:, end_date:, data_types: [])
+  def initialize(params = {}, created: Time.zone.now, account:)
     @created = created
     @account = account
-    @attributes_to_show = attributes_to_show & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
-    @begin_date = self.class.coerce_to_date(begin_date)
-    @end_date = self.class.coerce_to_date(end_date)
+
+    # We want to limit the available attributes to be a subset of the given attributes; the `&` is
+    # the intersection of the two arrays.
+    @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
+
+    # Because we're receiving user input that is likely strings, we need to do some coercion.
+    @begin_date = self.class.coerce_to_date(params.fetch(:begin_date))
+    @end_date = self.class.coerce_to_date(params.fetch(:end_date))
+
     # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
-    @data_types = Array.wrap(data_types).map(&:downcase)
+    @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
     # TODO: handle earliest minimum begin date depending on when we find out is the earliest date
   end
 
@@ -92,12 +93,27 @@ class Reports::PlatformReport
     end
   end
 
+  ##
+  # @note the `date_trunc` SQL function is specific to Postgresql.  It will take the date/time field
+  #       value and return a date/time object that is at the exact start of the date specificity.
+  #
+  #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
+  #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
+  #       month).
   def data
+    # We're capturing this relation/query because in some cases, we need to chain another where
+    # clause onto the relation.
     relation = Hyrax::CounterMetric
-    relation = relation.where("LOWER(resource_type) IN (?)", data_types) if data_types.present?
-    relation = relation.where("date >= ? AND date < ?", begin_date, end_date)
-    relation = relation.order(:resource_type, "year_month")
-    relation = relation.group(:resource_type, "date_trunc('month', date)")
-    relation = relation.select(:resource_type, "date_trunc('month', date) AS year_month", "SUM(total_item_investigations) as total_item_investigations", "SUM(total_item_requests) as total_item_requests")
+                 .select(:resource_type,
+                   "date_trunc('month', date) AS year_month",
+                   "SUM(total_item_investigations) as total_item_investigations",
+                   "SUM(total_item_requests) as total_item_requests")
+                 .where("date >= ? AND date < ?", begin_date, end_date)
+                 .order(:resource_type, "year_month")
+                 .group(:resource_type, "date_trunc('month', date)")
+
+    return relation unless data_types.present?
+
+    relation.where("LOWER(resource_type) IN (?)", data_types)
   end
 end

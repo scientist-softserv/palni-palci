@@ -11,15 +11,19 @@ RSpec.describe Reports::PlatformReport do
         work_id: '12345',
         date: '2022-01-05',
         total_item_investigations: 1,
-        total_item_requests: 10)
+        total_item_requests: 10
+      )
       Hyrax::CounterMetric.create(
         worktype: 'GenericWork',
         resource_type: 'Book',
         work_id: '54321',
         date: '2022-01-05',
         total_item_investigations: 3,
-        total_item_requests: 5)
+        total_item_requests: 5
+      )
     end
+
+    subject { described_class.new(params, created: created, account: account).to_hash }
 
     let(:params) do
       {
@@ -30,10 +34,9 @@ RSpec.describe Reports::PlatformReport do
     end
 
     let(:created) { Time.zone.now }
-    subject { described_class.new(params, created: created, account: account).to_hash }
 
     it 'has the expected keys' do
-      expect(subject.key?('Report_Header'))
+      expect(subject).to be_key('Report_Header')
       expect(subject.dig('Report_Header', 'Created')).to eq(created.rfc3339)
       expect(subject.dig('Report_Header', 'Report_Attributes', 'Attributes_To_Show')).to eq(['Access_Method'])
       expect(subject.dig('Report_Header', 'Report_Filters', 'Begin_Date')).to eq('2022-01-03')
@@ -44,18 +47,22 @@ RSpec.describe Reports::PlatformReport do
 
   describe '.coerce_to_date' do
     subject { described_class.coerce_to_date(given_date) }
+
     context 'with 2023-02-01' do
-      let(:given_date){ '2023-02-01' }
-      it{ is_expected.to eq(Date.new(2023, 2, 1)) }
+      let(:given_date) { '2023-02-01' }
+
+      it { is_expected.to eq(Date.new(2023, 2, 1)) }
     end
     context 'with 2023-05' do
-      let(:given_date){ '2023-05' }
-      it{ is_expected.to eq(Date.new(2023, 5, 1)) }
+      let(:given_date) { '2023-05' }
+
+      it { is_expected.to eq(Date.new(2023, 5, 1)) }
     end
     context 'with 2023' do
-      let(:given_date){ '2023' }
+      let(:given_date) { '2023' }
+
       it 'will raise an error' do
-        expect{ subject }.to raise_exception
+        expect { subject }.to raise_exception
       end
     end
   end

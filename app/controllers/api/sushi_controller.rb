@@ -42,9 +42,5 @@ module API
       # Logic to retrieve and list available reports
       render json: { "reports" => 'message' }
     end
-
-    private
-
-
   end
 end

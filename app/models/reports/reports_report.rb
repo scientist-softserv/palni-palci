@@ -11,7 +11,8 @@ module Reports
     # @end_date = end_date.to_date
     # end
 
-    def reports_array # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/LineLength
+    def reports_array
       [
         {
           "Report_Name" => "Status Report",
@@ -38,9 +39,7 @@ module Reports
           "Report_Name" => "Platform Report",
           "Report_ID" => "PR",
           "Release" => "5.1",
-          "Report_Description" => "This resource returns COUNTER 'Platform Master Report' [PR].\
-                                  A customizable report summarizing activity across a provider’s \
-                                  platforms that allows the user to apply filters and select other configuration options for the report.",
+          "Report_Description" => "This resource returns COUNTER 'Platform Master Report' [PR]. A customizable report summarizing activity across a provider’s platforms that allows the user to apply filters and select other configuration options for the report.",
           "Path" => "api/sushi/r51/reports/pr",
           "First_Month_Available" => "string",
           "Last_Month_Available" => "string"
@@ -49,8 +48,7 @@ module Reports
           "Report_Name" => "Platform Usage Report",
           "Report_ID" => "PR_P1",
           "Release" => "5.1",
-          "Report_Description" => "This resource returns COUNTER 'Platform Usage' [pr_p1]. \
-                                  This is a Standard View of the Package Master Report that presents usage for the overall Platform broken down by Metric_Type.",
+          "Report_Description" => "This resource returns COUNTER 'Platform Usage' [pr_p1]. This is a Standard View of the Package Master Report that presents usage for the overall Platform broken down by Metric_Type.",
           "Path" => "/api/sushi/r51/reports/pr_p1",
           "First_Month_Available" => "string",
           "Last_Month_Available" => "string"
@@ -66,5 +64,6 @@ module Reports
         }
       ]
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/LineLength
   end
 end

@@ -20,7 +20,6 @@ module API
 
     def platform_report
       @report = Reports::PlatformReport.new(params, account: current_account)
-      # we may need to explicitly call @report.to_hash
       render json: @report
     end
 

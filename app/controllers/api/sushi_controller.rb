@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# maybe rename to counter_metrics_controller?
 module API
   class SushiController < ApplicationController
     # needs to include the following filters: begin & end date, item ID
@@ -38,8 +37,8 @@ module API
     end
 
     def list_reports
-      # Logic to retrieve and list available reports
-      render json: { "reports" => 'message' }
+      render json: { "reports" => 'all the reports' }
+      # render json: Reports::ReportsReport.new.reports_array
     end
 
     private

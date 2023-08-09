@@ -49,7 +49,12 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
       get '/api/sushi/r51/reports'
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['reports']).to eq 'message'
+      expect(parsed_body['reports']).to eq 'all the reports'
+      # expect(parsed_body.first).to have_key('Report_Name')
+      # expect(parsed_body.first).to have_key('Report_ID')
+      # expect(parsed_body.first).to have_key('Release')
+      # expect(parsed_body.first).to have_key('Report_Description')
+      # expect(parsed_body.first).to have_key('Path')
     end
   end
 end

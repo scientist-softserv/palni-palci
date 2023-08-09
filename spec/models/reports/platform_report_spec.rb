@@ -1,3 +1,5 @@
+# frozen_string_literal:true
+
 RSpec.describe Reports::PlatformReport do
   describe '#to_hash' do
     before do
@@ -33,7 +35,7 @@ RSpec.describe Reports::PlatformReport do
       expect(subject.dig("Report_Header", "Report_Attributes", "Attributes_To_Show")).to eq(["Access_Method"])
       expect(subject.dig("Report_Header", "Report_Filters", "Begin_Date")).to eq("2022-01-03")
       expect(subject.dig("Report_Header", "Report_Filters", "End_Date")).to eq("2022-02-05")
-      expect(subject.dig("Report_Items", "Attribute_Performance").first.dig("Performance", "Total_Item_Investigations", "2022-01-05")).to eq(4)
+      expect(subject.dig("Report_Items", "Attribute_Performance").first.dig("Performance", "Total_Item_Investigations", "2022-01")).to eq(4)
     end
   end
 end

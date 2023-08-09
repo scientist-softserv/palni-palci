@@ -5,6 +5,7 @@ class Reports::PlatformReport
   attr_reader :created, :account, :attributes_to_show, :begin_date, :end_date, :data_types
   ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
     "Access_Method",
+    # These are all the counter compliant query attributes, they are not currently supported in this implementation.
     # "Institution_Name",
     # "Customer_ID",
     # "Country_Name",
@@ -52,19 +53,18 @@ class Reports::PlatformReport
   end
 
   def attribute_performance
-    # return an array of hashes that have properties
     data.group_by(&:resource_type).map do |resource_type, records|
       { "Data_Type" => resource_type,
         "Access_Method" => "Regular",
         "Performance" => {
           "Total_Item_Investigations" =>
             records.each_with_object({}) do |record, hash|
-              hash[record.date.iso8601] = record.total_item_investigations
+              hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
               hash
             end,
           "Total_Item_Requests" =>
             records.each_with_object({}) do |record, hash|
-              hash[record.date.iso8601] = record.total_item_requests
+              hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
               hash
             end
         }
@@ -76,9 +76,8 @@ class Reports::PlatformReport
     relation = Hyrax::CounterMetric
     relation = relation.where(resource_type: data_types) if data_types.present?
     relation = relation.where("date >= ? AND date <= ?", begin_date, end_date)
-    relation = relation.order(:resource_type, :date)
-    relation = relation.group(:resource_type, :date)
-    # relation = relation.calculate(:sum, :total_item_investigations).calculate(:sum, :total_item_requests)
-    relation = relation.select(:resource_type, :date, "SUM(total_item_investigations) as total_item_investigations", "SUM(total_item_requests) as total_item_requests")
+    relation = relation.order(:resource_type, "year_month")
+    relation = relation.group(:resource_type, "date_trunc('month', date)")
+    relation = relation.select(:resource_type, "date_trunc('month', date) AS year_month", "SUM(total_item_investigations) as total_item_investigations", "SUM(total_item_requests) as total_item_requests")
   end
 end

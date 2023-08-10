@@ -1,16 +1,8 @@
 # frozen_string_literal:true
 
-# counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
+# counter compliant format for ReportInformation: https://countermetrics.stoplight.io/docs/counter-sushi-api/85tjmqdp3o57g-report-information
 module Sushi
   class ReportInformation
-    #   attr_reader :begin_date, :end_date
-
-    # def initialize #(begin_date:, end_date:)
-    # Will need to get earliest and latest available dates from the database
-    # @begin_date = begin_date.to_date
-    # @end_date = end_date.to_date
-    # end
-
     # rubocop:disable Metrics/MethodLength, Metrics/LineLength
     def reports_array
       [

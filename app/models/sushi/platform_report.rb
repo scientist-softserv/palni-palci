@@ -2,8 +2,9 @@
 
 # counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
 #
-# dates will be filtered by including the begin_date, and excluding the end_date
-# e.g. if you want to full month, begin_date should be the first day of that month, and end_date should be the first day of the following month.
+# dates will be filtered where both begin & end dates are inclusive.
+# any provided begin_date will be moved to the beginning of the month
+# any provided end_date will be moved to the end of the month
 module Sushi
   class PlatformReport
     attr_reader :created, :account, :attributes_to_show, :begin_date, :end_date, :data_types
@@ -28,8 +29,8 @@ module Sushi
       @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
 
       # Because we're receiving user input that is likely strings, we need to do some coercion.
-      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date))
-      @end_date = Sushi.coerce_to_date(params.fetch(:end_date))
+      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
+      @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
 
       # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
       @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
@@ -110,7 +111,7 @@ module Sushi
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
                          "SUM(total_item_requests) as total_item_requests")
-                 .where("date >= ? AND date < ?", begin_date, end_date)
+                 .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")
 
@@ -124,7 +125,7 @@ module Sushi
                  .select("date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
                          "SUM(total_item_requests) as total_item_requests")
-                 .where("date >= ? AND date < ?", begin_date, end_date)
+                 .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order("year_month")
                  .group("date_trunc('month', date)")
       return relation if data_types.blank?

@@ -21,7 +21,7 @@ Flipflop.configure do
           default: true,
           description: "Shows the Recently Uploaded tab on the homepage."
 
-  feature :show_auth_provider_in_admin_dashboard,
+  feature :show_identity_provider_in_admin_dashboard,
           default: false,
-          description: "Shows the Auth Provider tab on the admin dashboard."
+          description: "Shows the Identity Provider tab on the admin dashboard."
 end

@@ -28,11 +28,13 @@ RSpec.describe Sushi do
 
     context '#first_month_available' do
       subject { described_class.first_month_available }
+
       it { is_expected.to eq('2022-01') }
     end
 
     context '#last_month_available' do
       subject { described_class.last_month_available }
+
       it { is_expected.to eq('2023-08') }
     end
   end

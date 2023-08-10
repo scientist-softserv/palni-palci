@@ -24,10 +24,14 @@ module Sushi
     end
 
     def first_month_available
+      return unless Hyrax::CounterMetric.order('date ASC').any?
+
       Hyrax::CounterMetric.order('date ASC').first.date.strftime('%Y-%m')
     end
 
     def last_month_available
+      return unless Hyrax::CounterMetric.order('date ASC').any?
+
       Hyrax::CounterMetric.order('date DESC').first.date.strftime('%Y-%m')
     end
   end

@@ -74,6 +74,8 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
       expect(parsed_body.first).to have_key('Release')
       expect(parsed_body.first).to have_key('Report_Description')
       expect(parsed_body.first).to have_key('Path')
+      expect(parsed_body.last).to have_key('First_Month_Available')
+      expect(parsed_body.last).to have_key('Last_Month_Available')
     end
   end
 end

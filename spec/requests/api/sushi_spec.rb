@@ -39,10 +39,10 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
 
   describe 'GET /api/sushi/r51/reports/pr_p1 (e.g. platform usage report)' do
     it 'returns a 200 status' do
-      get '/api/sushi/r51/reports/pr_p1'
+      get '/api/sushi/r51/reports/pr_p1?begin_date=2023-04&end_date=2023-05'
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['platform_usage_report']).to eq 'message'
+      expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Platform Usage')
     end
   end
 

@@ -58,13 +58,13 @@ module Sushi
           }
         },
         "Report_Items" => {
-          "Attribute_Performance" => attribute_performance
+          "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_platform
         }
       }
     end
 
-    def attribute_performance
-      data.group_by(&:resource_type).map do |resource_type, records|
+    def attribute_performance_for_resource_types
+      data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         { "Data_Type" => resource_type || "",
           "Access_Method" => "Regular",
           "Performance" => {
@@ -82,6 +82,19 @@ module Sushi
       end
     end
 
+    def attribute_performance_for_platform
+      [{
+        "Data_Type" => "Platform",
+        "Access_Method" => "Regular",
+        "Performance" => {
+          "Searches_Platform" => data_for_platform.each_with_object({}) do |record, hash|
+            hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
+            hash
+          end
+        }
+      }]
+    end
+
     ##
     # @note the `date_trunc` SQL function is specific to Postgresql.  It will take the date/time field
     #       value and return a date/time object that is at the exact start of the date specificity.
@@ -89,7 +102,7 @@ module Sushi
     #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
     #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
     #       month).
-    def data
+    def data_for_resource_types
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.
       relation = Hyrax::CounterMetric
@@ -101,6 +114,19 @@ module Sushi
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")
 
+      return relation if data_types.blank?
+
+      relation.where("LOWER(resource_type) IN (?)", data_types)
+    end
+
+    def data_for_platform
+      relation = Hyrax::CounterMetric
+                 .select("date_trunc('month', date) AS year_month",
+                         "SUM(total_item_investigations) as total_item_investigations",
+                         "SUM(total_item_requests) as total_item_requests")
+                 .where("date >= ? AND date < ?", begin_date, end_date)
+                 .order("year_month")
+                 .group("date_trunc('month', date)")
       return relation if data_types.blank?
 
       relation.where("LOWER(resource_type) IN (?)", data_types)

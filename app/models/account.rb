@@ -158,4 +158,12 @@ class Account < ApplicationRecord
   def cache_api?
     cache_api
   end
+
+  def institution_name
+    sites.first&.institution_name || cname
+  end
+
+  def institution_id_data
+    {}
+  end
 end

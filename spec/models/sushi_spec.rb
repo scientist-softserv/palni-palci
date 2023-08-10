@@ -22,4 +22,35 @@ RSpec.describe Sushi do
       end
     end
   end
+
+  describe 'the available date range for any given report' do
+    before do
+      Hyrax::CounterMetric.create(
+        worktype: 'GenericWork',
+        resource_type: 'Book',
+        work_id: '12345',
+        date: '2022-01-05',
+        total_item_investigations: 1,
+        total_item_requests: 10
+      )
+      Hyrax::CounterMetric.create(
+        worktype: 'GenericWork',
+        resource_type: 'Book',
+        work_id: '54321',
+        date: '2023-01-05',
+        total_item_investigations: 3,
+        total_item_requests: 5
+      )
+    end
+
+    context '.first_month_available' do
+      subject { described_class.first_month_available }
+      it { is_expected.to eq('2022-01') }
+    end
+
+    context '.last_month_available' do
+      subject { described_class.last_month_available }
+      it { is_expected.to eq('2023-01') }
+    end
+  end
 end

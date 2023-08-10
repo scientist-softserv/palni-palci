@@ -1,7 +1,7 @@
 # frozen_string_literal:true
 
 # counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
-module Reports
+module Sushi
   class ReportsReport
     #   attr_reader :begin_date, :end_date
 

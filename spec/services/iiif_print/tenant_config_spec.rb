@@ -161,13 +161,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       context 'when the feature is flipped to false' do
         before { test_strategy.switch!(:use_iiif_print, false) }
 
-        it { is_expected.to eq(IiifPrint::SplitPdfs::ChildWorkCreationFromPdfService) }
+        it { is_expected.to eq(IiifPrint::TenantConfig::SkipSplittingPdfService) }
       end
 
       context 'when the feature is flipped to true' do
         before { test_strategy.switch!(:use_iiif_print, true) }
 
-        it { is_expected.to eq(IiifPrint::TenantConfig::SkipSplittingPdfService) }
+        it { is_expected.to eq(IiifPrint::SplitPdfs::ChildWorkCreationFromPdfService) }
       end
     end
   end

@@ -125,7 +125,7 @@ module IiifPrint
       ##
       # @see https://github.com/scientist-softserv/iiif_print/blob/9e7837ce4bd08bf8fff9126455d0e0e2602f6018/app/actors/iiif_print/actors/file_set_actor_decorator.rb#L33-L35 Method we're overriding
       def service
-        return TenantConfig::SkipSplittingPdfService if TenantConfig.use_iiif_print?
+        return TenantConfig::SkipSplittingPdfService unless TenantConfig.use_iiif_print?
 
         super
       end

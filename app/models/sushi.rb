@@ -21,4 +21,19 @@ module Sushi
       raise Sushi::InvalidParameterValue, "Unable to convert \"#{value}\" to a date."
     end
   end
+
+  # this module accounts for date behavior that needs to be used across all reports.
+  module DateCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :begin_date
+      attr_reader :end_date
+    end
+
+    def coerce_dates(params = {})
+      # Because we're receiving user input that is likely strings, we need to do some coercion.
+      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
+      @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
+    end
+  end
 end

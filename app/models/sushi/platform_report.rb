@@ -7,7 +7,8 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class PlatformReport
-    attr_reader :created, :account, :attributes_to_show, :begin_date, :end_date, :data_types
+    attr_reader :created, :account, :attributes_to_show, :data_types
+    include Sushi::DateCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -21,16 +22,13 @@ module Sushi
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
+      coerce_dates(params)
       @created = created
       @account = account
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
       @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
-
-      # Because we're receiving user input that is likely strings, we need to do some coercion.
-      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
-      @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
 
       # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
       @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)

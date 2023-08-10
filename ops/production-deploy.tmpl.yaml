@@ -111,7 +111,7 @@ extraEnvVars: &envVars
   - name: HYKU_BULKRAX_ENABLED
     value: 'true'
   - name: HYKU_CONTACT_EMAIL
-    value: dev-oops@scientist.com
+    value: noreply@atlamail.org
   - name: HYKU_DEFAULT_HOST
     value: "%{tenant}.ir.atla.com"
   - name: HYKU_FILE_ACL
@@ -151,13 +151,13 @@ extraEnvVars: &envVars
   - name: SMTP_ADDRESS
     value: email-smtp.us-east-1.amazonaws.com
   - name: SMTP_DOMAIN
-    value: atla.com
+    value: atlamail.org
   - name: SMTP_ENABLED
     value: 'true'
   - name: SMTP_PASSWORD
     value: $SMTP_PASSWORD
   - name: SMTP_PORT
-    value: '465'
+    value: '587'
   - name: SMTP_STARTTLS
     value: 'true'
   - name: SMTP_TYPE

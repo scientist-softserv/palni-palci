@@ -2,7 +2,7 @@
 
 # counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
 module Sushi
-  class ReportsReport
+  class ReportInformation
     #   attr_reader :begin_date, :end_date
 
     # def initialize #(begin_date:, end_date:)

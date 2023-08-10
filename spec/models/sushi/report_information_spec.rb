@@ -1,8 +1,9 @@
-RSpec.describe Sushi::ReportsReport do
+RSpec.describe Sushi::ReportInformation do
   describe '#reports_array' do
-    subject { described_class.new.reports_array }
+    subject { described_class.reports_array }
 
     it 'has the expected keys' do
+      binding.pry
       expect(subject).to be_an_instance_of(Array)
       expect(subject.first['Report_Name']).to eq('Status Report')
       expect(subject.first['Report_ID']).to eq('STATUS')

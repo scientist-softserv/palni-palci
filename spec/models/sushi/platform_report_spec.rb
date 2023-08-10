@@ -44,26 +44,4 @@ RSpec.describe Sushi::PlatformReport do
       expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance', 'Total_Item_Investigations', '2022-01')).to eq(4)
     end
   end
-
-  describe '.coerce_to_date' do
-    subject { Sushi.coerce_to_date(given_date) }
-
-    context 'with 2023-02-01' do
-      let(:given_date) { '2023-02-01' }
-
-      it { is_expected.to eq(Date.new(2023, 2, 1)) }
-    end
-    context 'with 2023-05' do
-      let(:given_date) { '2023-05' }
-
-      it { is_expected.to eq(Date.new(2023, 5, 1)) }
-    end
-    context 'with 2023' do
-      let(:given_date) { '2023' }
-
-      it 'will raise an error' do
-        expect { subject }.to raise_exception(Sushi::InvalidParameterValue)
-      end
-    end
-  end
 end

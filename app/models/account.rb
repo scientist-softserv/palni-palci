@@ -7,7 +7,6 @@ class Account < ApplicationRecord
   include AccountCname
   attr_readonly :tenant
 
-  has_one :auth_provider, dependent: :destroy
   has_many :sites, dependent: :destroy
   has_many :domain_names, dependent: :destroy
   has_many :full_account_cross_searches,
@@ -157,5 +156,13 @@ class Account < ApplicationRecord
 
   def cache_api?
     cache_api
+  end
+
+  def institution_name
+    sites.first&.institution_name || cname
+  end
+
+  def institution_id_data
+    {}
   end
 end

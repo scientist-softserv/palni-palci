@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # Import counter views and downloads for a given tenant
+# Currently, this only imports the first resource type. Additional work would need to be done for works with multiple resource types.
+# The resource_type field in the counter_metrics table is single value and not an array.
 class ImportCounterMetrics
   def self.import_investigations(csv_path)
     CSV.foreach(csv_path, headers: true) do |row|
@@ -8,7 +10,7 @@ class ImportCounterMetrics
       next if work.nil?
       worktype = work.class
       work_id = work.id
-      resource_type = work.resource_type
+      resource_type = work.resource_type.first
       date = row['datestamp']
       total_item_investigations = row['count']
       counter_investigation = Hyrax::CounterMetric.find_by(work_id: work_id, date: date)
@@ -26,7 +28,7 @@ class ImportCounterMetrics
       next if work.nil?
       worktype = work.class
       work_id = work.id
-      resource_type = work.resource_type
+      resource_type = work.resource_type.first
       date = row['datestamp']
       total_item_requests = row['count']
       counter_request = Hyrax::CounterMetric.find_by(work_id: work_id, date: date)

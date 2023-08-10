@@ -4,24 +4,7 @@ RSpec.describe Sushi::PlatformReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}) }
 
   describe '#to_hash' do
-    before do
-      Hyrax::CounterMetric.create(
-        worktype: 'GenericWork',
-        resource_type: 'Book',
-        work_id: '12345',
-        date: '2022-01-05',
-        total_item_investigations: 1,
-        total_item_requests: 10
-      )
-      Hyrax::CounterMetric.create(
-        worktype: 'GenericWork',
-        resource_type: 'Book',
-        work_id: '54321',
-        date: '2022-01-05',
-        total_item_investigations: 3,
-        total_item_requests: 5
-      )
-    end
+    before { create_hyrax_countermetric_objects }
 
     subject { described_class.new(params, created: created, account: account).to_hash }
 

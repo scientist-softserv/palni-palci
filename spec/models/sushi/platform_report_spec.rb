@@ -46,7 +46,7 @@ RSpec.describe Sushi::PlatformReport do
   end
 
   describe '.coerce_to_date' do
-    subject { described_class.coerce_to_date(given_date) }
+    subject { Sushi.coerce_to_date(given_date) }
 
     context 'with 2023-02-01' do
       let(:given_date) { '2023-02-01' }

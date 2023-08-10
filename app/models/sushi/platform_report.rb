@@ -5,11 +5,6 @@
 # dates will be filtered by including the begin_date, and excluding the end_date
 # e.g. if you want to full month, begin_date should be the first day of that month, and end_date should be the first day of the following month.
 module Sushi
-  ##
-  # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
-  # the text value to a Date.
-  class InvalidParameterValue < StandardError
-  end
   class PlatformReport
     attr_reader :created, :account, :attributes_to_show, :begin_date, :end_date, :data_types
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
@@ -24,21 +19,6 @@ module Sushi
       # "Attributed"
     ].freeze
 
-    def self.coerce_to_date(value)
-      value.to_date
-    rescue StandardError
-      begin
-        # We can't parse the original date, so lets attempt to coerce a "YYYY-MM" string (year-month).
-        # If it fails, we'll raise an exception on garbage input.
-        year, month, = value.split('-')
-
-        # We want to set the date to the 1st of the month.
-        Date.new(year.to_i, month.to_i, 1)
-      rescue StandardError
-        raise Sushi::InvalidParameterValue, "Unable to convert \"#{value}\" to a date."
-      end
-    end
-
     def initialize(params = {}, created: Time.zone.now, account:)
       @created = created
       @account = account
@@ -48,8 +28,8 @@ module Sushi
       @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
 
       # Because we're receiving user input that is likely strings, we need to do some coercion.
-      @begin_date = self.class.coerce_to_date(params.fetch(:begin_date))
-      @end_date = self.class.coerce_to_date(params.fetch(:end_date))
+      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date))
+      @end_date = Sushi.coerce_to_date(params.fetch(:end_date))
 
       # Array.wrap handles whether there is an array or a string. If its a string, it turns it into an array.
       @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)

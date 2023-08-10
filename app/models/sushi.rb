@@ -36,4 +36,15 @@ module Sushi
       @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
     end
   end
+
+  module DataTypeCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :data_types
+    end
+
+    def coerce_data_types(params = {})
+      @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
+    end
+  end
 end

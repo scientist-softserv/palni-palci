@@ -41,8 +41,8 @@ module API
     end
 
     def platform_usage_report
-      # Logic to retrieve platform usage report
-      render json: { "platform_usage_report" => 'message' }
+      @report = Sushi::PlatformUsageReport.new(params, account: current_account)
+      render json: @report
     end
 
     def status

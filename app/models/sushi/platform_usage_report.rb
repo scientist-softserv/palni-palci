@@ -107,13 +107,13 @@ module Sushi
     end
 
     def data_for_platform
-      relation = Hyrax::CounterMetric
-                 .select("date_trunc('month', date) AS year_month",
-                         "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
-                 .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order("year_month")
-                 .group("date_trunc('month', date)")
+      Hyrax::CounterMetric
+        .select("date_trunc('month', date) AS year_month",
+                "SUM(total_item_investigations) as total_item_investigations",
+                "SUM(total_item_requests) as total_item_requests")
+        .where("date >= ? AND date <= ?", begin_date, end_date)
+        .order("year_month")
+        .group("date_trunc('month', date)")
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal:true
 
-RSpec.describe Reports::PlatformReport do
+RSpec.describe Sushi::PlatformReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}) }
 
   describe '#to_hash' do
@@ -62,7 +62,7 @@ RSpec.describe Reports::PlatformReport do
       let(:given_date) { '2023' }
 
       it 'will raise an error' do
-        expect { subject }.to raise_exception
+        expect { subject }.to raise_exception(Sushi::InvalidParameterValue)
       end
     end
   end

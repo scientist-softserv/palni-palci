@@ -3,7 +3,8 @@
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(
-    pdf_split_child_model: self
+    pdf_split_child_model: self,
+    pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
 
   self.indexer = GenericWorkIndexer

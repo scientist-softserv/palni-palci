@@ -24,4 +24,10 @@ Flipflop.configure do
   feature :show_identity_provider_in_admin_dashboard,
           default: false,
           description: "Shows the Identity Provider tab on the admin dashboard."
+
+  # As of <2023-08-10 Thu> we had presumptively defaulted to `true`, hence I'm setting this to
+  # default to true.
+  feature :use_iiif_print,
+          default: true,
+          description: "Use IIIF Print for derivative generation (with PDF splitting and OCR)."         
 end

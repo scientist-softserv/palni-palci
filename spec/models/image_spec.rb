@@ -8,6 +8,12 @@ require 'order_already/spec_helper'
 RSpec.describe Image do
   include_examples('includes OrderMetadataValues')
 
+  describe '#iiif_print_config#pdf_splitter_service' do
+    subject { described_class.new.iiif_print_config.pdf_splitter_service }
+
+    it { is_expected.to eq(IiifPrint::TenantConfig::PdfSplitter) }
+  end
+
   describe 'indexer' do
     subject { described_class.indexer }
 

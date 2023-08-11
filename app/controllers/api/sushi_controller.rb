@@ -39,7 +39,7 @@ module API
       render json: @report
     end
 
-    def platform_usage_report
+    def platform_usage
       @report = Sushi::PlatformUsageReport.new(params, account: current_account)
       render json: @report
     end
@@ -49,13 +49,13 @@ module API
       render json: @status
     end
 
-    def members
+    def member_list
       # Logic to retrieve members data
       render json: { "members" => 'message' }
     end
 
-    def list_reports
-      @report = Sushi::ReportInformation.new.reports_array
+    def report_list
+      @report = Sushi::ReportList.new.reports
       render json: @report
     end
   end

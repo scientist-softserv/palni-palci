@@ -3,10 +3,10 @@
 RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
   describe 'GET /api/sushi/r51/reports/ir' do
     it 'returns a 200 with correct response for item report' do
-      get '/api/sushi/r51/reports/ir'
+      get '/api/sushi/r51/reports/ir?begin_date=2023-04&end_date=2023-05'
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['item_report']).to eq 'hello all items report'
+      expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Item Report')
     end
 
     describe 'with an item_id parameter'  do

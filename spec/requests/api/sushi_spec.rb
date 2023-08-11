@@ -1,9 +1,25 @@
 # frozen_string_literal: true
 
 RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
+  let(:required_parameters) do
+    {
+      begin_date: '2023-04',
+      end_date: '2023-05'
+    }
+  end
+
+  RSpec.shared_examples 'without required parameters' do |endpoint|
+    it 'returns a 422 unprocessable entity' do
+      get "/api/sushi/r51/reports/#{endpoint}"
+      expect(response).to have_http_status(422)
+    end
+  end
+
   describe 'GET /api/sushi/r51/reports/ir' do
+    it_behaves_like 'without required parameters', 'ir'
+
     it 'returns a 200 with correct response for item report' do
-      get '/api/sushi/r51/reports/ir?begin_date=2023-04&end_date=2023-05'
+      get '/api/sushi/r51/reports/ir', params: required_parameters
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
       expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Item Report')
@@ -20,26 +36,21 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
   end
 
   describe 'GET /api/sushi/r51/reports/pr (e.g. platform report)' do
-    describe 'with required begin_date and end_date parameters' do
-      it 'returns a 200 status' do
-        get '/api/sushi/r51/reports/pr?begin_date=2023-04&end_date=2023-05'
-        expect(response).to have_http_status(200)
-        parsed_body = JSON.parse(response.body)
-        expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Platform Report')
-      end
-    end
+    it_behaves_like 'without required parameters', 'pr'
 
-    describe 'without required begin_date and end_date parameters' do
-      it 'returns a 422 unprocessable entity' do
-        get '/api/sushi/r51/reports/pr'
-        expect(response).to have_http_status(422)
-      end
+    it 'returns a 200 status' do
+      get '/api/sushi/r51/reports/pr', params: required_parameters
+      expect(response).to have_http_status(200)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Platform Report')
     end
   end
 
   describe 'GET /api/sushi/r51/reports/pr_p1 (e.g. platform usage report)' do
+    it_behaves_like 'without required parameters', 'pr_p1'
+
     it 'returns a 200 status' do
-      get '/api/sushi/r51/reports/pr_p1?begin_date=2023-04&end_date=2023-05'
+      get '/api/sushi/r51/reports/pr_p1', params: required_parameters
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
       expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Platform Usage')

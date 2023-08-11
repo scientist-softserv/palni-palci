@@ -1,6 +1,6 @@
-RSpec.describe Sushi::ReportInformation do
-  describe '#reports_array' do
-    subject { described_class.new.reports_array }
+RSpec.describe Sushi::ReportList do
+  describe '#reports' do
+    subject { described_class.new.reports }
 
     it 'returns the correct format' do
       expect(subject).to be_an_instance_of(Array)
@@ -22,7 +22,7 @@ RSpec.describe Sushi::ReportInformation do
 
       it 'returns the expected values' do
         expect(subject.last['Report_Name']).to eq('Item Report')
-        expect(subject.last['Report_ID']).to eq('IR')
+        expect(subject.last['Report_ID']).to eq('ir')
         expect(subject.last['Release']).to eq('5.1')
         expect(subject.last['Report_Description']).to eq("This resource returns COUNTER 'Item Master Report' [IR].")
         expect(subject.last['Path']).to eq('/api/sushi/r51/reports/ir')
@@ -34,7 +34,7 @@ RSpec.describe Sushi::ReportInformation do
     context 'without data in the Hyrax::CounterMetric table' do
       it 'returns the expected values' do
         expect(subject.last['Report_Name']).to eq('Item Report')
-        expect(subject.last['Report_ID']).to eq('IR')
+        expect(subject.last['Report_ID']).to eq('ir')
         expect(subject.last['Release']).to eq('5.1')
         expect(subject.last['Report_Description']).to eq("This resource returns COUNTER 'Item Master Report' [IR].")
         expect(subject.last['Path']).to eq('/api/sushi/r51/reports/ir')

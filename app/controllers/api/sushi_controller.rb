@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# maybe rename to counter_metrics_controller?
 module API
   class SushiController < ApplicationController
     private
@@ -55,8 +54,8 @@ module API
     end
 
     def list_reports
-      # Logic to retrieve and list available reports
-      render json: { "reports" => 'message' }
+      @report = Sushi::ReportInformation.new.reports_array
+      render json: @report
     end
   end
 end

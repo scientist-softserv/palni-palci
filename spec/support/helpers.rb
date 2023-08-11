@@ -26,3 +26,30 @@ def expect_additional_fields
   assert_select "input[name=?]", "user[arkivo_subscription]"
   assert_select "input[name=?]", "user[preferred_locale]"
 end
+
+def create_hyrax_countermetric_objects
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Book',
+    work_id: '12345',
+    date: '2022-01-05',
+    total_item_investigations: 1,
+    total_item_requests: 10
+  )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Book',
+    work_id: '54321',
+    date: '2022-01-05',
+    total_item_investigations: 3,
+    total_item_requests: 5
+  )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Artilce',
+    work_id: '98765',
+    date: '2023-08-09',
+    total_item_investigations: 3,
+    total_item_requests: 5
+  )
+end

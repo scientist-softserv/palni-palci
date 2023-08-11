@@ -1,6 +1,6 @@
 # frozen_string_literal:true
 
-# counter compliant format for ReportList: https://countermetrics.stoplight.io/docs/counter-sushi-api/85tjmqdp3o57g-report-information
+# counter compliant format for ReportList: https://countermetrics.stoplight.io/docs/counter-sushi-api/af75bac10e789-report-list
 module Sushi
   class ReportList
     # rubocop:disable Metrics/MethodLength, Metrics/LineLength

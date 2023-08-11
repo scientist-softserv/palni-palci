@@ -2,8 +2,9 @@
 
 RSpec.describe Sushi::ServerStatus do
   describe '#server_status' do
-    let(:account) { double(Account, cname: 'pitt.hyku.test')}
     subject { described_class.new(account: account).server_status }
+
+    let(:account) { double(Account, cname: 'pitt.hyku.test') }
 
     it 'returns the correct format' do
       expect(subject).to be_an_instance_of(Array)

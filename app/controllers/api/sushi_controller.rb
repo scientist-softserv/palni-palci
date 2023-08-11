@@ -44,9 +44,9 @@ module API
       render json: @report
     end
 
-    def status
-      @report = Sushi::StatusReport.new(params, account: current_account).status_report
-      render json: @report
+    def server_status
+      @status = Sushi::ServerStatus.new(account: current_account).server_status
+      render json: @status
     end
 
     def members

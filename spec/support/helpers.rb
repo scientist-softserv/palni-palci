@@ -46,10 +46,10 @@ def create_hyrax_countermetric_objects
   )
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',
-    resource_type: 'Artilce',
+    resource_type: 'Article',
     work_id: '98765',
     date: '2023-08-09',
-    total_item_investigations: 3,
-    total_item_requests: 5
+    total_item_investigations: 2,
+    total_item_requests: 8
   )
 end

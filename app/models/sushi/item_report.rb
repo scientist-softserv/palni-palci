@@ -54,7 +54,7 @@ module Sushi
             "Attributes_To_Show" => attributes_to_show
           }
         },
-        "Report_Items" => report_items
+        # "Report_Items" => report_items
       }
     end
 

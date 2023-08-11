@@ -42,11 +42,11 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   namespace :api, defaults: { format: :json } do
     resource :sushi do
       collection do
-        get 'r51/status', to: 'sushi#status'
-        get 'r51/members', to: 'sushi#members'
-        get 'r51/reports', to: 'sushi#list_reports'
+        get 'r51/status', to: 'sushi#server_status'
+        get 'r51/members', to: 'sushi#member_list'
+        get 'r51/reports', to: 'sushi#report_list'
         get 'r51/reports/pr', to: 'sushi#platform_report'
-        get 'r51/reports/pr_p1', to: 'sushi#platform_usage_report'
+        get 'r51/reports/pr_p1', to: 'sushi#platform_usage'
         get 'r51/reports/ir', to: 'sushi#item_report'
       end
     end

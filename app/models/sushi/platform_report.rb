@@ -33,7 +33,7 @@ module Sushi
       @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
     end
 
-    def to_hash
+    def as_json(_options = {})
       {
         "Report_Header" => {
           "Release" => "5.1",
@@ -60,6 +60,8 @@ module Sushi
         }
       }
     end
+
+    alias to_hash as_json
 
     def attribute_performance_for_resource_types
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|

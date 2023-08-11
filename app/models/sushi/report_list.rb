@@ -4,7 +4,7 @@
 module Sushi
   class ReportList
     # rubocop:disable Metrics/MethodLength, Metrics/LineLength
-    def reports
+    def as_json(_options = nil)
       [
         {
           "Report_Name" => "Server Status",
@@ -32,9 +32,9 @@ module Sushi
           "Report_ID" => "pr",
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Platform Master Report' [PR]. A customizable report summarizing activity across a provider’s platforms that allows the user to apply filters and select other configuration options for the report.",
-          "Path" => "api/sushi/r51/reports/pr",
-          "First_Month_Available" => Sushi.first_month_available,
-          "Last_Month_Available" => Sushi.last_month_available
+          "Path" => "/api/sushi/r51/reports/pr",
+          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
+          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
         },
         {
           "Report_Name" => "Platform Usage",
@@ -42,8 +42,8 @@ module Sushi
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Platform Usage' [pr_p1]. This is a Standard View of the Package Master Report that presents usage for the overall Platform broken down by Metric_Type.",
           "Path" => "/api/sushi/r51/reports/pr_p1",
-          "First_Month_Available" => Sushi.first_month_available,
-          "Last_Month_Available" => Sushi.last_month_available
+          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
+          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
         },
         {
           "Report_Name" => "Item Report",
@@ -51,11 +51,12 @@ module Sushi
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Item Master Report' [IR].",
           "Path" => "/api/sushi/r51/reports/ir",
-          "First_Month_Available" => Sushi.first_month_available,
-          "Last_Month_Available" => Sushi.last_month_available
+          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
+          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
         }
       ]
     end
+    alias to_hash as_json
     # rubocop:enable Metrics/MethodLength, Metrics/LineLength
   end
 end

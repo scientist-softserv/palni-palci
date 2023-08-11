@@ -1,6 +1,6 @@
 # frozen_string_literal:true
 
-# counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
+# counter compliant format for the Platform Usage Report is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/82bd896d1dd60-pr-p1-platform-usage
 #
 # dates will be filtered by including the begin_date, and excluding the end_date
 # e.g. if you want to full month, begin_date should be the first day of that month, and end_date should be the first day of the following month.

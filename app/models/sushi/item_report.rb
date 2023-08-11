@@ -54,76 +54,45 @@ module Sushi
             "Attributes_To_Show" => attributes_to_show
           }
         },
-        "Report_Items" => {
-          "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_item
-        }
+        "Report_Items" => report_items
       }
     end
 
-    def attribute_performance_for_resource_types
-      data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
-        { "Data_Type" => resource_type || "",
-          "Access_Method" => "Regular",
-          "Performance" => {
-            "Total_Item_Investigations" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-              hash
-            end,
-            "Total_Item_Requests" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
-              hash
-            end
-          } }
-      end
+    def report_items
+      # get all works in the db
+      # map over each work (grouping them together by type?) to return an array of hashes with these required properties:
+      #
+      # {
+      #   "Title" =>       string
+      #                    title of the work
+      #
+      #   "Item_ID" =>      hash
+      #                     Identifier of a specific title usage is being requested for. If omitted, all titles on the platform with usage for the customer will be returned.
+      #                     e.g. { "DOI":"10.9999/xxxxt01", "Proprietary":"P1:T01", "ISBN":"979-8-88888-888-8", "URI":"https://doi.org/10.9999/xxxxt01" }
+      #
+      #   "Items" =>       array of hashes
+      #                    are the items, child works?
+      # }
     end
 
-    def attribute_performance_for_item
-      [{
-        "Data_Type" => "Item",
-        "Access_Method" => "Regular",
-        "Performance" => {
-          "Searches_Item" => data_for_item.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-            hash
-          end
-        }
-      }]
-    end
-
-    ##
-    # @note the `date_trunc` SQL function is specific to Postgresql.  It will take the date/time field
-    #       value and return a date/time object that is at the exact start of the date specificity.
-    #
-    #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
-    #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
-    #       month).
-    def data_for_resource_types
-      # We're capturing this relation/query because in some cases, we need to chain another where
-      # clause onto the relation.
-      relation = Hyrax::CounterMetric
-                 .select(:resource_type,
-                         "date_trunc('month', date) AS year_month",
-                         "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
-                 .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order(:resource_type, "year_month")
-                 .group(:resource_type, "date_trunc('month', date)")
-
-      return relation if data_types.blank?
-
-      relation.where("LOWER(resource_type) IN (?)", data_types)
-    end
-
-    def data_for_item
-      Hyrax::CounterMetric
-        .select("date_trunc('month', date) AS year_month",
-                "SUM(total_item_investigations) as total_item_investigations",
-                "SUM(total_item_requests) as total_item_requests")
-        .where("date >= ? AND date <= ?", begin_date, end_date)
-        .order("year_month")
-        .group("date_trunc('month', date)")
+    def items(child_works:)
+      # assuming this method is the value of the "Items" key above
+      # we need to map over each child work and also return an array of hashes with these required properties:
+      #
+      # {
+      #   "Attribute_Performance" =>     array of hashes
+      #                                  { "Data_Type": "Book_Segment", "Performance": { what we're doing in the other reports }}
+      #
+      #   "Item" =>                      string,
+      #                                  child work name?
+      #
+      #   "Publisher" =>                 string,
+      #                                  which value should be use here?
+      #
+      #   "Platform" =>                  string,
+      #                                  Name of the platform the report data is being requested for. Might be required if a SUSHI server provides usage data for multiple platforms.
+      #                                  what should we use for this?
+      # }
     end
   end
 end

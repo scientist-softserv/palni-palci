@@ -1,6 +1,6 @@
 # frozen_string_literal:true
 
-# counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
+# counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report
 #
 # dates will be filtered where both begin & end dates are inclusive.
 # any provided begin_date will be moved to the beginning of the month

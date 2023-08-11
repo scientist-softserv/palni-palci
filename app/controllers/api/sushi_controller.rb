@@ -54,7 +54,7 @@ module API
     end
 
     def list_reports
-      @report = Sushi::ReportInformation.new.reports_array
+      @report = Sushi::ReportList.new.reports
       render json: @report
     end
   end

@@ -159,7 +159,7 @@ services:
         condition: service_started
       initialize_app:
         condition: service_completed_successfully
-    expose:
+    ports:
       - 3000
 
   worker:

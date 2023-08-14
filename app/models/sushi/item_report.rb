@@ -59,34 +59,19 @@ module Sushi
     end
 
     def report_items
-      # get all works in the db
-      # map over each work (grouping them together by type?) to return an array of hashes with these required properties:
-      #
-      # {
-      #   "Title" =>        string
-      #                     title of the work
-      #
-      #   "Item_ID" =>      hash
-      #                     Identifier of a specific title usage is being requested for. If omitted, all titles on the platform with usage for the customer will be returned.
-      #                     e.g. { "DOI":"10.9999/xxxxt01", "Proprietary":"P1:T01", "ISBN":"979-8-88888-888-8", "URI":"https://doi.org/10.9999/xxxxt01" }
-      #
-      #   "Items" =>        array of hashes
-      #                     are these child works? the sample response at https://countermetrics.stoplight.io/docs/counter-sushi-api/5a6e9f5ddae3e-ir-item-report
-      #                     shows you can have multiple items with no parent, a parent with 1 or more items and many options in between.
-      # }
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         records.map do |record|
           {
-            # "Items" => items(data: record),
-            "Items" => [],
-            # "Title" => "#{record.title}", # the title is not currently stored in the CounterMetric table
-            #                                 we may consider adding it, but it isn't required
-            "Item_ID" => {
-              "Proprietary": "#{record.work_id}",
-              "URI":"#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
-            },
-            # the below is a ux fix. show `book` instead of `"[\"book\"]"`
-            "Data_Type" => "#{record.resource_type[2..-3]}",
+            'Items' => [{
+              'Attribute_Performance' => [ attribute_performance_for_resource(record: record) ],
+              'Item' => '', # is this the title?
+              'Publisher' => '',
+              'Platform' => account.cname,
+              'Item_ID' => {
+                'Proprietary': "#{record.work_id}",
+                'URI': "#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
+              }
+            }]
           }
         end
       end.flatten

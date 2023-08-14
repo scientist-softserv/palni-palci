@@ -24,5 +24,15 @@ RSpec.describe Hyrax::CdlForm do
     end
   end
 
+  describe 'order of terms' do
+    it 'lists :contributing_library first' do
+      expect(described_class.terms.first).to eq(:contributing_library)
+    end
+
+    it 'lists :library_catalog_identifier second' do
+      expect(described_class.terms.second).to eq(:library_catalog_identifier)
+    end
+  end
+
   include_examples("work_form")
 end

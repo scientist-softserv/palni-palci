@@ -109,6 +109,8 @@ module Sushi
     #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
     #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
     #       month).
+    # also, note that unique_item_requests and unique_item_investigations should be counted for Hyrax::CounterMetrics that have unique dates, and unique work IDs.
+    # see the docs for counting unique items here: https://cop5.projectcounter.org/en/5.1/07-processing/03-counting-unique-items.html
     def data_for_resource_types
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.

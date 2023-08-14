@@ -1,7 +1,7 @@
 # frozen_string_literal:true
 
 RSpec.describe Sushi::PlatformReport do
-  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}) }
+  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
 
   describe '#to_hash' do
     before { create_hyrax_countermetric_objects }

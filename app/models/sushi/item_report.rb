@@ -54,7 +54,7 @@ module Sushi
             "Attributes_To_Show" => attributes_to_show
           }
         },
-        # "Report_Items" => report_items
+        "Report_Items" => report_items
       }
     end
 
@@ -63,19 +63,36 @@ module Sushi
       # map over each work (grouping them together by type?) to return an array of hashes with these required properties:
       #
       # {
-      #   "Title" =>       string
-      #                    title of the work
+      #   "Title" =>        string
+      #                     title of the work
       #
       #   "Item_ID" =>      hash
       #                     Identifier of a specific title usage is being requested for. If omitted, all titles on the platform with usage for the customer will be returned.
       #                     e.g. { "DOI":"10.9999/xxxxt01", "Proprietary":"P1:T01", "ISBN":"979-8-88888-888-8", "URI":"https://doi.org/10.9999/xxxxt01" }
       #
-      #   "Items" =>       array of hashes
-      #                    are the items, child works?
+      #   "Items" =>        array of hashes
+      #                     are these child works? the sample response at https://countermetrics.stoplight.io/docs/counter-sushi-api/5a6e9f5ddae3e-ir-item-report
+      #                     shows you can have multiple items with no parent, a parent with 1 or more items and many options in between.
       # }
+      data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
+        records.map do |record|
+          {
+            # "Items" => items(data: record),
+            "Items" => [],
+            # "Title" => "#{record.title}", # the title is not currently stored in the CounterMetric table
+            #                                 we may consider adding it, but it isn't required
+            "Item_ID" => {
+              "Proprietary": "#{record.work_id}",
+              "URI":"#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
+            },
+            # the below is a ux fix. show `book` instead of `"[\"book\"]"`
+            "Data_Type" => "#{record.resource_type[2..-3]}",
+          }
+        end
+      end.flatten
     end
 
-    def items(child_works:)
+    def items(data:)
       # assuming this method is the value of the "Items" key above
       # we need to map over each child work and also return an array of hashes with these required properties:
       #
@@ -93,6 +110,16 @@ module Sushi
       #                                  Name of the platform the report data is being requested for. Might be required if a SUSHI server provides usage data for multiple platforms.
       #                                  what should we use for this?
       # }
+    end
+
+    def data_for_resource_types
+      relation = Hyrax::CounterMetric
+                 .where("date >= ? AND date <= ?", begin_date, end_date)
+                 .order(resource_type: :asc)
+
+      return relation if data_types.blank?
+
+      relation.where("LOWER(resource_type) IN (?)", data_types)
     end
   end
 end

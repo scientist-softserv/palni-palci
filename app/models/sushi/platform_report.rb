@@ -137,22 +137,5 @@ module Sushi
         .order("year_month")
         .group("date_trunc('month', date)")
     end
-
-    def data_for_unique_fields
-      # We're capturing this relation/query because in some cases, we need to chain another where
-      # clause onto the relation.
-      relation = Hyrax::CounterMetric
-                 .select(:resource_type,
-                         "date_trunc('month', date) AS year_month",
-                         "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
-                 .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order(:resource_type, "year_month")
-                 .group(:resource_type, "date_trunc('month', date)")
-
-      return relation if data_types.blank?
-
-      relation.where("LOWER(resource_type) IN (?)", data_types)
-    end
   end
 end

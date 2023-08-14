@@ -117,8 +117,8 @@ module Sushi
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
                          "SUM(total_item_requests) as total_item_requests",
-                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN work_id END) as unique_item_investigations",
-                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN work_id END) as unique_item_requests")
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")

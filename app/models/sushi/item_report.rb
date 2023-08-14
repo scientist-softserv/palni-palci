@@ -22,6 +22,28 @@ module Sushi
       # 'Attributed'
     ].freeze
 
+    ALLOWED_DATA_TYPES = [
+      'Article',
+      'Audiovisual',
+      'Book_Segment',
+      'Conference_Item',
+      'Database_Full_Item',
+      'Dataset',
+      'Image',
+      'Interactive_Resource',
+      'Multimedia',
+      'News_Item',
+      'Other',
+      'Patent',
+      'Reference_Item',
+      'Report',
+      'Software',
+      'Sound',
+      'Standard',
+      'Thesis_or_Dissertation',
+      'Unspecified'
+    ].freeze
+
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
@@ -77,7 +99,27 @@ module Sushi
       end.flatten
     end
 
-    def items(data:)
+    def attribute_performance_for_resource(record:)
+      binding.pry
+      { 'Data_Type' => ([record.resource_type[2..-3]] & ALLOWED_DATA_TYPES).first || '',
+        'Access_Method' => 'Regular',
+        'Performance' => {
+          # TODO(alishaevn): figure out how to get the correct analytics to show below
+          # 'Total_Item_Investigations' =>
+          # records.each_with_object({}) do |record, hash|
+          #   hash[record.year_month.strftime('%Y-%m')] = record.total_item_investigations
+          #   hash
+          # end,
+          # 'Total_Item_Requests' =>
+          # records.each_with_object({}) do |record, hash|
+          #   hash[record.year_month.strftime('%Y-%m')] = record.total_item_requests
+          #   hash
+          # end
+        }
+      }
+    end
+
+    def items(work:)
       # assuming this method is the value of the "Items" key above
       # we need to map over each child work and also return an array of hashes with these required properties:
       #
@@ -99,6 +141,11 @@ module Sushi
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
+      # TODO(alishaevn): do I need the select statement below?
+                  #  .select(:resource_type,
+                    #  'date_trunc('month', date) AS year_month',
+                    #  'SUM(total_item_investigations) as total_item_investigations',
+                    #  'SUM(total_item_requests) as total_item_requests')
                    .where('date >= ? AND date <= ?', begin_date, end_date)
                    .order(resource_type: :asc)
 

@@ -74,6 +74,16 @@ module Sushi
             records.each_with_object({}) do |record, hash|
               hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
               hash
+            end,
+            "Unique_Item_Investigations" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_investigations
+              hash
+            end,
+            "Unique_Item_Requests" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
+              hash
             end
           } }
       end
@@ -106,7 +116,9 @@ module Sushi
                  .select(:resource_type,
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
+                         "SUM(total_item_requests) as total_item_requests",
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN work_id END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN work_id END) as unique_item_requests")
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")
@@ -124,6 +136,23 @@ module Sushi
         .where("date >= ? AND date <= ?", begin_date, end_date)
         .order("year_month")
         .group("date_trunc('month', date)")
+    end
+
+    def data_for_unique_fields
+      # We're capturing this relation/query because in some cases, we need to chain another where
+      # clause onto the relation.
+      relation = Hyrax::CounterMetric
+                 .select(:resource_type,
+                         "date_trunc('month', date) AS year_month",
+                         "SUM(total_item_investigations) as total_item_investigations",
+                         "SUM(total_item_requests) as total_item_requests")
+                 .where("date >= ? AND date <= ?", begin_date, end_date)
+                 .order(:resource_type, "year_month")
+                 .group(:resource_type, "date_trunc('month', date)")
+
+      return relation if data_types.blank?
+
+      relation.where("LOWER(resource_type) IN (?)", data_types)
     end
   end
 end

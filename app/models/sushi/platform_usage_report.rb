@@ -55,14 +55,14 @@ module Sushi
         { "Data_Type" => resource_type || "",
           "Access_Method" => "Regular",
           "Performance" => {
-            "Total_Item_Investigations" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-              hash
-            end,
             "Total_Item_Requests" =>
             records.each_with_object({}) do |record, hash|
               hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
+              hash
+            end,
+            "Unique_Item_Requests" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
               hash
             end
           } }
@@ -96,7 +96,9 @@ module Sushi
                  .select(:resource_type,
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
+                         "SUM(total_item_requests) as total_item_requests",
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")

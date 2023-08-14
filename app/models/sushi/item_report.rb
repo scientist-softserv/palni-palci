@@ -11,15 +11,15 @@ module Sushi
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
-      "Access_Method",
+      'Access_Method',
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
-      # "Institution_Name",
-      # "Customer_ID",
-      # "Country_Name",
-      # "Country_Code",
-      # "Subdivision_Name",
-      # "Subdivision_Code",
-      # "Attributed"
+      # 'Institution_Name',
+      # 'Customer_ID',
+      # 'Country_Name',
+      # 'Country_Code',
+      # 'Subdivision_Name',
+      # 'Subdivision_Code',
+      # 'Attributed'
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
@@ -30,31 +30,31 @@ module Sushi
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
-      @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
+      @attributes_to_show = params.fetch(:attributes_to_show, ['Access_Method']) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
     end
 
     def to_hash
       {
-        "Report_Header" => {
-          "Report_Name" => "Item Report",
-          "Report_ID" => "IR",
-          "Release" => "5.1",
-          "Institution_Name" => account.institution_name,
-          "Institution_ID" => account.institution_id_data,
-          "Report_Filters" => {
+        'Report_Header' => {
+          'Report_Name' => 'Item Report',
+          'Report_ID' => 'IR',
+          'Release' => '5.1',
+          'Institution_Name' => account.institution_name,
+          'Institution_ID' => account.institution_id_data,
+          'Report_Filters' => {
             # TODO: handle YYYY-MM format
-            "Begin_Date" => begin_date.iso8601,
-            "End_Date" => end_date.iso8601,
-            "Data_Type" => data_types
+            'Begin_Date' => begin_date.iso8601,
+            'End_Date' => end_date.iso8601,
+            'Data_Type' => data_types
           },
-          "Created" => created.rfc3339, # "2023-02-15T09:11:12Z"
-          "Created_By" => account.institution_name,
-          "Registry_Record" => "",
-          "Report_Attributes" => {
-            "Attributes_To_Show" => attributes_to_show
+          'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
+          'Created_By' => account.institution_name,
+          'Registry_Record' => '',
+          'Report_Attributes' => {
+            'Attributes_To_Show' => attributes_to_show
           }
         },
-        "Report_Items" => report_items
+        'Report_Items' => report_items
       }
     end
 
@@ -114,12 +114,12 @@ module Sushi
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
-                 .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order(resource_type: :asc)
+                   .where('date >= ? AND date <= ?', begin_date, end_date)
+                   .order(resource_type: :asc)
 
       return relation if data_types.blank?
 
-      relation.where("LOWER(resource_type) IN (?)", data_types)
+      relation.where('LOWER(resource_type) IN (?)', data_types)
     end
   end
 end

@@ -55,7 +55,7 @@ module Sushi
           }
         },
         "Report_Items" => {
-          "Platform" => account.cname
+          "Platform" => account.cname,
           "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_platform
         }
       }

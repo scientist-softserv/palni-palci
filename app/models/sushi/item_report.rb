@@ -23,25 +23,25 @@ module Sushi
     ].freeze
 
     ALLOWED_DATA_TYPES = [
-      'Article',
-      'Audiovisual',
-      'Book_Segment',
-      'Conference_Item',
-      'Database_Full_Item',
-      'Dataset',
-      'Image',
-      'Interactive_Resource',
-      'Multimedia',
-      'News_Item',
-      'Other',
-      'Patent',
-      'Reference_Item',
-      'Report',
-      'Software',
-      'Sound',
-      'Standard',
-      'Thesis_or_Dissertation',
-      'Unspecified'
+      'article',
+      'audiovisual',
+      'book_segment',
+      'conference_item',
+      'database_full_item',
+      'dataset',
+      'image',
+      'interactive_resource',
+      'multimedia',
+      'news_item',
+      'other',
+      'patent',
+      'reference_item',
+      'report',
+      'software',
+      'sound',
+      'standard',
+      'thesis_or_dissertation',
+      'unspecified'
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
@@ -100,7 +100,6 @@ module Sushi
     end
 
     def attribute_performance_for_resource(record:)
-      binding.pry
       { 'Data_Type' => ([record.resource_type[2..-3]] & ALLOWED_DATA_TYPES).first || '',
         'Access_Method' => 'Regular',
         'Performance' => {

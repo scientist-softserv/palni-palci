@@ -130,7 +130,67 @@ module IiifPrint
         super
       end
     end
+
+    ##
+    # OVERRIDE IiifPrint::WorkShowPresenterDecorator
+    # OVERRIDE Hyrax::WorkShowPresenter
+    #
+    # In IiifPrint we overrided #members_include_viewable_image? to query for both file sets and
+    # child works.  (Child works being the pages split off of a PDF)
+    #
+    # In Hyrax::WorkShowPresenter we're only looking at the underlying file_sets.  But IiifPrint
+    # needs to look at multiple places.
+    module WorkShowPresenterDecorator
+      ##
+      # @return [Array<Symbol>] predicate methods (e.g. ending in "?") that reflect the types
+      #         of files we want to consider for showing in the IIIF Viewer.
+      def iiif_media_predicates
+        if TenantConfig.use_iiif_print?
+          [:image?, :audio?, :video?, :pdf?]
+        else
+          [:image?, :audio?, :video?]
+        end
+      end
+
+      def iiif_media?(presenter: representative_presenter)
+        iiif_media_predicates.any? { |predicate| presenter.try(predicate) || presenter.try(:solr_document).try(predicate) }
+      end
+
+      ##
+      # @return [Boolean] render a IIIF viewer
+      #
+      # OVERRIDE Hyrax::WorkShowPresenter; this override introduces behavior to handle over-rides.
+      def iiif_viewer?
+        Hyrax.config.iiif_image_server? &&
+          representative_id.present? &&
+          representative_presenter.present? &&
+          iiif_media? &&
+          members_include_iiif_viewable?
+      end
+
+      def members_include_iiif_viewable?
+        iiif_presentable_member_presenters.any? do |presenter|
+          iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
+        end
+      end
+
+      ##
+      # @return [Array<Object>] An array of presenter objects
+      #
+      # In a non-IIIF Print using scenario, we use the file_set_presenters value; that is for
+      # objects that are very specifically file_sets.
+      #
+      # In a IIIF Print using scenario, we use the ill-named 'file_set_ids_ssim', because a
+      # long-standing decision is that this field will have both file_set IDs and child work IDs.
+      def iiif_presentable_member_presenters
+        if TenantConfig.use_iiif_print?
+          presentable_member_ids = Array.wrap(solr_document.try(:file_set_ids) || solr_document.try(:[], 'file_set_ids_ssim'))
+          member_presenters_for(presentable_member_ids)
+        else
+          file_set_presenters
+        end
+      end
+    end
   end
 end
-
 # rubocop:enable Metrics/LineLength

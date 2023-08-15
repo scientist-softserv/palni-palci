@@ -6,8 +6,9 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::Cdl
     include HydraEditor::Form::Permissions
-    self.terms.prepend(:admin_note).uniq! # rubocop:disable Style/RedundantSelf
-    self.terms += %i[resource_type additional_information bibliographic_citation contributing_library library_catalog_identifier chronology_note]
+    # List these terms first after the "Additional fields" divider
+    self.terms = %i[contributing_library library_catalog_identifier admin_note] + self.terms # rubocop:disable Style/RedundantSelf
+    self.terms += %i[resource_type additional_information bibliographic_citation chronology_note]
     self.terms -= %i[based_near]
     self.required_fields = %i[title creator keyword rights_statement resource_type]
   end

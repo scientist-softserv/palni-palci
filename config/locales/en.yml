@@ -13,6 +13,7 @@ en:
     search:
       fields:
         facet:
+          contributing_library_sim: 'Contributing Library'
           contributor_sim: "Contributor"
           human_readable_type_sim: "Type"
           member_of_collections_sim: "Collections"

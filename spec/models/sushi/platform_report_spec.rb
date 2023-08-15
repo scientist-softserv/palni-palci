@@ -3,7 +3,7 @@
 RSpec.describe Sushi::PlatformReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
 
-  describe '#to_hash' do
+  describe '#as_json' do
     let(:created) { Time.zone.now }
     subject { described_class.new(params, created: created, account: account).to_hash }
 

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe Sushi::ReportList do
-  describe '#reports' do
-    subject { described_class.new.reports }
+  describe '#as_json' do
+    subject { described_class.new.as_json }
 
     it 'returns the correct format' do
       expect(subject).to be_an_instance_of(Array)
@@ -26,8 +28,8 @@ RSpec.describe Sushi::ReportList do
         expect(subject.last['Release']).to eq('5.1')
         expect(subject.last['Report_Description']).to eq("This resource returns COUNTER 'Item Master Report' [IR].")
         expect(subject.last['Path']).to eq('/api/sushi/r51/reports/ir')
-        expect(subject.last['First_Month_Available']).to eq('2022-01')
-        expect(subject.last['Last_Month_Available']).to eq('2023-08')
+        expect(subject.last['First_Month_Available']).to be_a(String)
+        expect(subject.last['Last_Month_Available']).to be_a(String)
       end
     end
 

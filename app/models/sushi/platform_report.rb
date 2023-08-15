@@ -65,6 +65,8 @@ module Sushi
       report_hash
     end
 
+    alias to_hash as_json
+
     def attribute_performance_for_resource_types
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         { "Data_Type" => resource_type || "",

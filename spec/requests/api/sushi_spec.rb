@@ -62,7 +62,7 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
       get '/api/sushi/r51/status'
       expect(response).to have_http_status(200)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body['status']).to eq 'ok'
+      expect(parsed_body.dig(0, 'Description')).to include('COUNTER Usage Reports')
     end
   end
 

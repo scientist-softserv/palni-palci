@@ -1,4 +1,14 @@
-FROM ghcr.io/scientist-softserv/dev-ops/samvera:e9200061 as hyku-base
+ARG RUBY_VERSION=2.7.6
+FROM ruby:$RUBY_VERSION-alpine3.15 as builder
+
+RUN apk add build-base
+RUN wget -O - https://github.com/jemalloc/jemalloc/releases/download/5.2.1/jemalloc-5.2.1.tar.bz2 | tar -xj && \
+    cd jemalloc-5.2.1 && \
+    ./configure && \
+    make && \
+    make install
+
+FROM ghcr.io/scientist-softserv/dev-ops/samvera:f71b284f as hyku-base
 
 COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/
 RUN sh -l -c " \
@@ -18,6 +28,8 @@ RUN ln -sf /app/samvera/branding /app/samvera/hyrax-webapp/public/branding
 
 CMD ./bin/web
 
+COPY --from=builder /usr/local/lib/libjemalloc.so.2 /usr/local/lib/
+ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so.2
+
 FROM hyku-base as hyku-worker
-ENV MALLOC_ARENA_MAX=2
 CMD ./bin/worker

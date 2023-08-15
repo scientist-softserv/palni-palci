@@ -10,6 +10,7 @@ zh:
     search:
       fields:
         facet:
+          contributing_library_sim: 贡献库
           contributor_sim: 贡献者
           human_readable_type_sim: 类型
           member_of_collections_sim: 馆藏

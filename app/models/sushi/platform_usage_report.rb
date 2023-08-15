@@ -1,6 +1,6 @@
 # frozen_string_literal:true
 
-# counter compliant format for the PlatformReport is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/e98e9f5cab5ed-pr-platform-report#Query-Parameters
+# counter compliant format for the Platform Usage Report is found here: https://countermetrics.stoplight.io/docs/counter-sushi-api/82bd896d1dd60-pr-p1-platform-usage
 #
 # dates will be filtered by including the begin_date, and excluding the end_date
 # e.g. if you want to full month, begin_date should be the first day of that month, and end_date should be the first day of the following month.
@@ -18,7 +18,7 @@ module Sushi
       @account = account
     end
 
-    def to_hash
+    def as_json(_options = {})
       {
         "Report_Header" => {
           "Release" => "5.1",
@@ -49,20 +49,21 @@ module Sushi
         }
       }
     end
+    alias to_hash as_json
 
     def attribute_performance_for_resource_types
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         { "Data_Type" => resource_type || "",
           "Access_Method" => "Regular",
           "Performance" => {
-            "Total_Item_Investigations" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-              hash
-            end,
             "Total_Item_Requests" =>
             records.each_with_object({}) do |record, hash|
               hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
+              hash
+            end,
+            "Unique_Item_Requests" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
               hash
             end
           } }
@@ -96,7 +97,9 @@ module Sushi
                  .select(:resource_type,
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
+                         "SUM(total_item_requests) as total_item_requests",
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")

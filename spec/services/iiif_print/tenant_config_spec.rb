@@ -184,5 +184,25 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       it { is_expected.to match_array([IiifPrint::TenantConfig::DerivativeService, Hyrax::FileSetDerivativesService]) }
     end
   end
+
+  describe Hyrax::WorkShowPresenter do
+    let(:instance) { described_class.new(:solr_doc, :ability) }
+
+    describe '#iiif_media_predicates' do
+      subject { instance.iiif_media_predicates }
+
+      context 'when the feature is flipped to false' do
+        before { test_strategy.switch!(:use_iiif_print, false) }
+
+        it { is_expected.to eq([:image?, :audio?, :video?]) }
+      end
+
+      context 'when the feature is flipped to true' do
+        before { test_strategy.switch!(:use_iiif_print, true) }
+
+        it { is_expected.to eq([:image?, :audio?, :video?, :pdf?]) }
+      end
+    end
+  end
 end
 # rubocop:enable RSpec/DescribeClass

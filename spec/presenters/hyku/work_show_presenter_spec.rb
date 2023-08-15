@@ -22,14 +22,48 @@ RSpec.describe Hyku::WorkShowPresenter do
     before do
       allow(solr_document).to receive(:representative_id).and_return(solr_document.member_ids.first)
       allow(ability).to receive(:can?).and_return true
-      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:image?).and_return true
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:image?).and_return false
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:pdf?).and_return false
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:video?).and_return false
+      allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:audio?).and_return false
     end
 
-    it { is_expected.to be true }
+    context 'method owner' do
+      # I was noticing load logic issues, so I'm adding this spec for verification
+      subject { presenter.method(:iiif_viewer?).owner }
+
+      it { is_expected.to eq(IiifPrint::TenantConfig::WorkShowPresenterDecorator) }
+    end
+
+    context "for a PDF file" do
+      let!(:test_strategy) { Flipflop::FeatureSet.current.test! }
+
+      before { allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:pdf?).and_return true }
+
+      context 'when the tenant is not configured to use IIIF Print' do
+        before { test_strategy.switch!(:use_iiif_print, false) }
+
+        it { is_expected.to be false }
+      end
+
+      context 'when the tenant is configured to use IIIF Print' do
+        before { test_strategy.switch!(:use_iiif_print, true) }
+
+        it { is_expected.to be true }
+      end
+    end
 
     context "for an audio file" do
       before do
         allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:audio?).and_return true
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context "for an image file" do
+      before do
+        allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:image?).and_return true
       end
 
       it { is_expected.to be true }

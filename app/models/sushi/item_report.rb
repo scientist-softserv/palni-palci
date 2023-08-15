@@ -42,7 +42,6 @@ module Sushi
           'Institution_Name' => account.institution_name,
           'Institution_ID' => account.institution_id_data,
           'Report_Filters' => {
-            # TODO: handle YYYY-MM format
             'Begin_Date' => begin_date.iso8601,
             'End_Date' => end_date.iso8601,
             'Data_Type' => data_types
@@ -73,7 +72,7 @@ module Sushi
             'Platform' => account.cname,
             'Item_ID' => {
               'Proprietary': record.work_id.to_s,
-              'URI': "#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
+              'URI': "https://#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
             }
           }]
         }

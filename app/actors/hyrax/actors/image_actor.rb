@@ -5,6 +5,7 @@
 module Hyrax
   module Actors
     class ImageActor < Hyrax::Actors::BaseActor
+      include Hyrax::Actors::WithSourceIdentifier
     end
   end
 end

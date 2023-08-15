@@ -11,8 +11,20 @@ module Bulkrax
     end
 
     def form_class
-      return false if parsed_metadata['model'].blank?
+      if parsed_metadata['model'].blank?
+        [
+          ['id', 'id'],
+          ['source_identifier_sim', 'source_identifier']
+        ].each do |k, v|
+          parsed_metadata['model'] ||= lookup_class(k, parsed_metadata[v]) if parsed_metadata[v]
+        end
+        parsed_metadata['model'] ||= Bulkrax.default_work_type
+      end
       @form_class ||= "Hyrax::#{parsed_metadata['model']}Form".constantize
+    end
+
+    def lookup_class(key, value)
+      ActiveFedora::Base.where(key => value).first&.class&.to_s # rubocop:disable Rails/FindBy
     end
 
     def field_required?(attribute)
@@ -32,7 +44,8 @@ module Bulkrax
 
     def parse_format(src)
       # blanks are ok if the item is not required
-      return nil if !field_required?(:format) && (src.blank? || src.all?(&:blank?))
+      src = src.reject(&:blank?)
+      return nil if src.blank? && !field_required?(:format)
       src.map do |format|
         # will return nil if it doesn't match with any format label
         label = Hyrax::FormatService.label_from_alt(format)

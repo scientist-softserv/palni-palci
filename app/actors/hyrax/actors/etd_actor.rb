@@ -5,6 +5,7 @@
 module Hyrax
   module Actors
     class EtdActor < Hyrax::Actors::BaseActor
+      include Hyrax::Actors::WithSourceIdentifier
     end
   end
 end

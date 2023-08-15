@@ -149,7 +149,7 @@ module Sushi
                           normalized_metric_type = metric_type.downcase
                           metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
                         end.compact
-      end
+                      end
     end
   end
 end

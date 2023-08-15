@@ -75,6 +75,16 @@ module Sushi
             records.each_with_object({}) do |record, hash|
               hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
               hash
+            end,
+            "Unique_Item_Investigations" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_investigations
+              hash
+            end,
+            "Unique_Item_Requests" =>
+            records.each_with_object({}) do |record, hash|
+              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
+              hash
             end
           } }
       end
@@ -100,6 +110,8 @@ module Sushi
     #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
     #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
     #       month).
+    # also, note that unique_item_requests and unique_item_investigations should be counted for Hyrax::CounterMetrics that have unique dates, and unique work IDs.
+    # see the docs for counting unique items here: https://cop5.projectcounter.org/en/5.1/07-processing/03-counting-unique-items.html
     def data_for_resource_types
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.
@@ -107,7 +119,9 @@ module Sushi
                  .select(:resource_type,
                          "date_trunc('month', date) AS year_month",
                          "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests")
+                         "SUM(total_item_requests) as total_item_requests",
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(:resource_type, "year_month")
                  .group(:resource_type, "date_trunc('month', date)")

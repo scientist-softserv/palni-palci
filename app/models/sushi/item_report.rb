@@ -81,39 +81,48 @@ module Sushi
     end
 
     def report_items
-      data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
-        records.map do |record|
-          {
-            'Items' => [{
-              'Attribute_Performance' => [ attribute_performance_for_resource(record: record) ],
-              'Item' => '', # is this the title?
-              'Publisher' => '',
-              'Platform' => account.cname,
-              'Item_ID' => {
-                'Proprietary': "#{record.work_id}",
-                'URI': "#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
+      data_for_resource_types.group_by(&:work_id).map do |work_id, records|
+        record = records.first
+        {
+          'Items' => [{
+            'Attribute_Performance' => [{
+              'Data_Type' => record.resource_type.titleize,
+              'Access_Method' => 'Regular',
+              'Performance' => {
+                "Total_Item_Investigations" =>
+                  records.each_with_object({}) do |r, hash|
+                    hash[r.year_month.strftime("%Y-%m")] = r.total_item_investigations
+                    hash
+                  end,
+                "Total_Item_Requests" =>
+                  records.each_with_object({}) do |r, hash|
+                    hash[r.year_month.strftime("%Y-%m")] = r.total_item_requests
+                    hash
+                  end
               }
-            }]
-          }
-        end
-      end.flatten
+            }],
+            'Item' => "#{record.work_id}",
+            'Publisher' => '',
+            'Platform' => account.cname,
+            'Item_ID' => {
+              'Proprietary': "#{record.work_id}",
+              'URI': "#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
+            }
+          }]
+        }
+      end
     end
 
     def attribute_performance_for_resource(record:)
-      { 'Data_Type' => ([record.resource_type[2..-3]] & ALLOWED_DATA_TYPES).first || '',
+      { 'Data_Type' => ([record.resource_type[2..-3]] & ALLOWED_DATA_TYPES).first&.titleize || '',
         'Access_Method' => 'Regular',
         'Performance' => {
-          # TODO(alishaevn): figure out how to get the correct analytics to show below
-          # 'Total_Item_Investigations' =>
-          # records.each_with_object({}) do |record, hash|
-          #   hash[record.year_month.strftime('%Y-%m')] = record.total_item_investigations
-          #   hash
-          # end,
-          # 'Total_Item_Requests' =>
-          # records.each_with_object({}) do |record, hash|
-          #   hash[record.year_month.strftime('%Y-%m')] = record.total_item_requests
-          #   hash
-          # end
+          'Total_Item_Investigations' => {
+            [record.date.strftime('%Y-%m')] => record.total_item_investigations
+          },
+          'Total_Item_Requests' => {
+            [record.date.strftime('%Y-%m')] => record.total_item_requests
+          }
         }
       }
     end
@@ -140,17 +149,19 @@ module Sushi
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
-      # TODO(alishaevn): do I need the select statement below?
-                  #  .select(:resource_type,
-                    #  'date_trunc('month', date) AS year_month',
-                    #  'SUM(total_item_investigations) as total_item_investigations',
-                    #  'SUM(total_item_requests) as total_item_requests')
-                   .where('date >= ? AND date <= ?', begin_date, end_date)
-                   .order(resource_type: :asc)
+                   .select(:work_id, :resource_type, :worktype,
+                     "date_trunc('month', date) AS year_month",
+                     "SUM(total_item_investigations) as total_item_investigations",
+                     "SUM(total_item_requests) as total_item_requests",
+                     "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                     "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
+                   .where("date >= ? AND date <= ?", begin_date, end_date)
+                   .order({ resource_type: :asc, work_id: :asc }, "year_month")
+                   .group(:work_id, :resource_type, :worktype, "date_trunc('month', date)")
 
       return relation if data_types.blank?
 
-      relation.where('LOWER(resource_type) IN (?)', data_types)
+      relation.where("LOWER(resource_type) IN (?)", data_types)
     end
   end
 end

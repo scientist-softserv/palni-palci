@@ -35,7 +35,7 @@ module Sushi
       @attributes_to_show = params.fetch(:attributes_to_show, ["Access_Method"]) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
     end
 
-    def to_hash
+    def as_json(_options = {})
       report_hash = {
         "Report_Header" => {
           "Release" => "5.1",
@@ -78,12 +78,10 @@ module Sushi
     def performance(records, resource_type)
       metric_types.each_with_object({}) do |metric_type, hash|
         # Skip "Unique_Title_Requests" & "Unique_Title_Investigations" for all resource_types besides books
-        if resource_type.downcase != "book" && (metric_type == "Unique_Title_Requests" || metric_type == "Unique_Title_Investigations")
-          next
-        end
+        next if !resource_type.casecmp("book").zero? && (metric_type == "Unique_Title_Requests" || metric_type == "Unique_Title_Investigations")
 
         hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
-          inner_hash[record.year_month.strftime("%Y-%m")] = record["#{metric_type.downcase}"]
+          inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
           inner_hash
         end
       end

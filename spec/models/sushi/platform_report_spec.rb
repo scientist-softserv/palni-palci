@@ -4,8 +4,9 @@ RSpec.describe Sushi::PlatformReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
 
   describe '#as_json' do
-    let(:created) { Time.zone.now }
     subject { described_class.new(params, created: created, account: account).to_hash }
+
+    let(:created) { Time.zone.now }
 
     before { create_hyrax_countermetric_objects }
 
@@ -37,7 +38,7 @@ RSpec.describe Sushi::PlatformReport do
           end_date: '2023-09',
           metric_type: 'total_item_investigations|unique_item_investigations|fake_value',
           data_type: 'article',
-          attributes_to_show: ['Access_Method', 'Fake_Value'],
+          attributes_to_show: ['Access_Method', 'Fake_Value']
         }
       end
 

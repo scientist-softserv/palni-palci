@@ -132,7 +132,7 @@ module Sushi
       "Unique_Item_Requests",
       "Unique_Title_Investigations",
       "Unique_Title_Requests"
-    ]
+    ].freeze
 
     def coerce_metric_types(params = {})
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
@@ -143,14 +143,12 @@ module Sushi
       end
 
       @metric_types = if metric_types_from_params.empty?
-        ALLOWED_METRIC_TYPES
-      else
-        metric_types_from_params.map do |metric_type|
-          normalized_metric_type = metric_type.downcase
-          if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
-            metric_type.titleize.gsub(' ', '_')
-          end
-        end.compact
+                        ALLOWED_METRIC_TYPES
+                      else
+                        metric_types_from_params.map do |metric_type|
+                          normalized_metric_type = metric_type.downcase
+                          metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+                        end.compact
       end
     end
   end

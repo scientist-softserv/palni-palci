@@ -6,6 +6,7 @@ x-app: &app
     target: hyku-base
     args:
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+      - HYKU_BULKRAX_ENABLED=true
   image: ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
   env_file:
     - .env
@@ -41,7 +42,6 @@ services:
       - 2181:2181
       - 7001:7000
     environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
       - ZOO_MY_ID=1
       - ZOO_SERVERS=server.1=zoo:2888:3888;2181
       - ZOO_4LW_COMMANDS_WHITELIST=mntr,srvr,ruok,conf
@@ -83,11 +83,11 @@ services:
     networks:
       internal:
     healthcheck:
-      test: curl -sf http://$$SOLR_ADMIN_USER:$$SOLR_ADMIN_PASSWORD@solr:8983/solr/admin/cores?action=STATUS || exit 1
-      start_period: 3s
-      interval: 5s
+      test: curl -sf http://$$SOLR_ADMIN_USER:$$SOLR_ADMIN_PASSWORD@localhost:8983/solr/admin/cores?action=STATUS || exit 1
+      start_period: 30s
+      interval: 20s
       timeout: 5s
-      retries: 6
+      retries: 3
     depends_on:
       zoo:
         condition: service_healthy
@@ -124,8 +124,7 @@ services:
 
   web:
     <<: *app
-    # Uncomment command to access container with out starting Rails. Useful for debugging
-    # command: sleep infinity
+    # command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
     environment:
       - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=.hyku.test
@@ -160,6 +159,7 @@ services:
       target: hyku-worker
       args:
         - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+        - HYKU_BULKRAX_ENABLED=true
       cache_from:
         - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
         - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}

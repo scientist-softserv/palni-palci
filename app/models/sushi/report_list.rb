@@ -14,13 +14,6 @@ module Sushi
           "Path" => "/api/sushi/r51/status"
         },
         {
-          "Report_Name" => "Member List",
-          "Report_ID" => "members",
-          "Release" => "5.1",
-          "Report_Description" => "This resource returns the list of consortium members related to a Customer_ID.",
-          "Path" => "/api/sushi/r51/members"
-        },
-        {
           "Report_Name" => "Report List",
           "Report_ID" => "reports",
           "Release" => "5.1",

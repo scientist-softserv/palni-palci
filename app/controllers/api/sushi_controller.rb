@@ -49,11 +49,6 @@ module API
       render json: @status
     end
 
-    def member_list
-      # Logic to retrieve members data
-      render json: { "members" => 'message' }
-    end
-
     def report_list
       @report = Sushi::ReportList.new
       render json: @report

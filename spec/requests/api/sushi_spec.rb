@@ -55,15 +55,6 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
     end
   end
 
-  describe 'GET /api/sushi/r51/members (e.g. members report)' do
-    it 'returns a 200 status' do
-      get '/api/sushi/r51/members'
-      expect(response).to have_http_status(200)
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body['members']).to eq 'message'
-    end
-  end
-
   describe 'GET /api/sushi/r51/reports (e.g. reports list)' do
     it 'returns a 200 status' do
       get '/api/sushi/r51/reports'

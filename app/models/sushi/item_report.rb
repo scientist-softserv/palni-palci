@@ -22,7 +22,6 @@ module Sushi
       # 'Attributed'
     ].freeze
 
-
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
@@ -60,41 +59,20 @@ module Sushi
     end
 
     def report_items
-      data_for_resource_types.group_by(&:work_id).map do |work_id, records|
+      data_for_resource_types.group_by(&:work_id).map do |_work_id, records|
         record = records.first
         {
           'Items' => [{
             'Attribute_Performance' => [{
               'Data_Type' => record.resource_type.titleize,
               'Access_Method' => 'Regular',
-              'Performance' => {
-                "Total_Item_Investigations" =>
-                  records.each_with_object({}) do |r, hash|
-                    hash[r.year_month.strftime("%Y-%m")] = r.total_item_investigations
-                    hash
-                  end,
-                "Total_Item_Requests" =>
-                  records.each_with_object({}) do |r, hash|
-                    hash[r.year_month.strftime("%Y-%m")] = r.total_item_requests
-                    hash
-                  end,
-                "Unique_Item_Investigations" =>
-                  records.each_with_object({}) do |record, hash|
-                    hash[record.year_month.strftime("%Y-%m")] = record.unique_item_investigations
-                    hash
-                  end,
-                "Unique_Item_Requests" =>
-                  records.each_with_object({}) do |record, hash|
-                    hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
-                    hash
-                  end
-              }
+              'Performance' => attribute_performance_for_resource_types(data: records)
             }],
-            'Item' => "#{record.work_id}",
+            'Item' => record.work_id.to_s,
             'Publisher' => '',
             'Platform' => account.cname,
             'Item_ID' => {
-              'Proprietary': "#{record.work_id}",
+              'Proprietary': record.work_id.to_s,
               'URI': "#{account.cname}/concern/#{record.worktype.underscore}s/#{record.work_id}"
             }
           }]
@@ -102,17 +80,42 @@ module Sushi
       end
     end
 
+    def attribute_performance_for_resource_types(data: records)
+      {
+        'Total_Item_Investigations' =>
+          data.each_with_object({}) do |record, hash|
+            hash[record.year_month.strftime('%Y-%m')] = record.total_item_investigations
+            hash
+          end,
+        'Total_Item_Requests' =>
+          data.each_with_object({}) do |record, hash|
+            hash[record.year_month.strftime('%Y-%m')] = record.total_item_requests
+            hash
+          end,
+        'Unique_Item_Investigations' =>
+          data.each_with_object({}) do |record, hash|
+            hash[record.year_month.strftime('%Y-%m')] = record.unique_item_investigations
+            hash
+          end,
+        'Unique_Item_Requests' =>
+          data.each_with_object({}) do |record, hash|
+            hash[record.year_month.strftime('%Y-%m')] = record.unique_item_requests
+            hash
+          end
+      }
+    end
+
     def data_for_resource_types
       relation = Hyrax::CounterMetric
-                   .select(:work_id, :resource_type, :worktype,
-                     "date_trunc('month', date) AS year_month",
-                     "SUM(total_item_investigations) as total_item_investigations",
-                     "SUM(total_item_requests) as total_item_requests",
-                     "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
-                     "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
-                   .where("date >= ? AND date <= ?", begin_date, end_date)
-                   .order({ resource_type: :asc, work_id: :asc }, "year_month")
-                   .group(:work_id, :resource_type, :worktype, "date_trunc('month', date)")
+                 .select(:work_id, :resource_type, :worktype,
+                         "date_trunc('month', date) AS year_month",
+                         "SUM(total_item_investigations) as total_item_investigations",
+                         "SUM(total_item_requests) as total_item_requests",
+                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
+                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
+                 .where("date >= ? AND date <= ?", begin_date, end_date)
+                 .order({ resource_type: :asc, work_id: :asc }, "year_month")
+                 .group(:work_id, :resource_type, :worktype, "date_trunc('month', date)")
 
       return relation if data_types.blank?
 

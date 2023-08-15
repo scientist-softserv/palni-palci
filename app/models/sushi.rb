@@ -78,11 +78,17 @@ module Sushi
     ]
 
     def coerce_metric_types(params = {})
-      @metric_type_in_params = params.key?(:metric_type)
-      @metric_types = if params[:metric_type].blank?
+      metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
+
+      @metric_type_in_params = metric_types_from_params.any? do |metric_type|
+        normalized_metric_type = metric_type.downcase
+        ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+      end
+
+      @metric_types = if metric_types_from_params.empty?
         ALLOWED_METRIC_TYPES
       else
-        Array.wrap(params[:metric_type]&.split('|')).map do |metric_type|
+        metric_types_from_params.map do |metric_type|
           normalized_metric_type = metric_type.downcase
           if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
             metric_type.titleize.gsub(' ', '_')

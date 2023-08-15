@@ -58,14 +58,13 @@ module Sushi
     end
 
     def report_items
-      data_for_resource_types.group_by(&:work_id).map do |_work_id, records|
-        record = records.first
+      data_for_resource_types.map do |record|
         {
           'Items' => [{
             'Attribute_Performance' => [{
               'Data_Type' => record.resource_type.titleize,
               'Access_Method' => 'Regular',
-              'Performance' => attribute_performance_for_resource_types(data: records)
+              'Performance' => attribute_performance_for_resource_types(performance: record.performance)
             }],
             'Item' => record.work_id.to_s,
             'Publisher' => '',
@@ -79,42 +78,36 @@ module Sushi
       end
     end
 
-    def attribute_performance_for_resource_types(data: records)
-      {
-        'Total_Item_Investigations' =>
-          data.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime('%Y-%m')] = record.total_item_investigations
-            hash
-          end,
-        'Total_Item_Requests' =>
-          data.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime('%Y-%m')] = record.total_item_requests
-            hash
-          end,
-        'Unique_Item_Investigations' =>
-          data.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime('%Y-%m')] = record.unique_item_investigations
-            hash
-          end,
-        'Unique_Item_Requests' =>
-          data.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime('%Y-%m')] = record.unique_item_requests
-            hash
-          end
-      }
+    def attribute_performance_for_resource_types(performance:)
+      [
+        'Total_Item_Investigations',
+        'Total_Item_Requests',
+        'Unique_Item_Investigations',
+        'Unique_Item_Requests'
+      ].each_with_object({}) do |key, returning_hash|
+        returning_hash[key] = performance.each_with_object({}) { |cell, hash| hash[cell.fetch('year_month')] = cell.fetch(key) }
+      end
     end
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
                  .select(:work_id, :resource_type, :worktype,
-                         "date_trunc('month', date) AS year_month",
-                         "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests",
-                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
-                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
+                         %((SELECT To_json(Array_agg(Row_to_json(t)))
+                           FROM
+                           (SELECT
+                           -- The AS field_name needs to be double quoted so as to preserve case structure.
+                           SUM(total_item_investigations) as "Total_Item_Investigations",
+                           SUM(total_item_requests) as "Total_Item_Requests",
+                           COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as "Unique_Item_Investigations",
+                           COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as "Unique_Item_Requests",
+                           -- We need to coerce the month from a single digit to two digits (e.g. August's "8" into "08")
+                           CONCAT(DATE_PART('year', date_trunc('month', date)), '-', to_char(DATE_PART('month', date_trunc('month', date)), 'fm00')) AS year_month
+                           FROM hyrax_counter_metrics AS aggr
+                           WHERE  aggr.work_id = hyrax_counter_metrics.work_id
+    	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order({ resource_type: :asc, work_id: :asc }, "year_month")
-                 .group(:work_id, :resource_type, :worktype, "date_trunc('month', date)")
+                 .order(resource_type: :asc, work_id: :asc)
+                 .group(:work_id, :resource_type, :worktype)
 
       return relation if data_types.blank?
 

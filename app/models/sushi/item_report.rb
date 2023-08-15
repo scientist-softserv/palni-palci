@@ -22,27 +22,6 @@ module Sushi
       # 'Attributed'
     ].freeze
 
-    ALLOWED_DATA_TYPES = [
-      'article',
-      'audiovisual',
-      'book_segment',
-      'conference_item',
-      'database_full_item',
-      'dataset',
-      'image',
-      'interactive_resource',
-      'multimedia',
-      'news_item',
-      'other',
-      'patent',
-      'reference_item',
-      'report',
-      'software',
-      'sound',
-      'standard',
-      'thesis_or_dissertation',
-      'unspecified'
-    ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
@@ -98,6 +77,16 @@ module Sushi
                   records.each_with_object({}) do |r, hash|
                     hash[r.year_month.strftime("%Y-%m")] = r.total_item_requests
                     hash
+                  end,
+                "Unique_Item_Investigations" =>
+                  records.each_with_object({}) do |record, hash|
+                    hash[record.year_month.strftime("%Y-%m")] = record.unique_item_investigations
+                    hash
+                  end,
+                "Unique_Item_Requests" =>
+                  records.each_with_object({}) do |record, hash|
+                    hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
+                    hash
                   end
               }
             }],
@@ -111,40 +100,6 @@ module Sushi
           }]
         }
       end
-    end
-
-    def attribute_performance_for_resource(record:)
-      { 'Data_Type' => ([record.resource_type[2..-3]] & ALLOWED_DATA_TYPES).first&.titleize || '',
-        'Access_Method' => 'Regular',
-        'Performance' => {
-          'Total_Item_Investigations' => {
-            [record.date.strftime('%Y-%m')] => record.total_item_investigations
-          },
-          'Total_Item_Requests' => {
-            [record.date.strftime('%Y-%m')] => record.total_item_requests
-          }
-        }
-      }
-    end
-
-    def items(work:)
-      # assuming this method is the value of the "Items" key above
-      # we need to map over each child work and also return an array of hashes with these required properties:
-      #
-      # {
-      #   "Attribute_Performance" =>     array of hashes
-      #                                  { "Data_Type": "Book_Segment", "Performance": { what we're doing in the other reports }}
-      #
-      #   "Item" =>                      string,
-      #                                  child work name?
-      #
-      #   "Publisher" =>                 string,
-      #                                  which value should be use here?
-      #
-      #   "Platform" =>                  string,
-      #                                  Name of the platform the report data is being requested for. Might be required if a SUSHI server provides usage data for multiple platforms.
-      #                                  what should we use for this?
-      # }
     end
 
     def data_for_resource_types

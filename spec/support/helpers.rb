@@ -44,6 +44,14 @@ def create_hyrax_countermetric_objects
     total_item_investigations: 3,
     total_item_requests: 5
   )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Book',
+    work_id: '54321',
+    date: '2022-01-06',
+    total_item_investigations: 2,
+    total_item_requests: 4
+  )
   # used to test the case where a hyrax countermetric has a unique date, but same work ID.
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',

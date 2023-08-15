@@ -54,11 +54,41 @@ module Sushi
   module DataTypeCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :data_types
+      attr_reader :data_types, :data_type_in_params
     end
 
     def coerce_data_types(params = {})
+      @data_type_in_params = params.key?(:data_type)
       @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
+    end
+  end
+
+  module MetricTypeCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :metric_types, :metric_type_in_params
+    end
+    ALLOWED_METRIC_TYPES = [
+      "Total_Item_Investigations",
+      "Total_Item_Requests",
+      "Unique_Item_Investigations",
+      "Unique_Item_Requests",
+      "Unique_Title_Investigations",
+      "Unique_Title_Requests"
+    ]
+
+    def coerce_metric_types(params = {})
+      @metric_type_in_params = params.key?(:metric_type)
+      @metric_types = if params[:metric_type].blank?
+        ALLOWED_METRIC_TYPES
+      else
+        Array.wrap(params[:metric_type]&.split('|')).map do |metric_type|
+          normalized_metric_type = metric_type.downcase
+          if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+            metric_type.titleize.gsub(' ', '_')
+          end
+        end.compact
+      end
     end
   end
 end

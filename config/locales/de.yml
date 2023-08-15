@@ -10,6 +10,7 @@ de:
     search:
       fields:
         facet:
+          contributing_library_sim: Mitwirkende Bibliothek
           contributor_sim: Mitwirkender
           human_readable_type_sim: Art
           member_of_collections_sim: Sammlungen

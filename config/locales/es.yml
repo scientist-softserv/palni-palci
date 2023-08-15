@@ -10,6 +10,7 @@ es:
     search:
       fields:
         facet:
+          contributing_library_sim: Biblioteca colaboradora
           contributor_sim: Contribuyente
           human_readable_type_sim: Tipo
           member_of_collections_sim: Colecciones

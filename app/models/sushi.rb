@@ -91,7 +91,10 @@ module Sushi
     end
   end
 
-  # this module accounts for date behavior that needs to be used across all reports.
+  ##
+  # This module accounts for date behavior that needs to be used across all reports.
+  #
+  # @see #coerce_dates
   module DateCoercion
     extend ActiveSupport::Concern
     included do
@@ -99,6 +102,10 @@ module Sushi
       attr_reader :end_date
     end
 
+    ##
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String, NilClass] begin_date :: Either nil, YYYY-MM or YYYY-MM-DD format
+    # @option params [String, NilClass] end_date :: Either nil, YYYY-MM or YYYY-MM-DD format
     def coerce_dates(params = {})
       # TODO: We should also be considering available dates as well.
       #
@@ -108,14 +115,21 @@ module Sushi
     end
   end
 
+  ##
+  # This module provides coercion of the :data_type parameter
+  #
+  # @see #coerce_data_types
   module DataTypeCoercion
     extend ActiveSupport::Concern
     included do
       attr_reader :data_types
     end
 
+    ##
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String, NilClass] data_type :: Pipe separated string of one or more data_types.
     def coerce_data_types(params = {})
-      @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
+      @data_types = Array.wrap(params[:data_type]&.split('|')).map { |dt| dt.strip.downcase }
     end
   end
 end

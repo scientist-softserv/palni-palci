@@ -122,14 +122,52 @@ module Sushi
   module DataTypeCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :data_types
+      attr_reader :data_types, :data_type_in_params
     end
 
     ##
     # @param params [Hash, ActionController::Parameters]
     # @option params [String, NilClass] data_type :: Pipe separated string of one or more data_types.
     def coerce_data_types(params = {})
+      @data_type_in_params = params.key?(:data_type)
       @data_types = Array.wrap(params[:data_type]&.split('|')).map { |dt| dt.strip.downcase }
+    end
+  end
+
+  module MetricTypeCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :metric_types, :metric_type_in_params
+    end
+    ALLOWED_METRIC_TYPES = [
+      "Total_Item_Investigations",
+      "Total_Item_Requests",
+      "Unique_Item_Investigations",
+      "Unique_Item_Requests",
+      # Unique_Title metrics exist to count how many chapters or sections are accessed for Book resource types in a given user session.
+      # This implementation currently does not support historical data from individual chapters/sections of Books,
+      # so these metrics will not be shown.
+      # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#metric-types for details
+      # "Unique_Title_Investigations",
+      # "Unique_Title_Requests"
+    ].freeze
+
+    def coerce_metric_types(params = {})
+      metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
+
+      @metric_type_in_params = metric_types_from_params.any? do |metric_type|
+        normalized_metric_type = metric_type.downcase
+        ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+      end
+
+      @metric_types = if metric_types_from_params.empty?
+                        ALLOWED_METRIC_TYPES
+                      else
+                        metric_types_from_params.map do |metric_type|
+                          normalized_metric_type = metric_type.downcase
+                          metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+                        end.compact
+                      end
     end
   end
 end

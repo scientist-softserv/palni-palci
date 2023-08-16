@@ -7,9 +7,10 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class PlatformReport
-    attr_reader :created, :account, :attributes_to_show, :data_types
+    attr_reader :created, :account, :attributes_to_show
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::MetricTypeCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -25,6 +26,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
+      coerce_metric_types(params)
       @created = created
       @account = account
 
@@ -34,7 +36,7 @@ module Sushi
     end
 
     def as_json(_options = {})
-      {
+      report_hash = {
         "Report_Header" => {
           "Release" => "5.1",
           "Report_ID" => "PR",
@@ -50,8 +52,7 @@ module Sushi
           "Report_Filters" => {
             # TODO: handle YYYY-MM format
             "Begin_Date" => begin_date.iso8601,
-            "End_Date" => end_date.iso8601,
-            "Data_Type" => data_types
+            "End_Date" => end_date.iso8601
           }
         },
         "Report_Items" => {
@@ -59,6 +60,9 @@ module Sushi
           "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_platform
         }
       }
+      report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
+      report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash
     end
 
     alias to_hash as_json
@@ -67,28 +71,16 @@ module Sushi
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         { "Data_Type" => resource_type || "",
           "Access_Method" => "Regular",
-          "Performance" => {
-            "Total_Item_Investigations" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-              hash
-            end,
-            "Total_Item_Requests" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.total_item_requests
-              hash
-            end,
-            "Unique_Item_Investigations" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_investigations
-              hash
-            end,
-            "Unique_Item_Requests" =>
-            records.each_with_object({}) do |record, hash|
-              hash[record.year_month.strftime("%Y-%m")] = record.unique_item_requests
-              hash
-            end
-          } }
+          "Performance" => performance(records) }
+      end
+    end
+
+    def performance(records)
+      metric_types.each_with_object({}) do |metric_type, hash|
+        hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
+          inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
+          inner_hash
+        end
       end
     end
 

@@ -157,7 +157,6 @@ module Sushi
     end
   end
 
-
   # This param specifies the granularity of the usage data to include in the report.
   # Permissible values are Month (default) and Totals.
   # For Totals, each Item_Performance element represents the aggregated usage for the reporting period.
@@ -171,7 +170,7 @@ module Sushi
 
     def coerce_granularity(params = {})
       @granularity_in_params = params.key?(:granularity) &&
-                               ALLOWED_GRANULARITY.any? { |allowed_granularity| allowed_granularity.downcase == params[:granularity].downcase }
+                               ALLOWED_GRANULARITY.any? { |allowed_granularity| allowed_granularity.casecmp(params[:granularity].downcase).zero? }
       @granularity_string = params.fetch(:granularity, "Month").capitalize
     end
   end

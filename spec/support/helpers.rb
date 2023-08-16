@@ -27,6 +27,7 @@ def expect_additional_fields
   assert_select "input[name=?]", "user[preferred_locale]"
 end
 
+# rubocop:disable Metrics/MethodLength
 def create_hyrax_countermetric_objects
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',
@@ -70,3 +71,4 @@ def create_hyrax_countermetric_objects
     total_item_requests: 3
   )
 end
+# rubocop:enable Metrics/MethodLength

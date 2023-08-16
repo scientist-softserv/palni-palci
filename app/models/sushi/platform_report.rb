@@ -71,11 +71,11 @@ module Sushi
       data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
         { "Data_Type" => resource_type || "",
           "Access_Method" => "Regular",
-          "Performance" => performance(records, resource_type) }
+          "Performance" => performance(records) }
       end
     end
 
-    def performance(records, resource_type)
+    def performance(records)
       metric_types.each_with_object({}) do |metric_type, hash|
         hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
           inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]

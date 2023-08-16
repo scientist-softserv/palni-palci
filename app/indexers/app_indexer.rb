@@ -13,6 +13,7 @@ class AppIndexer < Hyrax::WorkIndexer
   def generate_solr_document
     super.tap do |solr_doc|
       solr_doc["account_cname_tesim"] = Site.instance&.account&.cname
+      solr_doc[::ActiveFedora.index_field_mapper.solr_name(:source_identifier, :facetable)] = object.source_identifier
       add_subject(solr_doc)
       add_format(solr_doc)
     end

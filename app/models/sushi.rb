@@ -15,6 +15,12 @@ module Sushi
         new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
         # rubocop:enable Metrics/LineLength
       end
+
+      def invalid_platform(platform, account)
+        # rubocop:disable Metrics/LineLength
+        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
+        # rubocop:enable Metrics/LineLength
+      end
     end
   end
 
@@ -179,6 +185,21 @@ module Sushi
                           metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
                         end.compact
                       end
+    end
+  end
+
+  module QueryParameterValidation
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :platform
+    end
+
+    def validate_platform(params, account)
+      @platform = if params[:platform].blank? || params[:platform] == account.cname
+                    account.cname
+                  else
+                    raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account)
+                  end
     end
   end
 end

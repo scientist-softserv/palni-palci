@@ -11,6 +11,7 @@ module Sushi
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::GranularityCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -27,6 +28,7 @@ module Sushi
       coerce_dates(params)
       coerce_data_types(params)
       coerce_metric_types(params)
+      coerce_granularity(params)
       @created = created
       @account = account
 
@@ -62,6 +64,7 @@ module Sushi
       }
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
       report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity_string if granularity_in_params
       report_hash
     end
 
@@ -95,6 +98,12 @@ module Sushi
           end
         }
       }]
+    end
+
+    # Specifies the granularity of the usage data to include in the report.
+    # Permissible values are Month (default) and Totals.
+    # For Totals each Item_Performance element represents the aggregated usage for the reporting period.
+    def granularity
     end
 
     ##

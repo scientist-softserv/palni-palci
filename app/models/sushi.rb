@@ -156,4 +156,18 @@ module Sushi
                       end
     end
   end
+
+  module GranularityCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :granularity_string, :granularity_in_params
+    end
+    ALLOWED_GRANULARITY = ["Month", "Total"].freeze
+
+    def coerce_granularity(params = {})
+      @granularity_in_params = params.key?(:granularity) &&
+                               ALLOWED_GRANULARITY.any? { |allowed| allowed.downcase == params[:granularity].downcase }
+      @granularity_string = params.fetch(:granularity, "Month")
+    end
+  end
 end

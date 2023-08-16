@@ -7,10 +7,25 @@ namespace :hyku do
     files_in_old_location = `find #{Rails.root}/public/uploads/*/site/banner_image/* -type f`.split("\n")
     new_location = Rails.root.join('public', 'system', 'banner_images', '1', 'original')
 
+    grouped_file_paths = file_paths.group_by do |file_path|
+      File.basename(file_path)
+    end
+    duplicate_file_paths = grouped_file_paths.values.select { |paths| paths.size > 1 }.flatten
+
     FileUtils.mkdir_p(new_location)
     files_in_old_location.each do |file|
-      puts "Copying #{file} to #{new_location}"
-      FileUtils.cp(file, new_location)
+      if duplicate_file_paths.include?(file)
+        tenant_uuid = file.split('/')[2]
+        new_filename = "#{File.basename(file, '.*')}_#{tenant_uuid}#{File.extname(file)}"
+        renamed_destination = File.join(new_location, new_filename)
+
+        puts "#{File.basename(file)} renamed to #{File.basename(renamed_destination)}"
+        puts "Copying #{file} to #{renamed_destination}"
+        FileUtils.cp(file, renamed_destination)
+      else
+        puts "Copying #{file} to #{new_location}"
+        FileUtils.cp(file, new_location)
+      end
     end
   end
 

@@ -29,8 +29,8 @@ module API
 
         render json: { "item_report" => 'hello single item report' }
       else
-        # here we would return the JSON that includes all works in the Item Report
-        render json: { "item_report" => 'hello all items report' }
+        @report = Sushi::ItemReport.new(params, account: current_account)
+        render json: @report
       end
     end
 

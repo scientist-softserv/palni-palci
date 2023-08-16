@@ -83,24 +83,24 @@ module Sushi
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",
         "Performance" => {
-          "Searches_Platform" => if granularity_string.casecmp("Totals").zero?
+          "Searches_Platform" => if granularity_string === 'Totals'
                                   total_for_platform = data_for_platform.map do |record|
                                     record.total_item_investigations
                                   end.sum
                                   { "Totals" => total_for_platform }
                                  else
                                   data_for_platform.each_with_object({}) do |record, hash|
-                                  hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-                                  hash
-                                 end
-          end
+                                    hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
+                                    hash
+                                  end
+                                end
         }
       }]
     end
 
       def performance(records)
         metric_types.each_with_object({}) do |metric_type, hash|
-          hash[metric_type] = if granularity_string.casecmp("Totals").zero?
+          hash[metric_type] = if granularity_string === 'Totals'
                                 total_per_metric_type = records.map do |record|
                                   record[metric_type.downcase.to_s]
                                 end.sum

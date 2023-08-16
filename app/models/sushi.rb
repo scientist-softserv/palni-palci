@@ -169,8 +169,7 @@ module Sushi
     ALLOWED_GRANULARITY = ["Month", "Totals"].freeze
 
     def coerce_granularity(params = {})
-      @granularity_in_params = params.key?(:granularity) &&
-                               ALLOWED_GRANULARITY.any? { |allowed_granularity| allowed_granularity.casecmp(params[:granularity].downcase).zero? }
+      @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
       @granularity = params.fetch(:granularity, "Month").capitalize
     end
   end

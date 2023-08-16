@@ -77,10 +77,6 @@ module Sushi
 
     def performance(records, resource_type)
       metric_types.each_with_object({}) do |metric_type, hash|
-        # Unique_Title_Requests & Unique_Title_Investigations should only be available in the book resource type
-        # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#metric-types for details
-        next if !resource_type.casecmp("book").zero? && (metric_type == "Unique_Title_Requests" || metric_type == "Unique_Title_Investigations")
-
         hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
           inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
           inner_hash

@@ -64,7 +64,7 @@ module Sushi
       }
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
       report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
-      report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity_string if granularity_in_params
+      report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity if granularity_in_params
       report_hash
     end
 
@@ -83,7 +83,7 @@ module Sushi
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",
         "Performance" => {
-          "Searches_Platform" => if granularity_string == 'Totals'
+          "Searches_Platform" => if granularity == 'Totals'
                                    total_for_platform = data_for_platform.map(&:total_item_investigations).sum
                                    { "Totals" => total_for_platform }
                                  else
@@ -98,7 +98,7 @@ module Sushi
 
     def performance(records)
       metric_types.each_with_object({}) do |metric_type, hash|
-        hash[metric_type] = if granularity_string == 'Totals'
+        hash[metric_type] = if granularity == 'Totals'
                               total_per_metric_type = records.map do |record|
                                 record[metric_type.downcase.to_s]
                               end.sum

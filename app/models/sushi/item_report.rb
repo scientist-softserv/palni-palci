@@ -54,7 +54,7 @@ module Sushi
             'Attributes_To_Show' => attributes_to_show
           }
         },
-        'Report_Items' => report_items
+        'Report_Items' => report_items.presence || 'The given ID did not return any results.'
       }
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
 

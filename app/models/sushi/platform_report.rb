@@ -78,33 +78,41 @@ module Sushi
       end
     end
 
-    def performance(records)
-      metric_types.each_with_object({}) do |metric_type, hash|
-        hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
-          inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
-          inner_hash
-        end
-      end
-    end
-
     def attribute_performance_for_platform
       [{
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",
         "Performance" => {
-          "Searches_Platform" => data_for_platform.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-            hash
+          "Searches_Platform" => if granularity_string.casecmp("Totals").zero?
+                                  total_for_platform = data_for_platform.map do |record|
+                                    record.total_item_investigations
+                                  end.sum
+                                  { "Totals" => total_for_platform }
+                                 else
+                                  data_for_platform.each_with_object({}) do |record, hash|
+                                  hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
+                                  hash
+                                 end
           end
         }
       }]
     end
 
-    # Specifies the granularity of the usage data to include in the report.
-    # Permissible values are Month (default) and Totals.
-    # For Totals each Item_Performance element represents the aggregated usage for the reporting period.
-    def granularity
-    end
+      def performance(records)
+        metric_types.each_with_object({}) do |metric_type, hash|
+          hash[metric_type] = if granularity_string.casecmp("Totals").zero?
+                                total_per_metric_type = records.map do |record|
+                                  record[metric_type.downcase.to_s]
+                                end.sum
+                                { "Totals" => total_per_metric_type }
+                              else
+                                records.each_with_object({}) do |record, inner_hash|
+                                  inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
+                                  inner_hash
+                                end
+                              end
+        end
+      end
 
     ##
     # @note the `date_trunc` SQL function is specific to Postgresql.  It will take the date/time field

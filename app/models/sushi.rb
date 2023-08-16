@@ -157,12 +157,17 @@ module Sushi
     end
   end
 
+
+  # This param specifies the granularity of the usage data to include in the report.
+  # Permissible values are Month (default) and Totals.
+  # For Totals, each Item_Performance element represents the aggregated usage for the reporting period.
+  # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#report-filters-and-report-attributes for details
   module GranularityCoercion
     extend ActiveSupport::Concern
     included do
       attr_reader :granularity_string, :granularity_in_params
     end
-    ALLOWED_GRANULARITY = ["Month", "Total"].freeze
+    ALLOWED_GRANULARITY = ["Month", "Totals"].freeze
 
     def coerce_granularity(params = {})
       @granularity_in_params = params.key?(:granularity) &&

@@ -7,7 +7,7 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class ItemReport
-    attr_reader :created, :account, :attributes_to_show, :data_types
+    attr_reader :account, :attributes_to_show, :created, :data_types, :item_id
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
@@ -27,14 +27,15 @@ module Sushi
       coerce_data_types(params)
       @created = created
       @account = account
+      @item_id = params[:item_id]
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
       @attributes_to_show = params.fetch(:attributes_to_show, ['Access_Method']) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
     end
 
-    def to_hash
-      {
+    def as_json(_options = {})
+      report_hash = {
         'Report_Header' => {
           'Report_Name' => 'Item Report',
           'Report_ID' => 'IR',
@@ -55,7 +56,12 @@ module Sushi
         },
         'Report_Items' => report_items
       }
+      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
+
+      report_hash
     end
+
+    alias to_hash as_json
 
     def report_items
       data_for_resource_types.group_by(&:work_id).map do |_work_id, records|
@@ -116,6 +122,7 @@ module Sushi
                  .order({ resource_type: :asc, work_id: :asc }, "year_month")
                  .group(:work_id, :resource_type, :worktype, "date_trunc('month', date)")
 
+      return relation.where("(?) = work_id", item_id) if item_id
       return relation if data_types.blank?
 
       relation.where("LOWER(resource_type) IN (?)", data_types)

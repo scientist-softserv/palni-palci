@@ -23,15 +23,8 @@ module API
     # @note We should not need to find the record in ActiveFedora; hopefully we have all we need in
     #       the stats database.
     def item_report
-      if params[:item_id]
-        # example of the URL with an item_id
-        # /api/sushi/r51/reports/ir?item_id=7fdf12a0-b8da-46c6-88dc-64dbb5bc31d7
-
-        render json: { "item_report" => 'hello single item report' }
-      else
-        @report = Sushi::ItemReport.new(params, account: current_account)
-        render json: @report
-      end
+      @report = Sushi::ItemReport.new(params, account: current_account)
+      render json: @report
     end
 
     def platform_report

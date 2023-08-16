@@ -3,8 +3,8 @@
 RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
   let(:required_parameters) do
     {
-      begin_date: '2023-04',
-      end_date: '2023-05'
+      begin_date: '2022-01',
+      end_date: '2022-02'
     }
   end
 
@@ -25,12 +25,23 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
       expect(parsed_body.dig('Report_Header', 'Report_Name')).to eq('Item Report')
     end
 
-    describe 'with an item_id parameter'  do
+    context 'with a valid item_id parameter' do
+      before { create_hyrax_countermetric_objects }
+
       it 'returns a 200 status report for the given item' do
-        get '/api/sushi/r51/reports/ir', params: { item_id: 123 }
+        get '/api/sushi/r51/reports/ir', params: { **required_parameters, item_id: '54321' }
         expect(response).to have_http_status(200)
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body['item_report']).to eq 'hello single item report'
+        expect(parsed_body['Report_Items']).to be_instance_of(Array)
+      end
+    end
+
+    context 'with an invalid item_id parameter' do
+      it 'returns a 422 status report for the given item' do
+        get '/api/sushi/r51/reports/ir', params: { **required_parameters, item_id: 'qwerty123' }
+        expect(response).to have_http_status(422)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body['error']).not_to be_nil
       end
     end
   end

@@ -54,8 +54,11 @@ module Sushi
             'Attributes_To_Show' => attributes_to_show
           }
         },
-        'Report_Items' => report_items.presence || 'The given ID did not return any results.'
+        'Report_Items' => report_items
       }
+
+      raise Sushi::InvalidParameterValue.invalid_item_id(item_id) if item_id && report_items.blank?
+
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
 
       report_hash

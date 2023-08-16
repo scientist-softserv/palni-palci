@@ -32,17 +32,33 @@ RSpec.describe Sushi::ItemReport do
     end
 
     context 'with a valid item_id param' do
-      let(:params) do
-        {
-          item_id: '54321',
-          begin_date: '2022-01-03',
-          end_date: '2023-08-09'
-        }
+      context 'and metrics during the dates specified for that id' do
+        let(:params) do
+          {
+            item_id: '54321',
+            begin_date: '2022-01-03',
+            end_date: '2022-04-09'
+          }
+        end
+
+        it 'returns one report item' do
+          expect(subject.dig('Report_Header', 'Report_Filters', 'Item_ID')).to eq('54321')
+          expect(subject.dig('Report_Items', 0, 'Items', 0, 'Item')).to eq('54321')
+        end
       end
 
-      it 'returns one report item' do
-        expect(subject.dig('Report_Header', 'Report_Filters', 'Item_ID')).to eq('54321')
-        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Item')).to eq('54321')
+      context 'and no metrics during the dates specified for that id' do
+        let(:params) do
+          {
+            item_id: '54321',
+            begin_date: '2023-06-05',
+            end_date: '2023-08-09'
+          }
+        end
+
+        it 'raises an error' do
+          expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+        end
       end
     end
 
@@ -55,9 +71,8 @@ RSpec.describe Sushi::ItemReport do
         }
       end
 
-      it 'does not return any report items' do
-        expect(subject.dig('Report_Header', 'Report_Filters', 'Item_ID')).to eq('qwerty123')
-        expect(subject.dig('Report_Items')).to eq('The given ID did not return any results.')
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
       end
     end
   end

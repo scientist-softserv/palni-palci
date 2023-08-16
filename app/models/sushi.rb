@@ -5,6 +5,17 @@ module Sushi
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.
   class InvalidParameterValue < StandardError
+    class << self
+      def initialize(message = nil)
+        super
+      end
+
+      def invalid_item_id(item_id)
+        # rubocop:disable Metrics/LineLength
+        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
+        # rubocop:enable Metrics/LineLength
+      end
+    end
   end
 
   class << self

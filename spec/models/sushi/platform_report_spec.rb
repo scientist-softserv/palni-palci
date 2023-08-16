@@ -42,7 +42,7 @@ RSpec.describe Sushi::PlatformReport do
         }
       end
 
-      it "only shows the requested metric types, , and does not include metric types that aren't allowed" do
+      it "only shows the requested metric types, and does not include metric types that aren't allowed" do
         expect(subject.dig('Report_Header', 'Report_Filters', 'Metric_Type')).to eq(['Total_Item_Investigations', 'Unique_Item_Investigations'])
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).to have_key('Total_Item_Investigations')
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).to have_key('Unique_Item_Investigations')

@@ -22,6 +22,14 @@ namespace :hyku do
         puts "#{File.basename(file)} renamed to #{File.basename(renamed_destination)}"
         puts "Copying #{file} to #{renamed_destination}"
         FileUtils.cp(file, renamed_destination)
+
+        # Since the filename has changed, we need to "re-upload" the file to the site;
+        # we can't simply point it to the new path
+        Apartment::Tenant.switch(tenant_uuid) do
+          site = Site.instance
+          File.open(renamed_destination) { |file| site.banner_image = file }
+          site.save!
+        end
       else
         puts "Copying #{file} to #{new_location}"
         FileUtils.cp(file, new_location)

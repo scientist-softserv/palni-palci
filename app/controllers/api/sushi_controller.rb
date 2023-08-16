@@ -29,8 +29,8 @@ module API
 
         render json: { "item_report" => 'hello single item report' }
       else
-        # here we would return the JSON that includes all works in the Item Report
-        render json: { "item_report" => 'hello all items report' }
+        @report = Sushi::ItemReport.new(params, account: current_account)
+        render json: @report
       end
     end
 
@@ -47,11 +47,6 @@ module API
     def server_status
       @status = Sushi::ServerStatus.new(account: current_account).server_status
       render json: @status
-    end
-
-    def member_list
-      # Logic to retrieve members data
-      render json: { "members" => 'message' }
     end
 
     def report_list

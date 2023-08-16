@@ -6,7 +6,7 @@ RSpec.describe Sushi::ReportList do
 
     it 'returns the correct format' do
       expect(subject).to be_an_instance_of(Array)
-      expect(subject.length).to eq(6)
+      expect(subject.length).to eq(5)
     end
 
     it 'has the expected keys' do

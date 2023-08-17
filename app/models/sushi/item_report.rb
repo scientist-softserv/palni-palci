@@ -74,7 +74,7 @@ module Sushi
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
-      report_hash['Report_Header']['Report_Filters']['Platform'] = item_id if platform_in_params
+      report_hash['Report_Header']['Report_Filters']['Platform'] = platform if platform_in_params
       report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
 

@@ -27,7 +27,7 @@ namespace :hyku do
         # we can't simply point it to the new path
         Apartment::Tenant.switch(tenant_uuid) do
           site = Site.instance
-          File.open(renamed_destination) { |file| site.banner_image = file }
+          File.open(renamed_destination) { |banner_image| site.banner_image = banner_image }
           site.save!
         end
       else

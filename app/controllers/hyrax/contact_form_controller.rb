@@ -13,13 +13,13 @@ module Hyrax
     include Blacklight::SearchContext
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
-    before_action :build_contact_form
     layout 'homepage'
     # OVERRIDE: Adding inject theme views method for theming
     around_action :inject_theme_views
+    before_action :setup_negative_captcha, only: %i[new create]
+
     class_attribute :model_class
     self.model_class = Hyrax::ContactForm
-    before_action :setup_negative_captcha, only: %i[new create]
     # OVERRIDE: Hyrax v3.4.0 Add for theming
     # The search builder for finding recent documents
     # Override of Blacklight::RequestBuilders
@@ -78,15 +78,6 @@ module Hyrax
 
     private
 
-      def build_contact_form
-        @contact_form = model_class.new(contact_form_params)
-      end
-
-      def contact_form_params
-        return {} unless params.key?(:contact_form)
-        params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
-      end
-
       # OVERRIDE: return collections for theming
       def collections(rows: 6)
         builder = Hyrax::CollectionSearchBuilder.new(self)
@@ -105,6 +96,7 @@ module Hyrax
           prepend_view_path(home_theme_view_path)
           yield
           # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+          # Do NOT change this line. This is calling the Rails view_paths=(paths) method and not a variable assignment.
           view_paths=(original_paths)
           # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
         else

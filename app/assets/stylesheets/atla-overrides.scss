@@ -159,6 +159,7 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
      color:white;
 }
 
+
 /*embargo management ui */
 .set-access-controls .form-inline .col-md-2, .set-access-controls .form-inline .col-md-10 {
     width: 100%;
@@ -169,6 +170,29 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
      display: inline-block!important;
      padding:.5em 0;
 }
+
+/* hide custom field host institution */
+     /* hide the label in works list */
+   dt[data-solr-field-name="institution_tesim"] {
+       display: none;
+   }
+
+   /* hide the value in works list */
+   body.catalog-index div.metadata dl.dl-horizontal dd:last-child {
+       display: none;
+   }
+
+   /* hide from the facets */
+   .panel.panel-default.facet_limit.blacklight-institution_sim {
+       display: none;
+   }
+/* fix remove facet button color* /
+.glyphicon-remove:before {
+     color:#d33a35;
+}
+/* add space for collection icon in search results view*/
+.search-result-wrapper {padding-bottom:.5em;}
+
 
 @media only screen and (min-width: 768px) {
      .hyc-banner .hyc-title h1 {margin-bottom: 0em;}

@@ -189,6 +189,25 @@
      &.hyrax-homepage #search-form-header {margin-top:1em;}
      &.hyrax-homepage .text-right p{color:#258FCE;}
 
+
+     /* hide custom field host institution */
+          /* hide the label in works list */
+        dt[data-solr-field-name="institution_tesim"] {
+            display: block;
+        }
+
+        /* hide the value in works list */
+        &.catalog-index div.metadata dl.dl-horizontal dd:last-child {
+            display: block;
+        }
+
+        /* hide from the facets */
+        .panel.panel-default.facet_limit.blacklight-institution_sim {
+            display: block;
+        }
+
+
+
      @media screen and (min-width:768px){
 
           .dropdown-menu .divider, .twitter-typeahead .tt-menu .divider{

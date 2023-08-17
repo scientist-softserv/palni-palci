@@ -10,6 +10,7 @@ module Sushi
     attr_reader :account, :attributes_to_show, :created, :data_types, :item_id
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -25,8 +26,9 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      @created = created
+      validate_platform(params, account)
       @account = account
+      @created = created
       @item_id = params[:item_id]
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
@@ -45,6 +47,7 @@ module Sushi
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
             'End_Date' => end_date.iso8601,
+            'Platform' => platform,
             'Data_Type' => data_types
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'

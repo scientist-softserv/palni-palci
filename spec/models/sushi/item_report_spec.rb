@@ -1,22 +1,26 @@
 # frozen_string_literal:true
 
 RSpec.describe Sushi::ItemReport do
+  subject { described_class.new(params, created: created, account: account).as_json }
+
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.dev') }
+  let(:created) { Time.zone.now }
+  let(:required_parameters) do
+    {
+      begin_date: '2022-01-03',
+      end_date: '2023-08-09'
+    }
+  end
+
+  before { create_hyrax_countermetric_objects }
 
   describe '#as_json' do
-    before { create_hyrax_countermetric_objects }
-
-    subject { described_class.new(params, created: created, account: account).as_json }
-
     let(:params) do
       {
-        attributes_to_show: ['Access_Method', 'Fake_Value'],
-        begin_date: '2022-01-03',
-        end_date: '2023-08-09'
+        **required_parameters,
+        attributes_to_show: ['Access_Method', 'Fake_Value']
       }
     end
-
-    let(:created) { Time.zone.now }
 
     it 'has the expected properties' do
       expect(subject).to be_key('Report_Header')
@@ -30,8 +34,10 @@ RSpec.describe Sushi::ItemReport do
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2023-08')).to eq(1)
       expect(subject.dig('Report_Items', 2, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2022-01')).to eq(1)
     end
+  end
 
-    context 'with a valid item_id param' do
+  describe 'with an item_id parameter' do
+    context 'that is valid' do
       context 'and metrics during the dates specified for that id' do
         let(:params) do
           {
@@ -62,12 +68,40 @@ RSpec.describe Sushi::ItemReport do
       end
     end
 
-    context 'with an invalid item_id param' do
+    context 'that is invalid' do
       let(:params) do
         {
           item_id: 'qwerty123',
           begin_date: '2022-01-03',
           end_date: '2023-08-09'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
+    end
+  end
+
+  describe 'with a platform parameter' do
+    context 'that is valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          platform: 'pitt.hyku.dev'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.dev')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          platform: 'another-tenant'
         }
       end
 

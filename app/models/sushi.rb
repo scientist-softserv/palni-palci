@@ -5,17 +5,17 @@ module Sushi
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.
   class InvalidParameterValue < StandardError
+    # rubocop:disable Metrics/LineLength
     class << self
-      def initialize(message = nil)
-        super
+      def invalid_item_id(item_id)
+        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
       end
 
-      def invalid_item_id(item_id)
-        # rubocop:disable Metrics/LineLength
-        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
-        # rubocop:enable Metrics/LineLength
+      def invalid_platform(platform, account)
+        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
     end
+    # rubocop:enable Metrics/LineLength
   end
 
   class << self
@@ -179,6 +179,21 @@ module Sushi
                           metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
                         end.compact
                       end
+    end
+  end
+
+  ##
+  # This module holds validations for the various query parameters that are available on each of the reports
+  module QueryParameterValidation
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :platform
+    end
+
+    def validate_platform(params, account)
+      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+
+      @platform = account.cname
     end
   end
 

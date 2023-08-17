@@ -199,7 +199,7 @@ module Sushi
     end
 
     def validate_item_id(params)
-      raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(['work_id LIKE ?', params[:item_id]])
+      raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
     end

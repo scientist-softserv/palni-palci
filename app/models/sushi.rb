@@ -182,6 +182,8 @@ module Sushi
     end
   end
 
+  ##
+  # This module holds validations for the various query parameters that are available on each of the reports
   module QueryParameterValidation
     extend ActiveSupport::Concern
     included do

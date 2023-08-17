@@ -7,7 +7,7 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class ItemReport
-    attr_reader :account, :attributes_to_show, :created, :data_types, :item_id
+    attr_reader :account, :attributes_to_show, :created, :data_types
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::QueryParameterValidation
@@ -26,14 +26,13 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      validate_platform(params, account)
       @account = account
       @created = created
-      @item_id = params[:item_id]
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
       @attributes_to_show = params.fetch(:attributes_to_show, ['Access_Method']) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
+      Sushi::QueryParameterValidation.validate_item_report_parameters(params: params, account: account, data: data_for_resource_types)
     end
 
     def as_json(_options = {})
@@ -59,8 +58,6 @@ module Sushi
         },
         'Report_Items' => report_items
       }
-
-      raise Sushi::InvalidParameterValue.invalid_item_id(item_id) if item_id && report_items.blank?
 
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
 

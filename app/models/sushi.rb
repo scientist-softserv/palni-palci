@@ -185,13 +185,26 @@ module Sushi
   module QueryParameterValidation
     extend ActiveSupport::Concern
     included do
-      attr_reader :platform
+      attr_reader :item_id, :platform
     end
 
-    def validate_platform(params, account)
-      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+    class << self
+      def validate_item_report_parameters(params:, account:, data:)
+        validate_item_id(params, data)
+        validate_platform(params, account)
+      end
 
-      @platform = account.cname
+      def validate_item_id(params, data)
+        raise Sushi::InvalidParameterValue.invalid_item_id(params[:item_id]) if params[:item_id] && data.blank?
+
+        @item_id = params[:item_id]
+      end
+
+      def validate_platform(params, account)
+        raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+
+        @platform = account.cname
+      end
     end
   end
 end

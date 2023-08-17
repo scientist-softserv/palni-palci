@@ -84,7 +84,7 @@ module Sushi
         "Access_Method" => "Regular",
         "Performance" => {
           "Searches_Platform" => if granularity == 'Totals'
-                                   total_for_platform = data_for_platform.map(&:total_item_investigations).sum
+                                   total_for_platform = data_for_platform.sum(&:total_item_investigations)
                                    { "Totals" => total_for_platform }
                                  else
                                    data_for_platform.each_with_object({}) do |record, hash|

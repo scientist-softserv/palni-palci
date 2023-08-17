@@ -4,10 +4,12 @@
 namespace :hyku do
   desc 'Move all banner images to new expected location'
   task copy_banner_images: :environment do
-    files_in_old_location = `find #{Rails.root}/public/uploads/*/site/banner_image/* -type f`.split("\n")
+    files_in_old_location = `find #{Rails.root}/public/uploads/*/site/banner_image/ -type f`.split("\n")
+    # The `1` in this path is the Site ID. Since Sites are tenant-specific,
+    # and since every tenant only has one Site, every Site ID is guaranteed to be 1.
     new_location = Rails.root.join('public', 'system', 'banner_images', '1', 'original')
 
-    grouped_file_paths = file_paths.group_by do |file_path|
+    grouped_file_paths = files_in_old_location.group_by do |file_path|
       File.basename(file_path)
     end
     duplicate_file_paths = grouped_file_paths.values.select { |paths| paths.size > 1 }.flatten
@@ -15,7 +17,7 @@ namespace :hyku do
     FileUtils.mkdir_p(new_location)
     files_in_old_location.each do |file|
       if duplicate_file_paths.include?(file)
-        tenant_uuid = file.split('/')[2]
+        tenant_uuid = file.split('/')[6]
         new_filename = "#{File.basename(file, '.*')}_#{tenant_uuid}#{File.extname(file)}"
         renamed_destination = File.join(new_location, new_filename)
 
@@ -48,8 +50,8 @@ namespace :hyku do
       exit 1
     end
 
-    files_in_old_location = `find #{Rails.root}/public/uploads/*/site/banner_image/* -type f`.split("\n")
-    files_in_new_location = `find #{Rails.root}/public/system/banner_images/*/original/* -type f`.split("\n")
+    files_in_old_location = `find #{Rails.root}/public/uploads/*/site/banner_image/ -type f`.split("\n")
+    files_in_new_location = `find #{Rails.root}/public/system/banner_images/*/original/ -type f`.split("\n")
 
     if files_in_old_location.length > files_in_new_location.length
       warning = "WARNING - more files exist in the old file location (#{files_in_old_location.length}) " \
@@ -62,6 +64,9 @@ namespace :hyku do
       end
     end
 
-    files_in_old_location.each { |file| FileUtils.rm(file) }
+    files_in_old_location.each do |file|
+      puts "Deleting #{file}"
+      FileUtils.rm(file)
+    end
   end
 end

@@ -5,23 +5,17 @@ module Sushi
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.
   class InvalidParameterValue < StandardError
+    # rubocop:disable Metrics/LineLength
     class << self
-      def initialize(message = nil)
-        super
-      end
-
       def invalid_item_id(item_id)
-        # rubocop:disable Metrics/LineLength
         new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
-        # rubocop:enable Metrics/LineLength
       end
 
       def invalid_platform(platform, account)
-        # rubocop:disable Metrics/LineLength
         new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
-        # rubocop:enable Metrics/LineLength
       end
     end
+    # rubocop:enable Metrics/LineLength
   end
 
   class << self
@@ -195,11 +189,9 @@ module Sushi
     end
 
     def validate_platform(params, account)
-      @platform = if params[:platform].blank? || params[:platform] == account.cname
-                    account.cname
-                  else
-                    raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account)
-                  end
+      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+
+      @platform = account.cname
     end
   end
 end

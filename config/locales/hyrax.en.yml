@@ -1145,7 +1145,7 @@ en:
       collection:
         based_near: A place name related to the collection, such as its site of publication, or the city, state, or country the collection contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
         contributor: A person or group you want to recognize for playing a role in the creation of the collection, but not the primary role.
-        creator: The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
+        creator: The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John&quot;.
         date_created: The date on which the collection was created.
         description: Free-text notes about the collection. Examples include abstracts of a paper or citation information for a journal article.
         identifier: A unique handle identifying the collection. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
@@ -1155,7 +1155,7 @@ en:
         publisher: The person or group making the collection available. Generally this is the institution.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the collection. An example is the URL of a research project from which the collection was derived.
         resource_type: Pre-defined categories to describe the nature or genre of the resource, such as "article" or "photograph." More than one resource type may be selected.
-        subject: Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary.
+        subject: Headings or index terms describing what the collection is about. Use a controlled vocabulary.
         title: A name to aid in identifying a collection.
       collection_type:
         allow_multiple_membership: Allow works to belong to multiple collections of this type
@@ -1174,7 +1174,7 @@ en:
         access_right: If access is restricted to a certain group of users or if the content is subject to embargo, include that information here.
         based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
         contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role.
-        creator: The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
+        creator: The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John&quot;.
         date_created: The date on which the work was created.
         description: A free text account of the resource.
         extent: The extent (size, duration, number, etc.) of the work.
@@ -1193,7 +1193,7 @@ en:
         types: 'Pre-defined categories to broadly describe the type of content being uploaded. More than one type may be selected.'
         video_embed: "Youtube or Vimeo iframe embed code to show video embedded in the work page. If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
       generic_work:
-        subject: Headings or index terms describing what the work is about. Use a controlled vocabulary.
+        subject: Headings or index terms describing what the work is about. Please use <a href='https://fast.oclc.org/searchfast/'>FAST subject headings</a> or another controlled vocabulary only.
 
     labels:
       collection:

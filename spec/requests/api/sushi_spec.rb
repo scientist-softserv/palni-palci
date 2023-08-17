@@ -18,6 +18,8 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
   describe 'GET /api/sushi/r51/reports/ir' do
     it_behaves_like 'without required parameters', 'ir'
 
+    before { create_hyrax_countermetric_objects }
+
     it 'returns a 200 with correct response for item report' do
       get '/api/sushi/r51/reports/ir', params: required_parameters
       expect(response).to have_http_status(200)
@@ -26,8 +28,6 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
     end
 
     context 'with a valid item_id parameter' do
-      before { create_hyrax_countermetric_objects }
-
       it 'returns a 200 status report for the given item' do
         get '/api/sushi/r51/reports/ir', params: { **required_parameters, item_id: '54321' }
         expect(response).to have_http_status(200)

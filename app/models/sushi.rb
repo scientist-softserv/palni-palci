@@ -1,9 +1,14 @@
 # frozen_string_literal:true
 
 module Sushi
-  class Sushi::NotFoundError < StandardError; end
-  class Sushi::MissingItemIdError < Sushi::NotFoundError; end
-  class Sushi::NoRecordsWithinDateRangeError < Sushi::NotFoundError; end
+  class Sushi::NotFoundError < StandardError
+    class << self
+      def no_records_within_date_range
+        new('There are no results for the given date range.')
+      end
+    end
+  end
+
 
   ##
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
@@ -12,7 +17,7 @@ module Sushi
     # rubocop:disable Metrics/LineLength
     class << self
       def invalid_item_id(item_id)
-        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
+        new("The given parameter `item_id=#{item_id}` is invalid. Please provide a valid item_id, or none at all.")
       end
 
       def invalid_platform(platform, account)
@@ -194,23 +199,16 @@ module Sushi
       attr_reader :item_id, :platform
     end
 
-    class << self
-      def validate_item_report_parameters(params:, account:, data:)
-        validate_item_id(params, data)
-        validate_platform(params, account)
-      end
+    def validate_item_id(params)
+      raise Sushi::InvalidParameterValue.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(['work_id LIKE ?', params[:item_id]])
 
-      def validate_item_id(params, data)
-        raise Sushi::InvalidParameterValue.invalid_item_id(params[:item_id]) if params[:item_id] && data.blank?
+      @item_id = params[:item_id]
+    end
 
-        @item_id = params[:item_id]
-      end
+    def validate_platform(params, account)
+      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
 
-      def validate_platform(params, account)
-        raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
-
-        @platform = account.cname
-      end
+      @platform = account.cname
     end
   end
 

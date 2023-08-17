@@ -5,6 +5,17 @@ module Sushi
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.
   class InvalidParameterValue < StandardError
+    class << self
+      def initialize(message = nil)
+        super
+      end
+
+      def invalid_item_id(item_id)
+        # rubocop:disable Metrics/LineLength
+        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
+        # rubocop:enable Metrics/LineLength
+      end
+    end
   end
 
   class << self
@@ -91,7 +102,10 @@ module Sushi
     end
   end
 
-  # this module accounts for date behavior that needs to be used across all reports.
+  ##
+  # This module accounts for date behavior that needs to be used across all reports.
+  #
+  # @see #coerce_dates
   module DateCoercion
     extend ActiveSupport::Concern
     included do
@@ -99,6 +113,10 @@ module Sushi
       attr_reader :end_date
     end
 
+    ##
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String, NilClass] begin_date :: Either nil, YYYY-MM or YYYY-MM-DD format
+    # @option params [String, NilClass] end_date :: Either nil, YYYY-MM or YYYY-MM-DD format
     def coerce_dates(params = {})
       # TODO: We should also be considering available dates as well.
       #
@@ -108,15 +126,22 @@ module Sushi
     end
   end
 
+  ##
+  # This module provides coercion of the :data_type parameter
+  #
+  # @see #coerce_data_types
   module DataTypeCoercion
     extend ActiveSupport::Concern
     included do
       attr_reader :data_types, :data_type_in_params
     end
 
+    ##
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String, NilClass] data_type :: Pipe separated string of one or more data_types.
     def coerce_data_types(params = {})
       @data_type_in_params = params.key?(:data_type)
-      @data_types = Array.wrap(params[:data_type]&.split('|')).map(&:downcase)
+      @data_types = Array.wrap(params[:data_type]&.split('|')).map { |dt| dt.strip.downcase }
     end
   end
 

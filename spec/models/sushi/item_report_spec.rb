@@ -3,10 +3,10 @@
 RSpec.describe Sushi::ItemReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.dev') }
 
-  describe '#to_hash' do
+  describe '#as_json' do
     before { create_hyrax_countermetric_objects }
 
-    subject { described_class.new(params, created: created, account: account).to_hash }
+    subject { described_class.new(params, created: created, account: account).as_json }
 
     let(:params) do
       {
@@ -29,6 +29,51 @@ RSpec.describe Sushi::ItemReport do
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Data_Type')).to eq('Article')
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2023-08')).to eq(1)
       expect(subject.dig('Report_Items', 2, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2022-01')).to eq(2)
+    end
+
+    context 'with a valid item_id param' do
+      context 'and metrics during the dates specified for that id' do
+        let(:params) do
+          {
+            item_id: '54321',
+            begin_date: '2022-01-03',
+            end_date: '2022-04-09'
+          }
+        end
+
+        it 'returns one report item' do
+          expect(subject.dig('Report_Header', 'Report_Filters', 'Item_ID')).to eq('54321')
+          expect(subject.dig('Report_Items', 0, 'Items', 0, 'Item')).to eq('54321')
+        end
+      end
+
+      context 'and no metrics during the dates specified for that id' do
+        let(:params) do
+          {
+            item_id: '54321',
+            begin_date: '2023-06-05',
+            end_date: '2023-08-09'
+          }
+        end
+
+        it 'raises an error' do
+          expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+        end
+      end
+    end
+
+    context 'with an invalid item_id param' do
+      let(:params) do
+        {
+          item_id: 'qwerty123',
+          begin_date: '2022-01-03',
+          end_date: '2023-08-09'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
     end
   end
 end

@@ -1,14 +1,17 @@
 # frozen_string_literal:true
 
 module Sushi
-  class Sushi::NotFoundError < StandardError
+  class NotFoundError < StandardError
     class << self
       def no_records_within_date_range
         new('There are no results for the given date range.')
       end
+
+      def invalid_item_id(item_id)
+        new("The given parameter `item_id=#{item_id}` is invalid. Please provide a valid item_id, or none at all.")
+      end
     end
   end
-
 
   ##
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
@@ -16,10 +19,6 @@ module Sushi
   class InvalidParameterValue < StandardError
     # rubocop:disable Metrics/LineLength
     class << self
-      def invalid_item_id(item_id)
-        new("The given parameter `item_id=#{item_id}` is invalid. Please provide a valid item_id, or none at all.")
-      end
-
       def invalid_platform(platform, account)
         new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
@@ -200,7 +199,7 @@ module Sushi
     end
 
     def validate_item_id(params)
-      raise Sushi::InvalidParameterValue.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(['work_id LIKE ?', params[:item_id]])
+      raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(['work_id LIKE ?', params[:item_id]])
 
       @item_id = params[:item_id]
     end

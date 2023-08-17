@@ -18,7 +18,7 @@ module API
       # @param [Exception]
       #
       def render_not_found(error)
-        render json: { error: error.message}, status: 404
+        render json: { error: error.message }, status: 404
       end
       rescue_from Sushi::NotFoundError, with: :render_not_found
 

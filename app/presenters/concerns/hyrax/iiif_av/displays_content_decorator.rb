@@ -8,15 +8,15 @@ module Hyrax
     #   request.base_url => hostname
     # also to remove #auth_service since it was not working for now
     module DisplaysContentDecorator
+      def solr_document
+        defined?(super) ? super : object
+      end
+
+      def current_ability
+        defined?(super) ? super : @ability
+      end
+
       private
-
-        def solr_document
-          defined?(super) ? super : object
-        end
-
-        def current_ability
-          defined?(super) ? super : @ability
-        end
 
         Request = Struct.new(:base_url, keyword_init: true)
 

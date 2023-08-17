@@ -65,7 +65,7 @@ module Sushi
 
     def performance(records)
       metric_types.each_with_object({}) do |metric_type, hash|
-        next if (['Total_Item_Investigations', 'Unique_Item_Investigations']).include?(metric_type)
+        next if ['Total_Item_Investigations', 'Unique_Item_Investigations'].include?(metric_type)
         hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
           inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
           inner_hash

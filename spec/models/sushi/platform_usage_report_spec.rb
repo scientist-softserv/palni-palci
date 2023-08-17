@@ -8,7 +8,6 @@ RSpec.describe Sushi::PlatformUsageReport do
 
     subject { described_class.new(params, created: created, account: account).as_json }
 
-
     let(:created) { Time.zone.now }
 
     context 'with only required params' do

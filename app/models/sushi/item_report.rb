@@ -10,6 +10,7 @@ module Sushi
     attr_reader :account, :attributes_to_show, :created, :data_types
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::MetricTypeCoercion
     include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
@@ -21,6 +22,13 @@ module Sushi
       # 'Subdivision_Name',
       # 'Subdivision_Code',
       # 'Attributed'
+    ].freeze
+
+    ALLOWED_METRIC_TYPES = [
+      'Total_Item_Investigations',
+      'Total_Item_Requests',
+      'Unique_Item_Investigations',
+      'Unique_Item_Requests'
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
@@ -36,6 +44,7 @@ module Sushi
     end
 
     def validate_item_report_parameters(params:, account:)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       validate_item_id(params) if params[:item_id]
       validate_platform(params, account) if params[:platform]
     end
@@ -66,7 +75,7 @@ module Sushi
 
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
-      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
+      report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
 
       report_hash
     end

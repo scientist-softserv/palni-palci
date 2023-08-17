@@ -1,6 +1,10 @@
 # frozen_string_literal:true
 
 module Sushi
+  class Sushi::NotFoundError < StandardError; end
+  class Sushi::MissingItemIdError < Sushi::NotFoundError; end
+  class Sushi::NoRecordsWithinDateRangeError < Sushi::NotFoundError; end
+
   ##
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.

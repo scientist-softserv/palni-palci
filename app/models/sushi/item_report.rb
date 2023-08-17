@@ -59,9 +59,7 @@ module Sushi
           'Institution_ID' => account.institution_id_data,
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
-            'End_Date' => end_date.iso8601,
-            'Platform' => platform,
-            'Data_Type' => data_types
+            'End_Date' => end_date.iso8601
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
           'Created_By' => account.institution_name,
@@ -75,6 +73,9 @@ module Sushi
 
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
+      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
+      report_hash['Report_Header']['Report_Filters']['Platform'] = item_id if platform_in_params
+      report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
 
       report_hash

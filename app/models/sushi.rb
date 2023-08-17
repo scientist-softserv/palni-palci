@@ -183,19 +183,22 @@ module Sushi
   module QueryParameterValidation
     extend ActiveSupport::Concern
     included do
-      attr_reader :item_id, :platform
+      attr_reader :item_id, :item_id_in_params
+      attr_reader :platform, :platform_in_params
     end
 
     def validate_item_id(params)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
+      @item_id_in_params = params.key?(:item_id)
     end
 
     def validate_platform(params, account)
       raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
 
       @platform = account.cname
+      @platform_in_params = params.key?(:platform)
     end
   end
 

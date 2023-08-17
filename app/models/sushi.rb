@@ -167,8 +167,6 @@ module Sushi
     end
 
     def coerce_metric_types(params = {})
-      raise 'hell'
-
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
 
       @metric_type_in_params = metric_types_from_params.any? do |metric_type|

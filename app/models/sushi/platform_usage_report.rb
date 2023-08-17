@@ -14,7 +14,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      coerce_metric_types(params)
+      coerce_metric_types(params, true)
 
       @created = created
       @account = account

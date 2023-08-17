@@ -163,20 +163,28 @@ module Sushi
       # "Unique_Title_Requests"
     ].freeze
 
-    def coerce_metric_types(params = {})
+    ALLOWED_METRIC_TYPES_PLATFORM_USAGE = [
+      # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
+      "Unique_Item_Requests",
+      "Total_Item_Requests"
+    ].freeze
+
+    def coerce_metric_types(params = {}, platform_usage_report = false)
+      metric_types_array = platform_usage_report ? ALLOWED_METRIC_TYPES_PLATFORM_USAGE : ALLOWED_METRIC_TYPES
+
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
 
       @metric_type_in_params = metric_types_from_params.any? do |metric_type|
         normalized_metric_type = metric_type.downcase
-        ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+        metric_types_array.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
       end
 
       @metric_types = if metric_types_from_params.empty?
-                        ALLOWED_METRIC_TYPES
+                        metric_types_array
                       else
                         metric_types_from_params.map do |metric_type|
                           normalized_metric_type = metric_type.downcase
-                          metric_type.titleize.tr(' ', '_') if ALLOWED_METRIC_TYPES.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+                          metric_type.titleize.tr(' ', '_') if metric_types_array.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
                         end.compact
                       end
     end

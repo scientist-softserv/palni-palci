@@ -11,6 +11,7 @@ module Sushi
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::GranularityCoercion
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -27,6 +28,7 @@ module Sushi
       coerce_dates(params)
       coerce_data_types(params)
       coerce_metric_types(params)
+      coerce_granularity(params)
       @created = created
       @account = account
 
@@ -62,6 +64,7 @@ module Sushi
       }
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
       report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity if granularity_in_params
       report_hash
     end
 
@@ -75,26 +78,38 @@ module Sushi
       end
     end
 
-    def performance(records)
-      metric_types.each_with_object({}) do |metric_type, hash|
-        hash[metric_type] = records.each_with_object({}) do |record, inner_hash|
-          inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
-          inner_hash
-        end
-      end
-    end
-
     def attribute_performance_for_platform
       [{
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",
         "Performance" => {
-          "Searches_Platform" => data_for_platform.each_with_object({}) do |record, hash|
-            hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
-            hash
-          end
+          "Searches_Platform" => if granularity == 'Totals'
+                                   total_for_platform = data_for_platform.sum(&:total_item_investigations)
+                                   { "Totals" => total_for_platform }
+                                 else
+                                   data_for_platform.each_with_object({}) do |record, hash|
+                                     hash[record.year_month.strftime("%Y-%m")] = record.total_item_investigations
+                                     hash
+                                   end
+                                 end
         }
       }]
+    end
+
+    def performance(records)
+      metric_types.each_with_object({}) do |metric_type, hash|
+        hash[metric_type] = if granularity == 'Totals'
+                              total_per_metric_type = records.map do |record|
+                                record[metric_type.downcase.to_s]
+                              end.sum
+                              { "Totals" => total_per_metric_type }
+                            else
+                              records.each_with_object({}) do |record, inner_hash|
+                                inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
+                                inner_hash
+                              end
+                            end
+      end
     end
 
     ##

@@ -18,7 +18,7 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { described_class.use_iiif_print? }
 
       context 'by default' do
-        it { is_expected.to be_truthy }
+        it { is_expected.to be_falsey }
       end
 
       context 'when the feature is flipped to false' do

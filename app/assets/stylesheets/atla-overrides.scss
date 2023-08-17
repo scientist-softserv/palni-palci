@@ -186,7 +186,8 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
    .panel.panel-default.facet_limit.blacklight-institution_sim {
        display: none;
    }
-/* fix remove facet button color* /
+
+/* fix x icon for removing facests */
 .glyphicon-remove:before {
      color:#d33a35;
 }

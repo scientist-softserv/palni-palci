@@ -27,6 +27,7 @@ def expect_additional_fields
   assert_select "input[name=?]", "user[preferred_locale]"
 end
 
+# rubocop:disable Metrics/MethodLength
 def create_hyrax_countermetric_objects
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',
@@ -44,6 +45,7 @@ def create_hyrax_countermetric_objects
     total_item_investigations: 3,
     total_item_requests: 5
   )
+  # used to test the case where a hyrax countermetric has a unique date, but same work ID.
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',
     resource_type: 'Book',
@@ -52,7 +54,6 @@ def create_hyrax_countermetric_objects
     total_item_investigations: 2,
     total_item_requests: 4
   )
-  # used to test the case where a hyrax countermetric has a unique date, but same work ID.
   Hyrax::CounterMetric.create(
     worktype: 'GenericWork',
     resource_type: 'Article',
@@ -61,4 +62,13 @@ def create_hyrax_countermetric_objects
     total_item_investigations: 2,
     total_item_requests: 8
   )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Article',
+    work_id: '99999',
+    date: '2023-08-09',
+    total_item_investigations: 4,
+    total_item_requests: 3
+  )
 end
+# rubocop:enable Metrics/MethodLength

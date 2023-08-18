@@ -1,21 +1,29 @@
 # frozen_string_literal:true
 
 module Sushi
+  class NotFoundError < StandardError
+    class << self
+      def no_records_within_date_range
+        new('There are no results for the given date range.')
+      end
+
+      def invalid_item_id(item_id)
+        new("The given parameter `item_id=#{item_id}` is invalid. Please provide a valid item_id, or none at all.")
+      end
+    end
+  end
+
   ##
   # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
   # the text value to a Date.
   class InvalidParameterValue < StandardError
+    # rubocop:disable Metrics/LineLength
     class << self
-      def initialize(message = nil)
-        super
-      end
-
-      def invalid_item_id(item_id)
-        # rubocop:disable Metrics/LineLength
-        new("The given parameter `item_id=#{item_id}` did not return any results. Either there are no metrics for this id during the dates specified, or there are no metrics for this id at all. Please confirm all given parameters.")
-        # rubocop:enable Metrics/LineLength
+      def invalid_platform(platform, account)
+        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
     end
+    # rubocop:enable Metrics/LineLength
   end
 
   class << self
@@ -151,37 +159,63 @@ module Sushi
       attr_reader :metric_types, :metric_type_in_params
     end
 
-    def allowed_metric_types
-      [
-        "Total_Item_Investigations",
-        "Total_Item_Requests",
-        "Unique_Item_Investigations",
-        "Unique_Item_Requests"
-        # Unique_Title metrics exist to count how many chapters or sections are accessed for Book resource types in a given user session.
-        # This implementation currently does not support historical data from individual chapters/sections of Books,
-        # so these metrics will not be shown.
-        # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#metric-types for details
-        # "Unique_Title_Investigations",
-        # "Unique_Title_Requests"
-      ]
-    end
-
-    def coerce_metric_types(params = {})
+    def coerce_metric_types(params = {}, allowed_types: ALLOWED_METRIC_TYPES)
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
 
       @metric_type_in_params = metric_types_from_params.any? do |metric_type|
         normalized_metric_type = metric_type.downcase
-        allowed_metric_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+        allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
       end
 
       @metric_types = if metric_types_from_params.empty?
-                        allowed_metric_types
+                        allowed_types
                       else
                         metric_types_from_params.map do |metric_type|
                           normalized_metric_type = metric_type.downcase
-                          metric_type.titleize.tr(' ', '_') if allowed_metric_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+                          metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
                         end.compact
                       end
+    end
+  end
+
+  ##
+  # This module holds validations for the various query parameters that are available on each of the reports
+  module QueryParameterValidation
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :item_id, :item_id_in_params
+      attr_reader :platform, :platform_in_params
+    end
+
+    def validate_item_id(params)
+      raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
+
+      @item_id = params[:item_id]
+      @item_id_in_params = params.key?(:item_id)
+    end
+
+    def validate_platform(params, account)
+      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+
+      @platform = account.cname
+      @platform_in_params = params.key?(:platform)
+    end
+  end
+
+  # This param specifies the granularity of the usage data to include in the report.
+  # Permissible values are Month (default) and Totals.
+  # For Totals, each Item_Performance element represents the aggregated usage for the reporting period.
+  # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#report-filters-and-report-attributes for details
+  module GranularityCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :granularity, :granularity_in_params
+    end
+    ALLOWED_GRANULARITY = ["Month", "Totals"].freeze
+
+    def coerce_granularity(params = {})
+      @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
+      @granularity = params.fetch(:granularity, "Month").capitalize
     end
   end
 end

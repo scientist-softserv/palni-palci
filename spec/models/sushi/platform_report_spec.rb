@@ -38,7 +38,8 @@ RSpec.describe Sushi::PlatformReport do
           end_date: '2023-09',
           metric_type: 'total_item_investigations|unique_item_investigations|fake_value',
           data_type: 'article',
-          attributes_to_show: ['Access_Method', 'Fake_Value']
+          attributes_to_show: ['Access_Method', 'Fake_Value'],
+          granularity: 'totals'
         }
       end
 
@@ -57,6 +58,11 @@ RSpec.describe Sushi::PlatformReport do
       it 'does not show title requests/investigations for non-book resource types' do
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).not_to have_key('Unique_Title_Requests')
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).not_to have_key('Unique_Title_Investigations')
+      end
+
+      it 'sums the totals for each metric type' do
+        expect(subject.dig('Report_Header', 'Report_Attributes', 'Granularity')).to eq('Totals')
+        expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance', 'Total_Item_Investigations', 'Totals')).to eq(6)
       end
     end
   end

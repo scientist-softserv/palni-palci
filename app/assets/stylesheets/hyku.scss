@@ -678,3 +678,9 @@ form.range_limit.range_date_ssi {
 .d-block {
   display: block;
 }
+
+// hide iiif-print feature flipper
+
+tr[data-feature="use-iiif-print"] {
+  display: none;
+}

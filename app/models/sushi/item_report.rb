@@ -7,9 +7,11 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class ItemReport
-    attr_reader :account, :attributes_to_show, :created, :data_types, :item_id
+    attr_reader :account, :attributes_to_show, :created, :data_types
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::MetricTypeCoercion
+    include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -22,16 +24,29 @@ module Sushi
       # 'Attributed'
     ].freeze
 
+    ALLOWED_METRIC_TYPES = [
+      'Total_Item_Investigations',
+      'Total_Item_Requests',
+      'Unique_Item_Investigations',
+      'Unique_Item_Requests'
+    ].freeze
+
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      @created = created
+      validate_item_report_parameters(params: params, account: account)
       @account = account
-      @item_id = params[:item_id]
+      @created = created
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
       @attributes_to_show = params.fetch(:attributes_to_show, ['Access_Method']) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
+    end
+
+    def validate_item_report_parameters(params:, account:)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
+      validate_item_id(params) if params[:item_id]
+      validate_platform(params, account) if params[:platform]
     end
 
     def as_json(_options = {})
@@ -44,8 +59,7 @@ module Sushi
           'Institution_ID' => account.institution_id_data,
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
-            'End_Date' => end_date.iso8601,
-            'Data_Type' => data_types
+            'End_Date' => end_date.iso8601
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
           'Created_By' => account.institution_name,
@@ -57,9 +71,12 @@ module Sushi
         'Report_Items' => report_items
       }
 
-      raise Sushi::InvalidParameterValue.invalid_item_id(item_id) if item_id && report_items.blank?
+      raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
-      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id
+      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
+      report_hash['Report_Header']['Report_Filters']['Platform'] = platform if platform_in_params
+      report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
+      report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
 
       report_hash
     end

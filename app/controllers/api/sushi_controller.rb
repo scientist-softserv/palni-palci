@@ -12,6 +12,16 @@ module API
       end
       rescue_from ActionController::ParameterMissing, Sushi::InvalidParameterValue, with: :render_error_that_is_user_correctable
 
+      ##
+      # We have encountered some semblance of missing data, we've thrown that via an exception, and we're
+      # handling that missing data by presenting the error to the end user.
+      # @param [Exception]
+      #
+      def render_not_found(error)
+        render json: { error: error.message }, status: 404
+      end
+      rescue_from Sushi::NotFoundError, with: :render_not_found
+
     public
 
     ##

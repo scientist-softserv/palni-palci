@@ -14,16 +14,14 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      coerce_metric_types(params)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
 
       @created = created
       @account = account
     end
 
-    def allowed_metric_types
-      # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
-      ["Unique_Item_Requests", "Total_Item_Requests"]
-    end
+    # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
+    ALLOWED_METRIC_TYPES = ["Unique_Item_Requests", "Total_Item_Requests"]
 
     def as_json(_options = {})
       report_hash = {

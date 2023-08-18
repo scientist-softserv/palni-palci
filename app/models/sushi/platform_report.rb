@@ -24,10 +24,23 @@ module Sushi
       # "Attributed"
     ].freeze
 
+    ALLOWED_METRIC_TYPES = [
+      "Total_Item_Investigations",
+      "Total_Item_Requests",
+      "Unique_Item_Investigations",
+      "Unique_Item_Requests",
+      # Unique_Title metrics exist to count how many chapters or sections are accessed for Book resource types in a given user session.
+      # This implementation currently does not support historical data from individual chapters/sections of Books,
+      # so these metrics will not be shown.
+      # See https://cop5.projectcounter.org/en/5.1/03-specifications/03-counter-report-common-attributes-and-elements.html#metric-types for details
+      # "Unique_Title_Investigations",
+      # "Unique_Title_Requests"
+    ].freeze
+
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      coerce_metric_types(params)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       coerce_granularity(params)
       @created = created
       @account = account

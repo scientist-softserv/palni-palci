@@ -1,0 +1,10 @@
+<% if presenter.representative_id.present? && presenter.representative_presenter.present? %>
+  <% if defined?(viewer) && viewer && presenter.iiif_viewer?%>
+    <%= iiif_viewer_display presenter %>
+  <% else %>
+    <%= render media_display_partial(presenter.representative_presenter), file_set: presenter.representative_presenter %>
+  <% end %>
+<% else %>
+  <% alt = block_for(name: 'default_work_image_text') || 'Default work thumbnail' %>
+  <%= image_tag default_work_image, class: "canonical-image", alt: alt %>
+<% end %>

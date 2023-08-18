@@ -5,12 +5,19 @@
 # The resource_type field in the counter_metrics table is single value and not an array.
 class GenerateCounterMetrics
   def self.generate_counter_metrics(ids: 'all', limit: 10)
-    test_works = (ids == 'all' || ids.blank?) ?
-      GenericWork.all.to_a.sample(limit) :
-      ActiveFedora::Base.where(id: ids).to_a
-      ids.present? ?
-      (puts "Creating test data for works with ids #{ids}") :
-      (puts "Creating test data for randomly selected GenericWorks")
+    if ids == 'all' || ids.blank?
+      test_works = GenericWork.all.to_a.sample(limit)
+
+      while test_works.length < limit
+        test_works.concat(test_works.sample(limit - test_works.length))
+      end
+
+      message = "Creating test data for #{limit} randomly selected GenericWorks"
+    else
+      test_works = ActiveFedora::Base.where(id: ids).to_a
+      message = "Creating test data for works with ids #{ids}"
+    end
+    puts message
     test_works.each do |work|
       worktype = work.class
       work_id = work.id

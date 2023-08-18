@@ -21,7 +21,7 @@ module Sushi
     end
 
     # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
-    ALLOWED_METRIC_TYPES = ["Unique_Item_Requests", "Total_Item_Requests"]
+    ALLOWED_METRIC_TYPES = ["Unique_Item_Requests", "Total_Item_Requests"].freeze
 
     def as_json(_options = {})
       report_hash = {

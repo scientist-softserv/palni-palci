@@ -27,6 +27,7 @@ namespace :counter_metrics do
   #
   # Example with ids:
   # bundle exec rake "counter_metrics:generate_staging_metrics[pitt.hyku.test, ab3c1f9d-684a-4c14-93b1-75586ec05f7a|891u493hdfhiu939]"
+  #
   # Example with limit of 1:
   # bundle exec rake "counter_metrics:generate_staging_metrics[pitt.hyku.test, , 1]"
   #

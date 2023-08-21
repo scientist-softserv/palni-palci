@@ -9,8 +9,8 @@ namespace :counter_metrics do
     ImportCounterMetrics.import_requests(args.csv_path)
   end
 
-  desc 'import historical counter investigations'
   # bundle exec rake counter_metrics:import_requests['pittir.hykucommons.org','spec/fixtures/csv/pittir-downloads.csv']
+  desc 'import historical counter investigations'
   task 'import_investigations', [:tenant_cname, :csv_path] => [:environment] do |_cmd, args|
     raise ArgumentError, 'A tenant cname is required: `rake counter_metrics:import_investigations[tenant_cname]`' if args.tenant_cname.blank?
     raise ArgumentError, "Tenant not found: #{args.tenant_cname}. Are you sure this is the correct tenant cname?" unless Account.where(cname: args.tenant_cname).first

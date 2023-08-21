@@ -5,11 +5,6 @@ class GenerateCounterMetrics
   def self.generate_counter_metrics(ids: :all, limit: :all)
     fsq = "has_model_ssim: (#{Bulkrax.curation_concerns.join(' OR ')})"
     fsq += " AND id:(\"" + Array.wrap(ids).join('" OR "') + "\")" if ids.present? && ids != :all
-    message = if ids == :all || ids.blank?
-                "Creating test data for #{limit} randomly selected works"
-              else
-                "Creating test data for works with ids #{ids}"
-              end
     options = { fl: "id, has_model_ssim, resource_type_tesim", method: :post }
     options[:rows] = limit if limit.is_a?(Numeric)
     ActiveFedora::SolrService.query(fsq, options).each do |work|
@@ -31,6 +26,7 @@ class GenerateCounterMetrics
         )
       end
     end
+    message = "#{self.class}.generate_counter_metrics data for IDs = #{ids.inspect} with Limit = #{limit.inspect}."
     Rails.logger.info message
   end
 end

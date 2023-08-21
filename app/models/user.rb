@@ -32,18 +32,20 @@ class User < ApplicationRecord
   scope :registered, -> { for_repository.group(:id).where(guest: false) }
 
   def self.from_omniauth(auth)
-    Rails.logger.fatal("********************* auth.uid: #{auth.uid}")
-    Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}")
-    Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}")
-    Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}")
+    Rails.logger.fatal("********************* auth.uid: #{auth.uid}") # empty
+    Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}") #<OneLogin::RubySaml::Attributes:0x00007f9d50c093c0 @attributes={"urn:oid:1.3.6.1.4.1.5923.1.1.1.6"=>["SOFTSERV@pitt.edu"], "urn:oid:0.9.2342.19200300.100.1.3"=>["SOFTSERV@pitt.edu"], "urn:oid:2.5.4.4"=>["Bradford"], "urn:oid:2.5.4.42"=>["Lea Ann"], "fingerprint"=>nil}>
+    Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}") # auth.info: #<OmniAuth::AuthHash::InfoHash email=nil first_name=nil last_name=nil name=nil>
+    Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}") # auth.extra.raw_info.urn: SOFTSERV@pitt.edu
+    pitt_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']
+    Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}") # PITT_EMAIL: SOFTSERV@pitt.edu
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      pitt_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']
-      Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}")
       user.email = pitt_email || auth&.info&.email || [auth.uid, '@', Site.instance.account.email_domain].join if user.email.blank?
       user.password = Devise.friendly_token[0, 20]
       first_name = auth.extra.raw_info['urn:oid:2.5.4.42'] || auth.info.first_name
       last_name = auth.extra.raw_info['urn:oid:2.5.4.4'] || auth.info.last_name
-      user.display_name = "#{first_name} #{last_name}" # assuming the user model has a name
+      Rails.logger.fatal("********************* FIRST_NAME: #{first_name}")
+      Rails.logger.fatal("********************* LAST_NAME: #{last_name}")
+      user.display_name = auth&.info&.name # assuming the user model has a name
       # user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.

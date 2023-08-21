@@ -33,8 +33,8 @@ namespace :counter_metrics do
     raise ArgumentError, "Tenant not found: #{args.tenant_cname}. Are you sure this is the correct tenant cname?" unless Account.where(cname: args.tenant_cname).first
     ids = args.ids.present? ? args.ids.split("|") : []
     limit = ENV['LIMIT'].present? ? ENV['LIMIT'].to_i : 10
-    raise ArgumentError, 'The ids argument must be an array: `bundle exec rake counter_metrics:generate_staging_metrics[tenant_cname, [ids], limit]' unless (ids.is_a?(Array))
-    raise ArgumentError, 'limit argument must an integer. The default is 10' unless (limit.is_a?(Integer))
+    raise ArgumentError, 'The ids argument must be an array: `bundle exec rake counter_metrics:generate_staging_metrics[tenant_cname, [ids], limit]' unless ids.is_a?(Array)
+    raise ArgumentError, 'limit argument must an integer. The default is 10' unless limit.is_a?(Integer)
     AccountElevator.switch!(args.tenant_cname)
     puts "Creating test counter metric data for #{args.tenant_cname}"
     GenerateCounterMetrics.generate_counter_metrics(ids: ids, limit: limit)

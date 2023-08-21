@@ -8,16 +8,14 @@ class GenerateCounterMetrics
     if ids == 'all' || ids.blank?
       test_works = GenericWork.all.to_a.sample(limit)
 
-      while test_works.length < limit
-        test_works.concat(test_works.sample(limit - test_works.length))
-      end
+      test_works.concat(test_works.sample(limit - test_works.length)) while test_works.length < limit
 
       message = "Creating test data for #{limit} randomly selected GenericWorks"
     else
       test_works = ActiveFedora::Base.where(id: ids).to_a
       message = "Creating test data for works with ids #{ids}"
     end
-    puts message
+    Rails.logger.info message
     test_works.each do |work|
       worktype = work.class
       work_id = work.id
@@ -38,7 +36,7 @@ class GenerateCounterMetrics
 
   def self.random_date_in_last_3_months
     random_days_ago = rand(1..90) # 90 days in 3 months
-    random_date = Date.today - random_days_ago
+    random_date = Time.zone.today - random_days_ago
     random_date.strftime("%Y%m%d")
   end
 end

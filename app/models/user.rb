@@ -36,9 +36,10 @@ class User < ApplicationRecord
     Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}")
     Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}")
     Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}")
-    uid = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'] || auth.uid
     find_or_create_by(provider: auth.provider, uid: uid) do |user|
-      user.email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'] || auth.info.email
+      pitt_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']
+      Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}")
+      user.email = pitt_email || auth&.info&.email || [auth.uid, '@', Site.instance.account.email_domain].join if user.email.blank?
       user.password = Devise.friendly_token[0, 20]
       first_name = auth.extra.raw_info['urn:oid:2.5.4.42'] || auth.info.first_name
       last_name = auth.extra.raw_info['urn:oid:2.5.4.4'] || auth.info.last_name

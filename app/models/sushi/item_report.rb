@@ -45,6 +45,7 @@ module Sushi
 
     def validate_item_report_parameters(params:, account:)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
+      validate_access_method(params) if params[:access_method]
       validate_item_id(params) if params[:item_id]
       validate_platform(params, account) if params[:platform]
     end
@@ -73,10 +74,11 @@ module Sushi
 
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
-      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
-      report_hash['Report_Header']['Report_Filters']['Platform'] = platform if platform_in_params
+      report_hash['Report_Header']['Report_Filters']['Access_Method'] = access_methods if access_method_in_params
       report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
+      report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
+      report_hash['Report_Header']['Report_Filters']['Platform'] = platform if platform_in_params
 
       report_hash
     end
@@ -89,6 +91,7 @@ module Sushi
           'Items' => [{
             'Attribute_Performance' => [{
               'Data_Type' => record.resource_type.titleize,
+              # We are only supporting the 'Regular' access method at this time. If that changes, we will need to update this.
               'Access_Method' => 'Regular',
               'Performance' => attribute_performance_for_resource_types(performance: record.performance)
             }],

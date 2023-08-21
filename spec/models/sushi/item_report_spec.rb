@@ -36,6 +36,49 @@ RSpec.describe Sushi::ItemReport do
     end
   end
 
+  describe 'with an access_method parameter' do
+    context 'that is fully valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is partially valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular|tdm'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'other'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
+    end
+  end
+
   describe 'with an item_id parameter' do
     context 'that is valid' do
       context 'and metrics during the dates specified for that id' do

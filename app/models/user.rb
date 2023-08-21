@@ -36,7 +36,7 @@ class User < ApplicationRecord
     Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}")
     Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}")
     Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}")
-    find_or_create_by(provider: auth.provider, uid: uid) do |user|
+    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       pitt_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']
       Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}")
       user.email = pitt_email || auth&.info&.email || [auth.uid, '@', Site.instance.account.email_domain].join if user.email.blank?

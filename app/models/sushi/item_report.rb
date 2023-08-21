@@ -45,9 +45,9 @@ module Sushi
 
     def validate_item_report_parameters(params:, account:)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
-      validate_access_method(params) if params.key?(:access_method)
-      validate_item_id(params) if params.key?(:item_id)
-      validate_platform(params, account) if params.key?(:platform)
+      validate_access_method(params)
+      validate_item_id(params)
+      validate_platform(params, account)
     end
 
     def as_json(_options = {})

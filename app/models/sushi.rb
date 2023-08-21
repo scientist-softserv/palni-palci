@@ -195,6 +195,7 @@ module Sushi
     ##
     # @param params [Hash, ActionController::Parameters]
     def validate_access_method(params)
+      return true unless params.key?(:access_method)
       allowed_access_methods_from_params = Array.wrap(params[:access_method].split('|')).map { |am| am.strip.downcase } & ALLOWED_ACCESS_METHODS
 
       raise Sushi::InvalidParameterValue.invalid_access_method(params[:access_method], ALLOWED_ACCESS_METHODS) unless allowed_access_methods_from_params.any?
@@ -206,6 +207,7 @@ module Sushi
     ##
     # @param params [Hash, ActionController::Parameters]
     def validate_item_id(params)
+      return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
@@ -215,6 +217,7 @@ module Sushi
     ##
     # @param params [Hash, ActionController::Parameters]
     def validate_platform(params, account)
+      return true unless params.key?(:platform)
       raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
 
       @platform = account.cname

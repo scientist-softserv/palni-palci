@@ -23,6 +23,7 @@ namespace :counter_metrics do
   # Or, you can pass a limit for the number of CounterMetric entries you would like to create. currently they are randomly created.
   # Example for pitt tenant in dev without ids:
   # bundle exec rake counter_metrics:generate_staging_metrics[pitt.hyku.test]
+  #
   # Example with ids:
   # bundle exec rake "counter_metrics:generate_staging_metrics[pitt.hyku.test, ab3c1f9d-684a-4c14-93b1-75586ec05f7a|891u493hdfhiu939]"
   # Example with limit of 1:

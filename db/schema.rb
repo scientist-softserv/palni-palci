@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_10_193550) do
+ActiveRecord::Schema.define(version: 2023_08_22_142807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,14 @@ ActiveRecord::Schema.define(version: 2023_08_10_193550) do
     t.integer "total_item_requests"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.integer "year_of_publication"
+    t.string "publisher"
+    t.string "author"
+    t.index ["date"], name: "index_hyrax_counter_metrics_on_date"
+    t.index ["resource_type"], name: "index_hyrax_counter_metrics_on_resource_type"
+    t.index ["work_id"], name: "index_hyrax_counter_metrics_on_work_id"
+    t.index ["worktype"], name: "index_hyrax_counter_metrics_on_worktype"
   end
 
   create_table "hyrax_default_administrative_set", force: :cascade do |t|

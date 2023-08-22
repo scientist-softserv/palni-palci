@@ -1,5 +1,10 @@
 # Generated via
 #  `rails generate hyrax:work Etd`
+
+##
+# Electronic Thesis and Dissertation
+#
+# @see https://www.wikidata.org/wiki/Q115121540
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(

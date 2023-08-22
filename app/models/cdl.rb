@@ -1,5 +1,10 @@
 # Generated via
 #  `rails generate hyrax:work Cdl`
+
+##
+# Controlled Digital Lending object.
+#
+# @see https://www.wikidata.org/wiki/Q61937323
 class Cdl < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(

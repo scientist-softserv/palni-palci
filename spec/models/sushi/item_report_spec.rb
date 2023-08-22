@@ -3,7 +3,7 @@
 RSpec.describe Sushi::ItemReport do
   subject { described_class.new(params, created: created, account: account).as_json }
 
-  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.dev') }
+  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
   let(:created) { Time.zone.now }
   let(:required_parameters) do
     {
@@ -131,12 +131,12 @@ RSpec.describe Sushi::ItemReport do
       let(:params) do
         {
           **required_parameters,
-          platform: 'pitt.hyku.dev'
+          platform: 'pitt.hyku.test'
         }
       end
 
       it 'returns the item report' do
-        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.dev')
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.test')
       end
     end
 

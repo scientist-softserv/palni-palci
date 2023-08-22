@@ -1,5 +1,10 @@
 # Generated via
 #  `rails generate hyrax:work Oer`
+
+##
+# Open Educational Resource
+#
+# @see https://www.wikidata.org/wiki/Q116781
 class Oer < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include IiifPrint.model_configuration(

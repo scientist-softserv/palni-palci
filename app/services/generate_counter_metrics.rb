@@ -5,7 +5,7 @@ class GenerateCounterMetrics
   def self.generate_counter_metrics(ids: :all, limit: :all)
     fsq = "has_model_ssim: (#{Bulkrax.curation_concerns.join(' OR ')})"
     fsq += " AND id:(\"" + Array.wrap(ids).join('" OR "') + "\")" if ids.present? && ids != :all
-    options = { fl: "id, has_model_ssim, resource_type_tesim, date_ssi, creator_ssim, publisher_tesim, title_tesim", method: :post }
+    options = { fl: "id, has_model_ssim, resource_type_tesim, date_ssi, creator_tesim, publisher_tesim, title_tesim", method: :post }
     options[:rows] = limit if limit.is_a?(Numeric)
     ActiveFedora::SolrService.query(fsq, options).each do |work|
       work_type = work.fetch('has_model_ssim').first

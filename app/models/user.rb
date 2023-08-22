@@ -36,20 +36,28 @@ class User < ApplicationRecord
     Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}") #<OneLogin::RubySaml::Attributes:0x00007f9d50c093c0 @attributes={"urn:oid:1.3.6.1.4.1.5923.1.1.1.6"=>["SOFTSERV@pitt.edu"], "urn:oid:0.9.2342.19200300.100.1.3"=>["SOFTSERV@pitt.edu"], "urn:oid:2.5.4.4"=>["Bradford"], "urn:oid:2.5.4.42"=>["Lea Ann"], "fingerprint"=>nil}>
     Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}") # auth.info: #<OmniAuth::AuthHash::InfoHash email=nil first_name=nil last_name=nil name=nil>
     Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}") # auth.extra.raw_info.urn: SOFTSERV@pitt.edu
-    pitt_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']
     Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}") # PITT_EMAIL: SOFTSERV@pitt.edu
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      user.email = pitt_email || auth&.info&.email || [auth.uid, '@', Site.instance.account.email_domain].join if user.email.blank?
+      user_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'] || auth.uid
+      user.email = user_email || auth&.info&.email || [user_email, '@', Site.instance.account.email_domain].join if user.email.blank?
       user.password = Devise.friendly_token[0, 20]
       first_name = auth.extra.raw_info['urn:oid:2.5.4.42'] || auth.info.first_name
       last_name = auth.extra.raw_info['urn:oid:2.5.4.4'] || auth.info.last_name
-      Rails.logger.fatal("********************* FIRST_NAME: #{first_name}")
-      Rails.logger.fatal("********************* LAST_NAME: #{last_name}")
-      user.display_name = auth&.info&.name # assuming the user model has a name
+      Rails.logger.fatal("********************* FIRST_NAME: #{first_name}") # FIRST_NAME: Lea Ann
+      Rails.logger.fatal("********************* LAST_NAME: #{last_name}") # LAST_NAME: Bradford
+      display_name = "#{first_name} #{last_name}"
+      user.display_name = display_name || auth&.info&.name # assuming the user model has a name
+      Rails.logger.fatal("********************* DISPLAY_NAME: #{display_name}") # 
       # user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
+
+      # (0.5ms)  BEGIN
+      # D, [2023-08-22T00:00:46.677083 #1] DEBUG -- : [5d4b622d031332a8aa29ee644b60635c]   User Exists (0.6ms)  SELECT  1 AS one FROM "public"."users" WHERE "public"."users"."email" = $1 LIMIT $2  [["email", "softserv@pitt.edu"], ["LIMIT", 1]]
+      # D, [2023-08-22T00:00:46.678514 #1] DEBUG -- : [5d4b622d031332a8aa29ee644b60635c]    (0.3ms)  ROLLBACK
+      # I, [2023-08-22T00:00:46.679289 #1]  INFO -- : [5d4b622d031332a8aa29ee644b60635c] Redirected to https://pittir.commons-archive.org/users/sign_up?locale=en
+      # I, [2023-08-22T00:00:46.679720 #1]  INFO -- : [5d4b622d031332a8aa29ee644b60635c] Completed 302 Found in 143ms (ActiveRecord: 15.7ms)
     end
   end
 

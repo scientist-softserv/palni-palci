@@ -22,6 +22,10 @@ module Sushi
       def invalid_platform(platform, account)
         new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
+
+      def invalid_access_method(access_method, acceptable_params)
+        new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
     end
     # rubocop:enable Metrics/LineLength
   end
@@ -183,22 +187,41 @@ module Sushi
   module QueryParameterValidation
     extend ActiveSupport::Concern
     included do
-      attr_reader :item_id, :item_id_in_params
-      attr_reader :platform, :platform_in_params
+      attr_reader :access_methods, :access_method_in_params, :item_id, :item_id_in_params, :platform, :platform_in_params
     end
 
+    ALLOWED_ACCESS_METHODS = ['regular'].freeze
+
+    ##
+    # @param params [Hash, ActionController::Parameters]
+    def validate_access_method(params)
+      return true unless params.key?(:access_method)
+      allowed_access_methods_from_params = Array.wrap(params[:access_method].split('|')).map { |am| am.strip.downcase } & ALLOWED_ACCESS_METHODS
+
+      raise Sushi::InvalidParameterValue.invalid_access_method(params[:access_method], ALLOWED_ACCESS_METHODS) unless allowed_access_methods_from_params.any?
+
+      @access_methods = allowed_access_methods_from_params
+      @access_method_in_params = true
+    end
+
+    ##
+    # @param params [Hash, ActionController::Parameters]
     def validate_item_id(params)
+      return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
-      @item_id_in_params = params.key?(:item_id)
+      @item_id_in_params = true
     end
 
+    ##
+    # @param params [Hash, ActionController::Parameters]
     def validate_platform(params, account)
-      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform].blank? || params[:platform] == account.cname
+      return true unless params.key?(:platform)
+      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
 
       @platform = account.cname
-      @platform_in_params = params.key?(:platform)
+      @platform_in_params = true
     end
   end
 

@@ -3,7 +3,7 @@
 RSpec.describe Sushi::ItemReport do
   subject { described_class.new(params, created: created, account: account).as_json }
 
-  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.dev') }
+  let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
   let(:created) { Time.zone.now }
   let(:required_parameters) do
     {
@@ -33,6 +33,49 @@ RSpec.describe Sushi::ItemReport do
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Data_Type')).to eq('Article')
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2023-08')).to eq(1)
       expect(subject.dig('Report_Items', 2, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2022-01')).to eq(1)
+    end
+  end
+
+  describe 'with an access_method parameter' do
+    context 'that is fully valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is partially valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular|tdm'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'other'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
     end
   end
 
@@ -88,12 +131,12 @@ RSpec.describe Sushi::ItemReport do
       let(:params) do
         {
           **required_parameters,
-          platform: 'pitt.hyku.dev'
+          platform: 'pitt.hyku.test'
         }
       end
 
       it 'returns the item report' do
-        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.dev')
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.test')
       end
     end
 

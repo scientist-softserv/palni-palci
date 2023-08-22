@@ -4,6 +4,7 @@
 # Currently, this only imports the first resource type. Additional work would need to be done for works with multiple resource types.
 # The resource_type field in the counter_metrics table is single value and not an array.
 class ImportCounterMetrics
+  # rubocop:disable Metrics/MethodLength, BlockLength
   def self.import_investigations(csv_path)
     CSV.foreach(csv_path, headers: true) do |row|
       work = ActiveFedora::Base.where(bulkrax_identifier_tesim: row['eprintid']).first
@@ -28,7 +29,8 @@ class ImportCounterMetrics
           year_of_publication: year_of_publication,
           author: author,
           publisher: publisher,
-          title: title)
+          title: title
+        )
       else
         Hyrax::CounterMetric.create!(
           worktype: worktype,
@@ -39,7 +41,8 @@ class ImportCounterMetrics
           year_of_publication: year_of_publication,
           author: author,
           publisher: publisher,
-          title: title)
+          title: title
+        )
       end
     end
   end
@@ -68,7 +71,8 @@ class ImportCounterMetrics
           year_of_publication: year_of_publication,
           author: author,
           publisher: publisher,
-          title: title)
+          title: title
+        )
       else
         Hyrax::CounterMetric.create!(
           worktype: worktype,
@@ -79,8 +83,10 @@ class ImportCounterMetrics
           year_of_publication: year_of_publication,
           author: author,
           publisher: publisher,
-          title: title)
+          title: title
+        )
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 end

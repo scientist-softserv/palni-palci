@@ -10,8 +10,9 @@ module Sushi
     attr_reader :created, :account, :attributes_to_show
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
-    include Sushi::MetricTypeCoercion
     include Sushi::GranularityCoercion
+    include Sushi::MetricTypeCoercion
+    include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -42,6 +43,8 @@ module Sushi
       coerce_data_types(params)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       coerce_granularity(params)
+      validate_access_method(params)
+      validate_platform(params, account)
       @created = created
       @account = account
 
@@ -75,9 +78,11 @@ module Sushi
           "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_platform
         }
       }
+      report_hash["Report_Header"]["Report_Filters"]["Access_Method"] = access_methods if access_method_in_params
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
-      report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
       report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity if granularity_in_params
+      report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash["Report_Header"]["Report_Filters"]["Platform"] = platform if platform_in_params
       report_hash
     end
 

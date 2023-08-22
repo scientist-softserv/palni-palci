@@ -78,17 +78,25 @@ module Hyku
       if Settings.bulkrax.enabled
         Bundler.require('bulkrax')
       end
-
-      config.after_initialize do
-        # Psych Allow YAML Classes
-        config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), User, Time]
-      end
     end
 
 
     config.autoload_paths << "#{Rails.root}/app/controllers/api"
 
     config.after_initialize do
+
+      # Psych Allow YAML Classes
+      config.active_record.yaml_column_permitted_classes = [
+        ActiveModel::Attribute.const_get(:FromDatabase),
+        ActiveSupport::HashWithIndifferentAccess,
+        Array,
+        Date,
+        Hash,
+        Symbol,
+        Time,
+        User
+      ]
+
       ##
       # The first "#valid?" service is the one that we'll use for generating derivatives.
       Hyrax::DerivativeService.services = [

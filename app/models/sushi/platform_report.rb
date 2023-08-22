@@ -10,8 +10,9 @@ module Sushi
     attr_reader :created, :account, :attributes_to_show
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
-    include Sushi::MetricTypeCoercion
     include Sushi::GranularityCoercion
+    include Sushi::MetricTypeCoercion
+    include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -42,6 +43,8 @@ module Sushi
       coerce_data_types(params)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       coerce_granularity(params)
+      validate_access_method(params)
+      validate_platform(params, account)
       @created = created
       @account = account
 
@@ -75,19 +78,23 @@ module Sushi
           "Attribute_Performance" => attribute_performance_for_resource_types + attribute_performance_for_platform
         }
       }
+      report_hash["Report_Header"]["Report_Filters"]["Access_Method"] = access_methods if access_method_in_params
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
-      report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
       report_hash["Report_Header"]["Report_Attributes"]["Granularity"] = granularity if granularity_in_params
+      report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash["Report_Header"]["Report_Filters"]["Platform"] = platform if platform_in_params
       report_hash
     end
 
     alias to_hash as_json
 
     def attribute_performance_for_resource_types
-      data_for_resource_types.group_by(&:resource_type).map do |resource_type, records|
-        { "Data_Type" => resource_type || "",
+      data_for_resource_types.map do |record|
+        {
+          "Data_Type" => record.resource_type,
           "Access_Method" => "Regular",
-          "Performance" => performance(records) }
+          "Performance" => performance(record)
+        }
       end
     end
 
@@ -109,19 +116,16 @@ module Sushi
       }]
     end
 
-    def performance(records)
-      metric_types.each_with_object({}) do |metric_type, hash|
-        hash[metric_type] = if granularity == 'Totals'
-                              total_per_metric_type = records.map do |record|
-                                record[metric_type.downcase.to_s]
-                              end.sum
-                              { "Totals" => total_per_metric_type }
-                            else
-                              records.each_with_object({}) do |record, inner_hash|
-                                inner_hash[record.year_month.strftime("%Y-%m")] = record[metric_type.downcase.to_s]
-                                inner_hash
-                              end
-                            end
+    def performance(record)
+      metric_types.each_with_object({}) do |metric_type, returning_hash|
+        returning_hash[metric_type] =
+          if granularity == 'Totals'
+            { "Totals" => record.performance.sum { |hash| hash.fetch(metric_type) } }
+          else
+            record.performance.each_with_object({}) do |cell, hash|
+              hash[cell.fetch('year_month')] = cell.fetch(metric_type)
+            end
+          end
       end
     end
 
@@ -138,15 +142,23 @@ module Sushi
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.
       relation = Hyrax::CounterMetric
-                 .select(:resource_type,
-                         "date_trunc('month', date) AS year_month",
-                         "SUM(total_item_investigations) as total_item_investigations",
-                         "SUM(total_item_requests) as total_item_requests",
-                         "COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_investigations",
-                         "COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as unique_item_requests")
+                 .select(:resource_type, :worktype,
+                         %((SELECT To_json(Array_agg(Row_to_json(t)))
+                           FROM
+                           (SELECT
+                           -- The AS field_name needs to be double quoted so as to preserve case structure.
+                           SUM(total_item_investigations) as "Total_Item_Investigations",
+                           SUM(total_item_requests) as "Total_Item_Requests",
+                           COUNT(DISTINCT CASE WHEN total_item_investigations IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as "Unique_Item_Investigations",
+                           COUNT(DISTINCT CASE WHEN total_item_requests IS NOT NULL THEN CONCAT(work_id, '_', date::text) END) as "Unique_Item_Requests",
+                           -- We need to coerce the month from a single digit to two digits (e.g. August's "8" into "08")
+                           CONCAT(DATE_PART('year', date_trunc('month', date)), '-', to_char(DATE_PART('month', date_trunc('month', date)), 'fm00')) AS year_month
+                           FROM hyrax_counter_metrics AS aggr
+                           WHERE  aggr.resource_type = hyrax_counter_metrics.resource_type
+	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
-                 .order(:resource_type, "year_month")
-                 .group(:resource_type, "date_trunc('month', date)")
+                 .order(resource_type: :asc)
+                 .group(:resource_type, :worktype)
 
       return relation if data_types.blank?
 

@@ -1,22 +1,22 @@
 # frozen_string_literal:true
 
 RSpec.describe Sushi::PlatformReport do
+  subject { described_class.new(params, created: created, account: account).to_hash }
+
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: 'pitt.hyku.test') }
+  let(:created) { Time.zone.now }
+  let(:required_parameters) do
+    {
+      begin_date: '2022-01-03',
+      end_date: '2022-02-05'
+    }
+  end
+
+  before { create_hyrax_countermetric_objects }
 
   describe '#as_json' do
-    subject { described_class.new(params, created: created, account: account).to_hash }
-
-    let(:created) { Time.zone.now }
-
-    before { create_hyrax_countermetric_objects }
-
     context 'with only required params' do
-      let(:params) do
-        {
-          begin_date: '2022-01-03',
-          end_date: '2022-02-05'
-        }
-      end
+      let(:params) { required_parameters }
 
       it 'has the expected keys' do
         expect(subject).to be_key('Report_Header')
@@ -63,6 +63,77 @@ RSpec.describe Sushi::PlatformReport do
       it 'sums the totals for each metric type' do
         expect(subject.dig('Report_Header', 'Report_Attributes', 'Granularity')).to eq('Totals')
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance', 'Total_Item_Investigations', 'Totals')).to eq(6)
+      end
+    end
+  end
+
+  describe 'with an access_method parameter' do
+    context 'that is fully valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is partially valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'regular|tdm'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Access_Method')).to eq(['regular'])
+        expect(subject.dig('Report_Items', 'Attribute_Performance', 0, 'Access_Method')).to eq('Regular')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          access_method: 'other'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
+    end
+  end
+
+  describe 'with a platform parameter' do
+    context 'that is valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          platform: 'pitt.hyku.test'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Platform')).to eq('pitt.hyku.test')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          platform: 'another-tenant'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
       end
     end
   end

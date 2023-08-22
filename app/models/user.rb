@@ -36,7 +36,6 @@ class User < ApplicationRecord
     Rails.logger.fatal("********************* auth.extra.raw_info: #{auth.extra.raw_info.inspect}") #<OneLogin::RubySaml::Attributes:0x00007f9d50c093c0 @attributes={"urn:oid:1.3.6.1.4.1.5923.1.1.1.6"=>["SOFTSERV@pitt.edu"], "urn:oid:0.9.2342.19200300.100.1.3"=>["SOFTSERV@pitt.edu"], "urn:oid:2.5.4.4"=>["Bradford"], "urn:oid:2.5.4.42"=>["Lea Ann"], "fingerprint"=>nil}>
     Rails.logger.fatal("********************* auth.info: #{auth.info.inspect}") # auth.info: #<OmniAuth::AuthHash::InfoHash email=nil first_name=nil last_name=nil name=nil>
     Rails.logger.fatal("********************* auth.extra.raw_info.urn: #{auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6']}") # auth.extra.raw_info.urn: SOFTSERV@pitt.edu
-    Rails.logger.fatal("********************* PITT_EMAIL: #{pitt_email}") # PITT_EMAIL: SOFTSERV@pitt.edu
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user_email = auth.extra.raw_info['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'] || auth.uid
       user.email = user_email || auth&.info&.email || [user_email, '@', Site.instance.account.email_domain].join if user.email.blank?

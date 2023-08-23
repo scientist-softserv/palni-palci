@@ -145,6 +145,7 @@ module Sushi
                  .group(:work_id, :resource_type, :worktype)
 
       relation = relation.where("(?) = work_id", item_id) if item_id
+      relation = relation.where("(?) = author", author) if author
       relation = relation.where(yop_as_where_parameters) if yop_as_where_parameters.present?
       return relation if data_types.blank?
 

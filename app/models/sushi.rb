@@ -32,7 +32,7 @@ module Sushi
       end
 
       def invalid_author(author)
-        new("The given parameter `author=#{author}` was malformed. Please provide a value in 'Last,First' format, each being 2+ characters. (e.g. 'Tubman,Harriet')")
+        new("The given parameter `author=#{author}` was malformed. Please provide the first author's name exactly as it appears on the work.")
       end
     end
     # rubocop:enable Metrics/LineLength
@@ -256,19 +256,16 @@ module Sushi
       attr_reader :author, :author_in_params
     end
 
-    AUTHOR_REGEXP = /^[a-zA-Z]{2,}+,[a-zA-Z]{2,}$/
-
     ##
-    # Ensure the given param is in the correct Last,First format.
+    # Ensure the given param is valid.
     #
     # @param params [Hash, ActionController::Parameters]
-    # @option params [String] :author the named parameter from which we'll extract the author.
+    # @option params [String] :author the named parameter we'll use to filter the report items by.
     #
-    # @note: Last and First must each be at least 2 characters long.
+    # @note: The sushi spec states that this value must be >=2 characters. We're only enforcing that the value exactly matches whatever data we have in the database. Which presumably is >=2 characters, but may not be.
     def coerce_author(params = {})
       return true unless params.key?(:author)
-      match = AUTHOR_REGEXP.match(params[:author])
-      raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless match
+      raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless Hyrax::CounterMetric.exists?(author: params[:author])
 
       @author = params[:author]
       @author_in_params = true

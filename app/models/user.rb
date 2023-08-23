@@ -35,7 +35,9 @@ class User < ApplicationRecord
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth&.info&.email
       user.email ||= auth.uid
+      # rubocop:disable Performance/RedundantMatch
       user.email = [auth.uid, '@', Site.instance.account.email_domain].join unless user.email.match('@')
+      # rubocop:enable Performance/RedundantMatch
       user.password = Devise.friendly_token[0, 20]
       user.display_name = auth&.info&.name # assuming the user model has a name
       user.display_name ||= "#{auth&.info&.first_name} #{auth&.info&.last_name}" if auth&.info&.first_name && auth&.info&.last_name

@@ -101,6 +101,7 @@ module Sushi
               'Access_Method' => 'Regular',
               'Performance' => attribute_performance_for_resource_types(performance: record.performance)
             }],
+            'Authors' => [{ 'Name:' => record.author }],
             'Item' => record.work_id.to_s,
             'Publisher' => '',
             'Platform' => account.cname,
@@ -126,7 +127,7 @@ module Sushi
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
-                 .select(:work_id, :resource_type, :worktype,
+                 .select(:work_id, :resource_type, :worktype, :author,
                          %((SELECT To_json(Array_agg(Row_to_json(t)))
                            FROM
                            (SELECT
@@ -142,7 +143,7 @@ module Sushi
     	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(resource_type: :asc, work_id: :asc)
-                 .group(:work_id, :resource_type, :worktype)
+                 .group(:work_id, :resource_type, :worktype, :author)
 
       relation = relation.where("(?) = work_id", item_id) if item_id
       relation = relation.where("(?) = author", author) if author

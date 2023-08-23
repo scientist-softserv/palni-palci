@@ -148,9 +148,9 @@ module Sushi
       relation = relation.where("(?) = work_id", item_id) if item_id
       relation = relation.where("(?) = author", author) if author
       relation = relation.where(yop_as_where_parameters) if yop_as_where_parameters.present?
-      return relation if data_types.blank?
+      relation = relation.where("LOWER(resource_type) IN (?)", data_types) if data_types.any?
 
-      relation.where("LOWER(resource_type) IN (?)", data_types)
+      relation
     end
   end
 end

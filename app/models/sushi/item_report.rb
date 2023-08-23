@@ -7,10 +7,11 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class ItemReport
-    attr_reader :account, :attributes_to_show, :created, :data_types
+    attr_reader :account, :attributes_to_show, :created
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::AuthorCoercion
     include Sushi::QueryParameterValidation
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
@@ -34,6 +35,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
+      coerce_authors(params)
       validate_item_report_parameters(params: params, account: account)
       @account = account
       @created = created
@@ -46,7 +48,7 @@ module Sushi
     def validate_item_report_parameters(params:, account:)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       validate_access_method(params)
-      validate_author(params)
+      # validate_author(params)
       validate_item_id(params)
       validate_platform(params, account)
     end
@@ -61,7 +63,8 @@ module Sushi
           'Institution_ID' => account.institution_id_data,
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
-            'End_Date' => end_date.iso8601
+            'End_Date' => end_date.iso8601,
+            "Author" => author,
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
           'Created_By' => account.institution_name,

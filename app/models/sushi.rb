@@ -205,15 +205,15 @@ module Sushi
     end
 
     ##
-    # @param params [Hash, ActionController::Parameters]
-    def validate_author(params)
-      # TODO
-      return true unless params.key?(:author)
-      # raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless
+    # # @param params [Hash, ActionController::Parameters]
+    # def validate_author(params)
+    #   # TODO
+    #   return true unless params.key?(:author) &&
+    #   # raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless
 
-      # @authors =
-      @author_in_params = true
-    end
+    #   # @authors =
+    #   @author_in_params = true
+    # end
 
     ##
     # @param params [Hash, ActionController::Parameters]
@@ -250,6 +250,19 @@ module Sushi
     def coerce_granularity(params = {})
       @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
       @granularity = params.fetch(:granularity, "Month").capitalize
+    end
+  end
+
+  module AuthorCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :author, :author_in_params
+    end
+
+    def coerce_authors(params = {})
+      # author should be a string greater than 2 characters
+      @author_in_params = params[:author] && params[:author].length > 2
+      @author = params.fetch(:author, '')
     end
   end
 end

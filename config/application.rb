@@ -111,6 +111,20 @@ module Hyku
       Hyrax::Actors::FileSetActor.prepend(IiifPrint::TenantConfig::FileSetActorDecorator)
 
       Hyrax::WorkShowPresenter.prepend(IiifPrint::TenantConfig::WorkShowPresenterDecorator)
+
+      ##
+      # What the what?  There are bugs in three gems (Bulkrax, Hyrax::DOI, and AllinsonFlex) in
+      # which the application's view path is not the first in the view paths.  The result is that
+      # those upstream engines's views could be rendered instead of those views defined in the
+      # application.
+      #
+      # TODO: Remove when we're on a version of Bulkrax and Hyrax::DOI that resolves the following
+      # PRs:
+      #
+      # - https://github.com/samvera-labs/bulkrax/pull/855
+      # - https://github.com/samvera-labs/allinson_flex/pull/122
+      paths = ActionController::Base.view_paths.collect(&:to_s)
+      ActionController::Base.view_paths = paths.unshift(Rails.root.join("app/views").to_s).uniq
     end
   end
 end

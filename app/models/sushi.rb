@@ -26,6 +26,10 @@ module Sushi
       def invalid_access_method(access_method, acceptable_params)
         new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
       end
+
+      def invalid_yop(yop)
+        new("The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
+      end
     end
     # rubocop:enable Metrics/LineLength
   end
@@ -263,6 +267,56 @@ module Sushi
       # author should be a string greater than 2 characters
       @author_in_params = params[:author] && params[:author].length > 2
       @author = params.fetch(:author, '')
+    end
+  end
+
+  module YearOfPublicationCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :yop_as_where_parameters, :yop_in_params
+    end
+
+    DATE_RANGE_REGEXP = /^(\d+)\s*-\s*(\d+)$/
+
+    ##
+    # Convert the given params to parameters suitable for {ActiveRecord::Base.where} calls.
+    #
+    # @param params [Hash]
+    # @option params [String] :yop the named parameter from which we'll extract integers.
+    #
+    # @return [Array<String,Integer>] when all of the parts are valid, we'll have an array with the
+    #         first element being a string (that has position "?"s for SQL query building) and the
+    #         remaining elements being integers.
+    # @raise [ArgumentError] when part of the given YOP could not be coerced to an integer.
+    #
+    # @note No special consideration is made for date ranges that start with a later date and end with
+    #       an earlier date (e.g. "1999-1994" will be "date >= 1999 AND date <= 1994"; which will
+    #       return no entries.)
+    def coerce_yop(params = {})
+      return unless params.key?(:yop)
+
+      # TODO: We might want to quote the column name and add the table name as well; this helps with
+      #       any potential field name collisions while we assemble the SQL statement.
+      field_name = 'year_of_publication'
+      where_clauses = []
+      where_values = []
+
+      params[:yop].split(/\s*\|\s*/).flat_map do |slug|
+        slug = slug.strip
+        match = DATE_RANGE_REGEXP.match(slug)
+        if match
+          where_clauses << "(#{field_name} >= ? AND #{field_name} <= ?)"
+          where_values << Integer(match[1])
+          where_values << Integer(match[2])
+        else
+          where_clauses << "(#{field_name} = ?)"
+          where_values << Integer(slug)
+        end
+      end
+
+      @yop_as_where_parameters = ["(#{where_clauses.join(' OR ')})"] + where_values
+    rescue ArgumentError
+      raise Sushi::InvalidParameterValue.invalid_yop(params.fetch(:yop))
     end
   end
 end

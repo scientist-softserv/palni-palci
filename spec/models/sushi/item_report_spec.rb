@@ -79,6 +79,15 @@ RSpec.describe Sushi::ItemReport do
     end
   end
 
+  describe 'with a yop parameter' do
+    let(:params) { { yop: "2022", begin_date: '2022-01-03', end_date: '2022-12-31' } }
+
+    # NOTE: We're already bombarding the yop coercion; this is ensuring that the SQL is valid.
+    it 'filters based on that value' do
+      expect(subject).to be_a(Hash)
+    end
+  end
+
   describe 'with an item_id parameter' do
     context 'that is valid' do
       context 'and metrics during the dates specified for that id' do

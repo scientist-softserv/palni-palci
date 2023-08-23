@@ -46,6 +46,7 @@ module Sushi
     def validate_item_report_parameters(params:, account:)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       validate_access_method(params)
+      validate_author(params)
       validate_item_id(params)
       validate_platform(params, account)
     end

@@ -206,6 +206,17 @@ module Sushi
 
     ##
     # @param params [Hash, ActionController::Parameters]
+    def validate_author(params)
+      # TODO
+      return true unless params.key?(:author)
+      # raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless
+
+      # @authors =
+      @author_in_params = true
+    end
+
+    ##
+    # @param params [Hash, ActionController::Parameters]
     def validate_item_id(params)
       return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])

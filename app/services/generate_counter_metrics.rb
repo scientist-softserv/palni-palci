@@ -5,12 +5,16 @@ class GenerateCounterMetrics
   def self.generate_counter_metrics(ids: :all, limit: :all)
     fsq = "has_model_ssim: (#{Bulkrax.curation_concerns.join(' OR ')})"
     fsq += " AND id:(\"" + Array.wrap(ids).join('" OR "') + "\")" if ids.present? && ids != :all
-    options = { fl: "id, has_model_ssim, resource_type_tesim", method: :post }
+    options = { fl: "id, has_model_ssim, resource_type_tesim, date_ssi, creator_tesim, publisher_tesim, title_tesim", method: :post }
     options[:rows] = limit if limit.is_a?(Numeric)
     ActiveFedora::SolrService.query(fsq, options).each do |work|
       work_type = work.fetch('has_model_ssim').first
       work_id = work.fetch('id')
       resource_type = work.fetch('resource_type_tesim').first
+      year_of_publication = work.fetch('date_ssi')
+      author = work.fetch('creator_tesim')&.first if work['creator_tesim']
+      publisher = work.fetch('publisher_tesim')&.first if work['publisher_tesim']
+      title = work.fetch('title_tesim')&.first if work['title_tesim']
       (0...90).each do |i|
         date = i.days.ago.to_date
         total_item_investigations = rand(1..10)
@@ -21,6 +25,10 @@ class GenerateCounterMetrics
           work_id: work_id,
           resource_type: resource_type,
           date: date,
+          year_of_publication: year_of_publication,
+          author: author,
+          publisher: publisher,
+          title: title,
           total_item_investigations: total_item_investigations,
           total_item_requests: total_item_requests
         )

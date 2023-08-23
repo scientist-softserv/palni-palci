@@ -123,7 +123,6 @@ module Hyku
       #
       # - https://github.com/samvera-labs/bulkrax/pull/855
       # - https://github.com/samvera-labs/allinson_flex/pull/122
-      # - https://github.com/samvera-labs/bulkrax/pull/855
       paths = ActionController::Base.view_paths.collect(&:to_s)
       ActionController::Base.view_paths = paths.unshift(Rails.root.join("app/views").to_s).uniq
     end

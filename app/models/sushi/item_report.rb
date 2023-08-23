@@ -37,7 +37,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
-      coerce_authors(params)
+      coerce_author(params)
       coerce_yop(params)
       validate_item_report_parameters(params: params, account: account)
       @account = account
@@ -51,7 +51,6 @@ module Sushi
     def validate_item_report_parameters(params:, account:)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
       validate_access_method(params)
-      # validate_author(params)
       validate_item_id(params)
       validate_platform(params, account)
     end
@@ -67,7 +66,6 @@ module Sushi
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
             'End_Date' => end_date.iso8601,
-            "Author" => author,
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
           'Created_By' => account.institution_name,
@@ -82,6 +80,7 @@ module Sushi
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
       report_hash['Report_Header']['Report_Filters']['Access_Method'] = access_methods if access_method_in_params
+      report_hash['Report_Header']['Report_Filters']['Author'] = author if author_in_params
       report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params

@@ -30,6 +30,10 @@ module Sushi
       def invalid_yop(yop)
         new("The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
       end
+
+      def invalid_author(author)
+        new("The given parameter `author=#{author}` was malformed. Please provide a value in 'Last,First' format, each being 2+ characters. (e.g. 'Tubman,Harriet')")
+      end
     end
     # rubocop:enable Metrics/LineLength
   end
@@ -209,17 +213,6 @@ module Sushi
     end
 
     ##
-    # # @param params [Hash, ActionController::Parameters]
-    # def validate_author(params)
-    #   # TODO
-    #   return true unless params.key?(:author) &&
-    #   # raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless
-
-    #   # @authors =
-    #   @author_in_params = true
-    # end
-
-    ##
     # @param params [Hash, ActionController::Parameters]
     def validate_item_id(params)
       return true unless params.key?(:item_id)
@@ -263,10 +256,22 @@ module Sushi
       attr_reader :author, :author_in_params
     end
 
-    def coerce_authors(params = {})
-      # author should be a string greater than 2 characters
-      @author_in_params = params[:author] && params[:author].length > 2
-      @author = params.fetch(:author, '')
+    AUTHOR_REGEXP = /^[a-zA-Z]{2,}+,[a-zA-Z]{2,}$/
+
+    ##
+    # Ensure the given param is in the correct Last,First format.
+    #
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String] :author the named parameter from which we'll extract the author.
+    #
+    # @note: Last and First must each be at least 2 characters long.
+    def coerce_author(params = {})
+      return true unless params.key?(:author)
+      match = AUTHOR_REGEXP.match(params[:author])
+      raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless match
+
+      @author = params[:author]
+      @author_in_params = true
     end
   end
 

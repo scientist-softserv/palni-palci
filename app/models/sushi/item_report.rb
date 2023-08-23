@@ -11,7 +11,9 @@ module Sushi
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::YearOfPublicationCoercion
     include Sushi::QueryParameterValidation
+
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -34,6 +36,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
+      coerce_yop(params)
       validate_item_report_parameters(params: params, account: account)
       @account = account
       @created = created
@@ -138,7 +141,8 @@ module Sushi
                  .order(resource_type: :asc, work_id: :asc)
                  .group(:work_id, :resource_type, :worktype)
 
-      return relation.where("(?) = work_id", item_id) if item_id
+      relation = relation.where("(?) = work_id", item_id) if item_id
+      relation = relation.where(yop_as_where_parameters) if yop_as_where_parameters.present?
       return relation if data_types.blank?
 
       relation.where("LOWER(resource_type) IN (?)", data_types)

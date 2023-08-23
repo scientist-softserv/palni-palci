@@ -142,4 +142,54 @@ RSpec.describe Sushi do
       it { is_expected.to be_nil }
     end
   end
+
+  describe "YearOfPublicationCoercion" do
+    subject(:instance) { klass.new(params) }
+
+    let(:klass) do
+      Class.new do
+        include Sushi::YearOfPublicationCoercion
+        def initialize(params = {})
+          coerce_yop(params)
+        end
+      end
+    end
+
+    let(:params) { {} }
+
+    it { is_expected.to respond_to(:yop_as_where_parameters) }
+
+    context 'when no :yop is provided' do
+      its(:yop_as_where_parameters) { is_expected.to be_falsey }
+    end
+
+    # rubocop:disable Metrics/LineLength
+    [
+      ['2003', ["((year_of_publication = ?))", 2003]],
+      ['2003-2005', ["((year_of_publication >= ? AND year_of_publication <= ?))", 2003, 2005]],
+      ['2003a-2005', Sushi::InvalidParameterValue],
+      ['-1', ["((year_of_publication = ?))", -1]],
+      ['a-1', Sushi::InvalidParameterValue],
+      ['a1', Sushi::InvalidParameterValue],
+      ['1-2 3', Sushi::InvalidParameterValue],
+      ['1 2', Sushi::InvalidParameterValue],
+      ['1996-1994', ["((year_of_publication >= ? AND year_of_publication <= ?))", 1996, 1994]],
+      ['1996-1994 | 1999-2003|9a', Sushi::InvalidParameterValue],
+      ['1996-1994 | 1299-2003|9-12', ["((year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication >= ? AND year_of_publication <= ?))", 1996, 1994, 1299, 2003, 9, 12]],
+      ['1994-1996 | 1989', ["((year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication = ?))", 1994, 1996, 1989]]
+    ].each do |given_yop, expected|
+      context "when given :yop parameter is #{given_yop.inspect}" do
+        let(:params) { { yop: given_yop } }
+
+        if expected.is_a?(Array)
+          its(:yop_as_where_parameters) { is_expected.to match_array(expected) }
+        else
+          it "raises an #{expected}" do
+            expect { subject }.to raise_error(expected)
+          end
+        end
+      end
+    end
+    # rubocop:enable Metrics/LineLength
+  end
 end

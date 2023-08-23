@@ -14,13 +14,7 @@ module Sushi
         {
           "Description" => "COUNTER Usage Reports for #{account.cname} platform.",
           "Service_Active" => true,
-          "Registry_Record" => "",
-          "Alerts" => [
-            {
-              "Date_Time" => "",
-              "Alert" => ""
-            }
-          ]
+          "Registry_Record" => ""
         }
       ]
     end

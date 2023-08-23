@@ -65,7 +65,7 @@ module Sushi
           'Institution_ID' => account.institution_id_data,
           'Report_Filters' => {
             'Begin_Date' => begin_date.iso8601,
-            'End_Date' => end_date.iso8601,
+            'End_Date' => end_date.iso8601
           },
           'Created' => created.rfc3339, # '2023-02-15T09:11:12Z'
           'Created_By' => account.institution_name,

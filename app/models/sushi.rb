@@ -262,7 +262,8 @@ module Sushi
     # @param params [Hash, ActionController::Parameters]
     # @option params [String] :author the named parameter we'll use to filter the report items by.
     #
-    # @note: The sushi spec states that this value must be >=2 characters. We're only enforcing that the value exactly matches whatever data we have in the database. Which presumably is >=2 characters, but may not be.
+    # @note: The sushi spec states that this value must be >=2 characters. We're only enforcing that the value exactly
+    #        matches whatever data we have in the database. Which presumably is >=2 characters, but may not be.
     def coerce_author(params = {})
       return true unless params.key?(:author)
       raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless Hyrax::CounterMetric.exists?(author: params[:author])

@@ -14,6 +14,7 @@ module Hyrax
     include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
     layout 'homepage'
+    before_action :build_contact_form
     # OVERRIDE: Adding inject theme views method for theming
     around_action :inject_theme_views
     before_action :setup_negative_captcha, only: %i[new create]
@@ -44,7 +45,7 @@ module Hyrax
       # OVERRIDE: Hyrax 3.4.0 add @featured_collection_list
       @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
-    end
+        end
 
     def create
       # not spam, form is valid, and captcha is valid
@@ -77,6 +78,15 @@ module Hyrax
     def after_deliver; end
 
     private
+
+      def build_contact_form
+        @contact_form = model_class.new(contact_form_params)
+      end
+
+      def contact_form_params
+        return {} unless params.key?(:contact_form)
+        params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
+      end
 
       # OVERRIDE: return collections for theming
       def collections(rows: 6)

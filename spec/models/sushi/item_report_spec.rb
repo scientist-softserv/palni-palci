@@ -135,6 +135,34 @@ RSpec.describe Sushi::ItemReport do
     end
   end
 
+  describe 'with an author parameter' do
+    context 'that is valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          author: 'Tubman, Harriet'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Author')).to eq('Tubman, Harriet')
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          author: 'Tubman,Harriet'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
+    end
+  end
+
   describe 'with a platform parameter' do
     context 'that is valid' do
       let(:params) do

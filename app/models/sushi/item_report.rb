@@ -7,10 +7,11 @@
 # any provided end_date will be moved to the end of the month
 module Sushi
   class ItemReport
-    attr_reader :account, :attributes_to_show, :created, :data_types
+    attr_reader :account, :attributes_to_show, :created
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::AuthorCoercion
     include Sushi::YearOfPublicationCoercion
     include Sushi::QueryParameterValidation
 
@@ -36,6 +37,7 @@ module Sushi
     def initialize(params = {}, created: Time.zone.now, account:)
       coerce_dates(params)
       coerce_data_types(params)
+      coerce_author(params)
       coerce_yop(params)
       validate_item_report_parameters(params: params, account: account)
       @account = account
@@ -78,6 +80,7 @@ module Sushi
       raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
 
       report_hash['Report_Header']['Report_Filters']['Access_Method'] = access_methods if access_method_in_params
+      report_hash['Report_Header']['Report_Filters']['Author'] = author if author_in_params
       report_hash['Report_Header']['Report_Filters']['Data_Type'] = data_types if data_type_in_params
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
@@ -98,6 +101,7 @@ module Sushi
               'Access_Method' => 'Regular',
               'Performance' => attribute_performance_for_resource_types(performance: record.performance)
             }],
+            'Authors' => [{ 'Name:' => record.author }],
             'Item' => record.work_id.to_s,
             'Publisher' => '',
             'Platform' => account.cname,
@@ -123,7 +127,7 @@ module Sushi
 
     def data_for_resource_types
       relation = Hyrax::CounterMetric
-                 .select(:work_id, :resource_type, :worktype,
+                 .select(:work_id, :resource_type, :worktype, :author,
                          %((SELECT To_json(Array_agg(Row_to_json(t)))
                            FROM
                            (SELECT
@@ -139,13 +143,14 @@ module Sushi
     	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(resource_type: :asc, work_id: :asc)
-                 .group(:work_id, :resource_type, :worktype)
+                 .group(:work_id, :resource_type, :worktype, :author)
 
       relation = relation.where("(?) = work_id", item_id) if item_id
+      relation = relation.where("(?) = author", author) if author
       relation = relation.where(yop_as_where_parameters) if yop_as_where_parameters.present?
-      return relation if data_types.blank?
+      relation = relation.where("LOWER(resource_type) IN (?)", data_types) if data_types.any?
 
-      relation.where("LOWER(resource_type) IN (?)", data_types)
+      relation
     end
   end
 end

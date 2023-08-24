@@ -19,12 +19,28 @@ module Sushi
   class InvalidParameterValue < StandardError
     # rubocop:disable Metrics/LineLength
     class << self
-      def invalid_platform(platform, account)
-        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
-      end
-
       def invalid_access_method(access_method, acceptable_params)
         new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_date(date)
+        "Unable to convert #{date} to a date."
+      end
+
+      def invalid_date_range(begin_date, end_date)
+        "Either one or both of the given parameters `begin_date=#{begin_date}` and `end_date=#{end_date}` are invalid. Please provide a begin_date no earlier than #{Sushi.first_month_available} and an end_date no later than #{Sushi.last_month_available}, or none at all."
+      end
+
+      def invalid_granularity(granularity, acceptable_params)
+        new("None of the given values in `granularity=#{granularity}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_metric_type(metric_type, acceptable_params)
+        new("None of the given values in `metric_type=#{metric_type}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_platform(platform, account)
+        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
 
       def invalid_yop(yop)
@@ -169,20 +185,18 @@ module Sushi
 
     def coerce_metric_types(params = {}, allowed_types: ALLOWED_METRIC_TYPES)
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
+      return @metric_types = allowed_types if metric_types_from_params.empty?
 
       @metric_type_in_params = metric_types_from_params.any? do |metric_type|
         normalized_metric_type = metric_type.downcase
         allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
       end
+      raise Sushi::InvalidParameterValue.invalid_metric_type(params[:metric_type], allowed_types) unless metric_type_in_params
 
-      @metric_types = if metric_types_from_params.empty?
-                        allowed_types
-                      else
-                        metric_types_from_params.map do |metric_type|
-                          normalized_metric_type = metric_type.downcase
-                          metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
-                        end.compact
-                      end
+      @metric_types = metric_types_from_params.map do |metric_type|
+                        normalized_metric_type = metric_type.downcase
+                        metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+                      end.compact
     end
   end
 
@@ -262,8 +276,11 @@ module Sushi
     ALLOWED_GRANULARITY = ["Month", "Totals"].freeze
 
     def coerce_granularity(params = {})
+      return true unless params.key?(:granularity)
       @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
-      @granularity = params.fetch(:granularity, "Month").capitalize
+      raise Sushi::InvalidParameterValue.invalid_granularity(params[:granularity], ALLOWED_GRANULARITY) unless @granularity_in_params
+
+      @granularity = params.fetch(:granularity).capitalize
     end
   end
 

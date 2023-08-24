@@ -46,6 +46,10 @@ module Sushi
       def invalid_yop(yop)
         new("The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
       end
+
+      def invalid_author(author)
+        new("The given parameter `author=#{author}` was malformed. Please provide the first author's name exactly as it appears on the work.")
+      end
     end
     # rubocop:enable Metrics/LineLength
   end
@@ -282,6 +286,29 @@ module Sushi
       raise Sushi::InvalidParameterValue.invalid_granularity(params[:granularity], ALLOWED_GRANULARITY) unless @granularity_in_params
 
       @granularity = params.fetch(:granularity).capitalize
+    end
+  end
+
+  module AuthorCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :author, :author_in_params
+    end
+
+    ##
+    # Ensure the given param is valid.
+    #
+    # @param params [Hash, ActionController::Parameters]
+    # @option params [String] :author the named parameter we'll use to filter the report items by.
+    #
+    # @note: The sushi spec states that this value must be >=2 characters. We're only enforcing that the value exactly
+    #        matches whatever data we have in the database. Which presumably is >=2 characters, but may not be.
+    def coerce_author(params = {})
+      return true unless params.key?(:author)
+      raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless Hyrax::CounterMetric.exists?(author: params[:author])
+
+      @author = params[:author]
+      @author_in_params = true
     end
   end
 

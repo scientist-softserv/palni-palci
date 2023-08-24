@@ -8,6 +8,7 @@
 module Sushi
   class ItemReport
     attr_reader :account, :attributes_to_show, :created
+    include Sushi::AccessMethodCoercion
     include Sushi::AuthorCoercion
     include Sushi::DateCoercion
     include Sushi::DataTypeCoercion

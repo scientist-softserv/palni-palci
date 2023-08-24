@@ -190,9 +190,9 @@ module Sushi
       raise Sushi::InvalidParameterValue.invalid_metric_type(params[:metric_type], allowed_types) unless metric_type_in_params
 
       @metric_types = metric_types_from_params.map do |metric_type|
-                        normalized_metric_type = metric_type.downcase
-                        metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
-                      end.compact
+        normalized_metric_type = metric_type.downcase
+        metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+      end.compact
     end
   end
 

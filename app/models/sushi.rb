@@ -23,14 +23,6 @@ module Sushi
         new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
       end
 
-      def invalid_date(date)
-        "Unable to convert #{date} to a date."
-      end
-
-      def invalid_date_range(begin_date, end_date)
-        "Either one or both of the given parameters `begin_date=#{begin_date}` and `end_date=#{end_date}` are invalid. Please provide a begin_date no earlier than #{Sushi.first_month_available} and an end_date no later than #{Sushi.last_month_available}, or none at all."
-      end
-
       def invalid_granularity(granularity, acceptable_params)
         new("None of the given values in `granularity=#{granularity}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
       end

@@ -190,4 +190,33 @@ RSpec.describe Sushi::ItemReport do
       end
     end
   end
+
+  describe 'with a metric_type parameter' do
+    context 'that is valid' do
+      let(:params) do
+        {
+          **required_parameters,
+          metric_type: 'total_item_investigations'
+        }
+      end
+
+      it 'returns the item report' do
+        expect(subject.dig('Report_Header', 'Report_Filters', 'Metric_Type')).to eq(["Total_Item_Investigations"])
+        expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Performance').length).to eq(1)
+      end
+    end
+
+    context 'that is invalid' do
+      let(:params) do
+        {
+          **required_parameters,
+          metric_type: 'some_other_metric'
+        }
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::InvalidParameterValue)
+      end
+    end
+  end
 end

@@ -99,7 +99,7 @@ module Sushi
               'Data_Type' => record.resource_type.titleize,
               # We are only supporting the 'Regular' access method at this time. If that changes, we will need to update this.
               'Access_Method' => 'Regular',
-              'Performance' => attribute_performance_for_resource_types(performance: record.performance)
+              'Performance' => performance(record)
             }],
             'Authors' => [{ 'Name:' => record.author }],
             'Item' => record.work_id.to_s,
@@ -114,14 +114,11 @@ module Sushi
       end
     end
 
-    def attribute_performance_for_resource_types(performance:)
-      [
-        'Total_Item_Investigations',
-        'Total_Item_Requests',
-        'Unique_Item_Investigations',
-        'Unique_Item_Requests'
-      ].each_with_object({}) do |key, returning_hash|
-        returning_hash[key] = performance.each_with_object({}) { |cell, hash| hash[cell.fetch('year_month')] = cell.fetch(key) }
+    def performance(record)
+      metric_types.each_with_object({}) do |metric_type, returning_hash|
+        returning_hash[metric_type] = record.performance.each_with_object({}) do |cell, hash|
+          hash[cell.fetch('year_month')] = cell.fetch(metric_type)
+        end
       end
     end
 

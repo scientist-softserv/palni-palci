@@ -8,11 +8,13 @@
 module Sushi
   class ItemReport
     attr_reader :account, :attributes_to_show, :created, :data_types
-    include Sushi::DateCoercion
+    include Sushi::AccessMethodCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::DateCoercion
+    include Sushi::ItemIDCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::PlatformCoercion
     include Sushi::YearOfPublicationCoercion
-    include Sushi::QueryParameterValidation
 
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       'Access_Method',
@@ -34,23 +36,19 @@ module Sushi
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
-      coerce_dates(params)
+      coerce_access_method(params)
       coerce_data_types(params)
+      coerce_dates(params)
+      coerce_item_id(params)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
+      coerce_platform(params, account)
       coerce_yop(params)
-      validate_item_report_parameters(params: params, account: account)
       @account = account
       @created = created
 
       # We want to limit the available attributes to be a subset of the given attributes; the `&` is
       # the intersection of the two arrays.
       @attributes_to_show = params.fetch(:attributes_to_show, ['Access_Method']) & ALLOWED_REPORT_ATTRIBUTES_TO_SHOW
-    end
-
-    def validate_item_report_parameters(params:, account:)
-      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
-      validate_access_method(params)
-      validate_item_id(params)
-      validate_platform(params, account)
     end
 
     def as_json(_options = {})

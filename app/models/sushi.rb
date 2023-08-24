@@ -186,19 +186,20 @@ module Sushi
     end
   end
 
-  ##
-  # This module holds validations for the various query parameters that are available on each of the reports
-  module QueryParameterValidation
+  module AccessMethodCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :access_methods, :access_method_in_params, :item_id, :item_id_in_params, :platform, :platform_in_params
+      attr_reader :access_methods, :access_method_in_params
     end
 
     ALLOWED_ACCESS_METHODS = ['regular'].freeze
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_access_method(params)
+    #
+    # @return [Array<String>]
+    # @raise [Sushi::InvalidParameterValue] when the access method is invalid.
+    def coerce_access_method(params = {})
       return true unless params.key?(:access_method)
       allowed_access_methods_from_params = Array.wrap(params[:access_method].split('|')).map { |am| am.strip.downcase } & ALLOWED_ACCESS_METHODS
 
@@ -207,20 +208,40 @@ module Sushi
       @access_methods = allowed_access_methods_from_params
       @access_method_in_params = true
     end
+  end
+
+  module ItemIDCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :item_id, :item_id_in_params
+    end
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_item_id(params)
+    #
+    # @return [String]
+    # @raise [Sushi::NotFoundError] when the item id has no metrics.
+    def coerce_item_id(params)
       return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
       @item_id_in_params = true
     end
+  end
+
+  module PlatformCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :platform, :platform_in_params
+    end
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_platform(params, account)
+    #
+    # @return [String]
+    # @raise [Sushi::InvalidParameterValue] when the platform is invalid.
+    def coerce_platform(params, account)
       return true unless params.key?(:platform)
       raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
 

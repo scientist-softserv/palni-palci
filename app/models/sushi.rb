@@ -26,6 +26,13 @@ module Sushi
       def invalid_access_method(access_method, acceptable_params)
         new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
       end
+      def invalid_date(date)
+        new("Unable to convert #{date} to a date.")
+      end
+
+      def invalid_date_range(begin_date, end_date)
+        new("Either one or both of the given parameters `begin_date=#{begin_date}` and `end_date=#{end_date}` are invalid. Please provide a begin_date no earlier than #{Sushi.first_month_available} and an end_date no later than #{Sushi.last_month_available}.")
+      end
 
       def invalid_yop(yop)
         new("The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
@@ -55,7 +62,7 @@ module Sushi
         # We want to set the date to the 1st of the month.
         Date.new(year.to_i, month.to_i, 1)
       rescue StandardError
-        raise Sushi::InvalidParameterValue, "Unable to convert \"#{value}\" to a date."
+        raise Sushi::InvalidParameterValue.invalid_date(value)
       end
     end
 
@@ -129,8 +136,7 @@ module Sushi
   module DateCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :begin_date
-      attr_reader :end_date
+      attr_reader :begin_date, :end_date
     end
 
     ##
@@ -138,11 +144,16 @@ module Sushi
     # @option params [String, NilClass] begin_date :: Either nil, YYYY-MM or YYYY-MM-DD format
     # @option params [String, NilClass] end_date :: Either nil, YYYY-MM or YYYY-MM-DD format
     def coerce_dates(params = {})
-      # TODO: We should also be considering available dates as well.
       #
       # Because we're receiving user input that is likely strings, we need to do some coercion.
-      @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
-      @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
+      begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
+      end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
+      unless (Sushi.first_month_available <= begin_date) && (Sushi.last_month_available >= end_date)
+        raise Sushi::InvalidParameterValue.invalid_date_range(params[:begin_date], params[:end_date])
+      end
+
+      @begin_date = begin_date
+      @end_date = end_date
     end
   end
 

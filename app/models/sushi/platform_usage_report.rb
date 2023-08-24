@@ -7,13 +7,13 @@
 module Sushi
   class PlatformUsageReport
     attr_reader :created, :account
-    include Sushi::DateCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::DateCoercion
     include Sushi::MetricTypeCoercion
 
     def initialize(params = {}, created: Time.zone.now, account:)
-      coerce_dates(params)
       coerce_data_types(params)
+      coerce_dates(params)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
 
       @created = created

@@ -8,11 +8,13 @@
 module Sushi
   class PlatformReport
     attr_reader :created, :account, :attributes_to_show
-    include Sushi::DateCoercion
+    include Sushi::AccessMethodCoercion
     include Sushi::DataTypeCoercion
+    include Sushi::DateCoercion
     include Sushi::GranularityCoercion
     include Sushi::MetricTypeCoercion
-    include Sushi::QueryParameterValidation
+    include Sushi::PlatformCoercion
+
     ALLOWED_REPORT_ATTRIBUTES_TO_SHOW = [
       "Access_Method",
       # These are all the counter compliant query attributes, they are not currently supported in this implementation.
@@ -39,12 +41,12 @@ module Sushi
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
-      coerce_dates(params)
+      coerce_access_method(params)
       coerce_data_types(params)
-      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
+      coerce_dates(params)
       coerce_granularity(params)
-      validate_access_method(params)
-      validate_platform(params, account)
+      coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)
+      coerce_platform(params, account)
       @created = created
       @account = account
 

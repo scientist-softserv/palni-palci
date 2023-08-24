@@ -235,7 +235,7 @@ module Sushi
     #
     # @return [String]
     # @raise [Sushi::NotFoundError] when the item id has no metrics.
-    def coerce_item_id(params)
+    def coerce_item_id(params = {})
       return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
@@ -252,10 +252,11 @@ module Sushi
 
     ##
     # @param params [Hash, ActionController::Parameters]
+    # @param account [Account]
     #
     # @return [String]
     # @raise [Sushi::InvalidParameterValue] when the platform is invalid.
-    def coerce_platform(params, account)
+    def coerce_platform(params = {}, account = nil)
       return true unless params.key?(:platform)
       raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
 

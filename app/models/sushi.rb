@@ -19,12 +19,20 @@ module Sushi
   class InvalidParameterValue < StandardError
     # rubocop:disable Metrics/LineLength
     class << self
-      def invalid_platform(platform, account)
-        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
-      end
-
       def invalid_access_method(access_method, acceptable_params)
         new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_granularity(granularity, acceptable_params)
+        new("None of the given values in `granularity=#{granularity}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_metric_type(metric_type, acceptable_params)
+        new("None of the given values in `metric_type=#{metric_type}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
+      end
+
+      def invalid_platform(platform, account)
+        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
       end
 
       def invalid_yop(yop)
@@ -173,36 +181,35 @@ module Sushi
 
     def coerce_metric_types(params = {}, allowed_types: ALLOWED_METRIC_TYPES)
       metric_types_from_params = Array.wrap(params[:metric_type]&.split('|'))
+      return @metric_types = allowed_types if metric_types_from_params.empty?
 
       @metric_type_in_params = metric_types_from_params.any? do |metric_type|
         normalized_metric_type = metric_type.downcase
         allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
       end
+      raise Sushi::InvalidParameterValue.invalid_metric_type(params[:metric_type], allowed_types) unless metric_type_in_params
 
-      @metric_types = if metric_types_from_params.empty?
-                        allowed_types
-                      else
-                        metric_types_from_params.map do |metric_type|
-                          normalized_metric_type = metric_type.downcase
-                          metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
-                        end.compact
-                      end
+      @metric_types = metric_types_from_params.map do |metric_type|
+        normalized_metric_type = metric_type.downcase
+        metric_type.titleize.tr(' ', '_') if allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
+      end.compact
     end
   end
 
-  ##
-  # This module holds validations for the various query parameters that are available on each of the reports
-  module QueryParameterValidation
+  module AccessMethodCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :access_methods, :access_method_in_params, :item_id, :item_id_in_params, :platform, :platform_in_params
+      attr_reader :access_methods, :access_method_in_params
     end
 
     ALLOWED_ACCESS_METHODS = ['regular'].freeze
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_access_method(params)
+    #
+    # @return [Array<String>]
+    # @raise [Sushi::InvalidParameterValue] when the access method is invalid.
+    def coerce_access_method(params = {})
       return true unless params.key?(:access_method)
       allowed_access_methods_from_params = Array.wrap(params[:access_method].split('|')).map { |am| am.strip.downcase } & ALLOWED_ACCESS_METHODS
 
@@ -211,20 +218,41 @@ module Sushi
       @access_methods = allowed_access_methods_from_params
       @access_method_in_params = true
     end
+  end
+
+  module ItemIDCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :item_id, :item_id_in_params
+    end
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_item_id(params)
+    #
+    # @return [String]
+    # @raise [Sushi::NotFoundError] when the item id has no metrics.
+    def coerce_item_id(params = {})
       return true unless params.key?(:item_id)
       raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
 
       @item_id = params[:item_id]
       @item_id_in_params = true
     end
+  end
+
+  module PlatformCoercion
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :platform, :platform_in_params
+    end
 
     ##
     # @param params [Hash, ActionController::Parameters]
-    def validate_platform(params, account)
+    # @param account [Account]
+    #
+    # @return [String]
+    # @raise [Sushi::InvalidParameterValue] when the platform is invalid.
+    def coerce_platform(params = {}, account = nil)
       return true unless params.key?(:platform)
       raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
 
@@ -245,8 +273,11 @@ module Sushi
     ALLOWED_GRANULARITY = ["Month", "Totals"].freeze
 
     def coerce_granularity(params = {})
+      return true unless params.key?(:granularity)
       @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
-      @granularity = params.fetch(:granularity, "Month").capitalize
+      raise Sushi::InvalidParameterValue.invalid_granularity(params[:granularity], ALLOWED_GRANULARITY) unless @granularity_in_params
+
+      @granularity = params.fetch(:granularity).capitalize
     end
   end
 

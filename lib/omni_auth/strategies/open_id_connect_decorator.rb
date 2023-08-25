@@ -31,36 +31,47 @@ module OmniAuth::Strategies::OpenIDConnectDecorator
                 options.state.call
               end
             end
-    Rails.logger.error("New State: called state: #{state.inspect}.")
     session['omniauth.state'] = state || SecureRandom.hex(16)
   end
 
   def stored_state
-    Rails.logger.error("Stored State: #{session['omniauth.state']}.  Jeremy: #{session['jeremy']}.  Omniauth Other: #{session['omniauth.jeremy']}.  Caller: #{caller[0..9].map(&:to_s)}")
+    Rails.logger.info("Stored State: #{session['omniauth.state']}.  Jeremy: #{session['jeremy']}.  Omniauth Other: #{session['omniauth.jeremy']}.  Caller: #{caller[0..9].map(&:to_s)}")
     session.delete('omniauth.state')
   end
 
   def callback_phase
     error = params['error_reason'] || params['error']
     error_description = params['error_description'] || params['error_reason']
-    Rails.logger.error("REQUIRE_STATE: #{options.require_state.inspect}; PARAMS['state'] #{params['state'].inspect}")
-    invalid_state = (options.require_state && params['state'].to_s.empty?) || (options.require_state && params['state'] != stored_state)
+    invalid_state = (options.require_state && params['state'].to_s.empty?) || params['state'] != stored_state
 
-    raise self.class::CallbackError, error: params['error'], reason: error_description, uri: params['error_uri'] if error
-    raise self.class::CallbackError, error: :csrf_detected, reason: "Invalid 'state' parameter" if invalid_state
+    # raise self.class::CallbackError, error: params['error'], reason: error_description, uri: params['error_uri'] if error
+    # raise self.class::CallbackError, error: :csrf_detected, reason: "Invalid 'state' parameter" if invalid_state
 
+    Rails.logger.info("@@@ Calling #{self.class}#valid_response_type? with #{params.inspect} and configured_response_type #{configured_response_type.inspect}, params.key? #{params.key?(configured_response_type).inspect}")
     return unless valid_response_type?
 
+    Rails.logger.info("@@@ Checking issuer: options.issuer: #{options.issuer.inspect}, scheme: #{client_options.scheme.inspect}, host: #{client_options.host.inspect}, port #{client_options.port.inspect}")
     options.issuer = issuer if options.issuer.nil? || options.issuer.empty?
 
+    Rails.logger.info("@@@ Verifying id_token")
     verify_id_token!(params['id_token']) if configured_response_type == 'id_token'
+
+    Rails.logger.info("@@@ Performing #{self.class}#discover!")
     discover!
+
+    Rails.logger.info("@@@ Setting redirect_uri #{redirect_uri.inspect}")
     client.redirect_uri = redirect_uri
 
+    Rails.logger.info("@@@ configured_response_type #{configured_response_type.inspect}")
     return id_token_callback_phase if configured_response_type == 'id_token'
 
+    Rails.logger.info("@@@ authorization_code #{authorization_code.inspect}")
     client.authorization_code = authorization_code
+
+    Rails.logger.info("@@@ access_token #{access_token.inspect}")
     access_token
+
+    Rails.logger.info("@@@ calling super")
     super
   rescue self.class::CallbackError => e
     fail!(e.error, e)

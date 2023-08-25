@@ -2,7 +2,8 @@
 
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
+    protect_from_forgery
 
     def callback
       logger.info("========== auth: #{request.env['omniauth.auth']}")

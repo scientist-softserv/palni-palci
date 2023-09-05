@@ -182,6 +182,7 @@ RSpec.describe Sushi do
         let(:params) { { yop: given_yop } }
 
         if expected.is_a?(Array)
+          its(:yop) { is_expected.to eq(given_yop) }
           its(:yop_as_where_parameters) { is_expected.to match_array(expected) }
         else
           it "raises an #{expected}" do

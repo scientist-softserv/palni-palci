@@ -307,7 +307,7 @@ module Sushi
   module YearOfPublicationCoercion
     extend ActiveSupport::Concern
     included do
-      attr_reader :yop_as_where_parameters, :yop_in_params
+      attr_reader :yop_as_where_parameters, :yop
     end
 
     DATE_RANGE_REGEXP = /^(\d+)\s*-\s*(\d+)$/
@@ -347,7 +347,7 @@ module Sushi
           where_values << Integer(slug)
         end
       end
-
+      @yop = params[:yop]
       @yop_as_where_parameters = ["(#{where_clauses.join(' OR ')})"] + where_values
     rescue ArgumentError
       raise Sushi::InvalidParameterValue.invalid_yop(params.fetch(:yop))

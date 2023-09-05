@@ -84,6 +84,7 @@ module Sushi
       report_hash['Report_Header']['Report_Filters']['Item_ID'] = item_id if item_id_in_params
       report_hash['Report_Header']['Report_Filters']['Metric_Type'] = metric_types if metric_type_in_params
       report_hash['Report_Header']['Report_Filters']['Platform'] = platform if platform_in_params
+      report_hash['Report_Header']['Report_Filters']['YOP'] = yop if yop
 
       report_hash
     end

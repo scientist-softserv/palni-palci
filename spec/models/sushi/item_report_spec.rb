@@ -34,6 +34,27 @@ RSpec.describe Sushi::ItemReport do
       expect(subject.dig('Report_Items', 0, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2023-08')).to eq(1)
       expect(subject.dig('Report_Items', 2, 'Items', 0, 'Attribute_Performance', 0, 'Performance', 'Unique_Item_Investigations', '2022-01')).to eq(1)
     end
+
+    describe 'yop parameter' do
+      context 'when provided' do
+        let(:params) do
+          {
+            **required_parameters,
+            yop: '1900-2023'
+          }
+        end
+
+        it 'has a Report_Header > Report_Filters > YOP property' do
+          expect(subject.dig("Report_Header", "Report_Filters", "YOP")).to eq('1900-2023')
+        end
+      end
+
+      context 'when not provided' do
+        it 'does not have a Report_Header > Report_Filters > YOP property' do
+          expect(subject.dig("Report_Header", "Report_Filters")).not_to have_key("YOP")
+        end
+      end
+    end
   end
 
   describe 'with an access_method parameter' do

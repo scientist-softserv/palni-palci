@@ -143,6 +143,42 @@ RSpec.describe Sushi do
     end
   end
 
+  describe "AuthorCoercion" do
+    describe '.deserialize' do
+      subject { Sushi::AuthorCoercion.deserialize(string) }
+
+      [
+        ["|Hello|World|", ["Hello", "World"]],
+        ["|Hello|", ["Hello"]],
+        ["||", []],
+        ["", []],
+        [nil, []]
+      ].each do |given_authors, expected_array|
+        context "with #{given_authors.inspect}" do
+          let(:string) { given_authors }
+
+          it { is_expected.to match_array(expected_array) }
+        end
+      end
+    end
+
+    describe '.serialize' do
+      subject { Sushi::AuthorCoercion.serialize(array) }
+
+      [
+        [["Hello", "World"], "|Hello|World|"],
+        [["Hello"], "|Hello|"],
+        [[], nil]
+      ].each do |given_authors, expected|
+        context "with #{given_authors.inspect}" do
+          let(:array) { given_authors }
+
+          it { is_expected.to eq(expected) }
+        end
+      end
+    end
+  end
+
   describe "YearOfPublicationCoercion" do
     subject(:instance) { klass.new(params) }
 

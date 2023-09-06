@@ -14,7 +14,7 @@ class ImportCounterMetrics
       resource_type = work.resource_type&.first
       date = row['datestamp']
       year_of_publication = work.date
-      author = work.creator&.first
+      author = Sushi::AuthorCoercion.serialize(work.creator)
       publisher = work.publisher&.first
       title = work.title&.first
       total_item_investigations = row['count']
@@ -56,7 +56,7 @@ class ImportCounterMetrics
       resource_type = work.resource_type.first
       date = row['datestamp']
       year_of_publication = work.date
-      author = work.creator&.first
+      author = Sushi::AuthorCoercion.serialize(work.creator)
       publisher = work.publisher&.first
       title = work.title&.first
       total_item_requests = row['count']

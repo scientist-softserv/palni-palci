@@ -101,7 +101,7 @@ module Sushi
               'Access_Method' => 'Regular',
               'Performance' => performance(record)
             }],
-            'Authors' => [{ 'Name:' => record.author }],
+            'Authors' => Sushi::AuthorCoercion.deserialize(record.author).map { |author| { 'Name:' => author } },
             'Item' => record.work_id.to_s,
             'Publisher' => '',
             'Platform' => account.cname,
@@ -143,7 +143,7 @@ module Sushi
                  .group(:work_id, :resource_type, :worktype, :author)
 
       relation = relation.where("(?) = work_id", item_id) if item_id
-      relation = relation.where("(?) = author", author) if author
+      relation = relation.where(author_as_where_parameters) if author.present?
       relation = relation.where(yop_as_where_parameters) if yop_as_where_parameters.present?
       relation = relation.where("LOWER(resource_type) IN (?)", data_types) if data_types.any?
 

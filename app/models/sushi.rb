@@ -288,6 +288,36 @@ module Sushi
     end
 
     ##
+    # Because we have the potential for multiple authors for a work, we want to separate those
+    # authors in the single field.  We've chosen the pipe (e.g. `|`) as that delimiter.
+    DELIMITER = "|"
+
+    ##
+    # Deserialize the Ruby array into a serialize author format.
+    #
+    # @param string [String]
+    # @param delimiter [String]
+    #
+    # @see .serialize
+    def self.deserialize(string, delimiter: DELIMITER)
+      string.to_s.split(delimiter).select(&:present?)
+    end
+
+    ##
+    # Convert the Ruby array into a serialize author format.
+    #
+    # @param array [Array<String>]
+    # @param delimiter [String]
+    #
+    # @see .deserialize
+    def self.serialize(array, delimiter: DELIMITER)
+      array = Array.wrap(array)
+      return nil if array.empty?
+
+      "#{delimiter}#{array.join(delimiter)}#{delimiter}"
+    end
+
+    ##
     # Ensure the given param is valid.
     #
     # @param params [Hash, ActionController::Parameters]
@@ -295,12 +325,31 @@ module Sushi
     #
     # @note: The sushi spec states that this value must be >=2 characters. We're only enforcing that the value exactly
     #        matches whatever data we have in the database. Which presumably is >=2 characters, but may not be.
+    #
+    # @see #author_as_where_parameters
     def coerce_author(params = {})
       return true unless params.key?(:author)
-      raise Sushi::InvalidParameterValue.invalid_author(params[:author]) unless Hyrax::CounterMetric.exists?(author: params[:author])
-
       @author = params[:author]
+
+      raise Sushi::InvalidParameterValue.invalid_author(author) unless Hyrax::CounterMetric.where(author_as_where_parameters).exists?
+
       @author_in_params = true
+    end
+
+    ##
+    # @return [Array<String>] The {ActiveRecord::Base#where} can take an array of parameters, using
+    #         those to build the SQL statement.  The returned values is conformant to that method's
+    #         interface.
+    #
+    # @see .serialize
+    # @see .deserialize
+    def author_as_where_parameters
+      # NOTE: I've included both the serialized handler and the non-serialized version; that way
+      # when we send this code change up, we don't also need to perform a migration.
+      #
+      # TODO: Remove the "OR author = ?" and the 3rd element of the array once we've run the imports
+      # with the latest changes brought about by the commit that introduced this comment.
+      ["author LIKE ? OR author = ?", "%#{DELIMITER}#{author}#{DELIMITER}%", author]
     end
   end
 

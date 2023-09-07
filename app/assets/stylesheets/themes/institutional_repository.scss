@@ -80,6 +80,7 @@
   .institutional-repository-recent-uploads {
     h3 {
       margin-top: 0 !important;
+      margin-bottom: 0.75em;
     }
   }
 
@@ -91,6 +92,17 @@
   div.recently-uploaded:last-child {
     padding-bottom: 0 !important;
   }
+
+  .recently-uploaded .recent-doc-title{
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+ }
+
+.recent-uploads-div-height div .recently-uploaded {
+    padding: 0 15px 30px 15px;
+}
 
   .collections-container,
   .recently-uploaded {

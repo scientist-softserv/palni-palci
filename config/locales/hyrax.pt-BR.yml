@@ -1138,8 +1138,8 @@ pt-BR:
         title: Um nome para ajudar na identificação do Conjunto Administrativo e para distingui-lo de outros Conjuntos Administrativos no repositório.
       collection:
         based_near: Um nome de local relacionado à coleção, como o site da publicação ou a cidade, estado ou país em que o conteúdo da coleção se refere. Solicita o <a href='http://www.geonames.org'> serviço da web GeoNames </a>.
-        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação da coleção, mas não o papel principal.
-        creator: A pessoa ou grupo responsável pela coleção. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação da coleção, mas não o papel principal. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, por ex. "Smith, João". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
+        creator: A pessoa ou grupo responsável pela coleção. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
         date_created: A data em que a coleção foi criada.
         description: Notas de texto livre sobre a coleção. Os exemplos incluem resumos de um artigo ou informações de citação de um artigo de jornal.
         identifier: Um identificador exclusivo que identifica a coleção. Um exemplo seria um DOI para um artigo de jornal ou um número de ISBN ou OCLC para um livro.
@@ -1167,8 +1167,8 @@ pt-BR:
         access_right: Se o acesso for restrito a um determinado grupo de usuários ou se o conteúdo estiver sujeito a embargo, inclua essa informação aqui.
         additional_rights_info: Se os direitos estiverem sujeitos a um acordo contratual ou de doação ou de outra forma definido por um acordo vinculativo que seja um complemento ou um substituto das leis de propriedade intelectual ou licenciamento aberto, detalhe aqui.
         based_near: Um nome de local relacionado ao trabalho, como o site da publicação ou a cidade, estado ou país em que o conteúdo do trabalho se refere. Solicita o <a href='http://www.geonames.org'> serviço da web GeoNames </a>.
-        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
-        creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, por ex. "Smith, João". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
+        creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
         date_created: A data em que o trabalho foi criado.
         description: Uma conta de texto livre do recurso.
         extent: A extensão (tamanho, duração, número, etc.) do trabalho.

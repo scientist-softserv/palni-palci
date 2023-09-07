@@ -158,6 +158,25 @@
     }
   }
 
+  .recently-uploaded .recent-doc-title, #featured_works .featured-item-title{
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+ }
+
+ .recently-uploaded .recent-doc-title{padding-top:1em;}
+
+.featured-item-title h3 {
+     line-height: 22.8571px;
+     font-size: 1em !important;
+     font-weight: normal;
+ }
+
+.featured-works-container h4{margin-bottom:20px;}
+
+
+
   ////// Facets //////
   .facet-panel-background-color {
     background-color: #ffffff;
@@ -237,6 +256,11 @@
   #sortAndPerPage {
     margin-top: 15px;
   }
+
+////// share work button //////
+  .home_share_work .btn-sm {
+    font-size: 1em;/* make font size larger */
+}
 
   ////// Media Queries //////
 

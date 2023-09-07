@@ -8,10 +8,10 @@ module Hyrax
     self.model_class = ::Etd
     self.required_fields += %i[
       year
+      abstract
       resource_type
       institution
       degree
-      discipline
       degree_granting_institution
       types
       subject

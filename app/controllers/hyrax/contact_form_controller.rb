@@ -45,7 +45,7 @@ module Hyrax
       # OVERRIDE: Hyrax 3.4.0 add @featured_collection_list
       @featured_collection_list = FeaturedCollectionList.new
       @announcement_text = ContentBlock.for(:announcement)
-        end
+    end
 
     def create
       # not spam, form is valid, and captcha is valid

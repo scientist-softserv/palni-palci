@@ -17,7 +17,7 @@ en:
         advisor: 'Name of thesis/dissertation advisor or committee chair.'
         committee_member: 'Name of committee member/s.'
       etd:
-        subject: "Choose headings or index terms describing what the work is about from the our <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>subject</a> list. If your terms are missing from the list use <a href='https://fast.oclc.org/searchfast/'>FAST subject headings</a>. For additional religion and theology terms that should be added to our list use <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>this form.</a>"
+        subject: "Choose headings or index terms describing what the work is about from our <a href='https://docs.google.com/spreadsheets/d/15Od1lx5AYsOsc63w3KX7a9nFt2TsAAH51cCdlVARuQ0/edit?usp=sharing'>subject</a> list. If your terms are missing from the list use <a href='https://fast.oclc.org/searchfast/'>FAST subject headings</a>. For additional religion and theology terms that should be added to our list use <a href='https://forms.gle/TGhEKCSyBwJjnCCc8'>this form.</a>"
         department: 'Name of the department or unit within the institution granting the degree.'
     labels:
       defaults:

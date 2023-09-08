@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 64732597a02b47d5058797c7d4eebe5aeff40dfd
-  branch: where_waldo
+  revision: da5c83bd6c53951eecae20f78354480a538597a4
+  branch: main
   specs:
     bulkrax (5.3.0)
       bagit (~> 0.4)
@@ -172,7 +172,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bagit (0.4.5)
+    bagit (0.4.6)
       docopt (~> 0.5.0)
       validatable (~> 1.6)
     bcp47 (0.3.3)

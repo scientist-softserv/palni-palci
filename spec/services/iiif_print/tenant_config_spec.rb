@@ -22,13 +22,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       end
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to be_falsey }
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it { is_expected.to be_truthy }
       end
@@ -59,13 +59,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { instance.valid? }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to be_falsey }
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it 'delegates to the configured iiif_service' do
           expect(instance.iiif_print_service_instance).to receive(:valid?)
@@ -78,7 +78,7 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { instance.create_derivatives("filename") }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it 'raises an error' do
           expect { subject }.to raise_error(IiifPrint::TenantConfig::LeakyAbstractionError)
@@ -86,7 +86,7 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
         it 'delegates to the configured iiif_service' do
           expect(instance.iiif_print_service_instance).to receive(:create_derivatives)
           subject
@@ -98,7 +98,7 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { instance.cleanup_derivatives }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it 'raises an error' do
           expect { subject }.to raise_error(IiifPrint::TenantConfig::LeakyAbstractionError)
@@ -106,7 +106,7 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
         it 'delegates to the configured iiif_service' do
           expect(instance.iiif_print_service_instance).to receive(:cleanup_derivatives)
           subject
@@ -126,13 +126,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { described_class.call(:arg) }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to eq([]) }
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it 'delegates to the configured .iiif_print_splitter' do
           expect(described_class.iiif_print_splitter).to receive(:call).with(:arg)
@@ -159,13 +159,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { instance.service }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to eq(IiifPrint::TenantConfig::SkipSplittingPdfService) }
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it { is_expected.to eq(IiifPrint::SplitPdfs::ChildWorkCreationFromPdfService) }
       end
@@ -192,13 +192,13 @@ RSpec.describe 'Tenant Config for IIIF Print' do
       subject { instance.iiif_media_predicates }
 
       context 'when the feature is flipped to false' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to eq([:image?, :audio?, :video?]) }
       end
 
       context 'when the feature is flipped to true' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it { is_expected.to eq([:image?, :audio?, :video?, :pdf?]) }
       end

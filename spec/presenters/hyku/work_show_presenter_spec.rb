@@ -41,13 +41,13 @@ RSpec.describe Hyku::WorkShowPresenter do
       before { allow_any_instance_of(Hyrax::IiifAv::IiifFileSetPresenter).to receive(:pdf?).and_return true }
 
       context 'when the tenant is not configured to use IIIF Print' do
-        before { test_strategy.switch!(:use_iiif_print, false) }
+        before { test_strategy.switch!(:default_pdf_viewer, true) }
 
         it { is_expected.to be false }
       end
 
       context 'when the tenant is configured to use IIIF Print' do
-        before { test_strategy.switch!(:use_iiif_print, true) }
+        before { test_strategy.switch!(:default_pdf_viewer, false) }
 
         it { is_expected.to be true }
       end

@@ -60,6 +60,16 @@ RSpec.describe 'Admin can select feature flags', type: :feature, js: true, clean
       click_link 'Recently Uploaded'
       expect(page).to have_css('div#recently_uploaded')
     end
+
+    it 'has settings for the default PDF viewer with a custom toggle switch' do
+      login_as admin
+      visit 'admin/features'
+      expect(page).to have_selector('span.enabled', text: 'PDF.js')
+      find("tr[data-feature='default-pdf-viewer']").find_button('UV').click
+      expect(page).to have_selector('span.disabled', text: 'UV')
+      find("tr[data-feature='default-pdf-viewer']").find_button('PDF.js').click
+      expect(page).to have_selector('span.enabled', text: 'PDF.js')
+    end
   end
 
   context 'when all home tabs and share work features are turned off' do

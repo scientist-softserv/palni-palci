@@ -29,8 +29,12 @@ module IiifPrint
       end
     end
 
+    ##
+    # If the default PDF viewer (PDF.js) is enabled, this method returns false,
+    # meaning the application should not use IIIF Print. If the default viewer is
+    # disabled, this method returns true, meaning the application should use IIIF Print.
     def self.use_iiif_print?
-      ::Flipflop.use_iiif_print?
+      !::Flipflop.default_pdf_viewer?
     end
 
     ##

@@ -84,7 +84,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'bulkrax', github: 'samvera-labs/bulkrax', branch: 'where_waldo' # '~> 5.0'
+gem 'bulkrax', github: 'samvera-labs/bulkrax', branch: 'main'
 
 gem 'blacklight', '~> 6.7'
 gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'

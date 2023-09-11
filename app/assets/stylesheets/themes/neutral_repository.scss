@@ -74,6 +74,13 @@
     clear: left;
   }
 
+ .recently-uploaded .recent-doc-title{
+     overflow: hidden;
+     display: -webkit-box;
+     -webkit-line-clamp: 5;
+     -webkit-box-orient: vertical;
+}
+
   ////// Home Page text Section //////
 
   div.home_page_text.homepage-text-container {
@@ -95,6 +102,11 @@
     background-color: #fff;
     border: 1px solid #ddd;
   }
+
+  ////// Share Work Button //////
+  .home_share_work .btn-sm {
+     font-size: 1em;/* make text bigger */
+ }
 
   ////// Carousel //////
 

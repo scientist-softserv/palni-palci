@@ -181,6 +181,10 @@ button.btn.btn-default.btn-block.citations-button.center-block:hover, button.btn
    body.catalog-index div.metadata dl.dl-horizontal dd:last-child {
        display: none;
    }
+   /* this unhides the value for collections since their last child is not host inst. */
+   body.catalog-index .document.blacklight-collection div.metadata dl.dl-horizontal dd:last-child{
+        display:block;
+   }
 
    /* hide from the facets */
    .panel.panel-default.facet_limit.blacklight-institution_sim {

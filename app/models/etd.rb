@@ -13,9 +13,10 @@ class Etd < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :creator, presence: { message: 'Your work must have a creator.' }
+  validates :abstract, presence: { message: 'Your work must have an abstract.' }
   validates :degree, presence: { message: 'Your work must have a degree.' }
   # validates :level, presence: { message: 'Your work must have a level.' }
-  validates :discipline, presence: { message: 'Your work must have a discipline.' }
+  # validates :discipline, presence: { message: 'Your work must have a discipline.' }
   validates :degree_granting_institution, presence: { message: 'Your work must have a degree granting institution.' }
   # rubocop:disable Style/RegexpLiteral
   validates :year,

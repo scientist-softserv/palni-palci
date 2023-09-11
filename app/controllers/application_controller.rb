@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   with_themed_layout '1_column'
 
   helper_method :current_account, :admin_host?, :home_page_theme, :show_page_theme, :search_results_theme
+  helper_method :current_account, :admin_host?, :home_page_theme, :show_page_theme, :search_results_theme, :render_ocr_snippets
   before_action :authenticate_if_needed
   before_action :set_raven_context
   before_action :require_active_account!, if: :multitenant?
@@ -49,6 +50,24 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+    # remove this once we've backported to `IIIFPrintHelper` and update IIIF Print
+    def render_ocr_snippets(options = {})
+      snippets = options[:value]
+      # rubocop:disable Rails/OutputSafety
+      snippets_content = [ActionController::Base.helpers.content_tag('div',
+                                                                      "... #{snippets.first} ...".html_safe,
+                                                                      class: 'ocr_snippet first_snippet')]
+      # rubocop:enable Rails/OutputSafety
+      if snippets.length > 1
+        snippets_content << render(partial: 'catalog/snippets_more',
+                                    locals: { snippets: snippets.drop(1),
+                                              options: options })
+      end
+      # rubocop:disable Rails/OutputSafety
+      snippets_content.join("\n").html_safe
+      # rubocop:enable Rails/OutputSafety
+    end
 
     def is_hidden
       current_account.persisted? && !current_account.is_public?

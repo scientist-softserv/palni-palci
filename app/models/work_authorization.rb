@@ -179,7 +179,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
       # Instead, let's set the OmniAuth::Strategies::OpenIDConnectDecorator::CDL_SESSION_KEY key in
       # the session.
       if WorkAuthorization::REGEXP_TO_MATCH_PID.match(url)
-        url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port,url) if url.start_with?('/')
+        url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, url) if url.start_with?('/')
         Rails.logger.info("=@=@=@=@ Called #{self.class}##{__method__} to set session['#{WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY}'] to #{url.inspect}.")
         session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] = url
       else

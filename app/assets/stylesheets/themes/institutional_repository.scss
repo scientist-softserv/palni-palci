@@ -69,7 +69,7 @@
 
   .section-border {
     border: 1px solid #ddd;
-    padding: 30px;
+    padding: 20px;
   }
 
   .recent-uploads-div-height {
@@ -77,12 +77,12 @@
     flex-direction: column;
   }
 
-  .institutional-repository-recent-uploads {
-    h3 {
+  .institutional-repository-recent-uploads h3 {
       margin-top: 0 !important;
       margin-bottom: 0.75em;
+      flex-basis: 100%;
     }
-  }
+
 
   div.recently-uploaded:nth-child(2n+3) {
     clear: left;
@@ -102,6 +102,11 @@
 
 .recent-uploads-div-height div .recently-uploaded {
     padding: 0 15px 30px 15px;
+}
+
+.institutional-repository-recent-uploads > div {
+    display: flex;
+    flex-wrap: wrap;
 }
 
   .collections-container,

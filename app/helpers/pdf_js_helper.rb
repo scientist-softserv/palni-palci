@@ -10,4 +10,8 @@ module PdfJsHelper
 
     "search=#{params[:q]}&phrase=true"
   end
+
+  def render_pdf_download_btn?
+    Flipflop.default_pdf_viewer? && @presenter.file_set_presenters.first
+  end
 end

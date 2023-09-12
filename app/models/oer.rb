@@ -11,6 +11,7 @@ class Oer < ActiveFedora::Base
     pdf_split_child_model: GenericWork,
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
+  include ShowViewerFlag
 
   self.indexer = OerIndexer
   # Change this to restrict which works can be added as a child.

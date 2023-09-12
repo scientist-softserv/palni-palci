@@ -44,9 +44,11 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
 
     describe "when the 'cdl.requested_work_url' key is missing" do
       let(:session) { {} }
+
       context "when request does not include scope" do
         it { is_expected.to be_nil }
       end
+
       context "when request includes a scope" do
         let(:params) { { 'scope' => requested_work_url } }
 

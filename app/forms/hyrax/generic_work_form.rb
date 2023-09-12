@@ -9,7 +9,9 @@ module Hyrax
     include HydraEditor::Form::Permissions
 
     self.terms = [:admin_note] + self.terms # rubocop:disable Style/RedundantSelf
-    self.terms += %i[resource_type additional_information bibliographic_citation]
+    self.terms += %i[resource_type additional_information bibliographic_citation 
+                      show_viewer
+                    ]
     self.required_fields = %i[title creator keyword rights_statement resource_type]
   end
 end

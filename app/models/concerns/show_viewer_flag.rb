@@ -9,7 +9,7 @@ module ShowViewerFlag
 
   included do
     property :show_viewer, predicate: RDF::CustomShowViewerTerm.show_viewer, multiple: false do |index|
-      index.as :symbol
+      index.as :stored_searchable
     end
   end
 end

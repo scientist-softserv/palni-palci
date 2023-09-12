@@ -7,6 +7,7 @@ class GenericWorkIndexer < AppIndexer
   def generate_solr_document
     super.tap do |solr_doc|
       solr_doc['admin_note_tesim'] = object.admin_note
+      solr_doc['show_viewer_bsi'] = object.show_viewer || true
     end
   end
 end

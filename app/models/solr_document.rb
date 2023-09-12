@@ -76,4 +76,8 @@ class SolrDocument
     title: 'title_tesim',
     type: 'human_readable_type_tesim'
   )
+
+  def show_viewer
+    self[::ActiveFedora.index_field_mapper.solr_name('show_viewer')]
+  end
 end

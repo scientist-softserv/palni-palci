@@ -5,5 +5,6 @@
 module Hyrax
   class GenericWorkPresenter < Hyku::WorkShowPresenter
     delegate :abstract, to: :solr_document
+    delegate :show_viewer, to: :solr_document
   end
 end

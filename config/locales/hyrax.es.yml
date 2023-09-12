@@ -10,7 +10,7 @@ es:
         etd: EDT
         generic_work: Trabajo
         image: Imagen
-        oer: REA
+        oer: OER
     admin:
       admin_sets:
         delete:

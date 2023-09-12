@@ -6,7 +6,7 @@ fr:
       etd: ETD
       generic_work: Travail
       image: Image
-      oer: REL
+      oer: OER
   activerecord:
     attributes:
       site:

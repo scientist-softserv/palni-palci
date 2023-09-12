@@ -6,7 +6,7 @@ es:
       etd: ETD
       generic_work: Trabajar
       image: Imagen
-      oer: REA
+      oer: OER
   activerecord:
     attributes:
       site:

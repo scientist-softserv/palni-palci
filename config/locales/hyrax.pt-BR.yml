@@ -10,7 +10,7 @@ pt-BR:
         etd: ETD
         generic_work: Trabalhos
         image: Imagem
-        oer: REA
+        oer: OER
     admin:
       admin_sets:
         delete:

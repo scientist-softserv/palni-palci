@@ -7,10 +7,10 @@ zh:
     activefedora:
       models:
         cdl: CDL
-        etd: 预计到达时间
+        etd: ETD
         generic_work: 工作
-        image: 图片
-        oer: 开放教育资源
+        image: 图像
+        oer: OER
     admin:
       admin_sets:
         delete:

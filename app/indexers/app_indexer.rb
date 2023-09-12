@@ -21,7 +21,7 @@ class AppIndexer < Hyrax::WorkIndexer
   end
 
   def full_text(file_set_id)
-    return if file_set_id.blank?
+    return if !Flipflop.default_pdf_viewer? || file_set_id.blank?
 
     SolrDocument.find(file_set_id)['all_text_tsimv']
   end

@@ -9,6 +9,13 @@ en:
         institution_name_full: Full institution name
   application:
     tagline: The next-generation repository solution
+  activefedora:
+    models:
+      generic_work: "Work"
+      image: "Image"
+      etd: "ETD"
+      oer: "OER"
+      cdl: "CDL"
   blacklight:
     search:
       fields:

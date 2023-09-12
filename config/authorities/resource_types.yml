@@ -21,14 +21,20 @@ terms:
     term: Map or Cartographic Material
   - id: Masters Thesis
     term: Masters Thesis
+  - id: Newspaper
+    term: Newspaper
   - id: Part of Book
     term: Part of Book
   - id: Poster
     term: Poster
+  - id: Preprint
+    term: Preprint
   - id: Presentation
     term: Presentation
   - id: Project
     term: Project
+  - id: Realia
+    term: Realia
   - id: Report
     term: Report
   - id: Research Paper

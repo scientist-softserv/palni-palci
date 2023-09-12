@@ -12,6 +12,8 @@ module PdfJsHelper
   end
 
   def render_pdf_download_btn?
-    Flipflop.default_pdf_viewer? && @presenter.file_set_presenters.first
+    file_set_id = @presenter.file_set_presenters.first.id
+    (Flipflop.default_pdf_viewer? && @presenter.file_set_presenters.first) &&
+      (can?(:download, file_set_id) && (Site.account.settings[:allow_downloads].nil? || Site.account.settings[:allow_downloads].to_i.nonzero?))
   end
 end

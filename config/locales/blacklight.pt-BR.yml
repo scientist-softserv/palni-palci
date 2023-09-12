@@ -2,6 +2,8 @@
 pt-BR:
   blacklight:
     application_name: Hyku
+    range_limit:
+      submit_limit: Atualizar
     search:
       fields:
         facet:

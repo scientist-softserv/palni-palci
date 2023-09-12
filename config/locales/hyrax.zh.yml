@@ -6,10 +6,11 @@ zh:
     active_consent_to_agreement: 我已经阅读并且同意
     activefedora:
       models:
-        etd: 预计到达时间
+        cdl: CDL
+        etd: ETD
         generic_work: 工作
-        image: 图片
-        oer: 开放教育资源
+        image: 图像
+        oer: OER
     admin:
       admin_sets:
         delete:
@@ -205,6 +206,7 @@ zh:
         configuration: 组态
         contact: 联系
         content_blocks: 内容块
+        identity_provider: 身份提供者
         notifications: 通知事项
         pages: 页数
         profile: 个人资料
@@ -1097,8 +1099,7 @@ zh:
         description: 简短的总体描述，适用于本系列中收集的所有作品。例如，“地球科学学院研究生创建的论文和补充文件”。
         title: 一个名称，以帮助标识管理集并将其与存储库中的其他管理集区分开。
       collection:
-        based_near: "与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br>
-        </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表"
+        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
         contributor: 您想通过在集合创建过程中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责收集的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
         date_created: 集合创建的日期。
@@ -1125,8 +1126,7 @@ zh:
         share_applies_to_new_works: 在集合中直接创建新作品时，请根据其收藏角色授予共享用户和组新作品的权限。
         title: ''
       defaults:
-        based_near: "与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br>
-        </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表"
+        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
         contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
         creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
         date_created: 工作创建的日期。

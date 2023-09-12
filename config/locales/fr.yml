@@ -1,5 +1,12 @@
 ---
 fr:
+  activefedora:
+    models:
+      cdl: CDL
+      etd: ETD
+      generic_work: Travail
+      image: Image
+      oer: OER
   activerecord:
     attributes:
       site:
@@ -138,6 +145,14 @@ fr:
       work_types: Types de travail disponibles
     footer:
       admin_login: Connexion Administrateur
+    identity_provider:
+      header: Fournisseur d'identité d'authentification
+      label:
+        logo_image: Image de la page SSO
+        logo_image_alt_text: Texte alternatif pour l'image
+        name: Nom ou description
+        optoins: Possibilités
+        provider: Fournisseur
     proprietor:
       accounts:
         nav: Comptes
@@ -179,6 +194,8 @@ fr:
           forms:
             banner_image:
               hint: Pour utiliser une image comme arrière-plan d'une bannière Masthead, vous devez utiliser une image (JPG, GIF ou PNG) d'au moins 120 pixels de haut et 1 200 pixels de large. Pour de meilleurs résultats, utilisez une image d'au moins 1800 pixels de large.
+            collection_banner_text_color:
+              hint: La couleur du texte (titre et date de la dernière mise à jour) à l'intérieur de la bannière de collection.
             custom_css:
               confirm: Le CSS personnalisé remplacera toujours les autres sélections de thèmes. Procéder?
               warning: Si vos personnalisations de thème ne semblent pas s'appliquer correctement, vérifiez qu'elles ne sont pas écrasées par CSS personnalisé.
@@ -303,6 +320,9 @@ fr:
         edit: Modifier
         header: Gérer l'utilisateur
         update: Mettre à jour
+  single_signon:
+    index:
+      sign_in_with_provider: Connectez-vous avec %{provider}
   status:
     index:
       services: Prestations de service

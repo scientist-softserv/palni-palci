@@ -2,6 +2,8 @@
 de:
   blacklight:
     application_name: Hyku
+    range_limit:
+      submit_limit: Aktualisieren
     search:
       fields:
         facet:

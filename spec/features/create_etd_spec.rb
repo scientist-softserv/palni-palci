@@ -46,7 +46,7 @@ RSpec.describe 'Create a Etd', type: :feature, js: true, clean: true, cohort: 'b
       choose "payload_concern", option: "Etd"
       click_button "Create work"
 
-      expect(page).to have_content "Add New Etd"
+      expect(page).to have_content "Add New ETD"
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"

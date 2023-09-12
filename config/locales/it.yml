@@ -1,5 +1,12 @@
 ---
 it:
+  activefedora:
+    models:
+      cdl: CDL
+      etd: ETD
+      generic_work: Lavoro
+      image: Immagine
+      oer: OER
   activerecord:
     attributes:
       site:
@@ -138,6 +145,14 @@ it:
       work_types: Tipi di lavoro disponibili
     footer:
       admin_login: Accesso amministratore
+    identity_provider:
+      header: Provider di identità di autenticazione
+      label:
+        logo_image: Immagine per la pagina SSO
+        logo_image_alt_text: Testo alternativo per l'immagine
+        name: Nome o descrizione
+        optoins: Opzioni
+        provider: Fornitore
     proprietor:
       accounts:
         nav: conti
@@ -179,6 +194,8 @@ it:
           forms:
             banner_image:
               hint: Per utilizzare un'immagine come sfondo di masthead, è necessario utilizzare un'immagine (JPG, GIF o PNG) alta almeno 120 pixel e larga 1200 pixel. Per risultati ottimali, utilizzare un'immagine larga almeno 1800 pixel.
+            collection_banner_text_color:
+              hint: Il colore del testo (titolo e data dell'ultimo aggiornamento) all'interno del banner della raccolta.
             custom_css:
               confirm: I CSS personalizzati sostituiranno sempre altre selezioni di temi. Procedere?
               warning: Se le personalizzazioni dei temi non sembrano essere applicate correttamente, verifica che non vengano sovrascritte dal CSS personalizzato.
@@ -297,6 +314,9 @@ it:
         edit: Modificare
         header: Gestisci utente
         update: Aggiornare
+  single_signon:
+    index:
+      sign_in_with_provider: Accedi con %{provider}
   status:
     index:
       services: Servizi

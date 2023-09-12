@@ -1,5 +1,12 @@
 ---
 zh:
+  activefedora:
+    models:
+      cdl: CDL
+      etd: ETD
+      generic_work: 工作
+      image: 图像
+      oer: OER
   activerecord:
     attributes:
       site:
@@ -138,6 +145,14 @@ zh:
       work_types: 可用的工作类型
     footer:
       admin_login: 管理员登录
+    identity_provider:
+      header: 身份验证身份提供商
+      label:
+        logo_image: SSO 页面的图像
+        logo_image_alt_text: 图像的替代文本
+        name: 名称或描述
+        optoins: 选项
+        provider: 提供者
     proprietor:
       accounts:
         nav: 帐号
@@ -179,6 +194,8 @@ zh:
           forms:
             banner_image:
               hint: 要将图像用作标头广告背景，您应该使用至少120像素高和1200像素宽的图像（JPG，GIF或PNG）。为了获得最佳效果，请使用至少1800像素宽的图像。
+            collection_banner_text_color:
+              hint: 集合横幅内文本（标题和上次更新日期）的颜色。
             custom_css:
               confirm: 自定义CSS将始终覆盖其他主题选择。继续？
               warning: 如果您的主题自定义设置似乎无法正确应用，请确认自定义CSS不会覆盖它们。
@@ -297,6 +314,9 @@ zh:
         edit: 編輯
         header: 管理用户
         update: 更新
+  single_signon:
+    index:
+      sign_in_with_provider: 使用 %{provider} 登录
   status:
     index:
       services: 服务

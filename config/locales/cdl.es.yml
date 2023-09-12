@@ -1,10 +1,9 @@
+---
 es:
   hyrax:
     icons:
-      cdl:     'fa fa-file-text-o'
+      cdl: fa fa-file-text-o
     select_type:
       cdl:
-        # TODO: translate `human_name` into Spanish
-        description:        "CDL trabajos"
-        name:               "CDL"
-        # TODO: translate `human_name` into Spanish
+        description: CDL trabajos
+        name: CDL

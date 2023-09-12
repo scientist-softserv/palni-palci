@@ -50,7 +50,7 @@ RSpec.feature 'Create a Oer', type: :feature, js: true, clean: true, cohort: 'al
       choose "payload_concern", option: "Oer"
       click_button "Create work"
 
-      expect(page).to have_content "Add New Oer"
+      expect(page).to have_content "Add New OER"
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"

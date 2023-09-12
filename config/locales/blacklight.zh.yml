@@ -2,6 +2,8 @@
 zh:
   blacklight:
     application_name: 俳句
+    range_limit:
+      submit_limit: 更新
     search:
       fields:
         facet:

@@ -7,9 +7,9 @@ module Hyrax
              :library_catalog_identifier,
              :chronology_note,
              to: :solr_document
-  end
 
-  def human_readable_type
-    Cdl.model_name.i18n_key.upcase
+    def human_readable_type
+      Cdl.model_name.i18n_key.upcase
+    end
   end
 end

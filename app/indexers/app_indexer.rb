@@ -15,8 +15,15 @@ class AppIndexer < Hyrax::WorkIndexer
       solr_doc['title_ssi'] = SortTitle.new(object.title.first).alphabetical
       solr_doc['bulkrax_identifier_tesim'] = object.bulkrax_identifier
       solr_doc['account_cname_tesim'] = Site.instance&.account&.cname
+      solr_doc['all_text_tsimv'] = full_text(object.file_sets.first&.id)
       add_date(solr_doc)
     end
+  end
+
+  def full_text(file_set_id)
+    return if file_set_id.blank?
+
+    SolrDocument.find(file_set_id)['all_text_tsimv']
   end
 
   def add_date(solr_doc)

@@ -26,9 +26,10 @@ RSpec.describe WorkAuthorization, type: :model do
     end
   end
 
+  # rubocop:disable Metrics/LineLength
   describe '.url_from' do
-
     subject { described_class.url_from(scope: given_test_scope, request: request) }
+
     let(:request) { double(ActionDispatch::Request, env: { 'rack.url_scheme' => "http" }, host_with_port: "pals.hyku.test") }
 
     [
@@ -39,10 +40,12 @@ RSpec.describe WorkAuthorization, type: :model do
     ].each do |given_scope, expected_value|
       context "with #{given_scope.inspect}" do
         let(:given_test_scope) { given_scope }
+
         it { is_expected.to eq(expected_value) }
       end
     end
   end
+  # rubocop:enable Metrics/LineLength
 
   describe '.handle_signin_for!' do
     context 'when given a work_pid and a scope' do

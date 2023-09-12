@@ -5,7 +5,6 @@ module OmniAuth
     #
     # @see https://github.com/scientist-softserv/palni-palci/issues/633
     module OpenIDConnectDecorator
-
       ##
       # override callback phase to fix issue where state is not required.
       # if require_state is false, it doesn't matter what is in the state param
@@ -21,7 +20,7 @@ module OmniAuth
 
         return unless valid_response_type?
 
-        options.issuer = issuer if options.issuer.nil? || options.issuer.empty?
+        options.issuer = issuer if options.issuer.blank?
 
         verify_id_token!(params['id_token']) if configured_response_type == 'id_token'
         discover!
@@ -84,7 +83,7 @@ module OmniAuth
         Rails.logger.info("=@=@=@=@ #{self.class}#session['#{cdl_key}'] is #{session[cdl_key].inspect}")
         Rails.logger.info("=@=@=@=@ #{self.class}#params['scope'] is #{params['scope'].inspect}")
         session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] ||
-          WorkAuthorization.url_from(scope: params['scope'])
+          WorkAuthorization.url_from(scope: params['scope'], request: request)
       end
     end
   end

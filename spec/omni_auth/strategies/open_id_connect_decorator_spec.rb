@@ -6,21 +6,26 @@ require 'spec_helper'
 RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
   let(:strategy) do
     Class.new do
-      def initialize(options: {}, session: {})
+      def initialize(options: {}, session: {}, request:)
         @options = options
         @session = session
+        @request = request
       end
-      attr_reader :options, :session
+      attr_reader :options, :session, :request
+
+      delegate :params, to: :request
 
       # Include this after the attr_reader :options to leverage super method
       prepend OmniAuth::Strategies::OpenIDConnectDecorator
     end
   end
 
-  let(:requested_work_url) { "https://hello.world/something-special" }
+  let(:requested_work_url) { "http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en" }
   let(:options) { { scope: [:openid] } }
   let(:session) { { "cdl.requested_work_url" => requested_work_url } }
-  let(:instance) { strategy.new(options: options, session: session) }
+  let(:request) { double(ActionDispatch::Request, params: params) }
+  let(:params) { {} }
+  let(:instance) { strategy.new(options: options, session: session, request: request) }
 
   describe '#options' do
     subject { instance.options }
@@ -39,8 +44,16 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
 
     describe "when the 'cdl.requested_work_url' key is missing" do
       let(:session) { {} }
+      context "when request does not include scope" do
+        it { is_expected.to be_nil }
+      end
+      context "when request includes a scope" do
+        let(:params) { { 'scope' => requested_work_url } }
 
-      it { is_expected.to be_nil }
+        it "uses the scope to derive the requested work url" do
+          expect(subject).to eq(requested_work_url)
+        end
+      end
     end
   end
 end

@@ -164,6 +164,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     #
     # @param given_url [String,NilClass] when given, favor this URL instead of attempting to find
     #        the stored location.
+    # rubocop:disable Style/GuardClause
     def prepare_for_conditional_work_authorization!(given_url = nil)
       if given_url.nil?
         # Note: Accessing `stored_location_for` clears that location from the session; so we need to
@@ -182,11 +183,8 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
         url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, url) if url.start_with?('/')
         Rails.logger.info("=@=@=@=@ Called #{self.class}##{__method__} to set session['#{WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY}'] to #{url.inspect}.")
         session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] = url
-      else
-        # Rails.logger.info("Called #{self.class}##{__method__} with stored location of #{url.inspect}; which is not matching as a work URL.")
-        # We don't have work URL, let's obliterate this.
-        # session.delete(WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY)
       end
     end
+    # rubocop:enable Style/GuardClause
   end
 end

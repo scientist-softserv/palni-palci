@@ -1,5 +1,12 @@
 ---
 pt-BR:
+  activefedora:
+    models:
+      cdl: CDL
+      etd: ETD
+      generic_work: Trabalhar
+      image: Imagem
+      oer: REA
   activerecord:
     attributes:
       site:
@@ -138,6 +145,14 @@ pt-BR:
       work_types: Tipos de trabalho disponíveis
     footer:
       admin_login: Login do administrador
+    identity_provider:
+      header: Provedor de identidade de autenticação
+      label:
+        logo_image: Imagem para página SSO
+        logo_image_alt_text: Texto alternativo para imagem
+        name: Nome ou Descrição
+        optoins: Opções
+        provider: Fornecedor
     proprietor:
       accounts:
         nav: Contas
@@ -179,6 +194,8 @@ pt-BR:
           forms:
             banner_image:
               hint: Para usar uma imagem como plano de fundo do cabeçalho, você deve usar uma imagem (JPG, GIF ou PNG) com pelo menos 120 pixels de altura e 1200 pixels de largura. Para obter melhores resultados, use uma imagem com pelo menos 1800 pixels de largura.
+            collection_banner_text_color:
+              hint: A cor do texto (título e data da última atualização) dentro do banner da coleção.
             custom_css:
               confirm: CSS personalizado sempre substituirá outras seleções de temas. Continuar?
               warning: Se suas personalizações de temas não parecem estar sendo aplicadas corretamente, verifique se elas não estão sendo substituídas pelo CSS personalizado.
@@ -297,6 +314,9 @@ pt-BR:
         edit: Editar
         header: Gerenciar usuário
         update: Atualizar
+  single_signon:
+    index:
+      sign_in_with_provider: Faça login com %{provider}
   status:
     index:
       services: Serviços

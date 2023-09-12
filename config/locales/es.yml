@@ -1,5 +1,12 @@
 ---
 es:
+  activefedora:
+    models:
+      cdl: CDL
+      etd: ETD
+      generic_work: Trabajar
+      image: Imagen
+      oer: REA
   activerecord:
     attributes:
       site:
@@ -138,6 +145,14 @@ es:
       work_types: Tipos de trabajo disponibles
     footer:
       admin_login: Acceso del administrador
+    identity_provider:
+      header: Proveedor de identidad de autenticación
+      label:
+        logo_image: Imagen para la página SSO
+        logo_image_alt_text: Texto alternativo para imagen
+        name: Nombre o descripción
+        optoins: Opciones
+        provider: Proveedor
     proprietor:
       accounts:
         nav: Cuentas
@@ -179,6 +194,8 @@ es:
           forms:
             banner_image:
               hint: Para usar una imagen como fondo de cabecera, debe usar una imagen (JPG, GIF o PNG) que tenga al menos 120 píxeles de alto y 1200 píxeles de ancho. Para obtener mejores resultados, use una imagen de al menos 1800 píxeles de ancho.
+            collection_banner_text_color:
+              hint: El color del texto (título y fecha de última actualización) dentro del banner de la colección.
             custom_css:
               confirm: CSS personalizado siempre anulará otras selecciones de temas. ¿Continuar?
               warning: Si sus personalizaciones de temas no parecen aplicarse correctamente, verifique que CSS personalizado no las sobrescriba.
@@ -297,6 +314,9 @@ es:
         edit: Editar
         header: Administrar usuario
         update: Actualizar
+  single_signon:
+    index:
+      sign_in_with_provider: Iniciar sesión con %{provider}
   status:
     index:
       services: Servicios

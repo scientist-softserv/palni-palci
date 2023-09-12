@@ -1,8 +1,9 @@
+---
 fr:
   hyrax:
     icons:
-      cdl:     'fa fa-file-text-o'
+      cdl: fa fa-file-text-o
     select_type:
       cdl:
-        description:        "CDL œuvres"
-        name:               "CDL"
+        description: CDL œuvres
+        name: CDL

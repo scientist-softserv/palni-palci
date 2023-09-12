@@ -56,13 +56,13 @@ class ApplicationController < ActionController::Base
       snippets = options[:value]
       # rubocop:disable Rails/OutputSafety
       snippets_content = [ActionController::Base.helpers.content_tag('div',
-                                                                      "... #{snippets.first} ...".html_safe,
-                                                                      class: 'ocr_snippet first_snippet')]
+                                                                     "... #{snippets.first} ...".html_safe,
+                                                                     class: 'ocr_snippet first_snippet')]
       # rubocop:enable Rails/OutputSafety
       if snippets.length > 1
         snippets_content << render(partial: 'catalog/snippets_more',
-                                    locals: { snippets: snippets.drop(1),
-                                              options: options })
+                                   locals: { snippets: snippets.drop(1),
+                                             options: options })
       end
       # rubocop:disable Rails/OutputSafety
       snippets_content.join("\n").html_safe

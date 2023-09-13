@@ -28,7 +28,7 @@
             <% if !@presenter.iiif_viewer? %>
               <div>
                 <br/>
-                  <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if render_pdf_download_btn? %>
+                  <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if @presenter.show_pdf_download_button? %>
                   <%= render 'citations', presenter: @presenter %>
                   <%= render 'analytics_button', presenter: @presenter %>
                 <br/>
@@ -51,7 +51,7 @@
               <% if @presenter.iiif_viewer? %>
                 <div>
                   <br/>
-                    <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if render_pdf_download_btn? %>
+                    <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if @presenter.show_pdf_download_button? %>
                     <%= render 'citations', presenter: @presenter %>
                     <%= render 'analytics_button', presenter: @presenter %>
                   <br/>

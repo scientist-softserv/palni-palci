@@ -5,7 +5,7 @@
                      id: "download_pdf",
                      data: { label: @presenter.representative_presenter.id,
                              path: hyrax.download_path(presenter.representative_presenter) },
-                     class: "btn btn-success btn-block",
+                     class: "btn btn-success btn-block citations-button center-block",
                      onclick: "window.open(this.dataset.path, '_blank');" do %>
         Download PDF
       <% end %>

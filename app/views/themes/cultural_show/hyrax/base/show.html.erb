@@ -11,39 +11,45 @@
       <div class="panel-body">
         <div class="row">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <% if @presenter.universal_viewer? %>
+          <% if @presenter.iiif_viewer? %>
             <div class="col-sm-12 centered-media">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
+            </div>
+          <% elsif Flipflop.default_pdf_viewer? && @presenter.show_viewer? && @presenter.file_set_presenters.any?(&:pdf?) %>
+            <div class="col-sm-12">
+              <%= render 'pdf_js', file_set_presenter: @presenter.file_set_presenters.first %>
             </div>
           <% end %>
           <div class="col-sm-12">
             <%= render "show_actions", presenter: @presenter %>
           </div>
-          <div class="centered-media <%= !@presenter.universal_viewer? ? 'col-sm-6 text-center' : '' %>">
-            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
-          <% if !@presenter.universal_viewer? %>
+          <div class="centered-media <%= !@presenter.iiif_viewer? ? 'col-sm-6 text-center' : '' %>">
+            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? || @presenter.show_viewer? %>
+          <% if !@presenter.iiif_viewer? %>
             <div>
             <br/>
+              <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if render_pdf_download_btn? %>
               <%= render 'citations', presenter: @presenter %>
               <%= render 'analytics_button', presenter: @presenter %>
             <br/>
             </div>
           <% end %>
           </div>
-          <div class="<%= @presenter.universal_viewer? ? 'col-sm-8' : 'col-sm-6' %>">
+          <div class="<%= @presenter.iiif_viewer? ? 'col-sm-8' : 'col-sm-6' %>">
             <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>
           </div>
-          <div class="<%= @presenter.universal_viewer? ? 'col-sm-4' : 'col-sm-12' %> relationships-container">
+          <div class="<%= @presenter.iiif_viewer? ? 'col-sm-4' : 'col-sm-12' %> relationships-container">
             <div class='relationships-box'>
               <%= render 'relationships', presenter: @presenter %>
               <% if @presenter.class == Hyrax::OerPresenter %>
                 <%= render 'related_items', presenter: @presenter %>
               <% end %>
             </div>
-            <% if @presenter.universal_viewer? %>
+            <% if @presenter.iiif_viewer? %>
               <div class="center-block">
               <br>
+                <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if render_pdf_download_btn? %>
                 <%= render 'citations', presenter: @presenter %>
                 <%= render 'analytics_button', presenter: @presenter %>
               </div>

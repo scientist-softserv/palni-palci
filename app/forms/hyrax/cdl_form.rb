@@ -6,6 +6,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::Cdl
     include HydraEditor::Form::Permissions
+    include PdfViewerFormBehavior
     # List these terms first after the "Additional fields" divider
     self.terms = %i[contributing_library library_catalog_identifier admin_note] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += %i[resource_type additional_information bibliographic_citation chronology_note]

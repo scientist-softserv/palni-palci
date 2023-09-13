@@ -17,7 +17,8 @@ module Hyku
 
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
-    delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, :date, to: :solr_document
+    delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, :date,
+             :show_viewer, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
     delegate :collection_presenters, to: :member_presenter_factory

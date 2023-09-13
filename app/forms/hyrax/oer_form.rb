@@ -6,6 +6,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::Oer
     include HydraEditor::Form::Permissions
+    include PdfViewerFormBehavior
 
     self.terms = %i[admin_note title creator resource_type audience education_level learning_resource_type
                     discipline bibliographic_citation source rights_statement license rights_holder

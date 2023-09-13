@@ -496,7 +496,7 @@ div#collapse-citations {
 }
 
 @media (min-width: 576px) {
-  .citations-button {
+  .citations-button .download-pdf-button {
     max-width: 300px;
   }
 }
@@ -588,6 +588,13 @@ span.constraint-value p, .facet-values p {
 
 // style the analytics button to match citations button
 #stats {
+  margin-top: 10px;
+  @media (min-width: 576px) {
+    max-width: 300px;
+  }
+}
+
+#download-pdf-button {
   margin-top: 10px;
   @media (min-width: 576px) {
     max-width: 300px;

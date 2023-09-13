@@ -18,7 +18,6 @@
           <% end %>
           <div class="col-12 text-center">
             <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? || @presenter.show_pdf_viewer? %>
-            <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if @presenter.show_pdf_download_button? %>
           </div>
         </div>
         <div class="row py-4">

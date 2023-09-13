@@ -204,4 +204,47 @@ class ApplicationController < ActionController::Base
       key &&= nil unless key.to_s.match(/^guest/)
       key ||= "guest_" + SecureRandom.uuid + "@example.com"
     end
+
+    ##
+    # OVERRIDE Hyrax::Controller#deny_access_for_anonymous_user
+    #
+    # We are trying to serve two types of users:
+    #
+    # - Admins
+    # - Not-admins
+    #
+    # Given that admins are a small subset, we can train and document how they can sign in.  In other
+    # words, favor workflows that impact the less trained folk to help them accomplish their tasks.
+    #
+    # Without this change, given the site had an SSO provider, when I (an unauthenticated user) went
+    # to a private work, then it would redirect me to the `/user/sign_in` route.
+    #
+    # At that route I had the following option:
+    #
+    # 1. Providing a username and password
+    # 2. Selecting one of the SSO providers to use for sign-in.
+    #
+    # The problem with this behavior was that a user who was given a Controlled Digital Lending (CDL)
+    # URL would see a username/password and likely attempt to authenticate with their CDL
+    # username/password (which was managed by the SSO provider).
+    #
+    # The end result is that the authentication page most likely would create confusion.
+    #
+    # With this function change, I'm setting things up such that when the application uses calls
+    # `new_user_session_path` we make a decision on what URL to resolve.
+    def deny_access_for_anonymous_user(exception, json_message)
+      session['user_return_to'] = request.url
+      respond_to do |wants|
+        wants.html do
+          # See ./app/views/single_signon/index.html.erb for our 1 provider logic.
+          path = if IdentityProvider.exists?
+                   main_app.single_signon_index_path
+                 else
+                   main_app.new_user_session_path
+                 end
+          redirect_to path, alert: exception.message
+        end
+        wants.json { render_json_response(response_type: :unauthorized, message: json_message) }
+      end
+    end
 end

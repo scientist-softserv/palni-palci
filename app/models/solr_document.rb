@@ -80,4 +80,8 @@ class SolrDocument
   def show_viewer
     self['show_viewer_tesim']
   end
+
+  def show_download_button
+    self['show_download_button_tesim']
+  end
 end

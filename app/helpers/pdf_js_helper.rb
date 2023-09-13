@@ -16,11 +16,12 @@ module PdfJsHelper
     return if params[:id].nil?
 
     doc = SolrDocument.find params[:id]
-    presenter = Hyrax::GenericWorkPresenter.new(doc, current_ability)
+
+    presenter = @_controller.show_presenter.new(doc, current_ability)
     presenter.file_set_presenters.any?(&:pdf?)
   end
 
   def render_pdf_download_btn?
-    Flipflop.default_pdf_viewer? && @presenter.file_set_presenters.first
+    Flipflop.default_pdf_viewer? && @presenter.show_download_button? && @presenter.file_set_presenters.first
   end
 end

@@ -18,7 +18,7 @@ module Hyku
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
     delegate :title_or_label, :extent, :additional_information, :source, :bibliographic_citation, :admin_note, :date,
-             :show_viewer, to: :solr_document
+             :show_viewer, :show_download_button, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
     delegate :collection_presenters, to: :member_presenter_factory
@@ -81,6 +81,12 @@ module Hyku
       return unless show_viewer
 
       show_viewer.first.to_i.positive?
+    end
+
+    def show_download_button?
+      return unless show_download_button
+
+      show_download_button.first.to_i.positive?
     end
 
     private

@@ -8,7 +8,7 @@ class Image < ActiveFedora::Base
     pdf_split_child_model: GenericWork,
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
-  include PdfViewerBehavior
+  include PdfBehavior
 
   self.indexer = ImageIndexer
 

@@ -6,7 +6,7 @@ class GenericWork < ActiveFedora::Base
     pdf_split_child_model: self,
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
-  include PdfViewerBehavior
+  include PdfBehavior
 
   self.indexer = GenericWorkIndexer
 

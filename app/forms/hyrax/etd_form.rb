@@ -6,7 +6,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::Etd
     include HydraEditor::Form::Permissions
-    include PdfViewerFormBehavior
+    include PdfFormBehavior
 
     self.terms = [:admin_note] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += [

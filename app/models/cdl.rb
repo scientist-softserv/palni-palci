@@ -11,7 +11,7 @@ class Cdl < ActiveFedora::Base
     pdf_split_child_model: GenericWork,
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
-  include PdfViewerBehavior
+  include PdfBehavior
 
   self.indexer = CdlIndexer
   validates :title, presence: { message: 'Your work must have a title.' }

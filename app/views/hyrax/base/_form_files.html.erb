@@ -1,7 +1,7 @@
-<%# OVERRIDE HYRAX 3.6.0 to add show_viewer to files tab%>
-<% if render_show_viewer_checkbox? %>
-  <%= render partial: 'show_viewer', locals: { f: f } %>
-  <%= render partial: 'show_download_button', locals: { f: f } %>
+<%# OVERRIDE HYRAX 3.6.0 to add show_pdf_viewer to files tab%>
+<% if render_show_pdf_behavior_checkbox? %>
+  <%= render partial: 'show_pdf_viewer', locals: { f: f } %>
+  <%= render partial: 'show_pdf_download_button', locals: { f: f } %>
 <% end %>
 <div id="fileupload">
   <!-- Redirect browsers with JavaScript disabled to the origin page -->

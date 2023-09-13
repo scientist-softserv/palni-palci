@@ -77,11 +77,11 @@ class SolrDocument
     type: 'human_readable_type_tesim'
   )
 
-  def show_viewer
-    self['show_viewer_tesim']
+  def show_pdf_viewer
+    self['show_pdf_viewer_tesim']
   end
 
-  def show_download_button
-    self['show_download_button_tesim']
+  def show_pdf_download_button
+    self['show_pdf_download_button_tesim']
   end
 end

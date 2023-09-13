@@ -11,13 +11,13 @@
             <div class="col-sm-12">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
             </div>
-          <% elsif Flipflop.default_pdf_viewer? && @presenter.show_viewer? && @presenter.file_set_presenters.any?(&:pdf?) %>
+          <% elsif Flipflop.default_pdf_viewer? && @presenter.show_pdf_viewer? && @presenter.file_set_presenters.any?(&:pdf?) %>
             <div class="col-sm-12">
               <%= render 'pdf_js', file_set_presenter: @presenter.file_set_presenters.first %>
             </div>
           <% end %>
           <div class="col-12 text-center">
-            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? || @presenter.show_viewer? %>
+            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? || @presenter.show_pdf_viewer? %>
             <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if render_pdf_download_btn? %>
           </div>
         </div>

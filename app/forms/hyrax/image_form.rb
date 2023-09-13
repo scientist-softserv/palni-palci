@@ -6,7 +6,7 @@ module Hyrax
   class ImageForm < Hyrax::Forms::WorkForm
     include Hyrax::FormTerms
     self.model_class = ::Image
-    include PdfViewerFormBehavior
+    include PdfFormBehavior
 
     self.terms = [:admin_note] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += %i[resource_type extent additional_information bibliographic_citation]

@@ -76,6 +76,12 @@ module Hyku
     end
     # End Featured Collections Methods
 
+    def show_viewer?
+      return unless show_viewer
+
+      show_viewer.first.to_i.positive?
+    end
+
     private
 
       def extract_from_identifier(rgx)

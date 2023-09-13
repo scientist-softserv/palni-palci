@@ -4,7 +4,7 @@ module RDF
   end
 end
 
-module ShowViewerFlag
+module PdfViewerBehavior
   extend ActiveSupport::Concern
 
   included do

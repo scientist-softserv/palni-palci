@@ -42,6 +42,8 @@ module OmniAuth
       end
 
       ##
+      # OVERRIDE
+      #
       # In OmniAuth, the options are a tenant wide configuration.  However, per
       # the client's controlled digitial lending (CDL) system, in the options we
       # use for authentication we must inclue the URL of the work that the
@@ -54,20 +56,31 @@ module OmniAuth
       #
       # @return [Hash<Symbol,Object>]
       def options
-        # If we don't include this, we keep adding to the `options[:scope]`
-        return @decorated_options if defined? @decorated_options
-
         opts = super
 
         url = requested_work_url
-        opts[:scope] += [url] if url.present? && !opts[:scope].include?(url)
 
-        Rails.logger.info("=@=@=@=@ #{self.class}#options scope value is #{opts[:scope].inspect}")
+        # WARNING! The order of the scope matters with the openid provider's implementation.
+        #
+        # Given the scope is `[:openid, url]`
+        # When we provide the correct credentials to the openid provider
+        # Then we get a "Failed to get response from patron API" on the openid provider
+        #   and the hand shake process fails.
+        #
+        # Given the scope is `[url :openid]`
+        # When we provide the correct credentials to the openid provider
+        # Then we successfully complete the hand-shake
+        #    and authorize the user into the Hyku instance.
+        opts[:scope] = [url] + opts[:scope] if url.present? && !opts[:scope].include?(url)
 
-        @decorated_options = opts
+        opts
       end
 
       ##
+      # Why all of the hoops?  Because in conventional Open ID the scope's are hard-coded.  However,
+      # we're using the requested URL as the scope.  And that value is getting lost during the auth
+      # hand-shake.  It's in one of the following 2 places.
+      #
       # @return [String] The URL of the work that was requested by the
       #         authenticating user.
       #
@@ -78,10 +91,8 @@ module OmniAuth
       # @note The following URL is known to be acceptable for the reshare.commons-archive.org tenant:
       #
       #       https://reshare.palni-palci-staging.notch8.cloud/concern/cdls/74ebfc53-ee7c-4dc9-9dd7-693e4d840745
+      #
       def requested_work_url
-        cdl_key = WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY
-        Rails.logger.info("=@=@=@=@ #{self.class}#session['#{cdl_key}'] is #{session[cdl_key].inspect}")
-        Rails.logger.info("=@=@=@=@ #{self.class}#params['scope'] is #{params['scope'].inspect}")
         session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] ||
           WorkAuthorization.url_from(scope: params['scope'], request: request)
       end

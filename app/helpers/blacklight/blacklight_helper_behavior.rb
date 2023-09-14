@@ -419,5 +419,13 @@ module Blacklight
     def document_link_params(_doc, opts)
       opts.except(:label, :counter)
     end
+
+    def primary_search_fields
+      search_fields_for_advanced_search.each_with_index.partition { |_, idx| idx < 6 }.first.map(&:first)
+    end
+
+    def secondary_search_fields
+      search_fields_for_advanced_search.each_with_index.partition { |_, idx| idx < 6 }.last.map(&:first)
+    end
   end
 end

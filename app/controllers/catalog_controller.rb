@@ -209,6 +209,12 @@ class CatalogController < ApplicationController
 
     # list of all the search_fields that will use the default configuration below.
     search_fields_without_customization = [
+      { name: 'title', label: 'Title' },
+      { name: 'creator', label: 'Creator' },
+      { name: 'date_created', label: 'Date or Date Created' },
+      { name: 'keyword', label: 'Keyword' },
+      { name: 'license', label: 'License' },
+      { name: 'subject', label: 'Subject' },
       { name: 'abstract', label: 'Abstract' },
       { name: 'advisor', label: 'Advisor' },
       { name: 'accessibility_feature', label: 'Accessibility Feature' },
@@ -220,8 +226,6 @@ class CatalogController < ApplicationController
       { name: 'bibliographic_citation', label: 'Bibliographic Citation' },
       { name: 'committee_member', label: 'Committee Member' },
       { name: 'contributor', label: 'Contributor' },
-      { name: 'creator', label: 'Creator' },
-      { name: 'date_created', label: 'Date or Date Created' },
       { name: 'department', label: 'Department' },
       { name: 'depositor', label: 'Depositor' },
       { name: 'description', label: 'Description' },
@@ -230,11 +234,9 @@ class CatalogController < ApplicationController
       { name: 'extent', label: 'Extent' },
       { name: 'degree_grantor', label: 'Grantor' },
       { name: 'identifier', label: 'Identifier' },
-      { name: 'keyword', label: 'Keyword' },
       { name: 'language', label: 'Language' },
       { name: 'learning_resource_type', label: 'Learning Resource Type' },
       { name: 'degree_level', label: 'Level' },
-      { name: 'license', label: 'License' },
       { name: 'publisher', label: 'Publisher' },
       { name: 'related_url', label: 'Related URL' },
       { name: 'rights_holder', label: 'Rights Holder' },
@@ -242,9 +244,7 @@ class CatalogController < ApplicationController
       { name: 'rights_statement', label: 'Rights or Rights Statement' },
       { name: 'size', label: 'Size' },
       { name: 'source', label: 'Source' },
-      { name: 'subject', label: 'Subject' },
       { name: 'table_of_contents', label: 'Table of Contents' },
-      { name: 'title', label: 'Title' },
       { name: 'resource_type', label: 'Type or Resource Type' }
     ]
 

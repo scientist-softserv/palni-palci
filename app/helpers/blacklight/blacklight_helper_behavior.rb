@@ -427,5 +427,27 @@ module Blacklight
     def secondary_search_fields
       search_fields_for_advanced_search.each_with_index.partition { |_, idx| idx < 6 }.last.map(&:first)
     end
+
+    def subauthority?(key)
+      Qa::Authorities::Local.names.include?(key.pluralize || key)
+    end
+
+    def options_for_qa_select(key)
+      if "Hyrax::#{key.camelize}Service".safe_constantize
+        if "Hyrax::#{key.camelize}Service".constantize.respond_to?(:select_all_options)
+          "Hyrax::#{key.camelize}Service".constantize.select_all_options
+        else
+          "Hyrax::#{key.camelize}Service".constantize.new.select_all_options 
+        end
+      else
+        if "Hyrax::#{key.pluralize.camelize}Service".constantize.respond_to?(:select_all_options)
+          "Hyrax::#{key.pluralize.camelize}Service".constantize.select_all_options
+        elsif "Hyrax::#{key.pluralize.camelize}Service".constantize.respond_to?(:select_options)
+          "Hyrax::#{key.pluralize.camelize}Service".constantize.select_options
+        else
+          "Hyrax::#{key.pluralize.camelize}Service".constantize.new.select_all_options 
+        end 
+      end
+    end
   end
 end

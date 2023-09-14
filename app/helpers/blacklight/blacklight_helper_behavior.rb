@@ -433,21 +433,11 @@ module Blacklight
     end
 
     def options_for_qa_select(key)
-      if "Hyrax::#{key.camelize}Service".safe_constantize
-        if "Hyrax::#{key.camelize}Service".constantize.respond_to?(:select_all_options)
-          "Hyrax::#{key.camelize}Service".constantize.select_all_options
-        else
-          "Hyrax::#{key.camelize}Service".constantize.new.select_all_options 
-        end
-      else
-        if "Hyrax::#{key.pluralize.camelize}Service".constantize.respond_to?(:select_all_options)
-          "Hyrax::#{key.pluralize.camelize}Service".constantize.select_all_options
-        elsif "Hyrax::#{key.pluralize.camelize}Service".constantize.respond_to?(:select_options)
-          "Hyrax::#{key.pluralize.camelize}Service".constantize.select_options
-        else
-          "Hyrax::#{key.pluralize.camelize}Service".constantize.new.select_all_options 
-        end 
-      end
+        fetch_service_for(key).try(:select_all_options) || fetch_service_for(key).try(:select_options) || fetch_service_for(key).new.select_all_options
+    end
+
+    def fetch_service_for(key)
+      "Hyrax::#{key.camelize}Service".safe_constantize || "Hyrax::#{key.pluralize.camelize}Service".safe_constantize
     end
   end
 end

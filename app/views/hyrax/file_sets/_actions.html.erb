@@ -1,7 +1,8 @@
 <%# Overridden from Hyrax 3.5.0 - To add extra download restrictions %>
 <% if (can?(:download, file_set.id) || can?(:destroy, file_set.id) || can?(:edit, file_set.id)) && !workflow_restriction?(@parent) %>
   <% if can?(:download, file_set.id) && !(can?(:edit, file_set.id) || can?(:destroy, file_set.id)) %>
-    <% if Site.account.settings[:allow_downloads].nil? || Site.account.settings[:allow_downloads].to_i.nonzero? %>
+    <% if (Site.account.settings[:allow_downloads].nil? || Site.account.settings[:allow_downloads].to_i.nonzero?) &&
+          (@presenter.show_pdf_download_button? && file_set.pdf? || !file_set.pdf?) %>
       <%= link_to t('.download'),
                   hyrax.download_path(file_set),
                   class: 'btn btn-default btn-sm',

@@ -76,4 +76,12 @@ class SolrDocument
     title: 'title_tesim',
     type: 'human_readable_type_tesim'
   )
+
+  def show_pdf_viewer
+    self['show_pdf_viewer_tesim']
+  end
+
+  def show_pdf_download_button
+    self['show_pdf_download_button_tesim']
+  end
 end

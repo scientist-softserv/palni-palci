@@ -41,6 +41,8 @@ terms:
     term: Research Paper
   - id: Software or Program Code
     term: Software or Program Code
+  - id: Text
+    term: Text
   - id: Video
     term: Video
   - id: Other

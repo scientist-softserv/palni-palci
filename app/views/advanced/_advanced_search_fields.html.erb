@@ -4,11 +4,11 @@
   # See: Blacklight::BlacklightHelperBehavior#primary_search_fields, #secondary_search_fields
   # Also using Bootstrap 3 classes to make the form resemble the Hyrax form behaviors
 %>
-<%- primary_search_fields.each do |key, field_def| -%>
+<%- primary_search_fields_for(search_fields_for_advanced_search).each do |key, field_def| -%>
   <div class="form-group advanced-search-field">
       <%= label_tag key, "#{field_def.label}", :class => "col-sm-3 control-label" %>
       <div class="col-sm-9">
-        <% if subauthority?(key) %>
+        <% if local_authority?(key) %>
           <%= render 'advanced_search_fields_qa', key: key %>
         <% else %>
           <%= text_field_tag key, label_tag_default_for(key), :class => 'form-control' %>
@@ -20,11 +20,11 @@
 <a class="btn btn-default additional-fields collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="additionalFieldsDiv" href="#additionalFieldsDiv">Additional fields</a>
 
 <div id="additionalFieldsDiv" class="collapse" aria-expanded="false">
-  <%- secondary_search_fields.each do |key, field_def| -%>
+  <%- secondary_search_fields_for(search_fields_for_advanced_search).each do |key, field_def| -%>
     <div class="form-group advanced-search-field">
         <%= label_tag key, "#{field_def.label}", :class => "col-sm-3 control-label" %>
         <div class="col-sm-9">
-          <% if subauthority?(key) %>
+          <% if local_authority?(key) %>
             <%= render 'advanced_search_fields_qa', key: key %>
           <% else %>
             <%= text_field_tag key, label_tag_default_for(key), :class => 'form-control' %>

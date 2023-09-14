@@ -419,25 +419,5 @@ module Blacklight
     def document_link_params(_doc, opts)
       opts.except(:label, :counter)
     end
-
-    def primary_search_fields
-      search_fields_for_advanced_search.each_with_index.partition { |_, idx| idx < 6 }.first.map(&:first)
-    end
-
-    def secondary_search_fields
-      search_fields_for_advanced_search.each_with_index.partition { |_, idx| idx < 6 }.last.map(&:first)
-    end
-
-    def subauthority?(key)
-      Qa::Authorities::Local.names.include?(key.pluralize || key)
-    end
-
-    def options_for_qa_select(key)
-        fetch_service_for(key).try(:select_all_options) || fetch_service_for(key).try(:select_options) || fetch_service_for(key).new.select_all_options
-    end
-
-    def fetch_service_for(key)
-      "Hyrax::#{key.camelize}Service".safe_constantize || "Hyrax::#{key.pluralize.camelize}Service".safe_constantize
-    end
   end
 end

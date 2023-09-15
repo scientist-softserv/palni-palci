@@ -3,16 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe FeaturedCollectionList, type: :model do
+  subject { described_class.new }
+
   let(:user) { create(:user).tap { |u| u.add_role(:admin, Site.instance) } }
   let(:account) { create(:account) }
   let(:collection1) { create(:collection, user: user) }
   let(:collection2) { create(:collection, user: user) }
+  let(:featured_collection_1) { create(:featured_collection, collection_id: collection1.id) }
+  let(:featured_collection_2) { create(:featured_collection, collection_id: collection2.id) }
 
   describe 'featured_collections' do
     before do
       Site.update(account: account)
-      create(:featured_collection, collection_id: collection1.id)
-      create(:featured_collection, collection_id: collection2.id)
+      featured_collection_1
+      featured_collection_2
     end
 
     it 'is a list of the featured collection objects, each with the collection\'s solr_doc' do
@@ -33,6 +37,26 @@ RSpec.describe FeaturedCollectionList, type: :model do
         presenter = subject.featured_collections.first.presenter
         expect(presenter).to be_kind_of Hyku::WorkShowPresenter
         expect(presenter.id).to eq collection2.id
+      end
+    end
+
+    context 'when sorting the featured collections' do
+      let(:instance) { described_class.new }
+
+      context 'when the featured collections have not been manually ordered' do
+        it 'is sorted by title' do
+          allow(instance).to receive(:manually_ordered?).and_return(false)
+
+          expect(instance.featured_collections.map(&:presenter).map(&:title).flatten).to eq [collection1.title.first, collection2.title.first]
+        end
+      end
+
+      context 'when the featured collections have been manually ordered' do
+        it 'is not sorted by title' do
+          allow(instance).to receive(:manually_ordered?).and_return(true)
+
+          expect(instance.featured_collections.map(&:presenter).map(&:title).flatten).to eq [collection2.title.first, collection1.title.first]
+        end
       end
     end
   end

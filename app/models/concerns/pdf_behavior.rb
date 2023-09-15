@@ -27,10 +27,10 @@ module PdfBehavior
 
     # This is here so that the checkbox is checked by default
     def set_default_show_pdf_viewer
-      self.show_pdf_viewer ||= 'true'
+      self.show_pdf_viewer ||= true
     end
 
     def set_default_show_pdf_download_button
-      self.show_pdf_download_button ||= 'true'
+      self.show_pdf_download_button ||= true
     end
 end

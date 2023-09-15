@@ -39,9 +39,10 @@ RSpec.describe 'api/sushi/r51', type: :request, singletenant: true do
     context 'with an invalid item_id parameter' do
       it 'returns a 422 status report for the given item' do
         get '/api/sushi/r51/reports/ir', params: { **required_parameters, item_id: 'qwerty123' }
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(422)
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body['error']).not_to be_nil
+
+        expect(parsed_body['Code']).to eq(3060)
       end
     end
   end

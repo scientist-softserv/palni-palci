@@ -16,6 +16,8 @@ class AppIndexer < Hyrax::WorkIndexer
       solr_doc['bulkrax_identifier_tesim'] = object.bulkrax_identifier
       solr_doc['account_cname_tesim'] = Site.instance&.account&.cname
       solr_doc['all_text_tsimv'] = full_text(object.file_sets.first&.id)
+      solr_doc['show_pdf_viewer_bsi'] = object.show_pdf_viewer || true
+      solr_doc['show_pdf_download_button_bsi'] = object.show_pdf_download_button || true
       add_date(solr_doc)
     end
   end

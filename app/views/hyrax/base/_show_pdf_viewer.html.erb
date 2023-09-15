@@ -1,4 +1,6 @@
+<% checked = ActiveModel::Type::Boolean.new.cast(f.object.show_pdf_viewer) %>
 <%= f.input :show_pdf_viewer,
             label: "Show PDF.js Viewer",
             required: f.object.required?(:show_pdf_viewer),
-            as: :boolean %>
+            as: :boolean,
+            input_html: {checked: checked} %>

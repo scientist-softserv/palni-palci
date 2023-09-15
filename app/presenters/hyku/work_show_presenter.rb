@@ -82,14 +82,14 @@ module Hyku
       return unless show_pdf_viewer
       return unless file_set_presenters.any?(&:pdf?)
 
-      show_pdf_viewer.first.to_i.positive?
+      show_pdf_viewer
     end
 
     def show_pdf_download_button?
       return unless file_set_presenters.any?(&:pdf?)
       return unless show_pdf_download_button
 
-      show_pdf_download_button.first.to_i.positive?
+      show_pdf_download_button
     end
 
     private

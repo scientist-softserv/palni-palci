@@ -61,6 +61,8 @@ class SolrDocument
   attribute :library_catalog_identifier, Solr::String, 'library_catalog_identifier_tesim'
   attribute :chronology_note, Solr::String, 'chronology_note_tesim'
   attribute :based_near, Solr::Array, 'based_near_tesim'
+  attribute :show_pdf_viewer, Solr::String, 'show_pdf_viewer_bsi'
+  attribute :show_pdf_download_button, Solr::String, 'show_pdf_download_button_bsi'
 
   field_semantics.merge!(
     contributor: 'contributor_tesim',
@@ -78,10 +80,10 @@ class SolrDocument
   )
 
   def show_pdf_viewer
-    self['show_pdf_viewer_tesim']
+    self['show_pdf_viewer_bsi']
   end
 
   def show_pdf_download_button
-    self['show_pdf_download_button_tesim']
+    self['show_pdf_download_button_bsi']
   end
 end

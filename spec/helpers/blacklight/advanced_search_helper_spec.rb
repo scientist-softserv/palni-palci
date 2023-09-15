@@ -28,7 +28,7 @@ RSpec.describe Blacklight::AdvancedSearchHelper do
       it "checks if the key exists in QA::Authorities::Local.names" do
         valid_local_authorities = search_fields_for_advanced_search.select { |key, _value| local_authority?(key) }
 
-        valid_local_authorities.each do |key, _value|
+        valid_local_authorities.each_key do |key|
           expect(local_authority?(key)).to be true
         end
       end
@@ -38,7 +38,7 @@ RSpec.describe Blacklight::AdvancedSearchHelper do
       it "checks if the key exists in QA::Authorities::Local.names" do
         invalid_local_authorities = search_fields_for_advanced_search.reject { |key, _value| local_authority?(key) }
 
-        invalid_local_authorities.each do |key, _value|
+        invalid_local_authorities.each_key do |key|
           expect(local_authority?(key)).to be false
         end
       end

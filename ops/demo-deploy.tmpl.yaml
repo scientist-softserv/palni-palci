@@ -168,6 +168,16 @@ extraEnvVars: &envVars
     value: http://admin:$SOLR_ADMIN_PASSWORD@solr-headless.solr:8983/solr/
 
 worker:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: name
+            operator: In
+            values:
+              - {{ include "hyrax.fullname" . }}-worker
+        topologyKey: "kubernetes.io/hostname"
   replicaCount: 1
   resources:
     limits:
@@ -219,6 +229,17 @@ externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
   hyraxName: palni-palci-demo-pals
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: name
+          operator: In
+          values:
+            - {{ include "hyrax.fullname" . }}
+      topologyKey: "kubernetes.io/hostname"
 
 nginx:
   enabled: true

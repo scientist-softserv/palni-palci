@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
     end
 
     def ssl_configured?
-      # TODO remove after atla loadbalancer is fixed
+      # TODO remove after atla loadbalancer is fixed (#157)
       # ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
       false
     end

@@ -595,10 +595,7 @@ span.constraint-value p, .facet-values p {
 }
 
 #download-pdf-button {
-  margin-top: 10px;
-  @media (min-width: 576px) {
-    max-width: 300px;
-  }
+  margin: 10px 0 10px 0;
 }
 
 .catalog_startOverLink {

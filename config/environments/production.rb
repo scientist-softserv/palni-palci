@@ -69,7 +69,7 @@ Rails.application.configure do
       address: ENV['SMTP_ADDRESS'],
       domain: ENV['SMTP_DOMAIN'],
       port: ENV['SMTP_PORT'],
-      enable_starttls_auto: true,
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', true)),
       authentication: ENV['SMTP_TYPE']
     }
     # ActionMailer Config

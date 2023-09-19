@@ -42,6 +42,7 @@ module OAI
               end
             end
             add_public_file_urls(xml, record)
+            add_thumbnail_url(xml, record)
           end
           xml.target!
         end
@@ -64,6 +65,12 @@ module OAI
             file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id_hash['id']}"
             xml.tag! 'file_url', file_download_path
           end
+        end
+
+        def add_thumbnail_url(xml, record)
+          return if record[:thumbnail_path_ss].blank?
+          thumbnail_url = "https://#{Site.instance.account.cname}#{record[:thumbnail_path_ss]}"
+          xml.tag! 'thumbnail_url', thumbnail_url
         end
 
         def header_specification

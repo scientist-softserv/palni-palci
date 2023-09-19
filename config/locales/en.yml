@@ -214,6 +214,8 @@ en:
               hint: "Favicons need to be png files and must be square. The max size used is 228px x 228px."
             navbar_background_color:
               hint: 'At 40% opacity.'
+            navbar_link_background_color:
+              hint: 'Applies to the Home, About, Contact and Help button background color'
             navbar_link_background_hover_color:
               hint: 'Applies to the Home, About, Contact and Help buttons on those specific pages only (at 15% opacity).'
             link_color:

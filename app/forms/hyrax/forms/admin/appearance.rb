@@ -27,6 +27,7 @@ module Hyrax
           'header_and_footer_background_color' => '#3c3c3c',
           'header_and_footer_text_color'       => '#dcdcdc',
           'navbar_background_color'            => '#000000',
+          'navbar_link_background_color'       => '#375f8c',
           'navbar_link_background_hover_color' => '#ffffff',
           'navbar_link_text_color'             => '#eeeeee',
           'navbar_link_text_hover_color'       => '#eeeeee',
@@ -143,6 +144,14 @@ module Hyrax
 
         def navbar_background_color_active
           darken_color(navbar_background_color, 0.35)
+        end
+
+        def navbar_link_background_color
+          block_for('navbar_link_background_color')
+        end
+
+        def navbar_link_background_color_active
+          darken_color(navbar_link_background_color, 0.35)
         end
 
         def navbar_link_background_hover_color
@@ -388,6 +397,7 @@ module Hyrax
             facet_panel_background_color
             facet_panel_text_color
             navbar_background_color
+            navbar_link_background_color
             navbar_link_background_hover_color
             navbar_link_text_color
             navbar_link_text_hover_color

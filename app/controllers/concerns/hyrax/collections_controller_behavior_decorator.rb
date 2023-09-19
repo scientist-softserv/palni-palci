@@ -13,7 +13,7 @@ module Hyrax
 
     def show
       # OVERRIDE Hyrax 3.6.0 to default sort by title instead of relevance
-      params[:sort] ||= "title_ssi asc"
+      params[:sort] ||= "#{Hyrax::CollectionSearchBuilderDecorator::DEFAULT_SORT_FIELD} asc"
 
       super
     end

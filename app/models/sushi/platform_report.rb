@@ -140,6 +140,7 @@ module Sushi
     #       month).
     # also, note that unique_item_requests and unique_item_investigations should be counted for Hyrax::CounterMetrics that have unique dates, and unique work IDs.
     # see the docs for counting unique items here: https://cop5.projectcounter.org/en/5.1/07-processing/03-counting-unique-items.html
+    # rubocop:disable Metrics/LineLength
     def data_for_resource_types
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.
@@ -156,16 +157,16 @@ module Sushi
                            -- We need to coerce the month from a single digit to two digits (e.g. August's "8" into "08")
                            CONCAT(DATE_PART('year', date_trunc('month', date)), '-', to_char(DATE_PART('month', date_trunc('month', date)), 'fm00')) AS year_month
                            FROM hyrax_counter_metrics AS aggr
-                           WHERE  aggr.resource_type = hyrax_counter_metrics.resource_type
+                           WHERE #{Hyrax::CounterMetric.sanitize_sql_for_conditions(['aggr.resource_type = hyrax_counter_metrics.resource_type AND date >= ? AND date <= ?', begin_date, end_date])}
 	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(resource_type: :asc)
                  .group(:resource_type, :worktype)
-
       return relation if data_types.blank?
 
       relation.where("LOWER(resource_type) IN (?)", data_types)
     end
+    # rubocop:enable Metrics/LineLength
 
     def data_for_platform
       Hyrax::CounterMetric

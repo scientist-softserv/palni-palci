@@ -136,8 +136,8 @@ module Sushi
                            -- We need to coerce the month from a single digit to two digits (e.g. August's "8" into "08")
                            CONCAT(DATE_PART('year', date_trunc('month', date)), '-', to_char(DATE_PART('month', date_trunc('month', date)), 'fm00')) AS year_month
                            FROM hyrax_counter_metrics AS aggr
-                           WHERE  aggr.work_id = hyrax_counter_metrics.work_id
-    	               GROUP BY date_trunc('month', date)) t) as performance))
+                           WHERE #{Hyrax::CounterMetric.sanitize_sql_for_conditions(['aggr.work_id = hyrax_counter_metrics.work_id AND date >= ? AND date <= ?', begin_date, end_date])}
+        	           GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(resource_type: :asc, work_id: :asc)
                  .group(:work_id, :resource_type, :worktype, :author)

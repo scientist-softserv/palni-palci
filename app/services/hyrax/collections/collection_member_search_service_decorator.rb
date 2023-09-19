@@ -4,7 +4,7 @@
 module Hyrax
   module Collections
     module CollectionMemberSearchServiceDecorator
-      DEFAULT_SORT_FIELD = 'title_ssi asc'.freeze
+      DEFAULT_SORT_FIELD = 'title_ssi asc'
 
       def available_member_works
         sort_field = user_params[:sort] || DEFAULT_SORT_FIELD

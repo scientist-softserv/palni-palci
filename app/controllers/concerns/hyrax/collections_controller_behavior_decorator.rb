@@ -10,6 +10,13 @@ module Hyrax
 
       @subcollection_docs.sort_by! { |doc| doc.title.first&.downcase }
     end
+
+    def show
+      # OVERRIDE Hyrax 3.6.0 to initialize the works sort default field instead of using relevance
+      params[:sort] ||= Hyrax::Collections::CollectionMemberSearchServiceDecorator::DEFAULT_SORT_FIELD
+
+      super
+    end
   end
 end
 

@@ -6,6 +6,12 @@ RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
   let(:identifier) { work.id }
 
   before do
+    # We use Site.instance.account.cname to build the download links.
+    # In the test ENV, Site.instance.account is nil.
+    account = Account.create(name: 'test', cname: 'test.example.com')
+    account.sites << Site.instance
+    account.save
+
     login_as(user, scope: :user)
     work
   end
@@ -59,14 +65,6 @@ RSpec.describe "OAI PMH Support", type: :feature, cohort: 'alpha' do
     describe '#add_public_file_urls' do
       let(:record) { { file_set_ids_ssim: ['my-file-set-id-1', 'my-file-set-id-2'] } }
       let(:xml) { Builder::XmlMarkup.new }
-
-      # We use Site.instance.account.cname to build the download links.
-      # In the test ENV, Site.instance.account is nil.
-      before do
-        account = Account.create(name: 'test', cname: 'test.example.com')
-        account.sites << Site.instance
-        account.save
-      end
 
       context 'when the work has public file sets' do
         before do

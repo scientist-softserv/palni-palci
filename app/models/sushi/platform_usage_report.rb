@@ -91,6 +91,7 @@ module Sushi
     #       For example, if we had "2023-01-03T13:14" and asked for the date_trunc of month, the
     #       query result value would be "2023-01-01T00:00" (e.g. the first moment of the first of the
     #       month).
+    # rubocop:disable Metrics/LineLength
     def data_for_resource_types
       # We're capturing this relation/query because in some cases, we need to chain another where
       # clause onto the relation.
@@ -107,7 +108,7 @@ module Sushi
                            -- We need to coerce the month from a single digit to two digits (e.g. August's "8" into "08")
                            CONCAT(DATE_PART('year', date_trunc('month', date)), '-', to_char(DATE_PART('month', date_trunc('month', date)), 'fm00')) AS year_month
                            FROM hyrax_counter_metrics AS aggr
-                           WHERE  aggr.resource_type = hyrax_counter_metrics.resource_type
+                           WHERE #{Hyrax::CounterMetric.sanitize_sql_for_conditions(['aggr.resource_type = hyrax_counter_metrics.resource_type AND date >= ? AND date <= ?', begin_date, end_date])}
 	               GROUP BY date_trunc('month', date)) t) as performance))
                  .where("date >= ? AND date <= ?", begin_date, end_date)
                  .order(resource_type: :asc)
@@ -117,6 +118,7 @@ module Sushi
 
       relation.where("LOWER(resource_type) IN (?)", data_types)
     end
+    # rubocop:enable Metrics/LineLength
 
     def data_for_platform
       Hyrax::CounterMetric

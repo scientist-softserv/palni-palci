@@ -28,6 +28,8 @@ RSpec.describe Sushi::PlatformReport do
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance', 'Unique_Item_Investigations', '2022-01')).to eq(3)
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance', 'Unique_Item_Requests', '2022-01')).to eq(3)
         expect(subject.dig('Report_Items', 'Attribute_Performance').find { |o| o["Data_Type"] == "Platform" }.dig('Performance', 'Searches_Platform', '2022-01')).to eq(6)
+        # It should not include that 2021 data.
+        expect(subject.dig('Report_Items', 'Attribute_Performance', 0, 'Performance', 'Total_Item_Investigations')).to eq("2022-01" => 6)
       end
     end
 

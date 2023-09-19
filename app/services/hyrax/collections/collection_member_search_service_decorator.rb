@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax v3.6.0 to sort subcollections by title 
+# OVERRIDE Hyrax v3.6.0 to sort subcollections by title
 module Hyrax
   module Collections
     module CollectionMemberSearchServiceDecorator
-      DEFAULT_SORT_FIELD = 'title_ssi asc'
+      DEFAULT_SORT_FIELD = 'title_ssi asc'.freeze
 
       def available_member_works
         sort_field = user_params[:sort] || DEFAULT_SORT_FIELD

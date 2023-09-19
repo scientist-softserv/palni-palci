@@ -18,7 +18,7 @@ RSpec.describe Sushi do
       let(:given_date) { '2023' }
 
       it 'will raise an error' do
-        expect { subject }.to raise_exception(Sushi::InvalidParameterValue)
+        expect { subject }.to raise_exception(Sushi::Error::InvalidDateArgumentError)
       end
     end
   end
@@ -43,8 +43,8 @@ RSpec.describe Sushi do
 
       before { entry }
 
-      it 'will return nil (because we have less than one month of data)' do
-        expect(subject).to be_nil
+      it 'raises an error' do
+        expect { subject }.to raise_error(Sushi::Error::UsageNotReadyForRequestedDatesError)
       end
     end
 
@@ -60,7 +60,9 @@ RSpec.describe Sushi do
     end
 
     context 'when there are no entries' do
-      it { is_expected.to be_nil }
+      it 'raises an error' do
+        expect { subject }.to raise_error(Sushi::Error::UsageNotReadyForRequestedDatesError)
+      end
     end
   end
 
@@ -94,7 +96,10 @@ RSpec.describe Sushi do
       let(:entry_date) { 5.days.ago(Time.zone.today.end_of_month) }
 
       before { entry }
-      it { is_expected.to be_nil }
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(Sushi::Error::UsageNotReadyForRequestedDatesError)
+      end
     end
 
     context 'when last entry date is middle of the month and current date is end of this month' do
@@ -139,7 +144,9 @@ RSpec.describe Sushi do
     end
 
     context 'when there are no entries' do
-      it { is_expected.to be_nil }
+      it 'raises an error' do
+        expect { subject }.to raise_error(Sushi::Error::UsageNotReadyForRequestedDatesError)
+      end
     end
   end
 
@@ -203,14 +210,14 @@ RSpec.describe Sushi do
     [
       ['2003', ["((year_of_publication = ?))", 2003]],
       ['2003-2005', ["((year_of_publication >= ? AND year_of_publication <= ?))", 2003, 2005]],
-      ['2003a-2005', Sushi::InvalidParameterValue],
+      ['2003a-2005', Sushi::Error::InvalidDateArgumentError],
       ['-1', ["((year_of_publication = ?))", -1]],
-      ['a-1', Sushi::InvalidParameterValue],
-      ['a1', Sushi::InvalidParameterValue],
-      ['1-2 3', Sushi::InvalidParameterValue],
-      ['1 2', Sushi::InvalidParameterValue],
+      ['a-1', Sushi::Error::InvalidDateArgumentError],
+      ['a1', Sushi::Error::InvalidDateArgumentError],
+      ['1-2 3', Sushi::Error::InvalidDateArgumentError],
+      ['1 2', Sushi::Error::InvalidDateArgumentError],
       ['1996-1994', ["((year_of_publication >= ? AND year_of_publication <= ?))", 1996, 1994]],
-      ['1996-1994 | 1999-2003|9a', Sushi::InvalidParameterValue],
+      ['1996-1994 | 1999-2003|9a', Sushi::Error::InvalidDateArgumentError],
       ['1996-1994 | 1299-2003|9-12', ["((year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication >= ? AND year_of_publication <= ?))", 1996, 1994, 1299, 2003, 9, 12]],
       ['1994-1996 | 1989', ["((year_of_publication >= ? AND year_of_publication <= ?) OR (year_of_publication = ?))", 1994, 1996, 1989]]
     ].each do |given_yop, expected|

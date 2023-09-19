@@ -26,8 +26,8 @@ module Sushi
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Platform Master Report' [PR]. A customizable report summarizing activity across a provider’s platforms that allows the user to apply filters and select other configuration options for the report.",
           "Path" => "/api/sushi/r51/reports/pr",
-          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
-          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
+          "First_Month_Available" => Sushi.rescued_first_month_available,
+          "Last_Month_Available" => Sushi.rescued_last_month_available
         },
         {
           "Report_Name" => "Platform Usage",
@@ -35,8 +35,8 @@ module Sushi
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Platform Usage' [pr_p1]. This is a Standard View of the Package Master Report that presents usage for the overall Platform broken down by Metric_Type.",
           "Path" => "/api/sushi/r51/reports/pr_p1",
-          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
-          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
+          "First_Month_Available" => Sushi.rescued_first_month_available,
+          "Last_Month_Available" => Sushi.rescued_last_month_available
         },
         {
           "Report_Name" => "Item Report",
@@ -44,8 +44,8 @@ module Sushi
           "Release" => "5.1",
           "Report_Description" => "This resource returns COUNTER 'Item Master Report' [IR].",
           "Path" => "/api/sushi/r51/reports/ir",
-          "First_Month_Available" => Sushi.first_month_available&.strftime("%Y-%m"),
-          "Last_Month_Available" => Sushi.last_month_available&.strftime("%Y-%m")
+          "First_Month_Available" => Sushi.rescued_first_month_available,
+          "Last_Month_Available" => Sushi.rescued_last_month_available
         }
       ]
     end

@@ -76,7 +76,7 @@ module Sushi
         'Report_Items' => report_items
       }
 
-      raise Sushi::NotFoundError.no_records_within_date_range if report_items.blank?
+      raise Sushi::Error::NoUsageAvailableForRequestedDatesError.new(data: "No data within #{begin_date.iso8601} and #{end_date.iso8601} date range.") if report_items.blank?
 
       report_hash['Report_Header']['Report_Filters']['Access_Method'] = access_methods if access_method_in_params
       report_hash['Report_Header']['Report_Filters']['Author'] = author if author_in_params

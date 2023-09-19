@@ -1,51 +1,6 @@
 # frozen_string_literal:true
 
 module Sushi
-  class NotFoundError < StandardError
-    class << self
-      def no_records_within_date_range
-        new('There are no results for the given date range.')
-      end
-
-      def invalid_item_id(item_id)
-        new("The given parameter `item_id=#{item_id}` is invalid. Please provide a valid item_id, or none at all.")
-      end
-    end
-  end
-
-  ##
-  # Raised when the parameter we are given does not match our expectations; e.g. we can't convert
-  # the text value to a Date.
-  class InvalidParameterValue < StandardError
-    # rubocop:disable Metrics/LineLength
-    class << self
-      def invalid_access_method(access_method, acceptable_params)
-        new("None of the given values in `access_method=#{access_method}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
-      end
-
-      def invalid_granularity(granularity, acceptable_params)
-        new("None of the given values in `granularity=#{granularity}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
-      end
-
-      def invalid_metric_type(metric_type, acceptable_params)
-        new("None of the given values in `metric_type=#{metric_type}` are supported at this time. Please use an acceptable value, (#{acceptable_params.join(', ')}) instead. (Or do not pass the parameter at all, which will default to the acceptable value(s))")
-      end
-
-      def invalid_platform(platform, account)
-        new("The given parameter `platform=#{platform}` is not supported at this endpoint. Please use #{account.cname} instead. (Or do not pass the parameter at all, which will default to #{account.cname})}")
-      end
-
-      def invalid_yop(yop)
-        new("The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
-      end
-
-      def invalid_author(author)
-        new("The given parameter `author=#{author}` was malformed. Please provide the first author's name exactly as it appears on the work.")
-      end
-    end
-    # rubocop:enable Metrics/LineLength
-  end
-
   class << self
     ##
     # @param value [String, #to_date]
@@ -63,7 +18,7 @@ module Sushi
         # We want to set the date to the 1st of the month.
         Date.new(year.to_i, month.to_i, 1)
       rescue StandardError
-        raise Sushi::InvalidParameterValue, "Unable to convert \"#{value}\" to a date."
+        raise Sushi::Error::InvalidDateArgumentError.new(data: "Unable to convert \"#{value}\" to a date.")
       end
     end
 
@@ -75,26 +30,40 @@ module Sushi
     # @param current_date [Date] included as a dependency injection to ease testing.
     #
     # @return [Date] when we have data in the system
-    # @return [NilCass] when we don't have data in the system OR we only have data for the current
-    #         month.
+    # @raise [Sushi::Error::UsageNotReadyForRequestedDatesError] when we don't have data in the
+    #         system OR we only have data for the current month.
+    #
     # @see {.last_month_available}
     #
     # @note Ultimately, the goal of these date ranges is for us to inform the consumer of the API
     #       about the complete months of data that we have.
     def first_month_available(current_date: Time.zone.today)
-      return unless Hyrax::CounterMetric.any?
+      raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "There is no available metrics data available at this time.") unless Hyrax::CounterMetric.any?
 
       # If, for some reason, we have only partial data for the earliest month, we'll assume that
-      # we have "all that month's data.
+      # we have "all" that month's data.
       earliest_entry_beginning_of_month_date = Hyrax::CounterMetric.order('date ASC').first.date.beginning_of_month
 
       beginning_of_month = current_date.beginning_of_month
 
       # In this case, the only data we have is data in the current month and since the current month
       # isn't over we should not be reporting.
-      return nil if earliest_entry_beginning_of_month_date == beginning_of_month
+      if earliest_entry_beginning_of_month_date == beginning_of_month
+        raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "The only data available is for #{beginning_of_month.strftime('%Y-%m')}; a month that is not yet over.")
+      end
 
       earliest_entry_beginning_of_month_date
+    end
+
+    ##
+    # @see .first_month_available
+    #
+    # @return [String] when there is a valid first month, return the YYYY-MM format of that month.
+    # @return [NilClass] when there is not a valid first month
+    def rescued_first_month_available(*args)
+      first_month_available(*args).strftime("%Y-%m")
+    rescue Sushi::Error::UsageNotReadyForRequestedDatesError
+      nil
     end
 
     ##
@@ -108,14 +77,16 @@ module Sushi
     #        entry's date.
     #
     # @return [Date] when we have data in the system
-    # @return [NilCass] when we don't have data in the system
+    # @raise [Sushi::Error::UsageNotReadyForRequestedDatesError] when we don't have data in the
+    #        system
     #
     # @see {.first_month_available}
     #
     # @note Ultimately, the goal of these date ranges is for us to inform the consumer of the API
     #       about the complete months of data that we have.
     def last_month_available(current_date: Time.zone.today)
-      return nil unless first_month_available(current_date: current_date)
+      # This might raise an exception
+      first_month_available(current_date: current_date)
 
       # We're assuming that we have whole months, so we'll nudge the latest date towards that
       # assumption.
@@ -127,6 +98,17 @@ module Sushi
       return latest_entry_end_of_month_date if latest_entry_end_of_month_date < end_of_last_month
 
       end_of_last_month
+    end
+
+    ##
+    # @see .last_month_available
+    #
+    # @return [String] when there is a valid last month, return the YYYY-MM format of that month.
+    # @return [NilClass] when there is not a valid last month
+    def rescued_last_month_available(*args)
+      last_month_available(*args).strftime("%Y-%m")
+    rescue Sushi::Error::UsageNotReadyForRequestedDatesError
+      nil
     end
   end
 
@@ -151,6 +133,10 @@ module Sushi
       # Because we're receiving user input that is likely strings, we need to do some coercion.
       @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
       @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
+
+      raise Sushi::Error::InvalidDateArgumentError.new(data: "Begin date #{params.fetch(:begin_date)} is after end date #{params.fetch(:end_date)}.") if @begin_date > @end_date
+    rescue ActionController::ParameterMissing, KeyError => e
+      raise Sushi::Error::InsufficientInformationToProcessRequestError.new(data: e.message)
     end
   end
 
@@ -187,7 +173,14 @@ module Sushi
         normalized_metric_type = metric_type.downcase
         allowed_types.any? { |allowed_type| allowed_type.downcase == normalized_metric_type }
       end
-      raise Sushi::InvalidParameterValue.invalid_metric_type(params[:metric_type], allowed_types) unless metric_type_in_params
+
+      unless metric_type_in_params
+        raise Sushi::Error::InvalidReportFilterValueError.given_value_does_not_match_allowed_values(
+          parameter_value: params[:metric_type],
+          parameter_name: :metric_type,
+          allowed_values: allowed_types
+        )
+      end
 
       @metric_types = metric_types_from_params.map do |metric_type|
         normalized_metric_type = metric_type.downcase
@@ -213,7 +206,13 @@ module Sushi
       return true unless params.key?(:access_method)
       allowed_access_methods_from_params = Array.wrap(params[:access_method].split('|')).map { |am| am.strip.downcase } & ALLOWED_ACCESS_METHODS
 
-      raise Sushi::InvalidParameterValue.invalid_access_method(params[:access_method], ALLOWED_ACCESS_METHODS) unless allowed_access_methods_from_params.any?
+      unless allowed_access_methods_from_params.any?
+        raise Sushi::Error::InvalidReportFilterValueError.given_value_does_not_match_allowed_values(
+          parameter_value: params[:access_method],
+          parameter_name: :access_method,
+          allowed_values: ALLOWED_ACCESS_METHODS
+        )
+      end
 
       @access_methods = allowed_access_methods_from_params
       @access_method_in_params = true
@@ -230,10 +229,13 @@ module Sushi
     # @param params [Hash, ActionController::Parameters]
     #
     # @return [String]
-    # @raise [Sushi::NotFoundError] when the item id has no metrics.
+    # @raise [Sushi::Error::NotFoundError] when the item id has no metrics.
     def coerce_item_id(params = {})
       return true unless params.key?(:item_id)
-      raise Sushi::NotFoundError.invalid_item_id(params[:item_id]) unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
+
+      # rubocop:disable Metrics/LineLength
+      raise Sushi::Error::InvalidReportFilterValueError.new(data: "The given parameter `item_id=#{params[:item_id]}` does not exist. Please provide an existing item_id, or none at all.") unless Hyrax::CounterMetric.exists?(work_id: params[:item_id])
+      # rubocop:enable Metrics/LineLength
 
       @item_id = params[:item_id]
       @item_id_in_params = true
@@ -254,7 +256,14 @@ module Sushi
     # @raise [Sushi::InvalidParameterValue] when the platform is invalid.
     def coerce_platform(params = {}, account = nil)
       return true unless params.key?(:platform)
-      raise Sushi::InvalidParameterValue.invalid_platform(params[:platform], account) unless params[:platform] == account.cname
+
+      unless params[:platform] == account.cname
+        raise Sushi::Error::InvalidReportFilterValueError.given_value_does_not_match_allowed_values(
+          parameter_value: params[:platform],
+          parameter_name: :platform,
+          allowed_values: [account.cname]
+        )
+      end
 
       @platform = account.cname
       @platform_in_params = true
@@ -275,7 +284,14 @@ module Sushi
     def coerce_granularity(params = {})
       return true unless params.key?(:granularity)
       @granularity_in_params = ALLOWED_GRANULARITY.include?(params[:granularity].to_s.capitalize)
-      raise Sushi::InvalidParameterValue.invalid_granularity(params[:granularity], ALLOWED_GRANULARITY) unless @granularity_in_params
+
+      unless @granularity_in_params
+        raise Sushi::Error::InvalidReportFilterValueError.given_value_does_not_match_allowed_values(
+          parameter_value: params[:granularity],
+          parameter_name: :granularity,
+          allowed_values: ALLOWED_GRANULARITY
+        )
+      end
 
       @granularity = params.fetch(:granularity).capitalize
     end
@@ -331,7 +347,9 @@ module Sushi
       return true unless params.key?(:author)
       @author = params[:author]
 
-      raise Sushi::InvalidParameterValue.invalid_author(author) unless Hyrax::CounterMetric.where(author_as_where_parameters).exists?
+      # rubocop:disable Metrics/LineLength
+      raise Sushi::Error::InvalidReportFilterValueError.new(data: "The given author #{author.inspect} was not found in the metrics.") unless Hyrax::CounterMetric.where(author_as_where_parameters).exists?
+      # rubocop:enable Metrics/LineLength
 
       @author_in_params = true
     end
@@ -399,7 +417,9 @@ module Sushi
       @yop = params[:yop]
       @yop_as_where_parameters = ["(#{where_clauses.join(' OR ')})"] + where_values
     rescue ArgumentError
-      raise Sushi::InvalidParameterValue.invalid_yop(params.fetch(:yop))
+      # rubocop:disable Metrics/LineLength
+      raise Sushi::Error::InvalidDateArgumentError.new(data: "The given parameter `yop=#{yop}` was malformed.  You can provide a range (e.g. 'YYYY-YYYY') or a single date (e.g. 'YYYY').  You can separate ranges/values with a '|'.")
+      # rubocop:enable Metrics/LineLength
     end
   end
 end

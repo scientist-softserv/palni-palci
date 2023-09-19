@@ -44,6 +44,7 @@ module OAI
           license: :license,
           newer_version_id: :newer_version_id,
           oer_size: :oer_size,
+          oai_id: :id,
           previous_version_id: :previous_version_id,
           publisher: :publisher,
           related_item_id: :related_item_id,

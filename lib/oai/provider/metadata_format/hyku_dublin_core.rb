@@ -13,7 +13,7 @@ module OAI
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
           @fields = %i[
-            identifier title abstract access_right accessibility_feature accessibility_hazard
+            identifier oai_id title abstract access_right accessibility_feature accessibility_hazard
             accessibility_summary additional_information advisor alternate_version_id alternative_title
             audience based_near bibliographic_citation committee_member contributor creator date_created
             degree_discipline degree_grantor degree_level degree_name department description discipline

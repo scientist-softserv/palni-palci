@@ -13,14 +13,14 @@ module OAI
           # Dublin Core Terms Fields
           # For new fields, add here first then add to #map_oai_hyku
           @fields = %i[
-            identifier title abstract access_right accessibility_feature accessibility_hazard
+            identifier oai_id title abstract access_right accessibility_feature accessibility_hazard
             accessibility_summary additional_information advisor alternate_version_id alternative_title
             audience based_near bibliographic_citation committee_member contributor creator date_created
             degree_discipline degree_grantor degree_level degree_name department description discipline
             education_level extent format has_model keyword language learning_resource_type license
             newer_version_id oer_size previous_version_id publisher related_item_id related_url
             resource_type rights_holder rights_notes rights_statement source subject table_of_contents
-            contributing_library library_catalog_identifier chronology_note
+            contributing_library library_catalog_identifier chronology_note repository
           ]
         end
 
@@ -42,6 +42,7 @@ module OAI
               end
             end
             add_public_file_urls(xml, record)
+            add_thumbnail_url(xml, record)
           end
           xml.target!
         end
@@ -64,6 +65,12 @@ module OAI
             file_download_path = "https://#{Site.instance.account.cname}/downloads/#{fs_id_hash['id']}"
             xml.tag! 'file_url', file_download_path
           end
+        end
+
+        def add_thumbnail_url(xml, record)
+          return if record[:thumbnail_path_ss].blank?
+          thumbnail_url = "https://#{Site.instance.account.cname}#{record[:thumbnail_path_ss]}"
+          xml.tag! 'thumbnail_url', thumbnail_url
         end
 
         def header_specification

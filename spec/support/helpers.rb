@@ -33,6 +33,16 @@ def create_hyrax_countermetric_objects
     worktype: 'GenericWork',
     resource_type: 'Book',
     work_id: '12345',
+    date: '2021-01-05',
+    author: '|Tubman, Harriet|',
+    year_of_publication: 2022,
+    total_item_investigations: 1,
+    total_item_requests: 10
+  )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Book',
+    work_id: '12345',
     date: '2022-01-05',
     author: '|Tubman, Harriet|',
     year_of_publication: 2022,
@@ -75,6 +85,16 @@ def create_hyrax_countermetric_objects
     resource_type: 'Article',
     work_id: '99999',
     date: '2023-08-09',
+    author: '|Douglas, Frederick|',
+    year_of_publication: 1997,
+    total_item_investigations: 4,
+    total_item_requests: 3
+  )
+  Hyrax::CounterMetric.create(
+    worktype: 'GenericWork',
+    resource_type: 'Article',
+    work_id: '99999',
+    date: '2023-10-09',
     author: '|Douglas, Frederick|',
     year_of_publication: 1997,
     total_item_investigations: 4,

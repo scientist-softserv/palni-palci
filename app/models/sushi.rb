@@ -127,6 +127,14 @@ module Sushi
     # @param params [Hash, ActionController::Parameters]
     # @option params [String, NilClass] begin_date :: Either nil, YYYY-MM or YYYY-MM-DD format
     # @option params [String, NilClass] end_date :: Either nil, YYYY-MM or YYYY-MM-DD format
+    #
+    # @raise [Sushi::Error::InvalidDateArgumentError] when begin date is after end date
+    # @raise [Sushi::Error::UsageNoLongerAvailableForRequestedDatesError] when given begin date
+    #        (coerced to beginning of month) is before earliest reporting date.
+    # @raise [Sushi::Error::UsageNoLongerAvailableForRequestedDatesError] when given end date
+    #        (coerced to end of month) is after latest reporting date.
+    # @raise [Sushi::Error::InsufficientInformationToProcessRequestError] when either end date or
+    #        begin date is not given.
     def coerce_dates(params = {})
       # TODO: We should also be considering available dates as well.
       #
@@ -135,6 +143,18 @@ module Sushi
       @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month
 
       raise Sushi::Error::InvalidDateArgumentError.new(data: "Begin date #{params.fetch(:begin_date)} is after end date #{params.fetch(:end_date)}.") if @begin_date > @end_date
+
+      earliest_date = Hyrax::CounterMetric.order(date: :asc).first.date
+      if @begin_date < earliest_date
+        # rubocop:disable Metrics/LineLength
+        raise Sushi::Error::UsageNoLongerAvailableForRequestedDatesError.new(data: "The requested begin_date of #{params[:begin_date]} is before the earliest metric date of #{earliest_date.iso8601}.")
+        # rubocop:enable Metrics/LineLength
+      end
+
+      latest_date = Hyrax::CounterMetric.order(date: :desc).first.date
+      if @end_date > latest_date
+        raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "The requested end_date of #{params[:end_date]} is after the latest metric date of #{latest_date.iso8601}.")
+      end
     rescue ActionController::ParameterMissing, KeyError => e
       raise Sushi::Error::InsufficientInformationToProcessRequestError.new(data: e.message)
     end

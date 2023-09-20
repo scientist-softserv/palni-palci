@@ -81,6 +81,16 @@
      -webkit-box-orient: vertical;
 }
 
+div.neutral_repository.recently-uploaded > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.neutral_repository.recently-uploaded h3 {
+     flex-basis:100%;
+     margin-top:0;
+}
+
   ////// Home Page text Section //////
 
   div.home_page_text.homepage-text-container {

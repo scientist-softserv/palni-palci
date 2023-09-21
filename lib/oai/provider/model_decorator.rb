@@ -49,7 +49,6 @@ module OAI
           publisher: :publisher,
           related_item_id: :related_item_id,
           related_url: :related_url,
-          repository: :account_cname,
           resource_type: :resource_type,
           rights_holder: :rights_holder,
           rights_notes: :rights_notes,

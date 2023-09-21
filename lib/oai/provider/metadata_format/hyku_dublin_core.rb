@@ -20,7 +20,7 @@ module OAI
             education_level extent format has_model keyword language learning_resource_type license
             newer_version_id oer_size previous_version_id publisher related_item_id related_url
             resource_type rights_holder rights_notes rights_statement source subject table_of_contents
-            contributing_library library_catalog_identifier chronology_note repository
+            contributing_library library_catalog_identifier chronology_note
           ]
         end
 
@@ -41,6 +41,7 @@ module OAI
                 xml.tag! field.to_s, values
               end
             end
+            add_repository(xml, record)
             add_public_file_urls(xml, record)
             add_thumbnail_url(xml, record)
           end
@@ -71,6 +72,11 @@ module OAI
           return if record[:thumbnail_path_ss].blank?
           thumbnail_url = "https://#{Site.instance.account.cname}#{record[:thumbnail_path_ss]}"
           xml.tag! 'thumbnail_url', thumbnail_url
+        end
+
+        def add_repository(xml, record)
+          repo_name = Site.application_name || record[:account_cname_tesim].first
+          xml.tag! 'repository', repo_name
         end
 
         def header_specification

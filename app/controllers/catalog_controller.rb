@@ -123,15 +123,16 @@ class CatalogController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
-    # Prior to this change, the applications specific translations were not loaded. Dogbiscuits were assuming the translations were already loaded.
-    Rails.root.glob("config/locales/*.yml").each do |path|
-      I18n.load_path << path.to_s
-    end
-    I18n.backend.reload!
-    index_props = DogBiscuits.config.index_properties.collect do |prop|
-      { prop => index_options(prop, DogBiscuits.config.property_mappings[prop]) }
-    end
-    add_index_field config, index_props
+    # TODO ROB
+#     # Prior to this change, the applications specific translations were not loaded. Dogbiscuits were assuming the translations were already loaded.
+#     Rails.root.glob("config/locales/*.yml").each do |path|
+#       I18n.load_path << path.to_s
+#     end
+#     I18n.backend.reload!
+#     index_props = DogBiscuits.config.index_properties.collect do |prop|
+#       { prop => index_options(prop, DogBiscuits.config.property_mappings[prop]) }
+#     end
+#     add_index_field config, index_props
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

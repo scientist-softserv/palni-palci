@@ -6,6 +6,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :identity_providers
+  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
   concern :iiif_search, BlacklightIiifSearch::Routes.new
   concern :oai_provider, BlacklightOaiProvider::Routes.new
 

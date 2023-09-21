@@ -70,9 +70,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   mount Qa::Engine => '/authorities'
 
   mount Blacklight::Engine => '/'
+  mount BlacklightAdvancedSearch::Engine => '/'
   mount Hyrax::Engine, at: '/'
   mount Bulkrax::Engine, at: '/' if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
-
+  mount HykuKnapsack::Engine, at: '/'
   concern :searchable, Blacklight::Routes::Searchable.new
   concern :exportable, Blacklight::Routes::Exportable.new
 
@@ -82,6 +83,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     concerns :oai_provider
 
     concerns :searchable
+    concerns :range_searchable
   end
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do

@@ -6,6 +6,13 @@
                     class: "representative-media",
                     alt: "",
                     role: "presentation" %>
+      <% if controller_name == 'file_sets' %>
+        <%= link_to t('hyrax.file_set.show.downloadable_content.pdf_link'),
+              hyrax.download_path(file_set),
+              target: :_blank,
+              id: "file_download",
+              data: { label: file_set.id } %>
+      <% end %>
     </div>
 <% else %>
     <div>

@@ -12,7 +12,7 @@ class GenerateCounterMetrics
       work_id = work.fetch('id')
       resource_type = work.fetch('resource_type_tesim').first
       year_of_publication = work.fetch('date_ssi')
-      author = work.fetch('creator_tesim')&.first if work['creator_tesim']
+      author = Sushi::AuthorCoercion.serialize(work.fetch('creator_tesim'))
       publisher = work.fetch('publisher_tesim')&.first if work['publisher_tesim']
       title = work.fetch('title_tesim')&.first if work['title_tesim']
       (0...90).each do |i|

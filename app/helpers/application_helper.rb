@@ -38,6 +38,7 @@ module ApplicationHelper
       disable_indented_code_blocks strikethrough lax_spacing space_after_headers
       quote footnotes highlight underline
     ]
+    text ||= ""
     Markdown.new(text, *options).to_html.html_safe
   end
 end

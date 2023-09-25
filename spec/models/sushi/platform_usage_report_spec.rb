@@ -2,13 +2,12 @@
 
 RSpec.describe Sushi::PlatformUsageReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: "pitt.edu") }
+  let(:created) { Time.zone.now }
 
   describe '#as_json' do
     before { create_hyrax_countermetric_objects }
 
     subject { described_class.new(params, created: created, account: account).as_json }
-
-    let(:created) { Time.zone.now }
 
     context 'with only required params' do
       let(:params) do
@@ -46,6 +45,14 @@ RSpec.describe Sushi::PlatformUsageReport do
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).not_to have_key('Total_Item_Investigations')
         expect(subject.dig('Report_Items', 'Attribute_Performance').first.dig('Performance')).not_to have_key('Unique_Item_Investigations')
       end
+    end
+  end
+
+  describe 'with an unrecognized parameter' do
+    let(:params) {{ other: 'nope' }}
+
+    it 'raises an error' do
+      expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::Error::UnrecognizedParameterError)
     end
   end
 end

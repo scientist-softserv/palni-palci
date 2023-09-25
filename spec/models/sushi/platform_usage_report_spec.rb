@@ -3,6 +3,12 @@
 RSpec.describe Sushi::PlatformUsageReport do
   let(:account) { double(Account, institution_name: 'Pitt', institution_id_data: {}, cname: "pitt.edu") }
   let(:created) { Time.zone.now }
+  let(:required_parameters) do
+    {
+      begin_date: '2022-01-03',
+      end_date: '2022-02-05'
+    }
+  end
 
   describe '#as_json' do
     before { create_hyrax_countermetric_objects }
@@ -10,13 +16,7 @@ RSpec.describe Sushi::PlatformUsageReport do
     subject { described_class.new(params, created: created, account: account).as_json }
 
     context 'with only required params' do
-      let(:params) do
-        {
-          attributes_to_show: ['Access_Method', 'Fake_Value'],
-          begin_date: '2022-01-03',
-          end_date: '2022-02-05'
-        }
-      end
+      let(:params) { required_parameters }
 
       it 'has the expected keys' do
         expect(subject).to be_key('Report_Header')
@@ -30,10 +30,9 @@ RSpec.describe Sushi::PlatformUsageReport do
     context 'with additional params that are not required' do
       let(:params) do
         {
-          begin_date: '2023-08',
-          end_date: '2023-09',
+          **required_parameters,
           metric_type: 'total_item_investigations|total_item_requests|fake_value',
-          attributes_to_show: ['Access_Method', 'Fake_Value']
+          access_method: ['Regular']
         }
       end
 

@@ -13,10 +13,12 @@ module Sushi
     include Sushi::ParameterValidation
 
     ALLOWED_PARAMETERS = [
+      'access_method',
       'api_key',
       'begin_date',
       'customer_id',
       'end_date',
+      'metric_type',
       'platform',
       'requestor_id'
     ].freeze

@@ -113,8 +113,10 @@ module Sushi
   end
 
   ##
+  # This module provides a common interface for validating parameters.
+  #
   # @param params [Hash, ActionController::Parameters]
-  # @param allowed_parameters [Array<String>]
+  # @param allowed_parameters [Array<String>] a list of query parameters AND report filters that are allowed.
   #
   # @return [String]
   # @raise [Sushi::Error::UnrecognizedParameterError] when any unrecognized params are given.

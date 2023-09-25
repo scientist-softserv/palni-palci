@@ -120,10 +120,10 @@ module Sushi
   # @raise [Sushi::Error::UnrecognizedParameterError] when any unrecognized params are given.
   module ParameterValidation
     def validate_paramaters(params = {}, allowed_parameters: [])
-      filtered_params = params.reject { |key, _| ['action', 'controller', 'format'].include?(key) }
-      return if (filtered_params.keys.map(&:to_s) & allowed_parameters).length == filtered_params.keys.length
+      filtered_params = params.keys.map(&:to_s) - ['action', 'controller', 'format']
+      return true if (filtered_params & allowed_parameters).length == filtered_params.length
 
-      raise Sushi::Error::UnrecognizedParameterError.new(data: "The given parameter(s) are invalid: #{(filtered_params.keys - allowed_parameters).join(', ')}.")
+      raise Sushi::Error::UnrecognizedParameterError.new(data: "The given parameter(s) are invalid: #{(filtered_params - allowed_parameters).join(', ')}.")
     end
   end
 

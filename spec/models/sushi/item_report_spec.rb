@@ -242,7 +242,7 @@ RSpec.describe Sushi::ItemReport do
   end
 
   describe 'with an unrecognized parameter' do
-    let(:params) {{ other: 'nope' }}
+    let(:params) { { other: 'nope' } }
 
     it 'raises an error' do
       expect { described_class.new(params, created: created, account: account).as_json }.to raise_error(Sushi::Error::UnrecognizedParameterError)

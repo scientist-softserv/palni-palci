@@ -184,6 +184,21 @@ RSpec.describe Sushi do
         end
       end
     end
+
+    describe '#coerce_author' do
+      let(:klass) do
+        Class.new do
+          include Sushi::AuthorCoercion
+          def initialize(params = {})
+            coerce_author(params)
+          end
+        end
+      end
+
+      it "raises a 3060 error when given a #{Sushi::AuthorCoercion::DELIMITER} character" do
+        expect { klass.new(author: "Hello#{Sushi::AuthorCoercion::DELIMITER}World") }.to raise_error(Sushi::Error::InvalidReportFilterValueError)
+      end
+    end
   end
 
   describe "YearOfPublicationCoercion" do

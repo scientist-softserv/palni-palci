@@ -367,6 +367,9 @@ module Sushi
       return true unless params.key?(:author)
       @author = params[:author]
 
+      # See https://github.com/scientist-softserv/palni-palci/issues/721#issuecomment-1734215004 for details of this little nuance
+      raise Sushi::Error::InvalidReportFilterValueError.new(data: "You may not query for multiple authors (as specified by the `#{DELIMITER}' delimiter.") if @author.include?(DELIMITER)
+
       # rubocop:disable Metrics/LineLength
       raise Sushi::Error::InvalidReportFilterValueError.new(data: "The given author #{author.inspect} was not found in the metrics.") unless Hyrax::CounterMetric.where(author_as_where_parameters).exists?
       # rubocop:enable Metrics/LineLength

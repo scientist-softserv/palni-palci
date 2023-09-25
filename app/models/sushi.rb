@@ -113,6 +113,23 @@ module Sushi
   end
 
   ##
+  # @param params [Hash, ActionController::Parameters]
+  # @param allowed_parameters [Array<String>]
+  #
+  # @return [String]
+  # @raise [Sushi::Error::UnrecognizedParameterError] when any disallowed params are given.
+  module ParameterValidation
+    def validate_paramaters(params = {}, allowed_parameters: [])
+      filtered_params = params.reject { |key, _| ['action', 'controller', 'format'].include?(key) }
+      return if (filtered_params.keys & allowed_parameters).length == filtered_params.keys.length
+
+      ## rubocop:disable Metrics/LineLength
+      raise Sushi::Error::UnrecognizedParameterError.new(data: "The given parameter(s) are invalid: #{(filtered_params.keys - allowed_parameters).join(', ')}.")
+      ## rubocop:enable Metrics/LineLength
+    end
+  end
+
+  ##
   # This module accounts for date behavior that needs to be used across all reports.
   #
   # @see #coerce_dates

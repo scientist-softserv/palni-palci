@@ -77,6 +77,12 @@ module Sushi
       self.default_message = "Usage No Longer Available for Requested Dates"
     end
 
+    class UnrecognizedParameterError < Sushi::Error::Exception
+      self.code = 3050
+      self.help_url = "https://countermetrics.stoplight.io/docs/counter-sushi-api/mvg1sf79k34ni-exception-3050"
+      self.default_message = "Parameter Not Recognized in this Context"
+    end
+
     class InvalidReportFilterValueError < Sushi::Error::Exception
       self.code = 3060
       self.help_url = "https://countermetrics.stoplight.io/docs/counter-sushi-api/s2a2xb68jsnn6-exception-3060"

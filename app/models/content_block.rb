@@ -16,7 +16,7 @@ class ContentBlock < ApplicationRecord
     help: :help_page,
     terms: :terms_page,
     agreement: :agreement_page,
-    home_text: :home_text, 
+    home_text: :home_text,
     homepage_about_section_heading: :homepage_about_section_heading,
     homepage_about_section_content: :homepage_about_section_content
   }.freeze

@@ -110,8 +110,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'file_format_sim', limit: 5
     config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
 
-
-    # TODO deal with part of facet changes
+    # TODO: deal with part of facet changes
     # config.add_facet_field solr_name("part", :facetable), limit: 5, label: 'Part'
     # config.add_facet_field solr_name("part_of", :facetable), limit: 5
     # removed # config.add_facet_field solr_name("file_format", :facetable), limit: 5
@@ -123,16 +122,16 @@ class CatalogController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
-    # TODO ROB
-#     # Prior to this change, the applications specific translations were not loaded. Dogbiscuits were assuming the translations were already loaded.
-#     Rails.root.glob("config/locales/*.yml").each do |path|
-#       I18n.load_path << path.to_s
-#     end
-#     I18n.backend.reload!
-#     index_props = DogBiscuits.config.index_properties.collect do |prop|
-#       { prop => index_options(prop, DogBiscuits.config.property_mappings[prop]) }
-#     end
-#     add_index_field config, index_props
+    # TODO: ROB
+    #     # Prior to this change, the applications specific translations were not loaded. Dogbiscuits were assuming the translations were already loaded.
+    #     Rails.root.glob("config/locales/*.yml").each do |path|
+    #       I18n.load_path << path.to_s
+    #     end
+    #     I18n.backend.reload!
+    #     index_props = DogBiscuits.config.index_properties.collect do |prop|
+    #       { prop => index_options(prop, DogBiscuits.config.property_mappings[prop]) }
+    #     end
+    #     add_index_field config, index_props
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -203,8 +202,8 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
     config.add_search_field('all_fields', label: 'All Fields', include_in_advanced_search: false) do |field|
       all_names = config.show_fields.values.map(&:field).join(" ")
-# TODO ROB all_names = (config.show_fields.values.map { |v| v.field.to_s } +
-          #         DogBiscuits.config.all_properties.map { |p| "#{p}_tesim" }).uniq.join(" ")
+      # TODO: ROB all_names = (config.show_fields.values.map { |v| v.field.to_s } +
+      #         DogBiscuits.config.all_properties.map { |p| "#{p}_tesim" }).uniq.join(" ")
       title_name = 'title_tesim'
       field.solr_parameters = {
         qf: "#{all_names} file_format_tesim all_text_timv",
@@ -233,7 +232,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('creator') do |field|
-      # TODO ROB field.label = "Author"
+      # TODO: ROB field.label = "Author"
       field.solr_parameters = { "spellcheck.dictionary": "creator" }
       solr_name = 'creator_tesim'
       field.solr_local_parameters = {
@@ -276,7 +275,9 @@ class CatalogController < ApplicationController
       }
     end
 
+    # rubocop:disable Lint/UselessAssignment
     date_fields = ['date_created_tesim', 'sorted_date_isi', 'sorted_month_isi']
+    # rubocop:enable Lint/UselessAssignment
 
     config.add_search_field('date_created') do |field|
       field.solr_parameters = {

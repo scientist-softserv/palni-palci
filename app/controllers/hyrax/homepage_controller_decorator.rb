@@ -3,7 +3,6 @@
 # OVERRIDE Hyrax 3.5 to add content blocks
 module Hyrax
   module HomepageControllerDecorator
-
     def index
       @presenter = presenter_class.new(current_ability, collections)
       @featured_researcher = ContentBlock.for(:researcher)

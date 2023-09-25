@@ -21,7 +21,10 @@ body.public-facing a { color: <%= appearance.link_color %>; }
 body.public-facing a:hover,
 body.public-facing a:focus { color: <%= appearance.link_hover_color %>; }
 body.public-facing #sort-dropdown .dropdown-toggle,
-body.public-facing #per_page-dropdown .dropdown-toggle { color: <%= appearance.link_color %>; }
+body.public-facing #per_page-dropdown .dropdown-toggle { color: <%= appearance.default_button_text_color %>; }
+
+/* FOOTER LINK COLOR */
+body.public-facing footer a { color: <%= appearance.footer_link_color %>; }
 
 /* MAIN NAV */
 body.public-facing .navbar-inverse .navbar-link { color: <%= appearance.footer_link_color %>; }

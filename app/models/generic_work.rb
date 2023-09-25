@@ -12,5 +12,4 @@ class GenericWork < ActiveFedora::Base
   self.indexer = GenericWorkIndexer
 
   prepend OrderAlready.for(:creator)
-
 end

@@ -66,8 +66,8 @@ module Hyku
       # Adventist::TextFileTextExtractionService to the beginning of the services array we are
       # enabling text extraction from plain text files.
       Hyrax::DerivativeService.services = [
-        Adventist::TextFileTextExtractionService,
-        IiifPrint::PluggableDerivativeService]
+        IiifPrint::PluggableDerivativeService
+      ]
 
       # When you are ready to use the derivative rodeo instead of the pluggable uncomment the
       # following and comment out the preceding Hyrax::DerivativeService.service

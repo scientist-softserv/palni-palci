@@ -113,6 +113,23 @@ module Sushi
   end
 
   ##
+  # This module provides a common interface for validating parameters.
+  #
+  # @param params [Hash, ActionController::Parameters]
+  # @param allowed_parameters [Array<String>] a list of query parameters AND report filters that are allowed.
+  #
+  # @return [String]
+  # @raise [Sushi::Error::UnrecognizedParameterError] when any unrecognized params are given.
+  module ParameterValidation
+    def validate_paramaters(params = {}, allowed_parameters: [])
+      filtered_params = params.keys.map(&:to_s) - ['action', 'controller', 'format']
+      return true if (filtered_params & allowed_parameters).length == filtered_params.length
+
+      raise Sushi::Error::UnrecognizedParameterError.new(data: "The given parameter(s) are invalid: #{(filtered_params - allowed_parameters).join(', ')}.")
+    end
+  end
+
+  ##
   # This module accounts for date behavior that needs to be used across all reports.
   #
   # @see #coerce_dates

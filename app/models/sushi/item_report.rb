@@ -15,6 +15,7 @@ module Sushi
     include Sushi::DateCoercion
     include Sushi::ItemIDCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::ParameterValidation
     include Sushi::PlatformCoercion
     include Sushi::YearOfPublicationCoercion
 
@@ -37,7 +38,31 @@ module Sushi
       'Unique_Item_Requests'
     ].freeze
 
+    ALLOWED_PARAMETERS = [
+      'access_method',
+      'access_type',
+      'api_key',
+      'attributed',
+      'attributes_to_show',
+      'author',
+      'begin_date',
+      'country_code',
+      'customer_id',
+      'data_type',
+      'end_date',
+      'granularity',
+      'include_component_details',
+      'include_parent_details',
+      'item_id',
+      'metric_type',
+      'platform',
+      'requestor_id',
+      'subdivision_code',
+      'yop'
+    ].freeze
+
     def initialize(params = {}, created: Time.zone.now, account:)
+      validate_paramaters(params, allowed_parameters: ALLOWED_PARAMETERS)
       coerce_access_method(params)
       coerce_author(params)
       coerce_data_types(params)

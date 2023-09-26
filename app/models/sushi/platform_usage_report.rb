@@ -10,8 +10,21 @@ module Sushi
     include Sushi::DataTypeCoercion
     include Sushi::DateCoercion
     include Sushi::MetricTypeCoercion
+    include Sushi::ParameterValidation
+
+    ALLOWED_PARAMETERS = [
+      'access_method',
+      'api_key',
+      'begin_date',
+      'customer_id',
+      'end_date',
+      'metric_type',
+      'platform',
+      'requestor_id'
+    ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
+      validate_paramaters(params, allowed_parameters: ALLOWED_PARAMETERS)
       coerce_data_types(params)
       coerce_dates(params)
       coerce_metric_types(params, allowed_types: ALLOWED_METRIC_TYPES)

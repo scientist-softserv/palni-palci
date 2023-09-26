@@ -25,6 +25,7 @@ body.public-facing #per_page-dropdown .dropdown-toggle { color: <%= appearance.d
 
 /* FOOTER LINK COLOR */
 body.public-facing footer a { color: <%= appearance.footer_link_color %>; }
+body.public-facing footer a:hover { color: <%= appearance.footer_link_hover_color %>; }
 
 /* MAIN NAV */
 body.public-facing .navbar-inverse .navbar-link { color: <%= appearance.footer_link_color %>; }
@@ -57,14 +58,12 @@ body.public-facing .image-masthead .navbar .navbar-nav a:focus {
 }
 
 /* HOME PAGE NAV-PILL TABS */
-body.public-facing .nav-pills > li.active > a,
-body.public-facing .nav-pills > li.active > a:hover,
-body.public-facing .nav-pills > li.active > a:focus {
+body.public-facing .navbar-default .navbar-nav > .active > a, body.public-facing .navbar-default .navbar-nav > .active > a:hover, body.public-facing .navbar-default .navbar-nav > .active > a:focus{
     background-color: <%= appearance.active_tabs_background_color %>;
 }
 
 /* PRIMARY BUTTON STYLES */
-body.public-facing .btn-primary {
+body.public-facing .btn.btn-primary {
   background-color: <%= appearance.primary_button_background_color %>;
   border-color: <%= appearance.primary_button_border_color %>;
 }

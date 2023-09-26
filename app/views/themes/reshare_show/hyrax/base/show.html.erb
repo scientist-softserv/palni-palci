@@ -21,16 +21,11 @@
           </div>
         </div>
         <div class="row py-4">
-          <div class="col-xs-12 col-sm-7">
+          <div class="col-xs-12">
             <%= render 'work_description', presenter: @presenter %>
             <dl class="work-show <%= dom_class(@presenter) %> mb-0" <%= @presenter.microdata_type_to_html %>>
               <%= render 'attribute_rows', presenter: @presenter %>
             </dl>
-          </div>
-          <div class='col-xs-12 col-sm-5'>
-            <button class='btn btn-default d-block ml-auto'>
-              See Additional Info on ReShare <%= "\u25B8" %>
-            </button>
           </div>
         </div>
       </div>
@@ -38,6 +33,4 @@
     <span class='hide analytics-event' data-category="work" data-action="work-view" data-name="<%= @presenter.id %>" >
   </div>
 </div>
-<button class='btn btn-default mb-5'>
-  <%= "\u25C2" %> Back to ReShare Search
-</button>
+

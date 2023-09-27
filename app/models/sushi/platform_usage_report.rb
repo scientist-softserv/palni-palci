@@ -16,7 +16,7 @@ module Sushi
     ALLOWED_METRIC_TYPES = [
       "Searches_Platform",
       "Total_Item_Requests",
-      "Unique_Item_Requests",
+      "Unique_Item_Requests"
     ].freeze
 
     ALLOWED_PARAMETERS = [

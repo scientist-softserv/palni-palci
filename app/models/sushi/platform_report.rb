@@ -29,6 +29,7 @@ module Sushi
     ].freeze
 
     ALLOWED_METRIC_TYPES = [
+      "Searches_Platform",
       "Total_Item_Investigations",
       "Total_Item_Requests",
       "Unique_Item_Investigations",
@@ -115,6 +116,8 @@ module Sushi
     alias to_hash as_json
 
     def attribute_performance_for_resource_types
+      return [] if metric_type_in_params && metric_types.include?("Searches_Platform")
+
       data_for_resource_types.map do |record|
         {
           "Data_Type" => record.resource_type,
@@ -125,6 +128,8 @@ module Sushi
     end
 
     def attribute_performance_for_platform
+      return [] if metric_type_in_params && metric_types.exclude?("Searches_Platform")
+
       [{
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",
@@ -144,6 +149,8 @@ module Sushi
 
     def performance(record)
       metric_types.each_with_object({}) do |metric_type, returning_hash|
+        next if metric_type == "Searches_Platform"
+
         returning_hash[metric_type] =
           if granularity == 'Totals'
             { "Totals" => record.performance.sum { |hash| hash.fetch(metric_type) } }

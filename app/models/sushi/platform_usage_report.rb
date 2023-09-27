@@ -12,6 +12,13 @@ module Sushi
     include Sushi::MetricTypeCoercion
     include Sushi::ParameterValidation
 
+    # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
+    ALLOWED_METRIC_TYPES = [
+      "Searches_Platform",
+      "Total_Item_Requests",
+      "Unique_Item_Requests"
+    ].freeze
+
     ALLOWED_PARAMETERS = [
       'access_method',
       'api_key',
@@ -32,9 +39,6 @@ module Sushi
       @created = created
       @account = account
     end
-
-    # the platform usage report only contains requests. see https://countermetrics.stoplight.io/docs/counter-sushi-api/mgu8ibcbgrwe0-pr-p1-performance-other for details
-    ALLOWED_METRIC_TYPES = ["Unique_Item_Requests", "Total_Item_Requests"].freeze
 
     def as_json(_options = {})
       report_hash = {
@@ -67,6 +71,8 @@ module Sushi
     alias to_hash as_json
 
     def attribute_performance_for_resource_types
+      return [] if metric_type_in_params && metric_types.include?("Searches_Platform")
+
       data_for_resource_types.map do |record|
         {
           "Data_Type" => record.resource_type,
@@ -78,6 +84,8 @@ module Sushi
 
     def performance(record)
       metric_types.each_with_object({}) do |metric_type, returning_hash|
+        next if metric_type == "Searches_Platform"
+
         returning_hash[metric_type] = record.performance.each_with_object({}) do |cell, hash|
           hash[cell.fetch('year_month')] = cell.fetch(metric_type)
         end
@@ -85,6 +93,8 @@ module Sushi
     end
 
     def attribute_performance_for_platform
+      return [] if metric_type_in_params && metric_types.exclude?("Searches_Platform")
+
       [{
         "Data_Type" => "Platform",
         "Access_Method" => "Regular",

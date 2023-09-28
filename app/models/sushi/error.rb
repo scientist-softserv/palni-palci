@@ -99,4 +99,25 @@ module Sushi
       end
     end
   end
+
+  ##
+  # The Info exception differs from the Error exception in that it is returned in the Report_Header.
+  # The message nor data are standarized, and therefore are being required to be passed in.
+  class Info
+    attr_reader :data, :message
+
+    def initialize(data:, message:)
+      @data = data
+      @message = message
+    end
+
+    def as_json(*)
+      {
+        Code: 0,
+        Message: message,
+        Help_URL: "https://countermetrics.stoplight.io/docs/counter-sushi-api/jmelferytrixm-exception-0",
+        Data: data
+      }
+    end
+  end
 end

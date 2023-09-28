@@ -1,7 +1,33 @@
 # frozen_string_literal:true
 
 module Sushi
+  mattr_accessor :info
+
   class << self
+    ##
+    # @param dates [Array<String>]
+    # @raise [Sushi::InvalidParameterValue] when either of the given dates are not formatted correctly.
+    #
+    # @return [TrueClass]
+    #
+    # @note This is necessary because calling `to_date` on a string in 'MM-YYYY' format will assume that 'MM' is the day,
+    #       and will set the current month as 'MM' instead.
+    #
+    #       params.fetch(:begin_date) => "06-2023"
+    #       params.fetch(:begin_date).to_date => Wed, 06 Sep 2023
+    def validate_date_format(dates = [])
+      dates.each do |date|
+        match = date.match(/(^\d{4}-\d{2}$)|(^\d{4}-\d{2}-\d{2}$)/)
+        raise Sushi::Error::InvalidDateArgumentError.new(data: "The given date of \"#{date}\" is invalid. Please provide a date in YYYY-MM format") unless match
+
+        # rubocop:disable Metrics/LineLength
+        info << Sushi::Info.new(data: date.to_s, message: "The day of the month is not taken into consideration when providing metrics. The date provided was amended to account for the full month.").as_json if match[2]
+        # rubocop:enable Metrics/LineLength
+      end
+
+      true
+    end
+
     ##
     # @param value [String, #to_date]
     #
@@ -154,7 +180,9 @@ module Sushi
     #        begin date is not given.
     def coerce_dates(params = {})
       # TODO: We should also be considering available dates as well.
-      #
+
+      Sushi.validate_date_format([params.fetch(:begin_date), params.fetch(:end_date)])
+
       # Because we're receiving user input that is likely strings, we need to do some coercion.
       @begin_date = Sushi.coerce_to_date(params.fetch(:begin_date)).beginning_of_month
       @end_date = Sushi.coerce_to_date(params.fetch(:end_date)).end_of_month

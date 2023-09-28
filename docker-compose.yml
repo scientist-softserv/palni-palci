@@ -176,7 +176,15 @@ services:
         - ghcr.io/samvera/hyku/base:latest
         - ghcr.io/samvera/hyku:latest
         - ghcr.io/samvera/hyku/worker:latest
-    command: bundle exec sidekiq
+    command: 
+      - /bin/sh
+      - -c
+      - >
+        if [ "$$HYRAX_ACTIVE_JOB_QUEUE" == "good_job" ]; then
+          exec bundle exec good_job start
+        else
+          exec bundle exec sidekiq
+        fi
     depends_on:
       check_volumes:
         condition: service_completed_successfully

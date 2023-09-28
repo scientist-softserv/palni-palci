@@ -7,8 +7,8 @@ RSpec.describe Sushi::PlatformReport do
   let(:created) { Time.zone.now }
   let(:required_parameters) do
     {
-      begin_date: '2022-01-03',
-      end_date: '2022-02-05'
+      begin_date: '2022-01',
+      end_date: '2022-02'
     }
   end
 

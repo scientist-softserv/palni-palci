@@ -150,6 +150,29 @@ RSpec.describe Sushi do
     end
   end
 
+  describe '#validate_date_format' do
+    context 'when the begin_date or end_date are in MM-YYYY format' do
+      let(:dates) { ['06-2023', '08-2023'] }
+
+      it 'raises an error' do
+        expect { subject.validate_date_format(dates) }.to raise_error(Sushi::Error::InvalidDateArgumentError)
+      end
+    end
+
+    context 'when the begin_date or end_date are in YYYY-MM-DD format' do
+      let(:dates) { ['2023-06-05', '2023-08-09'] }
+
+      before { Sushi.info = [] }
+
+      it 'stores the exception' do
+        expect(Sushi.info).to be_empty
+        subject.validate_date_format(dates)
+        expect(Sushi.info).not_to be_empty
+        expect(Sushi.info.first).to be_a(Hash)
+      end
+    end
+  end
+
   describe "AuthorCoercion" do
     describe '.deserialize' do
       subject { Sushi::AuthorCoercion.deserialize(string) }

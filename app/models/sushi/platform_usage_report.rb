@@ -7,6 +7,7 @@
 module Sushi
   class PlatformUsageReport
     attr_reader :created, :account
+    include Sushi
     include Sushi::DataTypeCoercion
     include Sushi::DateCoercion
     include Sushi::MetricTypeCoercion
@@ -31,6 +32,7 @@ module Sushi
     ].freeze
 
     def initialize(params = {}, created: Time.zone.now, account:)
+      Sushi.info = []
       validate_paramaters(params, allowed_parameters: ALLOWED_PARAMETERS)
       coerce_data_types(params)
       coerce_dates(params)
@@ -66,6 +68,8 @@ module Sushi
       }
       report_hash["Report_Header"]["Report_Filters"]["Data_Type"] = data_types if data_type_in_params
       report_hash["Report_Header"]["Report_Filters"]["Metric_Type"] = metric_types if metric_type_in_params
+      report_hash["Report_Header"]["Exceptions"] = info if info.present?
+
       report_hash
     end
     alias to_hash as_json

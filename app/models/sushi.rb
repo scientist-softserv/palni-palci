@@ -1,6 +1,8 @@
 # frozen_string_literal:true
 
 module Sushi
+  mattr_accessor :info
+
   class << self
     ##
     # @param dates [Array<String>]
@@ -15,7 +17,12 @@ module Sushi
     #       params.fetch(:begin_date).to_date => Wed, 06 Sep 2023
     def validate_date_format(dates = [])
       dates.each do |date|
-        raise Sushi::Error::InvalidDateArgumentError.new(data: "The given date of \"#{date}\" is invalid. Please provide a date in YYYY-MM format") unless date.match(/(^\d{4}-\d{2}$)|(^\d{4}-\d{2}-\d{2}$)/)
+        match = date.match(/(^\d{4}-\d{2}$)|(^\d{4}-\d{2}-\d{2}$)/)
+        raise Sushi::Error::InvalidDateArgumentError.new(data: "The given date of \"#{date}\" is invalid. Please provide a date in YYYY-MM format") unless match
+
+        # rubocop:disable Metrics/LineLength
+        info << Sushi::Info.new(data: date.to_s, message: "The day of the month is not taken into consideration when providing metrics. The date provided was amended to account for the full month.").as_json if match[2]
+        # rubocop:enable Metrics/LineLength
       end
 
       true

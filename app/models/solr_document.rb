@@ -54,7 +54,7 @@ class SolrDocument
   attribute :department, Solr::Array, 'department_tesim'
   attribute :format, Solr::Array, 'format_tesim'
   attribute :title_ssi, Solr::Array, 'title_ssi_tesim'
-  attribute :bibliographic_citation, Solr::String, 'bibliographic_citation_tesi'
+  attribute :bibliographic_citation, Solr::String, 'bibliographic_citation_tesim'
   attribute :collection_subtitle, Solr::String, 'collection_subtitle_tesi'
   attribute :admin_note, Solr::String, 'admin_note_tesim'
   attribute :contributing_library, Solr::String, 'contributing_library_tesim'

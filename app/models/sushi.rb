@@ -198,7 +198,9 @@ module Sushi
 
       latest_date = Hyrax::CounterMetric.order(date: :desc).first.date
       if @end_date > latest_date
+        # rubocop:disable Metrics/LineLength
         raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "Unable to complete the request because the end_date of #{params[:end_date]} is for a month that has incomplete data.  That month's data ends on #{latest_date.iso8601}.")
+        # rubocop:enable Metrics/LineLength
       end
     rescue ActionController::ParameterMissing, KeyError => e
       raise Sushi::Error::InsufficientInformationToProcessRequestError.new(data: e.message)

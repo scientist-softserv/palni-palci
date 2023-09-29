@@ -192,13 +192,13 @@ module Sushi
       earliest_date = Hyrax::CounterMetric.order(date: :asc).first.date
       if @begin_date < earliest_date
         # rubocop:disable Metrics/LineLength
-        raise Sushi::Error::UsageNoLongerAvailableForRequestedDatesError.new(data: "The requested begin_date of #{params[:begin_date]} is before the earliest metric date of #{earliest_date.iso8601}.")
+        raise Sushi::Error::UsageNoLongerAvailableForRequestedDatesError.new(data: "Unable to complete the request because the begin_date of #{params[:begin_date]} is for a month that has incomplete data.  That month's data starts on #{earliest_date.iso8601}.")
         # rubocop:enable Metrics/LineLength
       end
 
       latest_date = Hyrax::CounterMetric.order(date: :desc).first.date
       if @end_date > latest_date
-        raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "The requested end_date of #{params[:end_date]} is after the latest metric date of #{latest_date.iso8601}.")
+        raise Sushi::Error::UsageNotReadyForRequestedDatesError.new(data: "Unable to complete the request because the end_date of #{params[:end_date]} is for a month that has incomplete data.  That month's data ends on #{latest_date.iso8601}.")
       end
     rescue ActionController::ParameterMissing, KeyError => e
       raise Sushi::Error::InsufficientInformationToProcessRequestError.new(data: e.message)

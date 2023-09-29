@@ -93,8 +93,8 @@ module Sushi
       # @param parameter_name [#to_s]
       # @param allowed_values [Array<#to_s>]
       def self.given_value_does_not_match_allowed_values(parameter_value:, parameter_name:, allowed_values:)
-        new(data: "None of the given values in `#{parameter_name}=#{parameter_value}` are supported at this time." \
-                  "Please use an acceptable value, (#{allowed_values.join(', ')}) instead." \
+        new(data: "None of the given values in `#{parameter_name}=#{parameter_value}` are supported at this time. " \
+                  "Please use an acceptable value, (#{allowed_values.join(', ')}) instead. " \
                   "(Or do not pass the parameter at all, which will default to the acceptable value(s))")
       end
     end

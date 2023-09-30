@@ -25,7 +25,7 @@
             </div>
           <% elsif @presenter.show_pdf_viewer? %>
             <div class="col-sm-12">
-              <%= render 'pdf_js', file_set_presenter: @presenter.file_set_presenters.first %>
+              <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter.file_set_presenters) %>
             </div>
           <% end %>
           <div class="col-sm-3 text-center">

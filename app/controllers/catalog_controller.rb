@@ -275,18 +275,15 @@ class CatalogController < ApplicationController
       }
     end
 
-    # rubocop:disable Lint/UselessAssignment
     date_fields = ['date_created_tesim', 'sorted_date_isi', 'sorted_month_isi']
-    # rubocop:enable Lint/UselessAssignment
 
     config.add_search_field('date_created') do |field|
       field.solr_parameters = {
         "spellcheck.dictionary": "date_created"
       }
-      solr_name = 'created_tesim'
       field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
+        qf: date_fields.join(' '),
+        pf: date_fields.join(' ')
       }
     end
 

@@ -5,6 +5,11 @@ module PdfJsHelper
     "/pdf.js/viewer.html?file=#{path}##{query_param}"
   end
 
+  def pdf_file_set_presenter(file_set_presenters)
+    # currently only supports one pdf per work
+    file_set_presenters.select(&:pdf?).first
+  end
+
   def query_param
     return unless params[:q]
 

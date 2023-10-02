@@ -27,7 +27,7 @@
             </div>
           <% elsif Flipflop.default_pdf_viewer? && @presenter.show_pdf_viewer? && @presenter.file_set_presenters.any?(&:pdf?) %>
             <div class="col-sm-12">
-              <%= render 'pdf_js', file_set_presenter: @presenter.file_set_presenters.first %>
+              <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter.file_set_presenters) %>
             </div>
             <div class="col-sm-12">
               <div class="image-show-description">

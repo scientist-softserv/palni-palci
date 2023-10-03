@@ -77,7 +77,7 @@ module Hyku
       #   IiifPrint::DerivativeRodeoService,
       #   Hyrax::FileSetDerivativesService]
 
-      DerivativeRodeo::Generators::HocrGenerator.additional_tessearct_options = "-l eng_best"
+      DerivativeRodeo::Generators::HocrGenerator.additional_tessearct_options = nil
 
       # Allows us to use decorator files
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")).sort.each do |c|

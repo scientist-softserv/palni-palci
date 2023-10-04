@@ -18,7 +18,7 @@ gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
 gem 'blacklight_range_limit', '6.5.0'
 gem 'bolognese', '>= 1.9.10'
 gem 'bootstrap-datepicker-rails'
-gem 'bulkrax', '~> 5.3'
+gem 'bulkrax', '~> 5.4'
 gem 'byebug', group: %i[development test]
 gem 'capybara', group: %i[test]
 gem 'capybara-screenshot', '~> 1.0', group: %i[test]

@@ -25,7 +25,6 @@
 //= require tether
 // Required by Blacklight
 //= require blacklight/blacklight
-//= require admin_font_select
 //= require admin_color_select
 //= require blacklight_advanced_search
 

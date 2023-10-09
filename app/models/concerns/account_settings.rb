@@ -110,8 +110,10 @@ module AccountSettings
   end
   # rubocop:enable Metrics/BlockLength
 
-  def public_settings
-    all_settings.reject { |k, v| Account.private_settings.include?(k.to_s) || v[:disabled] }
+  def public_settings(is_superadmin: false)
+    settings = all_settings
+    settings = superadmin_settings(is_superadmin) unless is_superadmin
+    settings.reject { |k, v| Account.private_settings.include?(k.to_s) || v[:disabled] }
   end
 
   def live_settings
@@ -234,5 +236,9 @@ module AccountSettings
       # only show analytics partials if analytics are set on the tenant
       Hyrax.config.analytics = Hyrax::Analytics.config.valid?
       # rubocop:enable Style/RedundantSelf
+    end
+
+    def superadmin_settings(is_superadmin)
+      all_settings.reject { |k, _v| Account.superadmin_settings.include?(k.to_sym) }
     end
 end

@@ -17,7 +17,6 @@ class AppIndexer < Hyrax::WorkIndexer
       solr_doc['account_cname_tesim'] = Site.instance&.account&.cname
       solr_doc['all_text_tsimv'] = full_text(object.file_sets.first&.id)
       add_date(solr_doc)
-      solr_doc['parent_work_ids_ssim'] = object.member_of_work_ids
     end
   end
 

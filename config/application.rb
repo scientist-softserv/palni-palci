@@ -34,6 +34,15 @@ module Hyku
   end
 
   class Application < Rails::Application
+    ##
+    # @!group Class Attributes
+    #
+    # @!attribute html_head_title
+    #   The title to render for the application's HTML > HEAD > TITLE element.
+    #   @return [String]
+    class_attribute :html_head_title, default: "Hyku", attr_accessor: false
+    # @!endgroup Class Attributes
+
     # Add this line to load the lib folder first because we need
     # IiifPrint::SplitPdfs::AdventistPagesToJpgsSplitter
     config.autoload_paths.unshift("#{Rails.root}/lib")

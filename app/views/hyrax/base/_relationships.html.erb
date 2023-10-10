@@ -18,5 +18,17 @@
         <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
       <% end %>
     <% end %>
+    <dt><%= "Part of:" %></td></dt>
+    <dd>
+      <td>
+        <ul class="tabular">
+          <% presenter.parent_work_ids.each do |parent_id| %>
+            <li class='attribute attribute-title'>
+              <%= render('relationships_parent_works_row', parent_id: parent_id) %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+    </dd>
   </div>
 <% end %>

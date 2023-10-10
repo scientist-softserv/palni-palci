@@ -92,6 +92,10 @@ module Hyku
       show_pdf_download_button.first.to_i.positive?
     end
 
+    def parent_work_ids
+      solr_document['parent_work_ids_ssim'] || []
+    end
+
     private
 
       def extract_from_identifier(rgx)

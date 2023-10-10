@@ -41,6 +41,21 @@ module Hyku
     #   The title to render for the application's HTML > HEAD > TITLE element.
     #   @return [String]
     class_attribute :html_head_title, default: "Hyku", attr_accessor: false
+
+    # @!attribute user_devise_parameters
+    #   @return [Object]
+    #
+    #   This is a value that you want to set in the before_initialize block.
+    class_attribute :user_devise_parameters, instance_accessor: false, default: [
+                      :database_authenticatable,
+                      :invitable,
+                      :registerable,
+                      :recoverable,
+                      :rememberable,
+                      :trackable,
+                      :validatable,
+                      :omniauthable, { omniauth_providers: %i[saml openid_connect cas] }]
+
     # @!endgroup Class Attributes
 
     # Add this line to load the lib folder first because we need

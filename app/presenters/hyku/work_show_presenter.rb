@@ -92,8 +92,8 @@ module Hyku
       show_pdf_download_button.first.to_i.positive?
     end
 
-    def parent_work_ids
-      solr_document['parent_work_ids_ssim'] || []
+    def parent_works
+      @parent_works ||= solr_document.load_parent_docs
     end
 
     private

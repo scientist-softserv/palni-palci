@@ -22,9 +22,9 @@
     <dd>
       <td>
         <ul class="tabular">
-          <% presenter.parent_work_ids.each do |parent_id| %>
+          <% presenter.parent_works.each do |parent_doc| %>
             <li class='attribute attribute-title'>
-              <%= render('relationships_parent_works_row', parent_id: parent_id) %>
+              <%= render('relationships_parent_works_row', parent_doc: parent_doc) %>
             </li>
           <% end %>
         </ul>

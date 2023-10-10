@@ -7,7 +7,6 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
       "/uploads/uploaded_collection_thumbnails/#{object.id}/#{object.id}_card.jpg"
     end
 
-    # rubocop:disable Metrics/LineLength, Rails/FilePath
     def uploaded_thumbnail?(collection)
       File.exist?(File.join(upload_dir(collection), "#{collection.id}_card.jpg"))
     end
@@ -15,6 +14,5 @@ class UploadedCollectionThumbnailPathService < Hyrax::ThumbnailPathService
     def upload_dir(collection)
       Hyku::Application.path_for("public/uploads/uploaded_collection_thumbnails/#{collection.id}")
     end
-    # rubocop:enable Metrics/LineLength, Rails/FilePath
   end
 end

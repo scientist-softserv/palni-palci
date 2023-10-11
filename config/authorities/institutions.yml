@@ -11,3 +11,9 @@ terms:
   - id: Atla RIM
     term: Atla RIM
     active: true
+  - id: Atla Commons
+    term: Atla Commons
+    active: true
+  - id: Demo
+    term: Demo
+    active: true

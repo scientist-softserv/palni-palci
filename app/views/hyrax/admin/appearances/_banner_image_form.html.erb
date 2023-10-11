@@ -54,9 +54,19 @@
       cropper.getCroppedCanvas().toBlob(function(blob) {
         var formData = new FormData(document.querySelector('form'));
         formData.append('form[banner_image]', blob, 'cropped.jpg');
-
-        // Now submit the form data via AJAX or similar
-        // ...
+        // Use `jQuery.ajax` method for example
+        $.ajax('/admin/appearance', {
+          method: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success() {
+            console.log('Upload success');
+          },
+          error() {
+            console.log('Upload error');
+          },
+        });
       });
     }
   });

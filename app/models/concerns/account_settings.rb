@@ -112,7 +112,7 @@ module AccountSettings
 
   def public_settings(is_superadmin: false)
     settings = all_settings
-    settings = superadmin_settings(is_superadmin) unless is_superadmin
+    settings = superadmin_settings unless is_superadmin
     settings.reject { |k, v| Account.private_settings.include?(k.to_s) || v[:disabled] }
   end
 
@@ -238,7 +238,7 @@ module AccountSettings
       # rubocop:enable Style/RedundantSelf
     end
 
-    def superadmin_settings(is_superadmin)
+    def superadmin_settings
       all_settings.reject { |k, _v| Account.superadmin_settings.include?(k.to_sym) }
     end
 end

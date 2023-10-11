@@ -18,17 +18,9 @@
         <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
       <% end %>
     <% end %>
-    <dt><%= "Part of:" %></td></dt>
-    <dd>
-      <td>
-        <ul class="tabular">
-          <% presenter.parent_works.each do |parent_doc| %>
-            <li class='attribute attribute-title'>
-              <%= render('relationships_parent_works_row', parent_doc: parent_doc) %>
-            </li>
-          <% end %>
-        </ul>
-      </td>
-    </dd>
+    <%# Render a link back to its parent works %>
+    <% if presenter.parent_works.present? %>
+      <%= render 'relationships_parent_works_rows', presenter: presenter %>
+    <% end %>
   </div>
 <% end %>

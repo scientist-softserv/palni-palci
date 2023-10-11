@@ -3,6 +3,7 @@
 # All settings have a precedence order as follows
 # Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
 
+# rubocop:disable Metrics/ModuleLength
 module AccountSettings
   extend ActiveSupport::Concern
   # rubocop:disable Metrics/BlockLength
@@ -242,3 +243,4 @@ module AccountSettings
       all_settings.reject { |k, _v| Account.superadmin_settings.include?(k.to_sym) }
     end
 end
+# rubocop:enable Metrics/ModuleLength

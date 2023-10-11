@@ -46,6 +46,15 @@ class Account < ApplicationRecord
                      format: { with: /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/ },
                      unless: proc { |a| a.tenant == 'public' || a.tenant == 'single' }
 
+  SUPERADMIN_SETTINGS_ONLY = [:contact_email, :contact_email_to,
+                              :analytics_provider, :file_acl, :s3_bucket,
+                              :oai_prefix, :oai_sample_identifier,
+                              :file_size_limit].freeze
+
+  def self.superadmin_settings
+    SUPERADMIN_SETTINGS_ONLY
+  end
+
   def self.admin_host
     host = ENV.fetch('HYKU_ADMIN_HOST', nil)
     host ||= ENV['HOST']

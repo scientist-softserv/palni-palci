@@ -25,6 +25,7 @@ module Hyrax
       end
 
       def update
+        byebug
         form_class.new(update_params).update!
 
         if update_params['default_collection_image']

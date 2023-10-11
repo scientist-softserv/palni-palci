@@ -2,18 +2,64 @@
   <div class="panel-body">
     <% require_image = @form.banner_image? ? false : true %>
     <%# Upload Banner Image %>
-    <%= f.input :banner_image, as: :file, wrapper: :vertical_file_input, required: require_image, hint: t('hyrax.admin.appearances.show.forms.banner_image.hint') %>
+    <%= f.input :banner_image, as: :file, wrapper: :vertical_file_input, required: require_image, hint: t('hyrax.admin.appearances.show.forms.banner_image.hint'), input_html: { name: 'form[banner_image]' } %>
     <%= f.input :banner_image_text, required: true, as: :text, label: 'Banner image alt text' %>
-    <%= image_tag @form.banner_image.url, class: "img-responsive" if @form.banner_image? %>
+
+    <!-- Image preview and cropping area -->
+    <div id="image-preview" style="width: 100%; height: auto;">
+      <img id="image" src="<%= @form.banner_image.url %>" alt="Banner" class="img-responsive" <%= 'style="display:none;"' unless @form.banner_image? %> />
+    </div>
   </div>
+
   <div class="panel-footer">
-    <%= f.submit class: 'btn btn-primary pull-right' %>
+    <%= f.submit class: 'btn btn-primary pull-right banner-submit' %>
   </div>
 <% end %>
-<% if @form.banner_image? %>
-  <div class="panel-footer">
-    <%= simple_form_for @form.site, url: main_app.site_path(@form.site) do |f| %>
-      <%= f.submit 'Remove banner image', class: 'btn btn-danger', name: :remove_banner_image %>
-    <% end %>
-  </div>
-<% end %>
+
+<script>
+  var cropprInstance;
+
+  function initializeCroppr(imageSrc) {
+    var image = document.getElementById('image');
+    image.src = imageSrc;
+    if (cropprInstance) {
+      cropprInstance.destroy();
+    }
+    cropprInstance = new Croppr(image, {
+      aspectRatio: 16 / 9,
+    });
+  }
+
+  document.querySelector('a[href="#banner_image"]').addEventListener('click', function() {
+    var image = document.getElementById('image');
+    if (image.src) {
+      initializeCroppr(image.src);
+    }
+  });
+
+  var inputImage = document.querySelector('[name="form[banner_image]"]');
+
+  inputImage.addEventListener('change', function(e) {
+    var files = e.target.files;
+    if (files && files.length) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        initializeCroppr(e.target.result);  // Pass the new image data to initializeCroppr
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  });
+
+  document.querySelector('.banner-submit').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (cropprInstance) {
+      var croppedImage = cropprInstance.getValue();
+      var formData = new FormData(document.querySelector('form'));
+      formData.append('form[banner_image]', JSON.stringify(croppedImage));
+      // Submit form via AJAX or similar
+      // ...
+    }
+  });
+</script>
+
+

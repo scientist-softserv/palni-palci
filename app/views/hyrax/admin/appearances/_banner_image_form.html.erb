@@ -23,7 +23,8 @@
     var image = document.getElementById('image');
     if (image.src && !cropper) {
       cropper = new Cropper(image, {
-        aspectRatio: 16 / 9,
+        initialAspectRatio: 16 / 9,
+        aspectRatio: NaN
       });
     }
   });
@@ -41,7 +42,8 @@
           cropper.destroy();
         }
         cropper = new Cropper(image, {
-          aspectRatio: 16 / 9,
+          initialAspectRatio: 16 / 9,
+          aspectRatio: NaN
         });
       };
       reader.readAsDataURL(files[0]);
@@ -70,6 +72,3 @@
     }
   });
 </script>
-
-
-

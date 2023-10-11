@@ -83,6 +83,10 @@ module Hyrax
           true
         end
 
+        def banner_image=(value)
+          site.banner_image = value
+        end 
+
         # The alt text for the logo image
         def logo_image_text
           block_for('logo_image_text')

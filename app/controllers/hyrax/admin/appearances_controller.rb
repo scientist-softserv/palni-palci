@@ -25,8 +25,13 @@ module Hyrax
       end
 
       def update
-        byebug
-        form_class.new(update_params).update!
+        form = form_class.new(update_params)
+        if update_params[:banner_image].present?
+          form.banner_image = update_params[:banner_image]
+          form.save!
+        end
+      
+        form.update!
 
         if update_params['default_collection_image']
           # Reindex all Collections and AdminSets to apply new default collection image

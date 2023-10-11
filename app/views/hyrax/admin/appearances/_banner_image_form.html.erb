@@ -53,8 +53,7 @@
     if (cropper) {
       cropper.getCroppedCanvas().toBlob(function(blob) {
         var formData = new FormData(document.querySelector('form'));
-        formData.append('form[banner_image]', blob, 'cropped.jpg');
-        // Use `jQuery.ajax` method for example
+        formData.append('admin_appearance[banner_image]', blob, 'cropped.jpg');  // Adjusted this line
         $.ajax('/admin/appearance', {
           method: 'POST',
           data: formData,

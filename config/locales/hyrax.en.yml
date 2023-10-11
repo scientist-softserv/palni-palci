@@ -376,6 +376,8 @@ en:
         title: Title
         unauthorized: There are no publicly available items in this %{type}.
         visibility: Visibility
+      part_of:
+        label: "Part of:"
       relationships:
         empty: This %{type} is not currently in any collections.
         header: Relationships

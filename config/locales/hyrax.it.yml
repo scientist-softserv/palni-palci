@@ -362,6 +362,8 @@ it:
         title: Titolo
         unauthorized: Non ci sono articoli disponibili pubblicamente in questo %{type}.
         visibility: Visibilità
+      part_of:
+        label: 'Parte di:'
       relationships:
         empty: Questo %{type} non è attualmente in nessuna raccolta.
         header: Le relazioni

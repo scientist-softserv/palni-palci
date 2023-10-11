@@ -92,6 +92,10 @@ module Hyku
       show_pdf_download_button.first.to_i.positive?
     end
 
+    def parent_works
+      @parent_works ||= solr_document.load_parent_docs
+    end
+
     private
 
       def extract_from_identifier(rgx)

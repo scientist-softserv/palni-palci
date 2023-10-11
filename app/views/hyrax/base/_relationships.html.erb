@@ -18,5 +18,9 @@
         <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
       <% end %>
     <% end %>
+    <%# Render a link back to its parent works %>
+    <% if presenter.parent_works.present? %>
+      <%= render 'relationships_parent_works_rows', presenter: presenter %>
+    <% end %>
   </div>
 <% end %>

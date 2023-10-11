@@ -17,23 +17,14 @@
 <% end %>
 
 <script>
-  var cropprInstance;
-
-  function initializeCroppr(imageSrc) {
-    var image = document.getElementById('image');
-    image.src = imageSrc;
-    if (cropprInstance) {
-      cropprInstance.destroy();
-    }
-    cropprInstance = new Croppr(image, {
-      aspectRatio: 16 / 9,
-    });
-  }
+  var cropper;
 
   document.querySelector('a[href="#banner_image"]').addEventListener('click', function() {
     var image = document.getElementById('image');
-    if (image.src) {
-      initializeCroppr(image.src);
+    if (image.src && !cropper) {
+      cropper = new Cropper(image, {
+        aspectRatio: 16 / 9,
+      });
     }
   });
 
@@ -44,7 +35,14 @@
     if (files && files.length) {
       var reader = new FileReader();
       reader.onload = function(e) {
-        initializeCroppr(e.target.result);  // Pass the new image data to initializeCroppr
+        var image = document.getElementById('image');
+        image.src = e.target.result;
+        if (cropper) {
+          cropper.destroy();
+        }
+        cropper = new Cropper(image, {
+          aspectRatio: 16 / 9,
+        });
       };
       reader.readAsDataURL(files[0]);
     }
@@ -52,14 +50,17 @@
 
   document.querySelector('.banner-submit').addEventListener('click', function(e) {
     e.preventDefault();
-    if (cropprInstance) {
-      var croppedImage = cropprInstance.getValue();
-      var formData = new FormData(document.querySelector('form'));
-      formData.append('form[banner_image]', JSON.stringify(croppedImage));
-      // Submit form via AJAX or similar
-      // ...
+    if (cropper) {
+      cropper.getCroppedCanvas().toBlob(function(blob) {
+        var formData = new FormData(document.querySelector('form'));
+        formData.append('form[banner_image]', blob, 'cropped.jpg');
+
+        // Now submit the form data via AJAX or similar
+        // ...
+      });
     }
   });
 </script>
+
 
 

@@ -16,7 +16,7 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery.fontselect
-//= require croppr.min
+//= require cropper.min
 
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap

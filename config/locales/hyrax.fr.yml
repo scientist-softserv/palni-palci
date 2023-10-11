@@ -360,6 +360,8 @@ fr:
         title: Titre
         unauthorized: Il n'y a aucun élément accessible au public dans ce %{type}.
         visibility: Visibilité
+      part_of:
+        label: 'Partie de:'
       relationships:
         empty: Ce %{type} n'est actuellement dans aucune collection.
         header: Des relations

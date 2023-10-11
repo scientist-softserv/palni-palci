@@ -361,6 +361,8 @@ de:
         title: Titel
         unauthorized: Es gibt keine öffentlich verfügbaren Artikel in diesem %{type}.
         visibility: Sichtweite
+      part_of:
+        label: 'Teil von:'
       relationships:
         empty: Dieses %{type} befindet sich derzeit in keiner Sammlung.
         header: Beziehungen

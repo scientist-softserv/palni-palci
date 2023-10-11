@@ -87,13 +87,13 @@ class SolrDocument
 
   # @return [Array<SolrDocument>] a list of solr documents in no particular order
   def load_parent_docs
-    query("member_ids_ssim: #{self.id}", rows: 1000)
+    query("member_ids_ssim: #{id}", rows: 1000)
       .map { |res| ::SolrDocument.new(res) }
   end
 
   # Query solr using POST so that the query doesn't get too large for a URI
   def query(query, **opts)
     result = Hyrax::SolrService.post(query, **opts)
-    result.fetch('response').fetch('docs')
+    result.fetch('response').fetch('docs', [])
   end
 end

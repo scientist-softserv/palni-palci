@@ -154,5 +154,17 @@ RSpec.describe Hyku::WorkShowPresenter do
         expect(presenter.isbns).to be_empty
       end
     end
+
+    describe "#parent_works" do
+      let(:parent_docs) { [double(SolrDocument), double(SolrDocument)] }
+
+      before do
+        allow(solr_document).to receive(:load_parent_docs).and_return(parent_docs)
+      end
+
+      it 'returns the parent works of the solr document' do
+        expect(presenter.parent_works).to eq(parent_docs)
+      end
+    end
   end
 end

@@ -16,6 +16,14 @@
   </div>
 <% end %>
 
+<% if @form.banner_image? %>
+  <div class="panel-footer">
+    <%= simple_form_for @form.site, url: main_app.site_path(@form.site) do |f| %>
+      <%= f.submit 'Remove banner image', class: 'btn btn-danger', name: :remove_banner_image %>
+    <% end %>
+  </div>
+<% end %>
+
 <script>
   var cropper;
 

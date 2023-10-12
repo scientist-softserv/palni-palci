@@ -83,9 +83,7 @@ module Hyrax
           true
         end
 
-        def banner_image=(value)
-          site.banner_image = value
-        end 
+        delegate :banner_image=, to: :site
 
         # The alt text for the logo image
         def logo_image_text

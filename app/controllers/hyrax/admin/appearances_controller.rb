@@ -26,9 +26,7 @@ module Hyrax
 
       def update
         form = form_class.new(update_params)
-        if update_params[:banner_image].present?
-          form.banner_image = update_params[:banner_image]
-        end
+        form.banner_image = update_params[:banner_image] if update_params[:banner_image].present?
 
         form.update!
 

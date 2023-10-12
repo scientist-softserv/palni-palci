@@ -42,11 +42,18 @@ module Hyrax
           height = solr_document.height&.try(:to_i) || 240
           duration = conformed_duration_in_seconds
           IIIFManifest::V3::DisplayContent.new(
-            Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(
-              solr_document.id,
-              label: label,
-              host: request.base_url
-            ),
+            # Hyrax::IiifAv::Engine.routes.url_helpers.iiif_av_content_url(
+            #   solr_document.id,
+            #   label: label,
+            #   host: request.base_url
+            # ),
+            # TODO: This is a hack to pull the download url from hyrax as the video resource.
+            #       Ultimately we want to fix the processing times of the video derivatives so it doesn't take
+            #       hours to days to complete.  The draw back of doing it this way is that we're using the original
+            #       video file which is fine if it's already processed, but if it's a raw, then it is not ideal for
+            #       streaming purposes.  The good thing is that PALs seem to be processing the video derivatives out
+            #       of band first before ingesting so we shouldn't run into this issue.
+            Hyrax::Engine.routes.url_helpers.download_url(solr_document.id, host: request.base_url, protocol: 'https'),
             label: label,
             width: width,
             height: height,

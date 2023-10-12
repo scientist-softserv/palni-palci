@@ -13,10 +13,10 @@
           <div class="splash-browse">
               <h2>Browse our partner repositories:</h2>
               <div class="row home-logo-grid">
-                  <div class="col-xs-6 col-sm-4">
-                        <%= link_to "//#{host_for('rim')}" do %>
-                              <%= image_tag("home-logos/rim_atla.png", class: "tenant-logo", alt: "RIM") %>
-                         <% end %>
+                   <div class="col-xs-6 col-sm-4">
+                       <%= link_to "//#{host_for('atla')}" do %>
+                              <%= image_tag("home-logos/atla_commons.png", class: "tenant-logo", alt: "ATLA") %>
+                       <% end %>
                   </div>
                   <div class="col-xs-6 col-sm-4">
                        <%= link_to "//#{host_for('ctschicago')}" do %>
@@ -30,6 +30,11 @@
                   </div>
                </div>
                <div class="row home-logo-grid">
+                    <div class="col-xs-6 col-sm-4">
+                         <%= link_to "//#{host_for('rim')}" do %>
+                               <%= image_tag("home-logos/rim_atla.png", class: "tenant-logo", alt: "RIM") %>
+                          <% end %>
+                   </div>
                   <div class="col-xs-6 col-sm-4">
                        <%= link_to "//#{host_for('ost')}" do %>
                          <%= image_tag("home-logos/ost.png", class: "tenant-logo", alt: "OST") %>

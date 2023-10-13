@@ -133,8 +133,6 @@ class ApplicationController < ActionController::Base
     end
 
     def ssl_configured?
-      # TODO(orangewolf): remove after atla loadbalancer is fixed (#157)
-      # ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
-      false
+      ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
     end
 end

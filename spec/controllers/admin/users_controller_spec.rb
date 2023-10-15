@@ -39,4 +39,31 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
   end
+
+  context 'as an admin user' do
+    let(:user) { User.invite!(email: 'invited@example.com', skip_invitation: true) }
+
+    before do
+      sign_in create(:admin)
+    end
+
+    describe 'POST #activate' do
+      context 'when user is successfully activated' do
+        before do
+          post :activate, params: { id: user.id }
+        end
+
+        it 'accepts the invitation for the user' do
+          expect(user).not_to be_accepted_or_not_invited
+          user.reload
+          expect(user).to be_accepted_or_not_invited
+        end
+
+        it 'redirects to the admin users path with a success notice' do
+          expect(response).to redirect_to(admin_users_path)
+          expect(flash[:notice]).to eq "User \"#{user.email}\" has been successfully activated."
+        end
+      end
+    end
+  end
 end

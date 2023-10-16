@@ -83,6 +83,8 @@ module Hyrax
           true
         end
 
+        delegate :banner_image=, to: :site
+
         # The alt text for the logo image
         def logo_image_text
           block_for('logo_image_text')

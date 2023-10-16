@@ -42,7 +42,7 @@ RSpec.describe "hyrax/admin/appearances/show", type: :view do
       # logo tab
       assert_select "input#admin_appearance_logo_image[name=?]", "admin_appearance[logo_image]"
       # banner image tab
-      assert_select "input#admin_appearance_banner_image[name=?]", "admin_appearance[banner_image]"
+      assert_select "input#admin_appearance_banner_image[name=?]", "form[banner_image]"
       assert_select "input#admin_appearance_banner_image[type=?]", "file"
       # directory image
       assert_select "input#admin_appearance_directory_image[name=?]", "admin_appearance[directory_image]"

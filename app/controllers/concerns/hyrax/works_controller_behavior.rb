@@ -82,6 +82,12 @@ module Hyrax
     def show
       @user_collections = user_collections
 
+      # Ensures that the user does not get redirected back to /admin/workflows after approving or rejecting a work
+      # when they did not come from that route
+      # see: app/controllers/hyrax/admin/workflows_controller_decorator.rb
+      #      app/controllers/hyrax/workflow_actions_controller_decorator.rb
+      session.delete(:from_admin_workflows) unless request.referer&.include?(admin_workflows_path)
+
       respond_to do |wants|
         wants.html { presenter && parent_presenter }
         wants.json do

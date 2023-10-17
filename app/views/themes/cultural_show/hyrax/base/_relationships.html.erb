@@ -2,6 +2,10 @@
   <div class="work-show">
     <h4><%= t('hyrax.base.show.relationships') %></h4>
     <%= render 'relationships_parent_rows', presenter: presenter %>
+    <%# Render a link back to its parent works %>
+    <% if presenter.parent_works.present? %>
+      <%= render 'relationships_parent_works_rows', presenter: presenter %>
+    <% end %>
   </div>
 <% end %>
 <% if current_user %>
@@ -16,6 +20,10 @@
       <% presenter.grouped_presenters(filtered_by: type).each_pair do |_, items| %>
         <%= render 'relationships_parent_row', type: type, items: items, presenter: presenter %>
       <% end %>
+    <% end %>
+    <%# Render a link back to its parent works %>
+    <% if presenter.parent_works.present? %>
+      <%= render 'relationships_parent_works_rows', presenter: presenter %>
     <% end %>
   </div>
 <% end %>

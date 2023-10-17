@@ -47,8 +47,8 @@ class Account < ApplicationRecord
                      unless: proc { |a| a.tenant == 'public' || a.tenant == 'single' }
 
   SUPERADMIN_SETTINGS = [:analytics_provider, :contact_email, :file_acl,
-                              :file_size_limit, :oai_prefix,
-                              :oai_sample_identifier, :s3_bucket].freeze
+                         :file_size_limit, :oai_prefix,
+                         :oai_sample_identifier, :s3_bucket].freeze
 
   def self.superadmin_settings
     SUPERADMIN_SETTINGS

@@ -248,6 +248,10 @@ zh:
         manage_groups: 管理组
         system_status: 系统状态
       users:
+        activate:
+          confirmation: 您确定要激活用户“%{user}”吗？
+          failure: 无法激活用户“%{user}”。
+          success: 用户“%{user}”已成功激活。
         destroy:
           confirmation: 您确定要删除用户“%{user}”吗？这一行动是不可逆转的。
           failure: 无法删除用户“%{user}”。

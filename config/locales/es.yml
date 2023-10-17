@@ -248,6 +248,10 @@ es:
         manage_groups: Administrar Grupos
         system_status: Estado del sistema
       users:
+        activate:
+          confirmation: ¿Estás seguro de que deseas activar el usuario "%{user}"?
+          failure: No se pudo activar el usuario "%{user}".
+          success: El usuario "%{user}" se ha activado correctamente.
         destroy:
           confirmation: ¿Estás seguro de que deseas eliminar el usuario "%{user}"? Esta acción es irreversible.
           failure: El usuario "%{user}" no pudo ser eliminado.

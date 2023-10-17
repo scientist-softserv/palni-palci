@@ -254,6 +254,10 @@ fr:
         system_status: État du système
         technical: Technique
       users:
+        activate:
+          confirmation: Etes-vous sûr de vouloir activer l'utilisateur "%{user}" ?
+          failure: L'utilisateur "%{user}" n'a pas pu être activé.
+          success: L'utilisateur "%{user}" a été activé avec succès.
         destroy:
           confirmation: Voulez-vous vraiment supprimer l'utilisateur "%{user}"? Cette action est irréversible.
           failure: L'utilisateur "%{user}" n'a pas pu être supprimé.

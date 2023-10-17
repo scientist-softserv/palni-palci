@@ -44,10 +44,11 @@ RSpec.describe AccountSettings do
     context 'when is_superadmin is false' do
       # rubocop:disable RSpec/ExampleLength
       it 'returns all settings except private, disabled, and superadmin settings' do
-        expect(Account::SUPERADMIN_SETTINGS_ONLY.size).to eq 8
+        expect(Account::SUPERADMIN_SETTINGS.size).to eq 7
         expect(account.public_settings(is_superadmin: false).keys.sort).to eq %i[allow_downloads
                                                                                  allow_signup
                                                                                  cache_api
+                                                                                 contact_email_to
                                                                                  doi_reader
                                                                                  doi_writer
                                                                                  email_domain
@@ -66,7 +67,7 @@ RSpec.describe AccountSettings do
                                                                                  smtp_settings
                                                                                  solr_collection_options
                                                                                  ssl_configured]
-        expect(account.public_settings(is_superadmin: false).size).to eq 21
+        expect(account.public_settings(is_superadmin: false).size).to eq 22
       end
       # rubocop:enable RSpec/ExampleLength
     end

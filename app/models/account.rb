@@ -46,13 +46,12 @@ class Account < ApplicationRecord
                      format: { with: /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/ },
                      unless: proc { |a| a.tenant == 'public' || a.tenant == 'single' }
 
-  SUPERADMIN_SETTINGS_ONLY = [:contact_email, :contact_email_to,
-                              :analytics_provider, :file_acl, :s3_bucket,
-                              :oai_prefix, :oai_sample_identifier,
-                              :file_size_limit].freeze
+  SUPERADMIN_SETTINGS = [:analytics_provider, :contact_email, :file_acl,
+                              :file_size_limit, :oai_prefix,
+                              :oai_sample_identifier, :s3_bucket].freeze
 
   def self.superadmin_settings
-    SUPERADMIN_SETTINGS_ONLY
+    SUPERADMIN_SETTINGS
   end
 
   def self.admin_host
@@ -136,12 +135,11 @@ class Account < ApplicationRecord
   def setup_tenant_cache(is_enabled)
     Rails.application.config.action_controller.perform_caching = is_enabled
     ActionController::Base.perform_caching = is_enabled
-    # rubocop:disable Style/ConditionalAssignment
-    if is_enabled
-      Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
-    else
-      Rails.application.config.cache_store = :file_store, ENV.fetch('HYKU_CACHE_ROOT', '/app/samvera/file_cache')
-    end
+    Rails.application.config.cache_store = if is_enabled
+                                             [:redis_cache_store, { url: Redis.current.id }]
+                                           else
+                                             [:file_store, ENV.fetch('HYKU_CACHE_ROOT', '/app/samvera/file_cache')]
+                                           end
     # rubocop:enable Style/ConditionalAssignment
     Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
   end

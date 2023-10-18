@@ -5,13 +5,8 @@
     <h2><%= t('hyrax.base.show.relationships') %></h2>
     <%= render 'relationships_parent_rows', presenter: presenter %>
   </div>
-<% elsif !current_user %>
-  <%# Parent Work %>
-  <%# Render a link back to its parent works %>
-  <% if presenter.parent_works(current_user).present? %>
-    <%= render 'relationships_parent_works_rows', presenter: presenter %>
-  <% end %>
 <% end %>
+
 <% if current_user %>
   <div class="work-show">
     <h2><%= t('hyrax.base.show.relationships') %></h2>
@@ -35,4 +30,10 @@
       <%= render 'relationships_parent_works_rows', presenter: presenter %>
     <% end %>
   </div>
+<% else %>
+  <%# Parent Work %>
+  <%# Render a link back to its parent works %>
+  <% if presenter.parent_works(current_user).present? %>
+    <%= render 'relationships_parent_works_rows', presenter: presenter %>
+  <% end %>
 <% end %>

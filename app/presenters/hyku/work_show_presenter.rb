@@ -92,9 +92,18 @@ module Hyku
       show_pdf_download_button.first.to_i.positive?
     end
 
-    def parent_works
-      @parent_works ||= solr_document.load_parent_docs
+    def parent_works(current_user = nil)
+      @parent_works ||= begin
+        docs = solr_document.load_parent_docs
+    
+        if current_user
+          docs.select { |doc| current_user.ability.can?(:read, doc) }
+        else
+          docs.select(&:public?)
+        end
+      end
     end
+    
 
     private
 

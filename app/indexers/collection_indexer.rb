@@ -10,6 +10,8 @@ class CollectionIndexer < Hyrax::CollectionIndexer
     super.tap do |solr_doc|
       solr_doc['bulkrax_identifier_tesim'] = object.bulkrax_identifier
       solr_doc['title_ssi'] = SortTitle.new(object.title.first).alphabetical
+      solr_doc['depositer_ssi'] = object.depositor
+      solr_doc['creator_ssi'] = object.creator&.first
       solr_doc["account_cname_tesim"] = Site.instance&.account&.cname
     end
   end

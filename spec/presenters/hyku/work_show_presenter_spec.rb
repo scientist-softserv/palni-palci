@@ -156,14 +156,38 @@ RSpec.describe Hyku::WorkShowPresenter do
     end
 
     describe "#parent_works" do
-      let(:parent_docs) { [double(SolrDocument), double(SolrDocument)] }
+      let(:public_doc) { double(SolrDocument, public?: true) }
+      let(:non_public_doc) { double(SolrDocument, public?: false) }
+      let(:parent_docs) { [public_doc, non_public_doc] }
+      let(:current_user) { double(User, ability: double) }
 
       before do
         allow(solr_document).to receive(:load_parent_docs).and_return(parent_docs)
       end
 
       it 'returns the parent works of the solr document' do
+        parent_docs.each do |doc|
+          allow(doc).to receive(:public?).and_return(true) # Assumes all parent docs are public
+        end
+
         expect(presenter.parent_works).to eq(parent_docs)
+      end
+
+      context 'when a public doc is not public' do
+        it 'excludes non-public documents' do
+          allow(non_public_doc).to receive(:public?).and_return(false)
+
+          expect(presenter.parent_works).to eq([public_doc])
+        end
+      end
+
+      context 'with a current user and their ability' do
+        it 'filters based on user ability' do
+          allow(current_user.ability).to receive(:can?).with(:read, public_doc).and_return(false)
+          allow(current_user.ability).to receive(:can?).with(:read, non_public_doc).and_return(true)
+
+          expect(presenter.parent_works(current_user)).to eq([non_public_doc])
+        end
       end
     end
   end

@@ -1,12 +1,15 @@
 <% if !current_user && presenter.grouped_presenters.present? %>
+  <%# Collection %>
   <div class="work-show">
     <h4><%= t('hyrax.base.show.relationships') %></h4>
     <%= render 'relationships_parent_rows', presenter: presenter %>
-    <%# Render a link back to its parent works %>
-    <% if presenter.parent_works.present? %>
-      <%= render 'relationships_parent_works_rows', presenter: presenter %>
-    <% end %>
   </div>
+<% elsif !current_user %>
+  <%# Parent Work %>
+  <%# Render a link back to its parent works %>
+  <% if presenter.parent_works(current_user).present? %>
+    <%= render 'relationships_parent_works_rows', presenter: presenter %>
+  <% end %>
 <% end %>
 <% if current_user %>
   <div class="work-show">
@@ -22,7 +25,7 @@
       <% end %>
     <% end %>
     <%# Render a link back to its parent works %>
-    <% if presenter.parent_works.present? %>
+    <% if presenter.parent_works(current_user).present? %>
       <%= render 'relationships_parent_works_rows', presenter: presenter %>
     <% end %>
   </div>

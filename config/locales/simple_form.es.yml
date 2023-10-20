@@ -20,7 +20,7 @@ es:
         google_oauth_private_key_path: La ruta completa a su archivo p12, archivo clave. (Puede usar el valor de la clave privada O el camino; el valor tiene prioridad)
         google_oauth_private_key_secret: El secreto proporcionado cuando creó la clave p12
         google_oauth_client_email: Dirección de correo electrónico del cliente OAuth
-        contact_email: La dirección de correo electrónico a la que se envían los mensajes enviados a través de la página de contacto
+        contact_email_to: La dirección de correo electrónico a la que se envían los mensajes enviados a través de la página de contacto
         weekly_email_list: Lista de direcciones de correo electrónico para enviar el informe semanal. Deje un espacio entre cada correo electrónico
         monthly_email_list: Lista de direcciones de correo electrónico para enviar el informe mensual. Deje un espacio entre cada correo electrónico
         yearly_email_list: Lista de direcciones de correo electrónico para enviar el informe anual. Deje un espacio entre cada correo electrónico
@@ -36,7 +36,7 @@ es:
         doi_writer: Escribir DOIs para registros. WIP no usar
         cache_api: Activa la caché para puntos finales de API. Experimental
         email_subjet_prefix: Cadena para poner al frente de los asuntos de correo electrónico del sistema.
-        contact_email_to: La dirección de correo electrónico desde la que se enviarán las notificaciones del sistema. Se requiere una configuración adicional para agregar una dirección de dominios distintos al dominio del sitio
+        contact_email: La dirección de correo electrónico desde la que se enviarán las notificaciones del sistema. Se requiere una configuración adicional para agregar una dirección de dominios distintos al dominio del sitio
         geonames_username: Regístrese en http://www.geonames.org/manageaccount
         file_acl: Desactívelo si usa un sistema de archivos como samba o nfs que no admite listas de control de acceso
         ssl_configured: Establézcalo como verdadero si está utilizando https

@@ -23,9 +23,13 @@
             <div class="col-sm-12">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
             </div>
+          <% elsif @presenter.show_pdf_viewer? %>
+            <div class="col-sm-12">
+              <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
+            </div>
           <% end %>
           <div class="col-sm-3 text-center">
-            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
+            <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? || @presenter.show_pdf_viewer? %>
             <%= render 'citations', presenter: @presenter %>
             <!-- analytics_button is disabled until future fix -->
             <%#= render 'analytics_button', presenter: @presenter %>

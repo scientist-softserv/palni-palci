@@ -9,7 +9,10 @@
     <button type="button" id="activate-cropper" class="btn btn-primary" style=<%= @form.banner_image.url ? "display:block;" : "display:none;" %>>Crop Image</button>
     <br />
     <div id="image-preview" style="width: 100%; height: auto;">
-      <img id="image" src="<%= @form.banner_image.url || Hyrax.config.banner_image %>" alt="Banner Image Preview Area" class="img-responsive" />
+      <img id="image" src="<%= "#{@form.banner_image.url || Hyrax.config.banner_image}?#{Time.now.to_i}" %>" alt="Banner Image Preview Area" class="img-responsive" />
+    </div>
+    <div id="spinner" style="display: none;" class="pull-right">
+      <%= image_tag("loading-progress.gif", alt: "Loading...") %>
     </div>
   </div>
 
@@ -63,25 +66,35 @@
     }
   });
 
-  document.querySelector('.banner-submit').addEventListener('click', function(e) {
-    e.preventDefault();
-    if (cropper) {
-      cropper.getCroppedCanvas().toBlob(function(blob) {
-        var formData = new FormData(document.querySelector('form'));
-        formData.append('admin_appearance[banner_image]', blob, 'cropped.jpg');  // Adjusted this line
-        $.ajax('/admin/appearance', {
-          method: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          success() {
-            console.log('Upload success');
-          },
-          error() {
-            console.log('Upload error');
-          },
-        });
+document.querySelector('.banner-submit').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  // Show the spinner
+  $('#spinner').show();
+
+  if (cropper) {
+    cropper.getCroppedCanvas().toBlob(function(blob) {
+      var formData = new FormData(document.querySelector('form'));
+      formData.append('admin_appearance[banner_image]', blob, 'cropped.jpg');
+
+      $.ajax('/admin/appearance', {
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success() {
+          console.log('Upload success');
+          // Hide the spinner
+          $('#spinner').hide();
+        },
+        error() {
+          console.log('Upload error');
+          // Hide the spinner
+          $('#spinner').hide();
+        },
       });
-    }
-  });
+    });
+  }
+});
+
 </script>

@@ -1,7 +1,9 @@
 <%# Copied from Hyrax v2.9.0 to remove span with class background-container-gradient - in order to remove gradient hyku wide - theming %>
 <% content_for(:navbar) do %>
   <div class="image-masthead">
-    <div class="background-container" title="<%= block_for(name: 'banner_image_text') %>"  style="background-image: url('<%= banner_image %>')"></div>
+    <div class="background-container" title="<%= block_for(name: 'banner_image_text') %>" style="background-image: url('<%= "#{banner_image}?#{Time.now.to_i}" %>')">
+  </div>
+
     <div class="container site-title-container">
       <div class="site-title h1" style="text-align: center;">
         <%= render "hyrax/homepage/marketing" if controller_name == 'homepage' %>

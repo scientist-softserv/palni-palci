@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# OVERRIDE Blacklight v6.25.0 to add custom sort fields while in the dashboard for both collections and works
+# OVERRIDE Blacklight v6.25.0 to add custom sort fields while in the dashboard for collections
 
 module Blacklight
   module ConfigurationHelperBehavior

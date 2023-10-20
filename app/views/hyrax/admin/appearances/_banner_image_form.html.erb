@@ -9,7 +9,7 @@
     <button type="button" id="activate-cropper" class="btn btn-primary" style=<%= @form.banner_image.url ? "display:block;" : "display:none;" %>>Crop Image</button>
     <br />
     <div id="image-preview" style="width: 100%; height: auto;">
-      <img id="image" src="<%= @form.banner_image.url || Hyrax.config.banner_image %>" alt="Banner Image Preview Area" class="img-responsive" />
+      <img id="image" src="<%= "#{@form.banner_image.url || Hyrax.config.banner_image}?#{Time.now.to_i}" %>" alt="Banner Image Preview Area" class="img-responsive" />
     </div>
     <div id="spinner" style="display: none;" class="pull-right">
       <%= image_tag("loading-progress.gif", alt: "Loading...") %>

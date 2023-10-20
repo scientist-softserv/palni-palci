@@ -15,7 +15,7 @@ module Hyrax
             doc = permissions_doc(id)
             all_work_types_and_files.include?(doc.hydra_model)
           end
-        elsif work_depositor?
+        elsif work_depositor? || admin_set_with_deposit?
           can %i[create], all_work_types_and_files
         end
       end

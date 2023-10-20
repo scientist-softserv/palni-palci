@@ -15,7 +15,6 @@ class Ability
     user_roles
     work_roles
     featured_collection_abilities
-    everyone_can_create_curation_concerns
   ]
   # If the Groups with Roles feature is disabled, allow registered users to create curation concerns
   # (Works, Collections, and FileSets). Otherwise, omit this ability logic as to not

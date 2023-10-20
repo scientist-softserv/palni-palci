@@ -20,7 +20,7 @@ it:
         google_oauth_private_key_path: Il percorso completo del tuo file p12, file chiave. (Puoi utilizzare il valore della chiave privata OPPURE il percorso; il valore ha la precedenza)
         google_oauth_private_key_secret: Il segreto fornito quando hai creato la chiave p12
         google_oauth_client_email: Indirizzo email del client OAuth
-        contact_email: L'indirizzo email al quale i messaggi inviati tramite la pagina di contatto sono inviati
+        contact_email_to: L'indirizzo email al quale i messaggi inviati tramite la pagina di contatto sono inviati
         weekly_email_list: Lista di indirizzi email ai quali inviare il rapporto settimanale. Lascia uno spazio tra ogni email
         monthly_email_list: Lista di indirizzi email ai quali inviare il rapporto mensile. Lascia uno spazio tra ogni email
         yearly_email_list: Lista di indirizzi email ai quali inviare il rapporto annuale. Lascia uno spazio tra ogni email
@@ -36,7 +36,7 @@ it:
         doi_writer: Scrivi DOI per i record. Lavoro in corso, non utilizzare
         cache_api: Abilita la cache per gli endpoint API. Sperimentale
         email_subjet_prefix: Stringa da mettere davanti agli oggetti delle email di sistema.
-        contact_email_to: L'indirizzo email da cui saranno inviate le notifiche di sistema. È richiesta una configurazione aggiuntiva per aggiungere un indirizzo da domini diversi dal dominio del sito
+        contact_email: L'indirizzo email da cui saranno inviate le notifiche di sistema. È richiesta una configurazione aggiuntiva per aggiungere un indirizzo da domini diversi dal dominio del sito
         geonames_username: Registrati su http://www.geonames.org/manageaccount
         file_acl: Disattiva se stai utilizzando un sistema di file come samba o nfs che non supporta le liste di controllo degli accessi
         ssl_configured: Impostalo su vero se stai utilizzando https

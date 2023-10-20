@@ -20,7 +20,7 @@ de:
         google_oauth_private_key_path: Der vollständige Pfad zu Ihrer p12-Schlüsseldatei. (Sie können den privaten Schlüsselwert ODER den Pfad verwenden; der Wert hat Vorrang)
         google_oauth_private_key_secret: Das Geheimnis, das Sie beim Erstellen des p12-Schlüssels angegeben haben
         google_oauth_client_email: OAuth-Client-E-Mail-Adresse
-        contact_email: Die E-Mail-Adresse, an die über die Kontaktseite gesendete Nachrichten gesendet werden
+        contact_email_to: Die E-Mail-Adresse, an die über die Kontaktseite gesendete Nachrichten gesendet werden
         weekly_email_list: Liste von E-Mail-Adressen, an die der wöchentliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
         monthly_email_list: Liste von E-Mail-Adressen, an die der monatliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
         yearly_email_list: Liste von E-Mail-Adressen, an die der jährliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
@@ -36,7 +36,7 @@ de:
         doi_writer: DOIs für Datensätze schreiben. WIP nicht verwenden
         cache_api: Cache für API-Endpunkte aktivieren. Experimentell
         email_subjet_prefix: Zeichenfolge, die vor System-E-Mail-Betreffs eingefügt wird.
-        contact_email_to: Die E-Mail-Adresse, von der Systembenachrichtigungen gesendet werden. Eine zusätzliche Konfiguration ist erforderlich, um eine Adresse von anderen Domänen als der Domäne der Website hinzuzufügen
+        contact_email: Die E-Mail-Adresse, von der Systembenachrichtigungen gesendet werden. Eine zusätzliche Konfiguration ist erforderlich, um eine Adresse von anderen Domänen als der Domäne der Website hinzuzufügen
         geonames_username: Registrieren Sie sich unter http://www.geonames.org/manageaccount
         file_acl: Deaktivieren Sie dies, wenn Sie ein Dateisystem wie Samba oder NFS verwenden, das das Festlegen von Zugriffssteuerungslisten nicht unterstützt
         ssl_configured: Setzen Sie es auf wahr, wenn Sie https verwenden

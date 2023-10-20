@@ -20,7 +20,7 @@ pt-BR:
         google_oauth_private_key_path: O caminho completo para o seu arquivo p12, arquivo de chave. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
         google_oauth_private_key_secret: O segredo fornecido quando você criou a chave p12
         google_oauth_client_email: Endereço de e-mail do cliente OAuth
-        contact_email: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
+        contact_email_to: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
         weekly_email_list: Lista de endereços de e-mail para enviar o relatório semanal. Deixe um espaço único entre cada e-mail
         monthly_email_list: Lista de endereços de e-mail para enviar o relatório mensal. Deixe um espaço único entre cada e-mail
         yearly_email_list: Lista de endereços de e-mail para enviar o relatório anual. Deixe um espaço único entre cada e-mail
@@ -36,7 +36,7 @@ pt-BR:
         doi_writer: Escrever DOIs para registros. Em desenvolvimento, não use
         cache_api: Ativar cache para pontos finais de API. Experimental
         email_subjet_prefix: String para colocar na frente dos assuntos dos e-mails do sistema.
-        contact_email_to: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
+        contact_email: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
         geonames_username: Registre-se em http://www.geonames.org/manageaccount
         file_acl: Desative se estiver usando um sistema de arquivos como samba ou nfs que não suporta listas de controle de acesso
         ssl_configured: Defina como verdadeiro se estiver usando https

@@ -137,6 +137,7 @@ module Sushi
 
     def attribute_performance_for_platform
       return [] if metric_type_in_params && metric_types.exclude?("Searches_Platform")
+      return [] if data_type_in_params && !data_types.find { |dt| dt.casecmp("Platform").zero? }
 
       [{
         "Data_Type" => "Platform",

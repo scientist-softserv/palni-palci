@@ -46,6 +46,21 @@ RSpec.describe Sushi::PlatformReport do
         expect(subject.dig('Report_Items', 'Attribute_Performance').map { |ap| ap['Data_Type'] }.sort).to match_array(['Article', 'Platform'])
       end
     end
+    context 'when given a non-platform data_type and omit searches platform' do
+      let(:params) do
+        {
+          begin_date: '2023-08',
+          end_date: '2023-09',
+          data_type: 'article',
+          attributes_to_show: ['Access_Method', 'Fake_Value'],
+          granularity: 'totals'
+        }
+      end
+
+      it 'omits the platform data type' do
+        expect(subject.dig('Report_Items', 'Attribute_Performance').detect { |dt| dt['Data_Type']['Platform'] }).to be_nil
+      end
+    end
 
     context 'with additional params that are not required' do
       let(:params) do

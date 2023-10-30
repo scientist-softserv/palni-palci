@@ -120,7 +120,11 @@ module Sushi
     alias to_hash as_json
 
     def attribute_performance_for_resource_types
-      return [] if metric_type_in_params && metric_types.include?("Searches_Platform")
+      # We want to consider "or" behavior for multiple metric_types.  Namely if you specify any
+      # metric type (other than Searches_Platform) you're going to get results.
+      #
+      # See https://github.com/scientist-softserv/palni-palci/issues/686#issuecomment-1785326034
+      return [] if metric_type_in_params && (metric_types & (ALLOWED_METRIC_TYPES - ['Searches_Platform'])).count.zero?
 
       data_for_resource_types.map do |record|
         {

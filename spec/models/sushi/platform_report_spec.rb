@@ -33,6 +33,20 @@ RSpec.describe Sushi::PlatformReport do
       end
     end
 
+    context 'when given metric_types searches_platform AND total_item_requests' do
+      let(:params) do
+        {
+          begin_date: '2023-08',
+          end_date: '2023-09',
+          metric_type: 'total_item_requests|searches_platform'
+        }
+      end
+
+      it 'includes the platform data type and the article data type (which is the only data type within the date range' do
+        expect(subject.dig('Report_Items', 'Attribute_Performance').map { |ap| ap['Data_Type'] }.sort).to match_array(['Article', 'Platform'])
+      end
+    end
+
     context 'with additional params that are not required' do
       let(:params) do
         {

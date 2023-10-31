@@ -31,7 +31,7 @@ namespace :hyku do
       progressbar = ProgressBar.create(total: Collection.count, title: title, format: "%t %c of %C %a %B %p%%")
       begin
         Collection.find_each do |collection|
-          ReindexCollectionsJob.perform_later(collection)
+          ReindexCollectionsJob.perform_later(collection.id)
           progressbar.increment
         end
       rescue => e

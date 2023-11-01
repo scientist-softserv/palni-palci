@@ -122,6 +122,8 @@ extraEnvVars: &envVars
     value: hykucommons.org
   - name: HYKU_USER_DEFAULT_PASSWORD
     value: password
+  - name: HYRAX_USE_SOLR_GRAPH_NESTING
+    value: "true"
   - name: HYRAX_ACTIVE_JOB_QUEUE
     value: sidekiq
   - name: HYRAX_ANALYTICS

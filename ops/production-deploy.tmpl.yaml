@@ -138,6 +138,8 @@ extraEnvVars: &envVars
     value: /app/fits/tools/mediainfo/linux
   - name: NEGATIVE_CAPTCHA_SECRET
     value: $NEGATIVE_CAPTCHA_SECRET
+  - name: OMP_THREAD_LIMIT
+    value: "1"
   - name: PASSENGER_APP_ENV
     value: production
   - name: RAILS_CACHE_STORE_URL

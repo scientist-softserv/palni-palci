@@ -33,18 +33,13 @@ module Hyrax
 
     # override hyrax v2.9.0 added @home_text - Adding Themes
     def index
-      @presenter = presenter_class.new(current_ability, collections)
       @featured_researcher = ContentBlock.for(:researcher)
-      @marketing_text = ContentBlock.for(:marketing)
       @home_text = ContentBlock.for(:home_text)
       @featured_work_list = FeaturedWorkList.new
       # OVERRIDE here to add featured collection list
       @featured_collection_list = FeaturedCollectionList.new
-      @announcement_text = ContentBlock.for(:announcement)
+      load_shared_info
       recent
-      ir_counts if home_page_theme == 'institutional_repository'
-      @top_level_collections = collections(rows: 100_000).select{ |c| c['nesting_collection__deepest_nested_depth_isi'] == 1 }[0..5] if home_page_theme == 'institutional_repository'
-
       # override hyrax v2.9.0 added for facets on homepage - Adding Themes
       (@response, @document_list) = search_results(params)
 
@@ -66,11 +61,7 @@ module Hyrax
     def browserconfig; end
 
     def all_collections
-      @presenter = presenter_class.new(current_ability, collections)
-      @marketing_text = ContentBlock.for(:marketing)
-      @announcement_text = ContentBlock.for(:announcement)
-      @collections = collections(rows: 100_000)
-      ir_counts if home_page_theme == 'institutional_repository'
+      load_shared_info
     end
 
     # Added from Blacklight 6.23.0 to change url for facets on home page
@@ -85,6 +76,22 @@ module Hyrax
       end
 
     private
+
+      # shared methods for index and all_collections routes
+      def load_shared_info
+        @presenter = presenter_class.new(current_ability, collections)
+        @marketing_text = ContentBlock.for(:marketing)
+        @announcement_text = ContentBlock.for(:announcement)
+        @collections = collections(rows: 100_000)
+        if home_page_theme == 'institutional_repository'
+          ir_counts
+          @top_level_collections ||= load_top_level_collections(@collections)
+        end
+      end
+
+      def load_top_level_collections(colls)
+        colls.select{ |c| c['member_of_collection_ids_ssim'].nil? }
+      end
 
       # Return 6 collections
       def collections(rows: 6)

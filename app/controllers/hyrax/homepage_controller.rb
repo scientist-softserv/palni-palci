@@ -90,7 +90,7 @@ module Hyrax
       end
 
       def load_top_level_collections(colls)
-        colls.select{ |c| c['member_of_collection_ids_ssim'] == nil }
+        colls.select{ |c| c['member_of_collection_ids_ssim'].nil? }
       end
 
       # Return 6 collections

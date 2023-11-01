@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe ReindexCollectionsJob, type: :job do
   describe '#perform' do
     context 'when collection_id is present' do

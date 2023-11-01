@@ -11,8 +11,8 @@ class ReindexCollectionsJob < ApplicationJob
 
   private
 
-  def update_collection_index(collection)
-    collection.try(:reindex_extent=, Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX)
-    collection&.update_index
-  end
+    def update_collection_index(collection)
+      collection.try(:reindex_extent=, Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX)
+      collection&.update_index
+    end
 end

@@ -32,5 +32,5 @@ Flipflop.configure do
 
   feature :show_login_link,
           default: true,
-          description: "Shows a user login option."
+          description: "Show General Login Link at Top Right of Page."
 end

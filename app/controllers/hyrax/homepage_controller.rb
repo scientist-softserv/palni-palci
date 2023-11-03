@@ -83,10 +83,12 @@ module Hyrax
         @marketing_text = ContentBlock.for(:marketing)
         @announcement_text = ContentBlock.for(:announcement)
         @collections = collections(rows: 100_000)
+        # rubocop:disable Style/GuardClause
         if home_page_theme == 'institutional_repository'
           ir_counts
           @top_level_collections ||= load_top_level_collections(@collections)
         end
+        # rubocop:enable Style/GuardClause
       end
 
       def load_top_level_collections(colls)

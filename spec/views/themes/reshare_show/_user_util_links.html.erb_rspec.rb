@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe '/_user_util_links.html.erb', type: :view do
+RSpec.describe '/themes/reshare_show/_user_util_links.html.erb', type: :view do
   let(:user) { create(:user) }
   let!(:test_strategy) { Flipflop::FeatureSet.current.test! }
   let(:admin_ability) { double(user_groups: ['admin']) }
@@ -17,10 +17,10 @@ RSpec.describe '/_user_util_links.html.erb', type: :view do
         render
       end
 
-      it 'shows the links' do
-        expect(rendered).to have_link 'Change password', href: edit_user_registration_path
-        expect(rendered).to have_link 'Logout', href: destroy_user_session_path
-        expect(rendered).to have_link 'Dashboard', href: hyrax.dashboard_path
+      it 'hides the links' do
+        expect(rendered).not_to have_link 'Change password', href: edit_user_registration_path
+        expect(rendered).not_to have_link 'Logout', href: destroy_user_session_path
+        expect(rendered).not_to have_link 'Dashboard', href: hyrax.dashboard_path
       end
     end
 
@@ -43,12 +43,12 @@ RSpec.describe '/_user_util_links.html.erb', type: :view do
       before do
         allow(view).to receive(:user_signed_in?).and_return(false)
         allow(view).to receive(:current_user).and_return(nil)
-        allow(view).to receive(:current_ability).and_return(nil)
+        allow(view).to receive(:current_ability).and_return(user_ability)
         render
       end
 
-      it 'links to login path' do
-        expect(rendered).to have_link 'Login', href: single_signon_index_path
+      it 'hides link to login path' do
+        expect(rendered).not_to have_link 'Login', href: single_signon_index_path
       end
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe '/_user_util_links.html.erb', type: :view do
       it 'hides the links' do
         expect(rendered).not_to have_link 'Change password', href: edit_user_registration_path
         expect(rendered).not_to have_link 'Logout', href: destroy_user_session_path
-        expect(rendered).to have_link 'Dashboard', href: hyrax.dashboard_path
+        expect(rendered).not_to have_link 'Dashboard', href: hyrax.dashboard_path
       end
     end
 
@@ -90,11 +90,11 @@ RSpec.describe '/_user_util_links.html.erb', type: :view do
       before do
         allow(view).to receive(:user_signed_in?).and_return(false)
         allow(view).to receive(:current_user).and_return(nil)
-        allow(view).to receive(:current_ability).and_return(nil)
+        allow(view).to receive(:current_ability).and_return(user_ability)
         render
       end
 
-      it 'hides the login path' do
+      it 'hides link to login path' do
         expect(rendered).not_to have_link 'Login', href: single_signon_index_path
       end
     end

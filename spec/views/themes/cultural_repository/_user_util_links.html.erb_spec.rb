@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
-RSpec.describe '/_user_util_links.html.erb', type: :view do
+RSpec.describe '/themes/cultural_repository/_user_util_links.html.erb', type: :view do
   let(:user) { create(:user) }
   let!(:test_strategy) { Flipflop::FeatureSet.current.test! }
   let(:admin_ability) { double(user_groups: ['admin']) }
   let(:user_ability) { double(user_groups: []) }
 
   context 'when feature flipper is on' do
-    before { test_strategy.switch!(:show_login_link, true) }
+    before do
+      test_strategy.switch!(:show_login_link, true)
+      allow(view).to receive(:current_page?).and_return(false)
+    end
 
     describe 'logged in user' do
       before do
@@ -54,7 +57,10 @@ RSpec.describe '/_user_util_links.html.erb', type: :view do
   end
 
   context 'When feature flipper is off' do
-    before { test_strategy.switch!(:show_login_link, false) }
+    before do
+      test_strategy.switch!(:show_login_link, false)
+      allow(view).to receive(:current_page?).and_return(false)
+    end
 
     describe 'logged in user' do
       before do

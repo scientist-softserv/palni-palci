@@ -29,4 +29,8 @@ Flipflop.configure do
   feature :default_pdf_viewer,
           default: true,
           description: "Choose PDF.js or Universal Viewer to render PDFs. UV uses IIIF Print and requires PDF spltting with OCR. Switching from PDF.js to the UV may require re-ingesting of the PDF."
+
+  feature :show_login_link,
+          default: true,
+          description: "Show General Login Link at Top Right of Page."
 end

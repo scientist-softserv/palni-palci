@@ -22,6 +22,10 @@
               <div class="col-sm-12">
                 <%= render 'representative_media', presenter: @presenter, viewer: true %>
               </div>
+            <% elsif @presenter.pdf_viewer? %>
+              <div class="col-sm-12">
+                <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
+              </div>
             <% else %>
               <div class="col-sm-3 text-center">
                 <%= render 'representative_media', presenter: @presenter, viewer: false %>
@@ -30,7 +34,7 @@
               </div>
             <% end %>
           <% end %>
-          <% if @presenter.iiif_viewer? || @presenter.video_embed_viewer?%>
+          <% if @presenter.viewer? %>
             <div class="col-sm-3 text-center">
               <%= render 'citations', presenter: @presenter %>
               <%= render 'social_media' %>

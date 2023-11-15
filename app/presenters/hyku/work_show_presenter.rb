@@ -70,6 +70,17 @@ module Hyku
       extract_video_embed_presence
     end
 
+    def pdf_viewer?
+      return unless Flipflop.default_pdf_viewer?
+      return unless file_set_presenters.any?(&:pdf?)
+
+      true
+    end
+
+    def viewer?
+      iiif_viewer? || video_embed_viewer? || pdf_viewer?
+    end
+
     private
 
       def extract_video_embed_presence
@@ -77,7 +88,7 @@ module Hyku
       end
 
       def iiif_media?(presenter: representative_presenter)
-        presenter.image? || presenter.video? || presenter.audio? || presenter.pdf?
+        presenter.image? || presenter.video? || presenter.audio?
       end
 
       def members_include_viewable?

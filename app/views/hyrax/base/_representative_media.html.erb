@@ -1,0 +1,14 @@
+<%# OVERRIDE: Hyrax 3.5.0 to add support for PDF.js %>
+
+<% if presenter.representative_id.present? && presenter.representative_presenter.present? %>
+  <% if defined?(viewer) && viewer && presenter.iiif_viewer?%>
+    <%= iiif_viewer_display presenter %>
+  <% elsif presenter.pdf_viewer? %>
+    <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
+  <% else %>
+    <%= render media_display_partial(presenter.representative_presenter), file_set: presenter.representative_presenter %>
+  <% end %>
+<% else %>
+  <% alt = block_for(name: 'default_work_image_text') || 'Default work thumbnail' %>
+  <%= image_tag default_work_image, class: "canonical-image", alt: alt %>
+<% end %>

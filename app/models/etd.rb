@@ -7,6 +7,7 @@ class Etd < ActiveFedora::Base
   include IiifPrint.model_configuration(
     pdf_split_child_model: GenericWork
   )
+  include PdfBehavior
 
   self.indexer = EtdIndexer
   # Change this to restrict which works can be added as a child.

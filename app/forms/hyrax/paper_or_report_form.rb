@@ -6,6 +6,7 @@ module Hyrax
   # Generated form for PaperOrReport
   class PaperOrReportForm < Hyrax::Forms::WorkForm
     self.model_class = ::PaperOrReport
+    include PdfFormBehavior
 
     self.required_fields += %i[
       institution

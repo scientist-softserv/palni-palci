@@ -7,6 +7,7 @@ class Image < ActiveFedora::Base
   include IiifPrint.model_configuration(
     pdf_split_child_model: self
   )
+  include PdfBehavior
 
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: true do |index|
     index.as :stored_searchable

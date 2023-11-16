@@ -7,6 +7,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
+    include PdfFormBehavior
     self.terms += %i[
       resource_type
       format

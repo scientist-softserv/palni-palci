@@ -6,6 +6,7 @@ module Hyrax
   # Generated form for Etd
   class EtdForm < Hyrax::Forms::WorkForm
     self.model_class = ::Etd
+    include PdfFormBehavior
     self.required_fields += %i[
       year
       abstract

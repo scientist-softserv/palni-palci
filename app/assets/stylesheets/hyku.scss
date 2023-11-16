@@ -428,6 +428,10 @@ body.public-facing {
   }
 }
 
+#download-pdf-button {
+  margin: 10px 0 10px 0;
+}
+
 // FEATURED COLLECTIONS
 @media (max-width: $screen-sm-min) {
   .admin-show-page

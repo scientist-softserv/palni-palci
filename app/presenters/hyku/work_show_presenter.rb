@@ -2,6 +2,7 @@
 
 # OVERRIDE here to add featured collection methods and to delegate collection presenters to the member presenter factory
 # OVERRIDE: Hyrax 3.4.0 to add Hyrax IIIF AV
+# OVERRIDE: Hyrax 3.5.0 to add checks for PDF.js viewer
 
 module Hyku
   class WorkShowPresenter < Hyrax::WorkShowPresenter
@@ -10,7 +11,7 @@ module Hyku
     include Hyrax::IiifAv::DisplaysIiifAv
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
-    delegate :title_or_label, :extent, to: :solr_document
+    delegate :title_or_label, :extent, :show_pdf_viewer, :show_pdf_download_button, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
     delegate :collection_presenters, to: :member_presenter_factory
@@ -70,6 +71,25 @@ module Hyku
       extract_video_embed_presence
     end
 
+    def pdf_viewer?
+      return unless Flipflop.default_pdf_viewer?
+      return unless show_pdf_viewer
+      return unless file_set_presenters.any?(&:pdf?)
+
+      show_pdf_viewer.first.to_i.positive?
+    end
+
+    def show_pdf_download_button?
+      return unless file_set_presenters.any?(&:pdf?)
+      return unless show_pdf_download_button
+
+      show_pdf_download_button.first.to_i.positive?
+    end
+
+    def viewer?
+      iiif_viewer? || video_embed_viewer? || pdf_viewer?
+    end
+
     private
 
       def extract_video_embed_presence
@@ -77,7 +97,7 @@ module Hyku
       end
 
       def iiif_media?(presenter: representative_presenter)
-        presenter.image? || presenter.video? || presenter.audio? || presenter.pdf?
+        presenter.image? || presenter.video? || presenter.audio?
       end
 
       def members_include_viewable?

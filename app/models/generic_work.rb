@@ -5,6 +5,8 @@ class GenericWork < ActiveFedora::Base
   include IiifPrint.model_configuration(
     pdf_split_child_model: self
   )
+  include PdfBehavior
+
   # this line needs to be before the validations & properties in order for them to be indexed correctly
   self.indexer = GenericWorkIndexer
   # Change this to restrict which works can be added as a child.

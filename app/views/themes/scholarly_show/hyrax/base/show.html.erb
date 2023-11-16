@@ -24,7 +24,7 @@
               </div>
             </div>
           <% else %>
-            <% if @presenter.universal_viewer? %>
+            <% if @presenter.iiif_viewer? %>
               <div class="col-sm-12 centered-media">
                 <%= render 'representative_media', presenter: @presenter, viewer: true %>
               </div>
@@ -32,6 +32,10 @@
                 <div class="image-show-description">
                   <%# render 'work_description', presenter: @presenter %>
                 </div>
+              </div>
+            <% elsif @presenter.pdf_viewer? %>
+              <div class="col-sm-12">
+                <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
               </div>
             <% else %>
               <div class="col-sm-3 mb-1">
@@ -49,7 +53,8 @@
             <%= render 'metadata', presenter: @presenter %>
           </div>
           <div class="col-sm-12 col-md-4">
-               <%= render 'citations', presenter: @presenter %>
+            <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if @presenter.show_pdf_download_button? %>
+            <%= render 'citations', presenter: @presenter %>
           </div>
           <div class="col-sm-12">
             <%= render 'relationships', presenter: @presenter %>

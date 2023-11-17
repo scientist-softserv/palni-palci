@@ -6,6 +6,8 @@ html, body.public-facing {
 body {font-size:0.875em;}
 
 img {max-width:100%;}
+// the above override made some thumbnails disappear, so this is a fix for that
+img.file_listing_thumbnail {max-width:none;}
 
 a#skip-to-content{padding:0;}
 

@@ -17,7 +17,8 @@ RSpec.describe Hyrax::PaperOrReportForm do
       {
         title: ['Title'],
         creator: ['Creator'],
-        institution: 'Institution'
+        institution: 'Institution',
+        location: ['San Diego, CA']
       }
     end
 
@@ -25,6 +26,7 @@ RSpec.describe Hyrax::PaperOrReportForm do
       expect(subject['title']).to eq ['Title']
       expect(subject['creator']).to eq ['Creator']
       expect(subject['institution']).to eq 'Institution'
+      expect(subject['location']).to eq ['San Diego, CA']
     end
   end
 end

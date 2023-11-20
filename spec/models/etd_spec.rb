@@ -41,6 +41,7 @@ RSpec.describe Etd do
       expect(subject).to respond_to(:year)
       expect(subject).to respond_to(:rights_statement)
       expect(subject).to respond_to(:institution)
+      expect(subject).to respond_to(:location)
     end
   end
 end

@@ -24,7 +24,8 @@ RSpec.describe Hyrax::EtdForm do
         degree: ['Degree'],
         # level: ['Level'],
         discipline: ['Discipline'],
-        degree_granting_institution: ['Degree Granting Inst']
+        degree_granting_institution: ['Degree Granting Inst'],
+        location: ['San Diego, CA']
       }
     end
 
@@ -39,6 +40,7 @@ RSpec.describe Hyrax::EtdForm do
       # expect(subject['level']).to eq ['Level']
       expect(subject['discipline']).to eq ['Discipline']
       expect(subject['degree_granting_institution']).to eq ['Degree Granting Inst']
+      expect(subject['location']).to eq ['San Diego, CA']
     end
   end
 end

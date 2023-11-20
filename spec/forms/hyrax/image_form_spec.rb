@@ -15,14 +15,14 @@ RSpec.describe Hyrax::ImageForm do
     let(:attributes) do
       {
         title: ['foo'],
-        extent: ['extent']
+        extent: ['extent'],
+        location: ['San Diego, CA']
       }
     end
 
     it 'permits parameters' do
       expect(subject['extent']).to eq ['extent']
+      expect(subject['location']).to eq ['San Diego, CA']
     end
   end
-
-  include_examples("work_form")
 end

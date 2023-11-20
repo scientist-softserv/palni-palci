@@ -10,6 +10,7 @@ module Hyrax
              :types,
              :additional_rights_info,
              :bibliographic_citation,
+             :location,
              to: :solr_document
   end
 end

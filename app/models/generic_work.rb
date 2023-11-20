@@ -2,9 +2,6 @@
 
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  include IiifPrint.model_configuration(
-    pdf_split_child_model: self
-  )
   include PdfBehavior
 
   # this line needs to be before the validations & properties in order for them to be indexed correctly

@@ -4,9 +4,6 @@
 #  `rails generate hyrax:work Image`
 class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  include IiifPrint.model_configuration(
-    pdf_split_child_model: self
-  )
   include PdfBehavior
 
   validates :title, presence: { message: 'Your work must have a title.' }

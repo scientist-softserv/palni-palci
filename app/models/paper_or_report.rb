@@ -4,9 +4,6 @@
 #  `rails generate hyrax:work PaperOrReport`
 class PaperOrReport < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  include IiifPrint.model_configuration(
-    pdf_split_child_model: GenericWork
-  )
   include PdfBehavior
 
   self.indexer = PaperOrReportIndexer

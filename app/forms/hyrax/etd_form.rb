@@ -45,7 +45,7 @@ module Hyrax
                     visibility_during_embargo embargo_release_date visibility_after_embargo
                     visibility_during_lease lease_expiration_date visibility_after_lease
                     visibility ordered_member_ids source in_works_ids
-                    member_of_collection_ids admin_set_id]
+                    member_of_collection_ids admin_set_id location]
 
     self.terms -= %i[
       based_near

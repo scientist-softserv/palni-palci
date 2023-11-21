@@ -12,12 +12,14 @@ RSpec.describe Hyrax::GenericWorkForm do
     let(:attributes) do
       {
         title: ['foo'],
-        rendering_ids: [file_set.id]
+        rendering_ids: [file_set.id],
+        location: ['San Diego, CA']
       }
     end
 
     it 'permits parameters' do
       expect(subject['rendering_ids']).to eq [file_set.id]
+      expect(subject['location']).to eq ['San Diego, CA']
     end
   end
 

@@ -11,6 +11,7 @@ module Hyrax
              :institution,
              :types,
              :format,
+             :location,
              to: :solr_document
   end
 end

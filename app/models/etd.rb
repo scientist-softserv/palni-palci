@@ -90,6 +90,10 @@ class Etd < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :location, predicate: ::RDF::Vocab::DC.coverage do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   # types must be initially defined before the include ::Hyrax::BasicMetadata
   # so that it can be added to the metadata schema
   # and then be overridden below to map to DC.type.

@@ -14,7 +14,8 @@ module Hyrax
                      institution
                      types
                      format
-                     video_embed]
+                     video_embed
+                     location]
     self.required_fields += %i[abstract
                                date_created
                                resource_type

@@ -88,6 +88,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
     config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Host Institution'
+    config.add_facet_field 'location_sim', limit: 5, label: 'Location'
     # config.add_facet_field 'based_near_label_sim', limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -156,6 +157,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'advisor_tesim', label: 'Advisor'
     config.add_show_field 'committee_member_tesim', label: 'Committee member'
     config.add_show_field 'department_tesim', label: 'Department'
+    config.add_show_field 'location_tesim', label: 'Location'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -363,6 +365,14 @@ class CatalogController < ApplicationController
 
     config.add_search_field('extent') do |field|
       solr_name = 'extent_tesim'
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field('location') do |field|
+      solr_name = 'location_tesim'
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

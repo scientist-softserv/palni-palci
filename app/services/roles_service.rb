@@ -17,6 +17,7 @@ class RolesService # rubocop:disable Metrics/ClassLength
   WORK_ROLES = %w[
     work_editor
     work_depositor
+    work_importer
   ].freeze
 
   DEFAULT_ROLES = [ADMIN_ROLE] + COLLECTION_ROLES + USER_ROLES + WORK_ROLES
@@ -39,6 +40,10 @@ class RolesService # rubocop:disable Metrics/ClassLength
     depositors: {
       humanized_name: 'Depositors',
       description: I18n.t('hyku.admin.groups.description.depositors')
+    }.freeze,
+    advanced_depositors: {
+      humanized_name: 'Advanced Depositors',
+      description: I18n.t('hyku.admin.groups.description.advanced_depositors')
     }.freeze
   }.freeze
 
@@ -54,6 +59,9 @@ class RolesService # rubocop:disable Metrics/ClassLength
     }.freeze,
     depositors: {
       roles: %i[work_depositor].freeze
+    }.freeze,
+    advanced_depositors: {
+      roles: %i[work_importer].freeze
     }.freeze
   }.freeze
 

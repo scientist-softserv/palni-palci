@@ -9,6 +9,7 @@ FactoryBot.define do
     title { ['Test title'] }
     institution { 'institution' }
     format { ['format'] }
+    creator { ['creator'] }
 
     factory :public_generic_work, aliases: [:public_work], traits: [:public]
 

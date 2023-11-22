@@ -54,5 +54,13 @@ FactoryBot.define do
 
       roles { ['work_depositor'] }
     end
+
+    factory :advanced_depositors_group do
+      name { 'advanced_depositors' }
+      humanized_name { 'Advanced Depositors' }
+      description { 'Advanced depositors group' }
+
+      roles { ['work_importer'] }
+    end
   end
 end

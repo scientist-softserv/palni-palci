@@ -28,6 +28,11 @@ FactoryBot.define do
       site_role
     end
 
+    trait :work_importer do
+      name { 'work_importer' }
+      site_role
+    end
+
     trait :collection_manager do
       name { 'collection_manager' }
       site_role

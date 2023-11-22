@@ -80,6 +80,7 @@ RSpec.describe "The Manage Users table", type: :feature, js: true, clean: true d
         'Select a role...',
         'Work Editor',
         'Work Depositor',
+        'Work Importer',
         'Collection Manager',
         'Collection Editor',
         'Collection Reader',

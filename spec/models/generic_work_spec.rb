@@ -162,6 +162,7 @@ RSpec.describe GenericWork do
       expect(subject).to respond_to(:admin_set_id)
       expect(subject).to respond_to(:embargo_id)
       expect(subject).to respond_to(:lease_id)
+      expect(subject).to respond_to(:location)
     end
   end
   # rubocop:enable RSpec/ExampleLength

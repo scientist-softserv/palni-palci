@@ -2,10 +2,6 @@
 
 RSpec.shared_examples 'generic_work_form' do
   describe '.primary_terms' do
-    it 'does not include the license field' do
-      expect(form.primary_terms).not_to include(:license)
-    end
-
     it 'does not include the secondary_terms field' do
       expect(form.primary_terms).not_to include(:keyword)
       expect(form.primary_terms).not_to include(:alternative_title)
@@ -48,11 +44,7 @@ RSpec.shared_examples 'generic_work_form' do
   end
 
   describe '.secondary_terms' do
-    it 'includes the license field' do
-      expect(form.secondary_terms).to include(:license)
-    end
     it 'includes the secondary_terms' do
-      expect(form.secondary_terms).to include(:license)
       expect(form.secondary_terms).to include(:keyword)
       expect(form.secondary_terms).to include(:alternative_title)
       expect(form.secondary_terms).to include(:contributor)

@@ -2,9 +2,6 @@
 
 class GenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  include IiifPrint.model_configuration(
-    pdf_split_child_model: self
-  )
   include PdfBehavior
 
   # this line needs to be before the validations & properties in order for them to be indexed correctly
@@ -45,6 +42,10 @@ class GenericWork < ActiveFedora::Base
 
   property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/videoEmbed"), multiple: false do |index|
     index.as :stored_searchable
+  end
+
+  property :location, predicate: ::RDF::Vocab::DC.coverage do |index|
+    index.as :stored_searchable, :facetable
   end
 
   # types must be initially defined before the include ::Hyrax::BasicMetadata

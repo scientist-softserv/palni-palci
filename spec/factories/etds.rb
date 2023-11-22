@@ -14,6 +14,7 @@ FactoryBot.define do
     # level { ['level'] }
     discipline { ['discipline'] }
     degree_granting_institution { ['degree_granting_institution'] }
+    abstract { ['some random text'] }
 
     factory :etd_with_one_file do
       before(:create) do |work, evaluator|

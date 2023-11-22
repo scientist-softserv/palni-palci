@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     title { ["Test title"] }
-
+    creator { ['creator'] }
     identifier do
       %w[
         ISBN:978-83-7659-303-6 978-3-540-49698-4 9790879392788

@@ -8,7 +8,6 @@ class Image < ActiveFedora::Base
 
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :creator, presence: { message: 'Your work must have a creator.' }
-  validates :abstract, presence: { message: 'Your work must have an abstract.' }
   # rubocop:disable Style/RegexpLiteral
   validates :video_embed,
             format: {

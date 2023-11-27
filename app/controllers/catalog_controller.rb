@@ -74,6 +74,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'contributor_sim', label: 'Contributor', limit: 5
     config.add_facet_field 'keyword_sim', limit: 5, label: 'Keyword'
     config.add_facet_field 'subject_sim', limit: 5, label: 'Subject'
+    config.add_facet_field 'location_sim', limit: 5, label: 'Location'
     config.add_facet_field 'language_sim', limit: 5, label: 'Language'
     config.add_facet_field 'publisher_sim', limit: 5, label: 'Publisher'
     config.add_facet_field 'date_created_sim', limit: 5, label: 'Date Created'
@@ -88,7 +89,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'event_title_sim', limit: 5, label: 'Event Title'
     config.add_facet_field 'event_date_sim', limit: 5, label: 'Event Date'
     config.add_facet_field 'institution_sim', limit: 5, label: 'Host Institution'
-    config.add_facet_field 'location_sim', limit: 5, label: 'Location'
+
     # config.add_facet_field 'based_near_label_sim', limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default

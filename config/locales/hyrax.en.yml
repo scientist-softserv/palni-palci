@@ -1172,10 +1172,11 @@ en:
       defaults:
         additional_rights_info: 'If rights are subject to a contractual or gift agreement or otherwise defined by a binding agreement that is in addition to or in place of intellectual property laws or open licensing, please detail here.'
         access_right: If access is restricted to a certain group of users or if the content is subject to embargo, include that information here.
+        alternative_title: Alternative name or subtitle for the resource.
         based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>.
         contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role. Personal names should be entered with the last name first, e.g. "Smith, John". Do not include degree or other job or educational qualifiers, nicknames, abbreviations, or titles.
         creator: The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John&quot;. Do not include degree or other job or educational qualifiers, nicknames, abbreviations, or titles.
-        date_created: The date on which the work was created.
+        date_created: The date on which the work was created. Must adhere to either the format YYYY, YYYY-MM, or YYYY-MM-DD in order to be filtered and sorted.
         description: A free text account of the resource.
         extent: The extent (size, duration, number, etc.) of the work.
         format: The file format of the digital resource.
@@ -1183,26 +1184,17 @@ en:
         institution: Choose the name of the institution hosting the repository you are uploading this work to.
         keyword: Words or phrases you select to describe what the work is about. These do not need to be a controlled vocabulary.
         language: The language of the work's content. Spell out the language and capitalize the first letter.
-        license: Licensing and distribution information governing access to the work. Select from the provided drop-down list. For more about Creative Commons licenses visit <a href="https://creativecommons.org/licenses/">https://creativecommons.org/licenses/</a>
-        location: Spatial characteristics of the resource. Geographic location relevant to the original item.
+        license: Licensing and distribution information governing access to the work. Select from the provided drop-down list. For more about Creative Commons licenses visit <a href="https://creativecommons.org/licenses/">https://creativecommons.org/licenses/</a>.
+        location: The geographic topic relevant to the original item. <a href='https://fast.oclc.org/searchfast/'>FAST geographic terms</a> or another controlled vocabulary are recommended.
         publisher: The person or group responsible for making the original resource available.
         related_url: A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived.
         resource_type: Pre-defined categories to describe the nature or genre of the resource, such as "article" or "photograph." More than one resource type may be selected.
         rights_notes: Any additional explanation of rights or licensing may be included here.
         rights_statement: Select the appropriate rights statement from the dropdown list. See <a href='https://rightsstatements.org'>https://rightsstatements.org</a> for more information.
-        title: A name to aid in identifying a work.
+        subject: Subject headings describing what the work is about. Please use <a href='https://fast.oclc.org/searchfast/'>FAST subject headings</a> or another controlled vocabulary only.
+        title: A name given to the resource.
         types: 'Pre-defined categories to broadly describe the type of content being uploaded. More than one type may be selected.'
         video_embed: "Youtube or Vimeo iframe embed code to show video embedded in the work page. If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>"
-      generic_work:
-        subject: Headings or index terms describing what the work is about. Please use <a href='https://fast.oclc.org/searchfast/'>FAST subject headings</a> or another controlled vocabulary only.
-      image:
-        alternative_title: Alternative title for the resource.
-        date_created: The date on which the work was created. Must adhere to either the format YYYY, YYYY-MM, or YYYY-MM-DD in order to be filtered and sorted.
-        institution: Participating institution to which the work is being uploaded to.
-        license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.
-        resource_type: Pre-defined categories to describe the type of content being uploaded, such as "article" or "photograph." More than one resource type may be selected.
-        subject: Headings or index terms describing what the work is about. Use a controlled vocabulary.
-        types: Pre-defined categories to describe the nature or genre of the resource. More than one type may be selected.
     labels:
       collection:
         size: Size

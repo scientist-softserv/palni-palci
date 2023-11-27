@@ -1157,7 +1157,7 @@ pt-:
         based_near: Um nome de local relacionado à obra, como seu site de publicação ou a cidade, estado ou país sobre o qual o conteúdo da obra se refere. Solicita o <a href='http://www.geonames.org'>serviço web GeoNames</a>.
         contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, por ex. "Smith, João". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
         creator: A pessoa ou grupo responsável pelo trabalho. Geralmente este é o autor do conteúdo. Nomes pessoais devem ser inseridos com o sobrenome primeiro, por exemplo "Smith, John". Não inclua diplomas ou outras qualificações profissionais ou educacionais, apelidos, abreviações ou títulos.
-        date_created: A data em que a obra foi criada.
+        date_created: A data em que a obra foi criada. Deve seguir o formato YYY, YYYY-MM, or YYYY-MM-DD para ser filtrado e classificado.
         description: Uma conta de texto livre do recurso.
         extent: A extensão (tamanho, duração, número, etc.) da obra.
         format: O formato de arquivo do recurso digital.
@@ -1165,17 +1165,16 @@ pt-:
         institution: Escolha o nome da instituição que hospeda o repositório para o qual você está enviando este trabalho.
         keyword: Palavras ou frases que você seleciona para descrever sobre o que é o trabalho. Estes não precisam ser um vocabulário controlado.
         language: A linguagem do conteúdo da obra. Soletre o idioma e coloque a primeira letra em maiúscula.
-        license: Informações sobre licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.
+        license: Informações sobre licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida. Para mais informações sobre licenças Creative Commons, visite <a href="https://creativecommons.org/licenses</a>.
+        location: O tópico geográfico relevante para o item original. <a href='https://fast.oclc.org/searchfast/'>termos geográficos FAST</a> ou outro vocabulário controlado são recomendados.
         publisher: A pessoa ou grupo responsável por disponibilizar o recurso original.
         related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado ao trabalho. Um exemplo é a URL de um projeto de pesquisa do qual o trabalho foi derivado.
         resource_type: Categorias predefinidas para descrever a natureza ou gênero do recurso, como "artigo" ou "fotografia". Mais de um tipo de recurso pode ser selecionado.
         rights_notes: Qualquer explicação adicional de direitos ou licenciamento pode ser incluída aqui.
         rights_statement: Selecione a declaração de direitos apropriada na lista suspensa. Consulte <a href='https://rightsstatements.org'>https://rightsstatements.org</a> para obter mais informações.
-        title: Um nome para ajudar na identificação de uma obra.
+        title: Um nome dado ao recurso.
         types: Categorias predefinidas para descrever amplamente o tipo de conteúdo que está sendo carregado. Mais de um tipo pode ser selecionado.
         video_embed: Código de incorporação do iframe do Youtube ou Vimeo para mostrar o vídeo incorporado na página de trabalho. Se você inserir um link de incorporação para um vídeo, ele deve ser um URL formatado corretamente começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que pode aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
-      generic_work:
-        subject: Títulos ou termos de índice que descrevem o assunto do trabalho. Use um vocabulário controlado.
     labels:
       collection:
         size: Tamanho

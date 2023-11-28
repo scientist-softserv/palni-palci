@@ -25,6 +25,11 @@ module PdfBehavior
              end
 
     after_initialize :set_default_show_pdf_viewer, :set_default_show_pdf_download_button
+
+    include IiifPrint.model_configuration(
+      pdf_split_child_model: GenericWork,
+      pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
+    )
   end
 
   private

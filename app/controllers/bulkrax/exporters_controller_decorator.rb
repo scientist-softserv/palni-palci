@@ -11,18 +11,15 @@ module Bulkrax
 
       add_exporter_breadcrumbs if defined?(::Hyrax)
     end
-  
+
     private
 
       def check_permissions
-        if current_ability.can_import_works?
-          return true if current_ability.admin?
-          return true unless params.key?(:id)
-          return true if Importer.where(id: params[:id], user: current_user).exists?
-          raise CanCan::AccessDenied
-        else 
-          raise CanCan::AccessDenied
-        end
+        raise CanCan::AccessDenied unless current_ability.can_export_works?
+        return true if current_ability.admin?
+        return true unless params.key?(:id)
+        return true if Importer.where(id: params[:id], user: current_user).exists?
+        raise CanCan::AccessDenied
       end
   end
 end

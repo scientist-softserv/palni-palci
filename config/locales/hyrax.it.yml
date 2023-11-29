@@ -1169,26 +1169,25 @@ it:
         based_near: Un nome di luogo correlato all'opera, ad esempio il suo sito di pubblicazione, o la città, lo stato o il paese di cui si tratta. Invita il <a href='http://www.geonames.org'> servizio web GeoNames </a>.
         contributor: Una persona o un gruppo che vuoi riconoscere per avere un ruolo nella creazione dell'opera, ma non il ruolo principale. I nomi personali devono essere inseriti iniziando dal cognome, ad es. "Smith, Giovanni". Non includere titoli di studio o altre qualificazioni lavorative o formative, soprannomi, abbreviazioni o titoli.
         creator: La persona o il gruppo responsabile del lavoro. Di solito questo è l'autore del contenuto. I nomi personali devono essere inseriti prima con il cognome, ad es. "Smith, John". Non includere titoli di studio o altre qualificazioni lavorative o formative, soprannomi, abbreviazioni o titoli.
-        date_created: La data di creazione dell'opera.
+        date_created: La data in cui è stata creata l'opera. Deve rispettare il formato  YYYY, YYYY-MM, or YYYY-MM-DD per poter essere filtrato e ordinato.
         description: un resoconto a testo libero della risorsa.
-        extent: La dimensione (dimensione, durata, numero, ecc.) Del lavoro.
+        extent: La dimensione (dimensione, durata, numero, ecc.) del lavoro.
         format: il formato del file della risorsa digitale.
         identifier: Una maniglia unica che identifica il lavoro. Un esempio potrebbe essere un DOI per un articolo di giornale o un codice ISBN o OCLC per un libro.
         institution: Scegli il nome dell'istituzione che ospita il repository in cui stai caricando questo lavoro.
         keyword: Parole o frasi selezionate per descrivere l'argomento del lavoro. Non è necessario che siano un vocabolario controllato.
-        language: La lingua del contenuto dell'opera.
-        license: Informazioni su licenze e distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito.
+        language: La lingua del contenuto dell'opera. Scrivi la lingua e scrivi in ​​maiuscolo la prima lettera.
+        license: Informazioni sulla licenza e sulla distribuzione che regolano l'accesso all'opera. Selezionare dall'elenco a discesa fornito. Per ulteriori informazioni sulle licenze Creative Commons, visita <a href="https://creativecommons.org/licenses/">https://creativecommons.org/licenses/</a>.
+        location: L'argomento geografico pertinente all'articolo originale. Si consigliano <a href='https://fast.oclc.org/searchfast/'>termini geografici FAST</a> o un altro vocabolario controllato.
         publisher: La persona o il gruppo responsabile della messa a disposizione della risorsa originale.
         related_url: Un collegamento a un sito Web o ad altri contenuti specifici (audio, video, documento PDF) relativi all'opera. Un esempio è l'URL di un progetto di ricerca da cui deriva il lavoro.
         resource_type: Categorie predefinite per descrivere la natura o il genere della risorsa, ad esempio "articolo" o "fotografia". È possibile selezionare più di un tipo di risorsa.
         rights_notes: Qualsiasi spiegazione aggiuntiva sui diritti o sulla licenza può essere inclusa qui.
         rights_statement: Seleziona la dichiarazione dei diritti appropriata dall'elenco a discesa. Per ulteriori informazioni, consulta https://rightsstatements.org.
-        subject: Intestazioni o termini di indice che descrivono l'argomento dell'opera. Utilizzare un vocabolario controllato.
-        title: Un nome per aiutare a identificare un'opera.
+        subject: Intestazioni dell'oggetto che descrivono di cosa tratta il lavoro. Si prega di utilizzare <a href='https://fast.oclc.org/searchfast/'>intestazioni degli argomenti FAST</a> o solo un altro vocabolario controllato.
+        title: Un nome assegnato alla risorsa.
         types: Categorie predefinite per descrivere ampiamente il tipo di contenuto caricato. È possibile selezionare più di un tipo.
         video_embed: Codice di incorporamento iframe Youtube o Vimeo per mostrare il video incorporato nella pagina di lavoro. Se inserisci un link di incorporamento per un video, deve essere un URL formattato correttamente che inizia con "http://" o "https://". Deve inoltre contenere un collegamento valido a un video ospitato che può essere visualizzato in un iframe. <br /><br /><i>Esempi:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
-      generic_work:
-        subject: Intestazioni o termini di indice che descrivono l'argomento del lavoro. Usa un vocabolario controllato.
       labels:
         extent: Estensione
     labels:

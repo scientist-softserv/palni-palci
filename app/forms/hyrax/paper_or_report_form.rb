@@ -34,7 +34,7 @@ module Hyrax
       types
     ]
 
-    self.terms = %i[title alternative_title creator contributor description abstract
+    self.terms = %i[title location alternative_title creator contributor description abstract
                     keyword subject license rights_statement publisher date_created
                     resource_type institution types language format rights_holder
                     creator_orcid creator_institutional_relationship
@@ -48,7 +48,7 @@ module Hyrax
                     visibility_during_embargo embargo_release_date visibility_after_embargo
                     visibility_during_lease lease_expiration_date visibility_after_lease
                     visibility ordered_member_ids source in_works_ids
-                    member_of_collection_ids admin_set_id location]
+                    member_of_collection_ids admin_set_id]
 
     self.terms -= %i[
       description

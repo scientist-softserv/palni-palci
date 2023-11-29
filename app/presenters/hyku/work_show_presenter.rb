@@ -11,6 +11,12 @@ module Hyku
     include Hyrax::IiifAv::DisplaysIiifAv
     Hyrax::MemberPresenterFactory.file_presenter_class = Hyrax::IiifAv::IiifFileSetPresenter
 
+    ##
+    # NOTE: IIIF Print prepends a IiifPrint::WorkShowPresenterDecorator to Hyrax::WorkShowPresenter
+    # However, with the above `include Hyrax::IiifAv::DisplaysIiifAv` we obliterate that logic.  So
+    # we need to re-introduce that logic.
+    prepend IiifPrint::TenantConfig::WorkShowPresenterDecorator
+
     delegate :title_or_label, :extent, :show_pdf_viewer, :show_pdf_download_button, to: :solr_document
 
     # OVERRIDE Hyrax v2.9.0 here to make featured collections work
@@ -58,15 +64,6 @@ module Hyku
     end
     # End Featured Collections Methods
 
-    # @return [Boolean] render a IIIF viewer
-    def iiif_viewer?
-      Hyrax.config.iiif_image_server? &&
-        representative_id.present? &&
-        representative_presenter.present? &&
-        iiif_media? &&
-        members_include_viewable?
-    end
-
     def video_embed_viewer?
       extract_video_embed_presence
     end
@@ -94,16 +91,6 @@ module Hyku
 
       def extract_video_embed_presence
         solr_document[:video_embed_tesim]&.all?(&:present?)
-      end
-
-      def iiif_media?(presenter: representative_presenter)
-        presenter.image? || presenter.video? || presenter.audio?
-      end
-
-      def members_include_viewable?
-        file_set_presenters.any? do |presenter|
-          iiif_media?(presenter: presenter) && current_ability.can?(:read, presenter.id)
-        end
       end
 
       def extract_from_identifier(rgx)

@@ -1,0 +1,9 @@
+# Copy file to docker-compose.override.yml to override docker-compose.yml
+# Only use for local development
+version: '3.8'
+services:
+  web:
+    command: sh -l -c "bundle && bundle exec puma -v -b tcp://0.0.0.0:3000"
+  worker:
+    command: sh -l -c "bundle && bundle exec sidekiq"
+

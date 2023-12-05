@@ -195,6 +195,8 @@ Hyrax.config do |config|
     # See Samvera Slack thread https://samvera.slack.com/archives/C0F9JQJDQ/p1596718417351200?thread_ts=1596717896.350700&cid=C0F9JQJDQ
     uri.sub(/\Ahttp:/, 'https:')
   end
+
+  config.nested_relationship_reindexer = ->(id:, extent:) {}
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"

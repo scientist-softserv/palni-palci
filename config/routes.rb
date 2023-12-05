@@ -76,7 +76,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resource :account, only: [:edit, :update]
     resource :work_types, only: [:edit, :update]
-    resources :users, only: [:destroy]
+    resources :users, only: [:index, :destroy] do
+      post 'activate', on: :member
+    end
     resources :groups do
       member do
         get :remove

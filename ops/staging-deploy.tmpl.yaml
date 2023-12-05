@@ -138,6 +138,8 @@ extraEnvVars: &envVars
     value: "true"
   - name: HYKU_ROOT_HOST
     value: atla-hyku.notch8.cloud
+  - name: HYKU_USER_DEFAULT_PASSWORD
+    value: password
   - name: NEGATIVE_CAPTCHA_SECRET
     value: $NEGATIVE_CAPTCHA_SECRET
   - name: SMTP_ADDRESS

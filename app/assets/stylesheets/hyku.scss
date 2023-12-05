@@ -301,6 +301,21 @@ footer.navbar {
   }
 }
 
+#manage-users-table > tr > td> ul {
+  padding: 0 !important;
+  list-style-type: none;
+
+  li {
+    a > span {
+      color: red;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .user-workflow-roles-table {
   td:nth-child(1),
   th:nth-child(1) {

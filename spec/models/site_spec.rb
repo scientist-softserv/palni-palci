@@ -91,9 +91,9 @@ RSpec.describe Site, type: :model do
       end
     end
   end
-  
+
   describe '#institution_label' do
-    let(:site) { FactoryBot.create(:site)}
+    let(:site) { FactoryBot.create(:site) }
 
     before do
       allow(Site).to receive(:instance).and_return(site)

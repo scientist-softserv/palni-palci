@@ -120,6 +120,8 @@ extraEnvVars: &envVars
     value: 'true'
   - name: HYKU_ROOT_HOST
     value: ir.atla.com
+  - name: HYKU_USER_DEFAULT_PASSWORD
+    value: password
   - name: INITIAL_ADMIN_EMAIL
     value: admin@example.com
   - name: INITIAL_ADMIN_PASSWORD

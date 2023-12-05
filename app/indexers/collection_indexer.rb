@@ -13,6 +13,7 @@ class CollectionIndexer < Hyrax::CollectionIndexer
       solr_doc['depositor_ssi'] = object.depositor
       solr_doc['creator_ssi'] = object.creator&.first
       solr_doc["account_cname_tesim"] = Site.instance&.account&.cname
+      solr_doc['account_institution_name_ssim'] = Site.instance.institution_label
     end
   end
 end

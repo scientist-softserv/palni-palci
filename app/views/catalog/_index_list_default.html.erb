@@ -10,6 +10,13 @@
           <dd><%= markdown(doc_presenter.field_value field) %></dd>
       <% end %>
     <% end %>
+    <% if current_account.search_only %>
+    <small class="search-only-institution-link">
+      <span>From: <%= link_to "//#{document.account_cname.first}", target: :_blank do %>
+        <%= document.account_institution_name&.join %>
+      <% end %></span>
+    </small>
+    <% end %>
     </dl>
   </div>
 </div>
@@ -26,3 +33,4 @@
   </div>
 </div>
 <% end %>
+

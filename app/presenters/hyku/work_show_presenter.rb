@@ -111,7 +111,7 @@ module Hyku
     private
 
       def extract_video_embed_presence
-        solr_document[:video_embed_tesim].present?
+        solr_document[:video_embed_tesim]&.first&.present?
       end
 
       def extract_from_identifier(rgx)

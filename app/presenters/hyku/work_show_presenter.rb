@@ -93,7 +93,7 @@ module Hyku
     end
 
     def viewer?
-      iiif_viewer? || video_embed_viewer? || pdf_viewer?
+      iiif_viewer? || video_embed_viewer? || show_pdf_viewer?
     end
 
     def parent_works(current_user = nil)

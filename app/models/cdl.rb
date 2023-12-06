@@ -45,10 +45,6 @@ class Cdl < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
-    index.as :stored_searchable
-  end
-
   include ::Hyrax::BasicMetadata
   # This line must be kept below all others that set up properties,
   # including `include ::Hyrax::BasicMetadata`. All properties must

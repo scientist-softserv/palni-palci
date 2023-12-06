@@ -8,13 +8,10 @@ module Hyrax
     self.model_class = ::GenericWork
     include HydraEditor::Form::Permissions
     include PdfFormBehavior
+    include VideoEmbedFormBehavior
 
-    self.terms = [:admin_note, :video_embed] + terms
+    self.terms = [:admin_note] + terms
     self.terms += %i[resource_type additional_information bibliographic_citation]
     self.required_fields = %i[title creator keyword rights_statement resource_type]
-
-    def secondary_terms
-      super + %i[video_embed]
-    end
   end
 end

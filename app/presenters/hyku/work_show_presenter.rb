@@ -92,6 +92,10 @@ module Hyku
       show_pdf_download_button.first.to_i.positive?
     end
 
+    def viewer?
+      iiif_viewer? || video_embed_viewer? || pdf_viewer?
+    end
+
     def parent_works(current_user = nil)
       @parent_works ||= begin
         docs = solr_document.load_parent_docs

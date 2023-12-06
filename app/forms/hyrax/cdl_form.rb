@@ -8,9 +8,13 @@ module Hyrax
     include HydraEditor::Form::Permissions
     include PdfFormBehavior
     # List these terms first after the "Additional fields" divider
-    self.terms = %i[contributing_library library_catalog_identifier admin_note] + self.terms # rubocop:disable Style/RedundantSelf
+    self.terms = %i[contributing_library library_catalog_identifier admin_note video_embed] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += %i[resource_type additional_information bibliographic_citation chronology_note]
     self.terms -= %i[based_near]
     self.required_fields = %i[title creator keyword rights_statement resource_type]
+
+    def secondary_terms
+      super + %i[video_embed]
+    end
   end
 end

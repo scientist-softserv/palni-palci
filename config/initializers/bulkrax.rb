@@ -116,7 +116,9 @@ Bulkrax.setup do |config|
   }
 
   config.field_mappings['Bulkrax::BagitParser'] = parser_mappings
-  config.field_mappings['Bulkrax::CsvParser'] = parser_mappings
+  config.field_mappings['Bulkrax::CsvParser'] = parser_mappings.merge(
+    {'video_embed' => { from: ['video_embed'] }}
+    )
 
   # Add to, or change existing mappings as follows
   #   e.g. to exclude date

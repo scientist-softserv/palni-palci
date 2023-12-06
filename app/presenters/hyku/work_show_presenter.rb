@@ -104,8 +104,15 @@ module Hyku
       end
     end
     
+    def video_embed_viewer?
+      extract_video_embed_presence
+    end
 
     private
+
+      def extract_video_embed_presence
+        solr_document[:video_embed_tesim]&.first&.present?
+      end
 
       def extract_from_identifier(rgx)
         if solr_document['identifier_tesim'].present?

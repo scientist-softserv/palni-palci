@@ -43,6 +43,40 @@ module OmniAuth
 
       ##
       # OVERRIDE
+      # add debugging info
+      def decode_id_token(id_token)
+        decoded = JSON::JWT.decode(id_token, :skip_verification)
+        algorithm = decoded.algorithm.to_sym
+
+        validate_client_algorithm!(algorithm)
+
+        keyset =
+          case algorithm
+          when :HS256, :HS384, :HS512
+            secret
+          else
+            public_key
+          end
+        Rails.logger.error("omniauth: keyset #{algorithm.inspect} - #{id_token.inspect} - #{keyset.inspect}")
+        decoded.verify!(keyset)
+        ::OpenIDConnect::ResponseObject::IdToken.new(decoded)
+      rescue JSON::JWK::Set::KidNotFound
+        # If the JWT has a key ID (kid), then we know that the set of
+        # keys supplied doesn't contain the one we want, and we're
+        # done. However, if there is no kid, then we try each key
+        # individually to see if one works:
+        # https://github.com/nov/json-jwt/pull/92#issuecomment-824654949
+        raise if decoded&.header&.key?('kid')
+
+        decoded = decode_with_each_key!(id_token, keyset)
+
+        raise unless decoded
+
+        decoded
+      end
+
+      ##
+      # OVERRIDE
       #
       # In OmniAuth, the options are a tenant wide configuration.  However, per
       # the client's controlled digitial lending (CDL) system, in the options we

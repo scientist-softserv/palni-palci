@@ -1143,6 +1143,7 @@ fr:
         resource_type: Catégories prédéfinies pour décrire le type de contenu en cours de téléchargement, telles que & quot; article & quot; ou & quot; ensemble de données. & quot; Plusieurs types peuvent être sélectionnés.
         subject: En-têtes ou termes d'index décrivant l'objet du travail; ceux-ci doivent se conformer à un vocabulaire existant.
         title: Un nom pour aider à identifier une œuvre.
+        video_embed: Si vous saisissez un lien d'intégration pour une vidéo, il doit s'agir d'une URL correctement formatée commençant par « http:// » ou « https:// ». Il doit également contenir un lien valide vers une vidéo hébergée pouvant apparaître dans une iframe. <br /><br /><i>Exemples :<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       labels:
         extent: Ampleur
     labels:

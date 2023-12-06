@@ -1143,6 +1143,7 @@ zh:
         resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
         subject: 描述工作内容的标题或索引词；这些确实需要符合现有词汇。
         title: 有助于识别作品的名称。
+        video_embed: 如果您输入视频的嵌入链接，它必须是格式正确、以“http://”或“https://”开头的网址。它还需要包含指向可显示在 iframe 中的托管视频的有效链接。 <br /><br /><i>示例：<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       labels:
         extent: 程度
     labels:

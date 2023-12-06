@@ -1142,6 +1142,7 @@ de:
         resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
         subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
         title: Ein Name, der bei der Identifizierung eines Werks hilft.
+        video_embed: Wenn Sie einen Einbettungslink für ein Video eingeben, muss es sich um eine ordnungsgemäß formatierte URL handeln, die mit „http://“ oder „https://“ beginnt. Es muss außerdem einen gültigen Link zu einem gehosteten Video enthalten, das in einem Iframe angezeigt werden kann. <br /><br /><i>Beispiele:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       labels:
         extent: Umfang
     labels:

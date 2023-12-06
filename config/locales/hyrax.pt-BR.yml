@@ -1143,6 +1143,7 @@ pt-BR:
         resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "conjunto de dados". Mais de um tipo pode ser selecionado.
         subject: Cabeçalhos ou termos do índice que descrevem o que é o trabalho; estes precisam estar em conformidade com um vocabulário existente.
         title: Um nome para ajudar na identificação de um trabalho.
+        video_embed: Se você inserir um link incorporado para um vídeo, ele deverá ser um URL formatado corretamente, começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que possa aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       labels:
         extent: Extensão
     labels:

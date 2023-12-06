@@ -1143,6 +1143,7 @@ it:
         resource_type: Categorie predefinite per descrivere il tipo di contenuto da caricare, come "articolo" o & quot; set di dati. & quot; È possibile selezionare più di un tipo.
         subject: Intestazioni o termini indicativi che descrivono di cosa tratta il lavoro; questi devono conformarsi a un vocabolario esistente.
         title: Un nome per aiutare a identificare un'opera.
+        video_embed: Se inserisci un link per incorporare un video, deve essere un URL formattato correttamente che inizia con "http://" o "https://". Deve inoltre contenere un collegamento valido a un video ospitato che può essere visualizzato in un iframe. <br /><br /><i>Esempi:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       labels:
         extent: Estensione
     labels:

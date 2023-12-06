@@ -7,39 +7,40 @@ pt-BR:
     hints:
       account:
         admin_emails: Insira um endereço de e-mail por vez
-        is_public: 'Os usuários podem descobrir seu site na página inicial ou acessar suas páginas sem um nome de usuário/senha especial?'
+        allow_signup: Permitir que usuários se inscrevam no seu repositório
+        cache_api: Ativar cache para pontos finais de API. Experimental
+        contact_email: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
+        contact_email_to: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
+        doi_reader: Mostrar capacidade de ler da Datacite para preencher registros. Em desenvolvimento, não use
+        doi_writer: Escrever DOIs para registros. Em desenvolvimento, não use
+        email_format: Defina uma lista de domínios de e-mail que são permitidos para se inscrever neste repositório, por exemplo (@ubiquitypress.com @gmail.com). Deixe um espaço único entre cada domínio.
+        email_subjet_prefix: String para colocar na frente dos assuntos dos e-mails do sistema.
+        enable_oai_metadata: Habilitar ou desabilitar link OAI
         fcrepo_endpoint:
           base_path: O caminho base do Fedora deve começar com uma barra e NÃO terminar com uma barra
           url: A URL do Fedora não deve terminar com uma barra
-        name: Um nome simples ou hifenizado usado para aspectos técnicos do repositório (por exemplo, "acme" ou "acme-biblioteca").
-        gtm_id: O ID da sua conta no Google Tag Manager
+        file_acl: Desative se estiver usando um sistema de arquivos como samba ou nfs que não suporta listas de controle de acesso
+        file_size_limit: Isso deve ser configurado para pelo menos 536870912000
+        geonames_username: Registre-se em http://www.geonames.org/manageaccount
         google_analytics_id: O ID da sua conta no Google Analytics
         google_oauth_app_name: O nome do aplicativo Google no console da API do Google
         google_oauth_app_version: A versão do aplicativo Google no console da API do Google
-        google_oauth_private_key_value: O valor do arquivo p12 com criptografia base64. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
+        google_oauth_client_email: Endereço de e-mail do cliente OAuth
         google_oauth_private_key_path: O caminho completo para o seu arquivo p12, arquivo de chave. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
         google_oauth_private_key_secret: O segredo fornecido quando você criou a chave p12
-        google_oauth_client_email: Endereço de e-mail do cliente OAuth
-        contact_email_to: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
-        weekly_email_list: Lista de endereços de e-mail para enviar o relatório semanal. Deixe um espaço único entre cada e-mail
+        google_oauth_private_key_value: O valor do arquivo p12 com criptografia base64. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
+        gtm_id: O ID da sua conta no Google Tag Manager
+        is_public: Os usuários podem descobrir seu site na página inicial ou acessar suas páginas sem um nome de usuário/senha especial?
+        locale_name: 'O nome do sufixo específico do inquilino adicionado aos seus arquivos locale.yml. Apenas caracteres alfabéticos devem ser adicionados, sem símbolos ou números, estes serão então capitalizados.
+
+          '
         monthly_email_list: Lista de endereços de e-mail para enviar o relatório mensal. Deixe um espaço único entre cada e-mail
-        yearly_email_list: Lista de endereços de e-mail para enviar o relatório anual. Deixe um espaço único entre cada e-mail
-        email_format: Defina uma lista de domínios de e-mail que são permitidos para se inscrever neste repositório, por exemplo (@ubiquitypress.com @gmail.com). Deixe um espaço único entre cada domínio.
-        allow_signup: Permitir que usuários se inscrevam no seu repositório
-        enable_oai_metadata: Habilitar ou desabilitar link OAI
-        shared_login: Habilitar ou desabilitar login compartilhado
-        file_size_limit: Isso deve ser configurado para pelo menos 536870912000
-        locale_name: |
-          O nome do sufixo específico do inquilino adicionado aos seus arquivos locale.yml. Apenas caracteres alfabéticos devem ser adicionados, sem símbolos ou números, estes serão então capitalizados.
+        name: Um nome simples ou hifenizado usado para aspectos técnicos do repositório (por exemplo, "acme" ou "acme-biblioteca").
         oai_admin_email: Endereço de e-mail de contato do ponto final OAI
-        doi_reader: Mostrar capacidade de ler da Datacite para preencher registros. Em desenvolvimento, não use
-        doi_writer: Escrever DOIs para registros. Em desenvolvimento, não use
-        cache_api: Ativar cache para pontos finais de API. Experimental
-        email_subjet_prefix: String para colocar na frente dos assuntos dos e-mails do sistema.
-        contact_email: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
-        geonames_username: Registre-se em http://www.geonames.org/manageaccount
-        file_acl: Desative se estiver usando um sistema de arquivos como samba ou nfs que não suporta listas de controle de acesso
+        shared_login: Habilitar ou desabilitar login compartilhado
         ssl_configured: Defina como verdadeiro se estiver usando https
+        weekly_email_list: Lista de endereços de e-mail para enviar o relatório semanal. Deixe um espaço único entre cada e-mail
+        yearly_email_list: Lista de endereços de e-mail para enviar o relatório anual. Deixe um espaço único entre cada e-mail
       hyku_group:
         description: Um breve resumo do papel do grupo
       user:
@@ -51,11 +52,11 @@ pt-BR:
         fcrepo_endpoint:
           base_path: Caminho Base
           url: URL
+        gtm_id: Google Tag Manager
         name: Nome curto
         solr_endpoint:
           url: URL
         tenant: UUID do inquilino
-        gtm_id: Google Tag Manager
       add_user_to_group:
         user_ids: ID do usuário
       defaults:
@@ -73,11 +74,11 @@ pt-BR:
         email: Endereço de e-mail
       user_search:
         uq: Pesquisar por usuário
-    'no': 'Não'
+    'no': Não
     placeholders:
       user_search:
         uq: Nome ou nome de usuário
     required:
       mark: "*"
       text: obrigatório
-    'yes': 'Sim'
+    'yes': Sim

@@ -247,9 +247,11 @@ es:
             one: Hay <b>usuarios %{count}</b> en este repositorio.
             other: Hay <b>usuarios de %{count}</b> en este repositorio.
           group_label: Grupos
+          group_role_label: Roles grupales
           id_label: Nombre de usuario
           reader_title: Ver usuarios
           role_label: Roles
+          site_role_label: Roles del sitio
           title: Administrar usuarios
       workflow_roles:
         header: Roles de flujo de trabajo

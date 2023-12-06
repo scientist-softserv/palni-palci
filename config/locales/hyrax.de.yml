@@ -246,9 +246,11 @@ de:
             one: In diesem Repository befindet sich ein <b>%{count}-Benutzer</b> .
             other: In diesem Repository befinden sich <b>%{count}-Benutzer</b> .
           group_label: Gruppen
+          group_role_label: Gruppenrollen
           id_label: Nutzername
           reader_title: Benutzer anzeigen
           role_label: Rollen
+          site_role_label: Site-Rollen
           title: Benutzer verwalten
       workflow_roles:
         header: Workflow-Rollen

@@ -32,7 +32,7 @@
                 <% render 'work_description', presenter: @presenter %>
               </div>
             </div>
-          <% elsif @presenter.pdf_viewer? %>
+          <% elsif @presenter.show_pdf_viewer? %>
             <div class="col-sm-12">
               <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
             </div>

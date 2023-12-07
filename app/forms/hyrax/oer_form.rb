@@ -22,6 +22,7 @@ module Hyrax
                               discipline rights_statement]
 
     delegate :related_members_attributes=, :previous_version, :newer_version, :alternate_version, :related_item, to: :model
+    include VideoEmbedFormBehavior
 
     def secondary_terms
       super - [:rendering_ids]

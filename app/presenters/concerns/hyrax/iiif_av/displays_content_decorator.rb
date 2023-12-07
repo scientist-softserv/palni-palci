@@ -63,6 +63,17 @@ module Hyrax
           )
         end
 
+        def audio_content
+          streams = stream_urls
+          if streams.present?
+            streams.collect { |label, url| audio_display_content(url, label) }
+          else
+            # OVERRIDE, because we're hard coding `audio/mpeg`, it doesn't make sense to support `ogg`
+            # See: https://github.com/samvera-labs/hyrax-iiif_av/blob/6273f90016c153d2add33f85cc24285d51a25382/app/presenters/concerns/hyrax/iiif_av/displays_content.rb#L118
+            audio_display_content(download_path('mp3'), 'mp3')
+          end
+        end
+
         def audio_display_content(_url, label = '')
           duration = conformed_duration_in_seconds
           IIIFManifest::V3::DisplayContent.new(
@@ -74,7 +85,9 @@ module Hyrax
             label: label,
             duration: duration,
             type: 'Sound',
-            format: solr_document.mime_type
+            # instead of relying on the mime type of the original file, we hard code it to `audio/mpeg`
+            # because this is pointing to the mp3 derivative, also UV doesn't support specifically `audio/x-wave`
+            format: 'audio/mpeg'
           )
         end
 

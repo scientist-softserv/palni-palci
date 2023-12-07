@@ -57,11 +57,10 @@ module OmniAuth
           else
             public_key
           end
-        Rails.logger.error("omniauth: keyset #{algorithm.inspect} - #{id_token.inspect} - #{keyset.inspect}")
         begin
           decoded.verify!(keyset)
         rescue JSON::JWS::VerificationFailed
-          Rails.logger.error("omniauth: token signature invalid")
+          Rails.logger.error("omniauth: invalid jwt signature - keyset #{algorithm.inspect} - #{id_token.inspect} - #{keyset.inspect}")
         end
 
         ::OpenIDConnect::ResponseObject::IdToken.new(decoded)

@@ -6,7 +6,7 @@ module VideoEmbedBehavior
   included do
     validates :video_embed,
               format: {
-                with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
+                with: %r{(http://|https://)(www\.)?(player\.vimeo\.com|youtube\.com/embed)},
                 message: "Error: must be a valid YouTube or Vimeo Embed URL."
               },
               if: :video_embed?

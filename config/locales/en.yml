@@ -1,5 +1,8 @@
 ---
 en:
+  errors:
+    messages:
+      valid_embed_url: "must be a valid YouTube or Vimeo Embed URL."
   single_signon:
    index:
      sign_in_with_provider: Sign in with %{provider}

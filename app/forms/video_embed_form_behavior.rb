@@ -7,7 +7,7 @@ module VideoEmbedFormBehavior
     self.terms += %i[video_embed]
   end
 
-  def secondary_terms
+  def primary_terms
     super + %i[video_embed]
   end
 end

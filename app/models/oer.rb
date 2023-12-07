@@ -12,6 +12,7 @@ class Oer < ActiveFedora::Base
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
   include PdfBehavior
+  include VideoEmbedBehavior
 
   self.indexer = OerIndexer
   # Change this to restrict which works can be added as a child.
@@ -22,15 +23,6 @@ class Oer < ActiveFedora::Base
   validates :learning_resource_type, presence: { message: 'You must select a learning resource type.' }
   validates :resource_type, presence: { message: 'You must select a resource type.' }
   validates :discipline, presence: { message: 'You must select a discipline.' }
-  # rubocop:disable Style/RegexpLiteral
-  validates :video_embed,
-            format: {
-              # regex matches only youtube & vimeo urls that are formatted as embed links.
-              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
-              message: "Error: must be a valid YouTube or Vimeo Embed URL."
-            },
-            if: :video_embed?
-  # rubocop:enable Style/RegexpLiteral
 
   property :audience, predicate: ::RDF::Vocab::SCHEMA.EducationalAudience do |index|
     index.as :stored_searchable, :facetable
@@ -114,14 +106,6 @@ class Oer < ActiveFedora::Base
 
   property :date, predicate: ::RDF::URI("https://hykucommons.org/terms/date"), multiple: false do |index|
     index.as :stored_searchable, :facetable
-  end
-
-  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
-    index.as :stored_searchable
-  end
-
-  def video_embed?
-    video_embed.present?
   end
 
   # This must be included at the end, because it finalizes the metadata

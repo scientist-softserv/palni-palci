@@ -16,15 +16,16 @@ module Hyrax
                     newer_version_id previous_version_id alternate_version_id related_item_id keyword
                     date_created files visibility_during_embargo embargo_release_date visibility_after_embargo
                     visibility_during_lease lease_expiration_date visibility_after_lease visibility
-                    ordered_member_ids in_works_ids member_of_collection_ids admin_set_id abstract video_embed]
+                    ordered_member_ids in_works_ids member_of_collection_ids admin_set_id abstract]
     self.terms -=%i[previous_version_id newer_version_id alternate_version_id related_item_id]
     self.required_fields = %i[title creator resource_type date_created audience education_level learning_resource_type
                               discipline rights_statement]
 
     delegate :related_members_attributes=, :previous_version, :newer_version, :alternate_version, :related_item, to: :model
+    include VideoEmbedFormBehavior
 
     def secondary_terms
-      super - [:rendering_ids] + [:video_embed]
+      super - [:rendering_ids]
     end
 
     def self.build_permitted_params

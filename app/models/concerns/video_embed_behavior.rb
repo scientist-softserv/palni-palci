@@ -7,7 +7,9 @@ module VideoEmbedBehavior
     validates :video_embed,
               format: {
                 with: %r{(http://|https://)(www\.)?(player\.vimeo\.com|youtube\.com/embed)},
-                message: "Error: must be a valid YouTube or Vimeo Embed URL."
+                message: ->(object, data) do
+                  I18n.t('errors.messages.valid_embed_url', default: 'must be a valid YouTube or Vimeo Embed URL.')
+                end 
               },
               if: :video_embed?
 

@@ -7,6 +7,7 @@ module Hyrax
     self.model_class = ::Etd
     include HydraEditor::Form::Permissions
     include PdfFormBehavior
+    include VideoEmbedFormBehavior
 
     self.terms = [:admin_note] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += [

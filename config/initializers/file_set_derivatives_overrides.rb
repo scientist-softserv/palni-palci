@@ -48,12 +48,17 @@ Hyrax::FileSetDerivativesService.class_eval do
     original_size = "#{width}x#{height}"
     size = width.nil? || height.nil? ? DEFAULT_VIDEO_SIZE : original_size
     Hydra::Derivatives::Processors::Video::Processor.config.size_attributes = size
+    # HACK: Commented out the non-thumbnail derivative generation as they are clogging the ecosystem.
+    # See https://github.com/scientist-softserv/palni-palci/issues/924
+    # rubocop:disable Style/TrailingCommaInHashLiteral
     Hydra::Derivatives::VideoDerivatives.create(filename,
                                                 outputs: [{ label: :thumbnail, format: 'jpg',
                                                             url: derivative_url('thumbnail') },
-                                                          { label: 'webm', format: 'webm',
-                                                            url: derivative_url('webm') },
-                                                          { label: 'mp4', format: 'mp4',
-                                                            url: derivative_url('mp4') }])
+                                                          # { label: 'webm', format: 'webm',
+                                                          #   url: derivative_url('webm') },
+                                                          # { label: 'mp4', format: 'mp4',
+                                                          #   url: derivative_url('mp4') }
+                                                         ])
+    # rubocop:enable Style/TrailingCommaInHashLiteral
   end
 end

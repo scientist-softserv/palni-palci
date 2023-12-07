@@ -265,6 +265,9 @@ it:
             active: Attivo
             pending: in attesa di
           status_label: Stato
+        roles:
+          remove:
+            confirmation: Sei sicuro di voler rimuovere il ruolo "%{role}" dall'utente "%{user}"?
   permissions:
     collections:
       cannot:

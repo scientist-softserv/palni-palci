@@ -265,6 +265,9 @@ es:
             active: Activo
             pending: Pendiente
           status_label: Estado
+        roles:
+          remove:
+            confirmation: ¿Está seguro de que desea eliminar el rol "%{role}" del usuario "%{user}"?
   permissions:
     collections:
       cannot:

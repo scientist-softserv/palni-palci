@@ -265,6 +265,9 @@ pt-BR:
             active: Ativo
             pending: Pendente
           status_label: Status
+        roles:
+          remove:
+            confirmation: Tem certeza de que deseja remover a função "%{role}" do usuário "%{user}"?
   permissions:
     collections:
       cannot:

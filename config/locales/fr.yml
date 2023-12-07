@@ -271,6 +271,9 @@ fr:
             active: actif
             pending: en attendant
           status_label: Statut
+        roles:
+          remove:
+            confirmation: Êtes-vous sûr de vouloir supprimer le rôle « %{role} » de l'utilisateur « %{user} » ?
   permissions:
     collections:
       cannot:

@@ -12,19 +12,10 @@ class Cdl < ActiveFedora::Base
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
   include PdfBehavior
+  include VideoEmbedBehavior
 
   self.indexer = CdlIndexer
   validates :title, presence: { message: 'Your work must have a title.' }
-
-  # rubocop:disable Style/RegexpLiteral
-  validates :video_embed,
-            format: {
-              # regex matches only youtube & vimeo urls that are formatted as embed links.
-              with: /(http:\/\/|https:\/\/)(www\.)?(player\.vimeo\.com|youtube\.com\/embed)/,
-              message: "Error: must be a valid YouTube or Vimeo Embed URL."
-            },
-            if: :video_embed?
-  # rubocop:enable Style/RegexpLiteral
 
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
     index.as :stored_searchable
@@ -52,14 +43,6 @@ class Cdl < ActiveFedora::Base
 
   property :chronology_note, predicate: ::RDF::URI("https://hykucommons.org/terms/chronology_note") do |index|
     index.as :stored_searchable, :facetable
-  end
-
-  property :video_embed, predicate: ::RDF::URI("https://atla.com/terms/video_embed"), multiple: false do |index|
-    index.as :stored_searchable
-  end
-
-  def video_embed?
-    video_embed.present?
   end
 
   include ::Hyrax::BasicMetadata

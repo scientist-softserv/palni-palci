@@ -7,6 +7,7 @@ module Hyrax
     include Hyrax::FormTerms
     self.model_class = ::Image
     include PdfFormBehavior
+    include VideoEmbedFormBehavior
 
     self.terms = [:admin_note] + self.terms # rubocop:disable Style/RedundantSelf
     self.terms += %i[resource_type extent additional_information bibliographic_citation]

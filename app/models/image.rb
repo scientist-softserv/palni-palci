@@ -9,6 +9,7 @@ class Image < ActiveFedora::Base
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
   include PdfBehavior
+  include VideoEmbedBehavior
 
   self.indexer = ImageIndexer
 

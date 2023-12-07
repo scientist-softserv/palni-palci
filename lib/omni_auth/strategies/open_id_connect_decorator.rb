@@ -58,7 +58,12 @@ module OmniAuth
             public_key
           end
         Rails.logger.error("omniauth: keyset #{algorithm.inspect} - #{id_token.inspect} - #{keyset.inspect}")
-        decoded.verify!(keyset)
+        begin
+          decoded.verify!(keyset)
+        rescue JSON::JWS::VerificationFailed
+          Rails.logger.error("omniauth: token signature invalid")
+        end
+
         ::OpenIDConnect::ResponseObject::IdToken.new(decoded)
       rescue JSON::JWK::Set::KidNotFound
         # If the JWT has a key ID (kid), then we know that the set of

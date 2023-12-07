@@ -11,11 +11,13 @@
       <% end %>
     <% end %>
     <% if current_account.search_only %>
-    <small class="search-only-institution-link">
-      <span>From: <%= link_to "//#{document.account_cname.first}", target: :_blank do %>
-        <%= document.account_institution_name&.join %>
-      <% end %></span>
-    </small>
+      <% if document.account_institution_name.first.present? %>
+      <small class="search-only-institution-link">
+        <span>From: <%= link_to "//#{document.account_cname.first}", target: :_blank do %>
+          <%= document.account_institution_name&.join %>
+        <% end %></span>
+      </small>
+      <% end %>
     <% end %>
     </dl>
   </div>

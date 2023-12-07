@@ -247,9 +247,11 @@ pt-BR:
             one: Há <b>um usuário %{count}</b> neste repositório.
             other: Existem <b>usuários %{count}</b> neste repositório.
           group_label: Grupos
+          group_role_label: Funções do grupo
           id_label: Nome do usuário
           reader_title: Ver usuários
           role_label: Funções
+          site_role_label: Funções do site
           title: Gerenciar usuários
       workflow_roles:
         header: Funções de fluxo de trabalho

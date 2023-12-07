@@ -269,6 +269,9 @@ de:
             active: Aktiv
             pending: noch ausstehend
           status_label: Status
+        roles:
+          remove:
+            confirmation: Sind Sie sicher, dass Sie die Rolle „%{role}“ vom Benutzer „%{user}“ entfernen möchten?
   permissions:
     collections:
       cannot:

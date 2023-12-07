@@ -270,6 +270,9 @@ en:
             active: Active
             pending: Pending
           status_label: Status
+        roles:
+          remove:
+            confirmation: Are you sure you want to remove the role "%{role}" from the user "%{user}"?
   permissions:
     collections:
       cannot:

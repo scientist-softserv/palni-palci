@@ -256,8 +256,9 @@ en:
             one: There is <b>%{count} user</b> in this repository.
             other: There are <b>%{count} users</b> in this repository.
           id_label: Username
-          role_label: Roles
           group_label: Groups
+          group_role_label: Group roles
+          site_role_label: Site roles
           title: Manage Users
           reader_title: View Users
       workflow_roles:

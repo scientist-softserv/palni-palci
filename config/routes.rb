@@ -54,6 +54,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get 'status', to: 'status#index'
 
   mount BrowseEverything::Engine => '/browse'
+
   resource :site, only: [:update] do
     resources :roles, only: %i[index update]
     resource :labels, only: %i[edit update]
@@ -125,6 +126,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resource :work_types, only: %i[edit update]
     resources :users, only: [:index, :destroy] do
       post 'activate', on: :member
+      delete 'remove_role/:role_id', on: :member, to: 'users#remove_role', as: :remove_role
     end
     resources :groups do
       member do

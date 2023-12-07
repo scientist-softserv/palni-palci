@@ -247,9 +247,11 @@ zh:
             one: 该存储库中有<b>%{count}个用户</b> 。
             other: 此存储库中有<b>%{count}个用户</b> 。
           group_label: 团体
+          group_role_label: 团体角色
           id_label: 用户名
           reader_title: 查看用户
           role_label: 的角色
+          site_role_label: 站点角色
           title: 管理用户
       workflow_roles:
         header: 工作流程角色

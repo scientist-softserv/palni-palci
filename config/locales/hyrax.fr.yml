@@ -245,9 +245,11 @@ fr:
             one: Il y a <b>un utilisateur %{count}</b> dans ce référentiel.
             other: Il y <b>a des utilisateurs %{count}</b> dans ce référentiel.
           group_label: Groupes
+          group_role_label: Rôles de groupe
           id_label: Nom d'utilisateur
           reader_title: Afficher les utilisateurs
           role_label: Les rôles
+          site_role_label: Rôles sur le site
           title: gérer les utilisateurs
       workflow_roles:
         header: Rôles de workflow

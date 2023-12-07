@@ -1,5 +1,8 @@
 ---
 zh:
+  errors:
+    messages:
+      valid_embed_url: "必须是有效的YouTube或Vimeo嵌入URL。"
   activefedora:
     models:
       cdl: CDL

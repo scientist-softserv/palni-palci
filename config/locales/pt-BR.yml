@@ -1,5 +1,8 @@
 ---
 pt-BR:
+  errors:
+    messages:
+      valid_embed_url: "deve ser uma URL de incorporação válida do YouTube ou Vimeo."
   activefedora:
     models:
       cdl: CDL

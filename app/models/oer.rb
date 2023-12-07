@@ -12,6 +12,7 @@ class Oer < ActiveFedora::Base
     pdf_splitter_service: IiifPrint::TenantConfig::PdfSplitter
   )
   include PdfBehavior
+  include VideoEmbedBehavior
 
   self.indexer = OerIndexer
   # Change this to restrict which works can be added as a child.

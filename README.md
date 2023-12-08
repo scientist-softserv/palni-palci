@@ -152,9 +152,7 @@ switch!('myaccount')
 ```
 
 ## Analytics Feature
-Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Universal Analytics property for this feature.
-
-Note: Google has announced they will stop processing data using the Universal Analytics property on July 1, 2023  or July 1, 2024 for Analytics 360 properties.
+Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Analytics 4 property for this feature.
 
 Analytics tracking and reporting features will be turned off by default. To enable them within Hyku, please follow the directions below.
 
@@ -165,7 +163,7 @@ Analytics tracking and reporting features will be turned off by default. To enab
   - Note the service account private key secret
 - Create an OAuth 2.0 Client ID: https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
 - Create an Analytics account: https://support.google.com/analytics/answer/10269537?hl=en
-  - Note Google Universal Analytics ID number
+  - Note Google Analytics 4 ID number
 - Add service account email  as User, and grant "View" access: https://support.google.com/analytics/answer/1009702?hl=en#Add&zippy=%2Cin-this-article
 - Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
 - Enable the "IAM Service Account Credentials API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
@@ -177,12 +175,6 @@ Dashboard >> Settings >> Account
 | Name | Description |
 | ------------- | ------------- |
 | GOOGLE_ANALYTICS_ID | The ID of your Google Analytics account. |
-| GOOGLE_OAUTH_APP_NAME | The name of the Google application in the Google API console. |
-| GOOGLE_OAUTH_APP_VERSION | The version of the Google application in the Google API console. |
-| GOOGLE_OAUTH_PRIVATE_KEY_VALUE | The value of the p12 file with base64 encryption. |
-| GOOGLE_OAUTH_PRIVATE_KEY_PATH | The full path to your p12, key file. |
-| GOOGLE_OAUTH_PRIVATE_KEY_SECRET | The secret provided when you created the p12 key. |
-| GOOGLE_OAUTH_CLIENT_EMAIL | OAuth Client email address. |
 
 - To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
   - `base64 -i path/to/file.p12 | pbcopy`

@@ -3,7 +3,6 @@
 # All settings have a precedence order as follows
 # Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
 
-# rubocop:disable Metrics/ModuleLength
 module AccountSettings
   extend ActiveSupport::Concern
   # rubocop:disable Metrics/BlockLength
@@ -32,12 +31,6 @@ module AccountSettings
     setting :file_size_limit, type: 'string', default: 5.gigabytes.to_s
     setting :geonames_username, type: 'string', default: ''
     setting :google_analytics_id, type: 'string'
-    setting :google_oauth_app_name, type: 'string'
-    setting :google_oauth_app_version, type: 'string'
-    setting :google_oauth_client_email, type: 'string'
-    setting :google_oauth_private_key_path, type: 'string'
-    setting :google_oauth_private_key_secret, type: 'string'
-    setting :google_oauth_private_key_value, type: 'string'
     setting :google_scholarly_work_types, type: 'array', disabled: true
     setting :gtm_id, type: 'string'
     setting :locale_name, type: 'string', disabled: true
@@ -175,8 +168,6 @@ module AccountSettings
         config.analytics_provider = analytics_provider if analytics_provider.present?
       end
 
-      reload_analytics
-
       Devise.mailer_sender = contact_email
 
       if s3_bucket.present?
@@ -203,44 +194,7 @@ module AccountSettings
       ActionMailer::Base.default_url_options[:protocol] = 'https'
     end
 
-    def reload_analytics
-      # rubocop:disable Style/RedundantSelf
-      if Rails.env.production?
-        # fall back to the default values if they aren't set in the tenant
-        unless self.google_analytics_id.present? &&
-               self.google_oauth_app_name.present? &&
-               self.google_oauth_app_version.present? &&
-               (self.google_oauth_private_key_value.present? || self.google_oauth_private_key_path.present?) &&
-               self.google_oauth_private_key_secret.present? &&
-               self.google_oauth_client_email.present?
-
-          config = Hyrax::Analytics::Config.load_from_yaml
-          self.google_analytics_id = self.google_analytics_id.presence || config.analytics_id
-          self.google_oauth_app_name = self.google_oauth_app_name.presence || config.app_name
-          self.google_oauth_app_version = self.google_oauth_app_version.presence || config.app_version
-          self.google_oauth_private_key_value = self.google_oauth_private_key_value.presence || config.privkey_value
-          self.google_oauth_private_key_path = self.google_oauth_private_key_path.presence || config.privkey_path
-          self.google_oauth_private_key_secret = self.google_oauth_private_key_secret.presence || config.privkey_secret
-          self.google_oauth_client_email = self.google_oauth_client_email.presence || config.client_email
-        end
-      end
-
-      # require the analytics to be set per tenant
-      Hyrax::Analytics.config.analytics_id = self.google_analytics_id
-      Hyrax::Analytics.config.app_name = self.google_oauth_app_name
-      Hyrax::Analytics.config.app_version = self.google_oauth_app_version
-      Hyrax::Analytics.config.privkey_value = self.google_oauth_private_key_value
-      Hyrax::Analytics.config.privkey_path = self.google_oauth_private_key_path
-      Hyrax::Analytics.config.privkey_secret = self.google_oauth_private_key_secret
-      Hyrax::Analytics.config.client_email = self.google_oauth_client_email
-
-      # only show analytics partials if analytics are set on the tenant
-      Hyrax.config.analytics = Hyrax::Analytics.config.valid?
-      # rubocop:enable Style/RedundantSelf
-    end
-
     def restricted_settings
       all_settings.reject { |k, _v| Account.superadmin_settings.include?(k.to_sym) }
     end
 end
-# rubocop:enable Metrics/ModuleLength

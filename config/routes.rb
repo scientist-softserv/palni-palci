@@ -134,6 +134,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :users, only: %i[index create destroy], param: :user_id, controller: 'group_users'
       resources :roles, only: %i[index create destroy], param: :role_id, controller: 'group_roles'
     end
+    post "roles_service/:job_name_key", to: "roles_service#update_roles", as: :update_roles
+    get "roles_service", to: "roles_service#index", as: :roles_service_jobs
   end
 
   # OVERRIDE here to add featured collection routes

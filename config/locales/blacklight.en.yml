@@ -1,35 +1,53 @@
+---
 en:
   blacklight:
-    application_name: 'Hyku'
+    application_name: Hyku
+    range_limit:
+      submit_limit: Update
     search:
       fields:
         facet:
           based_near_label_sim: Location
+          contributing_library_sim: Contributing Library
+          contributor_sim: Contributor
           creator_sim: Creator
+          depositor_ssim: Depositor
           file_format_sim: Format
           generic_type_sim: Type
-          depositor_ssim: Depositor
+          human_readable_type_sim: Type
           keyword_sim: Keyword
           language_sim: Language
+          member_of_collections_sim: Collections
           publisher_sim: Publisher
+          resource_type_sim: Resource Type
           subject_sim: Subject
         index:
+          audience_tesim: Audience
           based_near_label_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator
           date_created_tesim: Date Created
           date_modified_dtsi: Date Modified
+          date_tesim: Date
           date_uploaded_dtsi: Date Uploaded
+          depositor_tesim: Owner
           description_tesim: Description
+          discipline_tesim: Discipline
+          education_level_tesim: Education level
           extent_tesim: Extent
           file_format_tesim: File Format
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
+          learning_resource_type_tesim: Learning resource type
+          license: License
           publisher_tesim: Publisher
+          resource_type_tesim: Type
+          rights_statement_tesim: Rights statement
           rights_tesim: Rights
           subject_tesim: Subject
         show:
+          additional_information: Additional rights information
           admin_note: Administrative Note
           based_near_label_tesim: Location
           contributor_tesim: Contributor
@@ -48,5 +66,3 @@ en:
           subject_tesim: Subject
           title_tesim: Title
       start_over: New Search
-    range_limit:
-      submit_limit: Update

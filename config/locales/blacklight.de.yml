@@ -8,31 +8,47 @@ de:
       fields:
         facet:
           based_near_label_sim: Ort
+          contributing_library_sim: Mitwirkende Bibliothek
+          contributor_sim: Mitwirkender
           creator_sim: Schöpfer
           depositor_ssim: Einleger
           file_format_sim: Format
           generic_type_sim: Art
+          human_readable_type_sim: Art
           keyword_sim: Stichwort
           language_sim: Sprache
+          member_of_collections_sim: Sammlungen
           publisher_sim: Herausgeber
+          resource_type_sim: Ressourcentyp
           subject_sim: Fach
         index:
+          audience_tesim: Publikum
           based_near_label_tesim: Ort
           contributor_tesim: Mitwirkender
           creator_tesim: Schöpfer
           date_created_tesim: Datum erstellt
           date_modified_dtsi: Datum geändert
+          date_tesim: Datum
           date_uploaded_dtsi: Datum hochgeladen
+          depositor_tesim: Inhaber
           description_tesim: Beschreibung
+          discipline_tesim: die Ausbildung
+          education_level_tesim: Bildungsniveau
           extent_tesim: Umfang
           file_format_tesim: Datei Format
           identifier_tesim: Identifikator
           keyword_tesim: Stichwort
           language_tesim: Sprache
+          learning_resource_type_tesim: Lernressourcentyp
+          license: Lizenz
+          license_tesim: Lizenz
           publisher_tesim: Herausgeber
+          resource_type_tesim: Ressourcentyp
+          rights_statement_tesim: Erklärung der Rechte
           rights_tesim: Rechte
           subject_tesim: Fach
         show:
+          additional_information: Zusätzliche Rechteinformationen
           admin_note: Verwaltungshinweis
           based_near_label_tesim: Ort
           contributor_tesim: Mitwirkender

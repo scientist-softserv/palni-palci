@@ -117,7 +117,57 @@ de:
           confirm_delete: Möchten Sie diesen Verwaltungssatz wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
       appearances:
         show:
+          forms:
+            banner_image:
+              hint: Um ein Bild als Masthead-Hintergrund zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das mindestens 120 Pixel hoch und 1200 Pixel breit ist. Verwenden Sie für optimale Ergebnisse ein Bild mit einer Breite von mindestens 1800 Pixel.
+            collection_banner_text_color:
+              hint: Die Farbe für den Text (Titel und Datum der letzten Aktualisierung) im Sammlungsbanner.
+            custom_css:
+              confirm: Benutzerdefiniertes CSS überschreibt immer andere Themenauswahlen. Vorgehen?
+              warning: Wenn Ihre Themenanpassungen nicht korrekt angewendet werden, stellen Sie sicher, dass sie nicht von benutzerdefiniertem CSS überschrieben werden.
+            default_button_background_color:
+              hint: Schaltflächen für die Arbeitsinteraktion (Bearbeiten, Funktionen usw.); Arbeitsansichten auf der Sammlungsseite und Suchfilterschaltfläche.
+            default_images:
+              alert: Bitte laden Sie vor dem Absenden mindestens eine Datei hoch.
+              hint: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleichen Abmessungen für Höhe und Breite aufweist (100 Pixel breit und 100 Pixel hoch).
+            directory_image:
+              hint: Das Verzeichnisbild sollte ein Bild (JPG, GIF oder PNG) verwenden. Die Breite des Bildes sollte nicht größer als die doppelte Höhe sein.
+            facet_panel_background_color:
+              hint: Gilt für Facetten und zusätzliche Abschnittsüberschriften auf den Arbeitsseiten einiger Themen.
+            facet_panel_text_color:
+              hint: Gilt bei einigen Themen auch für die Farbe des Caretzeichens neben dem Text und den Werktitel.
+            favicon:
+              hint: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
+            link_color:
+              hint: 'Betrifft Links auf der Startseite und der Arbeitsseite, einschließlich: Breadcrumbs, Tabs, Titel und Nutzungsbedingungen.'
+            logo_image:
+              hint: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht höher als der Header und nicht breiter als 400 Pixel ist.
+            navbar_background_color:
+              hint: Bei 40 % Deckkraft.
+            navbar_link_background_color:
+              hint: Gilt für die Hintergrundfarbe der Schaltflächen „Startseite“, „Info“, „Kontakt“ und „Hilfe“.
+            navbar_link_background_hover_color:
+              hint: Gilt nur für die Schaltflächen „Startseite“, „Info“, „Kontakt“ und „Hilfe“ auf diesen spezifischen Seiten (bei 15 % Deckkraft).
+            primary_button_hover_color:
+              hint: Schaltflächen zum Teilen, Suchen und Sammeln von Interaktionen (Bearbeiten, Funktionen usw.). Der Rand dieser Schaltflächen wird ebenfalls diese Farbe haben.
+            themes:
+              confirm: Wenn Ihr Thema nicht richtig angewendet wird, stellen Sie sicher, dass es nicht von benutzerdefiniertem CSS überschrieben wird.
           header: Aussehen
+          hints:
+            banner_image: Um ein Bild als Überschriften-Hintergrund zu verwenden, solltest du ein Bild (JPG, GIF oder PNG) verwenden, das mindestens 120 Pixel hoch und 1200 Pixel breit ist. Für beste Ergebnisse verwenden Sie ein Bild mindestens 1800 Pixel breit.
+            default_image: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleiche Höhe und Breite hat (100 Pixel breit und 100 Pixel hoch).
+            directory_image: Um ein Bild als Verzeichnisbild zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht größer als der Header und nicht breiter als 400 Pixel ist.
+            favicon: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
+            logo_image: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht größer als die Kopfzeile und nicht breiter als 400 Pixel ist.
+          tabs:
+            banner_image: Banner Bild
+            colors: Farben
+            custom_css: Maßgeschneidert CSS
+            default_images: Standardbilder
+            directory_image: Verzeichnis Bild
+            favicon: favicon
+            fonts: Schriftarten
+            themes: Themen
         update:
           flash:
             success: Das Erscheinungsbild wurde erfolgreich aktualisiert
@@ -199,19 +249,29 @@ de:
           feature: Feature
           header: Eigenschaften
       sidebar:
+        accounts: Konten
         activity: Aktivität
+        activity_summary: Aktivitätsübersicht
         appearance: Aussehen
         collection_types: Sammlungsarten
         collections: Sammlungen
         configuration: Aufbau
         contact: Kontakt
+        content_blocks: Inhaltsblöcke
         identity_provider: Identitätsanbieter
+        labels: Etiketten
+        manage_groups: Gruppen Verwalten
+        manage_roles_and_permissions: Rollen und Berechtigungen festlegen
+        manage_users: Benutzer verwalten
         notifications: Benachrichtigungen
         pages: Seiten
         profile: Profil
+        repository_activity: Repository-Aktivität
         repository_objects: Repository-Inhalt
+        roles_and_permissions: Benutzer und Gruppen
         settings: die Einstellungen
         statistics: Berichte
+        system_status: Systemstatus
         tasks: Aufgaben
         technical: Eigenschaften
         transfers: Transfers
@@ -240,15 +300,31 @@ de:
             total: 'Total Works:'
             visibility: Summen nach Sichtbarkeit
       users:
+        activate:
+          confirmation: Sind Sie sicher, dass Sie den Benutzer „%{user}“ aktivieren möchten?
+          failure: Benutzer „%{user}“ konnte nicht aktiviert werden.
+          success: Benutzer „%{user}“ wurde erfolgreich aktiviert.
+        destroy:
+          confirmation: Möchten Sie den Benutzer "%{user}" wirklich löschen? Diese Aktion lässt sich nicht rückgängig machen.
+          failure: Benutzer "%{user}" konnte nicht gelöscht werden.
+          success: Der Benutzer "%{user}" wurde erfolgreich gelöscht.
         index:
           access_label: Letzter Zugriff
+          action_label: Aktion
+          add: Nutzer einladen
+          delete: Löschen
           describe_users_html:
             one: In diesem Repository befindet sich ein <b>%{count}-Benutzer</b> .
             other: In diesem Repository befinden sich <b>%{count}-Benutzer</b> .
           group_label: Gruppen
           id_label: Nutzername
+          invite_users: Benutzer hinzufügen oder via Email einladen
           reader_title: Benutzer anzeigen
           role_label: Rollen
+          status:
+            active: Aktiv
+            pending: noch ausstehend
+          status_label: Status
           title: Benutzer verwalten
       workflow_roles:
         header: Workflow-Rollen
@@ -785,6 +861,20 @@ de:
         type: Art des Artikels
         viz_after: Die Sichtbarkeit ändert sich zu
         viz_current: Aktuelle Sichtbarkeit
+    etd:
+      labels:
+        admin_note: Verwaltungshinweise
+        committee_member: Ausschussmitglied
+        creator: Autor
+        date_created: Datum
+        degree_discipline: Disziplin
+        degree_grantor: Grantor
+        degree_level: Niveau
+        degree_name: Grad
+        description: Zusammenfassung / Beschreibung
+        related_url: Beziehung
+        resource_type: Art
+        rights_statement: Rechte
     featured_researchers: Ausgewählte Forscher
     file_manager:
       link_text: Dateimanager
@@ -817,6 +907,9 @@ de:
     footer:
       copyright_html: "<strong>Copyright © 2019 - %{current_year} Samvera lizenziert</strong> unter der Apache Lizenz, Version 2.0"
       service_html: Ein Dienst von <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a> .
+    generic_work:
+      labels:
+        admin_note: Verwaltungshinweise
     help:
       header: Benutzer-Support
       override_text: Verwenden Sie app / views / static / help.html.erb, um diese Datei zu überschreiben.
@@ -859,8 +952,16 @@ de:
         tab_label: Kürzlich hochgeladen
         title: Kürzlich hochgeladen
     icons:
+      cdl: fa fa-file-text-o
       collection: fa fa-würfel
       default: fa fa-cube
+      etd: fa fa-file-text-o
+      generic_work: fa fa-file-text-o
+      image: fa fa-picture-o
+      oer: fa fa-file-text-o
+    image:
+      labels:
+        admin_note: Verwaltungshinweise
     institution_name: Institution
     institution_name_full: Institution
     leases:
@@ -930,6 +1031,83 @@ de:
           you_own: "<strong> %{total_count} funktioniert </ strong>, das Sie im Repository besitzen"
     nav_safety:
       change_tab_message: Möchten Sie diesen Tab wirklich verlassen? Nicht gespeicherte Daten gehen verloren.
+    oer:
+      hints:
+        description: Kurze Beschreibung des Inhalts der Ressource ohne Inhaltsverzeichnis.
+        resource_type: Vordefinierte Kategorien, um die Art des hochgeladenen Inhalts zu beschreiben. Es können mehr als ein Typ ausgewählt werden.
+        table_of_contents: Inhaltsverzeichnis einer Arbeit.
+      labels:
+        admin_note: Verwaltungshinweise
+        description: Beschreibung
+        resource_type: Art
+      show:
+        related_items: Verwandte Versionen und Elemente
+      works:
+        form:
+          related_versions: Verwandte Versionen
+    oers:
+      form_alternate_version:
+        actions:
+          add: Hinzufügen
+          remove: Entfernen Sie aus dieser Arbeit
+        add: Hinzufügen
+        caption: Verweis auf eine aktualisierte Version der Ressource, die diese ersetzen soll
+        confirm:
+          actions: Aktion
+          cancel: Stornieren
+          header:
+          remove: Entfernen
+          text: Durch das Entfernen dieser alternativen Version wird sie nicht aus dem Repository entfernt, sondern nur aus dieser Arbeit. Möchten Sie diese alternative Version wirklich entfernen?
+          title: Arbeitstitel
+        header:
+          actions: Aktion
+          title: Arbeitstitel
+      form_newer_version:
+        actions:
+          add: Hinzufügen
+          remove: Entfernen Sie aus dieser Arbeit
+        add: Hinzufügen
+        caption: Verweis auf eine aktualisierte Version der Ressource, die diese ersetzen soll
+        confirm:
+          cancel: Stornieren
+          remove: Entfernen
+          text: Durch das Entfernen dieser neueren Version wird sie nicht aus dem Repository entfernt, sondern nur aus dieser Arbeit. Möchten Sie diese neuere Version wirklich entfernen?
+        header:
+          actions: Aktion
+          title: Arbeitstitel
+      form_previous_version:
+        actions:
+          add: Hinzufügen
+          remove: Entfernen Sie aus dieser Arbeit
+        add: Hinzufügen
+        caption: Diese Arbeit enthält derzeit diese vorherige Version
+        confirm:
+          cancel: Stornieren
+          remove: Entfernen
+          text: Wenn Sie diese vorherige Version entfernen, wird sie nicht aus dem Repository entfernt, sondern nur aus dieser Arbeit. Möchten Sie diese frühere Version wirklich entfernen?
+        header:
+          actions: Aktion
+          title: Arbeitstitel
+      form_related_item:
+        actions:
+          remove: Entfernen Sie aus dieser Arbeit
+        add: Hinzufügen
+        caption: Verweis auf eine Ressource, die sich allgemein auf die beschriebene Ressource bezieh
+        confirm:
+          cancel: Stornieren
+          remove: Entfernen
+          text: Durch das Entfernen dieser alternativen Version wird sie nicht aus dem Repository entfernt, sondern nur aus dieser Arbeit. Möchten Sie diese alternative Version wirklich entfernen?
+        header:
+          actions: Aktion
+          title: Arbeitstitel
+      related_items:
+        date_uploaded: Datum Hochgeladen
+        empty: Diese "%{type}" hat keine Dateien zugeordnet. Klicken Sie auf „Bearbeiten“, um weitere Dateien hinzuzufügen.
+        relationship_type: Beziehungstyp
+        thumbnail: Miniaturansicht
+        title: Titel
+        unauthorized: Es gibt keine öffentlich verfügbaren Elemente in diesem "%{type}".
+        visibility: Sichtbarkeit
     pages:
       cancel: Stornieren
       tabs:
@@ -963,8 +1141,23 @@ de:
           label: Suche %{application_name}
           placeholder: Suchbegriffe eingeben
     select_type:
+      cdl:
+        description: CDL Werke
+        name: CDL
       description: Allzweck-Arbeitstyp
+      etd:
+        description: ETD Werke
+        name: ETD
+      generic_work:
+        description: 'Arbeitstyp: Generische Arbeit. Wählen Sie diesen Typ für Ihre Arbeit, die Sie hinzufügen möchten, aus, wenn die unten aufgeführten, spezielleren Arbeitstypen nicht für Ihre Arbeit geeignet erscheinen.'
+        name: Generische Arbeit
+      image:
+        description: Einzel- oder mehrseitiges Bild funktioniert.
+        name: Bild
       name: Arbeit
+      oer:
+        description: Open Education Resources (OER) sind kostenlose und offen lizenzierte Unterrichtsmaterialien, die zum Lehren, Lernen, Forschen und für andere Zwecke verwendet werden können.
+        name: OER
     share_button: Teilen Sie Ihre Arbeit
     single_use_links:
       button: Einweg-Link zur Datei
@@ -1094,119 +1287,3 @@ de:
         no_preview: Keine Vorschau vorhanden
       update:
         header: Arbeit bearbeiten
-  simple_form:
-    hints:
-      admin_set:
-        description: Eine kurze übergreifende Beschreibung, die für alle in diesem Set gesammelten Werke gilt. Zum Beispiel "Thesen und ergänzende Dateien, die von Absolventen der School of Earth Sciences erstellt wurden."
-        title: Ein Name, der die Identifizierung des Verwaltungssatzes erleichtert und ihn von anderen Verwaltungssätzen im Repository unterscheidet.
-      collection:
-        based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br> </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können.
-        contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Sammlung erkennen möchten, jedoch nicht als primäre Rolle.
-        creator: Die Person oder Gruppe, die für die Sammlung verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
-        date_created: Das Datum, an dem die Sammlung erstellt wurde.
-        description: Freitextnotizen zur Sammlung. Beispiele hierfür sind Abstracts eines Papiers oder Zitierinformationen für einen Zeitschriftenartikel.
-        identifier: Ein eindeutiger Griff, der die Sammlung identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
-        keyword: Wörter oder Ausdrücke, die Sie auswählen, um zu beschreiben, worum es in der Sammlung geht. Diese werden verwendet, um nach Inhalten zu suchen.
-        language: Die Sprache des Inhalts der Sammlung.
-        license: Lizenz- und Vertriebsinformationen für den Zugriff auf die Sammlung. Wählen Sie aus der bereitgestellten Dropdown-Liste.
-        publisher: Die Person oder Gruppe, die die Sammlung zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
-        related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Sammlung bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Sammlung abgeleitet wurde.
-        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
-        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Sammlung geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
-        title: Ein Name zur Identifizierung einer Sammlung.
-      collection_type:
-        allow_multiple_membership: Zulassen, dass Werke zu mehreren Sammlungen dieses Typs gehören
-        assigns_visibility: Ermöglichen Sie Sammlungen dieses Typs, einer neuen Arbeit anfängliche Sichtbarkeitseinstellungen zuzuweisen
-        assigns_workflow: Ermöglichen Sie Sammlungen dieses Typs, einem neuen Werk einen Workflow zuzuweisen
-        brandable: Ermöglichen Sie das Markieren von Sammlungen dieses Typs
-        description: Eine kurze Erklärung des allgemeinen Zwecks dieses Sammlungstyps. Benutzer sehen dies, wenn sie beim Erstellen einer neuen Sammlung mehr als einen Sammlungstyp zur Auswahl haben.
-        discoverable: Ermöglichen, dass Sammlungen dieses Typs auffindbar sind
-        nestable: Zulassen, dass Sammlungen dieses Typs verschachtelt werden (eine Sammlung kann andere Sammlungen enthalten)
-        require_membership: Ein Werk muss zu mindestens einer Sammlung dieses Typs gehören
-        sharable: Ermöglichen Sie Benutzern, Sammlungsmanager, Einleger und Betrachter für von ihnen verwaltete Sammlungen zuzuweisen
-        share_applies_to_new_works: Wenn neue Werke direkt in der Sammlung erstellt werden, erteilen Sie Benutzern und Gruppen Berechtigungen für das neue Werk entsprechend ihrer Sammlungsrollen.
-        title: ''
-      defaults:
-        based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br> </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können.
-        contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Arbeit erkennen möchten, jedoch nicht die primäre Rolle.
-        creator: Die Person oder Gruppe, die für die Arbeit verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
-        date_created: Das Datum, an dem die Arbeit erstellt wurde.
-        description: Freitextnotizen zur Arbeit. Beispiele hierfür sind Abstracts eines Papiers oder Zitierinformationen für einen Zeitschriftenartikel.
-        extent: Das Ausmaß (Größe, Dauer, Anzahl, etc.) der Arbeit.
-        identifier: Ein einzigartiger Griff, der die Arbeit identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
-        keyword: Wörter oder Sätze, die Sie auswählen, um zu beschreiben, worum es in der Arbeit geht. Diese werden verwendet, um nach Inhalten zu suchen.
-        language: Die Sprache des Arbeitsinhalts.
-        license: Lizenz- und Vertriebsinformationen für den Zugang zum Werk. Wählen Sie aus der bereitgestellten Dropdown-Liste.
-        publisher: Die Person oder Gruppe, die die Arbeit zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
-        related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Arbeit bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Arbeit abgeleitet wurde.
-        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
-        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
-        title: Ein Name, der bei der Identifizierung eines Werks hilft.
-        video_embed: Wenn Sie einen Einbettungslink für ein Video eingeben, muss es sich um eine ordnungsgemäß formatierte URL handeln, die mit „http://“ oder „https://“ beginnt. Es muss außerdem einen gültigen Link zu einem gehosteten Video enthalten, das in einem Iframe angezeigt werden kann. <br /><br /><i>Beispiele:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
-      labels:
-        extent: Umfang
-    labels:
-      collection:
-        size: Größe
-        total_items: Gesamtanzahl
-      collection_type:
-        allow_multiple_membership: MEHRFACHE MITGLIEDSCHAFT
-        assigns_visibility: SICHTWEITE
-        assigns_workflow: ARBEITSABLAUF
-        badge_color: Abzeichenfarbe
-        brandable: BRANDING
-        description: Typbeschreibung
-        discoverable: ENTDECKUNG
-        nestable: NESTING
-        require_membership: MITGLIEDSCHAFT ERFORDERN
-        sharable: TEILEN
-        share_applies_to_new_works: BEWERBEN SIE SICH AUF NEUE WERKE
-        title: Modellname
-      defaults:
-        admin_set_id: Verwaltungsset
-        based_near: Ort
-        contributor: Mitwirkender
-        creator: Schöpfer
-        date_created: Datum erstellt
-        default_button_background_color: Standardhintergrundfarbe der Schaltfläche
-        default_button_border_color: Standardfarbe des Schaltflächenrahmens
-        default_button_text_color: Standardfarbe für den Schaltflächentext
-        description: Zusammenfassung oder Zusammenfassung
-        embargo_release_date: bis um
-        facet_panel_background_color: Hintergrundfarbe des Facettenfelds
-        facet_panel_text_color: Textfarbe des Facettenbereichs
-        files: Eine Datei hochladen
-        footer_link_color: Farbe des Fußzeilenlinks
-        footer_link_hover_color: Hover-Farbe des Fußzeilen-Links
-        header_and_footer_background_color: Hintergrundfarbe für Kopf- und Fußzeile
-        header_and_footer_text_color: Textfarbe für Kopf- und Fußzeile
-        identifier: Kennung
-        keyword: Stichwort
-        lease_expiration_date: bis um
-        license: Lizenz
-        link_color: Verknüpfungsfarbe
-        link_hover_color: Link-Hover-Farbe
-        member_of_collection_ids: Zur Sammlung hinzufügen
-        navbar_background_color: Hintergrundfarbe der Navigationsleiste
-        navbar_link_background_hover_color: Hintergrundfarbe des Navigationsleisten-Links
-        navbar_link_text_color: Textfarbe für Navigationsleisten-Links
-        navbar_link_text_hover_color: Hover-Farbe des Navigationsleisten-Linktextes
-        primary_button_hover_color: Hover-Farbe der primären Schaltfläche
-        publisher: Verleger
-        related_url: Verwandte URL
-        rights_statement: Rechteerklärung
-        source: Quelle
-        title: Titel
-        visibility_after_embargo: dann öffne es bis
-        visibility_after_lease: dann beschränken Sie es auf
-        visibility_during_embargo: Beschränkt auf
-        visibility_during_lease: Ist verfügbar für
-      proxy_deposit_request:
-        sender_comment: Bemerkungen
-        transfer_to: Benutzer
-    placeholders:
-      defaults:
-        find_child_work: Suche nach einer Arbeit…
-        member_of_collection_ids: Sammlung auswählen…
-    required:
-      html: <span class="label label-info required-tag">erforderlich</span>

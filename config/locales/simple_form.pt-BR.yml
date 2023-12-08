@@ -7,41 +7,104 @@ pt-BR:
     hints:
       account:
         admin_emails: Insira um endereço de e-mail por vez
-        is_public: 'Os usuários podem descobrir seu site na página inicial ou acessar suas páginas sem um nome de usuário/senha especial?'
+        allow_signup: Permitir que usuários se inscrevam no seu repositório
+        cache_api: Ativar cache para pontos finais de API. Experimental
+        contact_email: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
+        contact_email_to: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
+        doi_reader: Mostrar capacidade de ler da Datacite para preencher registros. Em desenvolvimento, não use
+        doi_writer: Escrever DOIs para registros. Em desenvolvimento, não use
+        email_format: Defina uma lista de domínios de e-mail que são permitidos para se inscrever neste repositório, por exemplo (@ubiquitypress.com @gmail.com). Deixe um espaço único entre cada domínio.
+        email_subjet_prefix: String para colocar na frente dos assuntos dos e-mails do sistema.
+        enable_oai_metadata: Habilitar ou desabilitar link OAI
         fcrepo_endpoint:
           base_path: O caminho base do Fedora deve começar com uma barra e NÃO terminar com uma barra
           url: A URL do Fedora não deve terminar com uma barra
-        name: Um nome simples ou hifenizado usado para aspectos técnicos do repositório (por exemplo, "acme" ou "acme-biblioteca").
-        gtm_id: O ID da sua conta no Google Tag Manager
+        file_acl: Desative se estiver usando um sistema de arquivos como samba ou nfs que não suporta listas de controle de acesso
+        file_size_limit: Isso deve ser configurado para pelo menos 536870912000
+        geonames_username: Registre-se em http://www.geonames.org/manageaccount
         google_analytics_id: O ID da sua conta no Google Analytics
         google_oauth_app_name: O nome do aplicativo Google no console da API do Google
         google_oauth_app_version: A versão do aplicativo Google no console da API do Google
-        google_oauth_private_key_value: O valor do arquivo p12 com criptografia base64. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
+        google_oauth_client_email: Endereço de e-mail do cliente OAuth
         google_oauth_private_key_path: O caminho completo para o seu arquivo p12, arquivo de chave. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
         google_oauth_private_key_secret: O segredo fornecido quando você criou a chave p12
-        google_oauth_client_email: Endereço de e-mail do cliente OAuth
-        contact_email_to: O endereço de e-mail para o qual as mensagens enviadas via página de contato são enviadas
-        weekly_email_list: Lista de endereços de e-mail para enviar o relatório semanal. Deixe um espaço único entre cada e-mail
+        google_oauth_private_key_value: O valor do arquivo p12 com criptografia base64. (Você pode usar o valor da chave privada OU o caminho; o valor tem precedência)
+        gtm_id: O ID da sua conta no Google Tag Manager
+        is_public: Os usuários podem descobrir seu site na página inicial ou acessar suas páginas sem um nome de usuário/senha especial?
+        locale_name: 'O nome do sufixo específico do inquilino adicionado aos seus arquivos locale.yml. Apenas caracteres alfabéticos devem ser adicionados, sem símbolos ou números, estes serão então capitalizados.
+
+          '
         monthly_email_list: Lista de endereços de e-mail para enviar o relatório mensal. Deixe um espaço único entre cada e-mail
-        yearly_email_list: Lista de endereços de e-mail para enviar o relatório anual. Deixe um espaço único entre cada e-mail
-        email_format: Defina uma lista de domínios de e-mail que são permitidos para se inscrever neste repositório, por exemplo (@ubiquitypress.com @gmail.com). Deixe um espaço único entre cada domínio.
-        allow_signup: Permitir que usuários se inscrevam no seu repositório
-        enable_oai_metadata: Habilitar ou desabilitar link OAI
-        shared_login: Habilitar ou desabilitar login compartilhado
-        file_size_limit: Isso deve ser configurado para pelo menos 536870912000
-        locale_name: |
-          O nome do sufixo específico do inquilino adicionado aos seus arquivos locale.yml. Apenas caracteres alfabéticos devem ser adicionados, sem símbolos ou números, estes serão então capitalizados.
+        name: Um nome simples ou hifenizado usado para aspectos técnicos do repositório (por exemplo, "acme" ou "acme-biblioteca").
         oai_admin_email: Endereço de e-mail de contato do ponto final OAI
-        doi_reader: Mostrar capacidade de ler da Datacite para preencher registros. Em desenvolvimento, não use
-        doi_writer: Escrever DOIs para registros. Em desenvolvimento, não use
-        cache_api: Ativar cache para pontos finais de API. Experimental
-        email_subjet_prefix: String para colocar na frente dos assuntos dos e-mails do sistema.
-        contact_email: O endereço de e-mail do qual as notificações do sistema serão enviadas. Uma configuração adicional é necessária para adicionar um endereço de domínios diferentes do domínio do site
-        geonames_username: Registre-se em http://www.geonames.org/manageaccount
-        file_acl: Desative se estiver usando um sistema de arquivos como samba ou nfs que não suporta listas de controle de acesso
+        shared_login: Habilitar ou desabilitar login compartilhado
         ssl_configured: Defina como verdadeiro se estiver usando https
+        weekly_email_list: Lista de endereços de e-mail para enviar o relatório semanal. Deixe um espaço único entre cada e-mail
+        yearly_email_list: Lista de endereços de e-mail para enviar o relatório anual. Deixe um espaço único entre cada e-mail
+      admin_set:
+        description: Uma breve descrição abrangente que se aplica a todos os trabalhos coletados neste conjunto. Por exemplo, "Teses e arquivos complementares criados pelos alunos de graduação da Escola de Ciências da Terra".
+        title: Um nome para ajudar na identificação do Conjunto Administrativo e para distingui-lo de outros Conjuntos Administrativos no repositório.
+      collection:
+        based_near: Um nome de local relacionado ao trabalho, como seu site de publicação, ou a cidade, estado ou país sobre o qual o conteúdo do trabalho se refere. Solicita <a href='http://www.geonames.org' >Serviço da web GeoNames</a>. Observe que você deve configurar seu nome de usuário geonames nas configurações da conta, ou este campo terá um erro de carregamento.</br> </br><b>Passos para habilitar este campo:</b><br/>1. Crie uma conta gratuita na <a href='http://www.geonames.org'>página do serviço web Geonames.</a></br>2. Acesse suas <a href='http://www.geonames.org/manageaccount'>configurações de conta de geonames</a> e selecione a opção na parte inferior para habilitar serviços gratuitos.</br>3. Acesse as configurações da sua conta hyku no <a href='/admin/account/edit?locale=en'>painel.</a></br>4. Digite seu nome de usuário geonames nas configurações da conta hyrax.<br/>5. Agora você deve conseguir ver a lista de locais neste menu suspenso
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação da coleção, mas não o papel principal.
+        creator: A pessoa ou grupo responsável pela coleção. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
+        date_created: A data em que a coleção foi criada.
+        description: Notas de texto livre sobre a coleção. Os exemplos incluem resumos de um artigo ou informações de citação de um artigo de jornal.
+        identifier: Um identificador exclusivo que identifica a coleção. Um exemplo seria um DOI para um artigo de jornal ou um número de ISBN ou OCLC para um livro.
+        keyword: Palavras ou frases selecionadas para descrever o que é a coleção. Eles são usados para procurar conteúdo.
+        language: O idioma do conteúdo da coleção.
+        license: Informações de licenciamento e distribuição que regem o acesso à coleção. Selecione na lista suspensa fornecida.
+        publisher: A pessoa ou grupo que disponibiliza a coleção. Geralmente esta é a instituição.
+        related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado à coleção. Um exemplo é o URL de um projeto de pesquisa do qual a coleção foi derivada.
+        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "conjunto de dados". Mais de um tipo pode ser selecionado.
+        subject: Cabeçalhos ou termos do índice que descrevem o que é a coleção; estes precisam estar em conformidade com um vocabulário existente.
+        title: Um nome para ajudar na identificação de uma coleção.
+      collection_type:
+        allow_multiple_membership: Permitir que os trabalhos pertençam a várias coleções desse tipo
+        assigns_visibility: Permitir que coleções deste tipo atribuam configurações de visibilidade inicial a um novo trabalho
+        assigns_workflow: Permitir que coleções deste tipo atribuam fluxo de trabalho a um novo trabalho
+        brandable: Permitir que coleções desse tipo sejam marcadas com marca
+        description: Uma breve declaração do objetivo geral desse tipo de coleção. Os usuários verão isso se tiverem mais de um tipo de coleção para escolher ao criar uma nova coleção.
+        discoverable: Permitir que coleções deste tipo sejam descobertas
+        nestable: Permitir que coleções deste tipo sejam aninhadas (uma coleção pode conter outras coleções)
+        require_membership: Uma obra deve pertencer a pelo menos uma coleção desse tipo
+        sharable: Permitir que os usuários atribuam gerenciadores, depositantes e visualizadores de coleções às coleções que gerenciam
+        share_applies_to_new_works: Quando novos trabalhos são criados diretamente na coleção, conceda aos usuários e grupos de compartilhamento permissões para o novo trabalho, de acordo com suas funções de coleção.
+        title: ''
+      defaults:
+        accessibility_feature: Recursos acessíveis do trabalho.
+        accessibility_hazard: Características do trabalho que pode ser fisiologicamente perigoso para alguns usuários.
+        accessibility_summary: Um resumo de recursos ou deficiências específicas de acessibilidade.
+        additional_information: Outras informações sobre direitos não transmitidas por status, como termos de licença ou informações de contato.
+        alternative_title: Título alternativo para o recurso.
+        audience: O alvo pretendido para o trabalho.
+        based_near: Um nome de local relacionado ao trabalho, como seu site de publicação, ou a cidade, estado ou país sobre o qual o conteúdo do trabalho se refere. Solicita <a href='http://www.geonames.org' >Serviço da web GeoNames</a>. Observe que você deve configurar seu nome de usuário geonames nas configurações da conta, ou este campo terá um erro de carregamento.</br> </br><b>Passos para habilitar este campo:</b><br/>1. Crie uma conta gratuita na <a href='http://www.geonames.org'>página do serviço web Geonames.</a></br>2. Acesse suas <a href='http://www.geonames.org/manageaccount'>configurações de conta de geonames</a> e selecione a opção na parte inferior para habilitar serviços gratuitos.</br>3. Acesse as configurações da sua conta hyku no <a href='/admin/account/edit?locale=en'>painel.</a></br>4. Digite seu nome de usuário geonames nas configurações da conta hyrax.<br/>5. Agora você deve conseguir ver a lista de locais neste menu suspenso
+        contributor: Uma pessoa ou grupo que você deseja reconhecer por desempenhar um papel na criação do trabalho, mas não o papel principal.
+        creator: A pessoa ou grupo responsável pelo trabalho. Normalmente, este é o autor do conteúdo. Os nomes pessoais devem ser inseridos com o sobrenome primeiro, p. "Smith, John".
+        date: A data em que o trabalho foi criado, publicado ou emitido.
+        date_created: A data em que o trabalho foi criado.
+        description: Notas de texto livre sobre o trabalho. Os exemplos incluem resumos de um artigo ou informações de citação de um artigo de jornal.
+        discipline: O domínio educacional ao qual o recurso se destina.
+        education_level: O nível de educação para o qual o trabalho é destinado.
+        extent: A extensão (tamanho, duração, número, etc.) do trabalho.
+        identifier: Um identificador exclusivo para identificar o trabalho. Um exemplo seria um DOI para um artigo de jornal ou um número de ISBN ou OCLC para um livro.
+        keyword: Palavras ou frases que você selecionar para descrever sobre o que é o trabalho. Eles são usados para procurar conteúdo.
+        language: A linguagem do conteúdo da obra.
+        learning_resource_type: O tipo específico de recurso educacional descrito.
+        license: Informações de licenciamento e distribuição que regem o acesso à obra. Selecione na lista suspensa fornecida.
+        oer_size: Tamanho ou duração do trabalho.
+        publisher: A pessoa ou grupo que disponibiliza o trabalho. Geralmente esta é a instituição.
+        related_url: Um link para um site ou outro conteúdo específico (áudio, vídeo, documento PDF) relacionado ao trabalho. Um exemplo é o URL de um projeto de pesquisa do qual o trabalho foi derivado.
+        resource_type: Categorias predefinidas para descrever o tipo de conteúdo que está sendo carregado, como "artigo" ou "conjunto de dados". Mais de um tipo pode ser selecionado.
+        rights_holder: Pessoa ou grupo que detém os direitos do trabalho, se conhecido.
+        subject: Cabeçalhos ou termos do índice que descrevem o que é o trabalho; estes precisam estar em conformidade com um vocabulário existente.
+        table_of_contents: Sumário de um trabalho.
+        title: Um nome para ajudar na identificação de um trabalho.
+        video_embed: Se você inserir um link incorporado para um vídeo, ele deverá ser um URL formatado corretamente, começando com 'http://' ou 'https://'. Ele também precisa conter um link válido para um vídeo hospedado que possa aparecer em um iframe. <br /><br /><i>Exemplos:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       hyku_group:
         description: Um breve resumo do papel do grupo
+      labels:
+        extent: Extensão
       user:
         email: Insira um endereço de e-mail por vez. Você também pode reenviar um convite por meio deste formulário. Funções aplicam-se apenas a este inquilino.
     labels:
@@ -51,15 +114,85 @@ pt-BR:
         fcrepo_endpoint:
           base_path: Caminho Base
           url: URL
+        gtm_id: Google Tag Manager
         name: Nome curto
         solr_endpoint:
           url: URL
         tenant: UUID do inquilino
-        gtm_id: Google Tag Manager
       add_user_to_group:
         user_ids: ID do usuário
+      collection:
+        size: Tamanho
+        total_items: Total de Itens
+      collection_type:
+        allow_multiple_membership: MÚLTIPLA ASSOCIAÇÃO
+        assigns_visibility: VISIBILIDADE
+        assigns_workflow: FLUXO DE TRABALHO
+        badge_color: Cor do emblema
+        brandable: BRANDING
+        description: Descrição do tipo
+        discoverable: DESCOBERTA
+        nestable: NESTING
+        require_membership: NECESSIDADE DE ASSOCIAÇÃO
+        sharable: PARTILHA
+        share_applies_to_new_works: APLICAR-SE A NOVOS TRABALHOS
+        title: Digite o nome
       defaults:
+        accessibility_feature: Recurso de acessibilidade
+        accessibility_hazard: Risco de acessibilidade
+        accessibility_summary: Resumo de Acessibilidade
+        additional_information: Informações Adicionais sobre Direitos
         admin_note: Notas administrativas
+        admin_set_id: Conjunto administrativo
+        advisor: Orientador
+        alternative_title: Título alternativo
+        audience: Público
+        based_near: Localização
+        contributor: Contribuinte
+        creator: O Criador
+        date: Encontro
+        date_created: Data Criada
+        default_button_background_color: Cor de fundo do botão padrão
+        default_button_border_color: Cor padrão da borda do botão
+        default_button_text_color: Cor padrão do texto do botão
+        department: Departamento
+        description: Resumo ou Resumo
+        discipline: Disciplina
+        education_level: Nível de educação
+        embargo_release_date: até
+        facet_panel_background_color: Cor de fundo do painel de facetas
+        facet_panel_text_color: Cor do texto do painel de facetas
+        files: Enviar um arquivo
+        footer_link_color: Cor do link do rodapé
+        footer_link_hover_color: Cor do foco do link do rodapé
+        format: Formato
+        header_and_footer_background_color: Cor de fundo do cabeçalho e rodapé
+        header_and_footer_text_color: Cor do texto do cabeçalho e rodapé
+        identifier: Identificador
+        keyword: Palavra-chave
+        learning_resource_type: Tipo de recurso de aprendizagem
+        lease_expiration_date: até
+        license: Licença
+        link_color: Cor do link
+        link_hover_color: Cor do foco do link
+        member_of_collection_ids: Adicionar a coleção
+        navbar_background_color: Cor de fundo da barra de navegação
+        navbar_link_background_hover_color: Cor de foco do plano de fundo do link da barra de navegação
+        navbar_link_text_color: Cor do texto do link da barra de navegação
+        navbar_link_text_hover_color: Cor do foco do texto do link da barra de navegação
+        oer_size: Tamanho
+        primary_button_hover_color: Cor principal do foco do botão
+        publisher: Editor
+        related_url: URL relacionado
+        rights_holder: Detentor dos direitos
+        rights_statement: Declaração de direitos
+        source: Fonte
+        table_of_contents: Índice
+        title: Título
+        visibility_after_embargo: depois abra
+        visibility_after_lease: então restrinja-o a
+        visibility_during_embargo: Restrito a
+        visibility_during_lease: Está disponível para
       domain_names:
         cname: Nome de Domínio
       group_search:
@@ -68,16 +201,27 @@ pt-BR:
         description: Descrição
       page_size:
         per: Mostrar
+      proxy_deposit_request:
+        sender_comment: Comentários
+        transfer_to: Do utilizador
       user:
         display_name: Seu nome
         email: Endereço de e-mail
       user_search:
         uq: Pesquisar por usuário
-    'no': 'Não'
+    'no': Não
     placeholders:
+      defaults:
+        alternate_version_id: Pesquise um trabalho ...
+        find_child_work: Procure um trabalho…
+        member_of_collection_ids: Selecione uma coleção…
+        newer_version_id: Pesquise um trabalho ...
+        previous_version_id: Pesquise um trabalho ...
+        related_item_id: Pesquise um trabalho ...
       user_search:
         uq: Nome ou nome de usuário
     required:
+      html: <span class="label label-info required-tag">requeridos</span>
       mark: "*"
       text: obrigatório
-    'yes': 'Sim'
+    'yes': Sim

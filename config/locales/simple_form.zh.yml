@@ -3,45 +3,108 @@ zh:
   simple_form:
     cancel: 取消
     error_notification:
-      default_message: '请检查以下问题：'
+      default_message: 请检查以下问题：
     hints:
       account:
         admin_emails: 一次输入一个电子邮件地址
-        is_public: '用户可以在主页上发现您的网站，或者不需要特殊的用户名/密码就可以访问您的页面吗？'
+        allow_signup: 允许用户注册您的存储库
+        cache_api: 打开API端点的缓存。实验性
+        contact_email: 系统通知将从其中发送的电子邮件地址。需要额外的配置才能从网站域以外的域添加地址
+        contact_email_to: 通过联系页面提交的消息发送到的电子邮件地址
+        doi_reader: 显示从Datacite读取以填充记录的能力。仍在进行中，请勿使用
+        doi_writer: 为记录编写DOIs。仍在进行中，请勿使用
+        email_format: 设置允许注册此存储库的电子邮件域的列表，例如(@ubiquitypress.com @gmail.com)。每个域之间留一个空格。
+        email_subjet_prefix: 放在系统电子邮件主题前面的字符串。
+        enable_oai_metadata: 启用或禁用OAI链接
         fcrepo_endpoint:
           base_path: Fedora基本路径应该以斜杠开始且不应该以斜杠结束
           url: Fedora URL不应该以斜杠结束
-        name: 用于存储技术方面的单一或连字符名称（例如，“acme”或“acme-library”）。
-        gtm_id: 您的Google标签管理器帐户ID
+        file_acl: 如果使用不支持设置访问控制列表的文件系统（如samba或nfs），请关闭它
+        file_size_limit: 此值应至少设置为536870912000
+        geonames_username: 在http://www.geonames.org/manageaccount上注册
         google_analytics_id: 您的Google Analytics帐户ID
         google_oauth_app_name: Google API控制台中的Google应用程序名称
         google_oauth_app_version: Google API控制台中的Google应用版本
-        google_oauth_private_key_value: 带有base64加密的p12文件的值。（您可以使用私钥值或路径；值优先）
+        google_oauth_client_email: OAuth客户电子邮件地址
         google_oauth_private_key_path: 您的p12密钥文件的完整路径。（您可以使用私钥值或路径；值优先）
         google_oauth_private_key_secret: 创建p12密钥时提供的秘密
-        google_oauth_client_email: OAuth客户电子邮件地址
-        contact_email_to: 通过联系页面提交的消息发送到的电子邮件地址
-        weekly_email_list: 每周报告的电子邮件地址列表。每个电子邮件之间留一个空格
+        google_oauth_private_key_value: 带有base64加密的p12文件的值。（您可以使用私钥值或路径；值优先）
+        gtm_id: 您的Google标签管理器帐户ID
+        is_public: 用户可以在主页上发现您的网站，或者不需要特殊的用户名/密码就可以访问您的页面吗？
+        locale_name: '添加到其locale.yml文件的租户特定语言环境后缀的名称。只应添加字母字符，不应添加符号或数字，这些将随后大写。
+
+          '
         monthly_email_list: 每月报告的电子邮件地址列表。每个电子邮件之间留一个空格
-        yearly_email_list: 每年报告的电子邮件地址列表。每个电子邮件之间留一个空格
-        email_format: 设置允许注册此存储库的电子邮件域的列表，例如(@ubiquitypress.com @gmail.com)。每个域之间留一个空格。
-        allow_signup: 允许用户注册您的存储库
-        enable_oai_metadata: 启用或禁用OAI链接
-        shared_login: 启用或禁用共享登录
-        file_size_limit: 此值应至少设置为536870912000
-        locale_name: |
-          添加到其locale.yml文件的租户特定语言环境后缀的名称。只应添加字母字符，不应添加符号或数字，这些将随后大写。
+        name: 用于存储技术方面的单一或连字符名称（例如，“acme”或“acme-library”）。
         oai_admin_email: OAI端点联系电子邮件地址
-        doi_reader: 显示从Datacite读取以填充记录的能力。仍在进行中，请勿使用
-        doi_writer: 为记录编写DOIs。仍在进行中，请勿使用
-        cache_api: 打开API端点的缓存。实验性
-        email_subjet_prefix: 放在系统电子邮件主题前面的字符串。
-        contact_email: 系统通知将从其中发送的电子邮件地址。需要额外的配置才能从网站域以外的域添加地址
-        geonames_username: 在http://www.geonames.org/manageaccount上注册
-        file_acl: 如果使用不支持设置访问控制列表的文件系统（如samba或nfs），请关闭它
+        shared_login: 启用或禁用共享登录
         ssl_configured: 如果使用https，请将其设置为true
+        weekly_email_list: 每周报告的电子邮件地址列表。每个电子邮件之间留一个空格
+        yearly_email_list: 每年报告的电子邮件地址列表。每个电子邮件之间留一个空格
+      admin_set:
+        description: 简短的总体描述，适用于本系列中收集的所有作品。例如，“地球科学学院研究生创建的论文和补充文件”。
+        title: 一个名称，以帮助标识管理集并将其与存储库中的其他管理集区分开。
+      collection:
+        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
+        contributor: 您想通过在集合创建过程中扮演的角色而被认可的个人或团体，而不是主要角色。
+        creator: 负责收集的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
+        date_created: 集合创建的日期。
+        description: 关于集合的自由文本注释。示例包括论文摘要或期刊文章的引用信息。
+        identifier: 标识集合的唯一句柄。例如期刊文章的DOI或书籍的ISBN或OCLC编号。
+        keyword: 您选择用来描述集合含义的词或短语。这些用于搜索内容。
+        language: 集合内容的语言。
+        license: 许可和分发信息，用于管理对馆藏的访问。从提供的下拉列表中选择。
+        publisher: 使集合可用的个人或团体。通常这是机构。
+        related_url: 指向网站或与馆藏相关的其他特定内容（音频，视频，PDF文档）的链接。一个示例是该集合所源自的研究项目的URL。
+        resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
+        subject: 描述馆藏内容的标题或索引词；这些确实需要符合现有词汇。
+        title: 有助于识别集合的名称。
+      collection_type:
+        allow_multiple_membership: 允许作品属于该类型的多个收藏
+        assigns_visibility: 允许这种类型的集合将初始可见性设置分配给新作品
+        assigns_workflow: 允许这种类型的集合将工作流程分配给新工作
+        brandable: 允许将此类型的收藏添加品牌
+        description: 简要说明此收集类型的一般用途。用户在创建新集合时可以选择多种集合类型时，将看到此信息。
+        discoverable: 允许发现此类型的集合
+        nestable: 允许嵌套此类型的集合（一个集合可以包含其他集合）
+        require_membership: 一件作品必须至少属于这一类型的收藏
+        sharable: 允许用户为他们管理的收藏指派收藏经理，存款人和查看者
+        share_applies_to_new_works: 在集合中直接创建新作品时，请根据其收藏角色授予共享用户和组新作品的权限。
+        title: ''
+      defaults:
+        accessibility_feature: 作品的無障礙功能
+        accessibility_hazard: 對某些使用者可能造成生理危險的作品特徵
+        accessibility_summary: 特定輔助功能或缺陷的摘要
+        additional_information: 未按状态传达的其他权利信息，例如许可条款或联系信息。
+        alternative_title: 资源的备用标题。
+        audience: 工作的预期目标。
+        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
+        contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
+        creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
+        date: T创建，发布或发布作品的日期。
+        date_created: 工作创建的日期。
+        description: 关于这项工作的自由文本注释。示例包括论文摘要或期刊文章的引用信息。
+        discipline: 资源旨在服务的教育领域。
+        education_level: 预期工作的教育水平。
+        extent: 工作的程度（大小，持续时间，数量等）。
+        identifier: 标识工作的唯一句柄。例如期刊文章的DOI或书籍的ISBN或OCLC编号。
+        keyword: 您选择用来描述工作内容的词或短语。这些用于搜索内容。
+        language: 作品内容的语言。
+        learning_resource_type: 描述的特定类型的教育资源。
+        license: 有关访问作品的许可和发行信息。从提供的下拉列表中选择。
+        oer_size: 工作的规模或持续时间。
+        publisher: 使工作可用的个人或团体。通常这是机构。
+        related_url: 指向网站或与作品相关的其他特定内容（音频，视频，PDF文档）的链接。一个示例是该工作源自的研究项目的URL。
+        resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
+        rights_holder: 作品的大小或持续时间。拥有作品权利的个人或团体（如果知道）。
+        subject: 描述工作内容的标题或索引词；这些确实需要符合现有词汇。
+        table_of_contents: 作品目录。
+        title: 有助于识别作品的名称。
+        video_embed: 如果您输入视频的嵌入链接，它必须是格式正确、以“http://”或“https://”开头的网址。它还需要包含指向可显示在 iframe 中的托管视频的有效链接。 <br /><br /><i>示例：<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       hyku_group:
         description: 该组的角色简介
+      labels:
+        extent: 程度
       user:
         email: 一次输入一个电子邮件地址。您也可以通过此表格重新发送邀请。角色仅适用于此租户。
     labels:
@@ -51,15 +114,85 @@ zh:
         fcrepo_endpoint:
           base_path: 基本路径
           url: URL
+        gtm_id: Google标签管理器
         name: 简称
         solr_endpoint:
           url: URL
         tenant: 租户UUID
-        gtm_id: Google标签管理器
       add_user_to_group:
         user_ids: 用户ID
+      collection:
+        size: 尺寸
+        total_items: 项目总数
+      collection_type:
+        allow_multiple_membership: 多会员
+        assigns_visibility: 能见度
+        assigns_workflow: 工作流程
+        badge_color: 徽章颜色
+        brandable: 品牌推广
+        description: 类型说明
+        discoverable: 发现
+        nestable: 嵌套
+        require_membership: 需要会员
+        sharable: 分享
+        share_applies_to_new_works: 申请新作品
+        title: 类型名称
       defaults:
+        accessibility_feature: 輔助功能
+        accessibility_hazard: 可達性危害
+        accessibility_summary: 輔助功能摘要
+        additional_information: 附加权利信息
         admin_note: 管理员备注
+        admin_set_id: 行政套装
+        advisor: 顾问
+        alternative_title: 替代标题
+        audience: 听众
+        based_near: 位置
+        contributor: 贡献者
+        creator: 创作者
+        date: 日期
+        date_created: 创建日期
+        default_button_background_color: 默认按钮背景颜色
+        default_button_border_color: 默认按钮边框颜色
+        default_button_text_color: 默认按钮文字颜色
+        department: 部门
+        description: 摘要或摘要
+        discipline: 学科
+        education_level: 教育程度
+        embargo_release_date: 直到
+        facet_panel_background_color: 分面面板背景色
+        facet_panel_text_color: 构面面板文本颜色
+        files: 上传一个文件
+        footer_link_color: 页脚链接颜色
+        footer_link_hover_color: 页脚链接悬停颜色
+        format: 格式
+        header_and_footer_background_color: 页眉和页脚背景颜色
+        header_and_footer_text_color: 页眉和页脚文本颜色
+        identifier: 识别码
+        keyword: 关键词
+        learning_resource_type: 学习资源类型
+        lease_expiration_date: 直到
+        license: 执照
+        link_color: 链接颜色
+        link_hover_color: 链接悬停颜色
+        member_of_collection_ids: 添加到收藏
+        navbar_background_color: 导航栏背景颜色
+        navbar_link_background_hover_color: 导航栏链接背景悬停颜色
+        navbar_link_text_color: 导航栏链接文字颜色
+        navbar_link_text_hover_color: 导航栏链接文本悬停颜色
+        oer_size: 尺寸
+        primary_button_hover_color: 主按钮悬停颜色
+        publisher: 发行人
+        related_url: 相关网址
+        rights_holder: 权利人
+        rights_statement: 权利声明
+        source: 资源
+        table_of_contents: 目录
+        title: 标题
+        visibility_after_embargo: 然后打开它
+        visibility_after_lease: 然后将其限制为
+        visibility_during_embargo: 受限于
+        visibility_during_lease: 可用于
       domain_names:
         cname: 域名
       group_search:
@@ -68,16 +201,27 @@ zh:
         description: 描述
       page_size:
         per: 显示
+      proxy_deposit_request:
+        sender_comment: 注释
+        transfer_to: 用户
       user:
         display_name: 您的名字
         email: 电子邮件地址
       user_search:
         uq: 用户搜索
-    'no': '否'
+    'no': 否
     placeholders:
+      defaults:
+        alternate_version_id: 搜寻作品...
+        find_child_work: 正在搜寻作品…
+        member_of_collection_ids: 选择一个收藏夹…
+        newer_version_id: 搜寻作品...
+        previous_version_id: 搜寻作品...
+        related_item_id: 搜寻作品...
       user_search:
         uq: 名称或用户名
     required:
+      html: <span class="label label-info required-tag">需要</span>
       mark: "*"
       text: 必填
-    'yes': '是'
+    'yes': 是

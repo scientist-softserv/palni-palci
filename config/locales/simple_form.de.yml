@@ -7,41 +7,104 @@ de:
     hints:
       account:
         admin_emails: Geben Sie jeweils eine E-Mail-Adresse ein
-        is_public: 'Können Benutzer Ihre Seite auf der Startseite entdecken oder auf Ihre Seiten zugreifen, ohne einen speziellen Benutzernamen / Passwort?'
+        allow_signup: Benutzern erlauben, sich für Ihr Repository anzumelden
+        cache_api: Cache für API-Endpunkte aktivieren. Experimentell
+        contact_email: Die E-Mail-Adresse, von der Systembenachrichtigungen gesendet werden. Eine zusätzliche Konfiguration ist erforderlich, um eine Adresse von anderen Domänen als der Domäne der Website hinzuzufügen
+        contact_email_to: Die E-Mail-Adresse, an die über die Kontaktseite gesendete Nachrichten gesendet werden
+        doi_reader: Zeigen Sie die Fähigkeit an, von Datacite zu lesen, um Datensätze zu füllen. WIP nicht verwenden
+        doi_writer: DOIs für Datensätze schreiben. WIP nicht verwenden
+        email_format: Legen Sie eine Liste von E-Mail-Domänen fest, die sich für dieses Repository anmelden dürfen, z. B. (@ubiquitypress.com @gmail.com). Lassen Sie jeweils ein Leerzeichen zwischen den Domänen.
+        email_subjet_prefix: Zeichenfolge, die vor System-E-Mail-Betreffs eingefügt wird.
+        enable_oai_metadata: OAI-Link aktivieren oder deaktivieren
         fcrepo_endpoint:
           base_path: Der Fedora-Basispfad sollte mit einem Schrägstrich beginnen UND nicht mit einem Schrägstrich enden
           url: Die Fedora-URL sollte nicht mit einem Schrägstrich enden
-        name: Ein einzelner oder mit Bindestrichen versehener Name, der für technische Aspekte des Repositories verwendet wird (z.B. "acme" oder "acme-bibliothek").
-        gtm_id: Die ID Ihres Google Tag Manager-Kontos
+        file_acl: Deaktivieren Sie dies, wenn Sie ein Dateisystem wie Samba oder NFS verwenden, das das Festlegen von Zugriffssteuerungslisten nicht unterstützt
+        file_size_limit: Dies sollte mindestens auf 536870912000 eingestellt sein
+        geonames_username: Registrieren Sie sich unter http://www.geonames.org/manageaccount
         google_analytics_id: Die ID Ihres Google Analytics-Kontos
         google_oauth_app_name: Der Name der Google-Anwendung in der Google API-Konsole
         google_oauth_app_version: Die Version der Google-Anwendung in der Google API-Konsole
-        google_oauth_private_key_value: Der Wert der p12-Datei mit Base64-Verschlüsselung. (Sie können den privaten Schlüsselwert ODER den Pfad verwenden; der Wert hat Vorrang)
+        google_oauth_client_email: OAuth-Client-E-Mail-Adresse
         google_oauth_private_key_path: Der vollständige Pfad zu Ihrer p12-Schlüsseldatei. (Sie können den privaten Schlüsselwert ODER den Pfad verwenden; der Wert hat Vorrang)
         google_oauth_private_key_secret: Das Geheimnis, das Sie beim Erstellen des p12-Schlüssels angegeben haben
-        google_oauth_client_email: OAuth-Client-E-Mail-Adresse
-        contact_email_to: Die E-Mail-Adresse, an die über die Kontaktseite gesendete Nachrichten gesendet werden
-        weekly_email_list: Liste von E-Mail-Adressen, an die der wöchentliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
+        google_oauth_private_key_value: Der Wert der p12-Datei mit Base64-Verschlüsselung. (Sie können den privaten Schlüsselwert ODER den Pfad verwenden; der Wert hat Vorrang)
+        gtm_id: Die ID Ihres Google Tag Manager-Kontos
+        is_public: Können Benutzer Ihre Seite auf der Startseite entdecken oder auf Ihre Seiten zugreifen, ohne einen speziellen Benutzernamen / Passwort?
+        locale_name: 'Der Name des mandantenspezifischen Gebietsschemasuffix, der ihren locale.yml-Dateien hinzugefügt wird. Es sollten nur alphabetische Zeichen hinzugefügt werden, keine Symbole oder Zahlen, diese werden dann großgeschrieben.
+
+          '
         monthly_email_list: Liste von E-Mail-Adressen, an die der monatliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
-        yearly_email_list: Liste von E-Mail-Adressen, an die der jährliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
-        email_format: Legen Sie eine Liste von E-Mail-Domänen fest, die sich für dieses Repository anmelden dürfen, z. B. (@ubiquitypress.com @gmail.com). Lassen Sie jeweils ein Leerzeichen zwischen den Domänen.
-        allow_signup: Benutzern erlauben, sich für Ihr Repository anzumelden
-        enable_oai_metadata: OAI-Link aktivieren oder deaktivieren
-        shared_login: Gemeinsamen Login aktivieren oder deaktivieren
-        file_size_limit: Dies sollte mindestens auf 536870912000 eingestellt sein
-        locale_name: |
-          Der Name des mandantenspezifischen Gebietsschemasuffix, der ihren locale.yml-Dateien hinzugefügt wird. Es sollten nur alphabetische Zeichen hinzugefügt werden, keine Symbole oder Zahlen, diese werden dann großgeschrieben.
+        name: Ein einzelner oder mit Bindestrichen versehener Name, der für technische Aspekte des Repositories verwendet wird (z.B. "acme" oder "acme-bibliothek").
         oai_admin_email: OAI-Endpunkt-Kontakt-E-Mail-Adresse
-        doi_reader: Zeigen Sie die Fähigkeit an, von Datacite zu lesen, um Datensätze zu füllen. WIP nicht verwenden
-        doi_writer: DOIs für Datensätze schreiben. WIP nicht verwenden
-        cache_api: Cache für API-Endpunkte aktivieren. Experimentell
-        email_subjet_prefix: Zeichenfolge, die vor System-E-Mail-Betreffs eingefügt wird.
-        contact_email: Die E-Mail-Adresse, von der Systembenachrichtigungen gesendet werden. Eine zusätzliche Konfiguration ist erforderlich, um eine Adresse von anderen Domänen als der Domäne der Website hinzuzufügen
-        geonames_username: Registrieren Sie sich unter http://www.geonames.org/manageaccount
-        file_acl: Deaktivieren Sie dies, wenn Sie ein Dateisystem wie Samba oder NFS verwenden, das das Festlegen von Zugriffssteuerungslisten nicht unterstützt
+        shared_login: Gemeinsamen Login aktivieren oder deaktivieren
         ssl_configured: Setzen Sie es auf wahr, wenn Sie https verwenden
+        weekly_email_list: Liste von E-Mail-Adressen, an die der wöchentliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
+        yearly_email_list: Liste von E-Mail-Adressen, an die der jährliche Bericht gesendet wird. Lassen Sie jeweils ein Leerzeichen zwischen den E-Mails
+      admin_set:
+        description: Eine kurze übergreifende Beschreibung, die für alle in diesem Set gesammelten Werke gilt. Zum Beispiel "Thesen und ergänzende Dateien, die von Absolventen der School of Earth Sciences erstellt wurden."
+        title: Ein Name, der die Identifizierung des Verwaltungssatzes erleichtert und ihn von anderen Verwaltungssätzen im Repository unterscheidet.
+      collection:
+        based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br> </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können.
+        contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Sammlung erkennen möchten, jedoch nicht als primäre Rolle.
+        creator: Die Person oder Gruppe, die für die Sammlung verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
+        date_created: Das Datum, an dem die Sammlung erstellt wurde.
+        description: Freitextnotizen zur Sammlung. Beispiele hierfür sind Abstracts eines Papiers oder Zitierinformationen für einen Zeitschriftenartikel.
+        identifier: Ein eindeutiger Griff, der die Sammlung identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
+        keyword: Wörter oder Ausdrücke, die Sie auswählen, um zu beschreiben, worum es in der Sammlung geht. Diese werden verwendet, um nach Inhalten zu suchen.
+        language: Die Sprache des Inhalts der Sammlung.
+        license: Lizenz- und Vertriebsinformationen für den Zugriff auf die Sammlung. Wählen Sie aus der bereitgestellten Dropdown-Liste.
+        publisher: Die Person oder Gruppe, die die Sammlung zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
+        related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Sammlung bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Sammlung abgeleitet wurde.
+        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
+        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Sammlung geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
+        title: Ein Name zur Identifizierung einer Sammlung.
+      collection_type:
+        allow_multiple_membership: Zulassen, dass Werke zu mehreren Sammlungen dieses Typs gehören
+        assigns_visibility: Ermöglichen Sie Sammlungen dieses Typs, einer neuen Arbeit anfängliche Sichtbarkeitseinstellungen zuzuweisen
+        assigns_workflow: Ermöglichen Sie Sammlungen dieses Typs, einem neuen Werk einen Workflow zuzuweisen
+        brandable: Ermöglichen Sie das Markieren von Sammlungen dieses Typs
+        description: Eine kurze Erklärung des allgemeinen Zwecks dieses Sammlungstyps. Benutzer sehen dies, wenn sie beim Erstellen einer neuen Sammlung mehr als einen Sammlungstyp zur Auswahl haben.
+        discoverable: Ermöglichen, dass Sammlungen dieses Typs auffindbar sind
+        nestable: Zulassen, dass Sammlungen dieses Typs verschachtelt werden (eine Sammlung kann andere Sammlungen enthalten)
+        require_membership: Ein Werk muss zu mindestens einer Sammlung dieses Typs gehören
+        sharable: Ermöglichen Sie Benutzern, Sammlungsmanager, Einleger und Betrachter für von ihnen verwaltete Sammlungen zuzuweisen
+        share_applies_to_new_works: Wenn neue Werke direkt in der Sammlung erstellt werden, erteilen Sie Benutzern und Gruppen Berechtigungen für das neue Werk entsprechend ihrer Sammlungsrollen.
+        title: ''
+      defaults:
+        accessibility_feature: Zugängliche Funktionen der Arbeit.
+        accessibility_hazard: Eigenschaften der Arbeit, die für einige Benutzer physiologisch gefährlich sein können.
+        accessibility_summary: Eine Zusammenfassung der spezifischen Barrierefreiheitsfunktionen oder -mängel.
+        additional_information: Informationen zu anderen Rechten, die nicht durch den Status vermittelt werden, wie z. B. Lizenzbedingungen oder Kontaktinformationen.
+        alternative_title: Alternativer Titel für die Ressource.
+        audience: as beabsichtigte Ziel für die Arbeit.
+        based_near: Ein Ortsname, der sich auf das Werk bezieht, z. B. der Ort der Veröffentlichung oder die Stadt, das Bundesland oder das Land, um das es in den Inhalten des Werks geht. Ruft die <a href='http://www.geonames.org‘ auf. >GeoNames-Webdienst</a>. Bitte beachten Sie, dass Sie Ihren Geonames-Benutzernamen in den Kontoeinstellungen konfigurieren müssen, da sonst in diesem Feld ein Ladefehler auftritt.</br> </br><b>Schritte zum Aktivieren dieses Feldes:</b><br/>1. Erstellen Sie ein kostenloses Konto auf der <a href='http://www.geonames.org'>Geonames-Webdienstseite.</a></br>2. Gehen Sie zu Ihren <a href='http://www.geonames.org/manageaccount'>Geonames-Kontoeinstellungen</a> und wählen Sie unten die Option aus, um kostenlose Dienste zu aktivieren.</br>3. Gehen Sie im <a href='/admin/account/edit?locale=en'>Dashboard</a></br> zu den Einstellungen Ihres Hyku-Kontos. Geben Sie Ihren Geonames-Benutzernamen in den Hyrax-Kontoeinstellungen ein.<br/>5. Sie sollten nun die Liste der Standorte in diesem Dropdown-Menü sehen können.
+        contributor: Eine Person oder Gruppe, die Sie als eine Rolle bei der Erstellung der Arbeit erkennen möchten, jedoch nicht die primäre Rolle.
+        creator: Die Person oder Gruppe, die für die Arbeit verantwortlich ist. Normalerweise ist dies der Autor des Inhalts. Persönliche Namen sollten mit dem Nachnamen zuerst eingegeben werden, z. "Smith, John".
+        date: Das Datum, an dem das Werk erstellt, veröffentlicht oder anderweitig ausgestellt wurde.
+        date_created: Das Datum, an dem die Arbeit erstellt wurde.
+        description: Freitextnotizen zur Arbeit. Beispiele hierfür sind Abstracts eines Papiers oder Zitierinformationen für einen Zeitschriftenartikel.
+        discipline: Der Bildungsbereich, dem die Ressource dienen soll.
+        education_level: Das Bildungsniveau, für das die Arbeit bestimmt ist.
+        extent: Das Ausmaß (Größe, Dauer, Anzahl, etc.) der Arbeit.
+        identifier: Ein einzigartiger Griff, der die Arbeit identifiziert. Ein Beispiel wäre ein DOI für einen Zeitschriftenartikel oder eine ISBN- oder OCLC-Nummer für ein Buch.
+        keyword: Wörter oder Sätze, die Sie auswählen, um zu beschreiben, worum es in der Arbeit geht. Diese werden verwendet, um nach Inhalten zu suchen.
+        language: Die Sprache des Arbeitsinhalts.
+        learning_resource_type: Die spezifische Art der beschriebenen Bildungsressource.
+        license: Lizenz- und Vertriebsinformationen für den Zugang zum Werk. Wählen Sie aus der bereitgestellten Dropdown-Liste.
+        oer_size: Größe oder Dauer der Arbeit.
+        publisher: Die Person oder Gruppe, die die Arbeit zur Verfügung stellt. Im Allgemeinen ist dies die Institution.
+        related_url: Ein Link zu einer Website oder einem anderen spezifischen Inhalt (Audio, Video, PDF-Dokument), der sich auf die Arbeit bezieht. Ein Beispiel ist die URL eines Forschungsprojekts, von dem die Arbeit abgeleitet wurde.
+        resource_type: Vordefinierte Kategorien zur Beschreibung der Art des hochgeladenen Inhalts, z. B. "Artikel". oder "Datensatz". Es kann mehr als ein Typ ausgewählt werden.
+        rights_holder: Person oder Gruppe, die die Rechte an dem Werk besitzt, sofern bekannt.
+        subject: Überschriften oder Indexbegriffe, die beschreiben, worum es in der Arbeit geht; Diese müssen einem vorhandenen Wortschatz entsprechen.
+        table_of_contents: Inhaltsverzeichnis einer Arbeit.
+        title: Ein Name, der bei der Identifizierung eines Werks hilft.
+        video_embed: Wenn Sie einen Einbettungslink für ein Video eingeben, muss es sich um eine ordnungsgemäß formatierte URL handeln, die mit „http://“ oder „https://“ beginnt. Es muss außerdem einen gültigen Link zu einem gehosteten Video enthalten, das in einem Iframe angezeigt werden kann. <br /><br /><i>Beispiele:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
       hyku_group:
         description: Eine kurze Zusammenfassung der Rolle der Gruppe
+      labels:
+        extent: Umfang
       user:
         email: Geben Sie jeweils eine E-Mail-Adresse ein. Sie können auch über dieses Formular erneut eine Einladung senden. Rollen gelten nur für diesen Mandanten.
     labels:
@@ -51,15 +114,85 @@ de:
         fcrepo_endpoint:
           base_path: Basispfad
           url: URL
+        gtm_id: Google Tag Manager
         name: Kurzname
         solr_endpoint:
           url: URL
         tenant: Mandant UUID
-        gtm_id: Google Tag Manager
       add_user_to_group:
         user_ids: Benutzer-ID
+      collection:
+        size: Größe
+        total_items: Gesamtanzahl
+      collection_type:
+        allow_multiple_membership: MEHRFACHE MITGLIEDSCHAFT
+        assigns_visibility: SICHTWEITE
+        assigns_workflow: ARBEITSABLAUF
+        badge_color: Abzeichenfarbe
+        brandable: BRANDING
+        description: Typbeschreibung
+        discoverable: ENTDECKUNG
+        nestable: NESTING
+        require_membership: MITGLIEDSCHAFT ERFORDERN
+        sharable: TEILEN
+        share_applies_to_new_works: BEWERBEN SIE SICH AUF NEUE WERKE
+        title: Modellname
       defaults:
+        accessibility_feature: Eingabehilfen
+        accessibility_hazard: Zugänglichkeitsgefahr
+        accessibility_summary: Barrierefreiheitsübersicht
+        additional_information: Zusätzliche Informationen zu Rechten
         admin_note: Verwaltungsnotizen
+        admin_set_id: Verwaltungsset
+        advisor: Berater
+        alternative_title: Alternativer Titel
+        audience: Publikum
+        based_near: Ort
+        contributor: Mitwirkender
+        creator: Schöpfer
+        date: Datum
+        date_created: Datum erstellt
+        default_button_background_color: Standardhintergrundfarbe der Schaltfläche
+        default_button_border_color: Standardfarbe des Schaltflächenrahmens
+        default_button_text_color: Standardfarbe für den Schaltflächentext
+        department: Abteilung
+        description: Zusammenfassung oder Zusammenfassung
+        discipline: die Ausbildung
+        education_level: Bildungsniveau
+        embargo_release_date: bis um
+        facet_panel_background_color: Hintergrundfarbe des Facettenfelds
+        facet_panel_text_color: Textfarbe des Facettenbereichs
+        files: Eine Datei hochladen
+        footer_link_color: Farbe des Fußzeilenlinks
+        footer_link_hover_color: Hover-Farbe des Fußzeilen-Links
+        format: Format
+        header_and_footer_background_color: Hintergrundfarbe für Kopf- und Fußzeile
+        header_and_footer_text_color: Textfarbe für Kopf- und Fußzeile
+        identifier: Kennung
+        keyword: Stichwort
+        learning_resource_type: Lernressourcentyp
+        lease_expiration_date: bis um
+        license: Lizenz
+        link_color: Verknüpfungsfarbe
+        link_hover_color: Link-Hover-Farbe
+        member_of_collection_ids: Zur Sammlung hinzufügen
+        navbar_background_color: Hintergrundfarbe der Navigationsleiste
+        navbar_link_background_hover_color: Hintergrundfarbe des Navigationsleisten-Links
+        navbar_link_text_color: Textfarbe für Navigationsleisten-Links
+        navbar_link_text_hover_color: Hover-Farbe des Navigationsleisten-Linktextes
+        oer_size: Größe
+        primary_button_hover_color: Hover-Farbe der primären Schaltfläche
+        publisher: Verleger
+        related_url: Verwandte URL
+        rights_holder: Rechteinhaber
+        rights_statement: Rechteerklärung
+        source: Quelle
+        table_of_contents: Inhaltsverzeichnis
+        title: Titel
+        visibility_after_embargo: dann öffne es bis
+        visibility_after_lease: dann beschränken Sie es auf
+        visibility_during_embargo: Beschränkt auf
+        visibility_during_lease: Ist verfügbar für
       domain_names:
         cname: Domainname
       group_search:
@@ -68,16 +201,27 @@ de:
         description: Beschreibung
       page_size:
         per: Zeigen
+      proxy_deposit_request:
+        sender_comment: Bemerkungen
+        transfer_to: Benutzer
       user:
         display_name: Ihr Name
         email: E-Mail-Adresse
       user_search:
         uq: Benutzer suchen
-    'no': 'Nein'
+    'no': Nein
     placeholders:
+      defaults:
+        alternate_version_id: Suche nach einer Arbeit ...
+        find_child_work: Suche nach einer Arbeit…
+        member_of_collection_ids: Sammlung auswählen…
+        newer_version_id: Suche nach einer Arbeit ...
+        previous_version_id: Suche nach einer Arbeit ...
+        related_item_id: Suche nach einer Arbeit ...
       user_search:
         uq: Name oder Benutzername
     required:
+      html: <span class="label label-info required-tag">erforderlich</span>
       mark: "*"
       text: erforderlich
-    'yes': 'Ja'
+    'yes': Ja

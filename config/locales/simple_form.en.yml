@@ -7,39 +7,100 @@ en:
     hints:
       account:
         admin_emails: Enter one email address at a time
-        is_public: 'Can users discover your site on the home page or access your pages without a special username / password?'
+        allow_signup: Allow users to sign up to your repository
+        cache_api: Turns on cache for API endpoints. Experimental
+        contact_email: The email address that system notifications will be sent from. Additional configuration is required to add an address from domains other than the site's domain
+        contact_email_to: The email address that messages submitted via the contact page are sent to
+        doi_reader: Show ability to read from Datacite to populate records. WIP do not use
+        doi_writer: Write DOIs for records. WIP do not use
+        email_format: Set a list of email domains that are allowed sign up to this repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain.
+        email_subjet_prefix: String to put in front of system email subjects.
+        enable_oai_metadata: Enable or disable OAI link
         fcrepo_endpoint:
           base_path: Fedora base path should begin with a slash AND not end with a slash
           url: Fedora URL should not end with a slash
-        name: A single or hyphenated name used for technical aspects of the repository (e.g., "acme" or "acme-library").
-        gtm_id: The ID of your Google Tag Manager account
+        file_acl: Turn off if using a file system like samba or nfs that does not support setting access control lists
+        file_size_limit: This should be set to at least 536870912000
+        geonames_username: Register at http://www.geonames.org/manageaccount
         google_analytics_id: The ID of your Google Analytics account
         google_oauth_app_name: The name of the Google application in the Google API console
         google_oauth_app_version: The version of the Google application in the Google API console
-        google_oauth_private_key_value: The value of the p12 file with base64 encryption. (You can use the private key value OR path; value takes precedence)
+        google_oauth_client_email: OAuth Client email address
         google_oauth_private_key_path: The full path to your p12, key file. (You can use the private key value OR path; value takes precedence)
         google_oauth_private_key_secret: The secret provided when you created the p12 key
-        google_oauth_client_email: OAuth Client email address
-        contact_email_to: The email address that messages submitted via the contact page are sent to
-        weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
+        google_oauth_private_key_value: The value of the p12 file with base64 encryption. (You can use the private key value OR path; value takes precedence)
+        gtm_id: The ID of your Google Tag Manager account
+        is_public: Can users discover your site on the home page or access your pages without a special username / password?
+        locale_name: 'The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
+
+          '
         monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
-        yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
-        email_format: Set a list of email domains that are allowed sign up to this repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain.
-        allow_signup: Allow users to sign up to your repository
-        enable_oai_metadata: Enable or disable OAI link
-        shared_login: Enable or disable shared login
-        file_size_limit: This should be set to at least 536870912000
-        locale_name: |
-          The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
+        name: A single or hyphenated name used for technical aspects of the repository (e.g., "acme" or "acme-library").
         oai_admin_email: OAI endpoint contact email address
-        doi_reader: Show ability to read from Datacite to populate records. WIP do not use
-        doi_writer: Write DOIs for records. WIP do not use
-        cache_api: Turns on cache for API endpoints. Experimental
-        email_subjet_prefix: String to put in front of system email subjects.
-        contact_email: The email address that system notifications will be sent from. Additional configuration is required to add an address from domains other than the site's domain
-        geonames_username: Register at http://www.geonames.org/manageaccount
-        file_acl: Turn off if using a file system like samba or nfs that does not support setting access control lists
+        shared_login: Enable or disable shared login
         ssl_configured: Set it true if using https
+        weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
+        yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
+      admin_set:
+        description: A brief overarching description that applies to all works collected in this set. For example, "Theses and supplementary files created by the School of Earth Sciences graduate students."
+        title: A name to aid in identifying the Administrative Set and to distinguish it from other Administrative Sets in the repository.
+      collection:
+        based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>. Please note, you must configure your geonames username in the account settings, or this field will have a loading error.</br> </br><b>Steps to enable this field:</b><br/>1. Create a free account on the <a href='http://www.geonames.org'>Geonames web service page.</a></br>2. Go to your <a href='http://www.geonames.org/manageaccount'>geonames account settings</a> and select the option at the bottom to enable free services.</br>3. Go into your hyku account settings in the <a href='/admin/account/edit?locale=en'>dashboard.</a></br>4. Enter your geonames username in the hyrax account settings.<br/>5. You should now be able to see the list of locations in this dropdown.
+        contributor: A person or group you want to recognize for playing a role in the creation of the collection, but not the primary role.
+        creator: The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
+        date_created: The date on which the collection was created.
+        description: Free-text notes about the collection. Examples include abstracts of a paper or citation information for a journal article.
+        identifier: A unique handle identifying the collection. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
+        keyword: Words or phrases you select to describe what the collection is about. These are used to search for content.
+        language: The language of the collection's content.
+        license: Licensing and distribution information governing access to the collection. Select from the provided drop-down list.
+        publisher: The person or group making the collection available. Generally this is the institution.
+        related_url: A link to a website or other specific content (audio, video, PDF document) related to the collection. An example is the URL of a research project from which the collection was derived.
+        resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
+        subject: Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary.
+        title: A name to aid in identifying a collection.
+      collection_type:
+        allow_multiple_membership: Allow works to belong to multiple collections of this type
+        assigns_visibility: Allow collections of this type to assign initial visibility settings to a new work
+        assigns_workflow: Allow collections of this type to assign workflow to a new work
+        brandable: Allow collections of this type to be branded
+        description: A brief statement of the general purpose of this collection type.  Users will see this if they have more than one collection type to choose from when creating a new collection.
+        discoverable: Allow collections of this type to be discoverable
+        nestable: Allow collections of this type to be nested (a collection can contain other collections)
+        require_membership: A work must belong to at least one collection of this type
+        sharable: Allow users to assign collection managers, depositors, and viewers for collections they manage
+        share_applies_to_new_works: When new works are created directly in the collection, grant sharing users and groups permissions for the new work according to their collection roles.
+        title: ''
+      defaults:
+        accessibility_feature: Accessible features of the work.
+        accessibility_hazard: Characteristics of the work that may be physiologically dangerous to some users.
+        accessibility_summary: A summary of specific accessibility features or deficiencies.
+        additional_information: Other rights information not conveyed by status such as license terms or contact information.
+        alternative_title: Alternative title for the resource.
+        audience: The intended target for the work.
+        based_near: A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>. Please note, you must configure your geonames username in the account settings, or this field will have a loading error.</br> </br><b>Steps to enable this field:</b><br/>1. Create a free account on the <a href='http://www.geonames.org'>Geonames web service page.</a></br>2. Go to your <a href='http://www.geonames.org/manageaccount'>geonames account settings</a> and select the option at the bottom to enable free services.</br>3. Go into your hyku account settings in the <a href='/admin/account/edit?locale=en'>dashboard.</a></br>4. Enter your geonames username in the hyrax account settings.<br/>5. You should now be able to see the list of locations in this dropdown.
+        contributor: A person or group you want to recognize for playing a role in the creation of the work, but not the primary role.
+        creator: The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;.
+        date: The date on which the work was created, published or otherwise issued.
+        date_created: The date on which the work was created. Must adhere to either the format YYYY, YYYY-MM, or YYYY-MM-DD in order to be filtered and sorted.
+        description: Free-text notes about the work. Examples include abstracts of a paper or citation information for a journal article.
+        discipline: The educational domain the resource is intended to serve.
+        education_level: The level of education for which the work is intended.
+        extent: The extent (size, duration, number, etc.) of the work.
+        identifier: A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book.
+        keyword: Words or phrases you select to describe what the work is about. These are used to search for content.
+        language: The language of the work's content.
+        learning_resource_type: The specific type of educational resource described.
+        license: Licensing and distribution information governing access to the work. Select from the provided drop-down list.
+        oer_size: Size or duration of the work.
+        publisher: The person or group making the work available. Generally this is the institution.
+        related_url: A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived.
+        resource_type: Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected.
+        rights_holder: Person or group that holds the rights to the work if known.
+        subject: Headings or index terms describing what the work is about; these do need to conform to an existing vocabulary.
+        table_of_contents: Table of contents of a work.
+        title: A name to aid in identifying a work.
+        video_embed: If you enter an embed link for a video, it must be a properly formatted url beginning with 'http://' or 'https://'. It also needs to contain a valid link to a hosted video that can appear in an iframe. <br /><br /><i>Examples:<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/Znf73dsFdC8</i>
       hyku_group:
         description: A brief summary of the role of the group
       user:
@@ -51,15 +112,85 @@ en:
         fcrepo_endpoint:
           base_path: Base Path
           url: URL
+        gtm_id: Google tag manager
         name: Short name
         solr_endpoint:
           url: URL
         tenant: Tenant UUID
-        gtm_id: Google tag manager
       add_user_to_group:
         user_ids: User ID
+      collection:
+        size: Size
+        total_items: Total items
+      collection_type:
+        allow_multiple_membership: MULTIPLE MEMBERSHIP
+        assigns_visibility: VISIBILITY
+        assigns_workflow: WORKFLOW
+        badge_color: Badge Color
+        brandable: BRANDING
+        description: Type description
+        discoverable: DISCOVERY
+        nestable: NESTING
+        require_membership: REQUIRE MEMBERSHIP
+        sharable: SHARING
+        share_applies_to_new_works: APPLY TO NEW WORKS
+        title: Type name
       defaults:
+        accessibility_feature: Accessibility Feature
+        accessibility_hazard: Accessibility Hazard
+        accessibility_summary: Accessibility Summary
+        additional_information: Additional Rights Information
         admin_note: Administrative Notes
+        admin_set_id: Administrative Set
+        advisor: Advisor
+        alternative_title: Alternative Title
+        audience: Audience
+        based_near: Location
+        contributor: Contributor
+        creator: Creator
+        date: Date
+        date_created: Date Created
+        default_button_background_color: Default button background color
+        default_button_border_color: Default button border color
+        default_button_text_color: Default button text color
+        department: Department
+        description: Description
+        discipline: Discipline
+        education_level: Education Level
+        embargo_release_date: until
+        facet_panel_background_color: Facet panel background color
+        facet_panel_text_color: Facet panel text color
+        files: Upload a file
+        footer_link_color: Footer link color
+        footer_link_hover_color: Footer link hover color
+        format: Format
+        header_and_footer_background_color: Header and footer background color
+        header_and_footer_text_color: Header and footer text color
+        identifier: Identifier
+        keyword: Keyword
+        learning_resource_type: Learning Resource Type
+        lease_expiration_date: until
+        license: License
+        link_color: Link color
+        link_hover_color: Link hover color
+        member_of_collection_ids: Add to collection
+        navbar_background_color: Navbar background color
+        navbar_link_background_hover_color: Navbar link background hover color
+        navbar_link_text_color: Navbar link text color
+        navbar_link_text_hover_color: Navbar link text hover color
+        oer_size: Size
+        primary_button_hover_color: Primary button hover color
+        publisher: Publisher
+        related_url: Related URL
+        rights_holder: Rights Holder
+        rights_statement: Rights Statement
+        source: Source
+        table_of_contents: Table of Contents
+        title: Title
+        visibility_after_embargo: then open it up to
+        visibility_after_lease: then restrict it to
+        visibility_during_embargo: Restricted to
+        visibility_during_lease: Is available to
       domain_names:
         cname: Domain Name
       group_search:
@@ -68,6 +199,9 @@ en:
         description: Description
       page_size:
         per: Show
+      proxy_deposit_request:
+        sender_comment: Comments
+        transfer_to: User
       user:
         display_name: Your Name
         email: Email address
@@ -75,9 +209,17 @@ en:
         uq: Search for User
     'no': 'No'
     placeholders:
+      defaults:
+        alternate_version_id: Search for a work...
+        find_child_work: Search for a work…
+        member_of_collection_ids: Select a collection…
+        newer_version_id: Search for a work...
+        previous_version_id: Search for a work...
+        related_item_id: Search for a work...
       user_search:
         uq: Name or username
     required:
+      html: <span class="label label-info required-tag">required</span>
       mark: "*"
       text: required
     'yes': 'Yes'

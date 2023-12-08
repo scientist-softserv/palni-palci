@@ -117,7 +117,57 @@ zh:
           confirm_delete: 您确定要删除此管理集吗？此操作无法撤消。
       appearances:
         show:
+          forms:
+            banner_image:
+              hint: 要将图像用作标头广告背景，您应该使用至少120像素高和1200像素宽的图像（JPG，GIF或PNG）。为了获得最佳效果，请使用至少1800像素宽的图像。
+            collection_banner_text_color:
+              hint: 集合横幅内文本（标题和上次更新日期）的颜色。
+            custom_css:
+              confirm: 自定义CSS将始终覆盖其他主题选择。继续？
+              warning: 如果您的主题自定义设置似乎无法正确应用，请确认自定义CSS不会覆盖它们。
+            default_button_background_color:
+              hint: 工作交互（编辑、功能等）按钮；收藏页面和搜索过滤器按钮上的工作视图。
+            default_images:
+              alert: 请至少上传一个文件，然后再提交。
+              hint: 对于默认图像，您应该使用高度和宽度尺寸（宽度为100像素，高度为100像素）的图像（JPG，GIF或PNG）
+            directory_image:
+              hint: 目录图像应使用图像（JPG、GIF 或 PNG）。图片的宽度不应超过高度的 2 倍。
+            facet_panel_background_color:
+              hint: 适用于某些主题中工作页面上的分面和附加节标题。
+            facet_panel_text_color:
+              hint: 也适用于文本旁边插入符号的颜色和某些主题的作品标题。
+            favicon:
+              hint: Favicons 需要是 png 文件并且必须是方形的。使用的最大尺寸为 228px x 228px
+            link_color:
+              hint: 影响主页和工作页面上的链接，包括：面包屑、标签、标题和服务条款。
+            logo_image:
+              hint: 要将图像用作徽标，应使用不大于标题且宽度不超过400像素的图像（JPG，GIF或PNG）。
+            navbar_background_color:
+              hint: 不透明度为 40%。
+            navbar_link_background_color:
+              hint: 适用于“主页”、“关于”、“联系人”和“帮助”按钮背景颜色
+            navbar_link_background_hover_color:
+              hint: 仅适用于这些特定页面上的“主页”、“关于”、“联系方式”和“帮助”按钮（不透明度为 15%）。
+            primary_button_hover_color:
+              hint: 共享、搜索和收藏交互（编辑、功能等）按钮。这些按钮的边框也将是这种颜色。
+            themes:
+              confirm: 如果您的主题似乎没有正确应用，请确认该主题未被Custom CSS覆盖。
           header: 出现
+          hints:
+            banner_image: 要使用图像作为标头背景，您应该使用至少120像素高和1200像素宽的图像（JPG，GIF或PNG）。 为获得最佳效果，请使用至少1800像素宽的图像。
+            default_image: 对于默认图像，您应使用具有相同高度和宽度尺寸（100像素宽，100像素高）的图像（JPG，GIF或PNG）
+            directory_image: 要将图像用作目录图像，您应使用不高于标题且宽度不超过400像素的图像（JPG，GIF或PNG）。
+            favicon: Favicons 需要是 png 文件并且必须是方形的。使用的最大尺寸为 228px x 228px
+            logo_image: 要使用图像作为徽标，您应使用不高于标题且宽度不超过400像素的图像（JPG，GIF或PNG）。
+          tabs:
+            banner_image: 横幅图像
+            colors: 颜色
+            custom_css: 自定义CSS
+            default_images: 默认图像
+            directory_image: 目录图像
+            favicon: 图标
+            fonts: 字形
+            themes: 主题
         update:
           flash:
             success: 外观已成功更新
@@ -199,7 +249,9 @@ zh:
           feature: 特征
           header: 特征
       sidebar:
+        accounts: 帐号
         activity: 活动
+        activity_summary: 活动摘要
         appearance: 出现
         collection_types: 集合类型
         collections: 馆藏
@@ -207,12 +259,15 @@ zh:
         contact: 联系
         content_blocks: 内容块
         identity_provider: 身份提供者
+        labels: 标签
+        manage_groups: 管理组
         notifications: 通知事项
         pages: 页数
         profile: 个人资料
         repository_objects: 储存库内容
         settings: 设定值
         statistics: 报告书
+        system_status: 系统状态
         tasks: 任务
         technical: 特征
         transfers: 转账
@@ -241,15 +296,31 @@ zh:
             total: 总作品：
             visibility: 可见度总计
       users:
+        activate:
+          confirmation: 您确定要激活用户“%{user}”吗？
+          failure: 无法激活用户“%{user}”。
+          success: 用户“%{user}”已成功激活。
+        destroy:
+          confirmation: 您确定要删除用户“%{user}”吗？这一行动是不可逆转的。
+          failure: 无法删除用户“%{user}”。
+          success: 用户“%{user}”已成功删除。
         index:
           access_label: 最后访问
+          action_label: 行动
+          add: 邀请用户
+          delete: 删除
           describe_users_html:
             one: 该存储库中有<b>%{count}个用户</b> 。
             other: 此存储库中有<b>%{count}个用户</b> 。
           group_label: 团体
           id_label: 用户名
+          invite_users: 通过电子邮件添加或邀请用户
           reader_title: 查看用户
           role_label: 的角色
+          status:
+            active: 活性
+            pending: 有待
+          status_label: 状态
           title: 管理用户
       workflow_roles:
         header: 工作流程角色
@@ -786,6 +857,20 @@ zh:
         type: 项目类型
         viz_after: 可见性将变为
         viz_current: 当前可见性
+    etd:
+      labels:
+        admin_note: 行政笔记
+        committee_member: 委员会成员
+        creator: 作者
+        date_created: 日期
+        degree_discipline: 学科
+        degree_grantor: 资助人
+        degree_level: 水平
+        degree_name: 度
+        description: 摘要/说明
+        related_url: 关系
+        resource_type: 类型
+        rights_statement: 权利
     featured_researchers: 特色研究员
     file_manager:
       link_text: 文件管理器
@@ -818,6 +903,9 @@ zh:
     footer:
       copyright_html: "<strong>版权所有 &copy; 2019 - %{current_year} Samvera</strong> 根据Apache许可证2.0版许可"
       service_html: 的服务<a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
+    generic_work:
+      labels:
+        admin_note: 行政笔记
     help:
       header: 用户支援
       override_text: 使用app / views / static / help.html.erb覆盖此文件。
@@ -860,8 +948,16 @@ zh:
         tab_label: 最近上传
         title: 最近上传
     icons:
+      cdl: fa fa-file-text-o
       collection: fa fa-cubes
       default: fa fa-cube
+      etd: fa fa-file-text-o
+      generic_work: fa fa-file-text-o
+      image: fa fa-picture-o
+      oer: fa fa-file-text-o
+    image:
+      labels:
+        admin_note: 行政笔记
     institution_name: 机构
     institution_name_full: 机构
     leases:
@@ -931,6 +1027,81 @@ zh:
           you_own: 您在存储库中拥有的<strong> %{total_count}有效</ strong>
     nav_safety:
       change_tab_message: 您确定要离开此标签吗？任何未保存的数据将丢失。
+    oer:
+      hints:
+        description: 资源内容的简要说明，不包括目录。
+        resource_type: 预定类型用于描述上传内容类型。可以选择多项类型。
+        table_of_contents: 作品目录。
+      labels:
+        admin_note: 行政笔记
+        description: 描述
+        resource_type: 类型
+      show:
+        related_items: 相关版本和项目
+      works:
+        form:
+          related_versions: 相关版本
+    oers:
+      form_alternate_version:
+        actions:
+          remove: 从这项工作中删除
+        add: 加
+        caption: 引用旨在替换它的资源的更新版本
+        confirm:
+          actions: 行动
+          cancel: 取消
+          header:
+          remove: 去掉
+          text: 刪除此替代版本不會將其從存儲庫中刪除，僅會從此工作中刪除。您確定要刪除此備用版本嗎？
+          title: 作品名称
+        header:
+          actions: 行动
+          title: 作品名称
+      form_newer_version:
+        actions:
+          remove: 从这项工作中删除
+        add: 加
+        caption: 引用旨在替换它的资源的更新版本
+        confirm:
+          cancel: 取消
+          remove: 去掉
+          text: 删除此较新版本不会仅从此项工作中将其从存储库中删除。您确定要删除此较新版本吗？
+        header:
+          actions: 行动
+          title: 作品名称
+      form_previous_version:
+        actions:
+          add: 加
+          remove: 从这项工作中删除
+        add: 加
+        caption: 该作品当前包含此先前版本
+        confirm:
+          cancel: 取消
+          remove: 去掉
+          text: 删除此先前版本不会将其从资源库中删除，仅会从此工作中删除。您确定要删除此先前版本吗？
+        header:
+          actions: 行动
+          title: 作品名称
+      form_related_item:
+        actions:
+          remove: 从这项工作中删除
+        add: 加
+        caption: 引用通常与所描述资源有关的资源
+        confirm:
+          cancel: 取消
+          remove: 去掉
+          text: 删除此替代版本不会将其从存储库中删除，仅会从此工作中删除。您确定要删除此备用版本吗？
+        header:
+          actions: 行动
+          title: 作品名称
+      related_items:
+        date_uploaded: 上传日期
+        empty: 该 %{type} 没有相关文件。 请点击'编辑'添加更多文件。
+        relationship_type: 关系类型
+        thumbnail: 缩略图
+        title: 标题
+        unauthorized: 这个%{type}中没有公开可用的项目。
+        visibility: 公开度
     pages:
       cancel: 取消
       tabs:
@@ -964,8 +1135,23 @@ zh:
           label: 搜索%{application_name}
           placeholder: 输入搜索词
     select_type:
+      cdl:
+        description: CDL 作品
+        name: CDL
       description: 通用工作类型
+      etd:
+        description: ETD 作品
+        name: ETD
+      generic_work:
+        description: 通用工作类型。 如果下面的更具体的工作类型不适合您要添加的工作，请选择此项。
+        name: 通用工作
+      image:
+        description: 单页或多页图像工作。
+        name: 图片
       name: 工作
+      oer:
+        description: 开放式教育资源（OER）是免费的和开放许可的教育材料，可用于教学，学习，研究和其他目的。
+        name: OER
     share_button: 分享你的作品
     single_use_links:
       button: 一次性链接到文件
@@ -1095,119 +1281,3 @@ zh:
         no_preview: 预览不可用
       update:
         header: 编辑作品
-  simple_form:
-    hints:
-      admin_set:
-        description: 简短的总体描述，适用于本系列中收集的所有作品。例如，“地球科学学院研究生创建的论文和补充文件”。
-        title: 一个名称，以帮助标识管理集并将其与存储库中的其他管理集区分开。
-      collection:
-        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
-        contributor: 您想通过在集合创建过程中扮演的角色而被认可的个人或团体，而不是主要角色。
-        creator: 负责收集的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
-        date_created: 集合创建的日期。
-        description: 关于集合的自由文本注释。示例包括论文摘要或期刊文章的引用信息。
-        identifier: 标识集合的唯一句柄。例如期刊文章的DOI或书籍的ISBN或OCLC编号。
-        keyword: 您选择用来描述集合含义的词或短语。这些用于搜索内容。
-        language: 集合内容的语言。
-        license: 许可和分发信息，用于管理对馆藏的访问。从提供的下拉列表中选择。
-        publisher: 使集合可用的个人或团体。通常这是机构。
-        related_url: 指向网站或与馆藏相关的其他特定内容（音频，视频，PDF文档）的链接。一个示例是该集合所源自的研究项目的URL。
-        resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
-        subject: 描述馆藏内容的标题或索引词；这些确实需要符合现有词汇。
-        title: 有助于识别集合的名称。
-      collection_type:
-        allow_multiple_membership: 允许作品属于该类型的多个收藏
-        assigns_visibility: 允许这种类型的集合将初始可见性设置分配给新作品
-        assigns_workflow: 允许这种类型的集合将工作流程分配给新工作
-        brandable: 允许将此类型的收藏添加品牌
-        description: 简要说明此收集类型的一般用途。用户在创建新集合时可以选择多种集合类型时，将看到此信息。
-        discoverable: 允许发现此类型的集合
-        nestable: 允许嵌套此类型的集合（一个集合可以包含其他集合）
-        require_membership: 一件作品必须至少属于这一类型的收藏
-        sharable: 允许用户为他们管理的收藏指派收藏经理，存款人和查看者
-        share_applies_to_new_works: 在集合中直接创建新作品时，请根据其收藏角色授予共享用户和组新作品的权限。
-        title: ''
-      defaults:
-        based_near: 与作品相关的地名，例如其出版地点，或作品内容所涉及的城市、州或国家。调用 <a href='http://www.geonames.org' >GeoNames Web 服务</a>。请注意，您必须在帐户设置中配置您的 geonames 用户名，否则此字段将出现加载错误。</br> </br><b>启用此字段的步骤：</b><br/>1.在 <a href='http://www.geonames.org'>Geonames 网络服务页面</a></br>创建一个免费帐户。2.转到您的 <a href='http://www.geonames.org/manageaccount'>geonames 帐户设置</a>，然后选择底部的选项以启用免费服务。</br>3.在<a href='/admin/account/edit?locale=en'>仪表板中进入您的 hyku 帐户设置。</a></br>4.在 hyrax 帐户设置中输入您的 geonames 用户名。<br/>5.您现在应该能够在此下拉列表中看到位置列表
-        contributor: 您希望因在作品创作中扮演的角色而被认可的个人或团体，而不是主要角色。
-        creator: 负责工作的个人或团体。通常，这是内容的作者。输入的个人名字应使用姓氏，例如“约翰·史密斯”。
-        date_created: 工作创建的日期。
-        description: 关于这项工作的自由文本注释。示例包括论文摘要或期刊文章的引用信息。
-        extent: 工作的程度（大小，持续时间，数量等）。
-        identifier: 标识工作的唯一句柄。例如期刊文章的DOI或书籍的ISBN或OCLC编号。
-        keyword: 您选择用来描述工作内容的词或短语。这些用于搜索内容。
-        language: 作品内容的语言。
-        license: 有关访问作品的许可和发行信息。从提供的下拉列表中选择。
-        publisher: 使工作可用的个人或团体。通常这是机构。
-        related_url: 指向网站或与作品相关的其他特定内容（音频，视频，PDF文档）的链接。一个示例是该工作源自的研究项目的URL。
-        resource_type: 用于描述要上载的内容类型的预定义类别，例如“商品”，“商品”，“商品”，或“数据集”。可以选择一种以上的类型。
-        subject: 描述工作内容的标题或索引词；这些确实需要符合现有词汇。
-        title: 有助于识别作品的名称。
-        video_embed: 如果您输入视频的嵌入链接，它必须是格式正确、以“http://”或“https://”开头的网址。它还需要包含指向可显示在 iframe 中的托管视频的有效链接。 <br /><br /><i>示例：<br/>https://player.vimeo.com/video/467264493?h=b089de0eab<br/>https://www.youtube.com/embed/ Znf73dsFdC8</i>
-      labels:
-        extent: 程度
-    labels:
-      collection:
-        size: 尺寸
-        total_items: 项目总数
-      collection_type:
-        allow_multiple_membership: 多会员
-        assigns_visibility: 能见度
-        assigns_workflow: 工作流程
-        badge_color: 徽章颜色
-        brandable: 品牌推广
-        description: 类型说明
-        discoverable: 发现
-        nestable: 嵌套
-        require_membership: 需要会员
-        sharable: 分享
-        share_applies_to_new_works: 申请新作品
-        title: 类型名称
-      defaults:
-        admin_set_id: 行政套装
-        based_near: 位置
-        contributor: 贡献者
-        creator: 创作者
-        date_created: 创建日期
-        default_button_background_color: 默认按钮背景颜色
-        default_button_border_color: 默认按钮边框颜色
-        default_button_text_color: 默认按钮文字颜色
-        description: 摘要或摘要
-        embargo_release_date: 直到
-        facet_panel_background_color: 分面面板背景色
-        facet_panel_text_color: 构面面板文本颜色
-        files: 上传一个文件
-        footer_link_color: 页脚链接颜色
-        footer_link_hover_color: 页脚链接悬停颜色
-        header_and_footer_background_color: 页眉和页脚背景颜色
-        header_and_footer_text_color: 页眉和页脚文本颜色
-        identifier: 识别码
-        keyword: 关键词
-        lease_expiration_date: 直到
-        license: 执照
-        link_color: 链接颜色
-        link_hover_color: 链接悬停颜色
-        member_of_collection_ids: 添加到收藏
-        navbar_background_color: 导航栏背景颜色
-        navbar_link_background_hover_color: 导航栏链接背景悬停颜色
-        navbar_link_text_color: 导航栏链接文字颜色
-        navbar_link_text_hover_color: 导航栏链接文本悬停颜色
-        primary_button_hover_color: 主按钮悬停颜色
-        publisher: 发行人
-        related_url: 相关网址
-        rights_statement: 权利声明
-        source: 资源
-        title: 标题
-        visibility_after_embargo: 然后打开它
-        visibility_after_lease: 然后将其限制为
-        visibility_during_embargo: 受限于
-        visibility_during_lease: 可用于
-      proxy_deposit_request:
-        sender_comment: 注释
-        transfer_to: 用户
-    placeholders:
-      defaults:
-        find_child_work: 正在搜寻作品…
-        member_of_collection_ids: 选择一个收藏夹…
-    required:
-      html: <span class="label label-info required-tag">需要</span>

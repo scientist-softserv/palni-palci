@@ -1,9 +1,0 @@
----
-es:
-  hyrax:
-    icons:
-      cdl: fa fa-file-text-o
-    select_type:
-      cdl:
-        description: CDL trabajos
-        name: CDL

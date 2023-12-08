@@ -8,31 +8,47 @@ zh:
       fields:
         facet:
           based_near_label_sim: 位置
+          contributing_library_sim: 贡献库
+          contributor_sim: 贡献者
           creator_sim: 创造者
           depositor_ssim: 储户
           file_format_sim: 文件格式
           generic_type_sim: 类型
+          human_readable_type_sim: 类型
           keyword_sim: 关键词
           language_sim: 语言
+          member_of_collections_sim: 馆藏
           publisher_sim: 出版者
+          resource_type_sim: 资源类型
           subject_sim: 学科
         index:
+          audience_tesim: 听众
           based_near_label_tesim: 位置
           contributor_tesim: 贡献者
           creator_tesim: 创造者
           date_created_tesim: 创建日期
           date_modified_dtsi: 修改日期
+          date_tesim: 日期
           date_uploaded_dtsi: 日期上传
+          depositor_tesim: 所有者
           description_tesim: 描述
+          discipline_tesim: 学科
+          education_level_tesim: 教育程度
           extent_tesim: 范围
           file_format_tesim: 文件格式
           identifier_tesim: 识别码
           keyword_tesim: 关键词
           language_tesim: 语言
+          learning_resource_type_tesim: 学习资源类型
+          license: 执照
+          license_tesim: 执照
           publisher_tesim: 出版者
+          resource_type_tesim: 类型
+          rights_statement_tesim: 权利声明
           rights_tesim: 权
           subject_tesim: 学科
         show:
+          additional_information: 附加权利信息
           admin_note: 行政说明
           based_near_label_tesim: 位置
           contributor_tesim: 贡献者

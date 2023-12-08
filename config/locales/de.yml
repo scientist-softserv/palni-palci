@@ -13,28 +13,6 @@ de:
         institution_name_full: Vollständiger Name der Institution
   application:
     tagline: Die Next-Generation Repository-Lösung
-  blacklight:
-    search:
-      fields:
-        facet:
-          contributing_library_sim: Mitwirkende Bibliothek
-          contributor_sim: Mitwirkender
-          human_readable_type_sim: Art
-          member_of_collections_sim: Sammlungen
-          resource_type_sim: Ressourcentyp
-        index:
-          audience_tesim: Publikum
-          date_tesim: Datum
-          depositor_tesim: Inhaber
-          discipline_tesim: die Ausbildung
-          education_level_tesim: Bildungsniveau
-          learning_resource_type_tesim: Lernressourcentyp
-          license: Lizenz
-          license_tesim: Lizenz
-          resource_type_tesim: Ressourcentyp
-          rights_statement_tesim: Erklärung der Rechte
-        show:
-          additional_information: Zusätzliche Rechteinformationen
   helpers:
     action:
       become: Werden
@@ -186,89 +164,6 @@ de:
         last_login: Letzter Zugriff
         name: Name
         user_key: Benutzername
-  hyrax:
-    admin:
-      appearances:
-        show:
-          forms:
-            banner_image:
-              hint: Um ein Bild als Masthead-Hintergrund zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das mindestens 120 Pixel hoch und 1200 Pixel breit ist. Verwenden Sie für optimale Ergebnisse ein Bild mit einer Breite von mindestens 1800 Pixel.
-            collection_banner_text_color:
-              hint: Die Farbe für den Text (Titel und Datum der letzten Aktualisierung) im Sammlungsbanner.
-            custom_css:
-              confirm: Benutzerdefiniertes CSS überschreibt immer andere Themenauswahlen. Vorgehen?
-              warning: Wenn Ihre Themenanpassungen nicht korrekt angewendet werden, stellen Sie sicher, dass sie nicht von benutzerdefiniertem CSS überschrieben werden.
-            default_button_background_color:
-              hint: Schaltflächen für die Arbeitsinteraktion (Bearbeiten, Funktionen usw.); Arbeitsansichten auf der Sammlungsseite und Suchfilterschaltfläche.
-            default_images:
-              alert: Bitte laden Sie vor dem Absenden mindestens eine Datei hoch.
-              hint: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleichen Abmessungen für Höhe und Breite aufweist (100 Pixel breit und 100 Pixel hoch).
-            directory_image:
-              hint: Das Verzeichnisbild sollte ein Bild (JPG, GIF oder PNG) verwenden. Die Breite des Bildes sollte nicht größer als die doppelte Höhe sein.
-            facet_panel_background_color:
-              hint: Gilt für Facetten und zusätzliche Abschnittsüberschriften auf den Arbeitsseiten einiger Themen.
-            facet_panel_text_color:
-              hint: Gilt bei einigen Themen auch für die Farbe des Caretzeichens neben dem Text und den Werktitel.
-            favicon:
-              hint: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
-            link_color:
-              hint: 'Betrifft Links auf der Startseite und der Arbeitsseite, einschließlich: Breadcrumbs, Tabs, Titel und Nutzungsbedingungen.'
-            logo_image:
-              hint: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht höher als der Header und nicht breiter als 400 Pixel ist.
-            navbar_background_color:
-              hint: Bei 40 % Deckkraft.
-            navbar_link_background_color:
-              hint: Gilt für die Hintergrundfarbe der Schaltflächen „Startseite“, „Info“, „Kontakt“ und „Hilfe“.
-            navbar_link_background_hover_color:
-              hint: Gilt nur für die Schaltflächen „Startseite“, „Info“, „Kontakt“ und „Hilfe“ auf diesen spezifischen Seiten (bei 15 % Deckkraft).
-            primary_button_hover_color:
-              hint: Schaltflächen zum Teilen, Suchen und Sammeln von Interaktionen (Bearbeiten, Funktionen usw.). Der Rand dieser Schaltflächen wird ebenfalls diese Farbe haben.
-            themes:
-              confirm: Wenn Ihr Thema nicht richtig angewendet wird, stellen Sie sicher, dass es nicht von benutzerdefiniertem CSS überschrieben wird.
-          hints:
-            banner_image: Um ein Bild als Überschriften-Hintergrund zu verwenden, solltest du ein Bild (JPG, GIF oder PNG) verwenden, das mindestens 120 Pixel hoch und 1200 Pixel breit ist. Für beste Ergebnisse verwenden Sie ein Bild mindestens 1800 Pixel breit.
-            default_image: Für Standardbilder sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das die gleiche Höhe und Breite hat (100 Pixel breit und 100 Pixel hoch).
-            directory_image: Um ein Bild als Verzeichnisbild zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht größer als der Header und nicht breiter als 400 Pixel ist.
-            favicon: Favicons müssen PNG-Dateien und quadratisch sein. Die maximal verwendete Größe beträgt 228 x 228 Pixel.
-            logo_image: Um ein Bild als Logo zu verwenden, sollten Sie ein Bild (JPG, GIF oder PNG) verwenden, das nicht größer als die Kopfzeile und nicht breiter als 400 Pixel ist.
-          tabs:
-            banner_image: Banner Bild
-            colors: Farben
-            custom_css: Maßgeschneidert CSS
-            default_images: Standardbilder
-            directory_image: Verzeichnis Bild
-            favicon: favicon
-            fonts: Schriftarten
-            themes: Themen
-      sidebar:
-        accounts: Konten
-        activity_summary: Aktivitätsübersicht
-        content_blocks: Inhaltsblöcke
-        labels: Etiketten
-        manage_groups: Gruppen Verwalten
-        manage_roles_and_permissions: Rollen und Berechtigungen festlegen
-        manage_users: Benutzer verwalten
-        repository_activity: Repository-Aktivität
-        roles_and_permissions: Benutzer und Gruppen
-        system_status: Systemstatus
-      users:
-        activate:
-          confirmation: Sind Sie sicher, dass Sie den Benutzer „%{user}“ aktivieren möchten?
-          failure: Benutzer „%{user}“ konnte nicht aktiviert werden.
-          success: Benutzer „%{user}“ wurde erfolgreich aktiviert.
-        destroy:
-          confirmation: Möchten Sie den Benutzer "%{user}" wirklich löschen? Diese Aktion lässt sich nicht rückgängig machen.
-          failure: Benutzer "%{user}" konnte nicht gelöscht werden.
-          success: Der Benutzer "%{user}" wurde erfolgreich gelöscht.
-        index:
-          action_label: Aktion
-          add: Nutzer einladen
-          delete: Löschen
-          invite_users: Benutzer hinzufügen oder via Email einladen
-          status:
-            active: Aktiv
-            pending: noch ausstehend
-          status_label: Status
   permissions:
     collections:
       cannot:
@@ -333,3 +228,9 @@ de:
     service:
       down: Down
       ok: OK
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "% B% d,% Y% I:% M% p"

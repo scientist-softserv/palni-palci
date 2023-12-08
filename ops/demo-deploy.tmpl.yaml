@@ -228,6 +228,8 @@ global:
 
 nginx:
   enabled: true
+  service:
+    type: ClusterIP
   image:
     registry: registry.gitlab.com
     repository: notch8/scripts/bitnami-nginx

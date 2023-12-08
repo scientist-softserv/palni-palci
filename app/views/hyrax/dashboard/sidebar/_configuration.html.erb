@@ -53,4 +53,9 @@
     <% end # end of configuration block %>
     <%= render 'hyrax/dashboard/sidebar/menu_partials', menu: menu, section: :configuration %>
   <% end %>
+  <% if can?(:update, RolesService) %>
+    <%= menu.nav_link(main_app.admin_roles_service_jobs_path) do %>
+      <span class="fa fa-users" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.roles_service_jobs') %></span>
+    <% end %>
+  <% end %>
 <% end %>

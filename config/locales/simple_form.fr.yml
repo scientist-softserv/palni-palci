@@ -23,12 +23,6 @@ fr:
         file_size_limit: Ceci doit être réglé à au moins 536870912000
         geonames_username: Inscrivez-vous sur http://www.geonames.org/manageaccount
         google_analytics_id: L'ID de votre compte Google Analytics
-        google_oauth_app_name: Le nom de l'application Google dans la console API de Google
-        google_oauth_app_version: La version de l'application Google dans la console API de Google
-        google_oauth_client_email: Adresse e-mail du client OAuth
-        google_oauth_private_key_path: Le chemin complet vers votre fichier p12, fichier clé. (Vous pouvez utiliser la valeur de la clé privée OU le chemin ; la valeur prime)
-        google_oauth_private_key_secret: Le secret fourni lorsque vous avez créé la clé p12
-        google_oauth_private_key_value: La valeur du fichier p12 avec cryptage base64. (Vous pouvez utiliser la valeur de la clé privée OU le chemin ; la valeur prime)
         gtm_id: L'ID de votre compte Google Tag Manager
         is_public: Les utilisateurs peuvent-ils découvrir votre site sur la page d'accueil ou accéder à vos pages sans identifiant/mot de passe spécifique?
         locale_name: 'Le nom du suffixe de locale spécifique au locataire ajouté à leurs fichiers locale.yml. Seuls les caractères alphabétiques doivent être ajoutés, pas de symboles ou de chiffres, ceux-ci seront alors mis en majuscule.

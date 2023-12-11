@@ -23,12 +23,6 @@ zh:
         file_size_limit: 此值应至少设置为536870912000
         geonames_username: 在http://www.geonames.org/manageaccount上注册
         google_analytics_id: 您的Google Analytics帐户ID
-        google_oauth_app_name: Google API控制台中的Google应用程序名称
-        google_oauth_app_version: Google API控制台中的Google应用版本
-        google_oauth_client_email: OAuth客户电子邮件地址
-        google_oauth_private_key_path: 您的p12密钥文件的完整路径。（您可以使用私钥值或路径；值优先）
-        google_oauth_private_key_secret: 创建p12密钥时提供的秘密
-        google_oauth_private_key_value: 带有base64加密的p12文件的值。（您可以使用私钥值或路径；值优先）
         gtm_id: 您的Google标签管理器帐户ID
         is_public: 用户可以在主页上发现您的网站，或者不需要特殊的用户名/密码就可以访问您的页面吗？
         locale_name: '添加到其locale.yml文件的租户特定语言环境后缀的名称。只应添加字母字符，不应添加符号或数字，这些将随后大写。

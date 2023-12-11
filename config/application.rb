@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative '../app/middleware/no_cache_middleware'
 
 require 'rails/all'
 require 'i18n/debug' if ENV['I18N_DEBUG']
@@ -36,6 +37,9 @@ module Hyku
   class Application < Rails::Application
     # Add this line to load the lib folder first because we need
     config.autoload_paths.unshift("#{Rails.root}/lib")
+
+    # Add the middleware directory to the eager load paths
+    config.eager_load_paths << "#{Rails.root}/app/middleware"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -128,5 +132,7 @@ module Hyku
         Time
       ]
     end
+
+
   end
 end

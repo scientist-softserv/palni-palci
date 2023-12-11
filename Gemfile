@@ -4,16 +4,16 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.5'
+gem 'rails', '~> 6.0'
 
-gem 'active-fedora', '>= 11.1.4'
+gem 'active-fedora', '~> 14.0'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
 gem 'activerecord-nulldb-adapter'
 gem 'addressable', '2.8.1' # remove once https://github.com/postrank-labs/postrank-uri/issues/49 is fixed
 gem 'apartment'
 gem 'aws-sdk-sqs', group: %i[aws]
-gem 'blacklight', '~> 6.7'
-gem 'blacklight_oai_provider', '~> 6.1', '>= 6.1.1'
+gem 'blacklight', '~> 7.29'
+gem 'blacklight_oai_provider', '~> 7.0'
 gem 'bolognese', '>= 1.9.10'
 gem 'bootstrap-datepicker-rails'
 gem 'bulkrax', '~> 5.3'
@@ -29,15 +29,14 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'devise-i18n'
 gem 'devise_invitable', '~> 1.6'
-gem 'dry-monads', '~> 1.4.0' # Locked because 1.5.0 was not compatible with Hyrax v.3.4.2
+gem 'dry-monads', '~> 1.5'
 gem 'easy_translate', group: %i[development]
 gem 'factory_bot_rails', group: %i[test]
 gem 'fcrepo_wrapper', '~> 0.4', group: %i[development test]
-gem 'flipflop', '~> 2.6.0' # waiting for hyrax 4 upgrade
 gem 'flutie'
-gem 'hyrax', '~> 3.5.0'
-gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi', branch: 'main'
-gem 'hyrax-iiif_av', github: 'samvera-labs/hyrax-iiif_av', branch: 'main'
+gem 'hyrax', github: 'samvera/hyrax', tag: 'hyrax-v5.0.0.rc2'
+gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi', branch: 'rails_hyrax_upgrade'
+gem 'hyrax-iiif_av', github: 'samvera-labs/hyrax-iiif_av', branch: 'rails_hyrax_upgrade'
 gem 'i18n-debug', require: false, group: %i[development test]
 gem 'i18n-tasks', group: %i[development test]
 gem 'iiif_print', github: 'scientist-softserv/iiif_print', branch: 'main'
@@ -63,9 +62,9 @@ gem 'pry-byebug', group: %i[development test]
 gem 'puma', '~> 5.6' # Use Puma as the app server
 gem 'rack-test', '0.7.0', group: %i[test] # rack-test >= 0.71 does not work with older Capybara versions (< 2.17). See #214 for more details
 gem 'rails-controller-testing', group: %i[test]
-gem 'rdf', '~> 3.1.15' # rdf 3.2.0 removed SerializedTransaction which ldp requires
+gem 'rdf', '~> 3.2'
 gem 'redlock', '>= 0.1.2', '< 2.0' # lock redlock per https://github.com/samvera/hyrax/pull/5961
-gem 'riiif', '~> 1.1'
+gem 'riiif', '~> 2.0'
 gem 'rolify'
 gem 'rsolr', '~> 2.0'
 gem 'rspec', group: %i[development test]
@@ -76,7 +75,7 @@ gem 'rspec-retry', group: %i[test]
 gem 'rspec_junit_formatter', group: %i[test]
 gem 'rubocop', '~> 0.50', '<= 0.52.1', group: %i[development test]
 gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', group: %i[development test]
-gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
+gem 'sass-rails', '~> 6.0' # Use SCSS for stylesheets
 gem 'scss_lint', require: false, group: %i[development]
 gem 'secure_headers'
 gem 'selenium-webdriver', '4.8.1', group: %i[test]

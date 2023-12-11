@@ -20,7 +20,9 @@
       <div class="panel-body">
         <div class="row">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-          <% if @presenter.iiif_viewer? %>
+          <% if @presenter.video_embed_viewer? %>
+            <%= render 'video_embed_viewer', presenter: @presenter %>
+          <% elsif @presenter.iiif_viewer? %>
             <div class="col-sm-12">
               <%= render 'representative_media', presenter: @presenter, viewer: true %>
             </div>
@@ -28,13 +30,20 @@
             <div class="col-sm-12">
               <%= render 'pdf_js', file_set_presenter: pdf_file_set_presenter(@presenter) %>
             </div>
-          <% end %>
+          <% else %>
           <div class="col-sm-3 text-center">
             <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? || @presenter.show_pdf_viewer? %>
             <%= render 'citations', presenter: @presenter %>
             <!-- analytics_button is disabled until future fix -->
             <%#= render 'analytics_button', presenter: @presenter %>
           </div>
+          <% end %>
+          <% if @presenter.viewer? %>
+            <div class="col-sm-3 text-center">
+              <%= render('download_pdf', presenter: @presenter, file_set_id: @presenter.file_set_presenters.first.id) if @presenter.show_pdf_download_button? %>
+              <%= render 'citations', presenter: @presenter %>
+            </div>
+          <% end %>
           <div class="col-sm-9">
             <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>

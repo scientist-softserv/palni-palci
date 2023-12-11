@@ -152,11 +152,28 @@ switch!('myaccount')
 ```
 
 ## Analytics Feature
-Hyku currently only supports the configuration of one Google Analytics account for the basic functionality of this feature. Hyku currently only support Google Analytics with the Analytics 4 property for this feature.
+
+Analytics is comprised of two aspects:
+
+- *Sending* data to the analytics end-point
+- *Fetching* and reporting data from the analytics end-point
+
+For a more exhaustive discusion, see [Resolve Sending Google Analytics Data for Tenant and Proprietor · Issue #910 · scientist-softserv/palni-palci](https://github.com/scientist-softserv/palni-palci/issues/910).
+
+### Google
+
+Both the *sending* and *fetching* functionality require that you [create a Service Account](#setup-a-google-analytics-account).  But only the *fetching* functionality requires that you set the OAuth credentials.
+
+The *fetching* aspect is configured at the proprietor level via environment variables.  See [./config/analytics.yml](./config/analytics.yml).
+
+The *sending* aspect can be configured at both:
+
+- the proprietor level, via the `./config/analytics.yml` mentioned above.
+- the tenant level by going to the tenant's Dashboard >> Settings >> Account
 
 Analytics tracking and reporting features will be turned off by default. To enable them within Hyku, please follow the directions below.
 
-### Setup a Google Analytics Account
+#### Setup a Google Analytics Account
 - Create a Service Account: https://cloud.google.com/iam/docs/creating-managing-service-accounts
   - Note the service account email
   - When making a service account key, make sure the key type is set to p12
@@ -168,13 +185,19 @@ Analytics tracking and reporting features will be turned off by default. To enab
 - Enable the "Google Analytics API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
 - Enable the "IAM Service Account Credentials API": https://developers.google.com/identity/protocols/oauth2/web-server#enable-apis
 
-#### Set the Account Settings
-This applies to each of your environments: development/staging/production/etc.
-Dashboard >> Settings >> Account
+#### Proprietor Level Configuration
 
-| Name | Description |
-| ------------- | ------------- |
-| GOOGLE_ANALYTICS_ID | The ID of your Google Analytics account. |
+Below is a table describing the named variable.
+
+| Name                              | Description                                                      |
+|-----------------------------------|------------------------------------------------------------------|
+| `GOOGLE_ANALYTICS_ID`             | The ID of your Google Analytics account.                         |
+| `GOOGLE_OAUTH_APP_NAME`           | The name of the Google application in the Google API console.    |
+| `GOOGLE_OAUTH_APP_VERSION`        | The version of the Google application in the Google API console. |
+| `GOOGLE_OAUTH_PRIVATE_KEY_VALUE`  | The value of the p12 file with base64 encryption.                |
+| `GOOGLE_OAUTH_PRIVATE_KEY_PATH`   | The full path to your p12, key file.                             |
+| `GOOGLE_OAUTH_PRIVATE_KEY_SECRET` | The secret provided when you created the p12 key.                |
+| `GOOGLE_OAUTH_CLIENT_EMAIL`       | OAuth Client email address.                                      |
 
 - To get the `GOOGLE_OAUTH_PRIVATE_KEY_VALUE` value, you need the path to the p12 file you got from setting up your Service Account and run the following in your console locally.
   - `base64 -i path/to/file.p12 | pbcopy`

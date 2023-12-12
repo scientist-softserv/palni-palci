@@ -7,7 +7,7 @@ module VideoEmbedFormBehavior
     self.terms += %i[video_embed]
   end
 
-  def primary_terms
-    super + %i[video_embed]
+  def secondary_terms
+    super.sort!
   end
 end

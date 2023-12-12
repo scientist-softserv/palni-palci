@@ -100,7 +100,7 @@ GIT
 
 GIT
   remote: https://github.com/scientist-softserv/apartment.git
-  revision: e1a24b5574dca7116f69e99f140372c42b75e041
+  revision: 9ad4b0ef2ee6debb956e86ef9e7095c8358fef5e
   branch: development
   specs:
     apartment (2.2.1)
@@ -1365,6 +1365,7 @@ DEPENDENCIES
   iiif_print!
   jbuilder (~> 2.5)
   jquery-rails
+  json-canonicalization (= 0.3.1)
   launchy
   listen (>= 3.0.5, < 3.2)
   lograge

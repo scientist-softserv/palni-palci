@@ -39,8 +39,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera/hyrax.git
-  revision: 3dd81340fc2586132772fa4017946ed4c60adb8a
-  tag: hyrax-v5.0.0.rc2
+  revision: 9ef64090a13abdeaabfaabdee851829093d02cc4
+  branch: double_combo
   specs:
     hyrax (5.0.0.rc2)
       active-fedora (~> 14.0)
@@ -59,7 +59,6 @@ GIT
       dry-events (~> 1.0, >= 1.0.1)
       dry-logic (~> 1.5)
       dry-monads (~> 1.6)
-      dry-struct (~> 1.6)
       dry-validation (~> 1.10)
       flipflop (~> 2.3)
       flot-rails (~> 0.0.6)
@@ -1366,7 +1365,6 @@ DEPENDENCIES
   iiif_print!
   jbuilder (~> 2.5)
   jquery-rails
-  json-canonicalization (= 0.3.1)
   launchy
   listen (>= 3.0.5, < 3.2)
   lograge

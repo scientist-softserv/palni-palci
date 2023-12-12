@@ -161,11 +161,8 @@ module AccountSettings
     def reload_library_config
       Hyrax.config do |config|
         config.contact_email = contact_email
-        config.analytics = google_analytics_id.present?
-        config.google_analytics_id = google_analytics_id if google_analytics_id.present?
         config.geonames_username = geonames_username
         config.uploader[:maxFileSize] = file_size_limit
-        config.analytics_provider = analytics_provider if analytics_provider.present?
       end
 
       Devise.mailer_sender = contact_email

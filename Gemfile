@@ -10,11 +10,12 @@ gem 'active-fedora', '~> 14.0'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
 gem 'activerecord-nulldb-adapter'
 gem 'addressable', '2.8.1' # remove once https://github.com/postrank-labs/postrank-uri/issues/49 is fixed
-gem 'apartment'
+gem 'apartment', github: 'scientist-softserv/apartment', branch: 'development'
 gem 'aws-sdk-sqs', group: %i[aws]
 gem 'blacklight', '~> 7.29'
 gem 'blacklight_oai_provider', '~> 7.0'
 gem 'bolognese', '>= 1.9.10'
+gem 'bootstrap', '~> 4.6'
 gem 'bootstrap-datepicker-rails'
 gem 'bulkrax', '~> 5.3'
 gem 'byebug', group: %i[development test]
@@ -28,12 +29,13 @@ gem 'database_cleaner', group: %i[test]
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'devise-i18n'
-gem 'devise_invitable', '~> 1.6'
+gem 'devise_invitable', '~> 2.0'
 gem 'dry-monads', '~> 1.5'
 gem 'easy_translate', group: %i[development]
 gem 'factory_bot_rails', group: %i[test]
 gem 'fcrepo_wrapper', '~> 0.4', group: %i[development test]
 gem 'flutie'
+gem 'googleauth', '= 1.8.1' # 1.9.0 got yanked from rubygems, hard pinning until we can upgrade
 gem 'hyrax', github: 'samvera/hyrax', tag: 'hyrax-v5.0.0.rc2'
 gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi', branch: 'rails_hyrax_upgrade'
 gem 'hyrax-iiif_av', github: 'samvera-labs/hyrax-iiif_av', branch: 'rails_hyrax_upgrade'

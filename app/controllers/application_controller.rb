@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception, prepend: true
 
-  force_ssl if: :ssl_configured?
-
   helper Openseadragon::OpenseadragonHelper
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
@@ -24,7 +22,6 @@ class ApplicationController < ActionController::Base
   before_action :require_active_account!, if: :multitenant?
   before_action :set_account_specific_connections!
   before_action :elevate_single_tenant!, if: :singletenant?
-  skip_after_action :discard_flash_if_xhr
 
   rescue_from Apartment::TenantNotFound do
     raise ActionController::RoutingError, 'Not Found'
@@ -130,9 +127,5 @@ class ApplicationController < ActionController::Base
       payload[:request_id] = request.uuid
       payload[:user_id] = current_user.id if current_user
       payload[:account_id] = current_account.cname if current_account
-    end
-
-    def ssl_configured?
-      ActiveRecord::Type::Boolean.new.cast(current_account.ssl_configured)
     end
 end

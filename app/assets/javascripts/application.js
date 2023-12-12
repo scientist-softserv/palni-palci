@@ -14,10 +14,12 @@
 //= require codemirror-autorefresh
 //= require codemirror/modes/css
 //= require jquery3
-//= require jquery_ujs
+//= require rails-ujs
+//= require popper
+//= require bootstrap
 //= require jquery.fontselect
-//= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require jquery.dataTables
+//= require dataTables.bootstrap4
 //= require stat_slider
 //= require turbolinks
 //= require cocoon
@@ -25,6 +27,7 @@
 //= require tether
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require blacklight_gallery
 
 // Moved the Hyku JS *above* the Hyrax JS to resolve #1187 (following
 // a pattern found in ScholarSphere)

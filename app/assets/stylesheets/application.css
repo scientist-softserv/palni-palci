@@ -15,7 +15,7 @@
  *= require codemirror
  *= require codemirror-theme
  *= require hyrax
- *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require dataTables.bootstrap4
  *= require bootstrap-datepicker
  *= require single_signon
  *= require_self

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Set nested indexer to graph by default. Remove after Hyrax 4.0 upgrade
 ENV['HYRAX_USE_SOLR_GRAPH_NESTING'].present? || ENV['HYRAX_USE_SOLR_GRAPH_NESTING'] = "true"
 

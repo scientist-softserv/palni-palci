@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'boot'
 require_relative '../app/middleware/no_cache_middleware'
 

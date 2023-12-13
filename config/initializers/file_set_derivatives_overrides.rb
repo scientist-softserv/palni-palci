@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file contains overrides to Hyrax::FileSetDerivativesService to increase the size of thumbnails
 
 # Hyrax v3.5.0

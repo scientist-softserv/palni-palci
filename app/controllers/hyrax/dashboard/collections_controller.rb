@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # OVERRIDE Hyrax v3.4.2
 # - Fix file upload in logo and banner
 # - Use work titles for collection thumbnail select & to add an option to reset to the default thumbnail

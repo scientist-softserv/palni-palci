@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 if ENV['DB_ADAPTER'] != 'nulldb' && db_created?
   # You can have Apartment route to the appropriate Tenant by adding some Rack middleware.
   # Apartment can support many different "Elevators" that can take care of this routing to your data.

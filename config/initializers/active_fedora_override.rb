@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Based on https://github.com/samvera/hyrax/issues/4581#issuecomment-843085122
 
 # Monkey-patch to short circuit ActiveModel::Dirty which attempts to load the whole master files ordered list when calling nodes_will_change!

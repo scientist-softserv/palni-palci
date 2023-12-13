@@ -19,6 +19,7 @@ gem 'blacklight_range_limit'
 gem 'bolognese', '>= 1.9.10'
 gem 'bootstrap', '~> 4.6'
 gem 'bootstrap-datepicker-rails'
+gem 'bixby', '~> 5.0', '>= 5.0.2', group: %i[development test]
 gem 'bulkrax', '~> 5.4'
 gem 'byebug', group: %i[development test]
 gem 'capybara', group: %i[test]
@@ -61,7 +62,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-saml', '~> 2.1'
 gem 'omniauth_openid_connect'
 gem 'order_already'
-gem 'parser', '~> 2.5.3'
+gem 'parser', '>= 3.1.0.0'
 gem 'pg'
 gem 'postrank-uri', '>= 1.0.24'
 gem 'pry-byebug', group: %i[development test]
@@ -79,8 +80,9 @@ gem 'rspec-its', group: %i[test]
 gem 'rspec-rails', '>= 3.6.0', group: %i[development test]
 gem 'rspec-retry', group: %i[test]
 gem 'rspec_junit_formatter', group: %i[test]
-gem 'rubocop', '~> 0.50', '<= 0.52.1', group: %i[development test]
+gem 'rubocop', '1.28.2', group: %i[development test]
 gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', group: %i[development test]
+gem 'rubocop-rails', '~> 2.15', group: %i[development test]
 gem 'sass-rails', '~> 6.0' # Use SCSS for stylesheets
 gem 'scss_lint', require: false, group: %i[development]
 gem 'secure_headers'

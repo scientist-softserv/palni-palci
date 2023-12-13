@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax 3.4.0 ot add custom theming
+# OVERRIDE Hyrax 3.4.0 to add custom theming
 
 # rubocop:disable Metrics/ClassLength
 module Hyrax
@@ -439,7 +439,7 @@ module Hyrax
           end
 
           def default_values
-            @default_values ||= DEFAULT_FONTS.merge(DEFAULT_COLORS)
+            @default_values ||= default_fonts.merge(default_colors)
           end
 
           def block_for(name, dynamic_default = nil)

@@ -39,7 +39,6 @@ def load_rails
   puts 'Starting import...'
 end
 
-
 def main(hostname, mods_directory, imagepath)
   validate_hostname!(hostname)
   validate_mods_directory!(mods_directory)
@@ -55,6 +54,5 @@ end
 def usage
   $stderr.puts "Usage: #{$PROGRAM_NAME} <hostname> <mods_directory> <image directory>"
 end
-
 
 main(ARGV[0], ARGV[1], ARGV[2])

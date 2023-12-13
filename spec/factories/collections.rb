@@ -206,9 +206,7 @@ FactoryBot.define do
 
     before(:create) do |collection, evaluator|
       # force create a permission template if it doesn't exist for the newly created collection
-      unless evaluator.with_permission_template
-        CollectionLwFactoryHelper.process_with_permission_template(collection, evaluator, true)
-      end
+      CollectionLwFactoryHelper.process_with_permission_template(collection, evaluator, true) unless evaluator.with_permission_template
     end
 
     after(:create) do |collection, _evaluator|
@@ -279,9 +277,7 @@ FactoryBot.define do
       if evaluator.with_permission_template
         attributes = { source_id: collection.id }
         attributes[:manage_users] = [evaluator.user]
-        if evaluator.with_permission_template.respond_to?(:merge)
-          attributes = evaluator.with_permission_template.merge(attributes)
-        end
+        attributes = evaluator.with_permission_template.merge(attributes) if evaluator.with_permission_template.respond_to?(:merge)
         create(:permission_template, attributes) unless Hyrax::PermissionTemplate.find_by(source_id: collection.id)
       end
     end
@@ -384,12 +380,8 @@ FactoryBot.define do
       # OVERRIDE: add default group PermissionTemplateAccess for collection roles
       attributes[:manage_groups] = group_managers(evaluator.with_permission_template)
       attributes[:view_groups] = group_viewers(evaluator.with_permission_template)
-      if evaluator.with_permission_template.respond_to?(:merge)
-        attributes = evaluator.with_permission_template.merge(attributes)
-      end
-      unless Hyrax::PermissionTemplate.find_by(source_id: collection.id) # rubocop:disable Style/GuardClause
-        FactoryBot.create(:permission_template, attributes)
-      end
+      attributes = evaluator.with_permission_template.merge(attributes) if evaluator.with_permission_template.respond_to?(:merge)
+      FactoryBot.create(:permission_template, attributes) unless Hyrax::PermissionTemplate.find_by(source_id: collection.id) # rubocop:disable Style/GuardClause
     end
 
     # Process the with_nesting_attributes transient property such that...

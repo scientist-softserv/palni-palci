@@ -94,64 +94,64 @@ module Importer
 
       private
 
-        # @param [Hash] attrs the attributes to put in the environment
-        # @return [Hyrax::Actors::Environment]
-        def environment(attrs)
-          Hyrax::Actors::Environment.new(@object, Ability.new(User.batch_user), attrs)
-        end
+      # @param [Hash] attrs the attributes to put in the environment
+      # @return [Hyrax::Actors::Environment]
+      def environment(attrs)
+        Hyrax::Actors::Environment.new(@object, Ability.new(User.batch_user), attrs)
+      end
 
-        def work_actor
-          Hyrax::CurationConcern.actor
-        end
+      def work_actor
+        Hyrax::CurationConcern.actor
+      end
 
-        def create_collection(attrs)
-          @object.attributes = attrs
-          @object.apply_depositor_metadata(User.batch_user)
-          @object.save!
-        end
+      def create_collection(attrs)
+        @object.attributes = attrs
+        @object.apply_depositor_metadata(User.batch_user)
+        @object.save!
+      end
 
-        # Override if we need to map the attributes from the parser in
-        # a way that is compatible with how the factory needs them.
-        def transform_attributes
-          StringLiteralProcessor.process(attributes.slice(*permitted_attributes))
-                                .merge(file_attributes)
-        end
+      # Override if we need to map the attributes from the parser in
+      # a way that is compatible with how the factory needs them.
+      def transform_attributes
+        StringLiteralProcessor.process(attributes.slice(*permitted_attributes))
+                              .merge(file_attributes)
+      end
 
-        # Find existing file or upload new file. This assumes a Work will have unique file titles;
-        # could filter by URIs instead (slower).
-        # When an uploaded_file already exists we do not want to pass its id in `file_attributes`
-        # otherwise it gets reuploaded by `work_actor`.
-        def upload_ids
-          work_files_titles = object.file_sets.map(&:title) if object.present? && object.file_sets.present?
-          work_files_titles&.include?(attributes[:file]) ? [] : [import_file(file_paths.first)]
-        end
+      # Find existing file or upload new file. This assumes a Work will have unique file titles;
+      # could filter by URIs instead (slower).
+      # When an uploaded_file already exists we do not want to pass its id in `file_attributes`
+      # otherwise it gets reuploaded by `work_actor`.
+      def upload_ids
+        work_files_titles = object.file_sets.map(&:title) if object.present? && object.file_sets.present?
+        work_files_titles&.include?(attributes[:file]) ? [] : [import_file(file_paths.first)]
+      end
 
-        def file_attributes
-          hash = {}
-          hash[:uploaded_files] = upload_ids if files_directory.present? && attributes[:file].present?
-          hash[:remote_files] = attributes[:remote_files] if attributes[:remote_files].present?
-          hash
-        end
+      def file_attributes
+        hash = {}
+        hash[:uploaded_files] = upload_ids if files_directory.present? && attributes[:file].present?
+        hash[:remote_files] = attributes[:remote_files] if attributes[:remote_files].present?
+        hash
+      end
 
-        def file_paths
-          attributes[:file]&.map { |file_name| File.join(files_directory, file_name) }
-        end
+      def file_paths
+        attributes[:file]&.map { |file_name| File.join(files_directory, file_name) }
+      end
 
-        def import_file(path)
-          u = Hyrax::UploadedFile.new
-          u.user_id = User.find_by_user_key(User.batch_user_key).id if User.find_by_user_key(User.batch_user_key)
-          u.file = CarrierWave::SanitizedFile.new(path)
-          u.save
-          u.id
-        end
+      def import_file(path)
+        u = Hyrax::UploadedFile.new
+        u.user_id = User.find_by_user_key(User.batch_user_key).id if User.find_by_user_key(User.batch_user_key)
+        u.file = CarrierWave::SanitizedFile.new(path)
+        u.save
+        u.id
+      end
 
-        ## TO DO: handle invalid file in CSV
-        ## currently the importer stops if no file corresponding to a given file_name is found
+      ## TO DO: handle invalid file in CSV
+      ## currently the importer stops if no file corresponding to a given file_name is found
 
-        # Regardless of what the MODS Parser gives us, these are the properties we are prepared to accept.
-        def permitted_attributes
-          klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility]
-        end
+      # Regardless of what the MODS Parser gives us, these are the properties we are prepared to accept.
+      def permitted_attributes
+        klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility]
+      end
     end
   end
 end

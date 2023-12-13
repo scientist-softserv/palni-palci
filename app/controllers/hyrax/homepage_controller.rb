@@ -91,57 +91,57 @@ module Hyrax
     # Added from Blacklight 6.23.0 to change url for facets on home page
     protected
 
-      # Default route to the search action (used e.g. in global partials). Override this method
-      # in a controller or in your ApplicationController to introduce custom logic for choosing
-      # which action the search form should use
-      def search_action_url(options = {})
-        # Rails 4.2 deprecated url helpers accepting string keys for 'controller' or 'action'
-        main_app.search_catalog_path(options)
-      end
+    # Default route to the search action (used e.g. in global partials). Override this method
+    # in a controller or in your ApplicationController to introduce custom logic for choosing
+    # which action the search form should use
+    def search_action_url(options = {})
+      # Rails 4.2 deprecated url helpers accepting string keys for 'controller' or 'action'
+      main_app.search_catalog_path(options)
+    end
 
     private
 
-      # Return 6 collections
-      def collections(rows: 6)
-        builder = Hyrax::CollectionSearchBuilder.new(self)
-                                                .rows(rows)
-        response = repository.search(builder)
-        # adding .sort_by to return collections in alphabetical order by title on the homepage
-        response.documents.sort_by(&:title)
-      rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-        []
-      end
+    # Return 6 collections
+    def collections(rows: 6)
+      builder = Hyrax::CollectionSearchBuilder.new(self)
+                                              .rows(rows)
+      response = repository.search(builder)
+      # adding .sort_by to return collections in alphabetical order by title on the homepage
+      response.documents.sort_by(&:title)
+    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+      []
+    end
 
-      def recent
-        # grab any recent documents
-        (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
-      rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-        @recent_documents = []
-      end
+    def recent
+      # grab any recent documents
+      (_, @recent_documents) = search_results(q: '', sort: sort_field, rows: 6)
+    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+      @recent_documents = []
+    end
 
-      def ir_counts
-        @ir_counts = get_facet_field_response('resource_type_sim', {}, "f.resource_type_sim.facet.limit" => "-1")
-      end
+    def ir_counts
+      @ir_counts = get_facet_field_response('resource_type_sim', {}, "f.resource_type_sim.facet.limit" => "-1")
+    end
 
-      # COPIED from Hyrax::HomepageController
-      def sort_field
-        "date_uploaded_dtsi desc"
-      end
+    # COPIED from Hyrax::HomepageController
+    def sort_field
+      "date_uploaded_dtsi desc"
+    end
 
-      # Add this method to prepend the theme views into the view_paths
-      def inject_theme_views
-        if home_page_theme && home_page_theme != 'default_home'
-          original_paths = view_paths
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          # Do NOT change this line. This is calling the Rails view_paths=(paths) method and not a variable assignment.
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        else
-          yield
-        end
+    # Add this method to prepend the theme views into the view_paths
+    def inject_theme_views
+      if home_page_theme && home_page_theme != 'default_home'
+        original_paths = view_paths
+        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+        prepend_view_path(home_theme_view_path)
+        yield
+        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        # Do NOT change this line. This is calling the Rails view_paths=(paths) method and not a variable assignment.
+        view_paths=(original_paths)
+        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+      else
+        yield
       end
+    end
   end
 end

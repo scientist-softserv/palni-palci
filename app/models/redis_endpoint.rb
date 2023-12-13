@@ -34,7 +34,7 @@ class RedisEndpoint < Endpoint
 
   private
 
-    def redis_instance
-      Hyrax::RedisEventStore.instance
-    end
+  def redis_instance
+    Hyrax::RedisEventStore.instance
+  end
 end

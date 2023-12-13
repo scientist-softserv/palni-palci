@@ -21,9 +21,9 @@ module Importer
 
       private
 
-        def collection
-          CollectionFactory.new(attributes.fetch(:collection)).find_or_create
-        end
+      def collection
+        CollectionFactory.new(attributes.fetch(:collection)).find_or_create
+      end
     end
   end
 end

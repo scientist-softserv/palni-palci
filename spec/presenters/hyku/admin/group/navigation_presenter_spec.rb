@@ -21,7 +21,7 @@ RSpec.describe Hyku::Admin::Group::NavigationPresenter do
     end
 
     it 'has the edit tab marked as active' do
-      expect(subject.select { |tab| tab.css_class == active_css_class && tab.action == action }.count).to be(1)
+      expect(subject.count { |tab| tab.css_class == active_css_class && tab.action == action }).to be(1)
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe Hyku::Admin::Group::NavigationPresenter do
     end
 
     it 'has the members tab marked as active' do
-      expect(subject.select { |tab| tab.css_class == active_css_class && tab.action == action }.count).to be(1)
+      expect(subject.count { |tab| tab.css_class == active_css_class && tab.action == action }).to be(1)
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe Hyku::Admin::Group::NavigationPresenter do
     end
 
     it 'has the roles tab marked as active' do
-      expect(subject.select { |tab| tab.css_class == active_css_class && tab.action == action }.count).to be(1)
+      expect(subject.count { |tab| tab.css_class == active_css_class && tab.action == action }).to be(1)
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe Hyku::Admin::Group::NavigationPresenter do
     end
 
     it 'has the remove tab marked as active' do
-      expect(subject.select { |tab| tab.css_class == active_css_class && tab.action == action }.count).to be(1)
+      expect(subject.count { |tab| tab.css_class == active_css_class && tab.action == action }).to be(1)
     end
   end
 end

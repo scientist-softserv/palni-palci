@@ -30,14 +30,14 @@ module Stanford
 
       private
 
-        def identifier
-          id = File.basename(filename, '.mods').sub(/\Adruid_/, '')
-          { identifier: Array.wrap(id), id: id }
-        end
+      def identifier
+        id = File.basename(filename, '.mods').sub(/\Adruid_/, '')
+        { identifier: Array.wrap(id), id: id }
+      end
 
-        def open_access
-          { visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
-        end
+      def open_access
+        { visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+      end
     end
   end
 end

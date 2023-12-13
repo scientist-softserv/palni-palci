@@ -10,7 +10,7 @@ module AccountSwitch
       account = if cname_or_name_or_account.is_a?(Account)
                   cname_or_name_or_account
                   # is it a domain name?
-                elsif cname_or_name_or_account =~ DOMAIN_REGEXP
+                elsif DOMAIN_REGEXP.match?(cname_or_name_or_account)
                   Account.joins(:domain_names).find_by(domain_names: {
                                                          is_active: true,
                                                          cname: Account.canonical_cname(cname_or_name_or_account)

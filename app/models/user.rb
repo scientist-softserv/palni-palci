@@ -22,7 +22,7 @@ class User < ApplicationRecord
     where(guest: false)
   end
 
-  scope :for_repository, -> {
+  scope :for_repository, lambda {
     joins(:roles)
   }
 

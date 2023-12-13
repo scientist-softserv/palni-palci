@@ -171,7 +171,6 @@ SimpleForm.setup do |config|
   config.wrappers :inline,
     class: :input,
     hint_class: 'hint', error_class: 'field_with_errors' do |b|
-
     # mix in special behavior using `use :component`
     b.use :html5
     # b.use :placeholder

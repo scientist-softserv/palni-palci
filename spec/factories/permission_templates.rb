@@ -49,24 +49,12 @@ FactoryBot.define do
         workflow = create(:workflow, active: true, permission_template: permission_template)
         create(:workflow_action, workflow: workflow) # Need to create a single action that can be taken
       end
-      if evaluator.manage_users.present?
-        AccessHelper.create_access(permission_template, 'user', :manage, evaluator.manage_users)
-      end
-      if evaluator.manage_groups.present?
-        AccessHelper.create_access(permission_template, 'group', :manage, evaluator.manage_groups)
-      end
-      if evaluator.deposit_users.present?
-        AccessHelper.create_access(permission_template, 'user', :deposit, evaluator.deposit_users)
-      end
-      if evaluator.deposit_groups.present?
-        AccessHelper.create_access(permission_template, 'group', :deposit, evaluator.deposit_groups)
-      end
-      if evaluator.view_users.present?
-        AccessHelper.create_access(permission_template, 'user', :view, evaluator.view_users)
-      end
-      if evaluator.view_groups.present?
-        AccessHelper.create_access(permission_template, 'group', :view, evaluator.view_groups)
-      end
+      AccessHelper.create_access(permission_template, 'user', :manage, evaluator.manage_users) if evaluator.manage_users.present?
+      AccessHelper.create_access(permission_template, 'group', :manage, evaluator.manage_groups) if evaluator.manage_groups.present?
+      AccessHelper.create_access(permission_template, 'user', :deposit, evaluator.deposit_users) if evaluator.deposit_users.present?
+      AccessHelper.create_access(permission_template, 'group', :deposit, evaluator.deposit_groups) if evaluator.deposit_groups.present?
+      AccessHelper.create_access(permission_template, 'user', :view, evaluator.view_users) if evaluator.view_users.present?
+      AccessHelper.create_access(permission_template, 'group', :view, evaluator.view_groups) if evaluator.view_groups.present?
     end
 
     transient do

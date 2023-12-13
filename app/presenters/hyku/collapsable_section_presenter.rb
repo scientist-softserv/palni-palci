@@ -15,17 +15,17 @@ module Hyku
 
     private
 
-      def button_tag
-        tag.a({ role: 'button',
-                class: "#{button_class}collapse-toggle",
-                data: { toggle: 'collapse' },
-                href: "##{id}",
-                onclick: "toggleCollapse(this)",
-                'aria-expanded' => open,
-                'aria-controls' => id }.merge(html_options)) do
-          safe_join([tag.span('', class: icon_class, 'aria-hidden': true),
-                     tag.span(text)], ' ')
-        end
+    def button_tag
+      tag.a({ role: 'button',
+              class: "#{button_class}collapse-toggle",
+              data: { toggle: 'collapse' },
+              href: "##{id}",
+              onclick: "toggleCollapse(this)",
+              'aria-expanded' => open,
+              'aria-controls' => id }.merge(html_options)) do
+        safe_join([tag.span('', class: icon_class, 'aria-hidden': true),
+                   tag.span(text)], ' ')
       end
+    end
   end
 end

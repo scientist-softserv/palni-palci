@@ -47,7 +47,7 @@ def druids(druid_file)
   count = 0
   File.foreach(druid_file) do |line|
     # Split in two parts on the first comma
-    (element, _) = line.split(/,/, 2)
+    (element,) = line.split(/,/, 2)
     # remove any namespacing
     if md = /(druid:)?(.*)/.match(element)
       yield(md[2])

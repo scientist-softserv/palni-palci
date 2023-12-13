@@ -113,17 +113,17 @@ Hyrax.config do |config|
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
-  config.upload_path = ->() do
+  config.upload_path = lambda {
     if Site.account&.s3_bucket
       "uploads/#{Apartment::Tenant.current}"
     else
       ENV['HYRAX_UPLOAD_PATH'].present? ? Pathname.new(File.join(ENV['HYRAX_UPLOAD_PATH'], Apartment::Tenant.current)) : Rails.root.join('public', 'uploads', Apartment::Tenant.current)
     end
-  end
+  }
 
   # Location on local file system where derivatives will be stored.
   # If you use a multi-server architecture, this MUST be a shared volume.
-  config.derivatives_path = ENV['HYRAX_DERIVATIVES_PATH'].present? ? ENV['HYRAX_DERIVATIVES_PATH'] :  File.join(Rails.root, 'tmp', 'derivatives')
+  config.derivatives_path = ENV['HYRAX_DERIVATIVES_PATH'].presence || File.join(Rails.root, 'tmp', 'derivatives')
 
   # Should schema.org microdata be displayed?
   # config.display_microdata = true
@@ -196,9 +196,7 @@ Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Loca
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
 # set bulkrax default work type to first curation_concern if it isn't already set
-if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true' && Bulkrax.default_work_type.blank?
-  Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s
-end
+Bulkrax.default_work_type = Hyrax.config.curation_concerns.first.to_s if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true' && Bulkrax.default_work_type.blank?
 
 Hyrax::IiifAv.config.iiif_av_viewer = :universal_viewer
 

@@ -53,7 +53,6 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     #   e.g. to exclude date
     #   config.field_mappings["Bulkrax::OaiDcParser"]["date"] = { from: ["date"], excluded: true  }
 
-
     default_field_mapping = {
       'abstract' => { from: ['abstract'], split: true },
       'alternative_title' => { from: ['alternative_title'], split: /\s*[|]\s*/ },
@@ -75,7 +74,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
       'parents' => { from: ['parents'], related_parents_field_mapping: true },
       'publisher' => { from: ['publisher'], split: true },
       'related_url' => { from: ['related_url'], split: /\s* [|]\s*/ },
-      'remote_files' => { from: ['remote_files'], split: /\s*[|]\s*/},
+      'remote_files' => { from: ['remote_files'], split: /\s*[|]\s*/ },
       'resource_type' => { from: ['resource_type'], split: true },
       'rights_notes' => { from: ['rights_notes'], split: true },
       'source' => { from: ['source'], split: true },
@@ -84,24 +83,24 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     }
 
     config.field_mappings["Bulkrax::BagitParser"] = default_field_mapping.merge({
-      # add or remove custom mappings for this parser here
-    })
+                                                                                  # add or remove custom mappings for this parser here
+                                                                                })
 
     config.field_mappings["Bulkrax::CsvParser"] = default_field_mapping.merge({
-      # add or remove custom mappings for this parser here
-    })
+                                                                                # add or remove custom mappings for this parser here
+                                                                              })
 
     config.field_mappings["Bulkrax::OaiDcParser"] = default_field_mapping.merge({
-      # add or remove custom mappings for this parser here
-    })
+                                                                                  # add or remove custom mappings for this parser here
+                                                                                })
 
     config.field_mappings["Bulkrax::OaiQualifiedDcParser"] = default_field_mapping.merge({
-      # add or remove custom mappings for this parser here
-    })
+                                                                                           # add or remove custom mappings for this parser here
+                                                                                         })
 
     config.field_mappings["Bulkrax::XmlParser"] = default_field_mapping.merge({
-      # add or remove custom mappings for this parser here
-    })
+                                                                                # add or remove custom mappings for this parser here
+                                                                              })
 
     # To duplicate a set of mappings from one parser to another
     #   config.field_mappings["Bulkrax::OaiOmekaParser"] = {}

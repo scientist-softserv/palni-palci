@@ -48,14 +48,15 @@ module Hyku
     #
     #   This is a value that you want to set in the before_initialize block.
     class_attribute :user_devise_parameters, instance_accessor: false, default: [
-                      :database_authenticatable,
-                      :invitable,
-                      :registerable,
-                      :recoverable,
-                      :rememberable,
-                      :trackable,
-                      :validatable,
-                      :omniauthable, { omniauth_providers: %i[saml openid_connect cas] }]
+      :database_authenticatable,
+      :invitable,
+      :registerable,
+      :recoverable,
+      :rememberable,
+      :trackable,
+      :validatable,
+      :omniauthable, { omniauth_providers: %i[saml openid_connect cas] }
+    ]
 
     # @!endgroup Class Attributes
 
@@ -99,13 +100,12 @@ module Hyku
       Rails.application.configure do
         process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
         config.active_elastic_job.process_jobs = process_jobs
-        config.active_elastic_job.aws_credentials = lambda { Aws::InstanceProfileCredentials.new }
+        config.active_elastic_job.aws_credentials = -> { Aws::InstanceProfileCredentials.new }
         config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
       end
     end
 
     config.to_prepare do
-
       # By default plain text files are not processed for text extraction.  In adding
       # Adventist::TextFileTextExtractionService to the beginning of the services array we are
       # enabling text extraction from plain text files.
@@ -146,7 +146,7 @@ module Hyku
         Rails.application.configure do
           process_jobs = ActiveModel::Type::Boolean.new.cast(ENV.fetch('HYKU_ELASTIC_JOBS', false))
           config.active_elastic_job.process_jobs = process_jobs
-          config.active_elastic_job.aws_credentials = lambda { Aws::InstanceProfileCredentials.new }
+          config.active_elastic_job.aws_credentials = -> { Aws::InstanceProfileCredentials.new }
           config.active_elastic_job.secret_key_base = Rails.application.secrets[:secret_key_base]
         end
       end

@@ -12,7 +12,7 @@ class DeleteOldGuestsJob < ApplicationJob
 
   private
 
-    def reenqueue
-      DeleteOldGuestsJob.set(wait_until: Date.tomorrow.midnight).perform_later
-    end
+  def reenqueue
+    DeleteOldGuestsJob.set(wait_until: Date.tomorrow.midnight).perform_later
+  end
 end

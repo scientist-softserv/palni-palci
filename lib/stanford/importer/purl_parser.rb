@@ -159,17 +159,17 @@ module Stanford
 
       private
 
-        def untyped_title
-          oai.xpath('./dc:title', DC_NS).map(&:text)
-        end
+      def untyped_title
+        oai.xpath('./dc:title', DC_NS).map(&:text)
+      end
 
-        def prepend_timestamp(text)
-          "#{Time.now.utc.to_s(:iso8601)} #{text}"
-        end
+      def prepend_timestamp(text)
+        "#{Time.now.utc.to_s(:iso8601)} #{text}"
+      end
 
-        def subject
-          oai.xpath('./dc:subject', DC_NS).map(&:text)
-        end
+      def subject
+        oai.xpath('./dc:subject', DC_NS).map(&:text)
+      end
     end
     # rubocop:enable Metrics/ClassLength
   end

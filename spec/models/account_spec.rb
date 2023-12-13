@@ -339,7 +339,7 @@ RSpec.describe Account, type: :model do
       it 'solr_endpoint' do
         account2 = described_class.new(name: 'other', solr_endpoint: endpoint)
         expect { account2.save }.to raise_error(ActiveRecord::RecordNotUnique)
-        # Note: this is different than just populating account2.errors, because it is a FK
+        # NOTE: this is different than just populating account2.errors, because it is a FK
       end
     end
   end

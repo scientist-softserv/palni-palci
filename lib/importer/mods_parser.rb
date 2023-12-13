@@ -241,71 +241,71 @@ module Importer
 
     private
 
-      def build_date(node)
-        finish = finish_point(node)
-        start = start_point(node)
-        dates = [{ start: start.map(&:text), finish: finish.map(&:text), label: date_label(node),
-                   start_qualifier: qualifier(start), finish_qualifier: qualifier(finish) }]
-        dates.delete_if { |date| date.values.all?(&:blank?) }
-        dates
-      end
+    def build_date(node)
+      finish = finish_point(node)
+      start = start_point(node)
+      dates = [{ start: start.map(&:text), finish: finish.map(&:text), label: date_label(node),
+                 start_qualifier: qualifier(start), finish_qualifier: qualifier(finish) }]
+      dates.delete_if { |date| date.values.all?(&:blank?) }
+      dates
+    end
 
-      def qualifier(nodes)
-        nodes.map { |node| node.attributes['qualifier'].try(:value) }.compact
-      end
+    def qualifier(nodes)
+      nodes.map { |node| node.attributes['qualifier'].try(:value) }.compact
+    end
 
-      def finish_point(node)
-        node.css('[point="end"]')
-      end
+    def finish_point(node)
+      node.css('[point="end"]')
+    end
 
-      def start_point(node)
-        node.css("[encoding]:not([point='end'])")
-      end
+    def start_point(node)
+      node.css("[encoding]:not([point='end'])")
+    end
 
-      def date_label(node)
-        node.css(':not([encoding])').map(&:text)
-      end
+    def date_label(node)
+      node.css(':not([encoding])').map(&:text)
+    end
 
-      def untyped_title
-        mods.xpath('/mods:mods/mods:titleInfo[not(@type)]/mods:title', NAMESPACES).map(&:text)
-      end
+    def untyped_title
+      mods.xpath('/mods:mods/mods:titleInfo[not(@type)]/mods:title', NAMESPACES).map(&:text)
+    end
 
-      def alt_title
-        Array(mods.xpath('//mods:titleInfo[@type]', NAMESPACES)).flat_map do |node|
-          type = node.attributes['type'].text
-          alternative = 'alternative'
+    def alt_title
+      Array(mods.xpath('//mods:titleInfo[@type]', NAMESPACES)).flat_map do |node|
+        type = node.attributes['type'].text
+        alternative = 'alternative'
 
-          node.title.map do |title|
-            value = title.text
-            warn_title_transform(type, value) unless type == alternative
-            value
-          end
+        node.title.map do |title|
+          value = title.text
+          warn_title_transform(type, value) unless type == alternative
+          value
         end
       end
+    end
 
-      def warn_title_tranform(type, value)
-        Rails.logger.warn "Transformtion: \"#{type} title\" will be stored as \"alternative title\": #{value}"
-      end
+    def warn_title_tranform(type, value)
+      Rails.logger.warn "Transformtion: \"#{type} title\" will be stored as \"alternative title\": #{value}"
+    end
 
-      def prepend_timestamp(text)
-        "#{Time.now.utc.to_s(:iso8601)} #{text}"
-      end
+    def prepend_timestamp(text)
+      "#{Time.now.utc.to_s(:iso8601)} #{text}"
+    end
 
-      def strip_whitespace(text)
-        text.tr("\n", ' ').delete("\t")
-      end
+    def strip_whitespace(text)
+      text.tr("\n", ' ').delete("\t")
+    end
 
-      def subject
-        query = '//mods:subject/mods:name/@valueURI|//mods:subject/mods:topic/@valueURI'
-        uris = mods.xpath(query, NAMESPACES).map { |uri| RDF::URI.new(uri) }
-        return uris unless uris.empty?
-        mods.subject.map do |sub|
-          text = sub.css('name namePart').text
-          secondary = sub.css('topic,genre').text
-          text += " -- #{secondary}" if secondary.present?
-          text
-        end
+    def subject
+      query = '//mods:subject/mods:name/@valueURI|//mods:subject/mods:topic/@valueURI'
+      uris = mods.xpath(query, NAMESPACES).map { |uri| RDF::URI.new(uri) }
+      return uris unless uris.empty?
+      mods.subject.map do |sub|
+        text = sub.css('name namePart').text
+        secondary = sub.css('topic,genre').text
+        text += " -- #{secondary}" if secondary.present?
+        text
       end
+    end
   end
   # rubocop:enable Metrics/ClassLength
 end

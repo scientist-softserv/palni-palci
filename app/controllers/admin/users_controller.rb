@@ -28,8 +28,8 @@ module Admin
 
     private
 
-      def load_user
-        @user = User.from_url_component(params[:id])
-      end
+    def load_user
+      @user = User.from_url_component(params[:id])
+    end
   end
 end

@@ -6,12 +6,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 
-gem 'active-fedora', '~> 14.0'
 gem 'active_elastic_job', github: 'active-elastic-job/active-elastic-job', ref: 'ec51c5d9dedc4a1b47f2db41f26d5fceb251e979', group: %i[aws]
+gem 'active-fedora', '~> 14.0'
 gem 'activerecord-nulldb-adapter'
 gem 'addressable', '2.8.1' # remove once https://github.com/postrank-labs/postrank-uri/issues/49 is fixed
 gem 'apartment', github: 'scientist-softserv/apartment', branch: 'development'
 gem 'aws-sdk-sqs', group: %i[aws]
+gem 'bixby', '~> 5.0', '>= 5.0.2', group: %i[development test]
 gem 'blacklight', '~> 7.29'
 gem 'blacklight_advanced_search'
 gem 'blacklight_oai_provider', '~> 7.0'
@@ -19,7 +20,6 @@ gem 'blacklight_range_limit'
 gem 'bolognese', '>= 1.9.10'
 gem 'bootstrap', '~> 4.6'
 gem 'bootstrap-datepicker-rails'
-gem 'bixby', '~> 5.0', '>= 5.0.2', group: %i[development test]
 gem 'bulkrax', '~> 5.4'
 gem 'byebug', group: %i[development test]
 gem 'capybara', group: %i[test]
@@ -58,9 +58,9 @@ gem 'negative_captcha'
 gem 'okcomputer'
 gem 'omniauth-cas', github: 'stanhu/omniauth-cas', ref: '4211e6d05941b4a981f9a36b49ec166cecd0e271'
 gem 'omniauth-multi-provider'
+gem 'omniauth_openid_connect'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-saml', '~> 2.1'
-gem 'omniauth_openid_connect'
 gem 'order_already'
 gem 'parser', '>= 3.1.0.0'
 gem 'pg'
@@ -77,12 +77,12 @@ gem 'rsolr', '~> 2.0'
 gem 'rspec', group: %i[development test]
 gem 'rspec-activemodel-mocks', group: %i[test]
 gem 'rspec-its', group: %i[test]
+gem 'rspec_junit_formatter', group: %i[test]
 gem 'rspec-rails', '>= 3.6.0', group: %i[development test]
 gem 'rspec-retry', group: %i[test]
-gem 'rspec_junit_formatter', group: %i[test]
 gem 'rubocop', '1.28.2', group: %i[development test]
-gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', group: %i[development test]
 gem 'rubocop-rails', '~> 2.15', group: %i[development test]
+gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2', group: %i[development test]
 gem 'sass-rails', '~> 6.0' # Use SCSS for stylesheets
 gem 'scss_lint', require: false, group: %i[development]
 gem 'secure_headers'

@@ -35,63 +35,63 @@ class ImportWorkFromPurlJob < ApplicationJob
 
   private
 
-    def process_attributes(attributes)
-      # We're pruning off :form_of_work, :record_origin, :created_attributes, :identifiers
-      attributes = attributes.slice(*attributes_to_keep)
-      # rename :location to :based_near
-      attributes[:based_near] = attributes.delete(:location)
+  def process_attributes(attributes)
+    # We're pruning off :form_of_work, :record_origin, :created_attributes, :identifiers
+    attributes = attributes.slice(*attributes_to_keep)
+    # rename :location to :based_near
+    attributes[:based_near] = attributes.delete(:location)
 
-      # rename :rights to :license
-      attributes[:license] = attributes.delete(:rights)
+    # rename :rights to :license
+    attributes[:license] = attributes.delete(:rights)
 
-      attributes[:collection][:collection_type] ||= Hyrax::CollectionType.find_or_create_default_collection_type
+    attributes[:collection][:collection_type] ||= Hyrax::CollectionType.find_or_create_default_collection_type
 
-      process_collection(attributes)
-      filenames = attributes.delete(:files)
-      attributes[:remote_files] = filenames.map do |name|
-        { url: "https://stacks.stanford.edu/file/druid:#{attributes[:id]}/#{name}",
-          file_name: name }
-      end
-
-      attributes
+    process_collection(attributes)
+    filenames = attributes.delete(:files)
+    attributes[:remote_files] = filenames.map do |name|
+      { url: "https://stacks.stanford.edu/file/druid:#{attributes[:id]}/#{name}",
+        file_name: name }
     end
 
-    class_attribute :attributes_to_keep
-    self.attributes_to_keep = %i[title
-                                 description
-                                 subject
-                                 language
-                                 resource_type
-                                 location
-                                 rights
-                                 visibility
-                                 id
-                                 collection
-                                 files
-                                 collection_type]
+    attributes
+  end
 
-    def process_collection(attributes)
-      # rename :collection to :member_of_collection_attributes
-      collection = attributes.delete(:collection)
+  class_attribute :attributes_to_keep
+  self.attributes_to_keep = %i[title
+                               description
+                               subject
+                               language
+                               resource_type
+                               location
+                               rights
+                               visibility
+                               id
+                               collection
+                               files
+                               collection_type]
 
-      # Workaround for ActiveFedora #1186
-      id = collection[:id]
-      begin
-        retries ||= 0
-        Collection.create!(collection) unless Collection.exists?(id)
-      rescue Ldp::Conflict => e
-        ## Another process has likely beat us to the punch. Wait a bit and try again.
-        sleep(3)
-        retry if (retries += 1) < 3
-        raise e
-      end
-      attributes[:member_of_collection_attributes] = [{ id: id }]
+  def process_collection(attributes)
+    # rename :collection to :member_of_collection_attributes
+    collection = attributes.delete(:collection)
+
+    # Workaround for ActiveFedora #1186
+    id = collection[:id]
+    begin
+      retries ||= 0
+      Collection.create!(collection) unless Collection.exists?(id)
+    rescue Ldp::Conflict => e
+      ## Another process has likely beat us to the punch. Wait a bit and try again.
+      sleep(3)
+      retry if (retries += 1) < 3
+      raise e
     end
+    attributes[:member_of_collection_attributes] = [{ id: id }]
+  end
 
-    # Override this method if you have a different rubric for choosing the model
-    # @param [Hash] attributes
-    # @return String the model to create
-    def model_to_create(_attributes)
-      GenericWork.model_name.name
-    end
+  # Override this method if you have a different rubric for choosing the model
+  # @param [Hash] attributes
+  # @return String the model to create
+  def model_to_create(_attributes)
+    GenericWork.model_name.name
+  end
 end

@@ -22,15 +22,15 @@ module SharedSearchHelper
 
   private
 
-    def get_url(id:, request:, account_cname:, has_model:)
-      new_url = "#{request[:request_protocol]}#{account_cname || request[:request_host]}"
-      new_url += ":#{request[:request_port]}" if Rails.env.development? || Rails.env.test?
-      new_url += case has_model
-                 when "collections"
-                   "/#{has_model}/#{id}"
-                 else
-                   "/concern/#{has_model}/#{id}"
-                 end
-      new_url
-    end
+  def get_url(id:, request:, account_cname:, has_model:)
+    new_url = "#{request[:request_protocol]}#{account_cname || request[:request_host]}"
+    new_url += ":#{request[:request_port]}" if Rails.env.development? || Rails.env.test?
+    new_url += case has_model
+               when "collections"
+                 "/#{has_model}/#{id}"
+               else
+                 "/concern/#{has_model}/#{id}"
+               end
+    new_url
+  end
 end

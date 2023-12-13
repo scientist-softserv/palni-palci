@@ -30,24 +30,24 @@ class FeaturedCollectionList
 
   private
 
-    def add_solr_document_to_collections
-      collection_presenters.each do |presenter|
-        collection_with_id(presenter.id).presenter = presenter
-      end
+  def add_solr_document_to_collections
+    collection_presenters.each do |presenter|
+      collection_with_id(presenter.id).presenter = presenter
     end
+  end
 
-    def ids
-      @collections.pluck(:collection_id)
-    end
+  def ids
+    @collections.pluck(:collection_id)
+  end
 
-    def collection_presenters
-      ability = nil
-      Hyrax::PresenterFactory.build_for(ids: ids,
-                                        presenter_class: Hyku::WorkShowPresenter,
-                                        presenter_args: ability)
-    end
+  def collection_presenters
+    ability = nil
+    Hyrax::PresenterFactory.build_for(ids: ids,
+                                      presenter_class: Hyku::WorkShowPresenter,
+                                      presenter_args: ability)
+  end
 
-    def collection_with_id(id)
-      @collections.find { |c| c.collection_id == id }
-    end
+  def collection_with_id(id)
+    @collections.find { |c| c.collection_id == id }
+  end
 end

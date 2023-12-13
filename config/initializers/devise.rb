@@ -298,9 +298,9 @@ Devise.setup do |config|
   identity_provider_id_regex = /\d+/
 
   [:cas, :openid_connect, :saml].each do |provider|
-    path_prefix =  "/users/auth/#{provider}"
+    path_prefix = "/users/auth/#{provider}"
     handler = OmniAuth::MultiProvider::Handler.new(path_prefix: path_prefix,
-      identity_provider_id_regex: identity_provider_id_regex,
+                                                   identity_provider_id_regex: identity_provider_id_regex,
       &dynamic_options_generator)
     static_options = { path_prefix: path_prefix }
 

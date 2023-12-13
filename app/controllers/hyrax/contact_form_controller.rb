@@ -79,53 +79,53 @@ module Hyrax
 
     private
 
-      def build_contact_form
-        @contact_form = model_class.new(contact_form_params)
-      end
+    def build_contact_form
+      @contact_form = model_class.new(contact_form_params)
+    end
 
-      def contact_form_params
-        return {} unless params.key?(:contact_form)
-        params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
-      end
+    def contact_form_params
+      return {} unless params.key?(:contact_form)
+      params.require(:contact_form).permit(:contact_method, :category, :name, :email, :subject, :message)
+    end
 
-      # OVERRIDE: return collections for theming
-      def collections(rows: 6)
-        builder = Hyrax::CollectionSearchBuilder.new(self)
-                                                .rows(rows)
-        response = repository.search(builder)
-        response.documents
-      rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-        []
-      end
+    # OVERRIDE: return collections for theming
+    def collections(rows: 6)
+      builder = Hyrax::CollectionSearchBuilder.new(self)
+                                              .rows(rows)
+      response = repository.search(builder)
+      response.documents
+    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+      []
+    end
 
-      # OVERRIDE: Adding to prepend the theme views into the view_paths
-      def inject_theme_views
-        if home_page_theme && home_page_theme != 'default_home'
-          original_paths = view_paths
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          # Do NOT change this line. This is calling the Rails view_paths=(paths) method and not a variable assignment.
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        else
-          yield
-        end
+    # OVERRIDE: Adding to prepend the theme views into the view_paths
+    def inject_theme_views
+      if home_page_theme && home_page_theme != 'default_home'
+        original_paths = view_paths
+        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+        prepend_view_path(home_theme_view_path)
+        yield
+        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        # Do NOT change this line. This is calling the Rails view_paths=(paths) method and not a variable assignment.
+        view_paths=(original_paths)
+        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+      else
+        yield
       end
+    end
 
-      def setup_negative_captcha
-        @captcha = NegativeCaptcha.new(
-          # A secret key entered in environment.rb. 'rake secret' will give you a good one.
-          secret: ENV.fetch('NEGATIVE_CAPTCHA_SECRET', 'default-value-change-me'),
-          spinner: request.remote_ip,
-          # Whatever fields are in your form
-          fields: %i[name email subject message],
-          # If you wish to override the default CSS styles (position: absolute; left: -2000px;)
-          # used to position the fields off-screen
-          css: "display: none",
-          params: params
-        )
-      end
+    def setup_negative_captcha
+      @captcha = NegativeCaptcha.new(
+        # A secret key entered in environment.rb. 'rake secret' will give you a good one.
+        secret: ENV.fetch('NEGATIVE_CAPTCHA_SECRET', 'default-value-change-me'),
+        spinner: request.remote_ip,
+        # Whatever fields are in your form
+        fields: %i[name email subject message],
+        # If you wish to override the default CSS styles (position: absolute; left: -2000px;)
+        # used to position the fields off-screen
+        css: "display: none",
+        params: params
+      )
+    end
   end
 end

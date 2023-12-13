@@ -68,49 +68,49 @@ module Hyrax
 
     private
 
-      def permitted_params
-        params.require(:content_block).permit(:about,
-                                              :agreement,
-                                              :help,
-                                              :terms)
-      end
+    def permitted_params
+      params.require(:content_block).permit(:about,
+                                            :agreement,
+                                            :help,
+                                            :terms)
+    end
 
-      # When a request comes to the controller, it will be for one and
-      # only one of the content blocks. Params always looks like:
-      #   {'about_page' => 'Here is an awesome about page!'}
-      # So reach into permitted params and pull out the first value.
-      def update_value_from_params
-        permitted_params.values.first
-      end
+    # When a request comes to the controller, it will be for one and
+    # only one of the content blocks. Params always looks like:
+    #   {'about_page' => 'Here is an awesome about page!'}
+    # So reach into permitted params and pull out the first value.
+    def update_value_from_params
+      permitted_params.values.first
+    end
 
-      def pages_layout
-        action_name == 'show' ? 'homepage' : 'hyrax/dashboard'
-      end
+    def pages_layout
+      action_name == 'show' ? 'homepage' : 'hyrax/dashboard'
+    end
 
-      # OVERRIDE: return collections for theming
-      def collections(rows: 6)
-        builder = Hyrax::CollectionSearchBuilder.new(self)
-                                                .rows(rows)
-        response = repository.search(builder)
-        response.documents
-      rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
-        []
-      end
+    # OVERRIDE: return collections for theming
+    def collections(rows: 6)
+      builder = Hyrax::CollectionSearchBuilder.new(self)
+                                              .rows(rows)
+      response = repository.search(builder)
+      response.documents
+    rescue Blacklight::Exceptions::ECONNREFUSED, Blacklight::Exceptions::InvalidRequest
+      []
+    end
 
-      # OVERRIDE: Adding to prepend the theme views into the view_paths
-      def inject_theme_views
-        if home_page_theme && home_page_theme != 'default_home'
-          original_paths = view_paths
-          home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
-          prepend_view_path(home_theme_view_path)
-          yield
-          # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-          # Do NOT change this method. This is an override of the view_paths= method and not a variable assignment.
-          view_paths=(original_paths)
-          # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
-        else
-          yield
-        end
+    # OVERRIDE: Adding to prepend the theme views into the view_paths
+    def inject_theme_views
+      if home_page_theme && home_page_theme != 'default_home'
+        original_paths = view_paths
+        home_theme_view_path = Rails.root.join('app', 'views', "themes", home_page_theme.to_s)
+        prepend_view_path(home_theme_view_path)
+        yield
+        # rubocop:disable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+        # Do NOT change this method. This is an override of the view_paths= method and not a variable assignment.
+        view_paths=(original_paths)
+        # rubocop:enable Lint/UselessAssignment, Layout/SpaceAroundOperators, Style/RedundantParentheses
+      else
+        yield
       end
+    end
   end
 end

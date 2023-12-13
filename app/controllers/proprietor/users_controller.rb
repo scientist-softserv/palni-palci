@@ -83,44 +83,44 @@ module Proprietor
 
     private
 
-      def ensure_admin!
-        authorize! :read, :admin_dashboard
-      end
+    def ensure_admin!
+      authorize! :read, :admin_dashboard
+    end
 
-      def user_params
-        # remove blank passwords
-        params[:user].delete(:password) if params[:user] && params[:user][:password].blank?
+    def user_params
+      # remove blank passwords
+      params[:user].delete(:password) if params[:user] && params[:user][:password].blank?
 
-        params.require(:user).permit(:email,
-                                     :password,
-                                     :is_superadmin,
-                                     :facebook_handle,
-                                     :twitter_handle,
-                                     :googleplus_handle,
-                                     :display_name,
-                                     :address,
-                                     :department,
-                                     :title,
-                                     :office,
-                                     :chat_id,
-                                     :website,
-                                     :affiliation,
-                                     :telephone,
-                                     :avatar,
-                                     :group_list,
-                                     :linkedin_handle,
-                                     :orcid,
-                                     :arkivo_token,
-                                     :arkivo_subscription,
-                                     :zotero_token,
-                                     :zotero_userid,
-                                     :preferred_locale,
-                                     role_ids: [])
-      end
+      params.require(:user).permit(:email,
+                                   :password,
+                                   :is_superadmin,
+                                   :facebook_handle,
+                                   :twitter_handle,
+                                   :googleplus_handle,
+                                   :display_name,
+                                   :address,
+                                   :department,
+                                   :title,
+                                   :office,
+                                   :chat_id,
+                                   :website,
+                                   :affiliation,
+                                   :telephone,
+                                   :avatar,
+                                   :group_list,
+                                   :linkedin_handle,
+                                   :orcid,
+                                   :arkivo_token,
+                                   :arkivo_subscription,
+                                   :zotero_token,
+                                   :zotero_userid,
+                                   :preferred_locale,
+                                   role_ids: [])
+    end
 
-      def find_user
-        @user ||= ::User.from_url_component(params[:id])
-        raise ActiveRecord::RecordNotFound unless @user
-      end
+    def find_user
+      @user ||= ::User.from_url_component(params[:id])
+      raise ActiveRecord::RecordNotFound unless @user
+    end
   end
 end

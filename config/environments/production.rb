@@ -19,7 +19,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.public_file_server.headers = {
     'Cache-Control' => 'public, s-maxage=31536000, maxage=15552000',
-    'Expires' => "#{1.year.from_now.to_formatted_s(:rfc822)}"
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822).to_s
   }
   config.middleware.insert_before ActionDispatch::Static, NoCacheMiddleware, [/dashboard\/collections\/.*\/edit/, /uploaded_collection_thumbnails/]
   # Compress JavaScripts and CSS.
@@ -51,14 +51,14 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   require 'active_job/queue_adapters/better_active_elastic_job_adapter'
-  config.active_job.queue_adapter     = ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', 'sidekiq')
+  config.active_job.queue_adapter = ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', 'sidekiq')
   # config.active_job.queue_name_prefix = "hyku_#{Rails.env}"
 
   if ENV['SMTP_ENABLED'].present? && ENV['SMTP_ENABLED'].to_s == 'true'

@@ -20,9 +20,7 @@ module Hyku
       yield resource if block_given?
 
       # Override destination as this was a success either way
-      if is_flashing_format? && resource.invitation_sent_at
-        set_flash_message :notice, :send_instructions, email: resource.email
-      end
+      set_flash_message :notice, :send_instructions, email: resource.email if is_flashing_format? && resource.invitation_sent_at
       if method(:after_invite_path_for).arity == 1
         respond_with resource, location: after_invite_path_for(current_inviter)
       else
@@ -32,8 +30,8 @@ module Hyku
 
     protected
 
-      def user_params
-        params.require(:user).permit(:email, :role)
-      end
+    def user_params
+      params.require(:user).permit(:email, :role)
+    end
   end
 end

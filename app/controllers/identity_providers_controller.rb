@@ -72,27 +72,27 @@ class IdentityProvidersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_identity_provider
-      @identity_provider = IdentityProvider.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_identity_provider
+    @identity_provider = IdentityProvider.find(params[:id])
+  end
 
-    def ensure_admin!
-      authorize! :read, :admin_dashboard
-    end
+  def ensure_admin!
+    authorize! :read, :admin_dashboard
+  end
 
-    # Only allow a list of trusted parameters through.
-    def identity_provider_params
-      return @identity_provider_params if @identity_provider_params
-      @identity_provider_params = params.require(:identity_provider).permit(
-        :name,
-        :provider,
-        :options,
-        :logo_image,
-        :logo_image_text
-      )
-      @identity_provider_params['options'].presence &&
-        @identity_provider_params['options'] = JSON.parse(@identity_provider_params['options'])
-      @identity_provider_params
-    end
+  # Only allow a list of trusted parameters through.
+  def identity_provider_params
+    return @identity_provider_params if @identity_provider_params
+    @identity_provider_params = params.require(:identity_provider).permit(
+      :name,
+      :provider,
+      :options,
+      :logo_image,
+      :logo_image_text
+    )
+    @identity_provider_params['options'].presence &&
+      @identity_provider_params['options'] = JSON.parse(@identity_provider_params['options'])
+    @identity_provider_params
+  end
 end

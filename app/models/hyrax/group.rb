@@ -85,7 +85,7 @@ module Hyrax
 
     def description_label
       label = description || I18n.t("hyku.admin.groups.description.#{name}")
-      return '' if label =~ /^translation missing:/
+      return '' if /^translation missing:/.match?(label)
 
       label
     end
@@ -98,22 +98,22 @@ module Hyrax
 
     private
 
-      def can_destroy?
-        return false if default_group?
+    def can_destroy?
+      return false if default_group?
 
-        true
-      end
+      true
+    end
 
-      def remove_all_members
-        members.map { |m| m.remove_role(MEMBERSHIP_ROLE, self) }
-      end
+    def remove_all_members
+      members.map { |m| m.remove_role(MEMBERSHIP_ROLE, self) }
+    end
 
-      def sipity_agent
-        Sipity::Agent.find_by(proxy_for_id: name, proxy_for_type: self.class.name)
-      end
+    def sipity_agent
+      Sipity::Agent.find_by(proxy_for_id: name, proxy_for_type: self.class.name)
+    end
 
-      def create_sipity_agent!
-        Sipity::Agent.create!(proxy_for_id: name, proxy_for_type: self.class.name)
-      end
+    def create_sipity_agent!
+      Sipity::Agent.create!(proxy_for_id: name, proxy_for_type: self.class.name)
+    end
   end
 end

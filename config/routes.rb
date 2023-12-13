@@ -2,9 +2,7 @@
 
 # OVERRIDE Hyrax 2.9.0 to add featured collection routes
 
-if ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', 'sidekiq') == 'sidekiq'
-  require 'sidekiq/web'
-end
+require 'sidekiq/web' if ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', 'sidekiq') == 'sidekiq'
 
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :identity_providers
@@ -18,8 +16,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   authenticate :user, ->(u) { u.is_superadmin || u.is_admin } do
     queue = ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', 'sidekiq')
     case queue
-      when 'sidekiq'
-        mount Sidekiq::Web => '/jobs'
+    when 'sidekiq'
+      mount Sidekiq::Web => '/jobs'
     when 'good_job'
       mount GoodJob::Engine => '/jobs'
     end
@@ -52,8 +50,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   root 'hyrax/homepage#index'
 
   devise_for :users, skip: [:omniauth_callbacks], controllers: { invitations: 'hyku/invitations',
-                                    registrations: 'hyku/registrations',
-                                    omniauth_callbacks: 'users/omniauth_callbacks' }
+                                                                 registrations: 'hyku/registrations',
+                                                                 omniauth_callbacks: 'users/omniauth_callbacks' }
   as :user do
     resources :single_signon, only: [:index]
 

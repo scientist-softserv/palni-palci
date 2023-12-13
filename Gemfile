@@ -13,11 +13,13 @@ gem 'addressable', '2.8.1' # remove once https://github.com/postrank-labs/postra
 gem 'apartment', github: 'scientist-softserv/apartment', branch: 'development'
 gem 'aws-sdk-sqs', group: %i[aws]
 gem 'blacklight', '~> 7.29'
+gem 'blacklight_advanced_search'
 gem 'blacklight_oai_provider', '~> 7.0'
+gem 'blacklight_range_limit'
 gem 'bolognese', '>= 1.9.10'
 gem 'bootstrap', '~> 4.6'
 gem 'bootstrap-datepicker-rails'
-gem 'bulkrax', '~> 5.3'
+gem 'bulkrax', '~> 5.4'
 gem 'byebug', group: %i[development test]
 gem 'capybara', group: %i[test]
 gem 'capybara-screenshot', '~> 1.0', group: %i[test]
@@ -35,6 +37,7 @@ gem 'easy_translate', group: %i[development]
 gem 'factory_bot_rails', group: %i[test]
 gem 'fcrepo_wrapper', '~> 0.4', group: %i[development test]
 gem 'flutie'
+gem 'good_job', '~> 2.99'
 gem 'googleauth', '= 1.8.1' # 1.9.0 got yanked from rubygems, hard pinning until we can upgrade
 gem 'hyrax', github: 'samvera/hyrax', branch: 'double_combo'
 gem 'hyrax-doi', github: 'samvera-labs/hyrax-doi', branch: 'rails_hyrax_upgrade'
@@ -57,6 +60,7 @@ gem 'omniauth-multi-provider'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-saml', '~> 2.1'
 gem 'omniauth_openid_connect'
+gem 'order_already'
 gem 'parser', '~> 2.5.3'
 gem 'pg'
 gem 'postrank-uri', '>= 1.0.24'

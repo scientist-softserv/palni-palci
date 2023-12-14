@@ -79,6 +79,7 @@ module Importer
         .merge(relations)
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def description
       {
         title: untyped_title,
@@ -97,6 +98,7 @@ module Importer
         description_standard: mods.record_info.descriptionStandard.map(&:text)
       }
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def language
       mods.language.languageTerm.map do |term|

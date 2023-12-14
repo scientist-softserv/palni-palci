@@ -3,6 +3,7 @@
 require 'importer/log_subscriber'
 module Importer
   module Factory
+    # rubocop:disable Metrics/ClassLength
     class ObjectFactory
       extend ActiveModel::Callbacks
       define_model_callbacks :save, :create
@@ -153,5 +154,6 @@ module Importer
         klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility]
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

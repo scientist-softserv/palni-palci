@@ -98,6 +98,7 @@ class RolesService # rubocop:disable Metrics/ClassLength
     # Because each collection role has some level of access to every Collection within a tenant,
     # creating a Hyrax::PermissionTemplateAccess record (combined with Ability#user_groups)
     # means all Collections will show up in Blacklight / Solr queries.
+    # rubocop:disable Metrics/MethodLength
     def create_collection_accesses!
       Collection.find_each do |c|
         pt = Hyrax::PermissionTemplate.find_or_create_by!(source_id: c.id)
@@ -130,9 +131,11 @@ class RolesService # rubocop:disable Metrics/ClassLength
         c.reset_access_controls! if pt.access_grants.count != original_access_grants_count
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Creating a Hyrax::PermissionTemplateAccess record (combined with Ability#user_groups)
     # will allow Works in all AdminSets to show up in Blacklight / Solr queries.
+    # rubocop:disable Metrics/MethodLength
     def create_admin_set_accesses!
       AdminSet.find_each do |as|
         pt = Hyrax::PermissionTemplate.find_or_create_by!(source_id: as.id)
@@ -165,6 +168,7 @@ class RolesService # rubocop:disable Metrics/ClassLength
         as.reset_access_controls! if pt.access_grants.count != original_access_grants_count
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Because some of the collection roles have access to every Collection within a tenant, create a
     # Hyrax::CollectionTypeParticipant record for them on every Hyrax::CollectionType (except the AdminSet)
@@ -247,6 +251,7 @@ class RolesService # rubocop:disable Metrics/ClassLength
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def seed_superadmin!
       return 'Seed data should not be used in the production environment' if Rails.env.production? || Rails.env.staging?
 
@@ -270,7 +275,9 @@ class RolesService # rubocop:disable Metrics/ClassLength
 
       user
     end
+    # rubocop:enable Metrics/MethodLength
 
+    # rubocop:disable Metrics/MethodLength
     def seed_qa_users!
       return 'Seed data should not be used in the production environment' if Rails.env.production? || Rails.env.staging?
 
@@ -298,5 +305,6 @@ class RolesService # rubocop:disable Metrics/ClassLength
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

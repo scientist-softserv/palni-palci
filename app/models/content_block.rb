@@ -2,6 +2,7 @@
 
 # OVERRIDE Hyrax v3.4.0 to add home_text to registry
 # and getter/setter methods - Adding themes
+# rubocop:disable Metrics/ClassLength
 class ContentBlock < ApplicationRecord
   # The keys in this registry are "public" names for collaborator
   # objects, and the values are reserved names of ContentBlock
@@ -159,3 +160,4 @@ class ContentBlock < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

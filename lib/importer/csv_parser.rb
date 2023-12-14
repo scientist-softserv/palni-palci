@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Importer
+  # rubocop:disable Metrics/ClassLength
   class CSVParser
     include Enumerable
 
@@ -74,6 +75,7 @@ module Importer
       end
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     def extract_field(header, val, processed)
       return unless val
       case header
@@ -103,6 +105,7 @@ module Importer
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
     # Faking a typed field for now.
     # TODO: support other types of contributors

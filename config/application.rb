@@ -63,10 +63,10 @@ module Hyku
 
     # Add this line to load the lib folder first because we need
     # IiifPrint::SplitPdfs::AdventistPagesToJpgsSplitter
-    config.autoload_paths.unshift("#{Rails.root}/lib")
+    config.autoload_paths.unshift(Rails.root.join('lib'))
 
     # Add the middleware directory to the eager load paths
-    config.eager_load_paths << "#{Rails.root}/app/middleware"
+    config.eager_load_paths << Rails.root.join('app', 'middleware')
 
     ##
     # @api public

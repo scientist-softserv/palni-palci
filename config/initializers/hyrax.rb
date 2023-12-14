@@ -2,6 +2,7 @@
 # Set nested indexer to graph by default. Remove after Hyrax 4.0 upgrade
 ENV['HYRAX_USE_SOLR_GRAPH_NESTING'].present? || ENV['HYRAX_USE_SOLR_GRAPH_NESTING'] = "true"
 
+# rubocop:disable Metrics/BlockLength
 Hyrax.config do |config|
   config.register_curation_concern :generic_work
   # Injected via `rails g hyrax:work Image`
@@ -124,7 +125,7 @@ Hyrax.config do |config|
 
   # Location on local file system where derivatives will be stored.
   # If you use a multi-server architecture, this MUST be a shared volume.
-  config.derivatives_path = ENV['HYRAX_DERIVATIVES_PATH'].presence || File.join(Rails.root, 'tmp', 'derivatives')
+  config.derivatives_path = ENV['HYRAX_DERIVATIVES_PATH'].presence || Rails.root.join('tmp', 'derivatives').to_s
 
   # Should schema.org microdata be displayed?
   # config.display_microdata = true
@@ -189,6 +190,7 @@ Hyrax.config do |config|
     uri.sub(/\Ahttp:/, 'https:')
   end
 end
+# rubocop:enable Metrics/BlockLength
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
 

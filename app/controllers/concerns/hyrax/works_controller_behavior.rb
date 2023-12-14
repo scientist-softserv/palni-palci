@@ -333,6 +333,7 @@ module Hyrax
     #   hopefully this can be refactored to be more reusable.
     #
     # Add uploaded_files to the parameters received by the actor.
+    # rubocop:disable Metrics/MethodLength
     def attributes_for_actor
       raw_params = params[hash_key_for_curation_concern]
       attributes = if raw_params
@@ -360,6 +361,7 @@ module Hyrax
                                     browse_everything_urls
       attributes
     end
+    # rubocop:enable Metrics/MethodLength
 
     def after_create_response
       respond_to do |wants|

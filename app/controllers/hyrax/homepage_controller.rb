@@ -44,6 +44,7 @@ module Hyrax
     layout 'homepage'
     helper Hyrax::ContentBlockHelper
 
+    # rubocop:disable Metrics/MethodLength
     def index
       # BEGIN copy Hyrax prime's Hyrax::HomepageController#index
       @presenter = presenter_class.new(current_ability, collections)
@@ -77,6 +78,7 @@ module Hyrax
         document_export_formats(format)
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def browserconfig; end
 

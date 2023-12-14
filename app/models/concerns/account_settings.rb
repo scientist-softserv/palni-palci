@@ -3,6 +3,7 @@
 # All settings have a presedence order as follows
 # Per Tenant Setting > ENV['HYKU_SETTING_NAME'] > ENV['HYRAX_SETTING_NAME'] > default
 
+# rubocop:disable Metrics/ModuleLength
 module AccountSettings
   extend ActiveSupport::Concern
   # rubocop:disable Metrics/BlockLength
@@ -79,6 +80,7 @@ module AccountSettings
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def solr_collection_options
       {
         async: nil,
@@ -99,6 +101,7 @@ module AccountSettings
         snitch: nil
       }
     end
+    # rubocop:disable Metrics/MethodLength
   end
   # rubocop:enable Metrics/BlockLength
 
@@ -154,6 +157,7 @@ module AccountSettings
     )
   end
 
+  # rubocop:disable Metrics/AbcSize
   def reload_library_config
     Hyrax.config do |config|
       config.contact_email = contact_email
@@ -188,4 +192,6 @@ module AccountSettings
     ActionMailer::Base.default_url_options ||= {}
     ActionMailer::Base.default_url_options[:protocol] = 'https'
   end
+  # rubocop:enable Metrics/AbcSize
 end
+# rubocop:enable Metrics/ModuleLength

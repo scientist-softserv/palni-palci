@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -18,7 +20,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
@@ -72,3 +74,4 @@ Rails.application.configure do
   # adding `.` wildcard to allow for subdomains
   config.hosts << "." + ENV['HYKU_ADMIN_HOST']
 end
+# rubocop:enable Metrics/BlockLength

@@ -2,6 +2,7 @@
 # This file contains overrides to Hyrax::FileSetDerivativesService to increase the size of thumbnails
 
 # Hyrax v3.5.0
+# rubocop:disable Metrics/BlockLength
 Hyrax::FileSetDerivativesService.class_eval do
   # @see https://github.com/samvera/hydra-derivatives/blob/main/lib/hydra/derivatives/processors/video/config.rb#L59
   DEFAULT_VIDEO_SIZE = '320x240'
@@ -58,3 +59,4 @@ Hyrax::FileSetDerivativesService.class_eval do
                                                             url: derivative_url('mp4') }])
   end
 end
+# rubocop:enable Metrics/BlockLength

@@ -87,6 +87,7 @@ module Proprietor
       authorize! :read, :admin_dashboard
     end
 
+    # rubocop:disable Metrics/MethodLength
     def user_params
       # remove blank passwords
       params[:user].delete(:password) if params[:user] && params[:user][:password].blank?
@@ -117,6 +118,7 @@ module Proprietor
                                    :preferred_locale,
                                    role_ids: [])
     end
+    # rubocop:enable Metrics/MethodLength
 
     def find_user
       @user ||= ::User.from_url_component(params[:id])

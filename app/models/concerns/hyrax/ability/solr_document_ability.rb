@@ -4,6 +4,7 @@
 module Hyrax
   module Ability
     module SolrDocumentAbility
+      # rubocop:disable Metrics/MethodLength
       def solr_document_abilities
         if admin?
           can [:manage], ::SolrDocument
@@ -27,6 +28,7 @@ module Hyrax
           end
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

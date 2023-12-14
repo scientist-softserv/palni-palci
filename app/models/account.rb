@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Customer organization account
+# rubocop:disable Metrics/ClassLength
 class Account < ApplicationRecord
   include AccountEndpoints
   include AccountSettings
@@ -144,3 +145,4 @@ class Account < ApplicationRecord
     cache_api
   end
 end
+# rubocop:enable Metrics/ClassLength

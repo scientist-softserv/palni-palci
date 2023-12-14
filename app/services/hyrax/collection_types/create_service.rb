@@ -208,6 +208,7 @@ module Hyrax
       #   The same values can be retrieved directly from a passed in ability.
       #   If calling from Abilities, pass the ability.
       #   If you try to get the ability from the user, you end up in an infinite loop.
+      # rubocop:disable Metrics/MethodLength
       def self.add_default_participants(collection_type_id)
         return unless collection_type_id
         default_participants = [{ agent_type: Hyrax::CollectionTypeParticipant::GROUP_TYPE,
@@ -233,6 +234,7 @@ module Hyrax
                                   end
         add_participants(collection_type_id, default_participants)
       end
+      # rubocop:enable Metrics/MethodLength
 
       ##
       # @api public

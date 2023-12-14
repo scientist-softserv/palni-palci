@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength, Metrics/BlockLength
 class CatalogController < ApplicationController
   include BlacklightAdvancedSearch::Controller
   include BlacklightRangeLimit::ControllerOverride
@@ -449,3 +450,4 @@ class CatalogController < ApplicationController
     render json: @document.to_h
   end
 end
+# rubocop:enable Metrics/ClassLength, Metrics/BlockLength

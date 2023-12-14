@@ -371,6 +371,7 @@ module Hyrax
         end
 
         # A list of parameters that are related to customizations
+        # rubocop:disable Metrics/MethodLength
         def self.customization_params
           %i[
             body_font
@@ -400,6 +401,7 @@ module Hyrax
             default_work_image_text
           ]
         end
+        # rubocop:enable Metrics/MethodLength
 
         def font_import_body_url
           body = body_font.split('|').first.to_s.tr(" ", "+")

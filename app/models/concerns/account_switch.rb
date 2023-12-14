@@ -3,9 +3,10 @@
 module AccountSwitch
   extend ActiveSupport::Concern
 
-  DOMAIN_REGEXP = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,8}(:[0-9]{1,5})?(/.*)?$}ix
+  DOMAIN_REGEXP = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,8}(:[0-9]{1,5})?(/.*)?$}ix.freeze
 
   class_methods do
+    # rubocop:disable Metrics/MethodLength
     def switch!(cname_or_name_or_account)
       account = if cname_or_name_or_account.is_a?(Account)
                   cname_or_name_or_account
@@ -26,6 +27,7 @@ module AccountSwitch
         Rails.logger.info "It looks like we're in single tenant mode. No tenant found for #{cname_or_name_or_account}"
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 
   def switch!(cname_or_name_or_account)

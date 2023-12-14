@@ -73,7 +73,7 @@ module Hyrax
       # @param role [Object] that can be converted into a Sipity::Role
       # @return [ActiveRecord::Relation<Sipity::Agent>] augmented with
       #
-      def scope_agents_associated_with_entity_and_role(entity:, role:) # rubocop:disable Metrics/AbcSize
+      def scope_agents_associated_with_entity_and_role(entity:, role:) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         entity = Sipity::Entity(entity)
         role = Sipity::Role(role)
 
@@ -196,7 +196,7 @@ module Hyrax
       #
       # @return [ActiveRecord::Relation<Sipity::Entity>]
       #
-      def scope_entities_for_the_user(user:) # rubocop:disable Metrics/AbcSize
+      def scope_entities_for_the_user(user:) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         entities = Sipity::Entity.arel_table
         workflow_state_actions = Sipity::WorkflowStateAction.arel_table
         workflow_states = Sipity::WorkflowState.arel_table
@@ -251,7 +251,7 @@ module Hyrax
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<User>]
       #
-      def scope_users_for_entity_and_roles(entity:, roles:) # rubocop:disable Metrics/AbcSize
+      def scope_users_for_entity_and_roles(entity:, roles:) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         entity = Sipity::Entity(entity)
         role_ids = Array.wrap(roles).map { |role| Sipity::Role(role).id }
         user_polymorphic_type = ::User.base_class
@@ -347,7 +347,7 @@ module Hyrax
       # @param user [User]
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<Sipity::WorkflowRole>]
-      def scope_processing_workflow_roles_for_user_and_entity_specific(user:, entity:)
+      def scope_processing_workflow_roles_for_user_and_entity_specific(user:, entity:) # rubocop:disable Metrics/MethodLength
         entity = Sipity::Entity(entity)
         agent_scope = scope_processing_agents_for(user: user)
 
@@ -366,6 +366,7 @@ module Hyrax
           )
         )
       end
+      # rubocop:enable Metrics/MethodLength
 
       # @api private
       #
@@ -386,7 +387,7 @@ module Hyrax
       # @param entity an object that can be converted into a Sipity::Entity
       # @return [ActiveRecord::Relation<Sipity::WorkflowStateAction>]
       #
-      def scope_permitted_entity_workflow_state_actions(user:, entity:)
+      def scope_permitted_entity_workflow_state_actions(user:, entity:) # rubocop:disable Metrics/MethodLength
         entity = Sipity::Entity(entity)
         workflow_state_actions = Sipity::WorkflowStateAction
         permissions = Sipity::WorkflowStateActionPermission
@@ -408,6 +409,7 @@ module Hyrax
           )
         )
       end
+      # rubocop:enable Metrics/MethodLength
 
       # @api public
       #

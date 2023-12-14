@@ -86,7 +86,7 @@ module Hyrax
         form
         collection_type
         # Gets original filename of an uploaded thumbnail. See #update
-        if ::SolrDocument.find(@collection.id).thumbnail_path.include? "uploaded_collection_thumbnails" and uploaded_thumbnail?
+        if ::SolrDocument.find(@collection.id).thumbnail_path.include? "uploaded_collection_thumbnails" && uploaded_thumbnail?
           @thumbnail_filename = File.basename(uploaded_thumbnail_files.reject { |f| File.basename(f).include? @collection.id }.first)
         end
       end
@@ -209,17 +209,21 @@ module Hyrax
       # Renders a JSON response with a list of files in this collection
       # This is used by the edit form to populate the thumbnail_id dropdown
       # OVERRIDE: Hyrax 2.9 to use work titles for collection thumbnail select & to add an option to reset to the default thumbnail
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def files
         params[:q] = '' unless params[:q]
         builder = Hyrax::CollectionMemberSearchBuilder.new(scope: self, collection: collection, search_includes_models: :works)
-        # get the default work image because we do not want to show any works in this dropdown that only have the default work image. this indicates that they have no files attached, and will throw an error if selected.
+        # get the default work image because we do not want to show any works in this
+        # dropdown that only have the default work image. this indicates that they have
+        # no files attached, and will throw an error if selected.
         default_work_thumbnail_path = Site.instance.default_work_image&.url.presence || ActionController::Base.helpers.image_path('default.png')
         work_with_no_files_thumbnail_path = ActionController::Base.helpers.image_path('work.png')
         response = repository.search(builder.where(params[:q]).query)
         # only return the works that have files, because these will be the only ones with a viable thumbnail
         result = response.documents.reject do |document|
-                   document["thumbnail_path_ss"].blank? || document["thumbnail_path_ss"].include?(default_work_thumbnail_path) || document["thumbnail_path_ss"].include?(work_with_no_files_thumbnail_path)
-                 end .map do |document|
+                   document["thumbnail_path_ss"].blank? || document["thumbnail_path_ss"].include?(default_work_thumbnail_path) ||
+                     document["thumbnail_path_ss"].include?(work_with_no_files_thumbnail_path)
+                 end.map do |document|
           { id: document["thumbnail_path_ss"].split('/').last.gsub(/\?.*/, ''), text: document["title_tesim"].first }
         end
         reset_thumbnail_option = {
@@ -229,6 +233,7 @@ module Hyrax
         result << reset_thumbnail_option
         render json: result
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       private
 
@@ -704,6 +709,7 @@ module Hyrax
         end
       end
 
+      # rubocop:disable Metrics/MethodLength
       def process_uploaded_thumbnail(uploaded_file)
         dir_name = UploadedCollectionThumbnailPathService.upload_dir(@collection)
         saved_file = Rails.root.join(dir_name, uploaded_file.original_filename)
@@ -723,6 +729,7 @@ module Hyrax
         File.chmod(0o664, "#{dir_name}/#{@collection.id}_thumbnail.jpg")
         File.chmod(0o664, "#{dir_name}/#{@collection.id}_card.jpg")
       end
+      # rubocop:enable Metrics/MethodLength
 
       ## OVERRIDE Hyrax 3.4.0 handle file locations
       def process_file_location(f)

@@ -37,6 +37,7 @@ module Hyrax
         image_content_v3(url)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def video_display_content(_url, label = '')
         width = solr_document.width&.try(:to_i) || 320
         height = solr_document.height&.try(:to_i) || 240
@@ -55,6 +56,7 @@ module Hyrax
           format: solr_document.mime_type
         )
       end
+      # rubocop:enable Metrics/MethodLength
 
       def audio_display_content(_url, label = '')
         duration = conformed_duration_in_seconds

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
+  # rubocop:disable Metrics/BlockLength
   Bulkrax.setup do |config|
     # Add local parsers
     # config.parsers += [
@@ -109,6 +110,7 @@ if ENV.fetch('HYKU_BULKRAX_ENABLED', 'true') == 'true'
     # Properties that should not be used in imports/exports. They are reserved for use by Hyrax.
     # config.reserved_properties += ['my_field']
   end
+  # rubocop:enable Metrics/BlockLength
 
   Bulkrax::CreateRelationshipsJob.update_child_records_works_file_sets = true
 end

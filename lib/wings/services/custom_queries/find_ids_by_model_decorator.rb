@@ -15,7 +15,7 @@ module Wings
       # @param ids [Enumerable<#to_s>, Symbol]
       #
       # @return [Enumerable<Valkyrie::ID>]
-      def find_ids_by_model(model:, ids: :all)
+      def find_ids_by_model(model:, ids: :all) # rubocop:disable Metrics/MethodLength
         return enum_for(:find_ids_by_model, model: model, ids: ids) unless block_given?
         model_name = ModelRegistry.lookup(model).model_name
 
@@ -37,6 +37,7 @@ module Wings
           )['response']
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

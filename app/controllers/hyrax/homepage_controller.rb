@@ -27,7 +27,6 @@ module Hyrax
   class HomepageController < CatalogController
     # Adds Hydra behaviors into the application controller
     include Blacklight::SearchContext
-    include Blacklight::SearchHelper
     include Blacklight::AccessControls::Catalog
 
     # OVERRIDE: account for Hyku themes

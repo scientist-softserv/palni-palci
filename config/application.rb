@@ -69,12 +69,29 @@ module Hyku
     config.eager_load_paths << Rails.root.join('app', 'middleware')
 
     ##
+    #   @return [Array<String>] an array of strings in which we should be looking for theme view
+    #           candidates.
+    # @see Hyrax::WorksControllerBehavior
+    # @see Hyrax::ContactFormController
+    # @see Hyrax::PagesController
+    # @see https://api.rubyonrails.org/classes/ActionView/ViewPaths.html#method-i-prepend_view_path
+    #
+    # @see .path_for
+    # @see
+    def self.theme_view_path_roots
+      returning_value = [Rails.root.to_s]
+      returning_value.push HykuKnapsack::Engine.root.to_s if defined?(HykuKnapsack)
+      returning_value
+    end
+
+    ##
     # @api public
     #
     # @param relative_path [String] lookup the relative paths first in the Knapsack then in Hyku.
     #
     # @return [String] the path to the file, favoring those found in the knapsack but falling back
     #         to those in the Rails.root.
+    # @see .theme_view_path_roots
     def self.path_for(relative_path)
       if defined?(HykuKnapsack)
         engine_path = HykuKnapsack::Engine.root.join(relative_path)
@@ -93,9 +110,7 @@ module Hyku
     config.middleware.use Rack::Deflater
 
     # The locale is set by a query parameter, so if it's not found render 404
-    config.action_dispatch.rescue_responses.merge!(
-      "I18n::InvalidLocale" => :not_found
-    )
+    config.action_dispatch.rescue_responses["I18n::InvalidLocale"] = :not_found
 
     if defined?(ActiveElasticJob) && ENV.fetch('HYRAX_ACTIVE_JOB_QUEUE', '') == 'elastic'
       Rails.application.configure do

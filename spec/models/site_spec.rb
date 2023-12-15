@@ -105,7 +105,7 @@ RSpec.describe Site, type: :model do
       end
 
       it 'returns the custom institution label' do
-        expect(site.institution_label).to eq 'My University Research Repository'
+        expect(site.institution_label).to eq 'My University'
       end
     end
 

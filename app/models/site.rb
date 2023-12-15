@@ -51,7 +51,7 @@ class Site < ApplicationRecord
 
   def institution_label
     if Site.instance.institution_name.present?
-      "#{Site.instance.institution_name} Research Repository"
+      "#{Site.instance.institution_name}"
     else
       Site.instance&.account&.cname
     end

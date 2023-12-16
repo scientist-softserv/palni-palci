@@ -1,4 +1,4 @@
-<%# OVERRIDE Hyrax v3.4.2
+<%# OVERRIDE Hyrax v5.0.0rc2
     - Handle new :manage_discovery ability
     - Reformat input tags for legibility %>
 
@@ -8,8 +8,8 @@
   <p><%= t('.para2') %></p>
 
   <%# OVERRIDE: add conditional title %>
-  <div class="form-group" <% if cannot?(:manage_discovery, @collection) %>title="<%= t('permissions.collections.cannot.manage_discovery') %>"<% end %>>
-    <label class="radio">
+  <div class="form-check" <% if cannot?(:manage_discovery, @collection) %>title="<%= t('permissions.collections.cannot.manage_discovery') %>"<% end %>>
+    <label class="form-check-label">
       <input
         type="radio"
         id="visibility_open"
@@ -26,7 +26,7 @@
       <strong><%= t('hyrax.visibility.open.text') %></strong> - <%= t('hyrax.visibility.open.note_html') %>
     </label>
 
-    <label class="radio">
+    <label class="form-check-label">
       <input
         type="radio"
         id="visibility_registered"
@@ -43,7 +43,7 @@
       <strong><%= t('hyrax.visibility.authenticated.text', institution: institution_name) %></strong> - <%= t('hyrax.visibility.authenticated.note_html', institution: institution_name) %>
     </label>
 
-    <label class="radio">
+    <label class="form-check-label">
       <input
         type="radio"
         id="visibility_restricted"

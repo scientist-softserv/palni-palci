@@ -44,9 +44,7 @@
       <% end %>
     </li>
 
-    <%# OVERRIDE begin %>
     <% if Hyrax::CollectionType.any_nestable? %>
-    <%# OVERRIDE end %>
       <% # The user should have deposit access to the parent we are adding, and read access to the child (the collection we are linking here). %>
       <li class="dropdown-item" role="menuitem" tabindex="-1">
         <%= link_to "#",

@@ -28,6 +28,22 @@
     </div>
     <hr />
     <div class="row">
+      <div class="col-md-6">
+        <% search_options = @search_themes.map { |s| [s[0], s[1], { 'data-image' => image_path("themes/search/#{s[1]}.jpg") }] } %>
+        <%= f.input :search_theme, label: 'Search Results Page Theme' do %>
+          <%= f.select :search_theme, search_options, {}, { prompt: 'Select search results page theme...', class: 'form-control' } %>
+        <% end %>
+        <h4>Search Results Theme notes:</h4>
+        <ul>
+          <li>This will select a default view for the search results page. Users can select their preferred views on the search results page that will override this selection.</li>
+        </ul>
+      </div>
+      <div id="search-wireframe" class="col-md-6">
+        <%= image_tag "themes/search/list_view.jpg", class: "img-fluid" %>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
       <div class="col-sm-6">
         <% show_options = @show_theme_names.map { |g| [g[0], g[1], { 'data-image' => image_path("themes/#{g[1]}/#{g[1]}.jpg") }] } %>
         <%= f.input :show_theme, label: 'Show Page Theme' do %>
@@ -45,7 +61,7 @@
     </div>
     <hr />
   </div>
-  <div class="panel-footer">
-    <%= f.submit class: 'btn btn-primary pull-right' %>
+  <div class="card-footer text-right">
+    <%= f.submit class: 'btn btn-secondary' %>
   </div>
 <% end %>

@@ -10,6 +10,7 @@
             <br />
             <%= t('.sign_in_with_provider', provider: ip.name) %>
           </div>
+          <span class='sso-button-fake btn btn-primary'>Sign In</span>
         <% end %>
       </div>
     <% end %>
@@ -18,6 +19,6 @@
 
 <% if @identity_providers.count == 1 %>
   <script>
-     $('form.button_to').submit();
+    $('form.button_to').submit();
   </script>
 <% end %>

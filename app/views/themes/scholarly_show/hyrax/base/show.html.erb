@@ -20,7 +20,7 @@
             <%= render 'video_embed_viewer', presenter: @presenter %>
             <div class="col-sm-12">
               <div class="image-show-description">
-                <% render 'work_description', presenter: @presenter %>
+                <%= render 'work_description', presenter: @presenter %>
               </div>
             </div>
           <% elsif @presenter.iiif_viewer? %>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-12">
               <div class="image-show-description">
-                <% render 'work_description', presenter: @presenter %>
+                <%= render 'work_description', presenter: @presenter %>
               </div>
             </div>
           <% elsif @presenter.show_pdf_viewer? %>
@@ -41,7 +41,7 @@
               <%= render 'representative_media', presenter: @presenter, viewer: false %>
             </div>
             <div class="col-sm-9">
-              <% render 'work_description', presenter: @presenter %>
+              <%= render 'work_description', presenter: @presenter %>
             </div>
           <% end %>
         </div>

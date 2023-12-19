@@ -16,6 +16,26 @@ module Hyrax
     before_destroy :can_destroy?
     after_destroy :remove_all_members
 
+    ##
+    # What is going on here?  In Hyrax proper, the Group model is a plain old Ruby object (PORO). In
+    # Hyku, the {Hyrax::Group} is based on ActiveRecord.
+    #
+    # The Hyrax version instantiates with a single string parameter.  Importantly, we want to re-use
+    # the Hyrax::Workflow::PermissionQuery logic, without re-writing it.  In particular we want to
+    # consider the Hyrax::Workflow::PermissionQuery#scope_processing_agents_for which casts the
+    # group to a Sipity::Agent
+    #
+    # @see https://github.com/samvera/hyrax/blob/main/app/models/hyrax/group.rb
+    # @see https://github.com/samvera/hyrax/blob/main/app/services/hyrax/workflow/permission_query.rb
+    def self.new(*args)
+      # This logic path is likely coming from Hyrax specific code; in which it expects a string.
+      if args.size == 1 && args.first.is_a?(String)
+        find_by_intialize_by(name: args.first)
+      else
+        super
+      end
+    end
+
     def self.name_prefix
       DEFAULT_NAME_PREFIX
     end

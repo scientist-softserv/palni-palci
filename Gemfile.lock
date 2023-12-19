@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-iiif_av.git
-  revision: 4bc4af3ebbc47b68a313108c72c319945c673c1b
+  revision: 66a94059f192a295bfb4503d247986f16b183330
   branch: rails_hyrax_upgrade
   specs:
     hyrax-iiif_av (0.2.0)

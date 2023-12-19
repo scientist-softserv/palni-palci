@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def missing_translation(value, _options = {})
-    case value.class
+    case value
     when FalseClass, NilClass
       true
     when String

@@ -189,6 +189,12 @@ Hyrax.config do |config|
     # See Samvera Slack thread https://samvera.slack.com/archives/C0F9JQJDQ/p1596718417351200?thread_ts=1596717896.350700&cid=C0F9JQJDQ
     uri.sub(/\Ahttp:/, 'https:')
   end
+
+  ##
+  # A Valkyrie::Identifier is not a string but can be cast to a string.  What we have here is in
+  # essence a "super" method.
+  original_translator = config.translate_id_to_uri
+  config.translate_id_to_uri = ->(id) { original_translator.call(id.to_s) }
 end
 # rubocop:enable Metrics/BlockLength
 

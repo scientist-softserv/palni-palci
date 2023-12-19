@@ -161,7 +161,7 @@ RSpec.configure do |config|
 
   config.after(:each, type: :feature) do |example|
     # rubocop:disable Lint/Debugger
-    save_and_open_page if example.exception.present?
+    save_and_open_page if example.exception.present? && !ENV['CI']
     # rubocop:enable Lint/Debugger
     Warden.test_reset!
     Capybara.reset_sessions!

@@ -82,6 +82,7 @@ RUN ln -sf /usr/lib/libmediainfo.so.0 /app/fits/tools/mediainfo/linux/libmediain
   ln -sf /usr/lib/libzen.so.0 /app/fits/tools/mediainfo/linux/libzen.so.0
 
 COPY --chown=1001:101 ./bin/db-migrate-seed.sh /app/samvera/
+COPY --chown=1001:101 ./bin/rails /app/samvera/
 
 ONBUILD ARG APP_PATH=.
 ONBUILD COPY --chown=1001:101 $APP_PATH/Gemfile* /app/samvera/hyrax-webapp/

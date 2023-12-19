@@ -26,6 +26,7 @@ module ApplicationHelper
   end
 
   def missing_translation(value, _options = {})
-    value.include?('translation missing')
+    return true if value.try(:false?)
+    false
   end
 end

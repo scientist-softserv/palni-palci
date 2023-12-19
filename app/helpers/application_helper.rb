@@ -26,13 +26,7 @@ module ApplicationHelper
   end
 
   def missing_translation(value, _options = {})
-    case value
-    when FalseClass, NilClass
-      true
-    when String
-      value.include?('translation missing')
-    else
-      raise "Unexpected value #{value.inspect}"
-    end
+    return true if value.try(:false?)
+    false
   end
 end

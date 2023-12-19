@@ -30,7 +30,7 @@ module Hyrax
     def self.new(*args)
       # This logic path is likely coming from Hyrax specific code; in which it expects a string.
       if args.size == 1 && args.first.is_a?(String)
-        find_by_intialize_by(name: args.first)
+        find_by(name: args.first) || super(name: args.first)
       else
         super
       end

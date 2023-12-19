@@ -162,7 +162,7 @@ module AccountSettings
     Hyrax.config do |config|
       config.contact_email = contact_email
       config.geonames_username = geonames_username
-      config.uploader[:maxFileSize] = file_size_limit
+      config.uploader[:maxFileSize] = file_size_limit.to_i
     end
 
     Devise.mailer_sender = contact_email

@@ -39,7 +39,7 @@ RSpec.describe FcrepoEndpoint do
       # What I found is that I could not stub the last receiver in the chain; as it would still
       # attempt a HEAD request.  So here is the "test".
       connection = double(ActiveFedora::CachingConnection, delete: true)
-      fedora = double(ActiveFedora::Fedora, connection: connection)
+      fedora = double(ActiveFedora::Fedora, connection:)
       expect(ActiveFedora).to receive(:fedora).and_return(fedora)
       expect(connection).to receive(:delete).with(base_path)
       expect { subject.remove! }.to change(described_class, :count).by(-1)

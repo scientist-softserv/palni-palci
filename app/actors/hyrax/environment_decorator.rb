@@ -1,25 +1,21 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax 2.9 to add in import flag
+# OVERRIDE Hyrax v5.0.0rc2 to add in import flag
+
 module Hyrax
   module Actors
-    class Environment
+    module EnvironmentDecoractor
       # @param [ActiveFedora::Base] curation_concern work to operate on
       # @param [Ability] current_ability the authorizations of the acting user
       # @param [ActionController::Parameters] attributes user provided form attributes
       def initialize(curation_concern, current_ability, attributes, importing = false)
-        @curation_concern = curation_concern
-        @current_ability = current_ability
-        @attributes = attributes.to_h.with_indifferent_access
         @importing = importing
+        super(curation_concern, current_ability, attributes)
       end
 
-      attr_reader :curation_concern, :current_ability, :attributes, :importing
-
-      # @return [User] the user from the current_ability
-      def user
-        current_ability.current_user
-      end
+      attr_reader :importing
     end
   end
 end
+
+Hyrax::Actors::Environment.prepend(Hyrax::Actors::EnvironmentDecoractor)

@@ -11,7 +11,7 @@
           </ul>
         </div>
       <% end %>
-      <%= f.input :name %>
+      <%= f.input :name, label: t('hyku.identity_provider.label.name'), required: true %>
       <%= f.input :provider,
             collection: Devise.omniauth_providers.map {|o| [o, o.upcase]},
                   label_method: :second,
@@ -38,12 +38,12 @@
         <p>Metadata is available <%= link_to 'here', "/users/auth/saml/#{@identity_provider.id}/metadata", data: { turbolinks: false } %></p>
       <% end %>
 
-      <%= f.input :options, input_html: {value: @identity_provider.options&.to_json } %>
+      <%= f.input :options, label: t('hyku.identity_provider.label.options'), input_html: {value: @identity_provider.options&.to_json } %>
 
 
       <%# Upload Logo Image %>
-      <%= f.input :logo_image, as: :file, wrapper: :vertical_file_input, hint: t('hyrax.admin.appearances.show.forms.logo_image.hint') %>
-      <%= f.input :logo_image_text, as: :text %>
+      <%= f.input :logo_image, label: t('hyku.identity_provider.label.logo_image'), as: :file, wrapper: :vertical_file_input, hint: t('hyrax.admin.appearances.show.forms.logo_image.hint') %>
+      <%= f.input :logo_image_text, label: t('hyku.identity_provider.label.logo_image_alt_text'), as: :text %>
       <%= image_tag f.object.logo_image.url(:medium), class: "img-responsive", alt: f.object.logo_image_text if f.object.logo_image? %>
 
     </div>

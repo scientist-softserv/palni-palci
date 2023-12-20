@@ -5,13 +5,21 @@
 module Hyrax
   module Forms
     module WorkflowResponsibilityFormDecorator
+      ##
+      # @note We introduced this little crease in the code to allow for conditional switching; and
+      #       thus avoid copying a very large controller
+      #       (e.g. Hyrax::Admin::WorkflowRolesController)
+      # @see Hyrax::Forms::WorkflowResponsibilityGroupForm
       module ClassMethods
-        # Determine which form it is, user or group
+        ##
+        # Determine which form it is, user or group.  By default, it will be a user
+        # (e.g. {Hyrax::Forms::WorkflowResponsibilityForm}); however when you provide a :group_id it
+        # will be a group form (e.g. {Hyrax::Forms::WorkflowResponsibilityGroupForm}.
         def new(params = {})
-          if params[:user_id].present?
-            super
-          else
+          if params[:group_id].present?
             Forms::WorkflowResponsibilityGroupForm.new(params)
+          else
+            super
           end
         end
       end

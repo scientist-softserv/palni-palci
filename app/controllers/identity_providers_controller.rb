@@ -7,6 +7,7 @@ class IdentityProvidersController < ApplicationController
   before_action :set_identity_provider, only: %i[edit update destroy]
 
   def index
+    add_breadcrumbs
     @identity_providers = IdentityProvider.all
   end
 

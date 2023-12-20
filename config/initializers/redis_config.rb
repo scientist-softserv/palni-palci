@@ -7,4 +7,4 @@ size = ENV.fetch("HYRAX_REDIS_POOL_SIZE", 5)
 timeout = ENV.fetch("HYRAX_REDIS_TIMEOUT", 5)
 
 Hyrax.config.redis_connection =
-  ConnectionPool::Wrapper.new(size: size, timeout: timeout) { Redis.new(config) }
+  ConnectionPool::Wrapper.new(size:, timeout:) { Redis.new(config) }

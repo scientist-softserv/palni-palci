@@ -61,6 +61,7 @@
     margin-bottom: 20px;
   }
 
+  // TODO: Do we need this style or could we fallback on btn-primary
   .btn-sign-up {
     @include button-variant(
       $classic-white,

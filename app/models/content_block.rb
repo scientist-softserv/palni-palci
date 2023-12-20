@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax v3.4.0 to add home_text to registry
-# and getter/setter methods - Adding themes
+# OVERRIDE Hyrax v5.0.0rc to add home_text to registry and getter/setter methods - Adding themes
+# NOTE: This class inherits from ApplicationRecord while Hyrax's version inherits from ActiveRecord::Base
+#       so we cannot use the decorator pattern to override the methods.
 # rubocop:disable Metrics/ClassLength
 class ContentBlock < ApplicationRecord
   # The keys in this registry are "public" names for collaborator

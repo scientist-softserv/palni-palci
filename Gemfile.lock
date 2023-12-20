@@ -1437,6 +1437,7 @@ DEPENDENCIES
   rails (~> 6.0)
   rails-controller-testing
   rdf (~> 3.2)
+  redis-namespace (~> 1.10)
   redlock (>= 0.1.2, < 2.0)
   riiif (~> 2.0)
   rolify

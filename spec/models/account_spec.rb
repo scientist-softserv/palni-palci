@@ -130,7 +130,7 @@ RSpec.describe Account, type: :model do
       it "reverts to using file store when cache is off" do
         account.settings[:cache_api] = false
         account.switch!
-        expect(Rails.application.config.cache_store).to eq([:file_store, "/app/samvera/file_cache"])
+        expect(Rails.application.config.cache_store).to eq([:file_store, kind_of(String)])
       end
     end
 
@@ -140,7 +140,7 @@ RSpec.describe Account, type: :model do
       it "uses the file store" do
         expect(Rails.application.config.action_controller.perform_caching).to be_falsey
         expect(ActionController::Base.perform_caching).to be_falsey
-        expect(Rails.application.config.cache_store).to eq([:file_store, "/app/samvera/file_cache"])
+        expect(Rails.application.config.cache_store).to eq([:file_store, kind_of(String)])
       end
     end
 

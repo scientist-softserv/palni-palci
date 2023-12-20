@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax v3.4.2 Expand functionality for Groups with Roles Feature
+# OVERRIDE Hyrax v5.0.0rc2 Expand functionality for Groups with Roles Feature
 # @see https://github.com/samvera/hyku/wiki/Groups-with-Roles-Feature
 module Hyrax
   class Group < ApplicationRecord

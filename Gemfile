@@ -71,6 +71,7 @@ gem 'rack-test', '0.7.0', group: %i[test] # rack-test >= 0.71 does not work with
 gem 'rails-controller-testing', group: %i[test]
 gem 'rdf', '~> 3.2'
 gem 'redlock', '>= 0.1.2', '< 2.0' # lock redlock per https://github.com/samvera/hyrax/pull/5961
+gem 'redis-namespace', '~> 1.10' # Hyrax v5 relies on 1.5; but we'd like to have the #clear method so we need 1.10 or greater.
 gem 'riiif', '~> 2.0'
 gem 'rolify'
 gem 'rsolr', '~> 2.0'

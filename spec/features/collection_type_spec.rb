@@ -488,7 +488,7 @@ RSpec.describe 'collection_type', type: :feature, js: true, clean: true do
   end
 
   # OVERRIDE: new (non-hyrax) test cases below
-  describe 'default collection type participants', ci: 'skip' do
+  describe 'default collection type participants' do
     let(:title) { 'Title Test' }
 
     before do

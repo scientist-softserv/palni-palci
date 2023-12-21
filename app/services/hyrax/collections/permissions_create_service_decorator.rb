@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# OVERRIDE Hyrax v3.4.2 Grants certain roles access to either all AdminSets or
-#                       all Collections (depending on the role) at create time.
+# OVERRIDE Hyrax v5.0.0rc2 Grants certain roles access to either all AdminSets or
+#                          all Collections (depending on the role) at create time.
 module Hyrax
   module Collections
     module PermissionsCreateServiceDecorator

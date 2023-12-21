@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hyrax
-  # This decorator is used to override logic found in Hyrax v3.4.2
+  # This decorator is used to override logic found in Hyrax v5.0.0rc2
   #
   # Because Hyku has converted the Hyrax::Group model from a PORO to a db-backed active record object,
   # we have to query for existing Hyrax groups instead of initializing empty ones.
@@ -27,13 +27,15 @@ module Hyrax
       updated_admin_set
     end
 
+    private
+
     def workflow_agents
       [
         # OVERRIDE: replace #new with #find_by(:name)
-        Hyrax::Group.find_by(name: admin_group_name)
+        Sipity::Agent(Hyrax::Group.find_by(name: admin_group_name))
       ].tap do |agent_list|
         # The default admin set does not have a creating user
-        agent_list << creating_user if creating_user
+        agent_list << Sipity::Agent(creating_user) if creating_user
       end
     end
 

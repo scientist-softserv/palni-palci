@@ -35,6 +35,18 @@ class CatalogController < ApplicationController
   include BlacklightIiifSearch::Controller
 
   configure_blacklight do |config|
+    ##
+    # Blacklight 7.35.0 's default document_component is `nil`, see:
+    #
+    # - https://github.com/projectblacklight/blacklight/blob/ac5fa8b300c5ad5c35b1663ef0f15372ffa2be0f/lib/blacklight/configuration.rb#L213
+    # - https://github.com/projectblacklight/blacklight/blob/ac5fa8b300c5ad5c35b1663ef0f15372ffa2be0f/lib/blacklight/configuration.rb#L186
+    #
+    # Digging around in the wiki, you might find (only found because I cloned the repo):
+    #
+    # - https://github.com/projectblacklight/blacklight/wiki/Configuration---Results-View
+    config.index.document_component = Blacklight::DocumentComponent
+    config.show.document_component = Blacklight::DocumentComponent
+
     # IiifPrint index fields
     config.add_index_field 'all_text_timv'
     config.add_index_field 'file_set_text_tsimv', label: "Item contents", highlight: true, helper_method: :render_ocr_snippets

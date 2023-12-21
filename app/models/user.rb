@@ -108,6 +108,13 @@ class User < ApplicationRecord
   # @return [Array] Hyrax::Group names the User is a member of
   def groups
     hyrax_groups.map(&:name)
+  rescue NoMethodError
+    # Not quite raising the same exception, but this code is here to catch a flakey spec.  What we're
+    # seeing is that an element in `hyrax_groups` is `nil` and which does not respond to `#name`.
+    # Looking at `#hyrax_groups` method, it's unclear how we'd find `nil`.
+    #
+    # Perhaps the `Hyrax::Group` is in a tenant and `Role` is not?  Hmm.
+    raise "Hyrax::Groups: #{roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).inspect}\nRoles: #{roles.all.inspect}"
   end
 
   # NOTE: This is an alias for #groups to clarify what the method is doing.
@@ -115,8 +122,6 @@ class User < ApplicationRecord
   # @return [Array] Hyrax::Group names the User is a member of
   def hyrax_group_names
     groups
-  rescue NoMethodError
-    raise "Hyrax::Groups: #{roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).inspect}\nRoles: #{roles.all.inspect}"
   end
 
   # TODO: this needs tests and to be moved to the service

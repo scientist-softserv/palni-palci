@@ -25,8 +25,12 @@ RSpec.describe AdvSearchBuilder do
       #
       # When we had those duplicates, the :add_advanced_parse_q_to_solr obliterated the join logic
       # for files.
+      #
+      # Is the order immutable?  No.  But it does highlight that you must consider what the changes
+      # might mean and double check that join logic on files.
       %i[
         default_solr_parameters
+        add_search_field_default_parameters
         add_query_to_solr
         add_facet_fq_to_solr
         add_facetting_to_solr
@@ -35,12 +39,14 @@ RSpec.describe AdvSearchBuilder do
         add_sorting_to_solr
         add_group_config_to_solr
         add_facet_paging_to_solr
+        add_adv_search_clauses
+        add_additional_filters
         add_range_limit_params
-        add_advanced_parse_q_to_solr
-        add_advanced_search_to_solr
         add_access_controls_to_solr_params
         filter_models
         only_active_works
+        add_advanced_parse_q_to_solr
+        add_advanced_search_to_solr
         add_access_controls_to_solr_params
         show_works_or_works_that_contain_files
         show_only_active_records

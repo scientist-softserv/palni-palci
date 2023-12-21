@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Hyrax::Forms::Admin::Appearance do
+RSpec.describe Hyrax::Forms::Admin::Appearance, type: :decorator do
   describe '.default_fonts' do
     subject { described_class.default_fonts }
 
@@ -17,5 +17,17 @@ RSpec.describe Hyrax::Forms::Admin::Appearance do
     subject { described_class.default_colors }
 
     it { is_expected.to be_a(Hash) }
+  end
+
+  describe '.image_params' do
+    subject { described_class.image_params }
+
+    it { is_expected.to be_an(Array) }
+  end
+
+  describe '#banner_image' do
+    subject { described_class.new.banner_image }
+
+    it { is_expected.to be_a(Hyrax::AvatarUploader) }
   end
 end

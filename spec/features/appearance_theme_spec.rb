@@ -139,7 +139,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
       visit '/'
       expect(page).to have_css('body.cultural_repository')
-      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
+      expect(page).to have_css('nav.navbar.cultural-repository-nav')
     end
 
     it 'updates the home theme when the theme is changed' do # rubocop:disable RSpec/ExampleLength
@@ -154,7 +154,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
       visit '/'
       expect(page).to have_css('body.cultural_repository')
-      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top.cultural-repository-nav')
+      expect(page).to have_css('nav.navbar.cultural-repository-nav')
       visit '/admin/appearance'
       click_link('Themes')
       select('Default home', from: 'Home Page Theme')
@@ -174,7 +174,7 @@ RSpec.describe 'Admin can select home page theme', type: :feature, js: true, cle
       visit '/'
       expect(page).to have_css('body.missing_theme')
       expect(page).not_to have_css('nav.cultural-repsitory-nav')
-      expect(page).to have_css('nav.navbar.navbar-inverse.navbar-static-top')
+      expect(page).to have_css('nav.navbar.navbar-expand-lg')
     end
   end
 end

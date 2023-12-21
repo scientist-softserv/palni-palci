@@ -149,8 +149,14 @@ RSpec.configure do |config|
     # make sure we are on the default fedora config
     ActiveFedora::Fedora.reset!
     ActiveFedora::SolrService.reset!
-    # Pass `:clean' to destroy objects in fedora/solr and start from scratch
-    ActiveFedora::Cleaner.clean! if example.metadata[:clean]
+    # Pass `:clean' (or hyrax's convention of :clean_repo) to destroy objects in fedora/solr and
+    # start from scratch
+    if example.metadata[:clean] || example.metadata[:clean_repo]
+      ## We don't need to do `Hyrax::SolrService.wipe!` so long as we're using `ActiveFedora.clean!`;
+      ## but Valkyrie is coming so be prepared.
+      # Hyrax::SolrService.wipe!
+      ActiveFedora::Cleaner.clean!
+    end
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
       DatabaseCleaner.strategy = :truncation
     else

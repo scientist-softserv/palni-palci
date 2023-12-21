@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin can select institutional repository theme', type: :feature, js: true, clean: true do # rubocop:disable Metrics/LineLength
+RSpec.describe 'Admin can select institutional repository theme', type: :feature, js: true, clean: true do # rubocop:disable Layout/LineLength
   let(:account) { FactoryBot.create(:account) }
   let(:admin) { FactoryBot.create(:admin, email: 'admin@example.com', display_name: 'Adam Admin') }
   let(:user) { create :user }

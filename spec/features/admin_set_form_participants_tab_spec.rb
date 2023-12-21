@@ -136,9 +136,9 @@ RSpec.describe 'AdminSet form Participants tab', type: :feature, js: true, clean
                            .find(:xpath, '//td[@data-agent="admin"]')
                            .find(:xpath, '..')['innerHTML']
         expect(manager_row_html).to include('<td data-agent="admin">Repository Administrators</td>')
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         expect(manager_row_html).to include('<input class="btn btn-sm btn-danger disabled" disabled="disabled" title="The repository administrators group cannot be removed" type="submit" value="Remove">')
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
 
       it 'shows an enabled remove button next to Repository Administrator group as a Depositor' do

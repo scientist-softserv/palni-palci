@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -106,4 +106,4 @@ gem 'webmock', group: %i[test]
 # and place overrides, themes and deployment code.
 gem 'hyku_knapsack', github: 'samvera-labs/hyku_knapsack', branch: 'upstream_main'
 
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength

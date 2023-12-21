@@ -74,7 +74,7 @@ class CatalogController < ApplicationController
     config.search_builder_class = IiifPrint::CatalogSearchBuilder
 
     # Use locally customized AdvSearchBuilder so we can enable blacklight_advanced_search
-    # TODO ROB config.search_builder_class = AdvSearchBuilder
+    config.search_builder_class = AdvSearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = %i[index_header index]
@@ -206,7 +206,6 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
     config.add_search_field('all_fields', label: 'All Fields', include_in_advanced_search: false) do |field|
       all_names = config.show_fields.values.map(&:field).join(" ")
-
       title_name = 'title_tesim'
       field.solr_parameters = {
         qf: "#{all_names} file_format_tesim all_text_timv",
@@ -235,7 +234,6 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('creator') do |field|
-      # TODO: ROB field.label = "Author"
       field.solr_parameters = { "spellcheck.dictionary": "creator" }
       solr_name = 'creator_tesim'
       field.solr_local_parameters = {

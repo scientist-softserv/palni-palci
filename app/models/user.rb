@@ -115,6 +115,8 @@ class User < ApplicationRecord
   # @return [Array] Hyrax::Group names the User is a member of
   def hyrax_group_names
     groups
+  rescue NoMethodError
+    raise "Hyrax::Groups: #{roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).inspect}\nRoles: #{roles.all.inspect}"
   end
 
   # TODO: this needs tests and to be moved to the service

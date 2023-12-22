@@ -100,7 +100,8 @@ class User < ApplicationRecord
   #   u.hyrax_groups
   #   => [#<Hyrax::Group id: 2, name: "registered", description: nil,...>]
   def hyrax_groups
-    roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).uniq
+    # Why compact?  In theory we shouldn't need this.  But in tests we're seeing a case
+    roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).uniq.compact
   end
 
   # Override method from hydra-access-controls v11.0.0 to use Hyrax::Groups.
@@ -114,7 +115,7 @@ class User < ApplicationRecord
     # Looking at `#hyrax_groups` method, it's unclear how we'd find `nil`.
     #
     # Perhaps the `Hyrax::Group` is in a tenant and `Role` is not?  Hmm.
-    raise "Hyrax::Groups: #{roles.where(name: 'member', resource_type: 'Hyrax::Group').map(&:resource).inspect}\nRoles: #{roles.all.inspect}"
+    raise "Hyrax::Groups: #{roles.where(name: 'member', resource_type: 'Hyrax::Group').all.inspect}\nRoles: #{roles.all.inspect}"
   end
 
   # NOTE: This is an alias for #groups to clarify what the method is doing.

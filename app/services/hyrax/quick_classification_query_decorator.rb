@@ -8,12 +8,8 @@ module Hyrax
     # @param [::User] user the current user
     # @param [#call] concern_name_normalizer (String#constantize) a proc that translates names to classes
     # @param [Array<String>] models the options to display, defaults to everything.
-    def initialize(user,
-                   models: Site.instance.available_works,
-                   concern_name_normalizer: ->(str) { str.constantize })
-      @user = user
-      @concern_name_normalizer = concern_name_normalizer
-      @models = models
+    def initialize(user, models: Site.instance.available_works, **kwargs)
+      super(user, **kwargs.merge(models:))
     end
 
     # OVERRIDE: only use work types that are enabled in the current tenant

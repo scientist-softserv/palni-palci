@@ -6,7 +6,7 @@ module Hyrax
   module IndexesThumbnailsDecorator
     # Returns the value for the thumbnail path to put into the solr document
     def thumbnail_path
-      if object.class == Collection && UploadedCollectionThumbnailPathService.uploaded_thumbnail?(object)
+      if object.try(:collection?) && UploadedCollectionThumbnailPathService.uploaded_thumbnail?(object)
         UploadedCollectionThumbnailPathService.call(object)
       else
         super

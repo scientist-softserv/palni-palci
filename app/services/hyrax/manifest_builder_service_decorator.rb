@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# OVERRIDE Hyrax v5.0.0rc2 to change `&amp;`	to `&` in the Universal Viewer
+
 module Hyrax
   module ManifestBuilderServiceDecorator
     private

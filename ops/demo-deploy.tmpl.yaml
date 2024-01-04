@@ -191,6 +191,24 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
+
+worker_resource_intensive:
+  replicaCount: 1
+  resources:
+    limits:
+      memory: "16Gi"
+      cpu: "1200m"
+    requests:
+      memory: "8Gi"
+      cpu: "600m"
+  extraVolumeMounts: *volMounts
+  extraEnvVars: *envVars
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
+
 podSecurityContext:
   runAsUser: 1001
   runAsGroup: 101

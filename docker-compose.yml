@@ -32,7 +32,7 @@ x-app-worker: &app-worker
       - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
       - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
   image: ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
-  command: sh -l -c 'bundle && bundle exec sidekiq -C config/sidekiq.yml'
+  command: sh -l -c 'bundle && bundle exec sidekiq'
   depends_on:
     check_volumes:
       condition: service_completed_successfully

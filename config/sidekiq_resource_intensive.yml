@@ -1,5 +1,7 @@
 ---
+:concurrency: 1
 :queues:
   - default
   - import
   - export
+  - resource_intensive

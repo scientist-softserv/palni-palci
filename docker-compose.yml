@@ -20,6 +20,35 @@ x-app: &app
   networks:
     internal:
 
+x-app-worker: &app-worker
+  <<: *app
+  build:
+    context: .
+    target: hyku-worker
+    args:
+      - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
+      - HYKU_BULKRAX_ENABLED=true
+    cache_from:
+      - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
+      - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
+  image: ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
+  command: sh -l -c 'bundle && bundle exec sidekiq -C config/sidekiq.yml'
+  depends_on:
+    check_volumes:
+      condition: service_completed_successfully
+    initialize_app:
+      condition: service_completed_successfully
+    db:
+      condition: service_started
+    solr:
+      condition: service_started
+    fcrepo:
+      condition: service_started
+    redis:
+      condition: service_started
+    zoo:
+      condition: service_started
+
 volumes:
   assets:
   cache:
@@ -145,6 +174,8 @@ services:
         condition: service_started
       worker:
         condition: service_started
+      worker_resource_intensive:
+        condition: service_started
       initialize_app:
         condition: service_completed_successfully
     # ports:
@@ -153,33 +184,11 @@ services:
       - 3000
 
   worker:
-    <<: *app
-    build:
-      context: .
-      target: hyku-worker
-      args:
-        - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
-        - HYKU_BULKRAX_ENABLED=true
-      cache_from:
-        - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
-        - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
-    image: ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
-    command: sh -l -c 'bundle && bundle exec sidekiq'
-    depends_on:
-      check_volumes:
-        condition: service_completed_successfully
-      initialize_app:
-        condition: service_completed_successfully
-      db:
-        condition: service_started
-      solr:
-        condition: service_started
-      fcrepo:
-        condition: service_started
-      redis:
-        condition: service_started
-      zoo:
-        condition: service_started
+    <<: *app-worker
+
+  worker_resource_intensive:
+    <<: *app-worker
+    command: sh -l -c 'bundle && bundle exec sidekiq -C config/sidekiq_resource_intensive.yml'
 
   # Do not recurse through all of tmp. derivitives will make booting
   # very slow and eventually just time out as data grows

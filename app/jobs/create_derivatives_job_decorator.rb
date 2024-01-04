@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 module CreateDerivativesJobDecorator
-  def self.prepended(base)
-    base.class_eval do
-      before_perform :reassign_queue, if: ->() { arguments.first.video? || arguments.first.audio? }
-    end
-  end
+  def perform(file_set, file_id, filepath = nil)
+    return super if self.is_a?(CreateLargeDerivativesJob)
+    return super unless file_set.video? || file_set.audio?
 
-  def reassign_queue
-    self.queue_name = 'resource_intensive'
+    CreateLargeDerivativesJob.perform_later(*self.arguments)
+    true
   end
 end
 

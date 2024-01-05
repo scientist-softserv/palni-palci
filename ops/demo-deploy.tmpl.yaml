@@ -47,9 +47,11 @@ ingress:
     - host: commons-archive.org
       paths:
         - path: /
+          pathType: ImplementationSpecific
     - host: "*.commons-archive.org"
       paths:
         - path: /
+          pathType: ImplementationSpecific
   annotations: {
     kubernetes.io/ingress.class: "nginx",
     nginx.ingress.kubernetes.io/proxy-body-size: "0",
@@ -190,7 +192,7 @@ worker:
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
 
-worker_resource_intensive:
+workerIntensive:
   replicaCount: 1
   resources:
     limits:
@@ -199,13 +201,152 @@ worker_resource_intensive:
     requests:
       memory: "8Gi"
       cpu: "600m"
-  extraVolumeMounts: *volMounts
-  extraEnvVars: *envVars
-  podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 101
-    fsGroup: 101
-    fsGroupChangePolicy: "OnRootMismatch"
+  extraEnvVars:
+    - name: SIDEKIQ_CONFIG
+      value: "config/sidekiq_resource_intensive.yml"
+
+extraDeploy:
+  - |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: {{ include "hyrax.fullname" . }}-intensive-worker
+        labels:
+          {{- include "hyrax.labels" . | nindent 4 }}
+      spec:
+        replicas: {{ .Values.workerIntensive.replicaCount }}
+        selector:
+          matchLabels:
+            {{- include "hyrax.workerSelectorLabels" . | nindent 6 }}
+        template:
+          metadata:
+          {{- with .Values.podAnnotations }}
+            annotations:
+              {{- toYaml . | nindent 8 }}
+          {{- end }}
+            labels:
+              {{- include "hyrax.workerSelectorLabels" . | nindent 8 }}
+          spec:
+            initContainers:
+              - name: db-wait
+                image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}"
+                imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+                envFrom:
+                  - configMapRef:
+                      name: {{ include "hyrax.fullname" . }}-env
+                  - secretRef:
+                      name: {{ template "hyrax.fullname" . }}
+                env:
+                  {{- toYaml .Values.workerIntensive.extraEnvVars | nindent 12 }}
+                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
+                command:
+                  - sh
+                  - -c
+                  - db-wait.sh "$REDIS_HOST:6379"
+              {{- if .Values.worker.extraInitContainers }}
+              {{- toYaml .Values.worker.extraInitContainers | nindent 8 }}
+              {{- end }}
+            {{- with .Values.imagePullSecrets }}
+            imagePullSecrets:
+              {{- toYaml . | nindent 8 }}
+            {{- end }}
+            serviceAccountName: {{ include "hyrax.serviceAccountName" . }}
+            securityContext:
+              {{- toYaml .Values.worker.podSecurityContext | nindent 8 }}
+            containers:
+              - name: {{ .Chart.Name }}-worker
+                securityContext:
+                  {{- toYaml .Values.worker.securityContext | nindent 12 }}
+                image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}"
+                imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+                envFrom:
+                  - configMapRef:
+                      name: {{ include "hyrax.fullname" . }}-env
+                  - secretRef:
+                      name: {{ template "hyrax.fullname" . }}
+                  {{- if .Values.solrExistingSecret }}
+                  - secretRef:
+                      name: {{ .Values.solrExistingSecret }}
+                  {{- end }}
+                  {{- with .Values.worker.extraEnvFrom }}
+                    {{- toYaml . | nindent 12 }}
+                  {{- end }}
+                env:
+                  {{- toYaml .Values.workerIntensive.extraEnvVars | nindent 12 }}
+                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
+                {{- if .Values.worker.readinessProbe.enabled }}
+                readinessProbe:
+                  exec:
+                    command:
+                      {{- toYaml .Values.worker.readinessProbe.command | nindent 16 }}
+                  failureThreshold: {{ .Values.worker.readinessProbe.failureThreshold }}
+                  initialDelaySeconds: {{ .Values.worker.readinessProbe.initialDelaySeconds }}
+                  periodSeconds: {{ .Values.worker.readinessProbe.periodSeconds }}
+                  successThreshold: {{ .Values.worker.readinessProbe.successThreshold }}
+                  timeoutSeconds: {{ .Values.worker.readinessProbe.timeoutSeconds }}
+                {{- end }}
+                volumeMounts:
+                  - name: derivatives
+                    mountPath: /app/samvera/derivatives
+                  - name: uploads
+                    subPath: file_cache
+                    mountPath: /app/samvera/file_cache
+                  - name: uploads
+                    subPath: uploads
+                    mountPath: /app/samvera/uploads
+                  {{- if .Values.applicationExistingClaim }}
+                  - name: application
+                    mountPath: /app/samvera/hyrax-webapp
+                  {{- end }}
+                  {{- with .Values.worker.extraVolumeMounts }}
+                  {{- toYaml . | nindent 12 }}
+                  {{- end }}
+                resources:
+                  {{- toYaml .Values.workerIntensive.resources | nindent 12 }}
+                {{- with .Values.extraContainerConfiguration }}
+                {{- toYaml . | nindent 10 }}
+                {{- end }}
+            volumes:
+              - name: "derivatives"
+                {{- if and .Values.derivativesVolume.enabled .Values.derivativesVolume.existingClaim }}
+                persistentVolumeClaim:
+                  claimName: {{ .Values.derivativesVolume.existingClaim }}
+                {{- else if .Values.derivativesVolume.enabled }}
+                persistentVolumeClaim:
+                  claimName: {{ template "hyrax.fullname" . }}-derivatives
+                {{ else }}
+                emptyDir: {}
+                {{ end }}
+              - name: "uploads"
+                {{- if and .Values.uploadsVolume.enabled .Values.uploadsVolume.existingClaim }}
+                persistentVolumeClaim:
+                  claimName: {{ .Values.uploadsVolume.existingClaim }}
+                {{- else if .Values.uploadsVolume.enabled }}
+                persistentVolumeClaim:
+                  claimName: {{ template "hyrax.fullname" . }}-uploads
+                {{ else }}
+                emptyDir: {}
+                {{ end }}
+              {{- if .Values.applicationExistingClaim }}
+              - name: "application"
+                persistentVolumeClaim:
+                  claimName: {{ .Values.applicationExistingClaim }}
+              {{- end }}
+              {{- with .Values.worker.extraVolumes }}
+              {{- toYaml . | nindent 8 }}
+              {{- end }}
+            {{- with .Values.worker.nodeSelector }}
+            nodeSelector:
+              {{- toYaml . | nindent 8 }}
+            {{- end }}
+            {{- with .Values.worker.affinity }}
+            affinity:
+              {{- toYaml . | nindent 8 }}
+            {{- end }}
+            {{- with .Values.worker.tolerations }}
+            tolerations:
+              {{- toYaml . | nindent 8 }}
+            {{- end }}
 
 podSecurityContext:
   runAsUser: 1001
@@ -229,6 +370,10 @@ redis:
   password: $REDIS_PASSWORD
 solr:
   enabled: false
+fits:
+  enabled: true
+  servicePort: 8080
+  subPath: /fits
 
 externalPostgresql:
   host: postgres-cluster-alpha-ha.postgres.svc.cluster.local
@@ -242,7 +387,7 @@ externalSolrCollection: demo-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
-  hyraxName: palni-palci-demo-pals
+  hyraxHostName: palni-palci-demo-pals
 
 nginx:
   enabled: true
@@ -254,8 +399,7 @@ nginx:
     tag: 1.21.5-debian-10-r4
   serverBlock: |-
     upstream rails_app {
-      server {{ .Values.global.hyraxName }};
-    }
+      server {{ .Values.global.hyraxHostName }};}
 
     map ${DOLLAR}status ${DOLLAR}loggable {
         ~^444  0;

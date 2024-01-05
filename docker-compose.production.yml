@@ -14,25 +14,6 @@ x-app: &app
   networks:
     internal:
 
-x-app-worker: &app-worker
-  <<: *app
-  image: ghcr.io/samvera/hyku/worker:${TAG:-latest}
-  depends_on:
-    check_volumes:
-      condition: service_completed_successfully
-    initialize_app:
-      condition: service_completed_successfully
-    db:
-      condition: service_started
-    solr:
-      condition: service_started
-    fcrepo:
-      condition: service_started
-    redis:
-      condition: service_started
-    zoo:
-      condition: service_started
-
 volumes:
   assets:
   cache:
@@ -152,19 +133,29 @@ services:
         condition: service_started
       worker:
         condition: service_started
-      worker_resource_intensive:
-        condition: service_started
       initialize_app:
         condition: service_completed_successfully
     expose:
       - 3000
 
   worker:
-    <<: *app-worker
-
-  worker_resource_intensive:
-    <<: *app-worker
-    command: sh -l -c 'bundle && bundle exec sidekiq -C config/sidekiq_resource_intensive.yml'
+    <<: *app
+    image: ghcr.io/samvera/hyku/worker:${TAG:-latest}
+    depends_on:
+      check_volumes:
+        condition: service_completed_successfully
+      initialize_app:
+        condition: service_completed_successfully
+      db:
+        condition: service_started
+      solr:
+        condition: service_started
+      fcrepo:
+        condition: service_started
+      redis:
+        condition: service_started
+      zoo:
+        condition: service_started
 
   # Do not recurse through all of tmp. derivitives will make booting
   # very slow and eventually just time out as data grows

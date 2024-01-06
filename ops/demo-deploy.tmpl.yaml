@@ -399,7 +399,8 @@ nginx:
     tag: 1.21.5-debian-10-r4
   serverBlock: |-
     upstream rails_app {
-      server {{ .Values.global.hyraxHostName }};}
+      server {{ .Values.global.hyraxHostName }};
+    }
 
     map ${DOLLAR}status ${DOLLAR}loggable {
         ~^444  0;

@@ -47,9 +47,11 @@ ingress:
     - host: hykucommons.org
       paths:
         - path: /
+          pathType: ImplementationSpecific
     - host: "*.hykucommons.org"
       paths:
         - path: /
+          pathType: ImplementationSpecific
   annotations: {
     kubernetes.io/ingress.class: "nginx",
     nginx.ingress.kubernetes.io/proxy-body-size: "0",
@@ -245,6 +247,10 @@ redis:
   password: $REDIS_PASSWORD
 solr:
   enabled: false
+fits:
+  enabled: true
+  servicePort: 8080
+  subPath: /fits
 
 externalPostgresql:
   host: postgres-cluster-alpha-ha.postgres.svc.cluster.local
@@ -258,7 +264,7 @@ externalSolrCollection: production-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
-  hyraxName: palni-palci-production-pals
+  hyraxHostName: palni-palci-production-pals
 
 nginx:
   enabled: true
@@ -270,7 +276,7 @@ nginx:
     tag: 1.21.5-debian-10-r4
   serverBlock: |-
     upstream rails_app {
-      server {{ .Values.global.hyraxName }};
+      server {{ .Values.global.hyraxHostName }};
     }
 
     map ${DOLLAR}status ${DOLLAR}loggable {

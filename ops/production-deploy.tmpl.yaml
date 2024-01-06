@@ -200,6 +200,13 @@ worker:
     requests:
       memory: "2Gi"
       cpu: "150m"
+  extraVolumeMounts: *volMounts
+  extraEnvVars: *envVars
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
 
 workerIntensive:
   replicaCount: 1
@@ -216,13 +223,6 @@ workerIntensive:
     - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
       value: 1
 
-  extraVolumeMounts: *volMounts
-  extraEnvVars: *envVars
-  podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 101
-    fsGroup: 101
-    fsGroupChangePolicy: "OnRootMismatch"
 podSecurityContext:
   runAsUser: 1001
   runAsGroup: 101

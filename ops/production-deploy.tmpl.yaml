@@ -199,15 +199,20 @@ worker:
       memory: "2Gi"
       cpu: "150m"
 
-worker_resource_intensive:
+workerIntensive:
   replicaCount: 1
   resources:
     limits:
-      memory: "16Gi"
-      cpu: "1200m"
+      memory: "12Gi"
+      cpu: "4"
     requests:
-      memory: "8Gi"
-      cpu: "600m"
+      memory: "4Gi"
+      cpu: "2"
+  extraEnvVars:
+    - name: SIDEKIQ_CONFIG
+      value: "config/sidekiq_resource_intensive.yml"
+    - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
+      value: 1
 
   extraVolumeMounts: *volMounts
   extraEnvVars: *envVars

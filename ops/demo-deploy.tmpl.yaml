@@ -206,6 +206,8 @@ workerIntensive:
   extraEnvVars:
     - name: SIDEKIQ_CONFIG
       value: "config/sidekiq_resource_intensive.yml"
+    - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
+      value: 1
 
 extraDeploy:
   - |-

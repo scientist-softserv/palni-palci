@@ -120,6 +120,8 @@ extraEnvVars: &envVars
     value: "true"
   - name: HYKU_ROOT_HOST
     value: hykucommons.org
+  - NAME: HYKU_CROSS_TENANT_SEARCH_HOST
+    value: search.commons-archive.org
   - name: HYKU_USER_DEFAULT_PASSWORD
     value: password
   - name: HYRAX_USE_SOLR_GRAPH_NESTING

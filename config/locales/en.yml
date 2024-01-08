@@ -190,6 +190,9 @@ en:
       left_text: Works for institutions large and small, from museums to university libraries. Get started in minutes.
       right_heading: Flexible
       right_text: Customize the user interface to match your institution's brand identity. Tailor workflows to match how your staff likes to work.
+      form:
+        q:
+          label: Search across all repositories
     toolbar:
       profile:
         edit_registration: Change password

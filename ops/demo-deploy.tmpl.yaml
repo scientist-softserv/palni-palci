@@ -369,9 +369,10 @@ fcrepo:
 postgresql:
   enabled: false
 redis:
-  cluster:
-    enabled: false
-  password: $REDIS_PASSWORD
+  enabled: true
+  architecture: standalone
+  auth:
+    password: $REDIS_PASSWORD
 solr:
   enabled: false
 fits:

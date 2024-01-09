@@ -9,4 +9,8 @@ else
   puts 'DATABASE_URL not set, no pool change needed'
 end
 
-exec "echo $DATABASE_URL && bundle exec sidekiq"
+if ENV['SIDEKIQ_CONFIG']
+  exec "echo $DATABASE_URL && bundle exec sidekiq -C #{ENV['SIDEKIQ_CONFIG']}"
+else
+  exec "echo $DATABASE_URL && bundle exec sidekiq"
+end

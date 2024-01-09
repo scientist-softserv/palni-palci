@@ -1,0 +1,7 @@
+---
+:concurrency: <%= ENV['SIDEKIQ_INTENSIVE_THREAD_COUNT'] %>
+:queues:
+  - default
+  - import
+  - export
+  - resource_intensive

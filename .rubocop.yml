@@ -128,3 +128,8 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'lib/tasks/*.rake'
     - 'app/controllers/catalog_controller.rb'
+
+RSpec/FilePath:
+  Exclude:
+    - 'spec/config/application_spec.rb'
+    - 'spec/services/discipline_service_spec.rb'

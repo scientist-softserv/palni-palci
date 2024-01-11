@@ -152,6 +152,12 @@ module Hyrax
     end
 
     private
+    def store_action
+      return unless request.get?
+      if (!request.xhr?) # don't store ajax calls
+        cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true }
+      end
+    end
 
       def iiif_manifest_presenter
         IiifManifestPresenter.new(search_result_document(id: params[:id])).tap do |p|

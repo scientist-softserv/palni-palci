@@ -133,7 +133,6 @@ module OmniAuth
       def requested_work_url
         session["user_return_to"].presence ||
           WorkAuthorization.url_from(scope: params['scope'], request: request)
-        end
       end
     end
   end

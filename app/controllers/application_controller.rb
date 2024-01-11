@@ -26,12 +26,13 @@ class ApplicationController < ActionController::Base
   before_action :set_account_specific_connections!
   before_action :elevate_single_tenant!, if: :singletenant?
   skip_after_action :discard_flash_if_xhr
+  around_action :global_request_logging, if: false # for debugging
+  after_action :store_action
 
   rescue_from Apartment::TenantNotFound do
     raise ActionController::RoutingError, 'Not Found'
   end
 
-  after_action :store_action
 
   def store_action
     return unless request.get?
@@ -44,10 +45,10 @@ class ApplicationController < ActionController::Base
       request.path != "/users/sign_out" &&
       !request.xhr?) # don't store ajax calls
       store_location_for(:user, request.fullpath)
+      cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true }
     end
   end
 
-  around_action :global_request_logging
   def global_request_logging
     rl = ActiveSupport::Logger.new('log/request.log')
     if request.host&.match('blc.hykucommons')
@@ -82,10 +83,11 @@ class ApplicationController < ActionController::Base
     end
     begin
       yield
-    ensure
-      rl.error response.body
+    # ensure
+      # rl.error response.body
     end
   end
+
   # Override method from devise-guests v0.7.0 to prevent the application
   # from attempting to create duplicate guest users
   def guest_user

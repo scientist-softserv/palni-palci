@@ -31,6 +31,61 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
+  after_action :store_action
+
+  def store_action
+    return unless request.get?
+    if (request.path != "/single_signon" &&
+      request.path != "/users/sign_in" &&
+      request.path != "/users/sign_up" &&
+      request.path != "/users/password/new" &&
+      request.path != "/users/password/edit" &&
+      request.path != "/users/confirmation" &&
+      request.path != "/users/sign_out" &&
+      !request.xhr?) # don't store ajax calls
+      store_location_for(:user, request.fullpath)
+    end
+  end
+
+  around_action :global_request_logging
+  def global_request_logging
+    rl = ActiveSupport::Logger.new('log/request.log')
+    if request.host&.match('blc.hykucommons')
+      http_request_header_keys = request.headers.env.keys.select{|header_name| header_name.match("^HTTP.*|^X-User.*")}
+      http_request_headers = request.headers.env.select{|header_name, header_value| http_request_header_keys.index(header_name)}
+
+      rl.error '*' * 40
+      rl.error request.method
+      rl.error request.url
+      rl.error request.remote_ip
+      rl.error ActionController::HttpAuthentication::Token.token_and_options(request)
+
+      cookies[:time] = Time.now.to_s
+      session[:time] = Time.now.to_s
+      http_request_header_keys.each do |key|
+        rl.error ["%20s" % key.to_s, ':', request.headers[key].inspect].join(" ")
+      end
+      rl.error '-' * 40 + ' params'
+      params.keys.each do |key|
+        rl.error ["%20s" % key.to_s, ':', params[key].inspect].join(" ")
+      end
+      rl.error '-' * 40 + ' cookies'
+      cookies.to_h.keys.each do |key|
+        rl.error ["%20s" % key.to_s, ':', cookies[key].inspect].join(" ")
+      end
+      rl.error '-' * 40 + ' session'
+      session.to_h.keys.each do |key|
+        rl.error ["%20s" % key.to_s, ':', session[key].inspect].join(" ")
+      end
+
+      rl.error '*' * 40
+    end
+    begin
+      yield
+    ensure
+      rl.error response.body
+    end
+  end
   # Override method from devise-guests v0.7.0 to prevent the application
   # from attempting to create duplicate guest users
   def guest_user
@@ -65,18 +120,6 @@ class ApplicationController < ActionController::Base
       ['staging'].include?(Rails.env)
     end
 
-    ##
-    # Extra authentication for palni-palci during development phase
-    def authenticate_if_needed
-      # Disable this extra authentication in test mode
-      return true if Rails.env.test?
-      if (is_hidden || is_staging) && !is_api_or_pdf
-        authenticate_or_request_with_http_basic do |username, password|
-          username == "samvera" && password == "hyku"
-        end
-      end
-    end
-
     def super_and_current_users
       users = Role.find_by(name: 'superadmin')&.users.to_a
       users << current_user if current_user && !users.include?(current_user)
@@ -84,18 +127,11 @@ class ApplicationController < ActionController::Base
     end
 
     ##
-    # Provides the prepare_for_conditional_work_authorization! (see #authenticate_if_needed)
-    include WorkAuthorization::StoreUrlForScope
-
-    ##
     # Extra authentication for palni-palci during development phase
     def authenticate_if_needed
       # Disable this extra authentication in test mode
       return true if Rails.env.test?
       if (is_hidden || is_staging) && !is_api_or_pdf
-        # Why capture this?  In my review of the params and scope for authorization, I had a blank
-        # value in some of the OmniAuth instantiations.
-        prepare_for_conditional_work_authorization!(request.original_url)
         authenticate_or_request_with_http_basic do |username, password|
           username == "pals" && password == "pals"
         end

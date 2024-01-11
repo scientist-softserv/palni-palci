@@ -144,47 +144,4 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     end
   end
   # rubocop:enable Rails/FindBy
-
-  ##
-  # This module is a controller mixin that assumes access to a `session` object.
-  #
-  # Via {#prepare_for_conditional_work_authorization!} provide the logic for storing a URL to later
-  # be available in an authorization request.
-  #
-  # @example
-  #   class ApplicationController < ActionController::Base
-  #     include WorkAuthorization::StoreUrlForScope
-  #   end
-  module StoreUrlForScope
-    CDL_SESSION_KEY = 'cdl.requested_work_url'
-
-    ##
-    # Responsible for storing in the session the URL that is a candidate for Controlled Digital
-    # Lending (CDL) authorization.
-    #
-    # @param given_url [String,NilClass] when given, favor this URL instead of attempting to find
-    #        the stored location.
-    # rubocop:disable Style/GuardClause
-    def prepare_for_conditional_work_authorization!(given_url = nil)
-      if given_url.nil?
-        # Note: Accessing `stored_location_for` clears that location from the session; so we need to
-        # grab it and then set it again.
-        url = stored_location_for(:user)
-        store_location_for(:user, url)
-      else
-        url = given_url
-      end
-
-      # If this could be a controlled digital lending (CDL) work, let's not rely on the
-      # stored_location (e.g. something that is part of devise and the value being subject to change).
-      # Instead, let's set the OmniAuth::Strategies::OpenIDConnectDecorator::CDL_SESSION_KEY key in
-      # the session.
-      if WorkAuthorization::REGEXP_TO_MATCH_PID.match(url)
-        url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, url) if url.start_with?('/')
-        Rails.logger.info("=@=@=@=@ Called #{self.class}##{__method__} to set session['#{WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY}'] to #{url.inspect}.")
-        session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] = url
-      end
-    end
-    # rubocop:enable Style/GuardClause
-  end
 end

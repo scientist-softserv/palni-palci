@@ -131,8 +131,13 @@ module OmniAuth
       #       https://reshare.palni-palci-staging.notch8.cloud/concern/cdls/74ebfc53-ee7c-4dc9-9dd7-693e4d840745
       #
       def requested_work_url
-        session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] ||
-          WorkAuthorization.url_from(scope: params['scope'], request: request)
+        url = stored_location_for(:user)
+        if url.present?
+          store_location(:user, url)
+          url
+        else
+         WorkAuthorization.url_from(scope: params['scope'], request: request)
+        end
       end
     end
   end

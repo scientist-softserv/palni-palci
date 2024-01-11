@@ -26,27 +26,10 @@ class ApplicationController < ActionController::Base
   before_action :set_account_specific_connections!
   before_action :elevate_single_tenant!, if: :singletenant?
   skip_after_action :discard_flash_if_xhr
-  around_action :global_request_logging, if: false # for debugging
-  after_action :store_action
+  before_action :global_request_logging
 
   rescue_from Apartment::TenantNotFound do
     raise ActionController::RoutingError, 'Not Found'
-  end
-
-
-  def store_action
-    return unless request.get?
-    if (request.path != "/single_signon" &&
-      request.path != "/users/sign_in" &&
-      request.path != "/users/sign_up" &&
-      request.path != "/users/password/new" &&
-      request.path != "/users/password/edit" &&
-      request.path != "/users/confirmation" &&
-      request.path != "/users/sign_out" &&
-      !request.xhr?) # don't store ajax calls
-      store_location_for(:user, request.fullpath)
-      cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true }
-    end
   end
 
   def global_request_logging
@@ -80,11 +63,6 @@ class ApplicationController < ActionController::Base
       end
 
       rl.error '*' * 40
-    end
-    begin
-      yield
-    # ensure
-      # rl.error response.body
     end
   end
 

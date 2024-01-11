@@ -48,6 +48,7 @@ module Hyrax
         # We don't want the breadcrumb action to occur until after the concern has
         # been loaded and authorized
         before_action :save_permissions, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
+        prepend_before_action :store_location, only: :show
       end
 
       def curation_concern_type
@@ -436,6 +437,13 @@ module Hyrax
           send_data(presenter.solr_document.export_as_endnote,
                     type: "application/x-endnote-refer",
                     filename: presenter.solr_document.endnote_filename)
+        end
+      end
+
+      def store_action
+        return unless request.get?
+        if (!request.xhr?) # don't store ajax calls
+          cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true }
         end
       end
 

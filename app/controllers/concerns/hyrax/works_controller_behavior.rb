@@ -48,7 +48,7 @@ module Hyrax
         # We don't want the breadcrumb action to occur until after the concern has
         # been loaded and authorized
         before_action :save_permissions, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
-        prepend_before_action :store_action, only: :show
+        prepend_before_action :store_action, only: :show # rubocop:disable Rails/LexicallyScopedActionFilter
       end
 
       def curation_concern_type

@@ -23,7 +23,7 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
 
   let(:requested_work_url) { "http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en" }
   let(:options) { { scope: [:openid] } }
-  let(:session) { { } }
+  let(:session) { {} }
   let(:request) { double(ActionDispatch::Request, params: params) }
   let(:params) { {} }
   let(:cookie_jar) { {} }
@@ -33,6 +33,7 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
 
   describe '#options' do
     subject { instance.options }
+
     let(:cookie_jar) { { reshare_url: requested_work_url } }
 
     it "has a :scope key that appends the #requested_work_url" do
@@ -45,6 +46,7 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
 
     describe "when the cookie_jar has reshare_url" do
       let(:cookie_jar) { { reshare_url: requested_work_url } }
+
       it "uses the URL in the cookie jar" do
         expect(subject).to eq(requested_work_url)
       end

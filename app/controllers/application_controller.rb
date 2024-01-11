@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
   def global_request_logging
     rl = ActiveSupport::Logger.new('log/request.log')
     if request.host&.match('blc.hykucommons')
-      http_request_header_keys = request.headers.env.keys.select{|header_name| header_name.match("^HTTP.*|^X-User.*")}
-      http_request_headers = request.headers.env.select{|header_name, header_value| http_request_header_keys.index(header_name)}
+      http_request_header_keys = request.headers.env.keys.select { |header_name| header_name.match("^HTTP.*|^X-User.*") }
+      http_request_headers = request.headers.env.select { |header_name, _header_value| http_request_header_keys.index(header_name) }
 
       rl.error '*' * 40
       rl.error request.method
@@ -47,19 +47,19 @@ class ApplicationController < ActionController::Base
       cookies[:time] = Time.now.to_s
       session[:time] = Time.now.to_s
       http_request_header_keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', request.headers[key].inspect].join(" ")
+        rl.error [format("%20s", key.to_s), ':', request.headers[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' params'
       params.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', params[key].inspect].join(" ")
+        rl.error [format("%20s", key.to_s), ':', params[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' cookies'
       cookies.to_h.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', cookies[key].inspect].join(" ")
+        rl.error [format("%20s", key.to_s), ':', cookies[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' session'
       session.to_h.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', session[key].inspect].join(" ")
+        rl.error [format("%20s", key.to_s), ':', session[key].inspect].join(" ")
       end
 
       rl.error '*' * 40

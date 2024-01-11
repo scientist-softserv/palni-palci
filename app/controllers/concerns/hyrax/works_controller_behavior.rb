@@ -48,7 +48,7 @@ module Hyrax
         # We don't want the breadcrumb action to occur until after the concern has
         # been loaded and authorized
         before_action :save_permissions, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
-        prepend_before_action :store_action, only: :show
+        prepend_before_action :store_action, only: :show # rubocop:disable Rails/LexicallyScopedActionFilter
       end
 
       def curation_concern_type
@@ -152,6 +152,7 @@ module Hyrax
     end
 
     private
+
       def iiif_manifest_presenter
         IiifManifestPresenter.new(search_result_document(id: params[:id])).tap do |p|
           p.hostname = request.hostname
@@ -441,9 +442,7 @@ module Hyrax
 
       def store_action
         return unless request.get?
-        if (!request.xhr?) # don't store ajax calls
-          cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true }
-        end
+        cookies[:reshare_url] = { value: request.fullpath, same_site: :none, secure: true } unless request.xhr? # don't store ajax calls
       end
 
       def save_permissions

@@ -32,11 +32,12 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
+  # rubocop:disable Metrics/AbcSize
   def global_request_logging
     rl = ActiveSupport::Logger.new('log/request.log')
     if request.host&.match('blc.hykucommons')
-      http_request_header_keys = request.headers.env.keys.select{|header_name| header_name.match("^HTTP.*|^X-User.*")}
-      http_request_headers = request.headers.env.select{|header_name, header_value| http_request_header_keys.index(header_name)}
+      http_request_header_keys = request.headers.env.keys.select { |header_name| header_name.match("^HTTP.*|^X-User.*") }
+      http_request_headers = request.headers.env.select { |header_name, _header_value| http_request_header_keys.index(header_name) }
 
       rl.error '*' * 40
       rl.error request.method
@@ -44,27 +45,28 @@ class ApplicationController < ActionController::Base
       rl.error request.remote_ip
       rl.error ActionController::HttpAuthentication::Token.token_and_options(request)
 
-      cookies[:time] = Time.now.to_s
-      session[:time] = Time.now.to_s
+      cookies[:time] = Time.current.to_s
+      session[:time] = Time.current.to_s
       http_request_header_keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', request.headers[key].inspect].join(" ")
+        rl.error [format("%20s", key.to_s), ':', request.headers[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' params'
-      params.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', params[key].inspect].join(" ")
+      params.each_key do |key|
+        rl.error [format("%20s", key.to_s), ':', params[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' cookies'
-      cookies.to_h.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', cookies[key].inspect].join(" ")
+      cookies.to_h.each_key do |key|
+        rl.error [format("%20s", key.to_s), ':', cookies[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' session'
-      session.to_h.keys.each do |key|
-        rl.error ["%20s" % key.to_s, ':', session[key].inspect].join(" ")
+      session.to_h.each_key do |key|
+        rl.error [format("%20s", key.to_s), ':', session[key].inspect].join(" ")
       end
 
       rl.error '*' * 40
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Override method from devise-guests v0.7.0 to prevent the application
   # from attempting to create duplicate guest users

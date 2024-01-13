@@ -13,8 +13,8 @@
 # @see https://github.com/scientist-softserv/palni-palci/issues/633
 class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   class WorkNotFoundError < StandardError
-    def initialize(user:, work_pid:)
-      "Unable to authorize #{user.class} #{user.user_key.inspect} for work with ID=#{work_pid} because work does not exist."
+    def initialize(user:, work:)
+      "Unable to authorize #{user.class} #{user.user_key.inspect} for work with ID=#{work.id} because work does not exist."
     end
   end
 
@@ -44,7 +44,8 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     # Maybe we get multiple pids; let's handle that accordingly
     pids.each do |pid|
       begin
-        authorize!(user: user, work_pid: pid, expires_at: authorize_until)
+        work = ActiveFedora::Base.where(id: pid).first
+        authorize!(user: user, work: work, expires_at: authorize_until)
       rescue WorkNotFoundError
         Rails.logger.info("Unable to find work_pid of #{pid.inspect}.")
       end
@@ -52,7 +53,8 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
 
     # We re-authorized the above pids, so it should not be in this query.
     where("user_id = :user_id AND expires_at <= :expires_at", user_id: user.id, expires_at: revoke_expirations_before).pluck(:work_pid).each do |pid|
-      revoke!(user: user, work_pid: pid)
+      work = ActiveFedora::Base.where(id: pid).first
+      revoke!(user: user, work: work)
     end
   end
 
@@ -76,8 +78,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     scope.split(/\s+/).map do |scope_element|
       next unless with_regexp.match(scope_element)
       scope_element = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, scope_element) if scope_element.start_with?("/")
-
-      scope_element
+      uv_url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, 'uv/uv.html#?manifest=')
+      uv_config_url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, 'uv/uv-config-reshare.json')
+      uv_url + scope_element + '&config=' + uv_config_url
     end.compact.first
   end
 
@@ -107,9 +110,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   #
   # @see .revoke!
   # rubocop:disable Rails/FindBy
-  def self.authorize!(user:, work_pid:, expires_at: 1.day.from_now)
-    work = ActiveFedora::Base.where(id: work_pid).first
-    raise WorkNotFoundError.new(user: user, work_pid: work_pid) unless work
+  def self.authorize!(user:, work:, expires_at: 1.day.from_now)
+
+    raise WorkNotFoundError.new(user: user, work: work) unless work
 
     transaction do
       authorization = find_or_create_by!(user_id: user.id, work_pid: work.id)
@@ -117,6 +120,10 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
 
       work.set_read_users([user.user_key], [user.user_key])
       work.save!
+    end
+    work.members.each do |member_work|
+      next if member_work.is_a?(FileSet)
+      authorize!(user: user, work: member_work, expires_at: expires_at)
     end
   end
   # rubocop:enable Rails/FindBy
@@ -129,18 +136,20 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   #
   # @see .authorize!
   # rubocop:disable Rails/FindBy
-  def self.revoke!(user:, work_pid:)
+  def self.revoke!(user:, work:)
+    return unless work
     # When we delete the authorizations, we want to ensure that we've tidied up the corresponding
     # work's read users.  If for some reason the ActiveFedora save fails, this the destruction of
-    # the authorizations will rollback.  Meaning we still have a record of what we've authorized.
+    # the authorizations will rollback.  Meaning we still have a record of what we've authorized.OB
     transaction do
-      where(user_id: user.id, work_pid: work_pid).destroy_all
-      work = ActiveFedora::Base.where(id: work_pid).first
-      if work
-        work.set_read_users([], [user.user_key])
-        work.save!
-      end
+      where(user_id: user.id, work_pid: work.id).destroy_all
+      work.set_read_users([], [user.user_key])
+      work.save!
       true
+    end
+    work.members.each do |member_work|
+      next if member_work.is_a?(FileSet)
+      revoke!(user: user, work: member_work)
     end
   end
   # rubocop:enable Rails/FindBy

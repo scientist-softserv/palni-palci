@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
         rl.error [format("%20s", key.to_s), ':', request.headers[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' params'
-      params.each_key do |key|
+      params.to_unsafe_hash.each_key do |key|
         rl.error [format("%20s", key.to_s), ':', params[key].inspect].join(" ")
       end
       rl.error '-' * 40 + ' cookies'

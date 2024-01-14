@@ -22,6 +22,9 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
   end
 
   let(:requested_work_url) { "http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en" }
+  # rubocop:disable Metrics/LineLength
+  let(:uv_url) { "https://pals.hyku.test/uv/uv.html#?manifest=http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761/manifest&config=https://pals.hyku.test/uv/uv-config-reshare.json" }
+  # rubocop:enable Metrics/LineLength
   let(:options) { { scope: [:openid] } }
   let(:session) { {} }
   let(:request) { double(ActionDispatch::Request, params: params) }
@@ -29,7 +32,10 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
   let(:cookie_jar) { {} }
   let(:instance) { strategy.new(options: options, session: session, request: request) }
 
-  before { allow_any_instance_of(ActionDispatch::Request).to receive(:cookie_jar).and_return(cookie_jar) }
+  before do
+    allow_any_instance_of(ActionDispatch::Request).to receive(:cookie_jar).and_return(cookie_jar)
+    allow_any_instance_of(ActionDispatch::Request).to receive(:host_with_port).and_return("pals.hyku.test")
+  end
 
   describe '#options' do
     subject { instance.options }
@@ -61,7 +67,7 @@ RSpec.describe OmniAuth::Strategies::OpenIDConnectDecorator do
         let(:params) { { 'scope' => requested_work_url } }
 
         it "uses the scope to derive the requested work url" do
-          expect(subject).to eq(requested_work_url)
+          expect(subject).to eq(uv_url)
         end
       end
     end

@@ -79,9 +79,13 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
 
     scope.split(/\s+/).map do |scope_element|
       next unless with_regexp.match(scope_element)
-      scope_element = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, scope_element) if scope_element.start_with?("/")
-      uv_url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, 'uv/uv.html#?manifest=')
-      uv_config_url = request.env['rack.url_scheme'] + '://' + File.join(request.host_with_port, 'uv/uv-config-reshare.json')
+      uri = URI.parse(scope_element)
+      uri.query = nil
+      uri.path += '/manifest'
+      scope_element = uri.to_s
+      protocol = request.env.fetch('rack.url_scheme', 'https')
+      uv_url = protocol + '://' + File.join(request.host_with_port, 'uv/uv.html#?manifest=')
+      uv_config_url = protocol + '://' + File.join(request.host_with_port, 'uv/uv-config-reshare.json')
       uv_url + scope_element + '&config=' + uv_config_url
     end.compact.first
   end

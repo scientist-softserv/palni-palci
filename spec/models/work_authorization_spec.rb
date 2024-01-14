@@ -33,8 +33,8 @@ RSpec.describe WorkAuthorization, type: :model do
     let(:request) { double(ActionDispatch::Request, env: { 'rack.url_scheme' => "http" }, host_with_port: "pals.hyku.test") }
 
     [
-      ["http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/uv/uv.html#?manifest=http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en&config=http://pals.hyku.test/uv/uv-config-reshare.json"],
-      ["/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/uv/uv.html#?manifest=http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en&config=http://pals.hyku.test/uv/uv-config-reshare.json"],
+      ["http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/uv/uv.html#?manifest=http://pals.hyku.test/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761/manifest&config=http://pals.hyku.test/uv/uv-config-reshare.json"],
+      ["/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761?locale=en openid", "http://pals.hyku.test/uv/uv.html#?manifest=/concern/generic_works/f2af2a68-7c79-481b-815e-a91517e23761/manifest&config=http://pals.hyku.test/uv/uv-config-reshare.json"],
       ["/help/me/123 openid", nil],
       [nil, nil]
     ].each do |given_scope, expected_value|

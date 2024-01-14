@@ -36,6 +36,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   #
   # @see OmniAuth::Strategies::OpenIDConnectDecorator
   # @see .extract_pids_from
+  # rubocop:disable Rails/FindBy
   def self.handle_signin_for!(user:, authorize_until: 1.day.from_now, work_pid: nil, scope: nil, revoke_expirations_before: Time.zone.now)
     Rails.logger.info("#{self.class}.#{__method__} granting authorization to work_pid: #{work_pid.inspect} and scope: #{scope.inspect}.")
 
@@ -57,6 +58,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
       revoke!(user: user, work: work)
     end
   end
+  # rubocop:enable Rails/FindBy
 
   ##
   # A regular expression that identifies the :work_pid for Hyrax work.
@@ -109,9 +111,7 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   # @raise [WorkAuthorization::WorkNotFoundError] when the given :work_pid is not found.
   #
   # @see .revoke!
-  # rubocop:disable Rails/FindBy
   def self.authorize!(user:, work:, expires_at: 1.day.from_now)
-
     raise WorkNotFoundError.new(user: user, work: work) unless work
 
     transaction do
@@ -122,11 +122,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
       work.save!
     end
     work.members.each do |member_work|
-      next if member_work.is_a?(FileSet)
       authorize!(user: user, work: member_work, expires_at: expires_at)
     end
   end
-  # rubocop:enable Rails/FindBy
 
   ##
   # Remove permission for the given :user to read the work associated with the given :work_pid.
@@ -135,7 +133,6 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   # @param work_pid [String]
   #
   # @see .authorize!
-  # rubocop:disable Rails/FindBy
   def self.revoke!(user:, work:)
     return unless work
     # When we delete the authorizations, we want to ensure that we've tidied up the corresponding
@@ -148,11 +145,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
       true
     end
     work.members.each do |member_work|
-      next if member_work.is_a?(FileSet)
       revoke!(user: user, work: member_work)
     end
   end
-  # rubocop:enable Rails/FindBy
 
   ##
   # This module is a controller mixin that assumes access to a `session` object.

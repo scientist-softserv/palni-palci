@@ -86,7 +86,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
       protocol = request.env.fetch('rack.url_scheme', 'https')
       uv_url = protocol + '://' + File.join(request.host_with_port, 'uv/uv.html#?manifest=')
       uv_config_url = protocol + '://' + File.join(request.host_with_port, 'uv/uv-config-reshare.json')
-      uv_url + scope_element + '&config=' + uv_config_url
+      # rubocop:disable Rails/OutputSafety
+      (uv_url + scope_element + '&config=' + uv_config_url).html_safe
+      # rubocop:enable Rails/OutputSafety
     end.compact.first
   end
 

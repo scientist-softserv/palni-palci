@@ -3,7 +3,7 @@
 <%- if devise_mapping.omniauthable? %>
   <%- @identity_providers.each do |ip| %>
     <div class='col-xs-3 col-centered'>
-      <%= button_to omniauth_authorize_path(resource_name, ip.provider, ip.id), form_class: 'button_to col-centered', class: 'sso-button' do %>
+      <%= button_to omniauth_authorize_path(resource_name, ip.provider, ip.id), data: { turbo: false }, form_class: 'button_to col-centered', class: 'sso-button' do %>
         <div class='<%= ip.provider %>-box'>
           <%= image_tag ip.logo_image.url(:medium), class: "img-responsive", alt: ip.logo_image_text if ip.logo_image? %>
           <br />

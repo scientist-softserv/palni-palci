@@ -131,7 +131,9 @@ module OmniAuth
       #       https://reshare.palni-palci-staging.notch8.cloud/concern/cdls/74ebfc53-ee7c-4dc9-9dd7-693e4d840745
       #
       def requested_work_url
-        session[WorkAuthorization::StoreUrlForScope::CDL_SESSION_KEY] ||
+        request = ActionDispatch::Request.new(Rails.application.env_config.merge(env))
+        request.cookie_jar[:reshare_url].presence ||
+          session["user_return_to"].presence ||
           WorkAuthorization.url_from(scope: params['scope'], request: request)
       end
     end

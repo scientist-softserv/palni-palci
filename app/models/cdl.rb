@@ -17,6 +17,7 @@ class Cdl < ActiveFedora::Base
   self.indexer = CdlIndexer
 
   after_create :create_group_and_add_members
+  after_destroy :destroy_cdl_group, :destroy_split_pages
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
@@ -62,5 +63,13 @@ class Cdl < ActiveFedora::Base
       # IiifPrint::Jobs::CreateRelationshipsJob has a 10 min timeout
       # setting this to 2 mins to give it a chance to finish
       CreateGroupAndAddMembersJob.set(wait: 12.minutes).perform_later(id)
+    end
+
+    def destroy_cdl_group
+      DestroyCdlGroupJob.perform_later(id)
+    end
+
+    def destroy_split_pages
+      DestroySplitPagesJob.perform_later(id)
     end
 end

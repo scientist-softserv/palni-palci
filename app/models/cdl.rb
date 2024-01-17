@@ -15,6 +15,9 @@ class Cdl < ActiveFedora::Base
   include VideoEmbedBehavior
 
   self.indexer = CdlIndexer
+
+  after_create :create_group_and_add_members
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
@@ -50,4 +53,14 @@ class Cdl < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
+
+  private
+
+    def create_group_and_add_members
+      return if is_child
+
+      # IiifPrint::Jobs::CreateRelationshipsJob has a 10 min timeout
+      # setting this to 2 mins to give it a chance to finish
+      CreateGroupAndAddMembersJob.set(wait: 12.minutes).perform_later(id)
+    end
 end

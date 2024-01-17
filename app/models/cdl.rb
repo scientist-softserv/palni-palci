@@ -16,8 +16,9 @@ class Cdl < ActiveFedora::Base
 
   self.indexer = CdlIndexer
 
+  before_destroy :destroy_split_pages
   after_create :create_group_and_add_members
-  after_destroy :destroy_cdl_group, :destroy_split_pages
+  after_destroy :destroy_cdl_group
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
@@ -70,6 +71,8 @@ class Cdl < ActiveFedora::Base
     end
 
     def destroy_split_pages
-      DestroySplitPagesJob.perform_later(id)
+      members.each do |member|
+        DestroySplitPagesJob.perform_later(member.id)
+      end
     end
 end

@@ -16,8 +16,7 @@ class CreateGroupAndAddMembersJob < ApplicationJob
       work.read_groups = [group.name]
 
       work.members.each do |member|
-        member.read_groups = [group.name]
-        member.save
+        assign_read_groups(member, group.name)
       end
 
       work.save
@@ -29,4 +28,14 @@ class CreateGroupAndAddMembersJob < ApplicationJob
       CreateGroupAndAddMembersJob.set(wait: 10.minutes).perform_later(cdl_id, retries)
     end
   end
+
+  private
+
+    def assign_read_groups(member, group_name)
+      member.read_groups = [group_name]
+      member.save
+      member.members.each do |sub_member|
+        assign_read_groups(sub_member, group_name)
+      end
+    end
 end

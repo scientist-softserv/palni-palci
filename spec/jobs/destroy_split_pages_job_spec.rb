@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
 RSpec.describe DestroySplitPagesJob, type: :job do
-  subject(:job) { described_class.new(work.id) }
+  subject(:job) { described_class.new(work_page_1.id) }
 
-  let(:split_work_factory) { work.iiif_print_config.pdf_split_child_model.to_s.underscore }
-  let(:work) { FactoryBot.create(:cdl, title: ['Test CDL']) }
-  let(:work_page_1) { FactoryBot.create(split_work_factory, title: ["#{work.id} - #{work.title.first} Page 1"], is_child: true) }
+  let(:work_page_1) { FactoryBot.create(:generic_work, title: ["Page 1"], is_child: true) }
+  let(:file_set) { FactoryBot.create(:file_set, title: ["page1.jpg"]) }
 
   before do
-    work.ordered_members << work_page_1
-    work.save
+    work_page_1.ordered_members << file_set
+    work_page_1.save
   end
 
   describe '#perform' do
     it 'destroys the child works when the work is destroyed' do
       expect { work_page_1.class.find(work_page_1.id) }.not_to raise_error
+      expect { FileSet.find(file_set.id) }.not_to raise_error
 
-      job.perform(work.id)
+      job.perform(work_page_1.id)
 
       expect { work_page_1.class.find(work_page_1.id) }.to raise_error(Ldp::Gone)
+      expect { FileSet.find(file_set.id) }.to raise_error(Ldp::Gone)
     end
   end
 end

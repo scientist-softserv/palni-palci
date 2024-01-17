@@ -7,6 +7,8 @@ class CreateGroupAndAddMembersJob < ApplicationJob
 
   def perform(cdl_id, retries = 0)
     work = Cdl.where(id: cdl_id).first
+    return if work.nil?
+
     page_count = work.file_sets.first.page_count.first.to_i
     child_model = work.iiif_print_config.pdf_split_child_model
     child_works_count = work.members.select { |member| member.is_a?(child_model) }.count

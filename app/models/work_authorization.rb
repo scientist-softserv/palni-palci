@@ -153,7 +153,10 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     # the authorizations will rollback.  Meaning we still have a record of what we've authorized.OB
     transaction do
       where(user_id: user.id, work_pid: work.id).destroy_all
+      Rails.logger.info("Looking for a group with name=#{work.id.inspect}.")
       group = Hyrax::Group.find_by(name: work.id)
+      return unless group
+
       group.remove_members_by_id(user.id)
     end
   end

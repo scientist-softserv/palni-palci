@@ -1,5 +1,7 @@
 # frozen_string_literal:true
 
+require 'sushi/error'
+
 module Sushi
   mattr_accessor :info
 

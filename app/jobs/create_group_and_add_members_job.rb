@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
+##
+# This class is responsible for assigning a conceptually "private" group to the
+# members of of the {Cdl} work.
+#
+# The reason for creating this group is when a person gains access to the CDL 
+# (via the lending application) it is more performant to add the person to a 
+# group than it is to add the person directly to each of the underlying files.
 class CreateGroupAndAddMembersJob < ApplicationJob
+```#
   RETRY_MAX = 5
 
   queue_as :default

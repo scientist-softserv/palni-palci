@@ -22,7 +22,7 @@ class CreateGroupAndAddMembersJob < ApplicationJob
     child_works_count = work.members.select { |member| member.is_a?(child_model) }.count
 
     if page_count == child_works_count
-      group = Hyrax::Group.create(name: work.id)
+      group = Hyrax::Group.find_or_create_by!(name: work.id)
       work.read_groups = [group.name]
 
       work.members.each do |member|

@@ -7,6 +7,15 @@ RSpec.describe WorkAuthorization, type: :model do
   let(:other_work) { FactoryBot.create(:generic_work) }
   let(:borrowing_user) { FactoryBot.create(:user) }
   let(:ability) { ::Ability.new(borrowing_user) }
+  let(:group) { FactoryBot.create(:group, name: work.id) }
+  let(:other_group) { FactoryBot.create(:group, name: other_work.id) }
+
+  before do
+    work.read_groups = [group.name]
+    work.save
+    other_work.read_groups = [other_group.name]
+    other_work.save
+  end
 
   describe '.extract_pids_from' do
     subject { described_class.extract_pids_from(scope: given_test_scope) }
@@ -62,8 +71,8 @@ RSpec.describe WorkAuthorization, type: :model do
 
     context 'when given a work_pid' do
       it 'will re-authorize the given work and expire non-specified works' do
-        described_class.authorize!(user: borrowing_user, work: work, expires_at: 1.day.ago)
-        described_class.authorize!(user: borrowing_user, work: other_work, expires_at: 1.day.ago)
+        described_class.authorize!(user: borrowing_user, work: work, group: group, expires_at: 1.day.ago)
+        described_class.authorize!(user: borrowing_user, work: other_work, group: other_group, expires_at: 1.day.ago)
 
         expect do
           expect do
@@ -76,9 +85,9 @@ RSpec.describe WorkAuthorization, type: :model do
     context 'when not given a work_pid' do
       it 'will de-authorize all authorizations that have expired but not those that have not expired' do
         # Note: This one is expiring in the future
-        described_class.authorize!(user: borrowing_user, work: work, expires_at: 2.days.from_now)
+        described_class.authorize!(user: borrowing_user, work: work, group: group, expires_at: 2.days.from_now)
         # Note: We'll be expiring this one.
-        described_class.authorize!(user: borrowing_user, work: other_work, expires_at: 1.day.ago)
+        described_class.authorize!(user: borrowing_user, work: other_work, group: other_group, expires_at: 1.day.ago)
 
         expect do
           expect do
@@ -94,7 +103,7 @@ RSpec.describe WorkAuthorization, type: :model do
       # We re-instantiate an ability class because CanCan caches many of the ability checks.  By
       # both passing the id and reinstantiating, we ensure that we have the most fresh data; that is
       # no cached ability "table" nor cached values on the work.
-      expect { described_class.authorize!(user: borrowing_user, work: work) }
+      expect { described_class.authorize!(user: borrowing_user, work: work, group: group) }
         .to change { ::Ability.new(borrowing_user).can?(:read, work.id) }.from(false).to(true)
     end
   end
@@ -102,7 +111,7 @@ RSpec.describe WorkAuthorization, type: :model do
   describe '.revoke!' do
     it 'revokes an authorized user from being able to "read" the work' do
       # Ensuring we're authorized
-      described_class.authorize!(user: borrowing_user, work: work)
+      described_class.authorize!(user: borrowing_user, work: work, group: group)
 
       expect { described_class.revoke!(user: borrowing_user, work: work) }
         .to change { ::Ability.new(borrowing_user).can?(:read, work) }.from(true).to(false)

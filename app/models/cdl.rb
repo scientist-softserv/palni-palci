@@ -15,6 +15,10 @@ class Cdl < ActiveFedora::Base
   include VideoEmbedBehavior
 
   self.indexer = CdlIndexer
+
+  before_destroy :destroy_split_pages
+  after_destroy :destroy_cdl_group
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :additional_information, predicate: ::RDF::Vocab::DC.accessRights do |index|
@@ -50,4 +54,16 @@ class Cdl < ActiveFedora::Base
   # including `include ::Hyrax::BasicMetadata`. All properties must
   # be declared before their values can be ordered.
   include OrderMetadataValues
+
+  private
+
+    def destroy_cdl_group
+      DestroyCdlGroupJob.perform_later(id)
+    end
+
+    def destroy_split_pages
+      members.each do |member|
+        DestroySplitPagesJob.perform_later(member.id)
+      end
+    end
 end

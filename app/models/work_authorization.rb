@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# WorkAuthorization models users granted access to works.  The instigator of the authorizations is
+# WorkAuthorization models users granted access to groups of works. The instigator of the authorizations is
 # outside the model.  In the case of PALNI/PALCI there will be a Shibboleth/SAML authentication that
-# indicates we should create a WorkAuthorization entry.
+# indicates we should create a WorkAuthorization entry for a group of works.
 #
 # @note Transactions across data storage layers (e.g. postgres and fedora) are precarious.  Fedora
 #       doesn't have proper transactions and there is not a clear concept of Postgres and Fedora
@@ -18,14 +18,20 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     end
   end
 
+  class GroupNotFoundError < StandardError
+    def initialize(user:, group:)
+      "Unable to authorize #{user.class} #{user.user_key.inspect} for group with name=#{group.name.inspect} because group does not exist."
+    end
+  end
+
   belongs_to :user
 
   # This will be a non-ActiveRecord resource
   validates :work_pid, presence: true
 
   ##
-  # When a :user signs in, we want to re-authorize works that are part of their latest
-  # authentication.  We want to de-authorize access to any works that are not part of their recent
+  # When a :user signs in, we want to re-authorize the works' groups that are part of their latest
+  # authentication.  We want to de-authorize access to any works' groups that are not part of their recent
   # authentication.
   #
   # @param user [User]
@@ -46,8 +52,9 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
     pids.each do |pid|
       begin
         work = ActiveFedora::Base.where(id: pid).first
-        authorize!(user: user, work: work, expires_at: authorize_until)
-      rescue WorkNotFoundError
+        group = Hyrax::Group.find_by(name: pid)
+        authorize!(user: user, work: work, group: group, expires_at: authorize_until)
+      rescue WorkNotFoundError, GroupNotFoundError
         Rails.logger.info("Unable to find work_pid of #{pid.inspect}.")
       end
     end
@@ -112,23 +119,22 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   # Grant the given :user permission to read the work associated with the given :work_pid.
   #
   # @param user [User]
-  # @param work_pid [String]
+  # @param work [ActiveFedora::Base]
+  # @param group [Hyrax::Group]
   #
   # @raise [WorkAuthorization::WorkNotFoundError] when the given :work_pid is not found.
+  # @raise [WorkAuthorization::GroupNotFoundError] when the given :group is not found.
   #
   # @see .revoke!
-  def self.authorize!(user:, work:, expires_at: 1.day.from_now)
+  def self.authorize!(user:, work:, group:, expires_at: 1.day.from_now)
     raise WorkNotFoundError.new(user: user, work: work) unless work
+    raise GroupNotFoundError.new(user: user, group: group) unless group
 
     transaction do
       authorization = find_or_create_by!(user_id: user.id, work_pid: work.id)
       authorization.update!(work_title: work.title, expires_at: expires_at)
 
-      work.set_read_users([user.user_key], [user.user_key])
-      work.save!
-    end
-    work.members.each do |member_work|
-      authorize!(user: user, work: member_work, expires_at: expires_at)
+      group.add_members_by_id(user.id)
     end
   end
 
@@ -136,22 +142,22 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   # Remove permission for the given :user to read the work associated with the given :work_pid.
   #
   # @param user [User]
-  # @param work_pid [String]
+  # @param work [ActiveFedora::Base]
   #
   # @see .authorize!
   def self.revoke!(user:, work:)
     return unless work
+
     # When we delete the authorizations, we want to ensure that we've tidied up the corresponding
     # work's read users.  If for some reason the ActiveFedora save fails, this the destruction of
     # the authorizations will rollback.  Meaning we still have a record of what we've authorized.OB
     transaction do
       where(user_id: user.id, work_pid: work.id).destroy_all
-      work.set_read_users([], [user.user_key])
-      work.save!
-      true
-    end
-    work.members.each do |member_work|
-      revoke!(user: user, work: member_work)
+      Rails.logger.info("Looking for a group with name=#{work.id.inspect}.")
+      group = Hyrax::Group.find_by(name: work.id)
+      return unless group
+
+      group.remove_members_by_id(user.id)
     end
   end
 

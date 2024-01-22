@@ -38,7 +38,7 @@ module IiifPrint
           end
 
           # OVERRIDE begin
-          CreateGroupAndAddMembersJob.set(wait: 2.minutes).perform_later(parent_id)
+          CreateGroupAndAddMembersJob.set(wait: 2.minutes).perform_later(parent_id) if parent_model == 'Cdl'
           # OVERRIDE end
         else
           # if we aren't ready yet, reschedule the job and end this one normally

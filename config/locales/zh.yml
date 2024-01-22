@@ -1,8 +1,5 @@
 ---
 zh:
-  errors:
-    messages:
-      valid_embed_url: "必须是有效的YouTube或Vimeo嵌入URL。"
   activefedora:
     models:
       cdl: CDL
@@ -38,6 +35,9 @@ zh:
           rights_statement_tesim: 权利声明
         show:
           additional_information: 附加权利信息
+  errors:
+    messages:
+      valid_embed_url: 必须是有效的YouTube或Vimeo嵌入URL。
   helpers:
     action:
       become: 成為
@@ -176,6 +176,9 @@ zh:
       account_signup: 开始使用
       center_heading: 功能丰富
       center_text: 您所期待的成熟存储库系统的所有功能。支持一系列内容类型和用例。
+      form:
+        q:
+          label: 搜索所有存储库
       left_heading: 简单
       left_text: 适用于大型和小型机构，从博物馆到大学图书馆。几分钟内开始使用
       right_heading: 灵活
@@ -244,11 +247,27 @@ zh:
             favicon: 图标
             fonts: 字形
             themes: 主题
+      roles_service_jobs:
+        header: 数据修复工作
+        jobs:
+          create_admin_set_accesses:
+            description: 创建 Hyrax::PermissionTemplateAccess 记录（与 Skill#user_groups 结合）将允许所有 AdminSet 中的 Works 显示在 Blacklight / Solr 查询中。
+            label: 创建管理员集访问权限
+          create_collection_accesses:
+            description: 由于每个集合角色对租户内的每个集合都具有一定级别的访问权限，因此创建 Hyrax::PermissionTemplateAccess 记录（与 Skill#user_groups 组合）意味着所有集合都将显示在 Blacklight / Solr 查询中。
+            label: 创建集合访问
+          create_collection_type_participants:
+            description: 由于某些集合角色可以访问租户中的每个集合，因此请在每个 Hyrax::CollectionType（AdminSet 除外）上为它们创建一个 Hyrax::CollectionTypeParticipant 记录
+            label: 创建集合类型参与者
+          grant_workflow_roles_for_all_admin_sets:
+            description: 存放作品的权限由各个管理集中的工作流程角色控制。为了使具有“工作编辑者”或“工作存款者”角色的 Hyrax::Group 和用户记录拥有正确的 Works 权限，我们向他们授予所有 AdminSet 的工作流角色。注意：所有 AdminSet 都必须有权限模板，否则将会失败。首先运行“创建管理集访问”。
+            label: 管理员设置工作流程角色
       sidebar:
         accounts: 帐号
         activity_summary: 活动摘要
         labels: 标签
         manage_groups: 管理组
+        roles_service_jobs: 数据修复
         system_status: 系统状态
       users:
         activate:

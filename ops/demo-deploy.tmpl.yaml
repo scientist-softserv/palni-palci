@@ -244,7 +244,7 @@ extraDeploy:
                 command:
                   - sh
                   - -c
-                  - db-wait.sh "$REDIS_HOST:6379"
+                  - db-wait.sh {{ include "hyrax.redis.host" . }}
               {{- if .Values.worker.extraInitContainers }}
               {{- toYaml .Values.worker.extraInitContainers | nindent 8 }}
               {{- end }}

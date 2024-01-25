@@ -208,6 +208,7 @@ workerIntensive:
       value: "config/sidekiq_resource_intensive.yml"
     - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
       value: "1"
+  redisUrl: "$REDIS_HOST:6379"
 
 extraDeploy:
   - |-
@@ -246,7 +247,7 @@ extraDeploy:
                 command:
                   - sh
                   - -c
-                  - 'db-wait.sh "$$REDIS_HOST:6379"'
+                  - db-wait.sh "{{ .Values.workerIntensive.redisUrl }}"
               {{- if .Values.worker.extraInitContainers }}
               {{- toYaml .Values.worker.extraInitContainers | nindent 8 }}
               {{- end }}

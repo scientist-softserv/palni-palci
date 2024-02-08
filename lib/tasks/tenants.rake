@@ -4,7 +4,7 @@ namespace :tenants do
   # how much space, works, files, per each tenant?
   task calculate_usage: :environment do
     @results = []
-    Account.find_each do |account|
+    Account.where(search_only: false).find_each do |account|
       if account.cname.present?
         AccountElevator.switch!(account.cname)
         puts "---------------#{account.cname}-------------------------"

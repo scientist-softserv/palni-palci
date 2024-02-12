@@ -210,7 +210,7 @@ worker:
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
 
-workerIntensive:
+workerAuxiliary:
   replicaCount: 1
   resources:
     limits:
@@ -221,8 +221,8 @@ workerIntensive:
       cpu: "2"
   extraEnvVars:
     - name: SIDEKIQ_CONFIG
-      value: "config/sidekiq_resource_intensive.yml"
-    - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
+      value: "config/sidekiq_auxiliary.yml"
+    - name: SIDEKIQ_AUXILIARY_THREAD_COUNT
       value: 1
 
 podSecurityContext:

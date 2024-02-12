@@ -12,5 +12,5 @@
 # @see Hydra::Derivatives::Processors::Ffmpeg
 # @see https://github.com/scientist-softserv/palni-palci/issues/852
 class CreateLargeDerivativesJob < CreateDerivativesJob
-  queue_as :resource_intensive
+  queue_as :auxiliary
 end

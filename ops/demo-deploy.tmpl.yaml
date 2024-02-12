@@ -194,7 +194,7 @@ worker:
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
 
-workerIntensive:
+workerAuxiliary:
   replicaCount: 1
   resources:
     limits:
@@ -205,8 +205,8 @@ workerIntensive:
       cpu: "2"
   extraEnvVars:
     - name: SIDEKIQ_CONFIG
-      value: "config/sidekiq_resource_intensive.yml"
-    - name: SIDEKIQ_INTENSIVE_THREAD_COUNT
+      value: "config/sidekiq_auxiliary.yml"
+    - name: SIDEKIQ_AUXILIARY_THREAD_COUNT
       value: "1"
 
 extraDeploy:
@@ -214,11 +214,11 @@ extraDeploy:
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: {{ include "hyrax.fullname" . }}-intensive-worker
+        name: {{ include "hyrax.fullname" . }}-auxiliary-worker
         labels:
           {{- include "hyrax.labels" . | nindent 4 }}
       spec:
-        replicas: {{ .Values.workerIntensive.replicaCount }}
+        replicas: {{ .Values.workerAuxiliary.replicaCount }}
         selector:
           matchLabels:
             {{- include "hyrax.workerSelectorLabels" . | nindent 6 }}
@@ -241,7 +241,7 @@ extraDeploy:
                   - secretRef:
                       name: {{ template "hyrax.fullname" . }}
                 env:
-                  {{- toYaml .Values.workerIntensive.extraEnvVars | nindent 12 }}
+                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
                   {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
                 command:
                   - sh
@@ -276,7 +276,7 @@ extraDeploy:
                     {{- toYaml . | nindent 12 }}
                   {{- end }}
                 env:
-                  {{- toYaml .Values.workerIntensive.extraEnvVars | nindent 12 }}
+                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
                   {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
                 {{- if .Values.worker.readinessProbe.enabled }}
                 readinessProbe:
@@ -306,7 +306,7 @@ extraDeploy:
                   {{- toYaml . | nindent 12 }}
                   {{- end }}
                 resources:
-                  {{- toYaml .Values.workerIntensive.resources | nindent 12 }}
+                  {{- toYaml .Values.workerAuxiliary.resources | nindent 12 }}
                 {{- with .Values.extraContainerConfiguration }}
                 {{- toYaml . | nindent 10 }}
                 {{- end }}

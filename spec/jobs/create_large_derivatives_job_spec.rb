@@ -19,10 +19,10 @@ RSpec.describe CreateLargeDerivativesJob, type: :job do
     allow(file_set).to receive(:update_index)
   end
 
-  it 'runs in the :resource_intensive queue' do
+  it 'runs in the :auxiliary queue' do
     expect { described_class.perform_later(file_set, file.id) }
       .to have_enqueued_job(described_class)
-      .on_queue('resource_intensive')
+      .on_queue('auxiliary')
   end
 
   # @see CreateDerivativesJobDecorator#perform

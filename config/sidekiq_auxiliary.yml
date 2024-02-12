@@ -1,0 +1,7 @@
+---
+:concurrency: <%= ENV['SIDEKIQ_AUXILIARY_THREAD_COUNT'] %>
+:queues:
+  - default
+  - import
+  - export
+  - auxiliary

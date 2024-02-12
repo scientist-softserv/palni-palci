@@ -210,6 +210,8 @@ worker:
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
 
+# When adding/removing key-value pairs to this block, ensure the
+# corresponding changes are made in the `extraDeploy` block below.
 workerAuxiliary:
   replicaCount: 1
   resources:

@@ -1,5 +1,5 @@
 ---
-:concurrency: <%= ENV['SIDEKIQ_AUXILIARY_THREAD_COUNT'] %>
+:concurrency: <%= ENV['AUXILIARY_WORKER_THREAD_COUNT'] %>
 :queues:
   - auxiliary
   - default

@@ -205,10 +205,10 @@ workerAuxiliary:
       memory: "4Gi"
       cpu: "2"
   extraEnvVars:
+    - name: AUXILIARY_WORKER_THREAD_COUNT
+      value: "1"
     - name: SIDEKIQ_CONFIG
       value: "config/sidekiq_auxiliary.yml"
-    - name: SIDEKIQ_AUXILIARY_THREAD_COUNT
-      value: "1"
 
 extraDeploy:
   - |-

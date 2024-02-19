@@ -3,6 +3,8 @@ replicaCount: 2
 imagePullSecrets:
   - name: github
 
+fullnameoverride: palni-palci-demo-staging
+
 resources:
   limits:
     memory: "4Gi"
@@ -388,6 +390,7 @@ externalPostgresql:
   database: pals-demo-hyku
 
 externalFcrepoHost: fcrepo.staging-fcrepo.svc.cluster.local
+fcrepoBasePathOverride: "/demo-palni-palci"
 
 externalSolrHost: solr-headless.solr
 externalSolrUser: admin

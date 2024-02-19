@@ -82,7 +82,7 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /demo-palni-palci
   - name: FCREPO_HOST
-    value: fcrepo.fcrepo.svc.cluster.local:8080
+    value: fcrepo.fcrepo.svc.cluster.local
   - name: FCREPO_PATH
     value: /rest
   - name: FCREPO_URL
@@ -179,6 +179,7 @@ extraEnvVars: &envVars
     value: http://admin:$SOLR_ADMIN_PASSWORD@solr-headless.solr:8983/solr/
 
 worker:
+  enabled: true
   replicaCount: 1
   resources:
     limits:
@@ -249,7 +250,7 @@ extraDeploy:
                 command:
                   - sh
                   - -c
-                  - "db-wait.sh {{ include "hyrax.redis.host" . }}:6379"
+                  - "db-wait.sh {{ include "hyrax.fcrepo.host" . }}:8080"
               {{- if .Values.worker.extraInitContainers }}
               {{- toYaml .Values.worker.extraInitContainers | nindent 8 }}
               {{- end }}
@@ -398,6 +399,12 @@ externalSolrCollection: demo-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
 
 global:
+  # These global postgresql values are used by the fcrepo chart
+  postgresql:
+    auth:
+      username: fcrepo
+      password: $FCREPO_DB_PASSWORD
+  # This is th name of the running rails server pod
   hyraxHostName: palni-palci-demo-pals
 
 nginx:

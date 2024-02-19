@@ -364,6 +364,7 @@ embargoRelease:
 leaseRelease:
   enabled: false
 
+nameOverride: pals
 fcrepo:
   enabled: false
 postgresql:

@@ -60,7 +60,7 @@ ingress:
     - hosts:
         - commons-archive.org
         - "*.commons-archive.org"
-      secretName: palni-palci-demo-tls
+      secretName: demo-palni-palci-tls
 
 extraEnvVars: &envVars
   - name: CONFDIR
@@ -75,8 +75,6 @@ extraEnvVars: &envVars
     value: $DB_PASSWORD
   - name: DB_USER
     value: main
-  - name: DATABASE_URL
-    value: postgresql://postgres:$DB_PASSWORD@pg-postgresql.staging-postgres.svc.cluster.local/pals-demo-hyku?pool=5
   - name: EXTERNAL_IIIF_URL
     value: https://wtchtwt5fcxnxj5guruoadqpwm0uvgjl.lambda-url.us-west-2.on.aws/iiif/2
   - name: FCREPO_BASE_PATH

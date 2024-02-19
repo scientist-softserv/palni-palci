@@ -389,7 +389,7 @@ externalPostgresql:
   password: $DB_PASSWORD
   database: pals-demo-hyku
 
-externalFcrepoHost: fcrepo.staging-fcrepo.svc.cluster.local
+externalFcrepoHost: fcrepo.fcrepo.svc.cluster.local
 fcrepoBasePathOverride: "/demo-palni-palci"
 
 externalSolrHost: solr-headless.solr

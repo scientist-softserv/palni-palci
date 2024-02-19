@@ -3,7 +3,7 @@ replicaCount: 2
 imagePullSecrets:
   - name: github
 
-fullnameoverride: palni-palci-demo-staging
+fullnameoverride: palni-palci-demo
 
 resources:
   limits:

@@ -179,7 +179,6 @@ extraEnvVars: &envVars
     value: http://admin:$SOLR_ADMIN_PASSWORD@solr-headless.solr:8983/solr/
 
 worker:
-  enabled: true
   replicaCount: 1
   resources:
     limits:
@@ -195,6 +194,7 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
+  # additionalEnvVars: []
 
 # When adding/removing key-value pairs to this block, ensure the
 # corresponding changes are made in the `extraDeploy` block below.
@@ -207,7 +207,14 @@ workerAuxiliary:
     requests:
       memory: "4Gi"
       cpu: "2"
-  extraEnvVars:
+  extraVolumeMounts: *volMounts
+  extraEnvVars: *envVars
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
+  additionalEnvVars:
     - name: AUXILIARY_WORKER_THREAD_COUNT
       value: "1"
     - name: SIDEKIQ_CONFIG
@@ -245,8 +252,8 @@ extraDeploy:
                   - secretRef:
                       name: {{ template "hyrax.fullname" . }}
                 env:
+                  {{- toYaml .Values.workerAuxiliary.additionalEnvVars | nindent 12 }}
                   {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
-                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
                 command:
                   - sh
                   - -c
@@ -280,7 +287,7 @@ extraDeploy:
                     {{- toYaml . | nindent 12 }}
                   {{- end }}
                 env:
-                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
+                  {{- toYaml .Values.worker.additionalEnvVars | nindent 12 }}
                   {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
                 {{- if .Values.worker.readinessProbe.enabled }}
                 readinessProbe:

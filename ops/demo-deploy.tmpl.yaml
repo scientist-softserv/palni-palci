@@ -416,6 +416,7 @@ externalSolrHost: solr-headless.solr
 externalSolrUser: admin
 externalSolrCollection: demo-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
+externalSolrPort: '8983'
 
 global:
   # These global postgresql values are used by the fcrepo chart

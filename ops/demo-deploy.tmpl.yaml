@@ -401,11 +401,10 @@ externalSolrPassword: $SOLR_ADMIN_PASSWORD
 global:
   # These global postgresql values are used by the fcrepo chart
   postgresql:
+    postgresqlHost: fcrepo-postgresql.fcrepo.svc.cluster.local
     auth:
       username: fcrepo
       password: $FCREPO_DB_PASSWORD
-  # This is th name of the running rails server pod
-  hyraxHostName: palni-palci-demo-pals
 
 nginx:
   enabled: true

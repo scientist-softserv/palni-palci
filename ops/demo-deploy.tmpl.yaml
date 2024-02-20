@@ -403,6 +403,7 @@ global:
   postgresql:
     postgresqlHost: fcrepo-postgresql.fcrepo.svc.cluster.local
     auth:
+      database: fcrepo
       username: fcrepo
       password: $FCREPO_DB_PASSWORD
 

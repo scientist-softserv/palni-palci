@@ -222,6 +222,7 @@ workerAuxiliary:
 
 extraDeploy:
   - |-
+
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -293,7 +294,14 @@ extraDeploy:
                     {{- toYaml . | nindent 12 }}
                   {{- end }}
                 env:
-                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
+                  {{- range .Values.worker.extraDeployEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
+                  {{- range .Values.worker.extraEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
                 {{- if .Values.worker.readinessProbe.enabled }}
                 readinessProbe:
                   exec:

@@ -3,7 +3,7 @@ replicaCount: 2
 imagePullSecrets:
   - name: github
 
-fullnameoverride: palni-palci-demo
+# fullnameoverride: palni-palci-demo
 
 resources:
   limits:
@@ -222,7 +222,6 @@ workerAuxiliary:
 
 extraDeploy:
   - |-
-
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -264,7 +263,7 @@ extraDeploy:
                 command:
                   - sh
                   - -c
-                  - "db-wait.sh {{ include "hyrax.redis.host" . }}:6379"
+                  - db-wait.sh "$REDIS_HOST:6379"
               {{- if .Values.worker.extraInitContainers }}
               {{- toYaml .Values.worker.extraInitContainers | nindent 8 }}
               {{- end }}

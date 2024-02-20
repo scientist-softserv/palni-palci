@@ -194,7 +194,7 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
-  # additionalEnvVars: []
+  # extraDeployEnvVars: []
 
 # When adding/removing key-value pairs to this block, ensure the
 # corresponding changes are made in the `extraDeploy` block below.
@@ -214,7 +214,7 @@ workerAuxiliary:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
-  additionalEnvVars:
+  extraDeployEnvVars:
     - name: AUXILIARY_WORKER_THREAD_COUNT
       value: "1"
     - name: SIDEKIQ_CONFIG
@@ -252,8 +252,14 @@ extraDeploy:
                   - secretRef:
                       name: {{ template "hyrax.fullname" . }}
                 env:
-                  {{- toYaml .Values.workerAuxiliary.additionalEnvVars | nindent 12 }}
-                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
+                  {{- range .Values.workerAuxiliary.extraDeployEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
+                  {{- range .Values.workerAuxiliary.extraEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
                 command:
                   - sh
                   - -c
@@ -287,7 +293,6 @@ extraDeploy:
                     {{- toYaml . | nindent 12 }}
                   {{- end }}
                 env:
-                  {{- toYaml .Values.worker.additionalEnvVars | nindent 12 }}
                   {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
                 {{- if .Values.worker.readinessProbe.enabled }}
                 readinessProbe:

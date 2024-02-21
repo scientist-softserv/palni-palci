@@ -3,6 +3,8 @@ replicaCount: 2
 imagePullSecrets:
   - name: github
 
+fullnameoverride: palni-palci-demo
+
 resources:
   limits:
     memory: "4Gi"
@@ -80,7 +82,7 @@ extraEnvVars: &envVars
   - name: FCREPO_BASE_PATH
     value: /demo-palni-palci
   - name: FCREPO_HOST
-    value: fcrepo.fcrepo.svc.cluster.local:8080
+    value: fcrepo.fcrepo.svc.cluster.local
   - name: FCREPO_PATH
     value: /rest
   - name: FCREPO_URL
@@ -192,6 +194,7 @@ worker:
     runAsGroup: 101
     fsGroup: 101
     fsGroupChangePolicy: "OnRootMismatch"
+  # extraDeployEnvVars: []
 
 # When adding/removing key-value pairs to this block, ensure the
 # corresponding changes are made in the `extraDeploy` block below.
@@ -204,7 +207,14 @@ workerAuxiliary:
     requests:
       memory: "4Gi"
       cpu: "2"
-  extraEnvVars:
+  extraVolumeMounts: *volMounts
+  extraEnvVars: *envVars
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 101
+    fsGroup: 101
+    fsGroupChangePolicy: "OnRootMismatch"
+  extraDeployEnvVars:
     - name: AUXILIARY_WORKER_THREAD_COUNT
       value: "1"
     - name: SIDEKIQ_CONFIG
@@ -242,8 +252,14 @@ extraDeploy:
                   - secretRef:
                       name: {{ template "hyrax.fullname" . }}
                 env:
-                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
-                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
+                  {{- range .Values.workerAuxiliary.extraDeployEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
+                  {{- range .Values.workerAuxiliary.extraEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
                 command:
                   - sh
                   - -c
@@ -277,8 +293,14 @@ extraDeploy:
                     {{- toYaml . | nindent 12 }}
                   {{- end }}
                 env:
-                  {{- toYaml .Values.workerAuxiliary.extraEnvVars | nindent 12 }}
-                  {{- toYaml .Values.worker.extraEnvVars | nindent 12 }}
+                  {{- range .Values.worker.extraDeployEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
+                  {{- range .Values.worker.extraEnvVars }}
+                  - name: {{ .name }}
+                    value: {{ .value | quote }}
+                  {{- end }}
                 {{- if .Values.worker.readinessProbe.enabled }}
                 readinessProbe:
                   exec:
@@ -387,13 +409,24 @@ externalPostgresql:
   password: $DB_PASSWORD
   database: pals-demo-hyku
 
+externalFcrepoHost: fcrepo.fcrepo.svc.cluster.local
+fcrepoBasePathOverride: "/demo-palni-palci"
+
 externalSolrHost: solr-headless.solr
 externalSolrUser: admin
 externalSolrCollection: demo-palni-palci
 externalSolrPassword: $SOLR_ADMIN_PASSWORD
+externalSolrPort: '8983'
 
 global:
-  hyraxHostName: palni-palci-demo-pals
+  # These global postgresql values are used by the fcrepo chart
+  postgresql:
+    postgresqlHost: fcrepo-postgresql.fcrepo.svc.cluster.local
+    auth:
+      database: fcrepo
+      username: fcrepo
+      password: $FCREPO_DB_PASSWORD
+  hyraxHostName: palni-palci-demo
 
 nginx:
   enabled: true

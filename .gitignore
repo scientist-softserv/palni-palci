@@ -74,3 +74,4 @@ docker-compose.override.yml
 /bin/deploy-test
 cred.p12
 prod-cred.p12
+.lando.local.yml

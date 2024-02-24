@@ -1,0 +1,182 @@
+name: pals
+proxy:
+  solr:
+    - solr.pals.lndo.site:8983
+  fits:
+    - fits.pals.lndo.site:8080
+  fcrepo:
+    - fcrepo.pals.lndo.site:8080
+  chrome:
+    - chrome.pals.lndo.site:7900
+  app:
+    - app.pals.lndo.site:3000
+    - "*.app.pals.lndo.site:3000"
+
+env_file:
+  - .env
+  - .env.local
+
+services:
+  zoo:
+    api: 3
+    type: lando
+    app_mount: false
+    meUser: root
+    healthcheck:
+      command: /bin/bash -l -c "echo 'ruok' | nc -w 2 -q 2 zoo 2181 | grep imok || exit 1"
+    services:
+      image: zookeeper:3.6.2
+      command: "/docker-entrypoint.sh zkServer.sh start-foreground"
+      # command: tail -f /dev/null
+      user: root
+      environment:
+        - ZOO_MY_ID=1
+        - ZOO_SERVERS=server.1=zoo:2888:3888;2181
+        - ZOO_4LW_COMMANDS_WHITELIST=mntr,srvr,ruok,conf
+      volumes:
+        - zoo:/data
+        - zk:/datalog
+      healthcheck:
+        test: ["CMD-SHELL", "echo 'ruok' | nc -w 2 -q 2 localhost 2181 | grep imok || exit 1"]
+        interval: "10s"
+        timeout: "8s"
+    volumes:
+      zk:
+      zoo:
+
+  solr:
+    api: 3
+    type: lando
+    app_mount: false
+    meUser: root
+    build_as_root:
+      - chown -R 8983:8983 /var/solr
+      - ./bin/solr zk cp file:/var/solr/security.json zk:/security.json
+    services:
+      image: ghcr.io/samvera/hyku/solr:${SOLR_TAG:-latest}
+      build:
+        context: solr
+        dockerfile: Dockerfile
+      environment:
+        - OOM=script
+        - SOLR_ADMIN_USER=solr
+        - SOLR_ADMIN_PASSWORD=SolrRocks
+        - SOLR_COLLECTION=hydra-development
+        - SOLR_CLOUD_BOOTSTRAP=yes
+        - SOLR_ENABLE_CLOUD_MODE=yes
+        - SOLR_ENABLE_AUTHENTICATION=yes
+        - ZK_HOST=zoo:2181
+      user: root
+      command: "runuser -u solr -- solr-foreground"
+      healthcheck:
+        test: curl -sf http://$$SOLR_ADMIN_USER:$$SOLR_ADMIN_PASSWORD@solr:8983/solr/admin/cores?action=STATUS || exit 1
+        start_period: 3s
+        interval: 5s
+        timeout: 5s
+        retries: 6
+      depends_on:
+        zoo:
+          condition: service_healthy
+      volumes:
+        - ./solr:/var/solr
+  db:
+    app_mount: false
+    type: postgres:15
+    # portforward: 5437
+    creds:
+      database: hyku
+  redis:
+    app_mount: false
+    type: redis:6
+    # portforward: 6384
+    persist: true
+  fits:
+    api: 3
+    type: lando
+    app_mount: false
+    services:
+      image: ghcr.io/samvera/fitsservlet:1.6.0
+      command:
+        - "catalina.sh"
+        - "run"
+  fcrepo:
+    api: 3
+    type: lando
+    app_mount: false
+    services:
+      image: ghcr.io/samvera/fcrepo4:4.7.5
+      command: "/fedora-entrypoint.sh"
+      volumes:
+        - fcrepo:/data:cached
+      environment:
+        - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+  chrome:
+    api: 3
+    type: lando
+    app_mount: false
+    build_as_root:
+      - mkdir -p /app
+    # password is 'secret'
+    services:
+      image: seleniarm/standalone-chromium:114.0
+      # command: "/opt/bin/start-selenium-standalone.sh"
+      command: "/opt/bin/entry_point.sh"
+      environment:
+        - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
+      logging:
+        driver: none
+      volumes:
+        - /dev/shm:/dev/shm
+      shm_size: 3G
+      user: seluser
+  app:
+    api: 3
+    type: lando
+    app_mount: cached
+    meUser: app
+    build:
+      - chown -R app:app /app/public/uploads
+      - chown -R app:app /app/public/assets
+      - chown -R app:app /app/tmp/cache
+      - /app/bin/solrcloud-upload-configset.sh /app/solr/conf
+      - bundle
+      - rails db:migrate db:seed
+      - RAILS_ENV=test rails db:create
+    services:
+      image: ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
+      build:
+        context: .
+        target: hyku-base
+        args:
+          - HYKU_BULKRAX_ENABLED=true
+      command: "tail -f /dev/null"
+      volumes:
+        - .:/app/samvera/hyrax-webapp
+      depends_on:
+        db:
+          condition: service_started
+        solr:
+          condition: service_started
+        fcrepo:
+          condition: service_started
+        redis:
+          condition: service_started
+
+tooling:
+  rails:
+    service: app
+    cmd: bundle exec rails
+  web:
+    service: app
+    cmd: ./bin/web
+  worker:
+    service: app
+    cmd: ./bin/worker
+  bundle:
+    service: app
+  rspec:
+    service: app
+    cmd: bundle exec rspec
+  rubocop:
+    service: app
+    cmd: bundle exec rubocop

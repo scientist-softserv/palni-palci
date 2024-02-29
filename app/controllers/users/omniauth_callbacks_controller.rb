@@ -30,8 +30,7 @@ module Users
         # where we want a JS-based redirect to go.
         render 'complete', locals: { redirect_to_url: url || hyrax.dashboard_path }
       else
-        session['devise.user_attributes'] = @user.attributes
-        redirect_to new_user_registration_url
+        redirect_to root_path, flash: {error: 'Not able to log in user. #{@user.errors.full_messages}'}
       end
     end
     alias cas callback
@@ -42,8 +41,8 @@ module Users
       render status: 404, plain: 'Not found. Authentication passthru.'
     end
 
-    # def failure
-    #   #redirect_to root_path
-    # end
+    def failure
+      redirect_to root_path, flash: {error: 'Authentication Failed. Something is wrong with the SSO configuration.'}
+    end
   end
 end

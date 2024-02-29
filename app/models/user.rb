@@ -32,20 +32,23 @@ class User < ApplicationRecord
   scope :registered, -> { for_repository.group(:id).where(guest: false) }
 
   def self.from_omniauth(auth)
-    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      user.email = auth&.info&.email
-      user.email ||= auth.uid
-      # rubocop:disable Performance/RedundantMatch
-      user.email = [auth.uid, '@', Site.instance.account.email_domain].join unless user.email.match('@')
-      # rubocop:enable Performance/RedundantMatch
-      user.password = Devise.friendly_token[0, 20]
-      user.display_name = auth&.info&.name # assuming the user model has a name
-      user.display_name ||= "#{auth&.info&.first_name} #{auth&.info&.last_name}" if auth&.info&.first_name && auth&.info&.last_name
-      # user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
-    end
+    u = find_by(provider: auth.provider, uid: auth.uid)
+    return u if u
+
+    u = find_by(email: auth&.info&.email&.downcase)
+    u ||= new
+    u.provider = auth.provider
+    u.uid = auth.uid
+    u.email = auth&.info&.email
+    u.email ||= auth.uid
+    # rubocop:disable Performance/RedundantMatch
+    u.email = [auth.uid, '@', Site.instance.account.email_domain].join unless u.email.match('@')
+    # rubocop:enable Performance/RedundantMatch
+    u.password = Devise.friendly_token[0, 20] if u.new_record?
+    u.display_name = auth&.info&.name # assuming the user model has a name
+    u.display_name ||= "#{auth&.info&.first_name} #{auth&.info&.last_name}" if auth&.info&.first_name && auth&.info&.last_name
+    u.save
+    u
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your

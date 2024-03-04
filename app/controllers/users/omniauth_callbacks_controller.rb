@@ -30,7 +30,7 @@ module Users
         # where we want a JS-based redirect to go.
         render 'complete', locals: { redirect_to_url: url || hyrax.dashboard_path }
       else
-        redirect_to root_path, flash: {error: 'Not able to log in user. #{@user.errors.full_messages}'}
+        redirect_to root_path, flash: { error: "Not able to log in user. #{@user.errors.full_messages}" }
       end
     end
     alias cas callback
@@ -42,7 +42,7 @@ module Users
     end
 
     def failure
-      redirect_to root_path, flash: {error: 'Authentication Failed. Something is wrong with the SSO configuration.'}
+      redirect_to root_path, flash: { error: 'Authentication Failed. Something is wrong with the SSO configuration.' }
     end
   end
 end

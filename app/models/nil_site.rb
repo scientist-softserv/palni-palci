@@ -33,8 +33,8 @@ class NilSite
     value
   end
 
-  def favicon?
-    false
+  def favicon
+    "favicon.png"
   end
 
   def banner_image?

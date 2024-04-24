@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
 
   # rubocop:disable Metrics/AbcSize
   def global_request_logging
-    rl = ActiveSupport::Logger.new('log/request.log')
+    FileUtils.mkdir_p(Rails.root.join('log')) unless Dir.exist?(Rails.root.join('log'))
+    rl = ActiveSupport::Logger.new(Rails.root.join('log', 'request.log'))
     if request.host&.match('blc.hykucommons')
       http_request_header_keys = request.headers.env.keys.select { |header_name| header_name.match("^HTTP.*|^X-User.*") }
       http_request_headers = request.headers.env.select { |header_name, _header_value| http_request_header_keys.index(header_name) }

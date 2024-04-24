@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 2e4c9b79c37451fc2d147c0ae12cc4c10ceefa3c
-  branch: main
+  revision: f2439755f501caabedf4cc50618d1804e5b2293a
+  tag: v5.3.0
   specs:
     bulkrax (5.3.0)
       bagit (~> 0.4)
@@ -1424,7 +1424,7 @@ DEPENDENCIES
   blacklight_range_limit
   bolognese (>= 1.9.10)
   bootstrap-datepicker-rails
-  bulkrax (~> 5.0)!
+  bulkrax!
   byebug
   capybara
   capybara-screenshot (~> 1.0)

@@ -29,8 +29,8 @@ x-app-worker: &app-worker
       - EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync exiftool
       - HYKU_BULKRAX_ENABLED=true
     cache_from:
-      - ghcr.io/scientist-softserv/palni-palci:${TAG:-latest}
-      - ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
+      - ghcr.io/scientist-softserv/palni-palci:latest
+      - ghcr.io/scientist-softserv/palni-palci/worker:latest
   image: ghcr.io/scientist-softserv/palni-palci/worker:${TAG:-latest}
   command: sh -l -c 'bundle && bundle exec sidekiq'
   depends_on:
@@ -85,10 +85,11 @@ services:
       timeout: "8s"
 
   solr:
-    image: ghcr.io/samvera/hyku/solr:${SOLR_TAG:-latest}
+    image: ghcr.io/scientist-softserv/palni-palci/solr:${TAG:-latest}
     build:
       context: solr
       dockerfile: Dockerfile
+      target: hyku-solr
     environment:
       - OOM=script
       - SOLR_ADMIN_USER=solr

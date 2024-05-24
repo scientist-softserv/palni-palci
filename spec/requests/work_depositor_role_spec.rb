@@ -73,6 +73,7 @@ RSpec.describe 'Work Depositor role', type: :request, singletenant: true, clean:
     end
 
     it 'can see the work form' do
+      allow(AdminSet).to receive(:first).and_return(OpenStruct.new(id: 'admin_set/default'))
       get new_hyrax_generic_work_path
 
       expect(response).to have_http_status(:success)

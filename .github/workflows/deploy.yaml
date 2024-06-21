@@ -12,13 +12,14 @@ on:
           - staging
           - demo
           - production
-      debug_enabled:
-        type: boolean
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+      debug_step:
+        description: 'Pause the selected step to debug using tmate'
         required: false
-        default: false
+        type: choice
+        options:
+          - deploy
 
 jobs:
   deploy:
-    uses: scientist-softserv/actions/.github/workflows/deploy.yaml@v0.0.22
+    uses: scientist-softserv/actions/.github/workflows/deploy.yaml@choose-which-step-to-debug-with-tmate
     secrets: inherit

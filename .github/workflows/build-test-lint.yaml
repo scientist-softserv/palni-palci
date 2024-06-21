@@ -15,6 +15,7 @@ on:
         type: choice
         default: ''
         options:
+          - ''
           - build
           - test
           - lint

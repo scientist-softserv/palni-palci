@@ -16,6 +16,7 @@ on:
         description: 'Pause the selected step to debug using tmate'
         required: false
         type: choice
+        default: ''
         options:
           - deploy
 

@@ -23,7 +23,8 @@ module Bulkrax
     private
 
       def missing_fields_for(record)
-        required_fields = determine_required_fields_for(record[:model])
+        model = record[:model] || Bulkrax.default_work_type
+        required_fields = determine_required_fields_for(model)
         required_fields.select do |field|
           # checks the field itself
           # any parser_mappings fields terms from `config/initializers/bulkrax.rb`

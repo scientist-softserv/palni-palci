@@ -9,7 +9,7 @@ DUMP_DIR="/tmp/postgres"        # Replace with your desired directory to store d
 mkdir -p $DUMP_DIR
 
 # Get the list of schemas excluding system schemas
-SCHEMAS=$(psql -U $DB_USER -d $DB_NAME -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('pg_catalog', 'information_schema', 'pg_toast', 'public');")
+SCHEMAS=$(psql -U $DB_USER -d $DB_NAME -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('pg_catalog', 'information_schema', 'pg_toast');")
 
 # Loop through each schema and dump it
 for SCHEMA in $SCHEMAS; do

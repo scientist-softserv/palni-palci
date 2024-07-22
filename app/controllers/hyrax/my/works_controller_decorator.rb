@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 # OVERRIDE Hyrax 3.6.0 to add custom sort fields while in the dashboard for works
+# OVERRIDE Hyrax 3.5.0 to update collections_service method to remove all params
 
 module Hyrax
   module My
-    module WorksControllerDecorator
+    module WorksControllerClassDecorator
       def configure_facets
         configure_blacklight do |config|
           # clear facets copied from the CatalogController
@@ -22,8 +23,20 @@ module Hyrax
         end
       end
     end
+
+    module WorksControllerDecorator
+      # OVERRIDE FROM HYRAX: CAN REMOVE AT 4.0
+      # https://github.com/samvera/hyrax/pull/5972
+      def collections_service
+        cloned = clone
+        cloned.params = {}
+        Hyrax::CollectionsService.new(cloned)
+      end
+    end
   end
 end
 
-Hyrax::My::WorksController.singleton_class.send(:prepend, Hyrax::My::WorksControllerDecorator)
+Hyrax::My::WorksController.singleton_class.send(:prepend, Hyrax::My::WorksControllerClassDecorator)
 Hyrax::My::WorksController.configure_facets
+
+Hyrax::My::WorksController.prepend(Hyrax::My::WorksControllerDecorator)

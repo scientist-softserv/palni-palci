@@ -26,6 +26,9 @@ class CatalogController < ApplicationController
   include BlacklightIiifSearch::Controller
 
   configure_blacklight do |config|
+    # TODO: Replace with Hyrax.config.solr_default_method when upgrading to >= Hyrax v4.0.0
+    config.http_method = :post
+
     # IiifPrint index fields
     config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
 

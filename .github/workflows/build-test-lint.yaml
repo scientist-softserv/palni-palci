@@ -9,15 +9,20 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      debug_enabled:
-        type: boolean
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+      debug_step:
         required: false
-        default: false
+        description: 'Pause the selected step to debug using tmate'
+        type: choice
+        default: ''
+        options:
+          - ''
+          - build
+          - test
+          - lint
 
 jobs:
   build:
-    uses: scientist-softserv/actions/.github/workflows/build.yaml@v0.0.22
+    uses: scientist-softserv/actions/.github/workflows/build.yaml@choose-which-step-to-debug-with-tmate
     secrets: inherit
     with:
       platforms: "linux/amd64"
@@ -26,10 +31,10 @@ jobs:
       workerTarget: hyku-worker
   test:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/test.yaml@v0.0.22
+    uses: scientist-softserv/actions/.github/workflows/test.yaml@choose-which-step-to-debug-with-tmate
   lint:
     needs: build
-    uses: scientist-softserv/actions/.github/workflows/lint.yaml@v0.0.22
+    uses: scientist-softserv/actions/.github/workflows/lint.yaml@choose-which-step-to-debug-with-tmate
     with:
       rubocop_cmd: 'bundle exec rubocop --parallel --format progress'
 

@@ -5,7 +5,7 @@ namespace :tenants do
   task calculate_usage: :environment do
     @results = []
     Account.where(search_only: false).find_each do |account|
-      next unless account.cname.present? # Skip accounts without a cname
+      next if account.cname.blank?
 
       AccountElevator.switch!(account.cname)
       puts "---------------#{account.cname}-------------------------"
